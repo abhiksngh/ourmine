@@ -5,4 +5,6 @@ wget -rq ourmine.googlecode.com/svn .
 cp -R ourmine.googlecode.com/svn/trunk/our/ $base
 rm -rf $tmpdownload
 
+chmod +x $base/*
+
 echo "Ourmine installed to: $base. To run, enter "cd $base" then "./ourmine". To remove, enter "rm -rf $base.""
