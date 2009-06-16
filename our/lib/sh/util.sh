@@ -1,4 +1,4 @@
-reset()  { cd $Here; . lib/sh/minerc.sh; }
+reload()  { cd $Here; . lib/sh/minerc.sh; }
 blab()   { printf "$*"   >&2; }
 blabln() { printf "$*\n" >&2; }
 
