@@ -1,0 +1,3 @@
+base=$HOME/opt;
+mkdir -p $base; cd $base
+wget unbox.org/wisp/var/adam/ourmine . 
