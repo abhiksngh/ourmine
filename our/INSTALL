@@ -3,6 +3,7 @@ base=$HOME/opt/ourmine
 
 #set up all dirs
 setup() {
+	[ -d "$base" ] && rm -rf $base
 	mkdir -p $tmpdownload; cd $tmpdownload;
 	mkdir -p $base
 	echo "Downloading begins. On slow connections, this may take up to ten minites."
