@@ -26,6 +26,12 @@ To remove, enter "rm -rf $base."
 EOF
 }
 
+#run ourmine to test it upon installation
+run(){
+	echo "Testing for correct installation. You should see the OURMINE prompt."
+	cd $base;
+	./ourmine; 
+}
 echo "Intall beginning. About to zap any existing $base."
 echo "Enter to continue, Control-C to abort."
-read && setup && permit && report
+read && setup && permit && report && run
