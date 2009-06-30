@@ -270,3 +270,75 @@ predictionToSparff() {
        }'
 }
 
+makeTrainAndTest(){
+    local origArff=$1
+    local bins=$2
+    local bin=$3
+    local seed=$RANDOM
+
+    #to be used for the lisp function name
+    local arffName=`basename $origArff`
+    arffName=${arffName%.*}
+    ignoreArffComments $origArff | 
+    gawk '
+	BEGIN  { 
+        IGNORECASE=1;
+      Trainf="train.arff"; Testf="test.arff";
+      Trainfl="train.lisp"; Testfl="test.lisp";
+      Bins=3; 
+      Bin=2; 
+      Seed=1;
+      numattrs=0;
+   } 
+   /^[ \t]*$/          { next }
+   /@attribute/        { Attrs[numattrs]=$2; numattrs++ }
+   /@relation/         { Seed ? srand(Seed) : srand(1)      }
+   /@relation/         { printf "">Trainf;  printf "">Testf }
+   /@relation/,/@data/ { print $0 >> Trainf;  print $0 >> Testf; next }
+                       { Line[rand()] = $0; Lines++ }
+  END {
+     ###print Seed 
+    Bins="'$bins'"
+    Bin="'$bin'"
+    Start = Lines/Bins * (Bin - 1) ;
+    Stop  = Lines/Bins * Bin;
+
+    ###set up lisp file, uses ascii values
+    attrstring="";
+    defun="(defun '$arffName' ()\n\t(data\n\t\t:name \x27" "'$arffName'\n";
+    cols="\t\t:columns \x27" "(";
+    for(i=0;i<numattrs;i++) attrstring=attrstring " " Attrs[i] "";
+    egs=")\n\t\t:egs\n\t\t\x27(\t\t\t";
+    setup=defun "" cols "" attrstring "" egs;
+
+    print setup>>Trainfl;
+    print setup>>Testfl;
+    
+    ###print to lisp file
+
+    lispinst="";
+
+    for(I in Line) {
+       N++;
+       What = (N>= Start && N < Stop) ? Testf : Trainf
+       Lisp = (N>= Start && N < Stop) ? Testfl : Trainfl
+       print Line[I]>>What;      
+       split(Line[I],lispAttrs,",");
+
+      lispinst="\t\t\t(";
+      for(i=0;i<numattrs;i++) lispinst=lispinst "" lispAttrs[i] " "
+      lispinst=lispinst "" ")"
+      print lispinst>>Lisp;
+    }
+
+   finish="\t\t\t)))";
+   print finish>>Trainfl
+   print finish>>Testfl
+
+   }
+   ' Seed=$seed -
+}
+
+ignoreArffComments(){
+    cat $1 | awk '!/^%/ {print}'
+}

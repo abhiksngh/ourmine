@@ -29,9 +29,10 @@ EOF
 #run ourmine to test it upon installation
 run(){
 	echo "Testing for correct installation. You should see the OURMINE prompt."
-	cd $base;
+	cd $base/our;
 	./ourmine; 
 }
-echo "Intall beginning. About to zap any existing $base."
+
+echo "Install beginning. About to zap any existing $base."
 echo "Enter to continue, Control-C to abort."
 read && setup && permit && report && run
