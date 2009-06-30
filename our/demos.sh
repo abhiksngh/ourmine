@@ -4,7 +4,7 @@
 demo001() {
     
     local train=$Data/discrete/weather.arff
-    nb10 $train $test
+    nb10 $train
 }
 
 # j48
