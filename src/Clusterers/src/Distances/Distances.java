@@ -45,8 +45,8 @@ public class Distances {
         double XMag = util.getVectorMag(X);
         double YMag = util.getVectorMag(Y);
 
-        //XMag=(XMag==0.0 ? 0.00001 : XMag);
-        //YMag=(YMag==0.0 ? 0.00001 : YMag);
+        XMag=(XMag==0.0 ? 0.00001 : XMag);
+        YMag=(YMag==0.0 ? 0.00001 : YMag);
 
         return util.dot(X,Y)/(XMag*YMag);
     }

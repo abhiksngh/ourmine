@@ -9,57 +9,47 @@ import java.util.Scanner;
  *
  * @author Adam Nelson
  */
-public class ParseSparseArff {
+public class ParseArff {
 
     private ArrayList<String[]> _instances;
     private ArrayList<String> _attributes = new ArrayList<String>();
 
-    public ParseSparseArff(String file)
+    public ParseArff(String file)
     {
 
         try{
         Scanner attrscan = new Scanner(new FileReader(file));
         Scanner instscan = new Scanner(new FileReader(file));
-        _instances = parseSparff(attrscan, instscan);
+        _instances = parseArff(attrscan, instscan);
 
         }catch(FileNotFoundException fnf)
         {
-            System.out.println("Sparse Arff file " + file + " could not be located as: " + file);
+            System.out.println("Arff file " + file + " could not be located as: " + file);
         }
     }
-    
-    public ArrayList<String[]> parseSparff(Scanner attrscan, Scanner instscan)
+
+    public ArrayList<String[]> parseArff(Scanner attrscan, Scanner instscan)
     {
         ArrayList<String[]> instances = new ArrayList<String[]>();
 
         int attrs = numAttrs(attrscan);
         attrscan.close();
 
+
         while(instscan.hasNextLine())
         {
             String line = instscan.nextLine();
 
-            if(line.startsWith("{"))
+            if(!line.startsWith("@") && !line.startsWith("%"))
             {
-                //trim braces
-                line=line.substring(1, line.length()-1);
-
-                String[] pair = line.split(",");
-                String[] finalInst = new String[attrs];
-
-                for(String s : pair)
+                if(line.startsWith("{"))
                 {
-                    String[] tmp = s.split(" ");
-                    int indx = Integer.parseInt(tmp[0]);
-                    finalInst[indx]=tmp[1];
+                    //trim braces
+                    line=line.substring(1, line.length()-1);
                 }
-
-                //get what's left over, setting them to 0
-                for(int i=0;i<attrs;i++)
-                    if (finalInst[i]==null)
-                        finalInst[i]="0.0";
-  
-                instances.add(finalInst);
+                
+               String[] inst = line.split(",");
+               instances.add(inst);
             }
         }
         return instances;
@@ -76,8 +66,7 @@ public class ParseSparseArff {
             {
                 attrs++;
                 getAttributes().add(line);
-            }else if(line.contains("{"))
-                break;
+            }
         }
         return attrs;
     }
@@ -96,7 +85,5 @@ public class ParseSparseArff {
         return _instances;
     }
 
-
-
-
 }
+

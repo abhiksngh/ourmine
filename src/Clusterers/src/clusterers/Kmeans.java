@@ -3,6 +3,8 @@ package clusterers;
 import cluster.Cluster;
 import Distances.Distances;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.Random;
 
 /**
@@ -32,6 +34,24 @@ public class Kmeans {
             Cluster cluster = new Cluster();
             cluster.setCentroid(_instances.get(0));
 
+            _clusters.add(cluster);
+        }
+    }
+
+    public Kmeans(String k, ArrayList<String[]> instances, boolean kpp)
+    {
+        this._k=Integer.parseInt(k);
+        this._instances=instances;
+
+        if(kpp && selectInitialCentroidsViaKmeanspp())
+        {
+            assignMembers();
+            cluster();
+        }else
+        {
+            //the instances size are too small
+            Cluster cluster = new Cluster();
+            cluster.setCentroid(_instances.get(0));
             _clusters.add(cluster);
         }
     }
@@ -231,6 +251,79 @@ public class Kmeans {
         return true;
     }
 
+    public boolean selectInitialCentroidsViaKmeanspp()
+    {
+        if(_k >getInstances().size())
+        {
+            if(getInstances().size() <= 1){return false;}
+            _k=getInstances().size();
+            System.out.println("WARNING: The given value for k is greater than the number of instances.");
+            System.out.println("Setting k to a smaller value (k="+_k+")");
+        }
+
+        boolean firstRun=true;
+
+        Random rand = new Random();
+        ArrayList<String[]> chosenCenters = new ArrayList<String[]>();
+        Distances dists = new Distances();
+
+        //start with one here, because you select the first centroid in the loop
+        for(int i=1;i<_k;i++)
+        {
+            if(firstRun)
+            {
+                //select a random point
+                int currentCenterIndx=rand.nextInt(getInstances().size());
+                chosenCenters.add(_instances.get(currentCenterIndx));
+                firstRun=false;
+            }
+
+            //get most recent chosen center
+            String[] currentCenter=chosenCenters.get(chosenCenters.size()-1);
+            Hashtable distsFromCenter = new Hashtable();
+
+            double distTotal = 0;
+
+            for(String[] inst : getInstances())
+            {
+                if(!inst.equals(currentCenter))
+                {
+                    double currentDist = dists.euclidean(inst, currentCenter);
+                    distTotal+=currentDist;
+                    distsFromCenter.put(inst, currentDist);
+                }
+            }
+
+            double bestProb = 0;
+            String[] bestInst = new String[getInstances().get(0).length];
+
+            Enumeration e = distsFromCenter.keys();
+
+
+            //select new center
+            while(e.hasMoreElements())
+            {
+                double d = (Double)distsFromCenter.get(e.nextElement());
+                double prob = (d*d)/(distTotal*distTotal);
+                if(prob>bestProb){bestProb=prob; bestInst=(String[])e.nextElement();}
+            }
+
+            //add the next best center
+            chosenCenters.add(bestInst);
+
+        }
+
+        //now make these centers centroids
+        for(String[] inst : chosenCenters)
+        {
+            Cluster cluster = new Cluster();
+            cluster.setCentroid(inst);
+            getClusters().add(cluster);
+        }
+
+        return true;
+    }
+
     /**
      * @return the _clusters
      */
@@ -244,4 +337,5 @@ public class Kmeans {
     public ArrayList<String[]> getInstances() {
         return _instances;
     }
+
 }

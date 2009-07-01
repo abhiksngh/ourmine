@@ -34,14 +34,15 @@ public class Main {
             String k = args[1];
             String infile = args[2];
             String outfile = args[3];
-            String sim;
+            String kpp;
             try
             {
-                sim = args[4];
+                kpp = args[4];
             }catch(Exception e)
             {
-                sim = " ";
+                kpp = " ";
             }
+
 
             if(isSparseArff(infile))
             {
@@ -50,14 +51,21 @@ public class Main {
                 _attributes=psa.getAttributes();
             }
             
-            //run kmeans on parsed instances
-            Kmeans kmeans = new Kmeans(k, _instances);
+          
+            if(kpp.equalsIgnoreCase("-kpp"))
+            {
+                //use k++ for selecting initial centroids
+                Kmeans kmeans = new Kmeans(k, _instances, true);
+                Output out = new Output();
+                out.outToSparseArff(_attributes, kmeans.getClusters(), outfile);
+            }else
+            {
+                  //run kmeans on parsed instances
+                Kmeans kmeans = new Kmeans(k, _instances);
+                Output out = new Output();
+                out.outToSparseArff(_attributes, kmeans.getClusters(), outfile);
+            }
 
-            Output out = new Output();
-            out.outToSparseArff(_attributes, kmeans.getClusters(), outfile);
-
-            if(sim.equalsIgnoreCase("-sim"))
-                new Similarities("K-means", kmeans.getClusters());
 
         }else if(clusterer.equalsIgnoreCase("-c"))
         {
@@ -66,14 +74,6 @@ public class Main {
             String outfile = args[5];
             String outerThresholdSimilarityPercentage = args[2];
             String innerThresholdSimilarityPercentage = args[3];
-            String sim;
-            try
-            {
-                sim = args[6];
-            }catch(Exception e)
-            {
-                sim = " ";
-            }
 
             if(isSparseArff(infile))
             {
@@ -90,8 +90,6 @@ public class Main {
             Output out = new Output();
             out.outToSparseArff(_attributes, canopy.getClusters(), outfile);
 
-            if(sim.equalsIgnoreCase("-sim"))
-                new Similarities("Canopy", canopy.getClusters());
             
         }else if(clusterer.equalsIgnoreCase("-g"))
         {
@@ -99,14 +97,6 @@ public class Main {
             String outfile = args[4];
             String m = args[1];
             String n = args[2];
-            String sim;
-            try
-            {
-                sim = args[5];
-            }catch(Exception e)
-            {
-                sim = " ";
-            }
 
             if(isSparseArff(infile))
             {
@@ -119,8 +109,14 @@ public class Main {
             Output out = new Output();
             out.outToSparseArff(_attributes,genic.getClusters(),outfile);
 
-            if(sim.equalsIgnoreCase("-sim"))
-                new Similarities("GenIc", genic.getClusters());
+        }else if(clusterer.equalsIgnoreCase("-sim"))
+        {
+            String arffFile = args[1];
+
+            try
+            {
+                new Similarities(arffFile);
+            }catch(FileNotFoundException fnf){}
         }
 
 
