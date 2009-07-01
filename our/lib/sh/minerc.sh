@@ -3,6 +3,7 @@ Here=`pwd`
 Base=$HOME/opt/ourmine/our
 Data=$Base/arffs
 Docs=$Base/docs
+Help=$Base/helpdocs
 Tmp=$HOME/tmp
 Var=$Base/var
 Awk=$Base/lib/awk
