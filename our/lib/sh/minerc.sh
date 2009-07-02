@@ -1,11 +1,11 @@
 #-------------------------------                                               # define and create required directories                                                                                                                                                                          
 Here=`pwd`
-Base=$HOME/opt/ourmine/our
+Base=$OurMine/opt/ourmine
 Data=$Base/arffs
 Docs=$Base/docs
 Help=$Base/helpdocs
 Tmp=$HOME/tmp
-Var=$Base/var
+Var=$Tmp/var
 Awk=$Base/lib/awk
 Perl=$Base/lib/perl
 Lists=$Base/lib/lists

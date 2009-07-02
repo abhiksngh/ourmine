@@ -3,6 +3,7 @@ base=$HOME/opt/ourmine
 
 #set up all dirs
 setup() {
+	local was=`pwd`
 	[ -d "$base" ] && rm -rf $base
 	mkdir -p $tmpdownload; cd $tmpdownload;
 	mkdir -p $base
@@ -11,6 +12,7 @@ setup() {
 	echo "Downloaded."
 	cp -R ourmine.googlecode.com/svn/trunk/our/ $base
 	rm -rf $tmpdownload
+	rm -rf $was/INSTALL
 }
 
 #make all of the files executable
