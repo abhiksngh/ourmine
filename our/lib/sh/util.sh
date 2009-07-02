@@ -11,6 +11,17 @@ show() {
    	fi
 }
 
+help() {
+    local file=$1.help
+    local dir=$Help/help
+
+    if [ -f $dir/$file ]
+    then
+	less $dir/$file
+    else 
+	blab Help file $file cannot be found in $dir. Please use the buildhelp function to build a custom help file.  
+    fi
+}
 buildhelp()  {
     local name=$1
     local desc=$2 
