@@ -1,5 +1,9 @@
 # ----------------- LEARNERS-----------------
+#cats the first used dataset
 
+demo000(){
+    cat $Data/discrete/weather.arff;
+}
 # naive bayes
 demo001() {
     
