@@ -174,9 +174,8 @@ demo019(){
 demo020(){
     
     local sparff=$Tmp/tmp1
-    local clusterers="kmeans em"
     local numclusters=3
-    local numattrs=50  
+    local numattrs=15  
     
     #first, create sparse arff from docs
     docsToSparff $Docs $sparff
@@ -185,13 +184,15 @@ demo020(){
     docsToTfidfSparff $Docs $numattrs $Tmp/tmp2
 
     #reduce using PCA, using top N attrs
-    reduceViaPCA $sparff $numattrs $Tmp/tmp3
+    reduceViaPCA $sparff.arff $numattrs $Tmp/tmp3
 
-    #clusterer with N clusters
-    for clusterer in $clusterers; do 
-	$clusterer $Tmp/tmp2.arff $numclusters 
-	$clusterer $Tmp/tmp3.arff $numclusters 
-    done
+    #kmeans
+    $Clusterers -k $numclusters $Tmp/tmp2.arff $Tmp/k_tmp2_$numclusters.arff
+    $Clusterers -k $numclusters $Tmp/tmp3.arff $Tmp/k_tmp3_$numclusters.arff
+
+    #genic
+    $Clusterers -g $numclusters 15 $Tmp/tmp2.arff $Tmp/g_tmp2_$numclusters.arff
+    $Clusterers -g $numclusters 15 $Tmp/tmp3.arff $Tmp/g_tmp3_$numclusters.arff
 }
 
 
