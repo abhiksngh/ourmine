@@ -31,23 +31,22 @@ demo004() {
 
 # run learner/discretizer on all data
 demo005worker() {
-	local what
-	local learner=$1
-	local report=$2
-	for i in $Data/discrete/*; do 
-		what=`basename $i`
- 		what=${what%.*}
-		(
-		echo -n "$what $learner raw "
-		$learner $i | para 1 $report 
+        local learner=$1
+        local report=$2
+        for i in $Data/discrete/*; do 
+                local what=`basename $i`
+                what=${what%.*}
+                (
+                echo -n "$what $learner raw "
+                $learner $i | para 1 $report 
 
-		echo -n "$what $learner discrete " 
-		discretizeViaFayyadIrani $i > $Tmp/tmp.arff
-		$learner $Tmp/tmp.arff | para 1 $report 
+                echo -n "$what $learner discrete " 
+                discretizeViaFayyadIrani $i > $Tmp/tmp.arff
+                $learner $Tmp/tmp.arff | para 1 $report 
 
-		echo ""
-		) | gawk '{gsub(/[ \t]+/,","); print}' | sort -t, -n -k 7
-	done 
+                echo ""
+                ) | gawk '{gsub(/[ \t]+/,","); print}' | sort -t, -n -k 7
+        done 
 }
 demo005() {
 	(echo ""
