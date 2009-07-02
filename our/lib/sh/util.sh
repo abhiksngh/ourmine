@@ -11,7 +11,7 @@ show() {
    	fi
 }
 
-buildhelp(){
+buildhelp()  {
     local name=$1
     local desc=$2 
     local usage=$3
@@ -26,7 +26,7 @@ buildhelp(){
     local was=`pwd`
     cd $Help/help
 
-echo -e "\n$nametag\n$sep\n$name\n\n$desctag\n$sep\n\n$desc\n\n$usetag\n$sep\n\n$usage\n\n$codetag\n$sep\n\n$code\n\n\n$footer" > $name.help 
+    echo -e "\n$nametag\n$sep\n\n$name\n\n$desctag\n$sep\n\n$desc\n\n$usetag\n$sep\n\n$usage\n\n$codetag\n$sep\n\n$code\n\n\n$footer" > $name.help 
 
     echo "Help file created for function $name. To edit/view this file directly, please see $~/opt/ourmine/our/helpdoc/help/$name.help"
     cd $was
