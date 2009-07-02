@@ -11,6 +11,15 @@ show() {
    	fi
 }
 
+#show all functions available through bash scripts
+funs() {
+    cat $Base/lib/sh/* | 
+    awk '/\(\)[ \t\n]*{/' | 
+    sed 's/[^A-Za-z|0-9]/ /g' | 
+    cut -d" " -f 1 | 
+    sort
+}
+
 help() {
     local file=$1.help
     local dir=$Help/help
