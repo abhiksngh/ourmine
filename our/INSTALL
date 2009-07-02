@@ -15,7 +15,7 @@ setup() {
 
 #make all of the files executable
 permit() {
-	chmod -R +x $base/our/*
+	chmod -R +x $base
 }
 
 report() {
