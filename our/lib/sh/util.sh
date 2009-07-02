@@ -11,7 +11,6 @@ show() {
    	fi
 }
 
-#show all functions available through bash scripts
 funs() {
     cat $Base/lib/sh/* | 
     awk '/\(\)[ \t\n]*{/' | 
@@ -28,10 +27,11 @@ help() {
     then
 	less $dir/$file
     else 
-	blab Help file $file cannot be found in $dir. Please use the buildhelp function to build a custom help file.  
+	blab Help file $file cannot be found in $dir. Please use the buildHelp function to build a custom help file.  
     fi
 }
-buildhelp()  {
+
+buildHelp()  {
     local name=$1
     local desc=$2 
     local usage=$3
