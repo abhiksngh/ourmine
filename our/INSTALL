@@ -13,7 +13,7 @@ setup() {
 	cp -R ourmine.googlecode.com/svn/trunk/our/ $base
 	rm -rf $tmpdownload
 	rm -rf $was/INSTALL
-	cd $base/our 
+	cd $base 
 	rm -rf `find . "*.html"`
 }
 
