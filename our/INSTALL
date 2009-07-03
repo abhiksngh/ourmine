@@ -3,7 +3,6 @@ base=`pwd`/opt/ourmine
 
 #set up all dirs
 setup() {
-	echo $OurMine;
 	local was=`pwd`
 	[ -d "$base" ] && rm -rf $base
 	mkdir -p $tmpdownload; cd $tmpdownload;

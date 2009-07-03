@@ -1,5 +1,5 @@
-#-------------------------------                                               # define and create required directories                                                                                                                                                                          
-Here=`pwd`
+#define and create required directories
+
 Base=$OurMine/opt/ourmine
 Data=$Base/arffs
 Docs=$Base/docs
@@ -13,14 +13,14 @@ Lists=$Base/lib/lists
 mkdir -p "$Var $Tmp"
 mkdir -p $Tmp
 
-#-------------------------------       
-
-#-------------------------------
 # useful globals
-Weka="nice -19 java -Xmx1024M -cp $Here/lib/java/weka.jar "
-Clusterers="nice -19 java -jar $Here/lib/java/Clusterers.jar "
-#-------------------------------
+
+Weka="nice -19 java -Xmx1024M -cp $Base/lib/java/weka.jar "
+Clusterers="nice -19 java -jar $Base/lib/java/Clusterers.jar "
+
+
 # define and load files
+
 Files="	
 		lib/sh/util.sh 
 		lib/sh/preprocess.sh 
@@ -31,6 +31,7 @@ Files="
 		demos.sh
 		"
 #load all from Files above
+
 for config in $Files; do 
 	[ -f  "$config" ] && . $config
 done
