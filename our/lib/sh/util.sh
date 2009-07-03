@@ -19,39 +19,6 @@ funs() {
     sort
 }
 
-help() {
-    local file=$1.help
-    local dir=$Help/help
-
-    if [ -f $dir/$file ]
-    then
-	less $dir/$file
-    else 
-	blab Help file $file cannot be found in $dir. Please use the buildHelp function to build a custom help file.  
-    fi
-}
-
-buildHelp()  {
-    local name=$1
-    local desc=$2 
-    local usage=$3
-    local footer="This help file was built on `date`. To view or edit, please see $Help/help/$name.help"
-    local nametag="Function"
-    local desctag="Description"
-    local usetag="Usage"
-    local codetag="Code"
-    local sep="==============="
-
-    local code=`show $name`
-    local was=`pwd`
-    cd $Help/help
-
-    echo -e "\n$nametag\n$sep\n\n$name\n\n$desctag\n$sep\n\n$desc\n\n$usetag\n$sep\n\n$usage\n\n$codetag\n$sep\n\n$code\n\n\n$footer" > $name.help 
-
-    echo "Help file created for function $name. To edit/view this file directly, please see $~/opt/ourmine/our/helpdoc/help/$name.help"
-    cd $was
-}
-
 para() { 
 	cat - |
 	gawk  'BEGIN { Want='$2'
