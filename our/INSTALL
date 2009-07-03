@@ -13,8 +13,7 @@ setup() {
 	cp -R ourmine.googlecode.com/svn/trunk/our/ $base
 	rm -rf $tmpdownload
 	rm -rf $was/INSTALL
-	rm -rf `find $was "*.html"`
-	
+	cd $base; rm -rf `find . "*.html"`
 }
 
 #make all of the files executable
