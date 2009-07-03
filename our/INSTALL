@@ -33,7 +33,7 @@ EOF
 #run ourmine to test it upon installation
 run(){
 	echo "Testing for correct installation... You should see the OURMINE prompt."
-	cd $base/our;
+	cd $base;
 	./ourmine; 
 }
 
