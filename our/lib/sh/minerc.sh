@@ -1,6 +1,6 @@
 #define and create required directories
 
-Base=$HOME/opt/ourmine/our
+Base=$OurMine
 Data=$Base/arffs
 Docs=$Base/docs
 Help=$Base/helpdocs
