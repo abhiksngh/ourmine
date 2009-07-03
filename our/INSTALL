@@ -1,5 +1,5 @@
 tmpdownload=$HOME/tmpdown
-base=$OurMine/opt/ourmine
+base=`pwd`/opt/ourmine
 
 #set up all dirs
 setup() {

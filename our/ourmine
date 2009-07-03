@@ -1,1 +1,1 @@
-$OurMine=`pwd` bash --init-file lib/sh/minerc.sh -i
+OurMine=`pwd` bash --init-file lib/sh/minerc.sh -i
