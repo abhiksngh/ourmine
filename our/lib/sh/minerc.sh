@@ -1,12 +1,13 @@
 #define and create required directories
 
-Base=$HOME/opt/ourmine
+Base=$HOME/opt/ourmine/our
 Data=$Base/arffs
 Docs=$Base/docs
 Help=$Base/helpdocs
 Tmp=$HOME/tmp
 Var=$Tmp/var
 Awk=$Base/lib/awk
+Sh=$Base/lib/sh
 Java=$Base/lib/java
 Perl=$Base/lib/perl
 Lists=$Base/lib/lists
@@ -17,17 +18,17 @@ mkdir -p $Tmp
 # useful globals
 
 Weka="nice -19 java -Xmx1024M -cp $Java/weka.jar "
-Clusterers="nice -19 java -jar $JavaClusterers.jar "
+Clusterers="nice -19 java -jar $Java/Clusterers.jar "
 
 
 # define and load files
 
 Files="	
-		lib/sh/util.sh 
-		lib/sh/preprocess.sh 
-		lib/sh/learn.sh 
-                lib/sh/cluster.sh
-                lib/sh/fss.sh
+		$Sh/util.sh 
+		$Sh/preprocess.sh 
+		$Sh/learn.sh 
+                $Sh/cluster.sh
+                $Sh/fss.sh
                 workers/worker_cluster.sh
 		demos.sh
 		"
