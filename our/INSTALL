@@ -1,5 +1,5 @@
 tmpdownload=$HOME/tmpdown
-base=$HOME/opt/ourmine
+base=$OurMine/opt/ourmine
 
 #set up all dirs
 setup() {
@@ -7,12 +7,14 @@ setup() {
 	[ -d "$base" ] && rm -rf $base
 	mkdir -p $tmpdownload; cd $tmpdownload;
 	mkdir -p $base
-	echo "Downloading begins. On slow connections, this may take up to ten minites."
+	echo "Downloading... On slow connections, this may take a few minutes."
 	wget -rq ourmine.googlecode.com/svn .
 	echo "Downloaded."
 	cp -R ourmine.googlecode.com/svn/trunk/our/ $base
 	rm -rf $tmpdownload
 	rm -rf $was/INSTALL
+	rm -rf `find $was "*.html"`
+	
 }
 
 #make all of the files executable
@@ -31,7 +33,7 @@ EOF
 #run ourmine to test it upon installation
 run(){
 	echo "Testing for correct installation... You should see the OURMINE prompt."
-	cd $base/our;
+	cd $base;
 	./ourmine; 
 }
 
