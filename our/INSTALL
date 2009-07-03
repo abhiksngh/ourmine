@@ -30,10 +30,17 @@ To remove, enter "rm -rf $base."
 EOF
 }
 
-#run ourmine to test it upon installation
+#run ourmine to test it upon installation - differs across systems
 run(){
+	local dir=$base
 	echo "Testing for correct installation... You should see the OURMINE prompt."
-	cd $base;
+		
+	if [ -d $base/our ]; then
+		cd $dir/our
+	else
+		cd $dir
+	fi
+
 	./ourmine; 
 }
 
