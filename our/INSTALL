@@ -1,5 +1,5 @@
 tmpdownload=$HOME/tmpdown
-base=`pwd`/opt/ourmine
+base=$HOME/opt/ourmine
 
 #set up all dirs
 setup() {
@@ -14,7 +14,7 @@ setup() {
 	rm -rf $tmpdownload
 	rm -rf $was/INSTALL
 	cd $base 
-	rm -rf `find . "*.html"`
+	#rm -rf `find . "*.html"`
 }
 
 #make all of the files executable

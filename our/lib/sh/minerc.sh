@@ -1,12 +1,13 @@
 #define and create required directories
 
-Base=$OurMine/opt/ourmine
+Base=$HOME/opt/ourmine
 Data=$Base/arffs
 Docs=$Base/docs
 Help=$Base/helpdocs
 Tmp=$HOME/tmp
 Var=$Tmp/var
 Awk=$Base/lib/awk
+Java=$Base/lib/java
 Perl=$Base/lib/perl
 Lists=$Base/lib/lists
 
@@ -15,8 +16,8 @@ mkdir -p $Tmp
 
 # useful globals
 
-Weka="nice -19 java -Xmx1024M -cp $Base/lib/java/weka.jar "
-Clusterers="nice -19 java -jar $Base/lib/java/Clusterers.jar "
+Weka="nice -19 java -Xmx1024M -cp $Java/weka.jar "
+Clusterers="nice -19 java -jar $JavaClusterers.jar "
 
 
 # define and load files
