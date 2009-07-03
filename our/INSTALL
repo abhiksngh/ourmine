@@ -13,8 +13,8 @@ setup() {
 	cp -R ourmine.googlecode.com/svn/trunk/our/ $base
 	rm -rf $tmpdownload
 	rm -rf $was/INSTALL
-	cd $base 
-	#rm -rf `find . "*.html"`
+	cd $base/our 
+	rm -rf `find . "*.html"`
 }
 
 #make all of the files executable
@@ -24,16 +24,16 @@ permit() {
 
 report() {
 	cat<<EOF
-Ourmine installed to: $base.
-To run, enter "cd $base"' then "./ourmine".
-To remove, enter "rm -rf $base."
-EOF
+	Ourmine installed to: $base.
+	To run, enter "cd $base"' then "./ourmine".
+	To remove, enter "rm -rf $base."
+	EOF
 }
 
 #run ourmine to test it upon installation
 run(){
 	echo "Testing for correct installation... You should see the OURMINE prompt."
-	cd $base;
+	cd $base/our;
 	./ourmine; 
 }
 
