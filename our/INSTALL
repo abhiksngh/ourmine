@@ -24,10 +24,10 @@ permit() {
 
 report() {
 	cat<<EOF
-	Ourmine installed to: $base.
-	To run, enter "cd $base"' then "./ourmine".
-	To remove, enter "rm -rf $base."
-	EOF
+Ourmine installed to: $base.
+To run, enter "cd $base"' then "./ourmine".
+To remove, enter "rm -rf $base."
+EOF
 }
 
 #run ourmine to test it upon installation
