@@ -1,6 +1,5 @@
 #rank attributes via infogain
 rankViaInfoGain() {
-    blab "IG"
     local numattrs=$2
     local out=$3
 	$Weka  weka.filters.supervised.attribute.AttributeSelection \
@@ -11,7 +10,6 @@ rankViaInfoGain() {
 
 #reduce via PCA 
 reduceViaPCA(){
-    blab "PCA"
     local numattrs=$2
     local out=$3
     $Weka  weka.filters.supervised.attribute.AttributeSelection \

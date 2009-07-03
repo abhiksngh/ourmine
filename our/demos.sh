@@ -6,14 +6,12 @@ demo000(){
 }
 # naive bayes
 demo001() {
-    
     local train=$Data/discrete/weather.arff
     nb10 $train
 }
 
 # j48
 demo002() {
-    
     local train=$Data/discrete/weather.arff
     j4810 $train
 }
