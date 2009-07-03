@@ -201,7 +201,6 @@ rundemos(){
      local demo="demo000 demo001 demo002 demo006 demo007 demo009 demo010"
      for d in $demo; do
 	 blabln About to run $d. Press Enter to continue, or Control-C to quit.
-	 read
-	 $d; 
+	 read && $d; 
      done
 }
