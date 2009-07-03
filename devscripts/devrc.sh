@@ -1,6 +1,6 @@
 #define and create required directories
 
-Base=$HOME/opt/ourmine/our
+Base=$HOME/svns/ourmine/our
 Data=$Base/arffs
 Docs=$Base/docs
 Help=$Base/helpdocs
