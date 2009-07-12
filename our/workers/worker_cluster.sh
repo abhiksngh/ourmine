@@ -64,3 +64,9 @@ clusterCanopyWorker(){
 	done
     done
 }
+
+clusterAll(){
+	clusterKmeansWorker
+	clusterGenicWorker
+	clusterCanopyWorker
+}
