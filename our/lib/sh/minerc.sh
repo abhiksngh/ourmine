@@ -11,6 +11,7 @@ Sh=$Base/lib/sh
 Java=$Base/lib/java
 Perl=$Base/lib/perl
 Lists=$Base/lib/lists
+Save=$Base/save
 
 mkdir -p "$Var $Tmp"
 mkdir -p $Tmp

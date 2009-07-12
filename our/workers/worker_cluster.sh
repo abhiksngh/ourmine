@@ -1,36 +1,66 @@
+#workers used to cluster with varying k and datasets, and then analyze
 
-#kmeans and genic, with varying dataset and k
-worker001(){
- local numclusters="4 8 16 24 64 128"
- local datadir=$1
+clusterKmeansWorker(){
+    local kay="2 4 8 16 32 64 128"
+    local stats="clusterer,k,dataset,time(minutes)"
+    local statsfile=$Save/kmeans_runtimes
+    echo $stats >> $statsfile
 
- for f in $datadir/*; do
-     for k in $numclusters; do
-	 out=`basename $f`
-	 out=${out%.*}
-	 echo "$out,$k"
-	 $Clusterers -k $k $f $Tmp/"$out"_kmeans_k=$k.sparff
-	 $Clusterers -g $k 15 $f $Tmp/"$out"_genic_k=$k.sparff
-     done
- done
+    for k in $kay; do
+	for file in $Data/sparse/*; do
+	    filename=`basename $file`
+	    filename=${filename%.*}
+	    out=kmeans_k="$k"_$filename.arff 
+	    echo $out
+	    start=$(date +%M)
+	    $Clusterers -k $k $file $Save/$out
+	    end=$(date +%M)
+	    echo "kmeans,$k,$filename,$((end - start))" >> $statsfile
+	done
+    done
 }
 
-#kmeans and genic finding inter/intra cluster similarity
-worker002(){
- local numclusters="4 8 16 24 64 128"
- local datadir=$1
- local outfile=$2
+clusterGenicWorker(){
+    local kay="2 4 8 16 32 64 128"
+    local stats="clusterer,k,dataset,time(minutes)"
+    local statsfile=$Save/genic_runtimes
+    echo $stats >> $statsfile
 
- for f in $datadir/*; do
-     for k in $numclusters; do
-	 out=`basename $f`
-	 out=${out%.*}
-	 echo -n "$out,$k,"
-	 $Clusterers -k $k $f $Tmp/"$out"_kmeans_k=$k.sparff -sim
-	 echo ""
-	 echo -n "$out,$k,"
-	 $Clusterers -g $k 15 $f $Tmp/"$out"_genic_k=$k.sparff -sim
-	 echo ""
-     done
- done
+    for k in $kay; do
+	for file in $Data/sparse/*; do
+	    filename=`basename $file`
+	    filename=${filename%.*}
+	    out=genic_k="$k"_$filename.arff 
+	    echo $out
+	    start=$(date +%M)
+	    $Clusterers -g $k 15 $file $Save/$out
+	    end=$(date +%M)
+	    echo "genic,$k,$filename,$((end - start))" >> $statsfile
+	done
+    done
+}
+
+#this is handled a bit differently, as each canopy's clusters are stored seperately
+clusterCanopyWorker(){
+    local kay="2 4 8 16 32 64 128"
+    local stats="clusterer,k,dataset,time(minutes)"
+    local statsfile=$Save/canopy_runtimes
+    local clustdir=$Save/canopy_clusters
+
+    echo $stats >> $statsfile
+    mkdir -p $clustdir
+    cd $clustdir
+
+    for k in $kay; do
+	for file in $Data/sparse/*; do
+	    filename=`basename $file`
+	    filename=${filename%.*}
+	    out=canopy_k="$k"_$filename.arff 
+	    echo $out
+	    start=$(date +%M)
+	    $Clusterers -c $k 10 25 $file $out
+	    end=$(date +%M)
+	    echo "canopy,$k,$filename,$((end - start))" >> $statsfile
+	done
+    done
 }
