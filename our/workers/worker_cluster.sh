@@ -2,7 +2,7 @@
 
 clusterKmeansWorker(){
     local kay="2 4 8 16 32 64 128"
-    local stats="clusterer,k,dataset,time(minutes)"
+    local stats="clusterer,k,dataset,time(seconds)"
     local statsfile=$Save/kmeans_runtimes
     echo $stats >> $statsfile
 
@@ -12,17 +12,18 @@ clusterKmeansWorker(){
 	    filename=${filename%.*}
 	    out=kmeans_k="$k"_$filename.arff 
 	    echo $out
-	    start=$(date +%M)
+	    start=$(date +%s.%N)
 	    $Clusterers -k $k $file $Save/$out
-	    end=$(date +%M)
-	    echo "kmeans,$k,$filename,$((end - start))" >> $statsfile
+	    end=$(date +%s.%N)
+	    time=$(echo "$end - $start" | bc)
+	    echo "kmeans,$k,$filename,$time" >> $statsfile
 	done
     done
 }
 
 clusterGenicWorker(){
     local kay="2 4 8 16 32 64 128"
-    local stats="clusterer,k,dataset,time(minutes)"
+    local stats="clusterer,k,dataset,time(seconds)"
     local statsfile=$Save/genic_runtimes
     echo $stats >> $statsfile
 
@@ -32,10 +33,11 @@ clusterGenicWorker(){
 	    filename=${filename%.*}
 	    out=genic_k="$k"_$filename.arff 
 	    echo $out
-	    start=$(date +%M)
+	    start=$(date +%s.%N)
 	    $Clusterers -g $k 15 $file $Save/$out
-	    end=$(date +%M)
-	    echo "genic,$k,$filename,$((end - start))" >> $statsfile
+	    end=$(date +%s.%N)
+	    time=$(echo "$end - $start" | bc)
+	    echo "genic,$k,$filename,$time" >> $statsfile
 	done
     done
 }
@@ -43,7 +45,7 @@ clusterGenicWorker(){
 #this is handled a bit differently, as each canopy's clusters are stored seperately
 clusterCanopyWorker(){
     local kay="2 4 8 16 32 64 128"
-    local stats="clusterer,k,dataset,time(minutes)"
+    local stats="clusterer,k,dataset,time(seconds)"
     local statsfile=$Save/canopy_runtimes
     local clustdir=$Save/canopy_clusters
 
@@ -57,10 +59,11 @@ clusterCanopyWorker(){
 	    filename=${filename%.*}
 	    out=canopy_k="$k"_$filename.arff 
 	    echo $out
-	    start=$(date +%M)
+	    start=$(date +%s.%N)
 	    $Clusterers -c $k 10 25 $file $out
-	    end=$(date +%M)
-	    echo "canopy,$k,$filename,$((end - start))" >> $statsfile
+	    end=$(date +%s.%N)
+	    time=$(echo "$end - $start" | bc)
+	    echo "canopy,$k,$filename,$time" >> $statsfile
 	done
     done
 }
