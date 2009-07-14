@@ -69,16 +69,16 @@ clusterCanopyWorker(){
     local kay="2 4 8 16 32 64 128"
     local stats="clusterer,k,dataset,time(seconds)"
     local statsfile=$Save/canopy_runtimes
-    local clustdir=$Save/canopy_clusters
 
     echo $stats >> $statsfile
-    mkdir -p $clustdir
-    cd $clustdir
-
+    
     for k in $kay; do
 	for file in $Data/sparse/*; do
 	    filename=`basename $file`
 	    filename=${filename%.*}
+	    clustdir=$Save/canopy_k="$k"_$filename
+	    mkdir -p $clustdir
+	    cd $clustdir
 	    out=canopy_k="$k"_$filename.arff 
 	    echo $out
 	    start=$(date +%s.%N)
