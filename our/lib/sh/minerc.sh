@@ -31,6 +31,7 @@ Files="
                 $Sh/cluster.sh
                 $Sh/fss.sh
                 $Base/workers/worker_cluster.sh
+                $Base/workers/worker_cluster_analysis.sh
 		$Base/demos.sh
 		"
 #load all from Files above
