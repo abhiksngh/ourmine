@@ -10,8 +10,9 @@ reduceWorkerTfidf(){
     for((n=$minN;n<=$maxN;n+=$incVal)); do
 	for file in $datadir/*.arff; do
 	    out=`basename $file`
-	    out=${file%.*}
+	    out=${out%.*}
 	    out=tfidf_n="$n"_$out.arff
+	    echo $out
 	    $Reducers -tfidf $file $n $outdir/$out
 	done
     done
@@ -27,8 +28,9 @@ reduceWorkerPCA(){
     for((n=$minN;n<=$maxN;n+=$incVal)); do
 	for file in $datadir/*.arff; do
 	    out=`basename $file`
-	    out=${file%.*}
+	    out=${out%.*}
 	    out=pca_n="$n"_$out.arff
+	    echo $out
 	    reduceViaPCA $file $n $outdir/$out
 	done
     done
