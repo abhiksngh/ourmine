@@ -2,27 +2,27 @@
 
 kmeansGenicSimWorker(){
     local clusterer=$1
-    local maxK=$2
-    local clusterdir=$3
-    local runtimefile=$4
-    local outfile=$5
+    local minK=$2
+    local maxK=$3
+    local clusterdir=$4
+    local runtimefile=$5
+    local outfile=$6
+    local dataset
+    local time
 
     echo "clusterer,k,dataset,intersim,intrasim,time(sec)" >> $outfile
 
-    for ((k=2;k<$maxK;k*=2)); do
+    for ((k=$minK;k<=$maxK;k*=2)); do
 	for file in `ls $clusterdir | grep $clusterer | grep k=$k`; do
+	    file=$clusterdir/$file
 	    sims=`$Clusterers -sim $file`
 	    intersim=`echo $sims | cut -f 1 -d, | cut -f 2 -d=`
 	    intrasim=`echo $sims | cut -f 2 -d, | cut -f 2 -d=`
-	    file=`basename $file`
-	    file=${file%.*}
-	    dataset=""
-	    time=""
 
 	    for d in `cat $runtimefile | grep $clusterer,$k | cut -f 3 -d,`; do
 		if grep -q $d $file; then
 		    dataset=$d
-		    time=`cat $runtimefile | grep $clusterer,$k | grep $dataset | cut -f 4 -d,`
+		    time=`cat $runtimefile | grep $clusterer,$k, | grep $dataset, | cut -f 4 -d,`
 		    break
 		fi		
 	    done
@@ -37,15 +37,19 @@ kmeansGenicSimWorker(){
 #this is different due to the stored structure of canopy's clusters
 canopySimWorker(){
     local clusterer=$1
-    local maxK=$2
-    local clusterdir=$3
-    local runtimefile=$4
-    local outfile=$5
+    local minK=$2
+    local maxK=$3
+    local clusterdir=$4
+    local runtimefile=$5
+    local outfile=$6
+    local dataset
+    local time
 
     echo "clusterer,k,dataset,intersim,intrasim,time(sec)" >> $outfile
 
-    for ((k=2;k<$maxK;k*=2)); do
+    for ((k=$minK;k<=$maxK;k*=2)); do
 	for dir in `ls $clusterdir | grep $clusterer | grep k=$k`; do
+	    dir=$clusterdir/$dir
 	    cd $dir
 	    totalintersim=0
 	    totalintrasim=0
@@ -59,13 +63,10 @@ canopySimWorker(){
 		totalintrasim=`add $intrasim $totalintrasim`
 	    done
 
-	    dataset=""
-	    time=""
-
 	    for d in `cat $runtimefile | grep $clusterer,$k | cut -f 3 -d,`; do
 		if grep -q $d $dir; then
 		    dataset=$d
-		    time=`cat $runtimefile | grep $clusterer,$k | grep $dataset | cut -f 4 -d,`
+		    time=`cat $runtimefile | grep $clusterer,$k, | grep $dataset, | cut -f 4 -d,`
 		    break
 		fi		
 	    done
@@ -78,27 +79,26 @@ canopySimWorker(){
 
 kmeansGenicPurityWorker(){
     local clusterer=$1
-    local maxK=$2
-    local clusterdir=$3
-    local runtimefile=$4
-    local classfile=$5
-    local $outfile=$6
+    local minK=$2
+    local maxK=$3
+    local clusterdir=$4
+    local runtimefile=$5
+    local classfile=$6
+    local $outfile=$7
+    local dataset
+    local time
 
     echo "clusterer,k,dataset,purity,time(sec)" >> $outfile
 
-    for ((k=2;k<$maxK;k*=2)); do
+    for ((k=$minK;k<=$maxK;k*=2)); do
+	file=$clusterdir/$file
 	for file in `ls $clusterdir | grep $clusterer | grep k=$k`; do
 	    purity=`$Clusterers -purity $file $classfile`
-
-	    file=`basename $file`
-	    file=${file%.*}
-	    dataset=""
-	    time=""
 
 	    for d in `cat $runtimefile | grep $clusterer,$k | cut -f 3 -d,`; do
 		if grep -q $d $file; then
 		    dataset=$d
-		    time=`cat $runtimefile | grep $clusterer,$k | grep $dataset | cut -f 4 -d,`
+		    time=`cat $runtimefile | grep $clusterer,$k, | grep $dataset, | cut -f 4 -d,`
 		    break
 		fi		
 	    done
@@ -112,16 +112,20 @@ kmeansGenicPurityWorker(){
 
 canopyPurityWorker(){
     local clusterer=$1
-    local maxK=$2
-    local clusterdir=$3
-    local runtimefile=$4
-    local classfile=$5
-    local outfile=$6
+    local minK=$2
+    local maxK=$3
+    local clusterdir=$4
+    local runtimefile=$5
+    local classfile=$6
+    local outfile=$7
+    local dataset
+    local time
 
     echo "clusterer,k,dataset,purity,time(sec)" >> $outfile
 
-    for ((k=2;k<$maxK;k*=2)); do
+    for ((k=$minK;k<=$maxK;k*=2)); do
 	for dir in `ls $clusterdir | grep $clusterer | grep k=$k`; do
+	    dir=$clusterdir/$dir
 	    cd $dir
 	    totalpurity=0
 
@@ -131,13 +135,10 @@ canopyPurityWorker(){
 	 	totalpurity=`add $purity $totalpurity`
 	     done
 
-	     dataset=""
-	     time=""
-
 	    for d in `cat $runtimefile | grep $clusterer,$k | cut -f 3 -d,`; do
 		if grep -q $d $dir; then
 		    dataset=$d
-		    time=`cat $runtimefile | grep $clusterer,$k | grep $dataset | cut -f 4 -d,`
+		    time=`cat $runtimefile | grep $clusterer,$k, | grep $dataset, | cut -f 4 -d,`
 		    break
 		fi		
 	    done

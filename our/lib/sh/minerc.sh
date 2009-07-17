@@ -19,8 +19,8 @@ mkdir -p $Tmp
 # useful globals
 
 Weka="nice -19 java -Xmx1024M -cp $Java/weka.jar "
-Clusterers="nice -19 java -jar $Java/Clusterers.jar "
-
+Clusterers="java -Xmx1024M -jar $Java/Clusterers.jar "
+Reducers="java -Xmx1024M -jar $Java/Reduce.jar "
 
 # define and load files
 
@@ -32,6 +32,7 @@ Files="
                 $Sh/fss.sh
                 $Base/workers/worker_cluster.sh
                 $Base/workers/worker_cluster_analysis.sh
+                $Base/workers/worker_reduce.sh
 		$Base/demos.sh
 		"
 #load all from Files above
