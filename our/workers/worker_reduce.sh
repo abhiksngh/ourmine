@@ -21,7 +21,7 @@ reduceWorkerTfidf(){
 	    $Reducers -tfidf $file $n $outdir/$out
 	    end=$(date +%s)
 	    time=$((end - start))
-	    echo "tfidf,$n,$dataset,$time"
+	    echo "tfidf,$n,$dataset,$time" >> $runtimes
 	done
     done
 } 
@@ -47,7 +47,7 @@ reduceWorkerPCA(){
 	    reduceViaPCA $file $n $outdir/$out
 	    end=$(date +%s)
 	    time=$((end - start))
-	    echo "pca,$n,$dataset,$time"	   
+	    echo "pca,$n,$dataset,$time" >> $runtimes	   
 	done
     done
 } 
