@@ -18,7 +18,7 @@ mkdir -p $Tmp
 
 # useful globals
 
-Weka="nice -19 java -Xmx1024M -cp $Java/weka.jar "
+Weka="java -Xmx1024M -cp $Java/weka.jar "
 Clusterers="java -Xmx1024M -jar $Java/Clusterers.jar "
 Reducers="java -Xmx1024M -jar $Java/Reduce.jar "
 
