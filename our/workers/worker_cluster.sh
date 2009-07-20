@@ -10,7 +10,7 @@ clusterKmeansWorker(){
     local statsfile=$Save/kmeans_runtimes
     echo $stats >> $statsfile
 
-    for((k=$minK;k<=$maxK;k+=$incVal)); do
+    for((k=$minK;k<=$maxK;k*=$incVal)); do
 	for file in $dataDir/*.arff; do
 	    filename=`basename $file`
 	    filename=${filename%.*}
@@ -34,7 +34,7 @@ clusterGenicWorker(){
     local statsfile=$Save/genic_runtimes
     echo $stats >> $statsfile
 
-    for((k=$minK;k<=$maxK;k+=$incVal)); do
+    for((k=$minK;k<=$maxK;k*=$incVal)); do
 	for file in $dataDir/*.arff; do
 	    filename=`basename $file`
 	    filename=${filename%.*}
@@ -60,7 +60,7 @@ clusterCanopyWorker(){
 
     echo $stats >> $statsfile
     
-    for((k=$minK;k<=$maxK;k+=$incVal)); do
+    for((k=$minK;k<=$maxK;k*=$incVal)); do
 	for file in $dataDir/*.arff; do
 	    filename=`basename $file`
 	    filename=${filename%.*}
