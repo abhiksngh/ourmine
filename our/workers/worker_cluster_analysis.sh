@@ -10,7 +10,7 @@ kmeansGenicSimWorker(){
     local dataset
     local time
 
-    echo "clusterer,k,dataset,intersim,intrasim,time(sec)" >> $outfile
+    #echo "clusterer,k,dataset,intersim,intrasim,time(sec)" >> $outfile
 
     for ((k=$minK;k<=$maxK;k*=2)); do
 	for file in `ls $clusterdir | grep $clusterer | grep k=$k`; do
@@ -45,7 +45,7 @@ canopySimWorker(){
     local dataset
     local time
 
-    echo "clusterer,k,dataset,intersim,intrasim,time(sec)" >> $outfile
+    #echo "clusterer,k,dataset,intersim,intrasim,time(sec)" >> $outfile
 
     for ((k=$minK;k<=$maxK;k*=2)); do
 	for dir in `ls $clusterdir | grep $clusterer | grep k=$k`; do
