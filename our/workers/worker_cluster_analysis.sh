@@ -64,7 +64,7 @@ canopySimWorker(){
 	    done
 
 	    for d in `cat $runtimefile | grep $clusterer,$k | cut -f 3 -d,`; do
-		if grep -q $d $dir; then
+		if echo $dir | grep -q $d; then
 		    dataset=$d
 		    time=`cat $runtimefile | grep $clusterer,$k, | grep $dataset, | cut -f 4 -d,`
 		    break
