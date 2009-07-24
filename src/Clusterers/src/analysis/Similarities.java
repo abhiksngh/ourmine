@@ -81,6 +81,8 @@ public class Similarities {
 
                 for(String s : pair)
                 {
+					 //we have an instance index marker
+                    if(!s.contains(" ")){continue;}
                     String[] tmp = s.split(" ");
                     try
                     {
