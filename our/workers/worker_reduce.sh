@@ -8,7 +8,7 @@ reduceWorkerTfidf(){
     local outdir=$5
     local runtimes=$outdir/tfidf_runtimes
 
-    echo "reducer,n,dataset,time" > $runtimes
+    #echo "reducer,n,dataset,time" > $runtimes
 
     for((n=$minN;n<=$maxN;n+=$incVal)); do
 	for file in $datadir/*.arff; do
@@ -34,7 +34,7 @@ reduceWorkerPCA(){
     local outdir=$5
     local runtimes=$outdir/pca_runtimes
 
-    echo "reducer,n,dataset,time" > $runtimes
+    #echo "reducer,n,dataset,time" > $runtimes
 
     for((n=$minN;n<=$maxN;n+=$incVal)); do
 	for file in $datadir/*.arff; do 
