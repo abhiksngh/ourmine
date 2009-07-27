@@ -19,8 +19,11 @@ kmeansGenicSimWorker(){
 	    intersim=`echo $sims | cut -f 1 -d, | cut -f 2 -d=`
 	    intrasim=`echo $sims | cut -f 2 -d, | cut -f 2 -d=`
 
+	    file=`basename $file`
+	    file=`echo $file | sed -e 's/'$clusterer"_k="$k"_"'//g'`
+
 	    for d in `cat $runtimefile | grep $clusterer,$k | cut -f 3 -d,`; do
-		if grep -q $d $file; then
+		if echo $file | grep -w $d; then
 		    dataset=$d
 		    time=`cat $runtimefile | grep $clusterer,$k, | grep $dataset, | cut -f 4 -d,`
 		    break
@@ -63,10 +66,11 @@ canopySimWorker(){
 		totalintrasim=`add $intrasim $totalintrasim`
 	    done
 
+	    dir=`basename $dir`
+	    dir=`echo $dir | sed -e 's/'$clusterer"_k="$k"_"'//g'`
+
 	    for d in `cat $runtimefile | grep $clusterer,$k | cut -f 3 -d,`; do
-		dir=`basename $dir`
-		dir=`echo $dir | sed -e 's/'$clusterer"_k="$k"_"'//g'`
-		if echo $d | grep -q $dir; then
+		if echo $dir | grep -w $d; then
 		    dataset=$d
 		    time=`cat $runtimefile | grep $clusterer,$k, | grep $dataset, | cut -f 4 -d,`
 		    break
