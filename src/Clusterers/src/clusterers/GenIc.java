@@ -37,10 +37,10 @@ public class GenIc {
 
         for(int c=0;c<_m;c++)
         {
-            int centerIndx=rand.nextInt(_m+1);
+            int centerIndx=rand.nextInt(_m);
             while(taken.contains(centerIndx))
             {
-                centerIndx=rand.nextInt(_m+1);
+                centerIndx=rand.nextInt(_m);
             }
 
             CandidateCenter cc = new CandidateCenter();
