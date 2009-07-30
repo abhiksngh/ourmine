@@ -90,19 +90,21 @@ kmeansGenicPurityWorker(){
     local clusterdir=$4
     local runtimefile=$5
     local classfile=$6
-    local $outfile=$7
+    local outfile=$7
     local dataset
     local time
 
-    echo "clusterer,k,dataset,purity,time(sec)" >> $outfile
+    #echo "clusterer,k,dataset,purity,time(sec)" >> $outfile
 
-    for ((k=$minK;k<=$maxK;k*=2)); do
-	file=$clusterdir/$file
-	for file in `ls $clusterdir | grep $clusterer | grep k=$k`; do
-	    purity=`$Clusterers -purity $file $classfile`
+    for ((k=$minK;k<=$maxK;k+=10)); do
+	for file in `ls $clusterdir | grep $clusterer | grep k=$k"_"`; do
+	    purity=`$Clusterers -purity $clusterdir/$file $classfile`
+
+	    file=`basename $file`
+	    file=`echo $file | sed -e 's/'$clusterer"_k="$k"_"'//g'`
 
 	    for d in `cat $runtimefile | grep $clusterer,$k | cut -f 3 -d,`; do
-		if grep -q $d $file; then
+		if echo $file | grep -w $d; then
 		    dataset=$d
 		    time=`cat $runtimefile | grep $clusterer,$k, | grep $dataset, | cut -f 4 -d,`
 		    break
