@@ -44,9 +44,7 @@ clean(){
 	tokes | 
 	caps | 
 	stops $Lists/stops.txt > tmp 
-	stems tmp |
-	tr "\n" " " | 
-	sed 's/$//g' >> $2
+	stems tmp >> $2 
 	rm tmp
     done
 }

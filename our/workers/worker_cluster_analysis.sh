@@ -129,10 +129,10 @@ canopyPurityWorker(){
     local dataset
     local time
 
-    echo "clusterer,k,dataset,purity,time(sec)" >> $outfile
+    #echo "clusterer,k,dataset,purity,time(sec)" >> $outfile
 
-    for ((k=$minK;k<=$maxK;k*=2)); do
-	for dir in `ls $clusterdir | grep $clusterer | grep k=$k`; do
+    for ((k=$minK;k<=$maxK;k+=10)); do
+	for dir in `ls $clusterdir | grep $clusterer | grep k=$k"_"`; do
 	    dir=$clusterdir/$dir
 	    cd $dir
 	    totalpurity=0
@@ -142,20 +142,22 @@ canopyPurityWorker(){
 	  	purity=`$Clusterers -purity $file $classfile`
 	 	totalpurity=`add $purity $totalpurity`
 	     done
+ 
+	    dir=`basename $dir`
+	    dir=`echo $dir | sed -e 's/'$clusterer"_k="$k"_"'//g'`
 
 	    for d in `cat $runtimefile | grep $clusterer,$k | cut -f 3 -d,`; do
-		if grep -q $d $dir; then
+		if echo $dir | grep -w $d; then
 		    dataset=$d
 		    time=`cat $runtimefile | grep $clusterer,$k, | grep $dataset, | cut -f 4 -d,`
 		    break
 		fi		
 	    done
-	    out="$clusterer,$k,$dataset,$purity,$time"
+	    out="$clusterer,$k,$dataset,$totalpurity,$time"
 	    echo $out
 	    echo $out >> $outfile
 	done    
     done
 }
-
 #gives the ability to add floating point vals
 add() (IFS=+; echo "$*" | bc -l)
