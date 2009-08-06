@@ -70,7 +70,7 @@ clusterCanopyWorker(){
 	    out=canopy_k="$k"_$filename.arff 
 	    echo $out
 	    start=$(date +%s.%N)
-	    $Clusterers -c $k 10 25 $file $out
+	    $Clusterers -c $k 5 10 $file $out
 	    end=$(date +%s.%N)
 	    time=$(echo "$end - $start" | bc)
 	    echo "canopy,$k,$filename,$time" >> $statsfile
