@@ -30,10 +30,11 @@ Files="
 		$Sh/learn.sh 
                 $Sh/cluster.sh
                 $Sh/fss.sh
+		$Sh/analysis.sh
                 $Base/workers/worker_cluster.sh
                 $Base/workers/worker_cluster_analysis.sh
                 $Base/workers/worker_reduce.sh
-		$Base/demos.sh
+		$Base/demos.sh		
 		"
 #load all from Files above
 

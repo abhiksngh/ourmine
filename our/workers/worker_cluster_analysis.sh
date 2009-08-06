@@ -159,5 +159,3 @@ canopyPurityWorker(){
 	done    
     done
 }
-#gives the ability to add floating point vals
-add() (IFS=+; echo "$*" | bc -l)

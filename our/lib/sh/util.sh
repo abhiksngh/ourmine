@@ -255,29 +255,6 @@ function printDoc(doc,freq,tfout){
     rm -rf $out $tfidfout
 }
 
-predictionToSparff() {
-   local orig=$1
-   local predfile=$2
-   local out=$3
-
-   cat $orig | grep @attribute > $Tmp/attrs
-   cat $predfile | 
-   awk '{for(i=1;i<=NR;i++) arr[$2]=$2}END{for(s in arr) if(s >= 0) printf "Cluster%s,",s}' |
-   sed 's/^/@attribute Cluster {/g' | 
-   sed 's/Cluster {,/Cluster {/g' |
-   sed 's/,$/}/g' >> $Tmp/attrs
-   
-   cat $Tmp/attrs 
-   echo "@data"
-
-   cat $orig | grep "{" | 
-   awk '{while(getline<"'$predfile'") cl[$1]=$2;
-         gsub("}", ",Cluster" cl[cnt] "}")
-         cnt++;
-         print
-       }'
-}
-
 makeTrainAndTest(){
     local origArff=$1
     local bins=$2
@@ -350,3 +327,9 @@ makeTrainAndTest(){
 ignoreArffComments(){
     cat $1 | awk '!/^%/ {print}'
 }
+
+#some arithmetic operations functions
+div() (IFS=/; echo "$*" | bc -l)
+mult() (IFS=*; echo "$*" | bc -l)
+sub() (IFS=-; echo "$*" | bc -l)
+add() (IFS=+; echo "$*" | bc -l)
