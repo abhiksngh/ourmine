@@ -44,6 +44,10 @@ run(){
 	./ourmine; 
 }
 
+clean(){
+	rm -rf INSTALL;	
+}
+
 echo "Install beginning. About to zap any existing $base."
 echo "Enter to continue, Control-C to abort."
-read && setup && permit && report && run
+read && setup && permit && report && run && clean
