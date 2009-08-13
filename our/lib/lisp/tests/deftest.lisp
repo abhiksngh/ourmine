@@ -1,10 +1,14 @@
 ; From Peter Seiblel's excellent text: http://gigamonkeys.com/book
 (defvar *test-name* nil)  
+(defvar *tests* nil)  
 
 (defmacro deftest (name parameters &body body)
-  `(defun ,name ,parameters
-    (let ((*test-name* (append *test-name* (list ',name))))
-      ,@body)))
+  `(progn
+     (unless (member ',name *tests*)
+       (setf *tests* (append *tests* (list ',name))))
+     (defun ,name ,parameters
+       (let ((*test-name* (append *test-name* (list ',name))))
+	 ,@body))))
 
 (defmacro check (&body forms)
   `(combine-results
@@ -42,9 +46,9 @@
     result)
   )
 
-(defmacro tests (&body body)
-  `(progn 
+(defun tests ()
+  (dolist (one *tests*)
      (make) 
      (tests-reset) 
-     ,@body
+     (funcall one)
      (tests-report)))
