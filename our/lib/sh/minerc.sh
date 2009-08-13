@@ -42,5 +42,5 @@ for config in $Files; do
 	[ -f  "$config" ] && . $config
 done
 
-echo "Ourmine - Copyright 2009 by Tim Menzies, Adam Nelson"
+echo "Ourmine - Copyright 2009 by Tim Menzies, Adam Nelson, Gregory Gay"
 PS1="OURMINE> "
