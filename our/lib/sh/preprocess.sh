@@ -38,13 +38,15 @@ stops(){
 }
 
 clean(){
-    #arranges documents into one file
-    for file in $1/*; do
+    local docdir=$1
+    local out=$2
+
+    for file in $docdir/*; do
         cat $file | 
 	tokes | 
 	caps | 
 	stops $Lists/stops.txt > tmp 
-	stems tmp >> $2 
+	stems tmp >> $out 
 	rm tmp
     done
 }
