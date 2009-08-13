@@ -1,13 +1,51 @@
-(defmacro o (&rest l) 
+;;;; debugging tricks
+
+(defmacro show (x)  
+  "show one thing"
+  `(progn (format t "[~a]=[~a] " 
+		  (quote ,x) ; show its name 
+		  ,x)        ; show its value
+	  ,x))               ; return its value
+
+(defmacro o (&rest l)
+  "show a list of things"
   (let ((last (gensym)))
   `(let (,last)
-     ,@(mapcar #'(lambda(x) `(setf ,last (oprim ,x))) l)
+     ,@(mapcar #'(lambda(x) `(setf ,last (show ,x))) l)
      (terpri)
      ,last)))
 
-(defmacro oprim (x)  
-  `(progn (format t "[~a]=[~a] " (quote ,x) ,x) ,x))
+(deftest test-o ()
+  (let* ((a 'tim)
+	 (b 'tom)
+	 (result  (with-output-to-string (s)
+		    (let ((*standard-output* s))
+		      (o a b)))))
+    (check
+      (samep result
+	     "[A]=[TIM] [B]=[TOM]"))))
 
+;;;; list tricks
+(defmacro doitems ((one n list &optional out) &body body )
+  `(let ((,n -1))
+     (dolist (,one ,list ,out)  (incf ,n) ,@body)))
+
+(deftest test-doitems ()
+  (check (samep
+	  (with-output-to-string (s)
+	    (doitems (item pos '(the quick brown fox))
+	      (format s "~a is at position ~a~%" item pos)))
+	  "THE is at position 0
+           QUICK is at position 1
+           BROWN is at position 2
+           FOX is at position 3")))
+;;;; hash tricks
+
+(defmacro inch (key hash &optional (inc 1))
+  `(setf (gethash    ,key ,hash)
+	 (+ (gethash ,key ,hash 0) ,inc)))
+
+;;;; profiling tricks
 (defmacro watch (code)
   `(progn
     (sb-profile:unprofile)

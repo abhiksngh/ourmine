@@ -50,5 +50,7 @@
   (dolist (one *tests*)
      (make) 
      (tests-reset) 
-     (funcall one)
+     (if (fboundp one)
+	 (funcall one)
+	 (format t "; unknown test: [~a]~%" one))
      (tests-report)))
