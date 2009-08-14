@@ -10,7 +10,9 @@
 			"tricks/hash"
 			"tricks/random"
 			"tricks/normal"
-			"learn/table"
+			"table/data"
+			"table/header"
+			"table/xindex"
 			))
 
 (defun make1 (files)
