@@ -12,7 +12,7 @@ show() {
 }
 
 funs() {
-    cat $Base/lib/sh/* | 
+    cat $Base/lib/sh/* $Base/workers/* | 
     awk '/\(\)[ \t\n]*{/' | 
     sed 's/[^A-Za-z|0-9]/ /g' | 
     cut -d" " -f 1 | 
@@ -331,6 +331,34 @@ makeTrainAndTest(){
 
 ignoreArffComments(){
     cat $1 | awk '!/^%/ {print}'
+}
+
+help(){
+
+    local function=$1
+    local helpfile
+    local tmphelpfile
+    local code
+
+    function=`echo $function | tr A-Z a-z`
+    helpfile=$Help/$function
+    tmphelpfile=~/tmp/helpfile
+
+    [ -f $helpfile ] && cat $helpfile | parseHelpFile > $tmphelpfile
+    
+    code=`show $function`
+    
+    echo -e "\nFunction Code:\n==============\n $code" >> $tmphelpfile
+    less $tmphelpfile
+    rm -rf $tmphelpfile
+}
+
+parseHelpFile(){
+    awk 'BEGIN{FS=":"}
+         /name:/ {print "Function: " $2}
+         /args:/ {print "Arguments: " $2}
+         /eg:/   {print "Example(s): " $2}
+         /desc:/ {print "Description: " $2}'
 }
 
 #some arithmetic operations functions
