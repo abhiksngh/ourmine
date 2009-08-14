@@ -36,8 +36,6 @@
          (zap    ()     (setf out nil)
 		        ;(reset-seed) 
 		        (setf counts (make-hash-table)))
-	  (inc    (n)   (setf (gethash n counts) 
-			           (1+  (gethash n counts 0)))) 
 	  (cache  (k v) (push (list k v) out)))
       (zap)
       (dotimes (i 100) 
