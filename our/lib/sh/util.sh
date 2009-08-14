@@ -275,12 +275,14 @@ makeTrainAndTest(){
       Seed=1;
       numattrs=0;
    } 
-   /^[ \t]*$/          { next }
-   /@attribute/        { Attrs[numattrs]=$2; numattrs++ }
-   /@relation/         { Seed ? srand(Seed) : srand(1)      }
-   /@relation/         { printf "">Trainf;  printf "">Testf }
-   /@relation/,/@data/ { print $0 >> Trainf;  print $0 >> Testf; next }
-                       { Line[rand()] = $0; Lines++ }
+   /^[ \t]*$/             { next }
+   /@attribute.*numeric$/ { numeric[numattrs]=1 }
+   /@attribute.*real$/    { numeric[numattrs]=1 }
+   /@attribute/           { Attrs[numattrs]=$2; numattrs++ }
+   /@relation/            { Seed ? srand(Seed) : srand(1)      }
+   /@relation/            { printf "">Trainf;  printf "">Testf }
+   /@relation/,/@data/    { print $0 >> Trainf;  print $0 >> Testf; next }
+                          { Line[rand()] = $0; Lines++ }
   END {
      ###print Seed 
     Bins="'$bins'"
@@ -292,7 +294,10 @@ makeTrainAndTest(){
     attrstring="";
     defun="(defun '$arffName' ()\n\t(data\n\t\t:name \x27" "'$arffName'\n";
     cols="\t\t:columns \x27" "(";
-    for(i=0;i<numattrs;i++) attrstring=attrstring " " Attrs[i] "";
+    for(i=0;i<numattrs;i++) {
+      if(numeric[i]) attrstring=attrstring " $" Attrs[i] "";
+      else attrstring=attrstring " " Attrs[i] "";
+    }
     egs=")\n\t\t:egs\n\t\t\x27(\t\t\t";
     setup=defun "" cols "" attrstring "" egs;
 
@@ -302,7 +307,7 @@ makeTrainAndTest(){
     ###print to lisp file
 
     lispinst="";
-
+   
     for(I in Line) {
        N++;
        What = (N>= Start && N < Stop) ? Testf : Trainf
@@ -311,7 +316,7 @@ makeTrainAndTest(){
        split(Line[I],lispAttrs,",");
 
       lispinst="\t\t\t(";
-      for(i=0;i<numattrs;i++) lispinst=lispinst "" lispAttrs[i] " "
+      for(i=0;i<=numattrs;i++) lispinst=lispinst "" lispAttrs[i] " "
       lispinst=lispinst "" ")"
       print lispinst>>Lisp;
     }
