@@ -31,7 +31,9 @@
 
 (defmethod datum ((column discrete) datum oops)
   "things to do when reading a descrete datum"
-  (declare (ignore column datum oops))
+  (declare (ignore  oops))
+  (unless (member datum (discrete-uniques column))
+    (push datum (discrete-uniques column)))
   t)
 
 (defmethod datum ((column numeric) datum oops)

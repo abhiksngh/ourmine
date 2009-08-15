@@ -4,15 +4,18 @@
 			"tests/deftest"
 			"tricks/lispfuns"
 			"tricks/macros"
-			"tricks/caution"
+			"tricks/number"
 			"tricks/string"
 			"tricks/list"
 			"tricks/hash"
 			"tricks/random"
 			"tricks/normal"
-			"table/data"
+			"tricks/caution"
 			"table/header"
+			"table/data"
+			"table/table"
 			"table/xindex"
+			"learn/nb"
 			))
 
 (defun make1 (files)

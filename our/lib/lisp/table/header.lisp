@@ -2,7 +2,7 @@
 (defstruct header name classp ignorep 
 	   (f (make-hash-table :test #'equal)))
 (defstruct (numeric  (:include header)))
-(defstruct (discrete  (:include header)))
+(defstruct (discrete  (:include header)) uniques)
 
 (defun columns-new (cols klass)
   (let (tmp)
@@ -21,4 +21,5 @@
   (equal (char (symbol-name x) 0) #\$))
 
 (defun ignorep (x)
-  (equal (char (symbol-name x) 0) #\?))
+  (and (symbolp x)
+       (equal (char (symbol-name x) 0) #\?)))
