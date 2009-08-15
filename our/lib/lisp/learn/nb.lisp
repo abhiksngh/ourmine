@@ -1,9 +1,17 @@
-(defun nb (tbl &key (str t))
-  (xindex tbl)
-  (dolist (one (table-all tbl))
-    (format stream "~a ~a" (bayes-classify (eg-features one) tbl)
-	                   (eg-class one))))
-
+(defun nb (train test &key (stream t))
+  "assumes tbl has been alrady trained"
+  (let* ((acc 0)
+	(all  (table-all test))
+	(max  (length all)))
+    (dolist (one all (/ acc max))
+      (let* ((got     (bayes-classify (eg-features one) (xindex train)))
+	     (want    (eg-class one))
+	     (success (eql got want)))
+	(incf acc (if success 1.0 0.0))
+	(format stream "~a ~a ~a ~a~%"  got want  
+		(round (* 100 (/ acc max)))
+		(if success "   " "<--"))))))
+	    
 (defun bayes-classify (one tbl &optional (m 2) (k 1))
   (let* ((classes        (klasses tbl))
          (nclasses       (nklasses tbl))
@@ -17,7 +25,7 @@
              (tmp   (log prior)))
         (doitems (feature i one)
           (unless (= classi i)
-            (unless (unknownp feature)
+            (unless (ignorep feature)
               (let ((delta (/ (+ (f tbl class i feature)
                                  (* m prior))
                               (+ (f tbl class) m))))
@@ -26,3 +34,47 @@
           (setf like tmp
                 classification class))))
     classification))
+
+(defun stress-test-nb (&optional (repeats 1000))
+  (with-output-to-string (str)
+    (dotimes (i repeats t)
+      (random-test-nb1 0.2 str)))
+  t)
+
+  (defun make-weather (eg)
+    (data :name    'weather 
+	  :columns '(forecast temp humidity windy play)  
+	  :egs      eg))
+  
+(let 
+    ((egs     '((sunny    hot  high   FALSE skip) 
+		(sunny    hot  high   TRUE  skip)
+		(rainy    cool normal TRUE  skip)     
+		(sunny    mild high   FALSE skip)
+		(overcast cool normal TRUE  play)
+		(overcast hot  high   FALSE play)
+		(rainy    mild high   FALSE play)
+		(rainy    cool normal FALSE play)
+		(sunny    cool normal FALSE play)
+		(rainy    mild normal FALSE play)
+		(rainy    mild high   TRUE  skip)
+		(sunny    mild normal TRUE  play)
+		(overcast mild high   TRUE  play)
+		(overcast hot  normal FALSE play))))
+  
+  (defun random-test-nb1 (&optional (n 0.2) (str t))
+    (let* (train 
+	   test
+	   (k         (* n (length egs))))
+      (dolist (eg (shuffle egs))
+	(if (> k 0)
+	    (push eg test)
+	    (push eg train))
+	(decf k))
+      (nb (make-weather train)
+	  (make-weather test)
+	  :stream str)))
+  
+  (defun self-test-nb ()
+    (nb (make-weather egs) (make-weather egs)))
+ )

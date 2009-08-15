@@ -5,6 +5,7 @@
   class                     ; number          : which column is the header column?
   (cautions (make-caution)) ; list of caution : any load-time errors?
   all                       ; list of eg      : all the examples
+  indexed
 )
 
 (defun isa (row tbl)  (nth (table-class tbl) row))
@@ -23,7 +24,7 @@
   (discrete-uniques (table-class-header tbl)))
 
 (defun nklasses (tbl)
-  (1+ (legnth (klasses))))
+  (1+ (length (klasses tbl))))
 
 (defun egs (tbl)
   (table-all tbl))

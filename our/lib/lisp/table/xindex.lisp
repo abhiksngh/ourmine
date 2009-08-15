@@ -2,10 +2,13 @@
 ;;;; xindex runs over the data and populates the "counts" of each column header.
 ;; genrate the indexes
 (defun xindex (tbl)
-  (dolist (row (table-all tbl) tbl) ; for al rows do ...
-    (xindex1 (eg-class row) 
-	     (eg-features row) 
-	     (table-columns tbl))))
+  (unless (table-indexed tbl)
+    (setf (table-indexed tbl) t)
+    (dolist (row (table-all tbl) tbl) ; for al rows do ...
+      (xindex1 (eg-class row) 
+	       (eg-features row) 
+	       (table-columns tbl))))
+  tbl)
 
 (defun xindex1 (class datums columns) ; for all datum in a row do ...
   (mapc #'(lambda (column datum) 

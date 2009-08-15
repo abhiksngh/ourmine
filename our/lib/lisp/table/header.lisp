@@ -23,3 +23,6 @@
 (defun ignorep (x)
   (and (symbolp x)
        (equal (char (symbol-name x) 0) #\?)))
+
+(defun unknownp (x)
+  (ignorep x))
