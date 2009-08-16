@@ -30,8 +30,8 @@ tokes(){
 
 stops(){
     awk '  {
-         for(i=1;i<=NF;i++) {doc[i]=$i; max++}
-	 while (getline < "'$1'") stop[$1]=$0;}
+         for(i=1;i<=NF;i++) {doc[i]=$i; max++}}
+	 BEGIN{while (getline < "'$1'") stop[$1]=$0;}
          END{for(i=1;i<=max;i++)
                  if(!stop[doc[i]]) printf "%s ", doc[i]
 	 }'
