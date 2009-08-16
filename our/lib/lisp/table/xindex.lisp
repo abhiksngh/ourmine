@@ -148,11 +148,38 @@
 	     (rainy 71 91 TRUE no))))
 
 (deftest test-some-counts ()
-  (with-output-to-string (str)
-    (dolist (col (table-columns (xindex (make-some-weather-data))))
-      (format str "~%~a~%" (header-name col))
-      (showh (header-f col) :indent 10 :stream str))))  
+  (check
+    (samep 
+     (with-output-to-string (str)
+       (dolist (col (table-columns (xindex (make-some-weather-data))))
+	 (format str "~%~a~%" (header-name col))
+	 (showh (header-f col) :indent 10 :stream str)))
+    "
+    FORECAST
+          (NO RAINY) = 2
+          (NO SUNNY) = 3
+          (YES OVERCAST) = 4
+          (YES RAINY) = 3
+          (YES SUNNY) = 2
 
+    $TEMP
+          NO = #S(NORMAL :MAX 85 :MIN 65 :N 5 :SUM 373 :SUMSQ 28075)
+          YES = #S(NORMAL :MAX 83 :MIN 64 :N 9 :SUM 657 :SUMSQ 48265)
+
+    $HUMIDTY
+          NO = #S(NORMAL :MAX 95 :MIN 70 :N 5 :SUM 431 :SUMSQ 37531)
+          YES = #S(NORMAL :MAX 96 :MIN 65 :N 9 :SUM 712 :SUMSQ 57162)
+
+    WIND
+          (NO FALSE) = 2
+          (NO TRUE) = 3
+          (YES FALSE) = 6
+          (YES TRUE) = 3
+
+    PLAY
+          (NO NO) = 5
+          (YES YES) = 9")))
+    
 ;; e.g. query the structures
 
 (defun f (tbl &optional class index range)
