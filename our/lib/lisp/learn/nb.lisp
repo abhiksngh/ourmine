@@ -1,5 +1,4 @@
 (defun nb (train test &key (stream t))
-  "assumes tbl has been alrady trained"
   (let* ((acc 0)
 	(all  (table-all test))
 	(max  (length all)))
@@ -11,11 +10,19 @@
 	(format stream "~a ~a ~a ~a~%"  got want  
 		(round (* 100 (/ acc max)))
 		(if success "   " "<--"))))))
-	    
+
+(defun nb-simple (train test &key (stream t))
+  (xindex train)
+  (dolist (one (table-all test))
+    (let* ((got     (bayes-classify (eg-features one) train))
+	   (want    (eg-class one))
+	   (success (eql got want)))
+      (format stream "~a ~a ~a~%"  got want (if (eql got want) "   " "<--")))))
+
 (defun bayes-classify (one tbl &optional (m 2) (k 1))
   (let* ((classes        (klasses tbl))
          (nclasses       (nklasses tbl))
-         (n              (negs tbl))
+         (n              (f        tbl))
 	 (classi         (table-class tbl))
          (like           most-negative-fixnum)
          (classification (first classes)))
@@ -25,7 +32,7 @@
              (tmp   (log prior)))
         (doitems (feature i one)
           (unless (= classi i)
-            (unless (ignorep feature)
+            (unless (unknownp feature)
               (let ((delta (/ (+ (f tbl class i feature)
                                  (* m prior))
                               (+ (f tbl class) m))))
@@ -77,4 +84,9 @@
   (defun self-test-nb ()
     (nb (make-weather egs) 
 	(make-weather egs)))
+ 
+  (defun self-simple-test-nb ()
+    (nb-simple  (make-weather egs) 
+		(make-weather egs)))
+
  )
