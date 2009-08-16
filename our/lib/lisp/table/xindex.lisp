@@ -128,6 +128,31 @@
       (YES YES) = 3
      ")))
 
+(defun make-some-weather-data ()
+  (data
+   :name   'weather
+   :columns '(forecast $temp $humidty wind play)
+   :egs    '((sunny 85 85 FALSE no)
+	     (sunny 80 90 TRUE no)
+	     (overcast 83 86 FALSE yes)
+	     (rainy 70 96 FALSE yes)
+	     (rainy 68 80 FALSE yes)
+	     (rainy 65 70 TRUE no)
+	     (overcast 64 65 TRUE yes)
+	     (sunny 72 95 FALSE no)
+	     (sunny 69 70 FALSE yes)
+	     (rainy 75 80 FALSE yes)
+	     (sunny 75 70 TRUE yes)
+	     (overcast 72 90 TRUE yes)
+	     (overcast 81 75 FALSE yes)
+	     (rainy 71 91 TRUE no))))
+
+(deftest test-some-counts ()
+  (with-output-to-string (str)
+    (dolist (col (table-columns (xindex (make-some-weather-data))))
+      (format str "~%~a~%" (header-name col))
+      (showh (header-f col) :indent 10 :stream str))))  
+
 ;; e.g. query the structures
 
 (defun f (tbl &optional class index range)
