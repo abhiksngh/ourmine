@@ -1,7 +1,7 @@
 ; disable an irritating SBCL flag
 
 (defparameter *files* '(
-			"tests/deftest"
+			"tests/deftest"  ; must be loaded first
 			"tricks/lispfuns"
 			"tricks/macros"
 			"tricks/number"
@@ -11,6 +11,7 @@
 			"tricks/random"
 			"tricks/normal"
 			"tricks/caution"
+			"table/structs"
 			"table/header"
 			"table/data"
 			"table/table"
@@ -32,6 +33,5 @@
       (handler-bind 
 	  ((style-warning #'muffle-warning))
 	(make1 *files*))))
-  
 
 (make)

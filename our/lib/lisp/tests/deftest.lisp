@@ -1,6 +1,6 @@
 ; From Peter Seiblel's excellent text: http://gigamonkeys.com/book
-(defvar *test-name* nil)  
-(defvar *tests* nil)  
+(defparameter *test-name* nil)  
+(defparameter *tests* nil)  
 
 (defmacro deftest (name parameters &body body)
   `(progn
@@ -47,10 +47,10 @@
   )
 
 (defun tests ()
+  (make) 
+  (tests-reset) 
   (dolist (one *tests*)
-     (make) 
-     (tests-reset) 
-     (if (fboundp one)
-	 (funcall one)
-	 (format t "; unknown test: [~a]~%" one))
-     (tests-report)))
+    (if (fboundp one)
+	(funcall one)
+	(format t "; unknown test: [~a]~%" one)))
+  (tests-report))

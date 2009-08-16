@@ -1,8 +1,4 @@
 ;;;; columns isa list of header
-(defstruct header name classp ignorep 
-	   (f (make-hash-table :test #'equal)))
-(defstruct (numeric  (:include header)))
-(defstruct (discrete  (:include header)) uniques)
 
 (defun columns-new (cols klass)
   (let (tmp)

@@ -25,7 +25,13 @@
       (samep result
 	     "[A]=[TIM] [B]=[TOM]"))))
 
-;;;; list tricks
+;;;; iteration tricks
+
+(defmacro dohash ((key value hash &optional end) &body body)
+  `(progn (maphash #'(lambda (,key ,value) ,@body) ,hash)
+         ,end))
+
+
 (defmacro doitems ((one n list &optional out) &body body )
   `(let ((,n -1))
      (dolist (,one ,list ,out)  (incf ,n) ,@body)))

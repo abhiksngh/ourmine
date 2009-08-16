@@ -1,6 +1,7 @@
-(defmacro dohash ((key value hash &optional end) &body body)
-  `(progn (maphash #'(lambda (,key ,value) ,@body) ,hash)
-         ,end))
+(defmethod print-object ((h hash-table) str)
+  (format str "{hash of ~a items}" (hash-table-count h)))
+
+
 
 (defun showh (h &key
               (indent 0) (stream t) (before "") (after "")

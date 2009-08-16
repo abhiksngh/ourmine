@@ -1,6 +1,5 @@
 ;;;; the data function returns a table containing some egs
 
-(defstruct eg features class)
 
 (defun data (&key name columns egs  (klass -1))
   (let* (tmp-egs
@@ -63,32 +62,38 @@
                 :NAME FORECAST
                 :CLASSP NIL
                 :IGNOREP NIL
-                :F #<HASH-TABLE :TEST EQUAL :COUNT 0 {B044A29}>)
+                :F {hash of 0 items}
+                :UNIQUES (SUNNY))
              #S(DISCRETE
                 :NAME TEMP
                 :CLASSP NIL
                 :IGNOREP NIL
-                :F #<HASH-TABLE :TEST EQUAL :COUNT 0 {B044C79}>)
+                :F {hash of 0 items}
+                :UNIQUES (HOT))
              #S(DISCRETE
                 :NAME HUMIDTY
                 :CLASSP NIL
                 :IGNOREP NIL
-                :F #<HASH-TABLE :TEST EQUAL :COUNT 0 {B044EC9}>)
+                :F {hash of 0 items}
+                :UNIQUES (HIGH))
              #S(NUMERIC
                 :NAME $WINDY
                 :CLASSP NIL
                 :IGNOREP NIL
-                :F #<HASH-TABLE :TEST EQUAL :COUNT 0 {B04C141}>)
+                :F {hash of 0 items})
              #S(DISCRETE
                 :NAME PLAY
                 :CLASSP T
                 :IGNOREP NIL
-                :F #<HASH-TABLE :TEST EQUAL :COUNT 0 {B04C391}>))
+                :F {hash of 0 items}
+                :UNIQUES (YES NO)))
    :CLASS 4
-   :CAUTIONS #(CAUTION :ALL ((SUNNY HOT HIGH YES) wrong size) :PATIENCE 19)
+   :CAUTIONS #(CAUTION :ALL ((SUNNY HOT HIGH YES) wrong size
+                             TRUE is not a number
+                             FALSE is not a number) :PATIENCE 17)
    :ALL (#S(EG :FEATURES (SUNNY HOT HIGH TRUE YES) :CLASS YES)
-         #S(EG :FEATURES (SUNNY HOT HIGH FALSE NO) :CLASS NO)))
-")))
+         #S(EG :FEATURES (SUNNY HOT HIGH FALSE NO) :CLASS NO))
+   :INDEXED NIL)
+"
+)))
 
-(deftest test-xindex ()
-  (xindex (make-data1)))

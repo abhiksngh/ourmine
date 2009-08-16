@@ -34,7 +34,7 @@
     (labels 
 	((sorter (x y)  (< (car x) (car y)))
          (zap    ()     (setf out nil)
-		        ;(reset-seed) 
+		        (reset-seed) 
 		        (setf counts (make-hash-table)))
 	  (cache  (k v) (push (list k v) out)))
       (zap)

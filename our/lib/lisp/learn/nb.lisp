@@ -35,7 +35,7 @@
                 classification class))))
     classification))
 
-(defun stress-test-nb (&optional (repeats 1000))
+(defun stress-test-nb (&optional (repeats 10000))
   (with-output-to-string (str)
     (dotimes (i repeats t)
       (random-test-nb1 0.2 str)))
@@ -62,19 +62,19 @@
 		(overcast mild high   TRUE  play)
 		(overcast hot  normal FALSE play))))
   
-  (defun random-test-nb1 (&optional (n 0.2) (str t))
+  (defun random-test-nb1 (&optional (n 0.3) (str t))
     (let* (train 
 	   test
 	   (k         (* n (length egs))))
       (dolist (eg (shuffle egs))
-	(if (> k 0)
+	(if (> (decf k) 0)
 	    (push eg test)
-	    (push eg train))
-	(decf k))
+	    (push eg train)))
       (nb (make-weather train)
 	  (make-weather test)
 	  :stream str)))
   
   (defun self-test-nb ()
-    (nb (make-weather egs) (make-weather egs)))
+    (nb (make-weather egs) 
+	(make-weather egs)))
  )
