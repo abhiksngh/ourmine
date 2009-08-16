@@ -7,10 +7,10 @@
 # cat rank1.dat | gawk -f rank.awk   | sort -n
 #  time gawk -f rank.awk --source 'BEGIN{_stress(); exit}'
 
-    { Data[++Data[0]]=$1}
-END { rank(Data,Ranks)
-      for(I in Ranks) print I, Ranks[I] 
-}
+#    { Data[++Data[0]]=$1}
+#END { rank(Data,Ranks)
+#      for(I in Ranks) print I, Ranks[I] 
+#}
 function _stress(     n,r,i,data,ranks) {
     n=10000
     r=0.05
@@ -28,10 +28,10 @@ function rank(data,ranks,     starter,n,old,start,skipping,sum,i,r) {
 		if (skipping) {
 			sum += i 
 		} else {
-	        print "sum ",sum," i ",i," start ", start 
 	        r = sum/(i - start)
 			for(j=start;j<i;j++) 
 				ranks[data[j]] = r;
+	        print "sum ",sum," i ",i," start ", start , " data[j] " data[j] " = " r
 			start = i;
 			sum   = i;
 		}
@@ -41,14 +41,14 @@ function rank(data,ranks,     starter,n,old,start,skipping,sum,i,r) {
 		ranks[data[n]] = sum/(i - start)
 }
 
-function mwu(pop1,pop2,label1,labels2,win,loss,tie,up,conf) {
-	conf     = conf     ? conf  : 95
-	critical = conf==95 ? 1.960 : 2.576
-	for(i in pop1) data[++data[0]]=pop1[i]
-	for(i in pop2) data[++data[0]]=pop2[i]
+function mwu(pop1,labels1,pop2,labels2,win,loss,tie,up,critical,
+		    i,data,n,n1,n2,ranks,ranks1,ranks2,\
+			u1,u2,meanU,sdU,z,z1,z2) {
+	for(i in pop1) data[++n]=pop1[i]
+	for(i in pop2) data[++n]=pop2[i]
 	rank(data,ranks)
-	for(i in pop1) {n1++; sum1 += ranks1[pop[i]]}
-	for(i in pop2) {n2++; sum2 += ranks2[pop[i]]}
+	for(i in pop1) {n1++; sum1 += ranks1[i] = ranks[pop1[i]]}
+	for(i in pop2) {n2++; sum2 += ranks2[i] = ranks[pop2[i]]}
 	u1      = sum1 - n1*(n1 + 1)/2
 	u2      = sum2 - n2*(n2 + 1)/2
 	meanU   = n1*n2/2
@@ -56,6 +56,10 @@ function mwu(pop1,pop2,label1,labels2,win,loss,tie,up,conf) {
 	z1      = (u1 - meanU)/sdU
 	z2      = (u2 - meanU)/sdU
 	z       = z1 > z2 ? z1 : z2
+	ztest(z,critical,labels1,labels2,win,loss,tie,ranks1,n1,ranks2,n2)
+}
+function ztest(z,critical,labels1,labels2,win,loss,tie,ranks1,n1,ranks2,n2,\
+               median1,median2) {
 	if (z >= 0 && z <= critical) 
 		winLossTie(labels1,labels2,tie,tie)
 	 else {
@@ -72,6 +76,10 @@ function mwu(pop1,pop2,label1,labels2,win,loss,tie,up,conf) {
 	   }
     }
 }	
+function criticalValue(conf) {
+	conf     = conf     ? conf  : 95
+	return conf==95 ? 1.960 : 2.576
+}
 function winLossTie(l1,l2,a1,a2,i) {
 		for(i in l1) a1[i]++	
 		for(i in l2) a2[i]++	
@@ -82,3 +90,18 @@ function median(a,n) {
 	low = int(n/2) 
 	return oddp(size) ?  a[low+1] : (a[low] + a[low+1])/2
 }
+
+function mwuTest() {
+	split(" 1 4.6  	2 4.7 	3 4.9 "\
+          " 4 5.1  	6 5.2 	7 5.5 "\
+          " 7 5.8  	8 6.1 	9 6.5 "\
+          "10 6.5 	11 7.2       ", pop1,/[ \t]+/)
+	split(" 1 5.2  	2 5.3 	3 5.4 "\
+          " 4 5.6 	5 6.2 	6 6.3 "\
+		  " 7 6.8   8 7.7 	9 8.0 "\
+          "10 8.1              ", pop2,/[ \t]+/)
+	labels1["a"]
+	labels2["b"]
+	mwu(pop1,labels1,pop2,labels2,win,loss,time,1,criticalValue(95))
+}
+
