@@ -35,6 +35,16 @@ Files="
                 $Base/workers/worker_cluster_analysis.sh
                 $Base/workers/worker_reduce.sh
 		$Base/demos.sh		
+		$Base/demos1.sh		
+		$Base/demos2.sh		
+		$Base/demos3.sh		
+		$Base/demos4.sh		
+		$Base/demos5.sh		
+		$Base/demos6.sh		
+		$Base/demos7.sh		
+		$Base/demos8.sh		
+		$Base/demos9.sh		
+		$Base/demos10.sh		
 		"
 #load all from Files above
 
