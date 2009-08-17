@@ -4,104 +4,117 @@
 # takes about 1/8 th of a second to rank 10,000 numbers
 
 # demos
-# cat rank1.dat | gawk -f rank.awk   | sort -n
-#  time gawk -f rank.awk --source 'BEGIN{_stress(); exit}'
+# pgawk --dump-variables -f ranked.awk --source 'BEGIN {mwuTests()}'
 
-#    { Data[++Data[0]]=$1}
-#END { rank(Data,Ranks)
-#      for(I in Ranks) print I, Ranks[I] 
-#}
-function _stress(     n,r,i,data,ranks) {
-    n=10000
-    r=0.05
-    while(n--) data[++data[0]]=int(rand() / r) * r
-    rank(data,ranks)
-}
-function rank(data,ranks,     starter,n,old,start,skipping,sum,i,r) {
-	delete data[0]
-	starter="x";
-    n     = asort(data)
-	old   = starter
+function rank(data,ranks,     starter,n,old,start,skipping,sum,i,j,r) {
+    starter="someCraZYsymBOL";
+    n     = asort(data)    
+    old   = starter
     start = 1;
     for(i=1;i<=n;i++) {
-		skipping = (old == starter) || (data[i] == old);
-		if (skipping) {
-			sum += i 
-		} else {
-	        r = sum/(i - start)
-			for(j=start;j<i;j++) 
-				ranks[data[j]] = r;
-	        print "sum ",sum," i ",i," start ", start , " data[j] " data[j] " = " r
-			start = i;
-			sum   = i;
-		}
-		old=data[i]
+	skipping = (old == starter) || (data[i] == old);
+	if (skipping) {
+	    sum += i 
+	} else {
+	    r = sum/(i - start)
+	    for(j=start;j<i;j++) 
+		ranks[data[j]] = r;
+	    start = i;
+	    sum   = i;
 	}
-    if (skipping)
-		ranks[data[n]] = sum/(i - start)
-}
-
-function mwu(pop1,labels1,pop2,labels2,win,loss,tie,up,critical,
-		    i,data,n,n1,n2,ranks,ranks1,ranks2,\
-			u1,u2,meanU,sdU,z,z1,z2) {
-	for(i in pop1) data[++n]=pop1[i]
-	for(i in pop2) data[++n]=pop2[i]
-	rank(data,ranks)
-	for(i in pop1) {n1++; sum1 += ranks1[i] = ranks[pop1[i]]}
-	for(i in pop2) {n2++; sum2 += ranks2[i] = ranks[pop2[i]]}
-	u1      = sum1 - n1*(n1 + 1)/2
-	u2      = sum2 - n2*(n2 + 1)/2
-	meanU   = n1*n2/2
-	sdU     = (n1*n2*(n1+n2+1)/12)^0.5
-	z1      = (u1 - meanU)/sdU
-	z2      = (u2 - meanU)/sdU
-	z       = z1 > z2 ? z1 : z2
-	ztest(z,critical,labels1,labels2,win,loss,tie,ranks1,n1,ranks2,n2)
-}
-function ztest(z,critical,labels1,labels2,win,loss,tie,ranks1,n1,ranks2,n2,\
-               median1,median2) {
-	if (z >= 0 && z <= critical) 
-		winLossTie(labels1,labels2,tie,tie)
-	 else {
-		median1 = median(ranks1,n1)
-		median2 = median(ranks2,n2)
-		if (up)	 {
-			if (median1 > median2) 
-				 winLossTie(labels1,labels2,win ,loss)
-		    else winLossTie(labels1,labels2,loss,win )
-		} else {
-			if (median1 < median2) 
-				 winLossTie(labels1,labels2,win ,loss)
-		    else winLossTie(labels1,labels2,loss,win )
-	   }
+	old=data[i]
     }
-}	
+    if (skipping)
+	ranks[data[n]] = sum/(i - start)
+    else 
+	if (! (data[n] in ranks))
+	    ranks[data[n]] = r++
+}
+
+# debugged using the example at
+# http://faculty.vassar.edu/lowry/ch11a.html
+function mwu(x,pop1,pop2,up,critical,
+	     i,data,ranks,n,n1,sum1,ranks1,n2,sum2,ranks2,	\
+	     correction,meanU,sdU,z) {
+
+    for(i in pop1) data[++n]=pop1[i]
+    for(i in pop2) data[++n]=pop2[i]
+    rank(data,ranks)
+    for(i in pop1) {
+	n1++; 
+	sum1 += ranks1[i] = ranks[pop1[i]]
+    }
+    for(i in pop2) {
+	n2++; 
+	sum2 += ranks2[i] = ranks[pop2[i]]
+    }
+    meanU      = n1*(n1+n2+1)/2  # symmetric , so we just use pop1's z-value
+    sdU        = (n1*n2*(n1+n2+1)/12)^0.5
+    correction = sum1 > meanU ? -0.5 : 0.5  
+    z          = abs((sum1 - meanU + correction )/sdU)
+
+    if (z >= 0 && z <= critical) 
+	return 0
+    else if (up) 
+	return median(ranks1,n1) - median(ranks2,n2)
+    else 
+	return median(ranks2,n2) - median(ranks1,n1)	
+}
+
+function multiple(a,n,  i) { for (i in a) a[i] *= n }
+function abs(x)            { return x < 0 ? -1*x : x }	
+function oddp(n)           { return n % 2 }
+
 function criticalValue(conf) {
-	conf     = conf     ? conf  : 95
-	return conf==95 ? 1.960 : 2.576
+    conf = conf ? conf  : 95
+    if (conf==99) return 2.326
+    if (conf==95) return 1.960 
+    if (conf==90) return 1.645
 }
-function winLossTie(l1,l2,a1,a2,i) {
-		for(i in l1) a1[i]++	
-		for(i in l2) a2[i]++	
-}
-function oddp(n) { return n % 2 }
-
-function median(a,n) {
-	low = int(n/2) 
-	return oddp(size) ?  a[low+1] : (a[low] + a[low+1])/2
+function median(a,n,   low) {
+    low = int(n/2);
+    return oddp(n) ?  a[low+1] : (a[low] + a[low+1])/2
 }
 
-function mwuTest() {
-	split(" 1 4.6  	2 4.7 	3 4.9 "\
-          " 4 5.1  	6 5.2 	7 5.5 "\
-          " 7 5.8  	8 6.1 	9 6.5 "\
-          "10 6.5 	11 7.2       ", pop1,/[ \t]+/)
-	split(" 1 5.2  	2 5.3 	3 5.4 "\
-          " 4 5.6 	5 6.2 	6 6.3 "\
-		  " 7 6.8   8 7.7 	9 8.0 "\
-          "10 8.1              ", pop2,/[ \t]+/)
-	labels1["a"]
-	labels2["b"]
-	mwu(pop1,labels1,pop2,labels2,win,loss,time,1,criticalValue(95))
+#### testing
+function mwuTests() {
+    print "1,  1"; mwuTest(1,1)
+    print "0.5,1"; mwuTest(0.5,1)
+    print "2,  1"; mwuTest(2,1)
+    print "1,  0"; mwuTest(1,0)
+    print "0.5,0"; mwuTest(0.5,0)
+    print "2,  0"; mwuTest(2,0)
+}
+function mwuTest(mult,up,   pop1,pop2,out) {
+    up   = up   ? up   : 0
+    mult = mult ? mult : 1
+    s2a("1 4.6 2 4.7 3 4.9 "			\
+	"4 5.1 5 5.2 6 5.5 "			\
+	"7 5.8 8 6.1 9 6.5 "			\
+	"10 6.5 11 7.2",pop1)
+     
+    s2a("1 5.2 2 5.3 3 5.4 "			\
+	"4 5.6 5 6.2 6 6.3 "			\
+	"7 6.8 8 7.7 9 8.0 "			\
+	"10 8.1", pop2)
+    multiple(pop1,mult)
+    out = mwu("a",pop1,pop2,up,criticalValue(95))
+    if (out == 0)
+	print "tie"
+    else if (out > 0)
+	print "win for a"
+    else if (out < 0)
+	print "loss for a"
+}
+function s2a(s,a,    tmp,i,n) {
+    n=split(s,tmp)
+    for(i=1;i<n;i+=2 )
+	a[tmp[i]]=tmp[i+1]
+}
+function saya(a,str,pad,  i,com) {
+    pad = pad ? pad : ""
+    com="sort -n -k 2"
+    for(i in a ) print pad str "[ " i " ] = " a[i] | com
+    close(com)
 }
 
