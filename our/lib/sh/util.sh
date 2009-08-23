@@ -109,6 +109,19 @@ medians()    {
 		   print ""
 		}' Start=$start -
 }
+
+gotwant()    {  gawk '
+	BEGIN   {Unlog  = 0; 
+			 OFS    = ","       
+ 			 Ee     = 848456353 / 312129649;
+            }
+    NF == 3 { if (UnLog) { print Ee^$2 , Ee^$3   
+			  } else     { print $2,$3 }
+           }
+    NF == 4    { print $2 , $4 }
+' -
+}
+
 quartile() {
         gawk '
 BEGIN { FS = OFS = ","; # #

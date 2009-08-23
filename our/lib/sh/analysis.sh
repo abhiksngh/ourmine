@@ -5,7 +5,7 @@ analyzeClusterSimFile(){
 	local canopysimfile=$3
 	local outfile=$4
 	
-	echo "k,dataset,kmeans_intersim,kmeans_intrasim,genic_intersim,genic_intrasim,canopy_intersim,canopy_intrasim" > $outfile
+	echo "k,dataset,kmeans_intersim,kmeans_intrasim,genic_intersim,genic_intrasim,canopy_intersim,canopy_intrasim" > ~/tmp/tmpsim
  
 	for kmeans_line in `cat $kmeanssimfile`; do		
 		kmeans_intersim=`echo $kmeans_line | awk 'BEGIN{FS=",";}{print $4}'`	
@@ -30,7 +30,10 @@ analyzeClusterSimFile(){
 		genic_final_intrasim=`mult $genic_intrasim_div 100`
 		canopy_final_intrasim=`mult $canopy_intrasim_div 100`				
 
-		echo "$kmeans_k_and_dataset,0.0,100.0,$genic_final_intersim,$genic_final_intrasim,$canopy_final_intersim,$canopy_final_intrasim" >> $outfile		
+		echo "$kmeans_k_and_dataset,0.0,100.0,$genic_final_intersim,$genic_final_intrasim,$canopy_final_intersim,$canopy_final_intrasim" >> ~/tmp/tmpsim		
 		
 	done
+
+	cat ~/tmp/tmpsim | sort -t, -k1,1 -g | malign > $outfile
+	rm -rf ~/tmp/tmpsim
 }
