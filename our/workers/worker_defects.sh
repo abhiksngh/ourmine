@@ -39,8 +39,7 @@ for((run=1;run<=$runs;run++)); do
 		#learn on filtered within-company data
 		blabln "WCkNN"
 		rm -rf knn.arff
-		#$Clusterers -knn 10 test.arff train.arff knn.arff
-		java -Xmx2048M -jar $Java/KNN.jar test.arff train.arff 10 > knn.arff
+		$Clusterers -knn 10 test.arff train.arff knn.arff
 		$learner knn.arff test.arff | gotwant > produced.dat
 		for goal in $goals; do
 		    cat produced.dat |
@@ -68,8 +67,7 @@ for((run=1;run<=$runs;run++)); do
 		makeTrainCombined $combined > com.arff
 		cat com.arff |
 		logArff 0.0001 "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19" > logged.arff
-		#$Clusterers -knn 10 test.arff logged.arff knn.arff
-		java -jar -Xmx2048M $Java/KNN.jar test.arff logged.arff 10 > knn.arff
+		$Clusterers -knn 10 test.arff logged.arff knn.arff
 		$learner knn.arff test.arff | gotwant > produced.dat
 		for goal in $goals; do
 		    cat produced.dat |
