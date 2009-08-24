@@ -22,8 +22,13 @@ demo003() {
     demo002 | para 18 16
 }
 
+demo004(){
+    demo004worker
+}
+
 # run learners and perform analysis
 demo004worker(){
+
 local learners="nb j48"
 local data="$Data/discrete/iris.arff"
 local bins=10
@@ -34,14 +39,19 @@ cd $Tmp
 (echo "#data,run,bin,learner,goal,a,b,c,d,acc,pd,pf,prec,bal"
 for((run=1;run<=$runs;run++)); do
     for dat in $data; do
+
 	blab "data=`basename $dat`,run=$run" 
 	for((bin=1;bin<=$bins;bin++)); do
+
 	    rm -rf test.lisp test.arff train.lisp train.arff
 	    makeTrainAndTest $dat $bin $bin
 	    goals=`cat $dat | getClasses --brief`
+
 	    for learner in $learners; do
+
 		$learner train.arff test.arff | gotwant > produced.dat
 		for goal in $goals; do
+
 		    cat produced.dat | 
 		    abcd --prefix "`basename $dat`,$run,$bin,$learner,$goal" \
 			 --goal "$goal" \
@@ -54,8 +64,8 @@ for((run=1;run<=$runs;run++)); do
 done ) | malign | sort -t, -r -n -k 11,11 > $out
 
 less $out
-
 }
+
 
 
 #------------------CLUSTERERS----------------------
