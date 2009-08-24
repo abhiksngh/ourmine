@@ -11,8 +11,8 @@ cd $Tmp
 for((run=1;run<=$runs;run++)); do
     for dat in $datanames; do
 
-	combined=$Data/promise/combined/combined_$dat.arff
-	shared=$Data/promise/shared/shared_$dat.arff
+	combined=$Data/promise/combined_$dat.arff
+	shared=$Data/promise/shared_$dat.arff
 
 	blabln "data=$dat run=$run" 
 	for((bin=1;bin<=$bins;bin++)); do
