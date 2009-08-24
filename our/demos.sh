@@ -1,9 +1,9 @@
 # ----------------- LEARNERS-----------------
 #cats the first used dataset
-
 demo000(){
     cat $Data/discrete/weather.arff;
 }
+
 # naive bayes
 demo001() {
     local train=$Data/discrete/weather.arff
@@ -22,42 +22,41 @@ demo003() {
     demo002 | para 18 16
 }
 
-# logs
-demo004() {
-	for i in $Data/numeric/*; do
-		echo $i
-		cat $i | logArff 0.0001 "1,2,3,4" > $Tmp/`basename $i`
-		cat $Tmp/`basename $i`
+# run learners and perform analysis
+demo004worker(){
+local learners="nb j48"
+local data="$Data/discrete/iris.arff"
+local bins=10
+local runs=10
+local out=$Save/demo004-results.csv
+
+cd $Tmp
+(echo "#data,run,bin,learner,goal,a,b,c,d,acc,pd,pf,prec,bal"
+for((run=1;run<=$runs;run++)); do
+    for dat in $data; do
+	blab "data=`basename $dat`,run=$run" 
+	for((bin=1;bin<=$bins;bin++)); do
+	    rm -rf test.lisp test.arff train.lisp train.arff
+	    makeTrainAndTest $dat $bin $bin
+	    goals=`cat $dat | getClasses --brief`
+	    for learner in $learners; do
+		$learner train.arff test.arff | gotwant > produced.dat
+		for goal in $goals; do
+		    cat produced.dat | 
+		    abcd --prefix "`basename $dat`,$run,$bin,$learner,$goal" \
+			 --goal "$goal" \
+			 --decimals 1
+		done
+	    done
 	done
+	blabln
+    done
+done ) | malign | sort -t, -r -n -k 11,11 > $out
+
+less $out
+
 }
 
-# run learner/discretizer on all data
-demo005worker() {
-        local learner=$1
-        local report=$2
-        for i in $Data/discrete/*; do 
-                local what=`basename $i`
-                what=${what%.*}
-                (
-                echo -n "$what $learner raw "
-                $learner $i | para 1 $report 
-
-                echo -n "$what $learner discrete " 
-                discretizeViaFayyadIrani $i > $Tmp/tmp.arff
-                $learner $Tmp/tmp.arff | para 1 $report 
-
-                echo ""
-                ) | gawk '{gsub(/[ \t]+/,","); print}' | sort -t, -n -k 7
-        done 
-}
-demo005() {
-	(echo ""
-	echo "#data,learner,rx,TPrate,FPrate,Precision,Recall,F-Measure,ROCarea,class"
-	demo005worker j4810 10
-	demo005worker nb10  -3
-	) |
-	malign 
-}
 
 #------------------CLUSTERERS----------------------
 

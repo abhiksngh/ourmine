@@ -122,6 +122,93 @@ gotwant()    {  gawk '
 ' -
 }
 
+abcd() {
+	local goal="true|yes"
+	local before=""
+	local prefix=""
+	local decimals=2
+    while [ `echo $1 | grep "-"` ]; do
+       case $1 in
+		   	-d|--decimals) decimals=$2;;
+		   	-b|--before) before=$2;;
+		   	-p|--prefix) prefix=$2;;
+		   	-g|--goal)   goal=$2;;
+			*)           blabln "'"$1"' unknown\n usage abcd [options]"; 
+				         return 1;;
+       esac
+       shift 2
+    done
+	[  -n "$before" ] && printf $before
+	gawk '
+	BEGIN { 
+	     Decimals    = 3
+	     Got         = 1
+	     Want        = 2;
+		 Prefix      = "";
+	     True        = "true";  ## define symbol 1
+         A=B=C=D=0 ; 
+	     FS=OFS=","
+		 GoalPd = 1;
+		 GoalPf = 0;
+       }
+	function yes(s) {return s ~ Want   }
+	function no(s)  {return ( yes(s) ? 0 : 1 ) }
+	           { sub(/#.*/,"") }
+	/^[ \t]*$/ { next }
+	NF==2      { N++;
+	             Predicted=$Got;
+	             Actual=$Want;
+				 if (Predicted == Actual) Good++;
+	             if (no( Actual) && no( Predicted)) A++;
+	             if (yes(Actual) && no( Predicted)) B++;
+	             if (no( Actual) && yes(Predicted)) C++;
+	             if (yes(Actual) && yes(Predicted)) D++;
+				#print N,$0,A,B,C,D
+	           }
+	END  { 
+		OFMT        = "%." Decimals "f";
+		Balance=Precision=Accuracy=Pf=NotPf=Pd=0;
+		if (C+D > 0 )      Precision = D/(C+D);
+		if ((A+B+C+D) > 0)  Accuracy  = (A+D)/(A+B+C+D);
+		if (A+C > 0 )      Pf       = C/(A+C)
+		if (B+D > 0 )      Pd        = D/(B+D);
+		if (B+C+D > 0)     { # special case- everything misses
+			 Balance = 1 - sqrt((GoalPd - Pd)^2 + (GoalPf - Pf)^2)/sqrt(2)
+        }
+		if(Prefix) printf Txt=Prefix OFS;
+		print A,B,C,D,
+		      sprintf(OFMT,100*Accuracy),
+			  sprintf(OFMT,100*Pd),
+			  sprintf(OFMT,100*Pf),
+			  sprintf(OFMT,100*Precision),
+			  sprintf(OFMT,100*Balance);
+	}' Prefix="$prefix" Decimals="$decimals" True="$goal" -
+}
+
+getClasses() { 
+	local brief=0
+	while [ `echo $1 | grep "-"` ]; do
+		case $1 in
+			-b|--brief) brief=1;;
+			*)   blabln "'"$1"' unknown\n usage cat file | getClasses [options]"
+			     return 1;;
+    	esac
+		shift 1
+	done
+	gawk '
+   BEGIN      { OFS=FS=","
+                IGNORECASE=1 
+		        Brief=0	}
+              { gsub(/#.*/,"") } 
+   /^[ \t]*$/ { next          } 
+   Data  && NF > 1     { Freq[$NF]++ }
+   /@data/    { Data=1 } 
+   END        {
+  				 for(N in Freq) 
+					 if (Brief) { print N } else { print Freq[N],N }}
+   ' Brief=$brief - 
+}
+
 quartile() {
         gawk '
 BEGIN { FS = OFS = ","; # #
