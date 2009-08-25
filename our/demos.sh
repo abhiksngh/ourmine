@@ -61,7 +61,7 @@ demo004worker(){
 		done
 		blabln
 	    done
-	done ) | malign | sort -t, -r -n -k 11,11 > $out
+	done | sort -t, -r -n -k 11,11) | malign  > $out
     
     less $out
 }
