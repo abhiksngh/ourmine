@@ -151,7 +151,7 @@ abcd() {
 		 GoalPd = 1;
 		 GoalPf = 0;
        }
-	function yes(s) {return s ~ Want   }
+	function yes(s) {return s ~ True   }
 	function no(s)  {return ( yes(s) ? 0 : 1 ) }
 	           { sub(/#.*/,"") }
 	/^[ \t]*$/ { next }

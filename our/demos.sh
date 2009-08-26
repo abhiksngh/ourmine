@@ -32,7 +32,7 @@ demo004worker(){
     local learners="nb j48"
     local data="$Data/discrete/iris.arff"
     local bins=10
-    local runs=10
+    local runs=5
     local out=$Save/demo004-results.csv
     
     cd $Tmp
@@ -44,7 +44,7 @@ demo004worker(){
 		for((bin=1;bin<=$bins;bin++)); do
 		    
 		    rm -rf test.lisp test.arff train.lisp train.arff
-		    makeTrainAndTest $dat $bin $bin
+		    makeTrainAndTest $dat $bin $bin 
 		    goals=`cat $dat | getClasses --brief`
 		    
 		    for learner in $learners; do
