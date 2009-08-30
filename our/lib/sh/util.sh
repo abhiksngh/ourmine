@@ -255,6 +255,34 @@ function quart(min,q1,median,q3,max,width, scale,  i,l,str) {
 ' -
 }
 
+winLossTie() {
+	local fields=10
+	local key=1
+    local performance=$fields
+    local high=1
+    local confidence=95
+	local input="-"	
+	while [ `echo $1 | grep "-"` ]; do
+		case $1 in
+			-f|--fields)  fields=$2;      shift 2;;
+			--99)         confidence=99;  shift 1;;
+			--95)         confidence=95;  shift 1;;
+			-k|--key)     key=$2;         shift 2;;
+			-p|--perform) performance=$2; shift 2;;
+			--high)       high=1;         shift 1;;
+			--low)        high=0;         shift 1;;
+			-i|--input)   input=$2;       shift 2;;
+			*)   blabln "'"$1"' unknown\n. usage: winLossTie [options]"
+			     return 1;;
+    	esac
+	done
+	(echo "#key,ties,win,loss,win-loss"
+	gawk -f mwu.awk Fields=$fields Key=$key Performance=$performance \
+	                High=$high Confidence=$confidence $input |
+	sort -t, -r -n -k 5,5
+	) | malign
+
+}
 
 docsToSparff(){
 
