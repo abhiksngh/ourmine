@@ -1,7 +1,7 @@
 promiseDefectFilterExp(){
 
 local learners="nb"
-local datanames="KC1 CM1 KC1 KC2 KC3 MC2 MW1 PC1"
+local datanames="KC1 CM1 KC1 KC2"
 local bins=10
 local runs=10
 local out=$Save/defects.csv
@@ -41,8 +41,8 @@ for((run=1;run<=$runs;run++)); do
 		#learn on filtered within-company data
 		blabln "WCkNN"
 		rm -rf knn.arff
-		$Clusterers -knn 10 test_shared.arff train_shared.arff knn.arff
-		#java -jar $Java/KNN.jar test_shared.arff train_shared.arff 10 > knn.arff
+		#$Clusterers -knn 10 test_shared.arff train_shared.arff knn.arff
+		java -jar $Java/KNN.jar test_shared.arff train_shared.arff 10 > knn.arff
 		$learner knn.arff test_shared.arff | gotwant > produced.dat
 		for goal in $goals; do
 		    cat produced.dat |
@@ -71,8 +71,8 @@ for((run=1;run<=$runs;run++)); do
 		makeTrainCombined $combined > com.arff	
 		cat com.arff |
 		logArff 0.0001 "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19" > logged.arff
-		$Clusterers -knn 10 test_shared.arff logged.arff knn.arff
-		#java -jar $Java/KNN.jar test_shared.arff logged.arff 10 > knn.arff
+		#$Clusterers -knn 10 test_shared.arff logged.arff knn.arff
+		java -jar $Java/KNN.jar test_shared.arff logged.arff 10 > knn.arff
 		$learner knn.arff test_shared.arff | gotwant > produced.dat
 		for goal in $goals; do
 		    cat produced.dat |

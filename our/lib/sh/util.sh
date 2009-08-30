@@ -277,7 +277,7 @@ winLossTie() {
     	esac
 	done
 	(echo "#key,ties,win,loss,win-loss"
-	gawk -f mwu.awk Fields=$fields Key=$key Performance=$performance \
+	gawk -f $Awk/mwutmp.awk Fields=$fields Key=$key Performance=$performance \
 	                High=$high Confidence=$confidence $input |
 	sort -t, -r -n -k 5,5
 	) | malign
