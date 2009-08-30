@@ -17,16 +17,17 @@ public class KNN {
     private ArrayList<String[]> _trainInstances = new ArrayList<String[]>();
     private ArrayList<String> _attributes = new ArrayList<String>();
     private ArrayList<Cluster> _clusters = new ArrayList<Cluster>();
-    private ArrayList<TestTrainPair> _testTrainPair = new ArrayList<TestTrainPair>();
+    private Hashtable _testTrainPair = new Hashtable();
     private ArrayList<String[]> _finalInstances = new ArrayList<String[]>();
+    private ArrayList<Cluster> _finalClusters = new ArrayList<Cluster>();
     private Hashtable _clustersByCentroids = new Hashtable();
     private int _k;
-    
 
-    public KNN(ArrayList<String[]> testInstances, 
+
+    public KNN(ArrayList<String[]> testInstances,
             ArrayList<String[]> trainInstances,
             ArrayList<String> attributes,
-            String outFile, 
+            String outFile,
             String k)
     {
         this._testInstances=testInstances;
@@ -123,7 +124,7 @@ public class KNN {
 
             //cache this distance for later use
             TestTrainPair ttp = new TestTrainPair(indx,trainindx,oldDist);
-            _testTrainPair.add(ttp);
+            _testTrainPair.put(new Integer(trainindx),ttp);
 
        }
     }
@@ -133,22 +134,22 @@ public class KNN {
         ArrayList<Double> tmpDists = new ArrayList<Double>();
         ArrayList<TestTrainPair> tmpTtp = new ArrayList<TestTrainPair>();
         ArrayList<Integer> trainingIndices = new ArrayList<Integer>();
+        Hashtable tmpPair = new Hashtable();
 
         for(int clindx=0;clindx<_clusters.size();clindx++)
         {
+            if(_clusters.get(clindx).getMembers().size() < 1) {continue;}
+            
             for(int member=0;member<_clusters.get(clindx).getMembers().size();member++)
             {
-                for(TestTrainPair ttp : _testTrainPair)
-                {
-                    if(ttp.testIndx==clindx &&
-                       ttp.trainIndx==_trainInstances.indexOf(_clusters.get(clindx).getMembers().get(member)))
-                    {
-                        tmpDists.add(ttp.dist);
-                        tmpTtp.add(ttp);
-                        trainingIndices.add(ttp.trainIndx);
-                        break;
-                    }
-                }
+                TestTrainPair ttp = (TestTrainPair)
+                        _testTrainPair.get(_trainInstances.indexOf(_clusters.get(clindx).getMembers().get(member)));
+
+                Double dist = new Double(ttp.dist);
+                tmpDists.add(dist);
+                tmpTtp.add(ttp);
+                trainingIndices.add(ttp.trainIndx);
+                tmpPair.put(dist, ttp.trainIndx);
             }
 
             //sort by distances
@@ -163,34 +164,22 @@ public class KNN {
             //distances naturally go from small to large
             for(Double dist : tmpDists)
             {
-                found=false;
-
-                for(TestTrainPair pair : tmpTtp)
-                {
-                    if(!found)
-                    for(Integer trainindx : trainingIndices)
-                    {
-                        if(pair.testIndx==clindx &&
-                                pair.trainIndx==trainindx &&
-                                    pair.dist==dist)
-                        {
-                            cluster.getMembers().add(_trainInstances.get(trainindx));
-                            found=true;
-                            break;
-                        }
-                    }
-                }
+                String[] tmpinst = _trainInstances.get((Integer)tmpPair.get(dist));
+                cluster.getMembers().add(tmpinst);
             }
+
+            _finalClusters.add(cluster);
 
             tmpDists.clear();
             tmpTtp.clear();
             trainingIndices.clear();
+            tmpPair.clear();
         }
     }
 
     private void start()
     {
-        for(Cluster cluster : _clusters)
+        for(Cluster cluster : _finalClusters)
         {
             ArrayList<String[]> tmp = findKClosest(cluster);
             for(String[] inst : tmp)
@@ -225,15 +214,16 @@ public class KNN {
             {
                 //we're on a different cluster now, look to see the closest centroid
                String[] closest=(String[])_testChain.get(cluster.getCentroid());
+              
                cluster=getClusterByCentroid(closest);
 
                for(int i=0;i<cluster.getMembers().size();i++)
-               {
+               {                   
                    if(count < _k)
                    {
                        tmpInsts.add(cluster.getMembers().get(i));
                    }else break;
-                   
+
                    count++;
                }
             }
@@ -254,7 +244,7 @@ public class KNN {
         for(String[] inst : getFinalInstances())
         {
             if(!seen.contains(inst))
-            {   
+            {
                 seen.add(inst);
             }
         }
