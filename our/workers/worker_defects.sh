@@ -1,7 +1,7 @@
 promiseDefectFilterExp(){
 
 local learners="nb"
-local datanames="CM1 KC1 KC2 KC3 MC2 MW1 PC1"
+local datanames="KC1 CM1 KC1 KC2 KC3 MC2 MW1 PC1"
 local bins=10
 local runs=10
 local out=$Save/defects.csv
@@ -21,14 +21,16 @@ for((run=1;run<=$runs;run++)); do
 
 	    cat $shared | 
 	    logArff 0.0001 "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19" > logged.arff
-	    makeTrainAndTest logged.arff $bin $bin
+	    makeTrainAndTest logged.arff $bins $bin
 	    goals=`cat $shared | getClasses --brief`
 
+	    mv test.arff test_shared.arff; mv train.arff train_shared.arff;
+	    
 	    for learner in $learners; do
                 
 		#learn on within-company data
 		blabln "WC"
-		$learner train.arff test.arff | gotwant > produced.dat
+		$learner train_shared.arff test_shared.arff | gotwant > produced.dat
 		for goal in $goals; do
 		    cat produced.dat | 
 		    abcd --prefix "$dat,$run,$bin,WC,$learner,$goal" \
@@ -39,8 +41,9 @@ for((run=1;run<=$runs;run++)); do
 		#learn on filtered within-company data
 		blabln "WCkNN"
 		rm -rf knn.arff
-		$Clusterers -knn 10 test.arff train.arff knn.arff
-		$learner knn.arff test.arff | gotwant > produced.dat
+		$Clusterers -knn 10 test_shared.arff train_shared.arff knn.arff
+		#java -jar $Java/KNN.jar test_shared.arff train_shared.arff 10 > knn.arff
+		$learner knn.arff test_shared.arff | gotwant > produced.dat
 		for goal in $goals; do
 		    cat produced.dat |
 		    abcd --prefix "$dat,$run,$bin,WkNN,$learner,$goal" \
@@ -48,12 +51,13 @@ for((run=1;run<=$runs;run++)); do
 			--decimals 1  
 		done
 
+                
 		#learn on cross-company data
 		blabln "CC"
-		makeTrainCombined $combined > com.arff
+		makeTrainCombined $combined > com.arff	
 		cat com.arff |
 		logArff 0.0001 "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19" > logged.arff
-		$learner logged.arff test.arff | gotwant > produced.dat
+		$learner logged.arff test_shared.arff | gotwant > produced.dat
 		for goal in $goals; do
 		    cat produced.dat |
 		    abcd --prefix "$dat,$run,$bin,CC,$learner,$goal" \
@@ -64,15 +68,16 @@ for((run=1;run<=$runs;run++)); do
 		#learn on filtered cross-company data
 		blabln "CkNN"
 		rm -rf knn.arff
-		makeTrainCombined $combined > com.arff
+		makeTrainCombined $combined > com.arff	
 		cat com.arff |
 		logArff 0.0001 "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19" > logged.arff
-		$Clusterers -knn 10 test.arff logged.arff knn.arff
-		$learner knn.arff test.arff | gotwant > produced.dat
+		$Clusterers -knn 10 test_shared.arff logged.arff knn.arff
+		#java -jar $Java/KNN.jar test_shared.arff logged.arff 10 > knn.arff
+		$learner knn.arff test_shared.arff | gotwant > produced.dat
 		for goal in $goals; do
 		    cat produced.dat |
 		    abcd --prefix "$dat,$run,$bin,CkNN,$learner,$goal" \
-			--goal "$goal"
+			--goal "$goal" \
 		        --decimals 1
 		done
 	    done
