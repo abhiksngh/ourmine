@@ -1,0 +1,1489 @@
+@relation ap203v2_n1000_tfidf-weka.filters.unsupervised.instance.Normalize-N1.0-L1.0
+
+@attribute cartesian_point numeric
+@attribute type numeric
+@attribute oriented_edge numeric
+@attribute subtype numeric
+@attribute entity numeric
+@attribute label numeric
+@attribute sizeof numeric
+@attribute self numeric
+@attribute query numeric
+@attribute select numeric
+@attribute name numeric
+@attribute direction numeric
+@attribute edge_curve numeric
+@attribute where numeric
+@attribute wr1 numeric
+@attribute text numeric
+@attribute real numeric
+@attribute set numeric
+@attribute not numeric
+@attribute description numeric
+@attribute for numeric
+@attribute rule numeric
+@attribute items numeric
+@attribute b_spline_curve_with_knots numeric
+@attribute typeof numeric
+@attribute supertype numeric
+@attribute vertex_point numeric
+@attribute named_unit numeric
+@attribute product_definition_formation numeric
+@attribute integer numeric
+@attribute and numeric
+@attribute measure_with_unit numeric
+@attribute config_control_design numeric
+@attribute face_outer_bound numeric
+@attribute identifier numeric
+@attribute geometric_representation_item numeric
+@attribute edge_loop numeric
+@attribute ccda numeric
+@attribute vector numeric
+@attribute string numeric
+@attribute advanced_face numeric
+@attribute positive_length_measure numeric
+@attribute representation numeric
+@attribute optional numeric
+@attribute organization numeric
+@attribute oneof numeric
+@attribute assembly_component_usage numeric
+@attribute axis2_placement_3d numeric
+@attribute line numeric
+@attribute ccdta numeric
+@attribute cc_design_person_and_organization_assignment numeric
+@attribute usedin numeric
+@attribute topological_representation_item numeric
+@attribute cc_design_approval numeric
+@attribute person_and_organization numeric
+@attribute product_definition_relationship numeric
+@attribute abstract numeric
+@attribute surface numeric
+@attribute length_measure numeric
+@attribute dimensions numeric
+@attribute b_spline_surface_with_knots numeric
+@attribute ccdpoa numeric
+@attribute person_and_organization_role numeric
+@attribute list numeric
+@attribute representation_context numeric
+@attribute representation_item numeric
+@attribute parameter_value numeric
+@attribute b_spline_surface numeric
+@attribute date_and_time numeric
+@attribute elementary_surface numeric
+@attribute curve numeric
+@attribute b_spline_curve numeric
+@attribute vertex numeric
+@attribute approval numeric
+@attribute connected_face_set numeric
+@attribute role numeric
+@attribute product_definition numeric
+@attribute founded_item numeric
+@attribute certification_type numeric
+@attribute unique numeric
+@attribute contract_type numeric
+@attribute approval_status numeric
+@attribute local_time numeric
+@attribute definition numeric
+@attribute action numeric
+@attribute cc_design_date_and_time_assignment numeric
+@attribute point numeric
+@attribute date numeric
+@attribute versioned_action_request numeric
+@attribute radius numeric
+@attribute start_request numeric
+@attribute surface_curve numeric
+@attribute calendar_date numeric
+@attribute change_request numeric
+@attribute document numeric
+@attribute ur1 numeric
+@attribute solid_model numeric
+@attribute face_bound numeric
+@attribute contract numeric
+@attribute reversible_topology_item numeric
+@attribute product_context numeric
+@attribute enumeration numeric
+@attribute change numeric
+@attribute circle numeric
+@attribute date_time_role numeric
+@attribute application_context_element numeric
+@attribute supplied_part_relationship numeric
+@attribute plane numeric
+@attribute pcurve numeric
+@attribute effectivity numeric
+@attribute document_type numeric
+@attribute plane_angle_measure numeric
+@attribute closed_shell numeric
+@attribute person numeric
+@attribute approval_role numeric
+@attribute manifold_solid_brep numeric
+@attribute configuration_item numeric
+@attribute open_shell numeric
+@attribute security_classification numeric
+@attribute loop numeric
+@attribute pdf numeric
+@attribute purpose numeric
+@attribute approval_person_organization numeric
+@attribute unit_component numeric
+@attribute shape_aspect numeric
+@attribute executed_action numeric
+@attribute approval_date_time numeric
+@attribute dim numeric
+@attribute boolean numeric
+@attribute bounded_curve numeric
+@attribute shape_representation numeric
+@attribute work_item numeric
+@attribute parametric_representation_context numeric
+@attribute status numeric
+@attribute certification numeric
+@attribute security_classification_level numeric
+@attribute start_work numeric
+@attribute product numeric
+@attribute conic numeric
+@attribute property_definition numeric
+@attribute action_directive numeric
+@attribute edge numeric
+@attribute derive numeric
+@attribute product_category numeric
+@attribute basis_surface numeric
+@attribute orientation numeric
+@attribute product_definition_context numeric
+@attribute year_number numeric
+@attribute representation_relationship numeric
+@attribute face numeric
+@attribute approval_assignment numeric
+@attribute source numeric
+@attribute path numeric
+@attribute wr2 numeric
+@attribute action_assignment numeric
+@attribute transformation numeric
+@attribute next_assembly_usage_occurrence numeric
+@attribute action_method numeric
+@attribute boundary_curve numeric
+@attribute product_definition_shape numeric
+@attribute action_request_assignment numeric
+@attribute design_make_from_relationship numeric
+@attribute shape_definition numeric
+@attribute change_request_item numeric
+@attribute start_request_item numeric
+@attribute faceted_brep numeric
+@attribute vertex_loop numeric
+@attribute functionally_defined_transformation numeric
+@attribute day_in_month_number numeric
+@attribute unit numeric
+@attribute contracted_item numeric
+@attribute dimension_count numeric
+@attribute dimensional_exponents numeric
+@attribute promissory_usage_occurrence numeric
+@attribute characterized_product_definition numeric
+@attribute context_of_items numeric
+@attribute descriptive_measure numeric
+@attribute reference_to_curve numeric
+@attribute classified_item numeric
+@attribute frame_of_reference numeric
+@attribute cc_design_security_classification numeric
+@attribute certified_item numeric
+@attribute app numeric
+@attribute assigned_action numeric
+@attribute context_dependent_measure numeric
+@attribute application_context numeric
+@attribute edge_based_wireframe_model numeric
+@attribute specified_item numeric
+@attribute temp numeric
+@attribute date_time_select numeric
+@attribute cylindrical_surface numeric
+@attribute action_request_status numeric
+@attribute day_in_year_number numeric
+@attribute person_organization_select numeric
+@attribute geometric_set numeric
+@attribute product_related_product_category numeric
+@attribute uniform_curve numeric
+@attribute bezier_curve numeric
+@attribute quasi_uniform_curve numeric
+@attribute set_of_reversible_topology_item numeric
+@attribute volume_measure numeric
+@attribute solid_angle_measure numeric
+@attribute area_measure numeric
+@attribute mass_measure numeric
+@attribute product_definition_usage numeric
+@attribute security_classification_assignment numeric
+@attribute associated_geometry numeric
+@attribute swept_surface numeric
+@attribute scl numeric
+@attribute bezier_surface numeric
+@attribute quasi_uniform_surface numeric
+@attribute uniform_surface numeric
+@attribute list_of_reversible_topology_item numeric
+@attribute axis2_placement_2d numeric
+@attribute product_concept_context numeric
+@attribute connected_edge_set numeric
+@attribute shell_based_surface_model numeric
+@attribute outer_boundary_curve numeric
+@attribute kind numeric
+@attribute life_cycle_stage numeric
+@attribute product_definition_formation_with_specified_source numeric
+@attribute discipline_type numeric
+@attribute ars numeric
+@attribute prod numeric
+@attribute day_component numeric
+@attribute uncertainty_measure_with_unit numeric
+@attribute mechanical_context numeric
+@attribute length_measure_with_unit numeric
+@attribute ref_direction numeric
+@attribute shell numeric
+@attribute composite_curve_on_surface numeric
+@attribute vertex_shell numeric
+@attribute document_reference numeric
+@attribute usage numeric
+@attribute ast numeric
+@attribute design numeric
+@attribute characterized_definition numeric
+@attribute product_data_type numeric
+@attribute geometric_representation_context numeric
+@attribute hour_in_day numeric
+@attribute minute_in_hour numeric
+@attribute application_protocol_definition numeric
+@attribute count_measure numeric
+@attribute shell_based_wireframe_model numeric
+@attribute design_context numeric
+@attribute product_concept numeric
+@attribute contract_assignment numeric
+@attribute logical numeric
+@attribute certification_assignment numeric
+@attribute unspecified numeric
+@attribute segments numeric
+@attribute geometric_set_select numeric
+@attribute related_product_definition numeric
+@attribute apo numeric
+@attribute adt numeric
+@attribute edge_list numeric
+@attribute base numeric
+@attribute composite_curve numeric
+@attribute using_representations numeric
+@attribute number numeric
+@attribute coordinated_universal_time_offset numeric
+@attribute dtr numeric
+@attribute bounded_surface numeric
+@attribute day_in_week_number numeric
+@attribute week_in_year_number numeric
+@attribute axis2_placement numeric
+@attribute wire_shell numeric
+@attribute context_dependent_unit numeric
+@attribute trimming_select numeric
+@attribute month_in_year_number numeric
+@attribute surface_of_linear_extrusion numeric
+@attribute relating_product_definition numeric
+@attribute eff numeric
+@attribute configuration numeric
+@attribute focal_dist numeric
+@attribute shape_definition_representation numeric
+@attribute same_sense numeric
+@attribute degenerate_pcurve numeric
+@attribute definitional_representation numeric
+@attribute cert numeric
+@attribute exists numeric
+@attribute spherical_surface numeric
+@attribute of_product numeric
+@attribute products numeric
+@attribute shape_aspect_relationship numeric
+@attribute surface_model numeric
+@attribute dated_effectivity numeric
+@attribute cartesian_transformation_operator numeric
+@attribute lot_effectivity numeric
+@attribute geometric_curve_set numeric
+@attribute advanced_brep_shape_representation numeric
+@attribute value_component numeric
+@attribute positive_plane_angle_measure numeric
+@attribute ccdsc numeric
+@attribute action_request_solution numeric
+@attribute product_category_relationship numeric
+@attribute approved_item numeric
+@attribute curve_3d numeric
+@attribute toroidal_surface numeric
+@attribute param_length numeric
+@attribute inverse numeric
+@attribute serial_numbered_effectivity numeric
+@attribute cfs_faces numeric
+@attribute assigned_approval numeric
+@attribute boolean_operand numeric
+@attribute poly_loop numeric
+@attribute date_time numeric
+@attribute placement numeric
+@attribute units numeric
+@attribute polyline numeric
+@attribute oriented_closed_shell numeric
+@attribute second_in_minute numeric
+@attribute schema numeric
+@attribute date_and_time_assignment numeric
+@attribute application numeric
+@attribute person_and_organization_assignment numeric
+@attribute parent_curve numeric
+@attribute magnitude numeric
+@attribute address numeric
+@attribute mapped_item numeric
+@attribute dated_approval numeric
+@attribute chg numeric
+@attribute ahead_or_behind numeric
+@attribute elements numeric
+@attribute vector_or_direction numeric
+@attribute level numeric
+@attribute basis_curve numeric
+@attribute item_defined_transformation numeric
+@attribute outer numeric
+@attribute axis numeric
+@attribute cc_design_specification_reference numeric
+@attribute weights_data numeric
+@attribute rep_1 numeric
+@attribute rep_2 numeric
+@attribute property_definition_representation numeric
+@attribute used_representation numeric
+@attribute minor_radius numeric
+@attribute major_radius numeric
+@attribute assigned_request numeric
+@attribute make_or_buy numeric
+@attribute global_unit_assigned_context numeric
+@attribute coordinate_space_dimension numeric
+@attribute directed_action numeric
+@attribute closed_curve numeric
+@attribute the_person numeric
+@attribute the_organization numeric
+@attribute coordinates numeric
+@attribute person_organization numeric
+@attribute parent_surface numeric
+@attribute product_definition_effectivity numeric
+@attribute pcurve_or_surface numeric
+@attribute date_time_item numeric
+@attribute poar numeric
+@attribute wire_shell_extent numeric
+@attribute trimmed_curve numeric
+@attribute composite_curve_segment numeric
+@attribute person_organization_item numeric
+@attribute length_unit numeric
+@attribute plane_angle_unit numeric
+@attribute point_on_curve numeric
+@attribute week_of_year_and_day_date numeric
+@attribute market_segment_type numeric
+@attribute authorized_approval numeric
+@attribute apd numeric
+@attribute edge_end numeric
+@attribute edge_start numeric
+@attribute direction_ratios numeric
+@attribute transition_code numeric
+@attribute axis1_placement numeric
+@attribute extrusion_axis numeric
+@attribute evaluated_degenerate_pcurve numeric
+@attribute equivalent_point numeric
+@attribute face_surface numeric
+@attribute wireframe_model numeric
+@attribute conical_surface numeric
+@attribute request numeric
+@attribute bound numeric
+@attribute gri numeric
+@attribute assigned_security_classification numeric
+@attribute solid_angle_unit numeric
+@attribute bounded_surface_curve numeric
+@attribute date_component numeric
+@attribute time_component numeric
+@attribute tmp numeric
+@attribute brep_with_voids numeric
+@attribute conversion_based_unit numeric
+@attribute founded_item_select numeric
+@attribute parabola numeric
+@attribute assigned_document numeric
+@attribute vertex_geometry numeric
+@attribute rep numeric
+@attribute control_points_list numeric
+@attribute ebwm_boundary numeric
+@attribute wr3 numeric
+@attribute ces_edges numeric
+@attribute quantity numeric
+@attribute quantified_assembly_component_usage numeric
+@attribute prpc numeric
+@attribute nauo numeric
+@attribute dir numeric
+@attribute ellipse numeric
+@attribute hyperbola numeric
+@attribute vertex_shell_extent numeric
+@attribute document_with_class numeric
+@attribute class numeric
+@attribute security_level numeric
+@attribute prc numeric
+@attribute edge_element numeric
+@attribute plane_angle_measure_with_unit numeric
+@attribute bounded_pcurve numeric
+@attribute area_unit numeric
+@attribute volume_unit numeric
+@attribute mass_unit numeric
+@attribute bounds numeric
+@attribute rep_cntxt numeric
+@attribute offset_surface numeric
+@attribute loop_vertex numeric
+@attribute uncertainty numeric
+@attribute global_uncertainty_assigned_context numeric
+@attribute associated_surface numeric
+@attribute length_exponent numeric
+@attribute mass_exponent numeric
+@attribute thermodynamic_temperature_exponent numeric
+@attribute electric_current_exponent numeric
+@attribute luminous_intensity_exponent numeric
+@attribute time_exponent numeric
+@attribute amount_of_substance_exponent numeric
+@attribute documentation_ids numeric
+@attribute product_definition_with_associated_documents numeric
+@attribute point_on_surface numeric
+@attribute pdu numeric
+@attribute ccpoa numeric
+@attribute self_intersect numeric
+@attribute voids numeric
+@attribute act numeric
+@attribute assigned_contract numeric
+@attribute assigned_certification numeric
+@attribute solid_angle_measure_with_unit numeric
+@attribute year_component numeric
+@attribute mass_measure_with_unit numeric
+@attribute volume_measure_with_unit numeric
+@attribute area_measure_with_unit numeric
+@attribute guac numeric
+@attribute pnt numeric
+@attribute axis_position numeric
+@attribute substitute numeric
+@attribute mechanical numeric
+@attribute cc_design_contract numeric
+@attribute cc_design_certification numeric
+@attribute points numeric
+@attribute surface_of_revolution numeric
+@attribute represented_product_relation numeric
+@attribute behind numeric
+@attribute ahead numeric
+@attribute action_status numeric
+@attribute document_relationship numeric
+@attribute relating_document numeric
+@attribute parent_pt numeric
+@attribute position numeric
+@attribute sub_category numeric
+@attribute assigned_action_request numeric
+@attribute surface_replica numeric
+@attribute alternate numeric
+@attribute directive numeric
+@attribute supported_item numeric
+@attribute location numeric
+@attribute application_interpreted_model_schema_name numeric
+@attribute rectangular_composite_surface numeric
+@attribute discontinuous numeric
+@attribute configuration_effectivity numeric
+@attribute conversion_factor numeric
+@attribute curve_on_surface numeric
+@attribute distance numeric
+@attribute cartesian_transformation_operator_3d numeric
+@attribute assigned_date_and_time numeric
+@attribute assigned_person_and_organization numeric
+@attribute item_concept numeric
+@attribute upper_usage numeric
+@attribute chosen_method numeric
+@attribute trimming_preference numeric
+@attribute preferred_surface_curve_representation numeric
+@attribute pcurve_s2 numeric
+@attribute pcurve_s1 numeric
+@attribute dummy_gri numeric
+@attribute edge_geometry numeric
+@attribute method numeric
+@attribute curve_bounded_surface numeric
+@attribute upper_index_on_control_points numeric
+@attribute responsible_organizations numeric
+@attribute organizational_project numeric
+@attribute ordinal_date numeric
+@attribute point_replica numeric
+@attribute oriented_path numeric
+@attribute dependent_instantiable_shape_representation numeric
+@attribute part_supplier numeric
+@attribute design_supplier numeric
+@attribute polygon numeric
+@attribute face_geometry numeric
+@attribute acu numeric
+@attribute reversible_topology numeric
+@attribute point_parameter numeric
+@attribute dependent_instantiable_named_unit numeric
+@attribute cartesian numeric
+@attribute parameter numeric
+@attribute organizational_address numeric
+@attribute organizations numeric
+@attribute people numeric
+@attribute personal_address numeric
+@attribute configuration_design numeric
+@attribute dependent_instantiable_representation_item numeric
+@attribute knot_type numeric
+@attribute andor numeric
+@attribute version numeric
+@attribute wr4 numeric
+@attribute conditional_reverse numeric
+@attribute curve_replica numeric
+@attribute bought numeric
+@attribute made numeric
+@attribute not_known numeric
+@attribute dependent_instantiable_date numeric
+@attribute offset_curve_3d numeric
+@attribute mapping_source numeric
+@attribute shape_representation_relationship numeric
+@attribute start_date numeric
+@attribute spr numeric
+@attribute formation numeric
+@attribute mixed_loop_type_set numeric
+@attribute dmfr numeric
+@attribute effectivity_end_date numeric
+@attribute effectivity_start_date numeric
+@attribute dependent_instantiable_action_directive numeric
+@attribute effectivity_lot_id numeric
+@attribute effectivity_lot_size numeric
+@attribute subtype_mandatory_product_context numeric
+@attribute sbsm_boundary numeric
+@attribute sbwm_boundary numeric
+@attribute closed_shell_element numeric
+@attribute dependent_instantiable_document_type numeric
+@attribute dependent_instantiable_contract_type numeric
+@attribute dependent_instantiable_certification_type numeric
+@attribute reparametrised_composite_curve_segment numeric
+@attribute semi_imag_axis numeric
+@attribute semi_axis numeric
+@attribute semi_axis_1 numeric
+@attribute semi_axis_2 numeric
+@attribute consequence numeric
+@attribute cc_design_person_and_organization_correlation numeric
+@attribute cc_design_date_time_correlation numeric
+@attribute representation_map numeric
+@attribute trim_2 numeric
+@attribute trim_1 numeric
+@attribute rectangular_trimmed_surface numeric
+@attribute face_element numeric
+@attribute related_approval numeric
+@attribute relating_approval numeric
+@attribute approval_relationship numeric
+@attribute organization_relationship numeric
+@attribute relating_organization numeric
+@attribute related_organization numeric
+@attribute array numeric
+@attribute hiindex numeric
+@attribute open_shell_element numeric
+@attribute subject_element numeric
+@attribute document_usage_constraint numeric
+@attribute subject_element_value numeric
+@attribute pdr numeric
+@attribute path_element numeric
+@attribute effectivity_start_id numeric
+@attribute effectivity_end_id numeric
+@attribute of_shape numeric
+@attribute product_definitional numeric
+@attribute mapped_representation numeric
+@attribute constraints_geometry_shell_based_surface_model numeric
+@attribute context_elements numeric
+@attribute quasi_uniform_knots numeric
+@attribute piecewise_bezier_knots numeric
+@attribute uniform_knots numeric
+@attribute constraints_geometry_shell_based_wireframe_model numeric
+@attribute degenerate_toroidal_surface numeric
+@attribute select_outer numeric
+@attribute cont_same_gradient numeric
+@attribute continuous numeric
+@attribute cont_same_gradient_same_curvature numeric
+@attribute application_protocol_year numeric
+@attribute transform_item_2 numeric
+@attribute transform_item_1 numeric
+@attribute dependent_instantiable_security_classification_level numeric
+@attribute transition numeric
+@attribute item_in_context numeric
+@attribute oriented_face numeric
+@attribute unique_version_change_order_rule numeric
+@attribute si_unit numeric
+@attribute dependent_instantiable_date_time_role numeric
+@attribute dependent_instantiable_approval_status numeric
+@attribute semi_angle numeric
+@attribute product_definition_requires_approval numeric
+@attribute security_classification_requires_approval numeric
+@attribute mapping_origin numeric
+@attribute product_definition_requires_date_time numeric
+@attribute related_document numeric
+@attribute swept_curve numeric
+@attribute week_component numeric
+@attribute product_definition_requires_person_organization numeric
+@attribute security_classification_requires_person_organization numeric
+@attribute dependent_instantiable_person_and_organization_role numeric
+@attribute market_context numeric
+@attribute related_shape_aspect numeric
+@attribute relating_shape_aspect numeric
+@attribute subtype_mandatory_product_definition_formation numeric
+@attribute point_parameter_u numeric
+@attribute point_parameter_v numeric
+@attribute knot_multiplicities numeric
+@attribute upper_index_on_knots numeric
+@attribute specified_higher_usage_occurrence numeric
+@attribute geometrically_bounded_wireframe_shape_representation numeric
+@attribute restrict_certification_type numeric
+@attribute valid_measure_value numeric
+@attribute next_usage numeric
+@attribute unique_version_change_order numeric
+@attribute v_upper numeric
+@attribute u_upper numeric
+@attribute classification_date numeric
+@attribute declassification_date numeric
+@attribute measure_value numeric
+@attribute minute_offset numeric
+@attribute hour_offset numeric
+@attribute sense numeric
+@attribute configuration_item_requires_approval numeric
+@attribute start_request_requires_approval numeric
+@attribute contract_requires_approval numeric
+@attribute change_request_requires_approval numeric
+@attribute csh numeric
+@attribute start_work_requires_approval numeric
+@attribute fixed_price numeric
+@attribute cost_plus numeric
+@attribute restrict_contract_type numeric
+@attribute por numeric
+@attribute start_request_requires_date_time numeric
+@attribute change_request_requires_date_time numeric
+@attribute contract_requires_person_organization numeric
+@attribute start_request_requires_person_organization numeric
+@attribute configuration_item_requires_person_organization numeric
+@attribute b_spline_curve_form numeric
+@attribute axis3 numeric
+@attribute si_prefix numeric
+@attribute subtype_mandatory_representation numeric
+@attribute acyclic_surface_replica numeric
+@attribute knots numeric
+@attribute valid_calendar_date numeric
+@attribute bnds numeric
+@attribute month_component numeric
+@attribute approval_person_organization_constraints numeric
+@attribute approval_date_time_constraints numeric
+@attribute boundaries numeric
+@attribute coordinated_assembly_and_shape numeric
+@attribute reference_designator numeric
+@attribute master_representation numeric
+@attribute product_concept_requires_configuration_item numeric
+@attribute dependent_instantiable_parametric_representation_context numeric
+@attribute subtype_mandatory_representation_context numeric
+@attribute nvl numeric
+@attribute analysis numeric
+@attribute comment numeric
+@attribute context_type numeric
+@attribute context_identifier numeric
+@attribute acyclic_mapped_representation numeric
+@attribute mapping_target numeric
+@attribute subtype_mandatory_product_definition_usage numeric
+@attribute change_request_requires_person_organization numeric
+@attribute subtype_mandatory_action numeric
+@attribute product_requires_person_organization numeric
+@attribute hyperbolic_arc numeric
+@attribute parabolic_arc numeric
+@attribute polyline_form numeric
+@attribute circular_arc numeric
+@attribute elliptic_arc numeric
+@attribute scale numeric
+@attribute representation_relation numeric
+@attribute n_v numeric
+@attribute path_head_to_tail numeric
+@attribute product_version_requires_approval numeric
+@attribute assembly_shape_is_defined numeric
+@attribute intersection_curve numeric
+@attribute gsel numeric
+@attribute category numeric
+@attribute acyclic_product_category_relationship numeric
+@attribute approvals_are_assigned numeric
+@attribute oriented_open_shell numeric
+@attribute get_basis_surface numeric
+@attribute axis2 numeric
+@attribute requests numeric
+@attribute as_required_quantity numeric
+@attribute as_required numeric
+@attribute dimension_of numeric
+@attribute axis1 numeric
+@attribute representations_in_context numeric
+@attribute rolesof numeric
+@attribute implicit_outer numeric
+@attribute leap_year numeric
+@attribute edges numeric
+@attribute si_unit_name numeric
+@attribute change_requires_approval numeric
+@attribute effectivity_requires_approval numeric
+@attribute certification_requires_approval numeric
+@attribute product_version_requires_security_classification numeric
+@attribute first_name numeric
+@attribute last_name numeric
+@attribute certification_requires_date_time numeric
+@attribute surface_patch numeric
+@attribute approval_requires_approval_person_organization numeric
+@attribute approval_requires_approval_date_time numeric
+@attribute context_dependent_shape_representation numeric
+@attribute versioned_action_request_requires_status numeric
+@attribute product_requires_version numeric
+@attribute security_classification_requires_date_time numeric
+@attribute security_classification_optional_date_time numeric
+@attribute bag numeric
+@attribute versioned_action_request_requires_solution numeric
+@attribute fcs numeric
+@attribute customer_furnished_equipment numeric
+@attribute assembly numeric
+@attribute inseparable_assembly numeric
+@attribute detail numeric
+@attribute acu_requires_security_classification numeric
+@attribute prefix numeric
+@attribute build_2axes numeric
+@attribute transformation_operator numeric
+@attribute representation_relationship_with_transformation numeric
+@attribute gcs numeric
+@attribute elem numeric
+@attribute approved numeric
+@attribute withdrawn numeric
+@attribute restrict_approval_status numeric
+@attribute disapproved numeric
+@attribute not_yet_approved numeric
+@attribute zone numeric
+@attribute hour_component numeric
+@attribute start_work_requires_date_time numeric
+@attribute application_context_requires_ap_definition numeric
+@attribute no_shape_for_supplied_part numeric
+@attribute acyclic_product_definition_relationship numeric
+@attribute creator numeric
+@attribute msb numeric
+@attribute no_shape_for_make_from numeric
+@attribute elp_fbnds numeric
+@attribute constraints_composite_curve_on_surface numeric
+@attribute ebwm numeric
+@attribute geometric_representation_item_3d numeric
+@attribute acyclic_curve_replica numeric
+@attribute dimensions_for_si_unit numeric
+@attribute weights numeric
+@attribute acyclic_point_replica numeric
+@attribute using_rep numeric
+@attribute normalise numeric
+@attribute b_spline_surface_form numeric
+@attribute restrict_action_request_status numeric
+@attribute hold numeric
+@attribute proposed numeric
+@attribute issued numeric
+@attribute in_work numeric
+@attribute valid_time numeric
+@attribute second_component numeric
+@attribute minute_component numeric
+@attribute drawing numeric
+@attribute surface_finish_specification numeric
+@attribute restrict_document_type numeric
+@attribute cad_filename numeric
+@attribute design_specification numeric
+@attribute material_specification numeric
+@attribute process_specification numeric
+@attribute usense numeric
+@attribute vsense numeric
+@attribute restrict_security_classification_level numeric
+@attribute top_secret numeric
+@attribute unclassified numeric
+@attribute classified numeric
+@attribute confidential numeric
+@attribute proprietary numeric
+@attribute secret numeric
+@attribute axis_line numeric
+@attribute change_requires_date_time numeric
+@attribute seam_curve numeric
+@attribute constraints_param_b_spline numeric
+@attribute valid_units numeric
+@attribute sbwm numeric
+@attribute map_usage numeric
+@attribute list_to_array numeric
+@attribute rational_b_spline_curve numeric
+@attribute basis numeric
+@attribute alternate_product_relationship numeric
+@attribute wr5 numeric
+@attribute subtype_mandatory_effectivity numeric
+@attribute boolean_choose numeric
+@attribute sbsm numeric
+@attribute return numeric
+@attribute sdr numeric
+@attribute spherical_surf numeric
+@attribute ruled_surf numeric
+@attribute surf_of_linear_extrusion numeric
+@attribute plane_surf numeric
+@attribute cylindrical_surf numeric
+@attribute conical_surf numeric
+@attribute quadric_surf numeric
+@attribute generalised_cone numeric
+@attribute toroidal_surf numeric
+@attribute surf_of_revolution numeric
+@attribute u_knots numeric
+@attribute knot_u_upper numeric
+@attribute u_multiplicities numeric
+@attribute knot_v_upper numeric
+@attribute v_multiplicities numeric
+@attribute v_knots numeric
+@attribute using_curves numeric
+@attribute restrict_date_time_role numeric
+@attribute restrict_person_organization_role numeric
+@attribute degree numeric
+@attribute cfs numeric
+@attribute base_axis numeric
+@attribute design_context_for_property numeric
+@attribute n_segments numeric
+@attribute product_requires_product_category numeric
+@attribute knot_spec numeric
+@attribute manifold_surface_shape_representation numeric
+@attribute list_to_set numeric
+@attribute list_face_loops numeric
+@attribute end_if numeric
+@attribute then numeric
+@attribute release_date numeric
+@attribute contract_date numeric
+@attribute creation_date numeric
+@attribute certification_date numeric
+@attribute sign_off_date numeric
+@attribute request_date numeric
+@attribute 366 numeric
+@attribute 365 numeric
+@attribute wsb numeric
+@attribute contractor numeric
+@attribute classification_officer numeric
+@attribute configuration_manager numeric
+@attribute initiator numeric
+@attribute design_owner numeric
+@attribute request_recipient numeric
+@attribute assembly_component_usage_substitute numeric
+@attribute local_origin numeric
+@attribute n_u numeric
+@attribute constraints_rectangular_composite_surface numeric
+@attribute compatible_dimension numeric
+@attribute brv numeric
+@attribute make_array_of_array numeric
+@attribute curve_weights_positive numeric
+@attribute rational_b_spline_surface numeric
+@attribute document_to_product_definition numeric
+@attribute geometrically_bounded_surface_shape_representation numeric
+@attribute faceted_brep_shape_representation numeric
+@attribute wr6 numeric
+@attribute suffix_titles numeric
+@attribute prefix_titles numeric
+@attribute middle_names numeric
+@attribute using_surfaces numeric
+@attribute v_sense numeric
+@attribute u_sense numeric
+@attribute mega numeric
+@attribute femto numeric
+@attribute nano numeric
+@attribute exa numeric
+@attribute pico numeric
+@attribute micro numeric
+@attribute centi numeric
+@attribute giga numeric
+@attribute deci numeric
+@attribute deca numeric
+@attribute milli numeric
+@attribute atto numeric
+@attribute hecto numeric
+@attribute peta numeric
+@attribute kilo numeric
+@attribute tera numeric
+@attribute fbrep numeric
+@attribute control_points numeric
+@attribute edge_based_wireframe_shape_representation numeric
+@attribute restrict_product_category_value numeric
+@attribute rolled numeric
+@attribute cast numeric
+@attribute machined numeric
+@attribute forged numeric
+@attribute formed numeric
+@attribute sheared numeric
+@attribute molded numeric
+@attribute extruded numeric
+@attribute coined numeric
+@attribute drawn numeric
+@attribute u_transition numeric
+@attribute v_transition numeric
+@attribute product_version_requires_person_organization numeric
+@attribute sense_agreement numeric
+@attribute eloop numeric
+@attribute v_degree numeric
+@attribute u_degree numeric
+@attribute wr7 numeric
+@attribute global_unit_assignment numeric
+@attribute electronic_mail_address numeric
+@attribute internal_location numeric
+@attribute country numeric
+@attribute postal_box numeric
+@attribute street_number numeric
+@attribute telex_number numeric
+@attribute town numeric
+@attribute postal_code numeric
+@attribute street numeric
+@attribute region numeric
+@attribute facsimile_number numeric
+@attribute telephone_number numeric
+@attribute shell_based_wireframe_shape_representation numeric
+@attribute surface_weights_positive numeric
+@attribute msb_shells numeric
+@attribute subtype_mandatory_shape_representation numeric
+@attribute cross_product numeric
+@attribute curve_form numeric
+@attribute build_axes numeric
+@attribute mr_it numeric
+@attribute pascal numeric
+@attribute farad numeric
+@attribute gram numeric
+@attribute gray numeric
+@attribute lumen numeric
+@attribute siemens numeric
+@attribute tesla numeric
+@attribute sievert numeric
+@attribute hertz numeric
+@attribute newton numeric
+@attribute volt numeric
+@attribute henry numeric
+@attribute weber numeric
+@attribute ampere numeric
+@attribute ohm numeric
+@attribute mole numeric
+@attribute metre numeric
+@attribute lux numeric
+@attribute second numeric
+@attribute becquerel numeric
+@attribute radian numeric
+@attribute degree_celsius numeric
+@attribute coulomb numeric
+@attribute candela numeric
+@attribute steradian numeric
+@attribute watt numeric
+@attribute joule numeric
+@attribute kelvin numeric
+@attribute valid_wireframe_vertex_point numeric
+@attribute else numeric
+@attribute vlp_fbnds numeric
+@attribute crv numeric
+@attribute false numeric
+@attribute cnc numeric
+@attribute pline numeric
+@attribute pnts numeric
+@attribute u_closed numeric
+@attribute v_closed numeric
+@attribute surface_form numeric
+@attribute end_function numeric
+@attribute result numeric
+@attribute function numeric
+@attribute pline_edges numeric
+@attribute wr9 numeric
+@attribute wr8 numeric
+@attribute vloop numeric
+@attribute gbsf_check_curve numeric
+@attribute gbsf_check_surface numeric
+@attribute end_repeat numeric
+@attribute gbsf_check_point numeric
+@attribute repeat numeric
+@attribute true numeric
+@attribute end_local numeric
+@attribute local numeric
+@attribute valid_geometrically_bounded_wf_curve numeric
+@attribute sc_ag numeric
+@attribute bnd numeric
+@attribute valid_wireframe_edge_curve numeric
+@attribute valid_geometrically_bounded_wf_point numeric
+@attribute wr10 numeric
+@attribute the_reverse numeric
+@attribute f_sf numeric
+@attribute pline_el numeric
+@attribute mag numeric
+@attribute wr11 numeric
+@attribute wr13 numeric
+@attribute wr12 numeric
+@attribute arg numeric
+@attribute oe_cv numeric
+@attribute a_shell numeric
+@attribute res numeric
+@attribute an_item numeric
+@attribute surf numeric
+@attribute arg1 numeric
+@attribute derive_dimensional_exponents numeric
+@attribute msf_curve_check numeric
+@attribute vec numeric
+@attribute arg2 numeric
+@attribute msf_surface_check numeric
+@attribute generic numeric
+
+@data
+
+{0 0.017099,2 0.018385,11 0.025345,12 0.018261,23 0.019994,26 0.018385,32 0.012961,33 0.018637,36 0.018385,40 0.018765,44 0.018261,47 0.025345,50 0.017781,53 0.017549,54 0.01851,60 0.020743,62 0.01851,68 0.018385,73 0.018018,76 0.017321,81 0.01851,82 0.01851,85 0.017781,92 0.018637,103 0.028385,104 0.01851,112 0.018139,113 0.01851,114 0.018765,115 0.018261,118 0.017781,122 0.018385,126 0.018637,135 0.01851,137 0.017899,143 0.027763,159 0.018139,172 0.01851,180 0.018637,185 0.01851,195 0.018637,220 0.018765,225 0.018765,226 0.018765,227 0.020287,241 0.018765,244 0.018765,260 0.018765,275 0.018765,290 0.018894,295 0.028385,312 0.019026}
+{0 0.293856,2 0.099777,12 0.049553,23 0.054254,26 0.033259,32 0.002931,33 0.025286,36 0.024944,40 0.02546,44 0.028906,50 0.020104,53 0.011905,54 0.0293,60 0.028144,62 0.020928,68 0.020787,73 0.012223,76 0.003917,81 0.012557,82 0.020928,85 0.008042,92 0.021072,104 0.008371,112 0.004102,113 0.012557,114 0.01273,115 0.004129,118 0.004021,122 0.012472,126 0.012643,135 0.004186,137 0.004047,159 0.004102,172 0.008371,180 0.004214,185 0.004186,195 0.004214,220 0.004243,225 0.004243,226 0.004243,227 0.004588,241 0.004243,244 0.004243,260 0.004243,275 0.004243,290 0.004273,312 0.004302,408 0.004656}
+{6 0.073315,8 0.079561,13 0.023517,14 0.023517,18 0.037577,20 0.042773,21 0.044264,22 0.053929,37 0.186108,53 0.081654,93 0.201769,630 0.152018}
+{4 0.019841,5 0.068065,10 0.07048,15 0.079968,19 0.084569,44 0.106338,556 0.190246,557 0.190246,558 0.190246}
+{6 0.098729,8 0.05357,13 0.031668,14 0.031668,18 0.050603,20 0.0576,21 0.059607,51 0.109002,140 0.302838,530 0.204714}
+{4 0.041391,5 0.141991,10 0.147029,15 0.166821,19 0.176421,167 0.326346}
+{0 0.016507,2 0.017749,11 0.024468,12 0.01763,26 0.017749,32 0.012513,33 0.017992,36 0.017749,38 0.026803,40 0.018115,44 0.01763,47 0.024468,48 0.027099,50 0.017166,53 0.016941,54 0.01787,60 0.020026,62 0.01787,68 0.017749,73 0.017395,76 0.016722,81 0.01787,82 0.01787,85 0.017166,92 0.017992,103 0.027403,104 0.01787,112 0.017512,113 0.01787,114 0.018115,115 0.01763,118 0.017166,122 0.017749,126 0.017992,135 0.01787,137 0.01728,143 0.026803,159 0.017512,172 0.01787,180 0.017992,185 0.01787,195 0.017992,220 0.018115,225 0.018115,226 0.018115,227 0.019585,241 0.018115,244 0.018115,260 0.018115,275 0.018115,290 0.018241,295 0.027403,312 0.018367}
+{4 0.026959,5 0.092483,10 0.095764,15 0.108655,19 0.114907,83 0.154592,139 0.177129,236 0.229511}
+{3 0.002166,4 0.001404,6 0.045442,7 0.026874,8 0.070448,13 0.002082,14 0.002082,18 0.033273,22 0.033426,24 0.059095,32 0.04272,47 0.010442,70 0.006938,86 0.00805,130 0.006832,138 0.016894,153 0.005914,194 0.038237,289 0.053598,309 0.017866,319 0.034706,323 0.039825,393 0.007292,449 0.009559,458 0.010442,513 0.007564,521 0.008676,571 0.008933,614 0.018447,728 0.107685,729 0.107685,790 0.008676,854 0.008933,898 0.009224,951 0.023903,953 0.026921,954 0.026921,955 0.026921,974 0.011951,978 0.011951}
+{1 0.056397,101 0.112317,367 0.147174,468 0.147174,580 0.17898,581 0.17898,582 0.17898}
+{1 0.103097,7 0.18664,13 0.050614,14 0.050614,16 0.183864,30 0.134668,311 0.290503}
+{3 0.048099,4 0.031177,17 0.118201,22 0.106049,131 0.245815,136 0.204843,154 0.245815}
+{0 0.485876,2 0.089559,12 0.044478,23 0.048697,26 0.029853,32 0.001754,33 0.020174,36 0.019902,40 0.020313,44 0.017297,50 0.01203,53 0.007124,54 0.017533,60 0.022455,62 0.012523,68 0.012439,73 0.007314,76 0.002344,81 0.007514,82 0.012523,85 0.004812,92 0.012609,104 0.005009,112 0.002454,113 0.007514,114 0.007617,115 0.002471,118 0.002406,122 0.007463,126 0.007565,135 0.002505,137 0.002422,159 0.002454,172 0.005009,180 0.002522,185 0.002505,195 0.002522,220 0.002539,225 0.002539,226 0.002539,227 0.002745,241 0.002539,244 0.002539,260 0.002539,275 0.002539,290 0.002557,312 0.002574,408 0.002786}
+{0 0.017175,3 0.010561,4 0.006845,11 0.050916,13 0.010153,14 0.010153,16 0.073766,25 0.026739,35 0.031893,43 0.106663,142 0.031893,167 0.05397,208 0.107941,287 0.048547,473 0.05397,660 0.05397,676 0.131268,689 0.05397,694 0.05397,843 0.065634}
+{3 0.052234,4 0.033858,26 0.091342,35 0.157749,72 0.230547,86 0.194148,389 0.240121}
+{4 0.061993,5 0.212664,19 0.264229,80 0.461115}
+{6 0.103479,8 0.056147,13 0.033192,14 0.033192,18 0.053037,20 0.060371,21 0.062475,51 0.114247,65 0.269295,509 0.214564}
+{3 0.032323,4 0.020951,13 0.031077,14 0.031077,66 0.126066,299 0.401778,355 0.155841,540 0.200889}
+{1 0.127485,7 0.115395,13 0.062588,14 0.062588,111 0.299257,292 0.332688}
+{3 0.054197,4 0.03513,41 0.217118,69 0.201443,89 0.261302,281 0.230811}
+{6 0.05034,8 0.054628,10 0.038669,13 0.016147,14 0.016147,18 0.025801,20 0.029369,21 0.030392,22 0.037029,30 0.042962,49 0.207808,75 0.065502,85 0.056807,136 0.143048,523 0.080973,737 0.104379}
+{4 0.029754,25 0.116227,56 0.183897,88 0.195494,160 0.22132,460 0.253308}
+{3 0.010888,4 0.007058,7 0.038603,13 0.010469,14 0.010469,18 0.016728,30 0.111414,87 0.04491,192 0.060085,224 0.262486,438 0.111293,490 0.060085,698 0.12017,833 0.067672,834 0.067672}
+{4 0.024025,88 0.15785,157 0.178703,294 0.204531,375 0.204531,485 0.23036}
+{4 0.017387,5 0.059644,10 0.06176,15 0.070074,19 0.074106,34 0.090307,79 0.090307,95 0.095542,214 0.137083,245 0.137083,605 0.166708}
+{1 0.093507,9 0.130391,124 0.219497,159 0.08238,162 0.230208,284 0.244017}
+{0 0.117281,2 0.117097,11 0.186258,12 0.058155,26 0.040533,32 0.001588,33 0.027392,36 0.03603,38 0.054409,40 0.02758,44 0.002237,47 0.068294,48 0.055009,50 0.008711,53 0.002149,54 0.002267,62 0.009069,68 0.002252,73 0.002207,76 0.002122,81 0.002267,82 0.002267,85 0.004356,92 0.002283,97 0.013752,103 0.034767,104 0.004534,107 0.022419,112 0.002222,113 0.002267,114 0.002298,115 0.002237,118 0.002178,122 0.002252,126 0.002283,135 0.002267,137 0.002192,143 0.003401,159 0.002222,172 0.004534,180 0.002283,185 0.002267,190 0.015345,195 0.002283,220 0.002298,225 0.002298,226 0.002298,227 0.002485,241 0.002298,244 0.002298,260 0.002298,275 0.002298,281 0.010968,290 0.002314,295 0.003477,312 0.00233,408 0.002522}
+{4 0.021579,15 0.086971,19 0.091976,28 0.112083,34 0.112083,76 0.054849,146 0.16051,179 0.153042,525 0.206908}
+{4 0.018873,15 0.076066,17 0.071554,20 0.050917,105 0.133852,179 0.133852,185 0.051264,300 0.133852,314 0.148805,573 0.180964}
+{3 0.034773,4 0.022539,15 0.09084,17 0.085451,19 0.096067,44 0.060398,318 0.177707,504 0.216112,505 0.216112}
+{6 0.054721,8 0.059382,13 0.017552,14 0.017552,18 0.028046,20 0.031925,21 0.033037,88 0.155498,222 0.186599,294 0.201483,375 0.100741,717 0.113463}
+{0 0.016194,2 0.017413,11 0.024004,12 0.017296,23 0.018936,26 0.017413,32 0.012276,33 0.017651,36 0.017413,38 0.026295,40 0.017772,44 0.017296,47 0.024004,48 0.026585,50 0.016841,53 0.016621,54 0.017531,60 0.019647,62 0.017531,68 0.017413,73 0.017066,76 0.016405,81 0.017531,82 0.017531,85 0.016841,92 0.017651,103 0.026884,104 0.017531,112 0.01718,113 0.017531,114 0.017772,115 0.017296,118 0.016841,122 0.017413,126 0.017651,135 0.017531,137 0.016952,143 0.026295,159 0.01718,172 0.017531,180 0.017651,185 0.017531,195 0.017651,220 0.017772,225 0.017772,226 0.017772,227 0.019214,241 0.017772,244 0.017772,260 0.017772,275 0.017772,290 0.017895,295 0.026884,312 0.01802}
+{6 0.056308,8 0.061105,13 0.018061,14 0.018061,18 0.02886,20 0.032851,21 0.033996,73 0.064392,126 0.066602,182 0.192014,254 0.207329,320 0.103664,710 0.116755}
+{4 0.034358,5 0.117864,6 0.07944,7 0.093961,10 0.122046,13 0.050962,14 0.050962,65 0.206735,258 0.243672}
+{3 0.015524,4 0.010062,11 0.037423,13 0.014925,14 0.014925,30 0.039711,58 0.060546,70 0.099456,127 0.112902,228 0.149692,247 0.066112,326 0.149692,432 0.068518,472 0.085664,520 0.074846}
+{0 0.08011,3 0.049257,4 0.031928,277 0.226436,370 0.306135,371 0.306135}
+{0 0.443557,2 0.085057,12 0.042242,23 0.046249,26 0.02734,32 0.002142,33 0.021555,36 0.021264,40 0.021703,44 0.021121,50 0.01469,53 0.008699,54 0.021409,60 0.023992,62 0.015292,68 0.015189,73 0.008931,76 0.002862,81 0.009175,82 0.015292,85 0.005876,92 0.015397,104 0.006117,112 0.002997,113 0.009175,114 0.009301,115 0.003017,118 0.002938,122 0.009113,126 0.009238,135 0.003058,137 0.002957,159 0.002997,172 0.006117,180 0.003079,185 0.003058,195 0.003079,220 0.0031,225 0.0031,226 0.0031,227 0.003352,241 0.0031,244 0.0031,260 0.0031,275 0.0031,290 0.003122,312 0.003144,408 0.003402}
+{3 0.028875,4 0.018717,7 0.051186,13 0.027762,14 0.027762,24 0.060605,32 0.035597,91 0.231355,129 0.231355,297 0.139218,380 0.147569}
+{0 0.595447,2 0.094153,12 0.04676,23 0.051195,26 0.0306,32 0.00083,33 0.019088,36 0.018831,40 0.01922,44 0.008183,50 0.005691,53 0.00337,54 0.008294,60 0.021246,62 0.005925,68 0.005885,73 0.00346,76 0.001109,81 0.003555,82 0.005925,85 0.002276,92 0.005965,104 0.00237,112 0.001161,113 0.003555,114 0.003604,115 0.001169,118 0.001138,122 0.003531,126 0.003579,135 0.001185,137 0.001146,159 0.001161,172 0.00237,180 0.001193,185 0.001185,195 0.001193,220 0.001201,225 0.001201,226 0.001201,227 0.001299,241 0.001201,244 0.001201,260 0.001201,275 0.001201,290 0.00121,312 0.001218,408 0.001318}
+{1 0.109766,9 0.153063,68 0.098015,82 0.098682,87 0.231179,189 0.309295}
+{3 0.012266,4 0.00795,6 0.018382,13 0.011792,14 0.011792,22 0.081129,24 0.025744,32 0.015121,35 0.037042,42 0.136768,57 0.03929,70 0.03929,86 0.045589,127 0.044602,144 0.049137,153 0.033495,177 0.236545,277 0.056385,278 0.056385,393 0.041294}
+{4 0.024931,5 0.085524,10 0.088558,15 0.100479,19 0.106261,84 0.169762,157 0.18544,478 0.239044}
+{3 0.007836,4 0.005079,13 0.007533,14 0.007533,17 0.038511,24 0.065783,70 0.0251,128 0.027366,129 0.03139,153 0.021398,268 0.086476,326 0.037778,354 0.03337,479 0.043238,549 0.194793,550 0.194793,560 0.080088,656 0.043238,894 0.048698}
+{6 0.057434,8 0.062327,13 0.018422,14 0.018422,18 0.029437,20 0.033508,21 0.034675,22 0.042247,37 0.145794,53 0.063966,134 0.163207,279 0.211472,703 0.119089}
+{6 0.085865,8 0.04659,13 0.027542,14 0.027542,18 0.044009,20 0.050095,21 0.051841,51 0.0948,135 0.100871,208 0.292803,586 0.178041}
+{0 0.282763,2 0.101345,12 0.050332,23 0.055106,26 0.033782,32 0.002977,33 0.025683,36 0.025336,40 0.02586,44 0.02936,50 0.02042,53 0.012092,54 0.02976,60 0.028586,62 0.021257,68 0.021114,73 0.012415,76 0.003978,81 0.012754,82 0.021257,85 0.008168,92 0.021403,104 0.008503,112 0.004166,113 0.012754,114 0.01293,115 0.004194,118 0.004084,122 0.012668,126 0.012842,135 0.004251,137 0.004111,159 0.004166,172 0.008503,180 0.004281,185 0.004251,195 0.004281,220 0.00431,225 0.00431,226 0.00431,227 0.00466,241 0.00431,244 0.00431,260 0.00431,275 0.00431,290 0.00434,312 0.00437,408 0.004729}
+{3 0.092895,4 0.060213,55 0.372146,106 0.474746}
+{4 0.049063,5 0.168309,110 0.364941,237 0.417687}
+{1 0.209426,16 0.373491,58 0.417083}
+{6 0.071645,8 0.077748,13 0.022981,14 0.022981,18 0.036721,20 0.041799,21 0.043255,22 0.0527,50 0.08085,61 0.203591,90 0.197173,640 0.148556}
+{6 0.101901,8 0.055291,13 0.032686,14 0.032686,18 0.052228,20 0.05945,21 0.061522,51 0.112504,87 0.28044,519 0.211291}
+{0 0.553649,2 0.105943,12 0.052615,23 0.057606,26 0.035314,32 0.000889,33 0.020456,36 0.02018,40 0.020596,44 0.008769,50 0.006099,53 0.003612,54 0.008889,60 0.022768,62 0.006349,68 0.006306,73 0.003708,76 0.001188,81 0.003809,82 0.006349,85 0.00244,92 0.006392,104 0.00254,112 0.001244,113 0.003809,114 0.003862,115 0.001253,118 0.00122,122 0.003784,126 0.003835,135 0.00127,137 0.001228,159 0.001244,172 0.00254,180 0.001278,185 0.00127,195 0.001278,220 0.001287,225 0.001287,226 0.001287,227 0.001392,241 0.001287,244 0.001287,260 0.001287,275 0.001287,290 0.001296,312 0.001305,408 0.001412}
+{3 0.048412,4 0.03138,17 0.11897,22 0.106738,102 0.199675,131 0.247412,154 0.247412}
+{1 0.144272,9 0.201179,28 0.248025,170 0.406524}
+{1 0.128343,9 0.178967,11 0.157986,38 0.173063,324 0.36164}
+{6 0.03254,8 0.035312,13 0.020875,14 0.020875,18 0.033356,20 0.037968,21 0.039291,24 0.045571,32 0.026767,84 0.191662,342 0.110961,434 0.269883,669 0.134941}
+{3 0.043504,4 0.028199,7 0.077117,13 0.041827,14 0.041827,146 0.209749,219 0.240065,235 0.240065,244 0.077648}
+{0 0.403942,2 0.111231,12 0.055241,23 0.060481,26 0.037077,32 0.001867,33 0.024161,36 0.023835,40 0.024328,44 0.018414,50 0.012807,53 0.007584,54 0.018665,60 0.026893,62 0.013332,68 0.013242,73 0.007787,76 0.002495,81 0.007999,82 0.013332,85 0.005123,92 0.013423,104 0.005333,112 0.002613,113 0.007999,114 0.008109,115 0.002631,118 0.002561,122 0.007945,126 0.008054,135 0.002666,137 0.002578,159 0.002613,172 0.005333,180 0.002685,185 0.002666,195 0.002685,220 0.002703,225 0.002703,226 0.002703,227 0.002922,241 0.002703,244 0.002703,260 0.002703,275 0.002703,290 0.002722,312 0.002741,408 0.002966}
+{0 0.234673,2 0.10814,12 0.053706,23 0.058801,26 0.036047,32 0.003176,33 0.027405,36 0.027035,40 0.027593,44 0.031329,50 0.021789,53 0.012902,54 0.031755,60 0.030503,62 0.022682,68 0.022529,73 0.013248,76 0.004245,81 0.013609,82 0.022682,85 0.008716,92 0.022838,104 0.009073,112 0.004446,113 0.013609,114 0.013797,115 0.004476,118 0.004358,122 0.013517,126 0.013703,135 0.004536,137 0.004387,159 0.004446,172 0.009073,180 0.004568,185 0.004536,195 0.004568,220 0.004599,225 0.004599,226 0.004599,227 0.004972,241 0.004599,244 0.004599,260 0.004599,275 0.004599,290 0.004631,312 0.004663,408 0.005046}
+{3 0.006509,4 0.004219,6 0.019511,7 0.011539,8 0.021173,13 0.006258,14 0.006258,17 0.015997,18 0.020001,24 0.040987,30 0.016652,32 0.024074,57 0.020852,128 0.022735,144 0.10431,153 0.017776,158 0.029924,188 0.119696,217 0.066534,230 0.029924,262 0.055444,393 0.021915,486 0.029924,513 0.022735,653 0.143682,697 0.121369}
+{3 0.090362,4 0.058572,67 0.352429,211 0.498637}
+{0 0.017998,3 0.005533,4 0.003587,6 0.008293,7 0.039234,13 0.00532,14 0.00532,23 0.021045,24 0.046455,25 0.01401,29 0.037258,32 0.027286,45 0.016484,63 0.017454,71 0.021581,129 0.022167,142 0.016711,196 0.061068,197 0.061068,198 0.061068,247 0.04713,343 0.028278,391 0.080034,432 0.024422,487 0.080034,511 0.025437,559 0.025437,642 0.030534,786 0.028278,787 0.028278,815 0.028278,878 0.030534,917 0.03439}
+{6 0.03458,8 0.037526,13 0.022184,14 0.022184,18 0.035448,20 0.040349,21 0.041756,32 0.028445,156 0.179985,398 0.28681,654 0.143405,681 0.127326}
+{1 0.096364,9 0.134374,186 0.237241,243 0.226202,373 0.305819}
+{1 0.082261,101 0.163826,322 0.231791,452 0.261061,453 0.261061}
+{3 0.033711,4 0.021851,11 0.081266,13 0.032411,14 0.032411,35 0.101808,38 0.089022,58 0.131478,145 0.131478,317 0.344564}
+{0 0.016298,2 0.017524,11 0.024157,12 0.017406,26 0.017524,32 0.012354,33 0.017763,36 0.017524,40 0.017886,44 0.017406,47 0.024157,50 0.016948,53 0.016726,54 0.017643,62 0.017643,68 0.017524,73 0.017174,76 0.01651,81 0.017643,82 0.017643,85 0.016948,92 0.017763,97 0.026754,103 0.027055,104 0.017643,107 0.029077,112 0.017289,113 0.017643,114 0.017886,115 0.017406,118 0.016948,122 0.017524,126 0.017763,135 0.017643,137 0.01706,143 0.026462,159 0.017289,172 0.017643,180 0.017763,185 0.017643,190 0.029852,195 0.017763,220 0.017886,225 0.017886,226 0.017886,227 0.019337,241 0.017886,244 0.017886,260 0.017886,275 0.017886,290 0.018009,295 0.027055,312 0.018134}
+{1 0.130171,63 0.209663,99 0.320471,212 0.339695}
+{6 0.018418,8 0.019987,10 0.028297,13 0.011816,14 0.011816,18 0.01888,20 0.021491,21 0.02224,104 0.043274,261 0.135633,523 0.059253,621 0.062807,622 0.062807,813 0.076381,827 0.067817,828 0.067817,829 0.067817,830 0.067817,831 0.067817,832 0.067817}
+{6 0.057434,8 0.062327,13 0.018422,14 0.018422,18 0.029437,20 0.033508,21 0.034675,22 0.042247,37 0.145794,53 0.063966,109 0.163207,272 0.211472,702 0.119089}
+{3 0.006423,4 0.004163,7 0.034155,13 0.006175,14 0.006175,18 0.009867,24 0.01348,32 0.007918,46 0.050098,55 0.051459,79 0.021623,95 0.022877,153 0.017539,156 0.025049,173 0.032823,252 0.092896,271 0.092896,393 0.021623,477 0.239498,513 0.022431,613 0.035441,617 0.159665,790 0.025729}
+{3 0.050519,4 0.032746,5 0.112334,105 0.232238,214 0.258183,361 0.31398}
+{4 0.093468,5 0.320639,10 0.332015,62 0.253878}
+{4 0.018571,5 0.127415,133 0.131709,147 0.138136,185 0.050443,241 0.051137,314 0.146422,466 0.158101,583 0.178066}
+{1 0.148053,9 0.206452,27 0.280998,169 0.364497}
+{0 0.015474,2 0.016638,11 0.022936,12 0.016526,26 0.016638,32 0.011729,33 0.016866,36 0.016638,38 0.025125,40 0.016982,44 0.016526,47 0.022936,48 0.025403,50 0.016091,53 0.015881,54 0.016751,62 0.016751,68 0.016638,73 0.016306,76 0.015675,81 0.016751,82 0.016751,85 0.016091,92 0.016866,97 0.025403,103 0.025688,104 0.016751,107 0.027608,112 0.016416,113 0.016751,114 0.016982,115 0.016526,118 0.016091,122 0.016638,126 0.016866,135 0.016751,137 0.016198,143 0.025125,159 0.016416,172 0.016751,180 0.016866,185 0.016751,190 0.028344,195 0.016866,220 0.016982,225 0.016982,226 0.016982,227 0.01836,241 0.016982,244 0.016982,260 0.016982,275 0.016982,290 0.017099,295 0.025688,312 0.017218}
+{6 0.04263,8 0.046262,10 0.032747,13 0.013674,14 0.013674,18 0.02185,20 0.024871,21 0.025738,22 0.031358,30 0.036382,49 0.175983,75 0.05547,85 0.048108,102 0.117322,321 0.156966,523 0.068572,780 0.088394}
+{3 0.035322,4 0.022895,17 0.086802,25 0.089433,35 0.106674,194 0.155901,251 0.194913,289 0.145685,323 0.162375}
+{6 0.097291,8 0.05279,13 0.031207,14 0.031207,18 0.049866,20 0.056761,21 0.058739,51 0.107415,110 0.312991,537 0.201733}
+{3 0.092895,4 0.060213,64 0.372146,132 0.474746}
+{0 0.014052,2 0.015109,11 0.020829,12 0.015008,23 0.016431,26 0.015109,32 0.010652,33 0.015316,36 0.015109,38 0.022816,40 0.015421,44 0.015008,47 0.020829,48 0.023068,50 0.014613,53 0.014422,54 0.015212,60 0.017047,62 0.015212,68 0.015109,73 0.014808,76 0.014235,81 0.015212,82 0.015212,85 0.014613,92 0.015316,97 0.023068,103 0.023328,104 0.015212,112 0.014907,113 0.015212,114 0.015421,115 0.015008,118 0.014613,122 0.015109,126 0.015316,135 0.015212,137 0.01471,143 0.022816,159 0.014907,172 0.015212,180 0.015316,185 0.015212,195 0.015316,220 0.015421,225 0.015421,226 0.015421,227 0.016672,241 0.015421,244 0.015421,260 0.015421,275 0.015421,289 0.035636,290 0.015528,295 0.023328,312 0.015636,354 0.036796,614 0.036796}
+{1 0.071907,101 0.143207,297 0.177031,480 0.202618,481 0.202618,482 0.202618}
+{6 0.061723,8 0.066981,13 0.019798,14 0.019798,18 0.031635,20 0.03601,21 0.037265,22 0.045402,28 0.138657,37 0.156681,53 0.068743,120 0.189326,680 0.127982}
+{4 0.01857,5 0.063705,10 0.065965,15 0.074845,19 0.079152,65 0.223478,327 0.118166,584 0.178059,585 0.178059}
+{6 0.018172,8 0.01972,10 0.027918,13 0.011657,14 0.011657,18 0.018627,20 0.021203,21 0.021942,62 0.042695,494 0.058459,495 0.058459,636 0.150715,741 0.061966,814 0.075358,836 0.066908,837 0.066908,838 0.066908,839 0.066908,840 0.066908,841 0.066908}
+{6 0.073315,8 0.079561,13 0.023517,14 0.023517,18 0.037577,20 0.042773,21 0.044264,22 0.053929,37 0.186108,53 0.081654,98 0.201769,629 0.152018}
+{1 0.103785,7 0.187884,13 0.050952,14 0.050952,29 0.178421,30 0.135566,264 0.29244}
+{4 0.020506,15 0.082648,19 0.087404,28 0.106511,34 0.106511,79 0.106511,95 0.112687,137 0.05386,282 0.323361}
+{3 0.032899,4 0.021325,7 0.058319,13 0.031631,14 0.031631,17 0.080848,35 0.099357,216 0.135693,229 0.158619,534 0.168134,572 0.181545}
+{3 0.025228,4 0.016353,7 0.044721,13 0.024255,14 0.024255,18 0.038757,24 0.052951,32 0.031101,79 0.084936,83 0.18754,95 0.089861,139 0.214881,159 0.043527,162 0.121634}
+{4 0.006919,5 0.023737,10 0.024579,13 0.010263,14 0.010263,15 0.027888,46 0.083269,79 0.03594,83 0.039678,95 0.038023,153 0.029152,256 0.235627,271 0.102936,445 0.265382,842 0.066345}
+{6 0.064176,8 0.058036,13 0.006862,14 0.006862,18 0.021928,20 0.01248,21 0.012915,24 0.044938,30 0.036513,32 0.026395,153 0.01949,308 0.157532,340 0.118149,357 0.03441,358 0.03441,379 0.03441,442 0.266138,899 0.044356}
+{6 0.02178,8 0.023636,13 0.013973,14 0.013973,18 0.022327,20 0.025414,21 0.0263,110 0.140138,237 0.080196,763 0.090323,764 0.090323,765 0.090323,766 0.090323,767 0.090323,768 0.090323,769 0.090323}
+{4 0.03408,5 0.116909,10 0.121057,15 0.137353,19 0.145256,34 0.177011,43 0.177011,44 0.091323}
+{3 0.064896,4 0.042065,5 0.144301,10 0.149421,27 0.24121,267 0.358108}
+{3 0.027144,4 0.017594,7 0.048117,13 0.026097,14 0.026097,22 0.059847,24 0.056972,32 0.033463,108 0.206531,129 0.217483,177 0.130871,409 0.149786}
+{3 0.089506,4 0.058016,55 0.358568,161 0.493909}
+{0 0.14391,2 0.140623,11 0.201506,12 0.069839,23 0.001759,26 0.043444,32 0.000026,33 0.027906,36 0.033042,38 0.070212,40 0.028098,44 0.000037,47 0.068706,48 0.070986,50 0.000142,53 0.000035,54 0.000037,62 0.000148,68 0.000037,73 0.000036,76 0.000104,81 0.000037,82 0.000037,85 0.000071,92 0.000037,97 0.008417,103 0.034275,104 0.000074,107 0.022016,112 0.000073,113 0.000037,114 0.000038,115 0.000073,118 0.000036,122 0.000037,126 0.000037,130 0.000066,135 0.000037,137 0.000107,143 0.000111,156 0.000164,159 0.000181,172 0.000111,180 0.000037,185 0.000037,190 0.006261,195 0.000075,220 0.000113,225 0.000113,226 0.000113,241 0.000038,244 0.000075,260 0.000038,275 0.000113,290 0.000076,295 0.000113,298 0.000347,312 0.000038,327 0.000173,374 0.025242,408 0.000123,711 0.000173}
+{3 0.027596,4 0.017887,13 0.026531,14 0.026531,17 0.067815,18 0.042394,52 0.104984,119 0.113818,266 0.126858,353 0.304556,526 0.141029}
+{3 0.032572,4 0.021113,7 0.057738,13 0.031316,14 0.031316,24 0.068364,31 0.236889,32 0.040154,123 0.134342,411 0.16646,440 0.179737}
+{4 0.017385,5 0.059639,10 0.061755,15 0.070068,19 0.0741,124 0.246594,284 0.137071,606 0.166694,607 0.166694}
+{3 0.019519,4 0.012652,7 0.034601,11 0.09411,13 0.018767,14 0.018767,35 0.058949,43 0.065716,63 0.06157,127 0.070981,142 0.058949,213 0.099755,228 0.18822,307 0.089731,725 0.107712}
+{0 0.301601,2 0.115783,11 0.148791,12 0.057502,23 0.005335,26 0.033361,32 0.000346,33 0.025861,36 0.028455,38 0.060751,40 0.026038,44 0.000487,47 0.046666,48 0.061421,50 0.001898,53 0.000468,54 0.000494,60 0.004982,62 0.001976,68 0.000491,73 0.000481,76 0.000462,81 0.000494,82 0.000494,85 0.000949,92 0.000497,97 0.004494,103 0.019694,104 0.000988,107 0.023608,112 0.000484,113 0.000494,114 0.000501,115 0.000487,118 0.000474,122 0.000491,126 0.000497,135 0.000494,137 0.000478,143 0.000741,159 0.000484,172 0.000494,180 0.000497,185 0.000494,190 0.011701,195 0.000497,220 0.000501,225 0.000501,226 0.000501,241 0.000501,244 0.000501,260 0.000501,275 0.000501,290 0.000504,295 0.000757,312 0.000508,408 0.000549}
+{6 0.039934,8 0.021668,13 0.012809,14 0.012809,18 0.020468,20 0.023298,21 0.02411,24 0.055927,30 0.034081,32 0.065699,109 0.11348,272 0.220558,286 0.068089,288 0.068089,301 0.068089,469 0.068089,791 0.082804}
+{6 0.072108,8 0.078251,13 0.023129,14 0.023129,18 0.036958,20 0.042069,21 0.043535,22 0.053041,49 0.198447,85 0.081372,90 0.198447,637 0.149515}
+{1 0.12347,9 0.172172,55 0.252575,76 0.103873,174 0.347909}
+{0 0.212724,2 0.09357,12 0.04647,23 0.050878,26 0.03119,32 0.003665,33 0.026347,36 0.025992,40 0.026529,44 0.036144,50 0.025138,53 0.014885,54 0.036636,60 0.029326,62 0.026169,68 0.025992,73 0.015284,76 0.004898,81 0.015701,82 0.026169,85 0.010055,92 0.026347,104 0.010467,112 0.005129,113 0.015701,114 0.015917,115 0.005163,118 0.005028,122 0.015595,126 0.015808,135 0.005234,137 0.005061,159 0.005129,172 0.010467,180 0.005269,185 0.005234,195 0.005269,220 0.005306,225 0.005306,226 0.005306,227 0.005736,241 0.005306,244 0.005306,260 0.005306,275 0.005306,290 0.005342,312 0.00538,408 0.005822}
+{3 0.035303,4 0.022883,66 0.137687,70 0.113087,86 0.131217,326 0.170207,359 0.170207,500 0.219408}
+{0 0.002662,3 0.000546,4 0.000354,6 0.050692,7 0.014506,8 0.065658,12 0.00379,13 0.000525,14 0.000525,18 0.041906,22 0.019245,24 0.054962,26 0.005724,30 0.004187,32 0.050442,36 0.005724,40 0.009737,47 0.001315,48 0.001457,67 0.002128,69 0.002028,71 0.002128,74 0.023405,91 0.002186,108 0.002075,112 0.000941,117 0.002186,130 0.001721,138 0.002128,152 0.010928,153 0.00149,166 0.01204,207 0.002323,216 0.060754,255 0.011617,277 0.007524,302 0.025557,309 0.00225,310 0.002408,319 0.010928,359 0.007891,364 0.0045,365 0.0045,372 0.009294,376 0.021042,389 0.007524,393 0.001837,407 0.020063,413 0.019263,415 0.00263,416 0.005261,429 0.007891,461 0.00263,484 0.005016,497 0.005261,513 0.001905,515 0.00263,520 0.00263,521 0.004371,534 0.033457,571 0.0045,589 0.00263,649 0.044609,744 0.030105,790 0.002186,793 0.081375,816 0.074594,822 0.005016,854 0.00225,898 0.002323,919 0.006021,950 0.012042,963 0.00263,964 0.00263,979 0.002788,981 0.010172,984 0.00301,985 0.00301,986 0.00301,988 0.006781,995 0.00301,998 0.00301}
+{3 0.007744,4 0.00502,6 0.011606,7 0.027454,8 0.012594,11 0.018668,12 0.013451,13 0.007445,14 0.007445,18 0.011897,24 0.016253,25 0.019607,26 0.013542,32 0.009547,35 0.023387,38 0.02045,45 0.023069,57 0.024806,65 0.030203,70 0.024806,86 0.028783,96 0.037336,127 0.02816,142 0.023387,171 0.037336,175 0.031023,186 0.037336,194 0.03418,216 0.03194,238 0.032979,243 0.035599,258 0.035599,287 0.035599,305 0.037336,307 0.035599,372 0.032979,693 0.039576,752 0.096257}
+{1 0.106076,7 0.192033,13 0.052077,14 0.052077,29 0.182361,30 0.138559,239 0.276817}
+{4 0.029642,5 0.101685,10 0.105293,15 0.119467,118 0.077341,121 0.201842,135 0.080513,405 0.284216}
+{0 0.234673,2 0.10814,12 0.053706,23 0.058801,26 0.036047,32 0.003176,33 0.027405,36 0.027035,40 0.027593,44 0.031329,50 0.021789,53 0.012902,54 0.031755,60 0.030503,62 0.022682,68 0.022529,73 0.013248,76 0.004245,81 0.013609,82 0.022682,85 0.008716,92 0.022838,104 0.009073,112 0.004446,113 0.013609,114 0.013797,115 0.004476,118 0.004358,122 0.013517,126 0.013703,135 0.004536,137 0.004387,159 0.004446,172 0.009073,180 0.004568,185 0.004536,195 0.004568,220 0.004599,225 0.004599,226 0.004599,227 0.004972,241 0.004599,244 0.004599,260 0.004599,275 0.004599,290 0.004631,312 0.004663,408 0.005046}
+{0 0.015097,2 0.016233,11 0.022377,12 0.016123,23 0.017653,26 0.016233,32 0.011444,33 0.016455,36 0.016233,40 0.016568,44 0.016123,47 0.022377,50 0.015699,53 0.015494,54 0.016343,60 0.018315,62 0.016343,68 0.016233,73 0.015909,76 0.015293,81 0.016343,82 0.016343,85 0.015699,92 0.016455,97 0.024784,104 0.016343,112 0.016016,113 0.016343,114 0.016568,115 0.016123,118 0.015699,122 0.016233,126 0.016455,135 0.016343,137 0.015803,143 0.024513,159 0.016016,172 0.016343,180 0.016455,185 0.016343,195 0.016455,220 0.016568,225 0.016568,226 0.016568,227 0.017912,241 0.016568,244 0.016568,260 0.016568,275 0.016568,289 0.038286,290 0.016682,295 0.025062,312 0.016798,354 0.039532,614 0.039532}
+{4 0.021004,5 0.072054,10 0.07461,15 0.084654,19 0.089525,34 0.109097,55 0.129815,76 0.106774,252 0.156233,271 0.156233}
+{3 0.051489,4 0.033375,72 0.22726,119 0.212368,166 0.22726,416 0.248248}
+{3 0.046265,4 0.029988,31 0.168237,46 0.18044,395 0.287535,396 0.287535}
+{3 0.072683,4 0.047112,25 0.184028,35 0.219504,96 0.350428,115 0.126246}
+{3 0.035914,4 0.023279,7 0.063663,13 0.034529,14 0.034529,17 0.088257,22 0.079183,50 0.06074,315 0.183542,356 0.198182,546 0.198182}
+{4 0.018419,5 0.063187,10 0.065429,15 0.074237,19 0.078508,34 0.095672,79 0.095672,94 0.125424,95 0.101218,110 0.137008,218 0.145226}
+{3 0.052303,4 0.033902,17 0.128531,22 0.115317,178 0.288617,180 0.092714,205 0.288617}
+{1 0.080142,9 0.111754,112 0.070606,117 0.163943,229 0.197305,231 0.188125,266 0.188125}
+{3 0.101355,4 0.065697,52 0.385592,72 0.447355}
+{4 0.033191,25 0.129652,56 0.205138,73 0.087759,150 0.261693,303 0.282567}
+{3 0.023456,4 0.015204,25 0.059388,45 0.069874,70 0.075136,103 0.063328,138 0.091481,265 0.129432,387 0.119871,400 0.119871,401 0.119871,458 0.113088}
+{3 0.120967,4 0.078409,69 0.449621,107 0.351002}
+{3 0.027854,4 0.018055,13 0.02678,14 0.02678,58 0.108635,69 0.10353,89 0.268587,111 0.128045,374 0.118623,594 0.173113}
+{0 0.017825,2 0.019166,11 0.026421,12 0.019037,26 0.019166,32 0.013511,33 0.019428,36 0.019166,40 0.019562,44 0.019037,47 0.026421,50 0.018536,53 0.018294,54 0.019296,62 0.019296,68 0.019166,73 0.018784,76 0.018057,81 0.019296,82 0.019296,85 0.018536,92 0.019428,103 0.029591,104 0.019296,112 0.018909,113 0.019296,114 0.019562,115 0.019037,118 0.018536,122 0.019166,126 0.019428,135 0.019296,137 0.018659,143 0.028942,159 0.018909,172 0.019296,180 0.019428,185 0.019296,195 0.019428,220 0.019562,225 0.019562,226 0.019562,227 0.021149,241 0.019562,244 0.019562,260 0.019562,275 0.019562,290 0.019697,295 0.029591,312 0.019834}
+{3 0.032153,4 0.020841,41 0.257617,138 0.125403,401 0.164321,541 0.199833,542 0.199833}
+{2 0.049052,3 0.02805,4 0.018182,12 0.048722,25 0.071022,45 0.083562,52 0.106714,72 0.247613,141 0.115694,364 0.115694,365 0.115694}
+{3 0.090362,4 0.058572,71 0.352429,196 0.498637}
+{3 0.044124,4 0.028601,17 0.108433,52 0.167865,141 0.181991,215 0.2255,394 0.243486}
+{0 0.00534,2 0.007655,3 0.001094,4 0.000709,6 0.032803,8 0.037378,12 0.011405,13 0.001052,14 0.001052,18 0.026901,24 0.057425,26 0.011483,30 0.019597,32 0.047221,36 0.013396,40 0.001953,48 0.005844,67 0.004268,69 0.004068,71 0.008537,91 0.013153,97 0.005844,108 0.004163,138 0.008537,141 0.018055,152 0.021921,153 0.002989,166 0.019322,206 0.005031,207 0.027965,255 0.023304,309 0.027083,364 0.009028,365 0.009028,372 0.004661,376 0.084424,389 0.015093,393 0.003685,407 0.030186,413 0.038643,416 0.010553,449 0.009661,484 0.025155,492 0.005276,497 0.031659,513 0.003822,600 0.016779,649 0.078302,744 0.072469,790 0.004384,854 0.004514,898 0.004661,950 0.018117,963 0.005276,964 0.005276,975 0.013603,976 0.013603,979 0.005593}
+{3 0.006038,4 0.003914,7 0.010704,13 0.005805,14 0.005805,17 0.014839,18 0.009276,24 0.038021,25 0.015289,32 0.022332,45 0.017988,57 0.019343,63 0.019047,70 0.038686,91 0.02419,108 0.068916,127 0.021958,142 0.018236,144 0.02419,153 0.01649,206 0.083275,297 0.087339,350 0.030859,380 0.030859,393 0.020329,480 0.033321,481 0.033321,482 0.033321,511 0.027758,513 0.021089,656 0.099962,682 0.033321,688 0.030859,781 0.033321}
+{3 0.008124,4 0.005266,7 0.10081,13 0.007811,14 0.007811,27 0.241576,30 0.124694,59 0.227827,411 0.04152,420 0.033509,421 0.033509,422 0.033509,423 0.033509,424 0.033509,425 0.033509,426 0.033509}
+{3 0.011721,4 0.007597,6 0.052697,7 0.020777,8 0.019062,13 0.011269,14 0.011269,29 0.078922,63 0.073942,142 0.035397,153 0.032008,250 0.215524,262 0.049916,467 0.05651,678 0.129356,708 0.064678,844 0.064678,845 0.064678}
+{6 0.072837,8 0.079042,13 0.023363,14 0.023363,18 0.037332,20 0.042494,21 0.043975,22 0.053577,37 0.184893,53 0.081121,136 0.206977,632 0.151027}
+{4 0.029705,25 0.116032,56 0.183588,84 0.202269,154 0.234203,183 0.234203}
+{2 0.040403,3 0.023104,4 0.014976,7 0.040956,13 0.022213,14 0.022213,25 0.058499,36 0.040403,45 0.068828,52 0.087897,63 0.072878,79 0.077786,152 0.092558,255 0.098396,492 0.111394,679 0.127494}
+{3 0.018246,4 0.011827,6 0.027345,7 0.064686,13 0.017542,14 0.017542,17 0.044838,25 0.046197,57 0.058447,142 0.055103,144 0.146188,153 0.049826,158 0.083876,230 0.083876,257 0.080532,688 0.093246,745 0.100683}
+{3 0.030257,4 0.019612,25 0.076609,45 0.090135,57 0.096923,67 0.118007,262 0.128857,467 0.145879,486 0.139091,551 0.15463}
+{1 0.136493,17 0.171278,99 0.336036,199 0.356194}
+{0 0.46219,2 0.118838,12 0.05902,23 0.064618,26 0.039613,32 0.001269,33 0.023728,36 0.023408,40 0.023891,44 0.012519,50 0.008707,53 0.005156,54 0.01269,60 0.02641,62 0.009064,68 0.009003,73 0.005294,76 0.001696,81 0.005438,82 0.009064,85 0.003483,92 0.009126,104 0.003626,112 0.001777,113 0.005438,114 0.005513,115 0.001788,118 0.001741,122 0.005402,126 0.005476,135 0.001813,137 0.001753,159 0.001777,172 0.003626,180 0.001825,185 0.001813,195 0.001825,220 0.001838,225 0.001838,226 0.001838,227 0.001987,241 0.001838,244 0.001838,260 0.001838,275 0.001838,290 0.00185,312 0.001863,408 0.002016}
+{3 0.008728,4 0.005657,6 0.02616,13 0.008391,14 0.008391,23 0.016597,29 0.058767,63 0.055059,66 0.034039,71 0.034039,142 0.026358,153 0.023833,487 0.042079,510 0.044603,611 0.162726,612 0.162726,647 0.144481,782 0.044603,815 0.044603,821 0.04816}
+{1 0.077559,9 0.108152,99 0.190946,199 0.2024,212 0.2024,499 0.218543}
+{6 0.083906,8 0.045527,13 0.026914,14 0.026914,18 0.043005,20 0.048952,21 0.050658,51 0.092636,104 0.098569,261 0.308943,592 0.173978}
+{4 0.03133,73 0.082837,126 0.085679,189 0.266718,306 0.266718,320 0.266718}
+{1 0.14148,7 0.128063,13 0.069458,14 0.069458,29 0.243226,171 0.348315}
+{0 0.174345,2 0.134071,11 0.196705,12 0.066585,23 0.001041,26 0.036391,32 0.000084,33 0.031307,36 0.031363,38 0.073031,40 0.031522,44 0.000119,47 0.065018,48 0.073837,50 0.000463,53 0.000114,54 0.000121,60 0.001621,62 0.000482,68 0.00012,73 0.000117,76 0.000113,81 0.000121,82 0.000121,85 0.000232,92 0.000121,97 0.000731,103 0.027353,104 0.000241,107 0.034959,112 0.000118,113 0.000121,114 0.000122,115 0.000119,118 0.000116,122 0.00012,126 0.000121,135 0.000121,137 0.000117,143 0.000181,159 0.000118,172 0.000121,180 0.000121,185 0.000121,190 0.014275,195 0.000121,220 0.000122,225 0.000122,226 0.000122,241 0.000122,244 0.000122,260 0.000122,275 0.000122,290 0.000123,295 0.000185,312 0.000124,408 0.000134}
+{1 0.185425,16 0.330688,201 0.483887}
+{6 0.073315,8 0.079561,13 0.023517,14 0.023517,18 0.037577,20 0.042773,21 0.044264,22 0.053929,37 0.186108,53 0.081654,90 0.201769,628 0.152018}
+{0 0.234673,2 0.10814,12 0.053706,23 0.058801,26 0.036047,32 0.003176,33 0.027405,36 0.027035,40 0.027593,44 0.031329,50 0.021789,53 0.012902,54 0.031755,60 0.030503,62 0.022682,68 0.022529,73 0.013248,76 0.004245,81 0.013609,82 0.022682,85 0.008716,92 0.022838,104 0.009073,112 0.004446,113 0.013609,114 0.013797,115 0.004476,118 0.004358,122 0.013517,126 0.013703,135 0.004536,137 0.004387,159 0.004446,172 0.009073,180 0.004568,185 0.004536,195 0.004568,220 0.004599,225 0.004599,226 0.004599,227 0.004972,241 0.004599,244 0.004599,260 0.004599,275 0.004599,290 0.004631,312 0.004663,408 0.005046}
+{0 0.148217,2 0.14106,11 0.199586,12 0.070056,23 0.002221,26 0.043616,32 0.000051,33 0.027578,36 0.032457,38 0.069941,40 0.027767,44 0.000072,47 0.067869,48 0.070713,50 0.000282,53 0.00007,54 0.000073,62 0.000294,68 0.000073,73 0.000071,76 0.000069,81 0.000073,82 0.000073,85 0.000141,92 0.000074,97 0.008018,103 0.034233,104 0.000147,107 0.021421,112 0.000072,113 0.000073,114 0.000074,115 0.000072,118 0.000071,122 0.000073,126 0.000074,135 0.000073,137 0.000071,143 0.00011,159 0.000072,172 0.000073,180 0.000074,185 0.000073,190 0.006461,195 0.000074,220 0.000074,225 0.000074,226 0.000074,241 0.000074,244 0.000074,260 0.000074,275 0.000074,290 0.000075,295 0.000113,312 0.000075,374 0.025223,408 0.000082}
+{1 0.185425,16 0.330688,203 0.483887}
+{0 0.033476,6 0.061696,8 0.066953,11 0.04962,13 0.009895,14 0.009895,20 0.017997,21 0.018625,30 0.052654,64 0.04123,153 0.028105,238 0.131491,341 0.094623,346 0.056792,366 0.052597,560 0.105194,588 0.105194,846 0.063964}
+{4 0.028729,42 0.164742,83 0.164742,139 0.188759,334 0.226514,335 0.226514}
+{3 0.042628,4 0.027631,7 0.075564,13 0.040984,14 0.040984,100 0.195962,221 0.235229,226 0.076084,446 0.264934}
+{1 0.103785,7 0.187884,13 0.050952,14 0.050952,29 0.178421,30 0.135566,263 0.29244}
+{3 0.041559,4 0.026938,7 0.07367,13 0.039957,14 0.039957,158 0.191049,230 0.191049,257 0.183431,343 0.212391}
+{3 0.050254,4 0.032574,17 0.123496,115 0.087288,310 0.221806,384 0.242291,433 0.242291}
+{1 0.194902,16 0.347589,111 0.457509}
+{0 0.33497,2 0.113538,11 0.140866,12 0.056387,23 0.005488,26 0.0328,32 0.000222,33 0.024937,36 0.026492,38 0.060962,40 0.025108,44 0.000313,47 0.042608,48 0.061635,50 0.00122,53 0.000301,54 0.000318,60 0.005693,62 0.00127,68 0.000315,73 0.000309,76 0.000297,81 0.000318,82 0.000318,85 0.00061,92 0.00032,97 0.002889,103 0.01753,104 0.000635,107 0.023026,112 0.000311,113 0.000318,114 0.000322,115 0.000313,118 0.000305,122 0.000315,126 0.00032,135 0.000318,137 0.000307,143 0.000476,159 0.000311,172 0.000318,180 0.00032,185 0.000318,190 0.009671,195 0.00032,220 0.000322,225 0.000322,226 0.000322,241 0.000322,244 0.000322,260 0.000322,275 0.000322,290 0.000324,295 0.000487,312 0.000326,408 0.000353}
+{1 0.116517,9 0.162477,57 0.19059,108 0.22635,350 0.304066}
+{4 0.014393,5 0.049374,10 0.051125,15 0.174023,17 0.054567,19 0.061346,88 0.094564,140 0.102075,661 0.138002,662 0.138002,690 0.122529}
+{0 0.332505,2 0.131333,12 0.065225,23 0.071412,26 0.043778,32 0.001715,33 0.027119,36 0.026753,40 0.027306,44 0.01691,50 0.011761,53 0.006964,54 0.01714,60 0.030185,62 0.012243,68 0.01216,73 0.007151,76 0.002291,81 0.007346,82 0.012243,85 0.004704,92 0.012327,104 0.004897,112 0.0024,113 0.007346,114 0.007447,115 0.002416,118 0.002352,122 0.007296,126 0.007396,135 0.002449,137 0.002368,159 0.0024,172 0.009795,180 0.002465,185 0.002449,195 0.002465,220 0.002482,225 0.004965,226 0.002482,227 0.005367,241 0.002482,244 0.002482,260 0.002482,275 0.002482,289 0.005736,290 0.002499,312 0.002517,408 0.005447,522 0.006139,614 0.005923}
+{0 0.343114,2 0.131398,12 0.065257,23 0.071447,26 0.04043,32 0.001781,33 0.030738,36 0.030323,40 0.030949,44 0.017569,50 0.012219,53 0.007236,54 0.017809,60 0.034213,62 0.01272,68 0.012634,73 0.007429,76 0.002381,81 0.007632,82 0.01272,85 0.004888,92 0.012807,104 0.005088,112 0.002493,113 0.007632,114 0.007737,115 0.00251,118 0.002444,122 0.007581,126 0.007684,135 0.002544,137 0.00246,159 0.002493,172 0.005088,180 0.002561,185 0.002544,195 0.002561,220 0.002579,225 0.002579,226 0.002579,227 0.002788,241 0.002579,244 0.002579,260 0.002579,275 0.002579,290 0.002597,312 0.002615,408 0.00283}
+{6 0.054799,8 0.059468,10 0.042095,13 0.017577,14 0.017577,18 0.028087,20 0.031971,21 0.033085,22 0.040309,30 0.046768,49 0.226219,75 0.071305,85 0.06184,118 0.06184,621 0.093434,714 0.113626}
+{4 0.031295,68 0.084429,82 0.085004,87 0.199136,381 0.300068,382 0.300068}
+{3 0.034588,4 0.022419,13 0.033254,14 0.033254,58 0.134898,138 0.134898,274 0.429927,387 0.176763}
+{1 0.095312,9 0.132907,162 0.234651,174 0.268565,236 0.268565}
+{3 0.105837,4 0.068602,46 0.412781,156 0.412781}
+{1 0.126627,9 0.176575,44 0.112311,54 0.11384,113 0.11384,193 0.356806}
+{4 0.027115,5 0.093018,125 0.213787,133 0.192304,183 0.213787,454 0.259989}
+{3 0.164185,4 0.106422,33 0.29104,97 0.438353}
+{0 0.016507,2 0.017749,11 0.024468,12 0.01763,26 0.017749,32 0.012513,33 0.017992,36 0.017749,38 0.026803,40 0.018115,44 0.01763,47 0.024468,48 0.027099,50 0.017166,53 0.016941,54 0.01787,60 0.020026,62 0.01787,68 0.017749,73 0.017395,76 0.016722,81 0.01787,82 0.01787,85 0.017166,92 0.017992,103 0.027403,104 0.01787,112 0.017512,113 0.01787,114 0.018115,115 0.01763,118 0.017166,122 0.017749,126 0.017992,135 0.01787,137 0.01728,143 0.026803,159 0.017512,172 0.01787,180 0.017992,185 0.01787,195 0.017992,220 0.018115,225 0.018115,226 0.018115,227 0.019585,241 0.018115,244 0.018115,260 0.018115,275 0.018115,290 0.018241,295 0.027403,312 0.018367}
+{4 0.019314,5 0.066256,10 0.068606,15 0.077842,19 0.082321,124 0.136977,159 0.051409,247 0.126898,569 0.185189,570 0.185189}
+{4 0.039149,5 0.1343,10 0.139065,15 0.157785,19 0.166864,43 0.203343,143 0.159495}
+{3 0.038356,4 0.024862,25 0.097114,36 0.067073,45 0.114262,52 0.145919,119 0.158198,166 0.169291,305 0.184926}
+{6 0.05669,8 0.06152,13 0.018184,14 0.018184,18 0.029056,20 0.033074,21 0.034227,22 0.0417,49 0.156016,85 0.063974,134 0.161094,279 0.208735,707 0.117547}
+{0 0.52493,2 0.121567,12 0.060375,23 0.066102,26 0.041246,32 0.000765,33 0.022006,36 0.021708,40 0.022157,44 0.007547,50 0.005249,53 0.003108,54 0.00765,60 0.024493,62 0.005464,68 0.005427,73 0.003191,76 0.001023,81 0.003278,82 0.005464,85 0.0021,92 0.005501,104 0.002186,112 0.001071,113 0.003278,114 0.003324,115 0.001078,118 0.00105,122 0.003256,126 0.003301,135 0.001093,137 0.001057,159 0.001071,172 0.002186,180 0.0011,185 0.001093,195 0.0011,220 0.001108,225 0.001108,226 0.001108,227 0.001198,241 0.001108,244 0.001108,260 0.001108,275 0.001108,290 0.001115,312 0.001123,408 0.001216}
+{0 0.318814,2 0.118661,12 0.058931,23 0.064521,26 0.039554,32 0.002324,33 0.02673,36 0.026369,40 0.026914,44 0.022918,50 0.015939,53 0.009438,54 0.02323,60 0.029752,62 0.016593,68 0.016481,73 0.009691,76 0.003105,81 0.009956,82 0.016593,85 0.006376,92 0.016706,104 0.006637,112 0.003252,113 0.009956,114 0.010093,115 0.003274,118 0.003188,122 0.009888,126 0.010024,135 0.003319,137 0.003209,159 0.003252,172 0.006637,180 0.003341,185 0.003319,195 0.003341,220 0.003364,225 0.003364,226 0.003364,227 0.003637,241 0.003364,244 0.003364,260 0.003364,275 0.003364,290 0.003387,312 0.003411,408 0.003691}
+{4 0.024994,25 0.097633,54 0.06789,56 0.154478,62 0.06789,75 0.150393,315 0.197066,475 0.239655}
+{3 0.008124,4 0.005266,7 0.10081,13 0.007811,14 0.007811,27 0.241576,30 0.124694,59 0.227827,410 0.04152,420 0.033509,421 0.033509,422 0.033509,423 0.033509,424 0.033509,425 0.033509,426 0.033509}
+{3 0.090362,4 0.058572,67 0.352429,209 0.498637}
+{0 0.234673,2 0.10814,12 0.053706,23 0.058801,26 0.036047,32 0.003176,33 0.027405,36 0.027035,40 0.027593,44 0.031329,50 0.021789,53 0.012902,54 0.031755,60 0.030503,62 0.022682,68 0.022529,73 0.013248,76 0.004245,81 0.013609,82 0.022682,85 0.008716,92 0.022838,104 0.009073,112 0.004446,113 0.013609,114 0.013797,115 0.004476,118 0.004358,122 0.013517,126 0.013703,135 0.004536,137 0.004387,159 0.004446,172 0.009073,180 0.004568,185 0.004536,195 0.004568,220 0.004599,225 0.004599,226 0.004599,227 0.004972,241 0.004599,244 0.004599,260 0.004599,275 0.004599,290 0.004631,312 0.004663,408 0.005046}
+{3 0.03284,4 0.021286,31 0.11942,34 0.110563,109 0.139857,288 0.167831,531 0.204101,532 0.204101}
+{3 0.014238,4 0.009229,38 0.037599,48 0.076027,70 0.045609,142 0.042999,207 0.060636,368 0.072764,444 0.265469,450 0.072764,465 0.068646,483 0.145529,779 0.08849}
+{3 0.042442,4 0.02751,17 0.104298,22 0.093575,181 0.2342,248 0.2342,448 0.263775}
+{6 0.047653,8 0.051713,10 0.036606,13 0.007643,14 0.007643,18 0.024424,20 0.013901,21 0.014385,22 0.035053,28 0.080288,30 0.040669,50 0.040332,61 0.203123,75 0.062007,120 0.146171,153 0.021708,494 0.038326,495 0.038326,741 0.040625,893 0.049405}
+{4 0.022142,5 0.075958,25 0.086492,56 0.13685,94 0.150775,151 0.164699,232 0.174579,388 0.188504}
+{1 0.103785,7 0.187884,13 0.050952,14 0.050952,29 0.178421,30 0.135566,269 0.29244}
+{0 0.08313,3 0.051114,4 0.033131,58 0.199354,63 0.161228,86 0.189985,346 0.282057}
+{1 0.185425,16 0.330688,200 0.483887}
+{0 0.371606,2 0.088791,12 0.044097,23 0.04828,26 0.029597,32 0.002608,33 0.022502,36 0.022198,40 0.022656,44 0.025723,50 0.01789,53 0.010594,54 0.026074,60 0.025045,62 0.018624,68 0.018498,73 0.010878,76 0.003486,81 0.011174,82 0.018624,85 0.007156,92 0.018751,104 0.00745,112 0.00365,113 0.011174,114 0.011328,115 0.003675,118 0.003578,122 0.011099,126 0.011251,135 0.003725,137 0.003602,159 0.00365,172 0.00745,180 0.00375,185 0.003725,195 0.00375,220 0.003776,225 0.003776,226 0.003776,227 0.004082,241 0.003776,244 0.003776,260 0.003776,275 0.003776,290 0.003802,312 0.003829,408 0.004143}
+{4 0.028128,25 0.109875,56 0.173846,98 0.178984,246 0.239464,435 0.269703}
+{6 0.04007,8 0.043484,13 0.025706,14 0.025706,18 0.041075,20 0.046755,21 0.048384,24 0.056117,28 0.180031,32 0.032961,120 0.24582,220 0.047721,608 0.166171}
+{3 0.028361,4 0.018383,25 0.071809,35 0.085652,45 0.084488,57 0.09085,69 0.105415,207 0.120783,262 0.120783,415 0.136739,461 0.136739}
+{3 0.048136,4 0.031201,17 0.118291,22 0.10613,93 0.198537,160 0.232081,163 0.265624}
+{0 0.293856,2 0.099777,12 0.049553,23 0.054254,26 0.033259,32 0.002931,33 0.025286,36 0.024944,40 0.02546,44 0.028906,50 0.020104,53 0.011905,54 0.0293,60 0.028144,62 0.020928,68 0.020787,73 0.012223,76 0.003917,81 0.012557,82 0.020928,85 0.008042,92 0.021072,104 0.008371,112 0.004102,113 0.012557,114 0.01273,115 0.004129,118 0.004021,122 0.012472,126 0.012643,135 0.004186,137 0.004047,159 0.004102,172 0.008371,180 0.004214,185 0.004186,195 0.004214,220 0.004243,225 0.004243,226 0.004243,227 0.004588,241 0.004243,244 0.004243,260 0.004243,275 0.004243,290 0.004273,312 0.004302,408 0.004656}
+{6 0.057731,8 0.062649,13 0.018518,14 0.018518,18 0.029589,20 0.033681,21 0.034855,22 0.042465,37 0.146547,53 0.064297,102 0.15888,321 0.212566,701 0.119704}
+{1 0.197374,34 0.339315,39 0.463311}
+{6 0.081864,8 0.088838,13 0.026259,14 0.026259,18 0.041959,20 0.047761,21 0.049425,22 0.060217,49 0.225297,76 0.089994,85 0.092382,598 0.169745}
+{3 0.031931,4 0.020697,17 0.078469,25 0.080848,45 0.095123,52 0.121478,74 0.124537,112 0.055092,117 0.127919,149 0.127919,302 0.135987}
+{6 0.068407,8 0.037117,13 0.021942,14 0.021942,18 0.035061,20 0.03991,21 0.041301,51 0.075525,132 0.23327,406 0.283683,658 0.141842}
+{3 0.032396,4 0.020998,7 0.057426,13 0.031146,14 0.031146,17 0.079611,35 0.097836,229 0.156191,243 0.148924,535 0.16556,577 0.178766}
+{1 0.1047,9 0.145998,65 0.208515,77 0.24577,386 0.295018}
+{1 0.209426,16 0.373491,66 0.417083}
+{3 0.012172,4 0.00789,7 0.086309,13 0.011703,14 0.011703,17 0.029913,18 0.0187,24 0.025548,32 0.015006,74 0.047474,112 0.042002,128 0.042513,142 0.036761,145 0.094949,149 0.048764,302 0.103678,310 0.107451,514 0.055957,536 0.201508}
+{3 0.053739,4 0.034833,17 0.132062,22 0.118484,53 0.089699,150 0.274639,296 0.296544}
+{3 0.011078,4 0.007181,6 0.033204,7 0.039274,13 0.010651,14 0.010651,16 0.07738,63 0.034943,71 0.086411,142 0.033456,153 0.030252,331 0.18339,391 0.05341,487 0.106821,559 0.050925,750 0.056614,786 0.056614,787 0.056614,849 0.06113}
+{3 0.018358,4 0.011899,7 0.097626,13 0.01765,14 0.01765,24 0.115593,32 0.067895,83 0.204703,130 0.057906,153 0.050132,159 0.031673,162 0.08851,275 0.032766,334 0.093819,335 0.093819}
+{4 0.009317,25 0.036395,27 0.053427,45 0.085642,59 0.057584,172 0.025307,267 0.07932,357 0.069303,358 0.069303,379 0.069303,385 0.07932,410 0.07346,411 0.07346,412 0.07346,511 0.066078,591 0.07932}
+{3 0.029808,4 0.019321,34 0.200712,43 0.100356,109 0.126946,301 0.152337,567 0.185259,568 0.185259}
+{3 0.032991,4 0.021384,43 0.11107,68 0.115381,109 0.140499,286 0.1686,528 0.205037,529 0.205037}
+{3 0.025104,4 0.016272,25 0.063562,45 0.074785,47 0.060518,57 0.080417,69 0.093309,107 0.072843,190 0.074785,281 0.106912,298 0.103542,374 0.106912,458 0.121036}
+{3 0.044295,4 0.028712,17 0.108853,35 0.133774,186 0.213563,215 0.226374,392 0.24443}
+{3 0.063534,4 0.041182,17 0.15613,137 0.108164,143 0.167776,195 0.112623,283 0.350591}
+{0 0.293856,2 0.099777,12 0.049553,23 0.054254,26 0.033259,32 0.002931,33 0.025286,36 0.024944,40 0.02546,44 0.028906,50 0.020104,53 0.011905,54 0.0293,60 0.028144,62 0.020928,68 0.020787,73 0.012223,76 0.003917,81 0.012557,82 0.020928,85 0.008042,92 0.021072,104 0.008371,112 0.004102,113 0.012557,114 0.01273,115 0.004129,118 0.004021,122 0.012472,126 0.012643,135 0.004186,137 0.004047,159 0.004102,172 0.008371,180 0.004214,185 0.004186,195 0.004214,220 0.004243,225 0.004243,226 0.004243,227 0.004588,241 0.004243,244 0.004243,260 0.004243,275 0.004243,290 0.004273,312 0.004302,408 0.004656}
+{4 0.037777,5 0.129592,73 0.099884,81 0.10261,133 0.267919,325 0.362218}
+{0 0.368062,2 0.130308,12 0.064716,23 0.070855,26 0.043436,32 0.001701,33 0.026908,36 0.026544,40 0.027093,44 0.016778,50 0.011669,53 0.00691,54 0.017007,60 0.029949,62 0.012148,68 0.012066,73 0.007095,76 0.002273,81 0.007289,82 0.012148,85 0.004668,92 0.012231,104 0.004859,112 0.002381,113 0.007289,114 0.007389,115 0.002397,118 0.002334,122 0.007239,126 0.007338,135 0.00243,137 0.002349,159 0.002381,172 0.004859,180 0.002446,185 0.00243,195 0.002446,220 0.002463,225 0.002463,226 0.002463,227 0.002663,241 0.002463,244 0.002463,260 0.002463,275 0.002463,290 0.00248,312 0.002497,408 0.002702}
+{1 0.041426,101 0.082503,249 0.101989,642 0.11673,671 0.13147,672 0.13147,673 0.13147,674 0.13147,675 0.13147}
+{1 0.048582,9 0.067745,76 0.040871,90 0.102319,93 0.102319,98 0.102319,102 0.102319,118 0.041955,122 0.043381,134 0.105649,136 0.105649,351 0.136893}
+{4 0.011631,16 0.438698,172 0.031593,420 0.074011,421 0.074011,422 0.074011,423 0.074011,424 0.074011,425 0.074011,426 0.074011}
+{6 0.0502,8 0.054477,13 0.016102,14 0.016102,18 0.025729,20 0.029287,21 0.030308,24 0.035152,32 0.041294,51 0.055424,83 0.062251,106 0.171184,139 0.071326,159 0.028896,524 0.208179,739 0.10409}
+{0 0.085719,3 0.052706,4 0.034163,63 0.16625,129 0.211146,309 0.217386,449 0.23263}
+{3 0.034744,4 0.022521,15 0.090766,17 0.085381,19 0.095989,113 0.06117,318 0.177561,506 0.215935,507 0.215935}
+{0 0.315043,2 0.096784,12 0.048066,23 0.052626,26 0.032261,32 0.002843,33 0.024527,36 0.024196,40 0.024696,44 0.028039,50 0.019501,53 0.011548,54 0.028421,60 0.0273,62 0.0203,68 0.020163,73 0.011857,76 0.003799,81 0.01218,82 0.0203,85 0.0078,92 0.020439,104 0.00812,112 0.003979,113 0.01218,114 0.012348,115 0.004006,118 0.0039,122 0.012098,126 0.012264,135 0.00406,137 0.003926,159 0.003979,172 0.00812,180 0.004088,185 0.00406,195 0.004088,220 0.004116,225 0.004116,226 0.004116,227 0.00445,241 0.004116,244 0.004116,260 0.004116,275 0.004116,290 0.004144,312 0.004173,408 0.004516}
+{0 0.530667,2 0.092528,12 0.045953,23 0.050312,26 0.030843,32 0.001359,33 0.01954,36 0.019277,40 0.019675,44 0.013403,50 0.009322,53 0.00552,54 0.013585,60 0.02175,62 0.009704,68 0.009638,73 0.005668,76 0.001816,81 0.005822,82 0.009704,85 0.003729,92 0.00977,104 0.003882,112 0.001902,113 0.005822,114 0.005902,115 0.001915,118 0.001864,122 0.005783,126 0.005862,135 0.001941,137 0.001877,159 0.001902,172 0.003882,180 0.001954,185 0.001941,195 0.001954,220 0.001967,225 0.001967,226 0.001967,227 0.002127,241 0.001967,244 0.001967,260 0.001967,275 0.001967,290 0.001981,312 0.001995,408 0.002159}
+{0 0.714818,2 0.076382,12 0.037934,23 0.041532,26 0.024303,32 0.000306,33 0.014958,36 0.014756,40 0.01506,44 0.003017,50 0.002099,53 0.001243,54 0.003059,60 0.016648,62 0.002185,68 0.00217,73 0.001276,76 0.000409,81 0.001311,82 0.002185,85 0.000839,92 0.0022,104 0.000874,112 0.000428,113 0.001311,114 0.001329,115 0.000431,118 0.00042,122 0.001302,126 0.00132,135 0.000437,137 0.000423,159 0.000428,172 0.001748,180 0.00044,185 0.000437,195 0.00044,220 0.000443,225 0.000886,226 0.000443,227 0.000958,241 0.000443,244 0.000443,260 0.000443,275 0.000443,289 0.001024,290 0.000446,312 0.000449,408 0.000972,522 0.001095,614 0.001057}
+{6 0.032821,8 0.035617,13 0.021055,14 0.021055,18 0.033644,20 0.038297,21 0.039631,24 0.045965,32 0.026998,46 0.085414,204 0.211175,430 0.272218,667 0.136109}
+{6 0.057425,8 0.062317,13 0.01842,14 0.01842,18 0.029432,20 0.033502,21 0.03467,22 0.04224,28 0.129002,120 0.176143,180 0.067922,293 0.211439,704 0.11907}
+{1 0.05687,101 0.11326,249 0.140011,510 0.14841,574 0.180483,575 0.180483,576 0.180483}
+{6 0.035092,8 0.038081,13 0.022512,14 0.022512,18 0.035972,20 0.040946,21 0.042373,24 0.049145,32 0.028866,42 0.174063,130 0.073858,390 0.291052,645 0.145526}
+{6 0.083424,8 0.090531,13 0.026759,14 0.026759,18 0.042758,20 0.04867,21 0.050367,22 0.061364,37 0.211768,53 0.092912,76 0.091709,595 0.172979}
+{4 0.025006,25 0.097678,56 0.154548,68 0.067462,75 0.150462,104 0.067921,313 0.197157,474 0.239765}
+{0 0.446684,2 0.084579,12 0.042005,23 0.045989,26 0.027186,32 0.002129,33 0.021434,36 0.021145,40 0.021581,44 0.021002,50 0.014607,53 0.00865,54 0.021289,60 0.023857,62 0.015206,68 0.015103,73 0.008881,76 0.002846,81 0.009124,82 0.015206,85 0.005843,92 0.01531,104 0.006082,112 0.00298,113 0.009124,114 0.009249,115 0.003,118 0.002921,122 0.009062,126 0.009186,135 0.003041,137 0.002941,159 0.00298,172 0.006082,180 0.003062,185 0.003041,195 0.003062,220 0.003083,225 0.003083,226 0.003083,227 0.003333,241 0.003083,244 0.003083,260 0.003083,275 0.003083,290 0.003104,312 0.003126,408 0.003383}
+{3 0.037281,4 0.024165,7 0.066085,13 0.035843,14 0.035843,24 0.078247,31 0.271135,32 0.045959,123 0.153764,227 0.071938,357 0.179742}
+{0 0.037272,3 0.022917,4 0.014855,13 0.022033,14 0.022033,38 0.060518,48 0.061186,70 0.073411,127 0.166673,399 0.284862,443 0.234239}
+{3 0.137482,4 0.089114,74 0.536203,112 0.237201}
+{0 0.300799,2 0.120581,11 0.148584,12 0.059885,23 0.006442,26 0.040299,32 0.000019,33 0.023106,36 0.02364,38 0.063652,40 0.023265,44 0.000026,47 0.045239,48 0.064354,50 0.000102,53 0.000025,54 0.000027,60 0.004774,62 0.000106,68 0.000026,73 0.000026,76 0.000972,81 0.000027,82 0.000027,85 0.000051,92 0.000027,97 0.001292,103 0.018862,104 0.000053,107 0.021412,112 0.000965,113 0.000027,114 0.000027,115 0.000972,118 0.000026,122 0.000026,126 0.000027,130 0.000095,135 0.000027,137 0.001004,143 0.00008,156 0.002241,159 0.002009,172 0.002077,180 0.000027,185 0.000027,190 0.00964,195 0.000054,220 0.001053,225 0.001053,226 0.001053,227 0.001138,241 0.000027,244 0.00054,260 0.000027,275 0.001053,290 0.001006,295 0.000082,312 0.000027,327 0.00237,408 0.001155,711 0.00237}
+{0 0.311915,2 0.116818,11 0.148052,12 0.058016,23 0.004781,26 0.033915,32 0.000221,33 0.025466,36 0.027006,38 0.062596,40 0.025641,44 0.000312,47 0.045455,48 0.063287,50 0.001215,53 0.0003,54 0.000316,60 0.005315,62 0.001265,68 0.000314,73 0.000308,76 0.000296,81 0.000316,82 0.000316,85 0.000607,92 0.000318,97 0.002877,103 0.019393,104 0.000632,107 0.023969,112 0.00031,113 0.000316,114 0.000321,115 0.000312,118 0.000304,122 0.000314,126 0.000318,135 0.000316,137 0.000306,143 0.000474,159 0.00031,172 0.000316,180 0.000318,185 0.000316,190 0.010164,195 0.000318,220 0.000321,225 0.000321,226 0.000321,241 0.000321,244 0.000321,260 0.000321,275 0.000321,290 0.000323,295 0.000485,312 0.000325,408 0.000352}
+{0 0.139402,2 0.140391,11 0.202743,12 0.069724,23 0.001291,26 0.043334,32 0.000052,33 0.028282,36 0.033688,38 0.070594,40 0.028477,44 0.000074,47 0.069149,48 0.071373,50 0.000287,53 0.000071,54 0.000075,62 0.000299,68 0.000074,73 0.000073,76 0.00007,81 0.000075,82 0.000075,85 0.000144,92 0.000075,97 0.008837,103 0.034369,104 0.000149,107 0.022655,112 0.000073,113 0.000075,114 0.000076,115 0.000074,118 0.000072,122 0.000074,126 0.000075,135 0.000075,137 0.000072,143 0.000112,159 0.000073,172 0.000075,180 0.000075,185 0.000075,190 0.006068,195 0.000075,220 0.000076,225 0.000076,226 0.000076,241 0.000076,244 0.000076,260 0.000076,275 0.000076,290 0.000076,295 0.000115,298 0.0007,312 0.000077,374 0.0253,408 0.000083}
+{3 0.003546,4 0.002299,6 0.05846,7 0.018858,8 0.074975,13 0.003409,14 0.003409,18 0.032687,22 0.046911,24 0.066986,32 0.056832,40 0.006329,47 0.008549,74 0.013831,115 0.030797,130 0.011186,145 0.013831,153 0.009684,165 0.018123,290 0.012746,302 0.015102,310 0.031304,319 0.056825,328 0.017097,384 0.034195,393 0.011939,433 0.017097,513 0.012385,521 0.014206,571 0.014626,631 0.078273,718 0.039137,742 0.078273,790 0.014206,847 0.039137,854 0.014626,914 0.018123}
+{1 0.119035,9 0.165988,76 0.100142,124 0.279421,187 0.335413}
+{1 0.024996,101 0.04978,249 0.061537,754 0.070431,796 0.079326,797 0.079326,798 0.079326,799 0.079326,800 0.079326,801 0.079326,802 0.079326,803 0.079326,804 0.079326,805 0.079326}
+{4 0.010152,7 0.027764,13 0.015058,14 0.015058,25 0.039656,31 0.056954,45 0.046658,123 0.064599,169 0.075513,227 0.030222,291 0.075513,408 0.030672,437 0.086427,439 0.086427,440 0.086427,441 0.086427,623 0.080043,783 0.086427}
+{0 0.323565,2 0.116611,11 0.144147,12 0.057914,23 0.00524,26 0.033731,32 0.00017,33 0.0254,36 0.026503,38 0.063307,40 0.025575,44 0.000239,47 0.043178,48 0.064006,50 0.000932,53 0.00023,54 0.000243,60 0.00598,62 0.00097,68 0.000241,73 0.000236,76 0.000227,81 0.000243,82 0.000243,85 0.000466,92 0.000244,97 0.002207,103 0.017855,104 0.000485,107 0.023987,112 0.000238,113 0.000243,114 0.000246,115 0.000239,118 0.000233,122 0.000241,126 0.000244,135 0.000243,137 0.000235,143 0.000364,159 0.000238,172 0.000243,180 0.000244,185 0.000243,190 0.00903,195 0.000244,220 0.000246,225 0.000246,226 0.000246,241 0.000246,244 0.000246,260 0.000246,275 0.000246,290 0.000248,295 0.000372,312 0.000249,408 0.00027}
+{6 0.021504,8 0.023336,10 0.033038,13 0.013795,14 0.013795,18 0.022044,20 0.025092,21 0.025966,135 0.050525,208 0.14666,772 0.089178,773 0.089178,774 0.089178,775 0.089178,776 0.089178,777 0.089178,778 0.089178}
+{1 0.19301,29 0.331813,147 0.475177}
+{6 0.056359,8 0.06116,13 0.018078,14 0.018078,18 0.028886,20 0.032881,21 0.034027,73 0.06445,122 0.065761,182 0.192187,253 0.207516,362 0.103758,709 0.11686}
+{6 0.034991,8 0.037972,10 0.026879,13 0.011224,14 0.011224,18 0.017934,20 0.020414,21 0.021126,30 0.029863,137 0.03975,195 0.041388,223 0.119322,283 0.06442,397 0.193259,719 0.06442,720 0.06442,721 0.06442,722 0.06442,820 0.072555}
+{4 0.024599,73 0.06504,75 0.148013,114 0.067735,122 0.066364,193 0.209417,347 0.209417,362 0.209417}
+{0 0.014871,2 0.01599,11 0.022043,12 0.015883,26 0.01599,32 0.011273,33 0.016209,36 0.01599,38 0.024147,40 0.01632,44 0.015883,47 0.022043,48 0.024413,50 0.015465,53 0.015263,54 0.016099,62 0.016099,68 0.01599,73 0.015671,76 0.015065,81 0.016099,82 0.016099,85 0.015465,92 0.016209,97 0.024413,103 0.024688,104 0.016099,107 0.026533,112 0.015776,113 0.016099,114 0.01632,115 0.015883,118 0.015465,122 0.01599,126 0.016209,135 0.016099,137 0.015567,143 0.024147,159 0.015776,172 0.016099,180 0.016209,185 0.016099,190 0.02724,195 0.016209,220 0.01632,225 0.01632,226 0.01632,227 0.017645,241 0.01632,244 0.01632,260 0.01632,275 0.01632,281 0.038942,290 0.016433,295 0.024688,312 0.016547}
+{3 0.023984,4 0.015546,25 0.060726,45 0.071448,70 0.076829,71 0.093542,129 0.096082,257 0.105859,309 0.098922,354 0.102142,380 0.122572,409 0.132348}
+{1 0.028841,9 0.040217,41 0.058997,58 0.057437,66 0.057437,111 0.0677,176 0.075263,184 0.081266,200 0.075263,201 0.075263,202 0.075263,203 0.075263,242 0.081266,292 0.075263,623 0.075263}
+{3 0.044529,4 0.028863,17 0.109427,22 0.098177,187 0.245719,232 0.227567,330 0.245719}
+{0 0.0036,3 0.002213,4 0.001435,6 0.049759,8 0.064798,13 0.002128,14 0.002128,18 0.030604,22 0.034162,24 0.060395,30 0.011324,32 0.04366,33 0.003924,47 0.005336,69 0.008227,74 0.017266,107 0.006423,115 0.007689,130 0.006982,145 0.008633,153 0.006045,165 0.045248,302 0.018853,310 0.019539,319 0.035469,328 0.010672,372 0.02828,384 0.021344,393 0.007452,413 0.00977,433 0.010672,458 0.010672,465 0.010672,497 0.021344,513 0.007731,521 0.008867,571 0.009129,631 0.073286,649 0.022624,718 0.073286,742 0.024429,790 0.008867,847 0.024429,853 0.024429,854 0.009129,877 0.055027,898 0.009427,914 0.022624}
+{3 0.008143,4 0.005278,7 0.101048,13 0.007829,14 0.007829,27 0.242145,30 0.124988,59 0.228363,357 0.039262,420 0.033588,421 0.033588,422 0.033588,423 0.033588,424 0.033588,425 0.033588,426 0.033588}
+{3 0.032882,4 0.021313,7 0.058287,13 0.031613,14 0.031613,24 0.069014,31 0.239141,32 0.040536,123 0.13562,379 0.158533,437 0.181446}
+{6 0.048498,8 0.05263,13 0.015556,14 0.015556,18 0.024857,20 0.028294,21 0.02928,24 0.03396,32 0.019947,35 0.09773,258 0.074381,278 0.074381,377 0.301681,693 0.08269,747 0.10056}
+{1 0.065173,9 0.09088,97 0.088852,99 0.160452,112 0.057418,117 0.133321,141 0.137262,149 0.133321,152 0.133321}
+{3 0.044254,4 0.028685,17 0.108751,76 0.072909,94 0.195324,427 0.275039,428 0.275039}
+{3 0.004201,4 0.002723,6 0.025185,7 0.029789,13 0.004039,14 0.004039,29 0.056578,60 0.008289,63 0.053008,66 0.032771,67 0.081928,142 0.012688,153 0.011473,393 0.014144,510 0.021471,513 0.014673,619 0.020256,620 0.020256,782 0.042942,806 0.078333,807 0.078333,808 0.078333,809 0.078333,810 0.078333,811 0.078333,821 0.023183,896 0.023183,897 0.023183}
+{3 0.053168,4 0.034463,5 0.118223,105 0.244414,146 0.256341,219 0.293391}
+{4 0.093468,5 0.320639,10 0.332015,104 0.253878}
+{0 0.515049,2 0.084477,12 0.041955,23 0.045934,26 0.028159,32 0.001654,33 0.01903,36 0.018773,40 0.01916,44 0.016316,50 0.011347,53 0.006719,54 0.016538,60 0.021181,62 0.011813,68 0.011733,73 0.006899,76 0.002211,81 0.007088,82 0.011813,85 0.004539,92 0.011894,104 0.004725,112 0.002315,113 0.007088,114 0.007185,115 0.002331,118 0.002269,122 0.00704,126 0.007136,135 0.002363,137 0.002285,159 0.002315,172 0.004725,180 0.002379,185 0.002363,195 0.002379,220 0.002395,225 0.002395,226 0.002395,227 0.002589,241 0.002395,244 0.002395,260 0.002395,275 0.002395,290 0.002412,312 0.002428,408 0.002628}
+{6 0.025805,8 0.028003,10 0.039645,13 0.016554,14 0.016554,18 0.026452,20 0.03011,21 0.031159,81 0.060629,234 0.190028,730 0.107012,731 0.107012,732 0.107012,733 0.107012,734 0.107012}
+{3 0.026577,4 0.017227,57 0.085136,66 0.207311,86 0.098784,144 0.106471,429 0.128138,609 0.165178,610 0.165178}
+{1 0.16787,39 0.394054,176 0.438076}
+{6 0.063485,8 0.068894,13 0.020364,14 0.020364,18 0.032539,20 0.037038,21 0.038329,22 0.046698,50 0.071642,61 0.180404,137 0.072118,223 0.216488,670 0.131637}
+{3 0.009945,4 0.006446,6 0.014904,7 0.088142,13 0.009561,14 0.009561,24 0.041745,32 0.02452,91 0.239037,108 0.075666,153 0.027157,206 0.22858,393 0.033481,419 0.101646,513 0.034732,781 0.054877}
+{1 0.011835,101 0.023569,700 0.030884,920 0.033347,921 0.033347,922 0.033347,923 0.033347,924 0.033347,925 0.033347,926 0.033347,927 0.033347,928 0.033347,929 0.033347,930 0.033347,931 0.033347,932 0.033347,933 0.033347,934 0.033347,935 0.033347,936 0.033347,937 0.033347,938 0.033347,939 0.033347,940 0.033347,941 0.033347,942 0.033347,943 0.033347,944 0.033347,945 0.033347,946 0.033347,947 0.033347}
+{3 0.089506,4 0.058016,84 0.395053,125 0.457425}
+{1 0.079169,9 0.110397,84 0.178431,140 0.185841,157 0.19491,464 0.251251}
+{3 0.050046,4 0.032439,52 0.190394,166 0.220891,231 0.230064,402 0.276165}
+{4 0.013237,5 0.090816,10 0.047019,15 0.053349,19 0.056419,34 0.068752,43 0.137505,79 0.068752,95 0.072738,116 0.084227,121 0.090133,245 0.104364,476 0.112688}
+{6 0.065518,8 0.071099,13 0.021015,14 0.021015,18 0.03358,20 0.038224,21 0.039556,22 0.048193,50 0.073936,93 0.18031,431 0.271702,668 0.135851}
+{3 0.037129,4 0.024067,12 0.064491,35 0.112131,70 0.118936,128 0.129675,141 0.153139,276 0.18975,484 0.170682}
+{6 0.055547,8 0.06028,13 0.017817,14 0.017817,18 0.02847,20 0.032407,21 0.033537,88 0.157847,191 0.189419,222 0.189419,338 0.102263,712 0.115177}
+{0 0.455308,11 0.059368,23 0.012234,32 0.000051,38 0.042743,44 0.000071,47 0.010175,48 0.043214,50 0.000277,53 0.000068,54 0.000072,60 0.00663,62 0.000289,68 0.000072,73 0.00007,76 0.00054,81 0.000072,82 0.000072,85 0.000139,92 0.000073,103 0.009736,104 0.000144,108 0.064851,113 0.000072,114 0.000073,118 0.000069,122 0.000072,126 0.000073,130 0.000129,135 0.000072,137 0.000558,143 0.000216,156 0.001119,158 0.001507,159 0.00106,172 0.001154,180 0.000073,185 0.000072,194 0.001628,195 0.000145,217 0.017172,220 0.000585,225 0.000585,226 0.000585,227 0.000633,241 0.000073,244 0.000293,260 0.000073,275 0.000585,278 0.078363,295 0.000221,312 0.000074,327 0.001183,354 0.084289,355 0.082187,408 0.000642,486 0.015447,711 0.001183,852 0.001466}
+{1 0.105736,9 0.147443,155 0.248202,167 0.275929,327 0.22269}
+{4 0.025453,5 0.087317,10 0.090414,17 0.0965,22 0.086579,42 0.145956,64 0.157313,65 0.153154,175 0.157313}
+{0 0.282763,2 0.101345,12 0.050332,23 0.055106,26 0.033782,32 0.002977,33 0.025683,36 0.025336,40 0.02586,44 0.02936,50 0.02042,53 0.012092,54 0.02976,60 0.028586,62 0.021257,68 0.021114,73 0.012415,76 0.003978,81 0.012754,82 0.021257,85 0.008168,92 0.021403,104 0.008503,112 0.004166,113 0.012754,114 0.01293,115 0.004194,118 0.004084,122 0.012668,126 0.012842,135 0.004251,137 0.004111,159 0.004166,172 0.008503,180 0.004281,185 0.004251,195 0.004281,220 0.00431,225 0.00431,226 0.00431,227 0.00466,241 0.00431,244 0.00431,260 0.00431,275 0.00431,290 0.00434,312 0.00437,408 0.004729}
+{6 0.050259,8 0.054541,13 0.016121,14 0.016121,18 0.02576,20 0.029322,21 0.030344,30 0.042893,32 0.020671,185 0.059043,241 0.059855,314 0.085693,363 0.312637,466 0.092528,738 0.104212}
+{6 0.073315,8 0.079561,13 0.023517,14 0.023517,18 0.037577,20 0.042773,21 0.044264,22 0.053929,37 0.186108,53 0.081654,116 0.201769,627 0.152018}
+{3 0.000777,4 0.000504,6 0.041941,7 0.017914,8 0.075858,12 0.005401,13 0.000747,14 0.000747,18 0.038216,22 0.020567,24 0.057106,26 0.010875,30 0.003977,32 0.036417,36 0.006797,47 0.001874,130 0.002452,152 0.015571,153 0.002123,166 0.013725,175 0.003114,231 0.014294,238 0.003311,243 0.071472,255 0.016553,266 0.050031,309 0.006413,319 0.012457,341 0.003574,353 0.030028,364 0.006413,365 0.006413,389 0.014294,393 0.002617,402 0.008579,407 0.028589,416 0.014992,449 0.003431,484 0.010721,513 0.002715,521 0.003114,535 0.035756,571 0.003206,784 0.086966,790 0.003114,835 0.06764,854 0.003206,895 0.048314,898 0.003311,912 0.008579,948 0.015891,963 0.003748,964 0.003748,965 0.019326,977 0.003973,979 0.003973,982 0.009663,984 0.00429,985 0.00429,986 0.00429}
+{3 0.051729,4 0.03353,64 0.207233,171 0.249405,238 0.220302,341 0.2378}
+{1 0.14442,7 0.130724,13 0.070902,14 0.070902,41 0.295432,58 0.28762}
+{0 0.187606,2 0.125469,11 0.181903,12 0.074648,23 0.006356,26 0.056342,32 0.000064,33 0.023049,36 0.026482,38 0.079016,40 0.023208,44 0.000091,47 0.054886,48 0.079888,50 0.000353,53 0.000087,54 0.000092,62 0.000368,68 0.000091,73 0.000089,76 0.000086,81 0.000092,82 0.000092,85 0.000177,92 0.000093,97 0.005716,103 0.026224,104 0.000184,107 0.021971,112 0.00045,113 0.000092,114 0.000093,115 0.000454,117 0.004602,118 0.000088,122 0.000091,126 0.000093,130 0.000165,135 0.000092,137 0.000089,143 0.000138,159 0.00009,172 0.000184,180 0.000093,185 0.000092,190 0.016178,195 0.000093,216 0.000215,220 0.000093,225 0.000093,226 0.000093,227 0.000101,241 0.000093,244 0.000093,260 0.000093,275 0.000093,290 0.000094,295 0.000141,312 0.000094,408 0.000102,522 0.000461,822 0.00024}
+{4 0.019456,5 0.066744,10 0.069112,15 0.078416,19 0.082928,42 0.223137,148 0.153402,332 0.153402,333 0.153402}
+{4 0.008759,5 0.030048,10 0.031114,13 0.012992,14 0.012992,15 0.070604,79 0.045495,83 0.050227,95 0.048133,137 0.046011,256 0.223704,462 0.251954,788 0.083985,789 0.083985}
+{1 0.223074,5 0.253285,39 0.52364}
+{3 0.037241,4 0.024139,7 0.066014,13 0.035804,14 0.035804,24 0.078163,31 0.270845,32 0.04591,123 0.153599,358 0.17955,408 0.072931}
+{0 0.048038,3 0.029537,4 0.019146,25 0.074786,35 0.089203,45 0.087991,47 0.071204,213 0.150951,307 0.135783,368 0.150951,465 0.142409}
+{3 0.029794,4 0.019312,25 0.075437,45 0.088756,57 0.09544,70 0.09544,207 0.126885,270 0.164409,450 0.152264,600 0.152264}
+{1 0.180606,29 0.310489,168 0.508905}
+{0 0.535971,2 0.120835,12 0.060011,23 0.065704,26 0.039039,32 0.000655,33 0.023556,36 0.023238,40 0.023718,44 0.006463,50 0.004495,53 0.002662,54 0.006551,60 0.026219,62 0.004679,68 0.004648,73 0.002733,76 0.000876,81 0.002807,82 0.004679,85 0.001798,92 0.004711,104 0.001872,112 0.000917,113 0.002807,114 0.002846,115 0.000923,118 0.000899,122 0.002789,126 0.002827,135 0.000936,137 0.000905,159 0.000917,172 0.001872,180 0.000942,185 0.000936,195 0.000942,220 0.000949,225 0.000949,226 0.000949,227 0.001026,241 0.000949,244 0.000949,260 0.000949,275 0.000949,290 0.000955,312 0.000962,408 0.001041}
+{6 0.069647,8 0.03779,13 0.02234,14 0.02234,18 0.035697,20 0.040633,21 0.042049,24 0.048769,32 0.028645,68 0.040633,126 0.082379,254 0.256443,306 0.128221,652 0.144413}
+{1 0.096324,9 0.134319,57 0.15756,70 0.15756,86 0.182819,251 0.271419}
+{0 0.647225,2 0.032368,12 0.016075,23 0.0176,26 0.010789,32 0.001902,33 0.010937,36 0.010789,40 0.011012,44 0.018754,50 0.013044,53 0.007724,54 0.01901,60 0.006087,62 0.013578,68 0.013487,73 0.007931,76 0.002541,81 0.008147,82 0.013578,85 0.005217,92 0.013671,104 0.005431,112 0.002661,113 0.008147,114 0.008259,115 0.002679,118 0.002609,122 0.008092,126 0.008203,135 0.002716,137 0.002626,159 0.002661,172 0.005431,180 0.002734,185 0.002716,195 0.002734,220 0.002753,225 0.002753,226 0.002753,227 0.002976,241 0.002753,244 0.002753,260 0.002753,275 0.002753,290 0.002772,312 0.002791,408 0.003021}
+{0 0.192631,2 0.135043,11 0.179648,12 0.068409,23 0.005874,26 0.049966,32 0.000119,33 0.024812,36 0.03106,38 0.069336,40 0.024982,44 0.000168,47 0.058176,48 0.070101,50 0.000653,53 0.000161,54 0.00017,62 0.00068,68 0.000169,73 0.000165,76 0.000159,81 0.00017,82 0.00017,85 0.000327,92 0.000171,97 0.010051,103 0.027105,104 0.00034,107 0.024368,112 0.000167,113 0.00017,114 0.000172,115 0.000168,117 0.00116,118 0.000163,122 0.000169,126 0.000171,130 0.000304,135 0.00017,137 0.000164,143 0.000255,159 0.000167,172 0.00034,180 0.000171,185 0.00017,190 0.016679,195 0.000171,216 0.000398,220 0.000172,225 0.000172,226 0.000172,227 0.000186,241 0.000172,244 0.000172,260 0.000172,275 0.000172,290 0.000173,295 0.000261,312 0.000175,408 0.000189,522 0.000852,822 0.000444}
+{3 0.017462,4 0.011319,7 0.061909,10 0.080413,27 0.129812,43 0.058791,59 0.069956,142 0.052737,172 0.030744,591 0.096361,644 0.096361,700 0.089243,724 0.10853,749 0.096361}
+{3 0.090362,4 0.058572,67 0.352429,210 0.498637}
+{6 0.097291,8 0.05279,13 0.031207,14 0.031207,18 0.049866,20 0.056761,21 0.058739,51 0.107415,78 0.312991,539 0.201733}
+{3 0.029944,4 0.019409,55 0.119957,79 0.100811,95 0.106656,109 0.127522,233 0.330468,349 0.165234}
+{3 0.009488,4 0.00615,13 0.009122,14 0.009122,18 0.014577,20 0.016592,24 0.019915,32 0.011697,77 0.043618,128 0.066276,250 0.043618,262 0.040408,300 0.043618,348 0.096981,367 0.096981,467 0.045746,486 0.043618,708 0.052358,716 0.04849,858 0.05897,859 0.05897,860 0.05897,891 0.052358,892 0.052358}
+{3 0.016391,4 0.010624,25 0.0415,45 0.048828,52 0.062356,65 0.063927,72 0.072344,74 0.063927,97 0.043761,119 0.067604,141 0.067604,149 0.065663,152 0.065663,215 0.083766,231 0.075348,266 0.075348,511 0.075348}
+{4 0.027965,25 0.109238,56 0.172839,134 0.183739,248 0.238077,436 0.268141}
+{3 0.033531,4 0.021735,7 0.059439,13 0.032238,14 0.032238,24 0.070378,32 0.041337,42 0.249264,132 0.171364,175 0.13433,278 0.154144}
+{3 0.093818,4 0.060812,46 0.365907,173 0.479463}
+{4 0.017921,5 0.061478,10 0.063659,25 0.070004,45 0.082364,100 0.127099,105 0.127099,146 0.133302,179 0.127099,185 0.048677,214 0.141298}
+{3 0.001622,4 0.001052,6 0.051059,7 0.025882,8 0.065962,12 0.011272,13 0.00156,14 0.00156,18 0.04237,22 0.028615,24 0.044266,26 0.011348,30 0.0083,32 0.032,47 0.003911,130 0.005117,153 0.00443,175 0.006499,186 0.093862,238 0.006909,309 0.013383,319 0.025997,341 0.007458,364 0.013383,365 0.013383,389 0.014916,392 0.044762,393 0.005462,394 0.044762,449 0.007161,484 0.022374,513 0.005666,521 0.006499,571 0.006691,699 0.120994,746 0.100828,790 0.006499,854 0.006691,879 0.017905,898 0.006909,948 0.016582,962 0.020166,963 0.007822,964 0.007822,977 0.008291}
+{4 0.022262,25 0.08696,34 0.11563,45 0.102314,109 0.146267,286 0.175522,288 0.175522,301 0.175522}
+{0 0.481533,2 0.082621,12 0.041033,23 0.044925,26 0.02754,32 0.001942,33 0.019542,36 0.019278,40 0.019676,44 0.019149,50 0.013318,53 0.007886,54 0.019409,60 0.021751,62 0.013864,68 0.01377,73 0.008097,76 0.002595,81 0.008318,82 0.013864,85 0.005327,92 0.013959,104 0.005546,112 0.002717,113 0.008318,114 0.008433,115 0.002736,118 0.002664,122 0.008262,126 0.008375,135 0.002773,137 0.002681,159 0.002717,172 0.005546,180 0.002792,185 0.002773,195 0.002792,220 0.002811,225 0.002811,226 0.002811,227 0.003039,241 0.002811,244 0.002811,260 0.002811,275 0.002811,290 0.00283,312 0.00285,408 0.003084}
+{0 0.304611,2 0.098258,12 0.048799,23 0.053427,26 0.032753,32 0.002886,33 0.024901,36 0.024564,40 0.025072,44 0.028466,50 0.019798,53 0.011723,54 0.028853,60 0.027716,62 0.02061,68 0.02047,73 0.012037,76 0.003857,81 0.012366,82 0.02061,85 0.007919,92 0.020751,104 0.008244,112 0.004039,113 0.012366,114 0.012536,115 0.004067,118 0.00396,122 0.012282,126 0.01245,135 0.004122,137 0.003986,159 0.004039,172 0.008244,180 0.00415,185 0.004122,195 0.00415,220 0.004179,225 0.004179,226 0.004179,227 0.004518,241 0.004179,244 0.004179,260 0.004179,275 0.004179,290 0.004208,312 0.004237,408 0.004585}
+{3 0.090362,4 0.058572,71 0.352429,197 0.498637}
+{4 0.010922,7 0.029869,13 0.0162,14 0.0162,43 0.11346,82 0.029666,239 0.086114,240 0.086114,260 0.030075,311 0.092983,735 0.104724,736 0.104724,760 0.092983,761 0.092983,762 0.092983}
+{6 0.052787,8 0.038189,13 0.011288,14 0.011288,18 0.018037,20 0.020531,21 0.021247,24 0.024642,30 0.030033,32 0.057895,51 0.116559,55 0.047034,76 0.038686,83 0.087278,139 0.100001,179 0.053972,244 0.020955,252 0.056606,565 0.120003,818 0.072969}
+{0 0.379879,2 0.09882,12 0.049078,23 0.053733,26 0.03294,32 0.002322,33 0.023374,36 0.023058,40 0.023534,44 0.022903,50 0.015929,53 0.009432,54 0.023215,60 0.026016,62 0.016582,68 0.01647,73 0.009685,76 0.003103,81 0.009949,82 0.016582,85 0.006372,92 0.016695,104 0.006633,112 0.00325,113 0.009949,114 0.010086,115 0.003272,118 0.003186,122 0.009882,126 0.010017,135 0.003316,137 0.003207,159 0.00325,172 0.006633,180 0.003339,185 0.003316,195 0.003339,220 0.003362,225 0.003362,226 0.003362,227 0.003635,241 0.003362,244 0.003362,260 0.003362,275 0.003362,290 0.003385,312 0.003409,408 0.003689}
+{3 0.027225,4 0.017647,43 0.09166,87 0.112292,224 0.131263,263 0.150235,264 0.150235,360 0.150235,601 0.169207}
+{4 0.028993,5 0.099461,88 0.190495,133 0.205625,191 0.228596,338 0.246829}
+{6 0.081076,8 0.087983,13 0.026006,14 0.026006,18 0.041555,20 0.047301,21 0.048949,22 0.059637,50 0.091493,61 0.23039,118 0.091493,603 0.168111}
+{4 0.008993,7 0.049187,13 0.013339,14 0.013339,17 0.034094,20 0.024261,42 0.051568,65 0.054111,175 0.05558,300 0.063779,319 0.05558,521 0.05558,548 0.076559,571 0.114446,588 0.070904,597 0.172454,785 0.086227}
+{3 0.007242,4 0.004694,13 0.006963,14 0.006963,18 0.011126,24 0.076001,30 0.018526,32 0.04464,57 0.023199,66 0.112982,69 0.026918,107 0.021014,128 0.050587,144 0.174076,153 0.019777,262 0.030842,281 0.030842,298 0.02987,393 0.024382,450 0.037011,513 0.025293,551 0.037011,770 0.09002,771 0.09002}
+{4 0.123577,77 0.876423}
+{4 0.017696,5 0.060707,10 0.06286,15 0.071322,19 0.075427,94 0.241001,455 0.150654,456 0.150654,599 0.169679}
+{0 0.632748,2 0.092775,12 0.046075,23 0.050446,26 0.030925,32 0.000606,33 0.017416,36 0.01718,40 0.017535,44 0.005973,50 0.004154,53 0.00246,54 0.006054,60 0.019384,62 0.004324,68 0.004295,73 0.002526,76 0.000809,81 0.002595,82 0.004324,85 0.001662,92 0.004354,104 0.00173,112 0.000848,113 0.002595,114 0.00263,115 0.000853,118 0.000831,122 0.002577,126 0.002612,135 0.000865,137 0.000836,159 0.000848,172 0.00173,180 0.000871,185 0.000865,195 0.000871,220 0.000877,225 0.000877,226 0.000877,227 0.000948,241 0.000877,244 0.000877,260 0.000877,275 0.000877,290 0.000883,312 0.000889,408 0.000962}
+{0 0.481533,2 0.082621,12 0.041033,23 0.044925,26 0.02754,32 0.001942,33 0.019542,36 0.019278,40 0.019676,44 0.019149,50 0.013318,53 0.007886,54 0.019409,60 0.021751,62 0.013864,68 0.01377,73 0.008097,76 0.002595,81 0.008318,82 0.013864,85 0.005327,92 0.013959,104 0.005546,112 0.002717,113 0.008318,114 0.008433,115 0.002736,118 0.002664,122 0.008262,126 0.008375,135 0.002773,137 0.002681,159 0.002717,172 0.005546,180 0.002792,185 0.002773,195 0.002792,220 0.002811,225 0.002811,226 0.002811,227 0.003039,241 0.002811,244 0.002811,260 0.002811,275 0.002811,290 0.00283,312 0.00285,408 0.003084}
+{1 0.127847,9 0.178276,106 0.333633,181 0.360244}
+{0 0.131967,2 0.123386,11 0.205176,12 0.061278,23 0.000419,26 0.041643,32 0.000136,33 0.027165,36 0.028919,38 0.059392,40 0.027352,44 0.000191,47 0.075479,48 0.060047,50 0.000746,53 0.000184,54 0.000194,62 0.000776,68 0.000193,73 0.000189,76 0.002906,81 0.000194,82 0.000194,85 0.000373,92 0.000195,97 0.003238,103 0.033933,104 0.000388,107 0.024632,112 0.002663,113 0.000194,114 0.000197,115 0.002681,118 0.000186,122 0.000193,126 0.000195,130 0.000696,135 0.000194,137 0.003003,143 0.000582,156 0.00645,159 0.005897,172 0.006211,180 0.000195,185 0.000194,190 0.020363,195 0.000391,220 0.003148,225 0.003148,226 0.003148,227 0.003404,241 0.000197,244 0.001574,260 0.000197,275 0.003148,290 0.002774,295 0.000595,312 0.0002,327 0.006821,408 0.003454,711 0.006821}
+{3 0.023411,4 0.015175,7 0.041499,13 0.022508,14 0.022508,57 0.149985,155 0.10762,348 0.239284,461 0.112871,473 0.119642,646 0.145498}
+{3 0.006113,4 0.003963,7 0.010837,11 0.044212,13 0.005878,14 0.005878,18 0.037567,43 0.041164,47 0.014737,63 0.019283,127 0.066691,142 0.018462,153 0.016694,228 0.176846,280 0.117897,307 0.056206,317 0.031242,329 0.187454,393 0.020582,465 0.029474,513 0.021351,916 0.033734,918 0.033734}
+{0 0.307631,2 0.107693,12 0.053485,23 0.058558,26 0.038462,32 0.002711,33 0.023393,36 0.023077,40 0.023554,44 0.026742,50 0.018599,53 0.011014,54 0.027107,60 0.026038,62 0.019362,68 0.019231,73 0.011308,76 0.003624,81 0.011617,82 0.019362,85 0.00744,92 0.019494,104 0.007745,112 0.003795,113 0.011617,114 0.011777,115 0.00382,118 0.00372,122 0.011539,126 0.011697,135 0.003872,137 0.003745,159 0.003795,172 0.007745,180 0.003899,185 0.003872,195 0.003899,220 0.003926,225 0.003926,226 0.003926,227 0.004244,241 0.003926,244 0.003926,260 0.003926,275 0.003926,290 0.003953,312 0.00398,408 0.004307}
+{3 0.035041,4 0.022713,41 0.280754,69 0.130243,298 0.144526,336 0.193362,337 0.193362}
+{0 0.058133,3 0.035744,4 0.023169,35 0.107949,63 0.112748,79 0.120341,119 0.147428,305 0.172336,496 0.222152}
+{0 0.046637,3 0.028676,4 0.018587,25 0.072605,35 0.086602,45 0.085425,86 0.106584,277 0.131823,359 0.138256,429 0.138256,491 0.146549}
+{1 0.068407,101 0.136236,249 0.168413,479 0.192754,502 0.217095,503 0.217095}
+{3 0.028856,4 0.018704,13 0.027743,14 0.027743,128 0.100782,298 0.119018,336 0.159234,337 0.159234,578 0.179342,579 0.179342}
+{4 0.01437,15 0.057915,17 0.054479,20 0.038767,34 0.074637,42 0.0824,64 0.088812,175 0.088812,300 0.101912,663 0.137782,664 0.137782,695 0.122333}
+{4 0.015195,28 0.078922,79 0.078922,95 0.083497,116 0.096686,235 0.258712,273 0.258712,508 0.129356}
+{3 0.016317,4 0.010576,7 0.028924,11 0.118003,13 0.015687,14 0.015687,35 0.049277,43 0.054934,127 0.059334,142 0.049277,307 0.075008,329 0.166775,368 0.083387,483 0.083387,660 0.083387,753 0.090039}
+{3 0.016751,4 0.010858,6 0.025105,7 0.089081,13 0.016105,14 0.016105,29 0.056397,36 0.029293,119 0.06909,142 0.050589,152 0.268427,255 0.214017,364 0.06909,365 0.06909}
+{3 0.058563,4 0.03796,41 0.234608,89 0.282352,103 0.158113,138 0.228405}
+{3 0.040881,4 0.026499,52 0.155527,97 0.109148,119 0.168616,128 0.14278,145 0.159445,376 0.197103}
+{3 0.11738,4 0.076084,42 0.436287,130 0.370249}
+{1 0.066781,101 0.132998,151 0.164411,516 0.211936,517 0.211936,518 0.211936}
+{3 0.039587,4 0.02566,5 0.088025,10 0.091148,27 0.147141,31 0.143955,385 0.218449,470 0.246035}
+{3 0.016654,4 0.010795,7 0.059045,13 0.016012,14 0.016012,25 0.042168,32 0.020532,46 0.064955,55 0.133439,79 0.056071,95 0.059322,204 0.160594,252 0.160594,271 0.080297,740 0.103508}
+{3 0.058236,4 0.037748,41 0.233299,69 0.216456,89 0.280776,190 0.173485}
+{6 0.029513,8 0.032028,13 0.009467,14 0.009467,18 0.04538,20 0.017219,21 0.017819,22 0.021709,24 0.020666,30 0.025188,32 0.036416,76 0.016222,232 0.100642,330 0.108669,388 0.108669,455 0.108669,456 0.108669,696 0.122392,851 0.061196}
+{3 0.04172,4 0.027042,17 0.102524,64 0.167133,169 0.201146,308 0.230218,340 0.230218}
+{4 0.015354,7 0.041989,13 0.022774,14 0.022774,24 0.049717,32 0.029202,55 0.094894,83 0.088043,159 0.040868,451 0.261424,522 0.10455,677 0.130712,711 0.097699}
+{4 0.013266,5 0.04551,7 0.072561,10 0.047125,13 0.019678,14 0.019678,15 0.053468,19 0.056545,143 0.108096,295 0.055259,459 0.254407,684 0.127203,685 0.127203}
+{0 0.413045,2 0.129698,12 0.064413,23 0.070523,26 0.043233,32 0.001385,33 0.025896,36 0.025547,40 0.026074,44 0.013663,50 0.009503,53 0.005627,54 0.013849,60 0.028824,62 0.009892,68 0.009826,73 0.005778,76 0.001851,81 0.005935,82 0.009892,85 0.003801,92 0.00996,104 0.003957,112 0.001939,113 0.005935,114 0.006017,115 0.001952,118 0.001901,122 0.005895,126 0.005976,135 0.001978,137 0.001913,159 0.001939,172 0.003957,180 0.001992,185 0.001978,195 0.001992,220 0.002006,225 0.002006,226 0.002006,227 0.002168,241 0.002006,244 0.002006,260 0.002006,275 0.002006,290 0.00202,312 0.002034,408 0.002201}
+{0 0.013907,3 0.004275,4 0.002771,6 0.012815,7 0.030315,13 0.004111,14 0.004111,24 0.035895,25 0.010825,29 0.057577,32 0.021083,45 0.012737,60 0.016871,63 0.026972,67 0.016675,142 0.012912,209 0.047186,210 0.047186,211 0.047186,247 0.054624,262 0.018208,391 0.082454,432 0.018871,511 0.019654,559 0.039309,619 0.061841,620 0.061841,754 0.023593,848 0.02185,850 0.02185,878 0.023593,896 0.023593,897 0.023593,956 0.026572,957 0.026572,958 0.026572}
+{4 0.01987,5 0.068162,10 0.07058,15 0.080081,19 0.084689,73 0.105072,553 0.190516,554 0.190516,555 0.190516}
+{3 0.04479,4 0.029032,17 0.110068,64 0.179431,225 0.079942,417 0.278369,418 0.278369}
+{3 0.067782,4 0.043935,96 0.326801,112 0.116946,115 0.117734,328 0.326801}
+{4 0.01613,43 0.083782,239 0.127179,240 0.127179,260 0.044416,322 0.137323,624 0.154664,625 0.154664,626 0.154664}
+{0 0.277085,2 0.102147,12 0.05073,23 0.055542,26 0.034049,32 0.003,33 0.025886,36 0.025537,40 0.026064,44 0.029593,50 0.020581,53 0.012187,54 0.029996,60 0.028813,62 0.021425,68 0.021281,73 0.012514,76 0.00401,81 0.012855,82 0.021425,85 0.008233,92 0.021572,104 0.00857,112 0.004199,113 0.012855,114 0.013032,115 0.004228,118 0.004116,122 0.012768,126 0.012943,135 0.004285,137 0.004144,159 0.004199,172 0.00857,180 0.004314,185 0.004285,195 0.004314,220 0.004344,225 0.004344,226 0.004344,227 0.004696,241 0.004344,244 0.004344,260 0.004344,275 0.004344,290 0.004374,312 0.004404,408 0.004766}
+{3 0.088061,4 0.05708,158 0.404818,217 0.450041}
+{3 0.026734,4 0.017329,25 0.067689,35 0.080737,45 0.07964,48 0.071376,70 0.085638,91 0.107099,108 0.101705,138 0.104267,515 0.128893,520 0.128893}
+{4 0.006162,5 0.105694,13 0.00914,14 0.00914,34 0.032006,43 0.160031,63 0.08996,79 0.032006,95 0.033862,113 0.016737,280 0.09167,705 0.118169,706 0.118169,855 0.059084,856 0.059084,857 0.059084}
+{0 0.012635,2 0.013585,11 0.018728,12 0.013494,23 0.014774,26 0.013585,32 0.009577,33 0.013771,36 0.013585,38 0.020516,40 0.013866,44 0.013494,47 0.018728,48 0.020742,50 0.013139,53 0.012967,54 0.013678,60 0.015328,62 0.013678,68 0.013585,73 0.013315,76 0.012799,81 0.013678,82 0.013678,85 0.013139,92 0.013771,97 0.020742,103 0.020975,104 0.013678,112 0.013404,113 0.013678,114 0.013866,115 0.013494,118 0.013139,122 0.013585,126 0.013771,135 0.013678,137 0.013226,143 0.020516,159 0.013404,172 0.013678,180 0.013771,185 0.013678,195 0.013771,216 0.032043,220 0.013866,225 0.013866,226 0.013866,227 0.014991,241 0.013866,244 0.013866,260 0.013866,275 0.013866,289 0.032043,290 0.013962,295 0.020975,312 0.014059,354 0.033086,372 0.033086,614 0.033086,822 0.035714}
+{3 0.01323,4 0.008576,7 0.070357,11 0.063787,13 0.01272,14 0.01272,35 0.039955,43 0.044542,63 0.041732,127 0.04811,142 0.039955,287 0.182457,473 0.067613,643 0.146013,689 0.067613,694 0.067613,817 0.073006}
+{3 0.045748,4 0.029654,34 0.154022,94 0.201921,403 0.284328,404 0.284328}
+{1 0.178534,16 0.318399,184 0.503067}
+{4 0.093468,5 0.320639,10 0.332015,81 0.253878}
+{3 0.032572,4 0.021113,7 0.057738,13 0.031316,14 0.031316,24 0.068364,31 0.236889,32 0.040154,123 0.134342,410 0.16646,441 0.179737}
+{6 0.083221,8 0.090311,13 0.026694,14 0.026694,18 0.042654,20 0.048552,21 0.050245,22 0.061215,37 0.211254,53 0.092687,118 0.093914,596 0.172559}
+{3 0.002559,4 0.001658,6 0.053683,7 0.031748,8 0.083224,13 0.00246,14 0.00246,18 0.031445,22 0.045129,24 0.069812,30 0.006545,32 0.050467,47 0.006168,57 0.016392,70 0.008196,86 0.00951,130 0.008071,153 0.006987,194 0.124222,319 0.05125,323 0.047048,393 0.008614,443 0.026152,513 0.008936,521 0.0205,571 0.021106,683 0.127214,790 0.01025,852 0.026152,854 0.010553,898 0.010896,919 0.028238,966 0.014119,967 0.014119,969 0.014119}
+{3 0.012465,4 0.00808,6 0.018681,13 0.011984,14 0.011984,22 0.082449,24 0.026163,32 0.015367,35 0.037645,42 0.138995,57 0.03993,70 0.07986,108 0.047422,127 0.045329,144 0.049937,153 0.03404,177 0.240397,278 0.057303,393 0.041967}
+{0 0.41772,2 0.120068,12 0.05963,23 0.065287,26 0.040023,32 0.001568,33 0.024793,36 0.024458,40 0.024964,44 0.01546,50 0.010752,53 0.006367,54 0.01567,60 0.027596,62 0.011193,68 0.011117,73 0.006537,76 0.002095,81 0.006716,82 0.011193,85 0.004301,92 0.01127,104 0.004477,112 0.002194,113 0.006716,114 0.006808,115 0.002209,118 0.00215,122 0.00667,126 0.006762,135 0.002239,137 0.002165,159 0.002194,172 0.004477,180 0.002254,185 0.002239,195 0.002254,220 0.002269,225 0.002269,226 0.002269,227 0.002454,241 0.002269,244 0.002269,260 0.002269,275 0.002269,290 0.002285,312 0.002301,408 0.00249}
+{6 0.081268,8 0.088192,13 0.026068,14 0.026068,18 0.041653,20 0.047413,21 0.049065,22 0.059779,50 0.09171,61 0.230937,76 0.089339,602 0.168509}
+{0 0.303403,2 0.120132,11 0.14803,12 0.059662,23 0.006418,26 0.040149,32 0.000019,33 0.02302,36 0.023552,38 0.063415,40 0.023178,44 0.000026,47 0.04507,48 0.064115,50 0.000102,53 0.000025,54 0.000027,60 0.004756,62 0.000106,68 0.000026,73 0.000026,76 0.000968,81 0.000027,82 0.000027,85 0.000051,92 0.000027,97 0.001287,103 0.018792,104 0.000053,107 0.021332,112 0.000962,113 0.000027,114 0.000027,115 0.000968,118 0.000025,122 0.000026,126 0.000027,130 0.000095,135 0.000027,137 0.001,143 0.00008,156 0.002233,159 0.002001,172 0.002069,180 0.000027,185 0.000027,190 0.009604,195 0.000053,220 0.001049,225 0.001049,226 0.001049,227 0.001134,241 0.000027,244 0.000538,260 0.000027,275 0.001049,290 0.001002,295 0.000081,312 0.000027,327 0.002361,408 0.001151,711 0.002361}
+{3 0.045487,4 0.029484,125 0.232462,140 0.209102,342 0.232462,463 0.251003}
+{0 0.126825,2 0.12763,11 0.208409,12 0.063386,26 0.042543,32 0.000268,33 0.026568,36 0.034946,38 0.055067,40 0.026751,44 0.000377,47 0.07907,48 0.055675,50 0.001469,53 0.000363,54 0.000382,62 0.00153,68 0.00038,73 0.000372,76 0.001431,81 0.000382,82 0.000382,85 0.000735,92 0.000385,97 0.013339,103 0.042225,104 0.000765,107 0.020799,112 0.001499,113 0.000382,114 0.000388,115 0.001509,118 0.000367,122 0.00038,126 0.000385,130 0.000685,135 0.000382,137 0.001479,143 0.001147,156 0.005083,159 0.003748,172 0.001912,180 0.000385,185 0.000382,190 0.023295,195 0.00077,220 0.001551,225 0.001551,226 0.001551,227 0.000419,241 0.000388,244 0.000775,260 0.000388,275 0.001551,290 0.001171,295 0.001173,312 0.000393,327 0.005376,408 0.001702,711 0.005376}
+{3 0.02414,4 0.015647,6 0.036178,8 0.03926,11 0.058194,13 0.023209,14 0.023209,16 0.084311,35 0.072904,63 0.076145,366 0.246739,383 0.300063}
+{4 0.075751,5 0.259862,75 0.4558,114 0.208587}
+{6 0.072108,8 0.078251,13 0.023129,14 0.023129,18 0.036958,20 0.042069,21 0.043535,22 0.053041,49 0.198447,85 0.081372,93 0.198447,638 0.149515}
+{3 0.017328,4 0.011232,7 0.061434,13 0.01666,14 0.01666,148 0.265675,155 0.079659,175 0.138839,332 0.088558,333 0.088558,726 0.107697,727 0.107697}
+{6 0.042533,8 0.046157,13 0.027286,14 0.027286,18 0.0436,20 0.049629,21 0.051359,102 0.234112,183 0.145041,590 0.176386,618 0.15661}
+{6 0.080755,8 0.043817,13 0.025903,14 0.025903,18 0.04139,20 0.047114,21 0.048756,51 0.089158,62 0.094868,352 0.334891,604 0.167445}
+{1 0.148738,9 0.207408,28 0.255704,131 0.38815}
+{6 0.048171,8 0.04182,13 0.00618,14 0.00618,18 0.029627,20 0.011241,21 0.011633,22 0.014173,24 0.053969,32 0.095099,42 0.023894,47 0.015497,51 0.021273,83 0.047787,124 0.029551,130 0.040554,275 0.011474,284 0.032853,290 0.011553,334 0.032853,335 0.032853,565 0.065706,614 0.027377,795 0.079905,822 0.029551,852 0.032853,853 0.035473,879 0.035473,912 0.035473,915 0.039953}
+{3 0.008124,4 0.005266,7 0.10081,13 0.007811,14 0.007811,27 0.241576,30 0.124694,59 0.227827,412 0.04152,420 0.033509,421 0.033509,422 0.033509,423 0.033509,424 0.033509,425 0.033509,426 0.033509}
+{3 0.032572,4 0.021113,7 0.057738,13 0.031316,14 0.031316,24 0.068364,31 0.236889,32 0.040154,123 0.134342,412 0.16646,439 0.179737}
+{6 0.012759,8 0.013845,10 0.019601,13 0.008185,14 0.008185,18 0.013079,20 0.014887,21 0.015406,195 0.030182,397 0.093955,719 0.046977,720 0.046977,721 0.046977,722 0.046977,880 0.05291,881 0.05291,882 0.05291,883 0.05291,884 0.05291,885 0.05291,886 0.05291,887 0.05291,888 0.05291,889 0.05291,890 0.05291}
+{3 0.042442,4 0.02751,17 0.104298,22 0.093575,170 0.2342,246 0.2342,447 0.263775}
+{3 0.035914,4 0.023279,7 0.063663,13 0.034529,14 0.034529,17 0.088257,22 0.079183,85 0.06074,313 0.183542,351 0.198182,547 0.198182}
+{1 0.144272,9 0.201179,28 0.248025,163 0.406524}
+{0 0.339075,2 0.115131,12 0.057179,23 0.062602,26 0.038377,32 0.002255,33 0.025935,36 0.025585,40 0.026113,44 0.022236,50 0.015465,53 0.009158,54 0.022539,60 0.028867,62 0.016099,68 0.01599,73 0.009403,76 0.003013,81 0.00966,82 0.016099,85 0.006186,92 0.016209,104 0.00644,112 0.003155,113 0.00966,114 0.009792,115 0.003177,118 0.003093,122 0.009594,126 0.009726,135 0.00322,137 0.003114,159 0.003155,172 0.00644,180 0.003242,185 0.00322,195 0.003242,220 0.003264,225 0.003264,226 0.003264,227 0.003529,241 0.003264,244 0.003264,260 0.003264,275 0.003264,290 0.003287,312 0.00331,408 0.003582}
+{4 0.023853,5 0.081828,10 0.084731,15 0.096137,17 0.090434,19 0.101669,44 0.06392,488 0.228714,489 0.228714}
+{3 0.017044,4 0.011047,6 0.025543,7 0.090636,13 0.016386,14 0.016386,91 0.273112,153 0.046543,206 0.235048,419 0.174204,682 0.09405}
+{3 0.015585,4 0.010102,7 0.027627,13 0.014984,14 0.014984,24 0.032711,32 0.019213,79 0.052471,95 0.055513,204 0.075142,233 0.172005,273 0.172005,349 0.172005,469 0.079649,508 0.086002}
+{1 0.106076,7 0.192033,13 0.052077,14 0.052077,29 0.182361,30 0.138559,240 0.276817}
+{4 0.093468,5 0.320639,10 0.332015,135 0.253878}
+{6 0.083906,8 0.045527,13 0.026914,14 0.026914,18 0.043005,20 0.048952,21 0.050658,51 0.092636,81 0.098569,234 0.308943,593 0.173978}
+{6 0.054799,8 0.059468,10 0.042095,13 0.017577,14 0.017577,18 0.028087,20 0.031971,21 0.033085,22 0.040309,30 0.046768,49 0.226219,75 0.071305,85 0.06184,118 0.06184,622 0.093434,715 0.113626}
+{1 0.180606,29 0.310489,192 0.508905}
+{2 0.019551,3 0.01118,4 0.007247,7 0.079275,13 0.010749,14 0.010749,18 0.017176,24 0.023466,32 0.013783,63 0.035266,79 0.037641,128 0.039048,142 0.033765,145 0.087211,152 0.134369,255 0.095229,492 0.107809,514 0.051396,566 0.185087}
+{6 0.039022,8 0.042347,13 0.025034,14 0.025034,18 0.040001,19 0.071936,20 0.045532,21 0.047119,78 0.251075,494 0.125537,495 0.125537,615 0.161826}
+{0 0.346188,2 0.114252,11 0.135566,12 0.056742,23 0.006241,26 0.033389,32 0.000184,33 0.024591,36 0.025824,38 0.061844,40 0.02476,44 0.000259,47 0.039555,48 0.062526,50 0.001009,53 0.000249,54 0.000263,60 0.006769,62 0.00105,68 0.000261,73 0.000256,76 0.000246,81 0.000263,82 0.000263,85 0.000505,92 0.000264,97 0.00239,103 0.016109,104 0.000525,107 0.022074,112 0.000257,113 0.000263,114 0.000266,115 0.000259,118 0.000252,122 0.000261,126 0.000264,135 0.000263,137 0.000254,143 0.000394,159 0.000257,172 0.000263,180 0.000264,185 0.000263,190 0.008443,195 0.000264,220 0.000266,225 0.000266,226 0.000266,241 0.000266,244 0.000266,260 0.000266,275 0.000266,290 0.000268,295 0.000403,312 0.00027,408 0.000292}
+{3 0.015515,4 0.010057,7 0.027503,13 0.014917,14 0.014917,86 0.115337,127 0.11284,153 0.04237,155 0.142649,287 0.071324,457 0.25685,491 0.079292,751 0.096428}
+{6 0.048868,8 0.053031,13 0.03135,14 0.03135,18 0.050093,20 0.05702,21 0.059008,24 0.068438,32 0.040198,100 0.299792,226 0.058198,533 0.202655}
+{0 0.015474,2 0.016638,11 0.022936,12 0.016526,26 0.016638,32 0.011729,33 0.016866,36 0.016638,38 0.025125,40 0.016982,44 0.016526,47 0.022936,48 0.025403,50 0.016091,53 0.015881,54 0.016751,62 0.016751,68 0.016638,73 0.016306,76 0.015675,81 0.016751,82 0.016751,85 0.016091,92 0.016866,97 0.025403,103 0.025688,104 0.016751,107 0.027608,112 0.016416,113 0.016751,114 0.016982,115 0.016526,118 0.016091,122 0.016638,126 0.016866,135 0.016751,137 0.016198,143 0.025125,159 0.016416,172 0.016751,180 0.016866,185 0.016751,190 0.028344,195 0.016866,220 0.016982,225 0.016982,226 0.016982,227 0.01836,241 0.016982,244 0.016982,260 0.016982,275 0.016982,290 0.017099,295 0.025688,312 0.017218}
+{4 0.031449,25 0.122846,56 0.19437,118 0.082056,205 0.267734,378 0.301544}
+{6 0.033762,8 0.036638,13 0.021659,14 0.021659,18 0.034608,20 0.039394,21 0.040767,24 0.047282,32 0.027772,64 0.180495,238 0.095939,414 0.280018,659 0.140009}
+{1 0.038277,9 0.053375,28 0.065803,76 0.032201,90 0.080614,93 0.080614,98 0.080614,102 0.080614,116 0.080614,118 0.033056,134 0.083238,136 0.083238,296 0.107854,469 0.099887}
+{3 0.048136,4 0.031201,17 0.118291,22 0.10613,90 0.198537,160 0.232081,164 0.265624}
+{1 0.110463,9 0.154035,47 0.135976,213 0.288266,265 0.311259}
+{4 0.022264,5 0.076376,15 0.179464,19 0.094895,34 0.115641,88 0.146281,121 0.151604,512 0.213475}
+{3 0.008143,4 0.005278,7 0.101048,13 0.007829,14 0.007829,27 0.242145,30 0.124988,59 0.228363,379 0.039262,420 0.033588,421 0.033588,422 0.033588,423 0.033588,424 0.033588,425 0.033588,426 0.033588}
+{4 0.019627,25 0.076669,45 0.090206,87 0.124892,92 0.053676,147 0.145993,360 0.167093,438 0.15475,490 0.167093}
+{1 0.112071,9 0.156277,28 0.192667,46 0.223195,178 0.315789}
+{4 0.061993,5 0.212664,19 0.264229,78 0.461115}
+{6 0.049524,8 0.053743,13 0.015885,14 0.015885,18 0.025383,20 0.028893,21 0.0299,24 0.034678,32 0.040738,51 0.054677,83 0.061412,139 0.070365,159 0.028507,161 0.182348,527 0.205375,743 0.102688}
+{3 0.016152,4 0.010469,7 0.028631,13 0.015529,14 0.015529,70 0.103478,127 0.117468,153 0.044107,155 0.148499,287 0.074249,316 0.247632,515 0.077873,748 0.100383}
+{6 0.071645,8 0.077748,13 0.022981,14 0.022981,18 0.036721,20 0.041799,21 0.043255,22 0.0527,50 0.08085,61 0.203591,116 0.197173,641 0.148556}
+{3 0.011246,4 0.007289,7 0.079737,13 0.010812,14 0.010812,17 0.027635,18 0.017276,24 0.023603,32 0.013863,74 0.04386,117 0.090102,128 0.039276,142 0.033962,145 0.087719,149 0.045051,302 0.095784,514 0.051696,561 0.186166,687 0.12411}
+{3 0.056066,4 0.036341,28 0.188759,151 0.270314,220 0.100068,339 0.348452}
+{6 0.022619,8 0.024546,13 0.014511,14 0.014511,18 0.023187,20 0.026393,21 0.027313,133 0.069382,191 0.154265,222 0.154265,755 0.093802,756 0.093802,757 0.093802,758 0.093802,759 0.093802}
+{0 0.000316,2 0.000793,6 0.009121,8 0.003054,10 0.000298,11 0.007492,16 0.00294,17 0.003182,18 0.004277,22 0.006138,24 0.01821,28 0.000872,29 0.003924,30 0.004803,31 0.000235,32 0.01325,33 0.00023,35 0.000196,38 0.003591,39 0.000595,41 0.000259,42 0.002407,48 0.001037,50 0.00011,51 0.0015,57 0.001659,58 0.000253,59 0.002075,63 0.003063,64 0.000519,65 0.00101,66 0.000253,67 0.001768,69 0.000241,70 0.00083,71 0.00202,74 0.00202,75 0.000505,76 0.000213,77 0.000298,82 0.000114,83 0.000241,84 0.000286,85 0.00011,86 0.000722,87 0.00454,90 0.000801,91 0.004669,92 0.000115,93 0.001335,97 0.001383,98 0.000534,102 0.000801,103 0.00035,107 0.000376,108 0.002956,111 0.000298,112 0.00067,115 0.000112,116 0.000267,117 0.001297,118 0.000329,119 0.000801,122 0.000113,123 0.003739,127 0.002825,128 0.007236,129 0.000519,134 0.000276,136 0.000827,137 0.00011,138 0.00101,139 0.000276,140 0.000298,141 0.001068,144 0.003113,145 0.003788,147 0.000312,149 0.001297,152 0.001297,160 0.000312,169 0.002497,171 0.000312,172 0.005244,175 0.000259,177 0.000936,188 0.001488,190 0.000386,199 0.000993,200 0.000331,201 0.000331,202 0.000331,203 0.000331,206 0.003572,207 0.001103,212 0.000993,216 0.000267,224 0.00437,228 0.001249,229 0.000936,230 0.000893,231 0.000298,238 0.000276,243 0.000298,247 0.001103,250 0.004762,255 0.001379,257 0.003429,258 0.000893,266 0.000298,277 0.000893,280 0.005619,281 0.000276,282 0.000662,291 0.00437,292 0.000331,297 0.000624,298 0.000267,302 0.001103,305 0.000624,309 0.002136,310 0.002,313 0.000331,315 0.000331,316 0.00364,317 0.001654,323 0.004762,324 0.001786,326 0.003746,328 0.000624,329 0.000662,341 0.000298,342 0.000331,348 0.001654,350 0.000331,354 0.001654,359 0.001249,364 0.000801,365 0.000801,366 0.011581,374 0.000551,376 0.000936,384 0.000624,386 0.002858,387 0.000662,400 0.000662,401 0.000662,407 0.000298,413 0.001143,415 0.002497,419 0.000993,420 0.000801,421 0.000801,422 0.000801,423 0.000801,424 0.000801,425 0.000801,426 0.000801,429 0.000624,432 0.005144,433 0.000312,438 0.000331,443 0.006287,449 0.000572,451 0.000357,457 0.000715,460 0.000357,461 0.001249,463 0.000357,467 0.001561,468 0.000662,471 0.000357,483 0.006949,486 0.001488,487 0.000312,491 0.001324,492 0.002185,494 0.000312,495 0.000312,499 0.001429,514 0.000595,515 0.003122,520 0.00437,523 0.000312,526 0.000662,534 0.000993,535 0.000993,536 0.000357,546 0.000715,547 0.000715,551 0.001324,552 0.000357,559 0.001786,560 0.002647,561 0.000357,565 0.000331,566 0.000357,572 0.000715,577 0.000715,588 0.000993,589 0.002185,600 0.000662,616 0.000715,618 0.000715,619 0.000312,620 0.000312,621 0.000331,622 0.000331,623 0.000331,643 0.000715,647 0.001072,648 0.000715,650 0.000357,653 0.000715,660 0.000993,677 0.000357,678 0.001072,679 0.000715,681 0.000357,687 0.002501,688 0.001324,689 0.001985,690 0.000715,693 0.000662,694 0.001324,695 0.000357,698 0.001072,700 0.000331,711 0.000534,716 0.000993,725 0.000715,741 0.000331,745 0.000715,749 0.000715,750 0.000662,753 0.006788,760 0.000715,761 0.000357,762 0.000357,782 0.000662,783 0.000715,786 0.001324,787 0.000331,792 0.000715,794 0.094966,815 0.002316,817 0.000715,819 0.000715,823 0.000715,824 0.000715,825 0.081284,826 0.080479,827 0.000357,828 0.000357,829 0.000357,830 0.000357,831 0.000357,832 0.000357,836 0.000357,837 0.000357,838 0.000357,839 0.000357,840 0.000357,841 0.000357,844 0.001072,845 0.000715,848 0.000662,849 0.000715,850 0.000331,891 0.000357,892 0.000357,913 0.000715,914 0.000662,916 0.001429,918 0.000715,920 0.000357,921 0.000357,922 0.000357,923 0.000357,924 0.000357,925 0.000357,926 0.000357,927 0.000357,928 0.000357,929 0.000357,930 0.000357,931 0.000357,932 0.000357,933 0.000357,934 0.000357,935 0.000357,936 0.000357,937 0.000357,938 0.000357,939 0.000357,940 0.000357,941 0.000357,942 0.000357,943 0.000357,944 0.000357,945 0.000357,946 0.000357,947 0.000357,948 0.000993,949 0.036216,951 0.006074,952 0.032594,959 0.025753,960 0.025753,961 0.025351,966 0.005002,967 0.00393,968 0.018108,969 0.000715,970 0.017303,971 0.016901,972 0.016901,973 0.016901,974 0.002501,977 0.001324,978 0.001072,980 0.013682,983 0.010865,987 0.008048,989 0.007646,990 0.007646,991 0.007243,992 0.006841,993 0.006841,994 0.006438,995 0.002858,996 0.006036,997 0.006036,998 0.002144,999 0.005634}
+{1 0.213613,15 0.284956,39 0.501431}
+{3 0.090362,4 0.058572,71 0.352429,198 0.498637}
+{3 0.023064,4 0.01495,25 0.058396,34 0.077649,43 0.077649,45 0.068707,46 0.089953,156 0.089953,173 0.117869,204 0.111198,613 0.12727,655 0.143342}
+{3 0.011546,4 0.007484,7 0.081868,13 0.011101,14 0.011101,17 0.028374,18 0.017738,24 0.024234,32 0.014234,97 0.030826,128 0.040325,142 0.034869,145 0.090063,149 0.138764,413 0.101922,514 0.053077,552 0.19114,589 0.111335}
+{3 0.012573,4 0.008149,6 0.018842,7 0.022287,8 0.020448,13 0.012088,14 0.012088,17 0.030897,18 0.019315,24 0.026388,25 0.031833,32 0.0155,33 0.022287,45 0.037454,52 0.047831,97 0.033568,149 0.050367,153 0.034334,188 0.115594,372 0.053544,413 0.110985,526 0.064254,589 0.060617,823 0.069379,824 0.069379}
+{4 0.018954,5 0.065019,10 0.067326,15 0.076389,17 0.071858,19 0.080785,34 0.098446,79 0.098446,95 0.104153,100 0.134421,137 0.049782,179 0.134421}
+{3 0.028593,4 0.018534,57 0.183188,58 0.111519,144 0.114548,247 0.121772,415 0.137859,432 0.126203,472 0.157784}
+{1 0.185425,16 0.330688,202 0.483887}
+{6 0.109098,8 0.059196,13 0.034994,14 0.034994,18 0.055917,20 0.063649,21 0.065868,51 0.12045,130 0.229619,493 0.226214}
+{6 0.068951,8 0.074825,13 0.022117,14 0.022117,18 0.03534,20 0.040227,21 0.041629,116 0.189759,245 0.235126,476 0.12694,657 0.14297}
+{1 0.124534,9 0.173655,96 0.306593,304 0.395218}
+{3 0.026223,4 0.016997,7 0.046483,13 0.025211,14 0.025211,87 0.108156,92 0.046483,168 0.144702,224 0.126429,269 0.144702,648 0.144702,650 0.144702}
+{4 0.03535,44 0.094727,54 0.096017,113 0.096017,344 0.338945,345 0.338945}
+{1 0.086596,9 0.120754,91 0.177145,108 0.168224,230 0.203274,471 0.244007}
+{2 0.025946,3 0.007419,4 0.004809,7 0.118356,13 0.007133,14 0.007133,18 0.011397,24 0.015571,32 0.009146,72 0.065488,128 0.02591,141 0.122394,142 0.022405,145 0.086803,364 0.091796,365 0.091796,407 0.204624,792 0.081876}
+{0 0.642599,2 0.076385,12 0.037936,23 0.041534,26 0.024304,32 0.000816,33 0.017598,36 0.019675,40 0.017719,44 0.008047,50 0.005597,53 0.003314,54 0.008157,60 0.016976,62 0.005826,68 0.005787,73 0.003403,76 0.00109,81 0.003496,82 0.005826,85 0.002239,92 0.005866,97 0.003534,104 0.00233,112 0.001142,113 0.003496,114 0.003544,115 0.00115,118 0.001119,122 0.003472,126 0.00352,135 0.001165,137 0.001127,159 0.001142,172 0.00233,180 0.001173,185 0.001165,195 0.001173,220 0.001181,225 0.001181,226 0.001181,227 0.001277,241 0.001181,244 0.001181,260 0.001181,275 0.001181,290 0.001189,312 0.001198,408 0.001296}
+{0 0.294036,2 0.114966,12 0.057096,23 0.062512,26 0.035927,32 0.002533,33 0.029135,36 0.028741,40 0.029335,44 0.02498,50 0.017373,53 0.010288,54 0.02532,60 0.032428,62 0.018086,68 0.017963,73 0.010563,76 0.003385,81 0.010851,82 0.018086,85 0.006949,92 0.018209,104 0.007234,112 0.003545,113 0.010851,114 0.011001,115 0.003569,118 0.003475,122 0.010778,126 0.010926,135 0.003617,137 0.003498,159 0.003545,172 0.007234,180 0.003642,185 0.003617,195 0.003642,220 0.003667,225 0.003667,226 0.003667,227 0.003964,241 0.003667,244 0.003667,260 0.003667,275 0.003667,290 0.003692,312 0.003718,408 0.004023}
+{3 0.007738,4 0.005016,6 0.046387,7 0.04115,13 0.00744,14 0.00744,16 0.054051,30 0.019794,63 0.048816,67 0.090539,142 0.023369,153 0.021131,331 0.1708,391 0.074616,559 0.071144,619 0.074616,620 0.074616,750 0.039546,848 0.039546,850 0.039546,913 0.0427}
+{3 0.006523,4 0.004228,6 0.029326,8 0.021216,13 0.006271,14 0.006271,18 0.01002,29 0.02196,30 0.03337,63 0.020574,129 0.02613,142 0.019699,188 0.119938,247 0.055556,250 0.149922,257 0.028789,343 0.100002,355 0.031448,432 0.028789,468 0.100002,587 0.107979,819 0.071986}
+{3 0.104663,4 0.067841,74 0.408205,117 0.419291}
+{6 0.071645,8 0.077748,13 0.022981,14 0.022981,18 0.036721,20 0.041799,21 0.043255,22 0.0527,50 0.08085,61 0.203591,98 0.197173,639 0.148556}
+{3 0.028867,4 0.018711,5 0.064187,7 0.05117,10 0.066465,13 0.027753,14 0.027753,15 0.075412,19 0.079751,31 0.209942,225 0.051522,291 0.139176,616 0.159291}
+{4 0.0023,5 0.094694,13 0.003412,14 0.003412,43 0.143375,280 0.205322,318 0.018137,900 0.044112,901 0.044112,902 0.044112,903 0.044112,904 0.044112,905 0.044112,906 0.044112,907 0.044112,908 0.044112,909 0.044112,910 0.044112,911 0.044112}
+{3 0.021897,4 0.014194,7 0.077632,13 0.021053,14 0.021053,24 0.091919,32 0.026995,130 0.06907,148 0.335723,332 0.111908,333 0.111908,522 0.096649}
+{6 0.104806,8 0.056867,13 0.033617,14 0.033617,18 0.053717,20 0.061145,21 0.063276,27 0.259928,51 0.115711,501 0.217314}
+{3 0.05381,4 0.034879,5 0.11965,100 0.247364,105 0.247364,221 0.296932}
+{0 0.546705,2 0.078963,12 0.039216,23 0.042936,26 0.026321,32 0.001546,33 0.017787,36 0.017547,40 0.01791,44 0.015251,50 0.010607,53 0.006281,54 0.015458,60 0.019798,62 0.011042,68 0.010967,73 0.006449,76 0.002066,81 0.006625,82 0.011042,85 0.004243,92 0.011117,104 0.004417,112 0.002164,113 0.006625,114 0.006716,115 0.002179,118 0.002121,122 0.00658,126 0.00667,135 0.002208,137 0.002135,159 0.002164,172 0.004417,180 0.002223,185 0.002208,195 0.002223,220 0.002239,225 0.002239,226 0.002239,227 0.00242,241 0.002239,244 0.002239,260 0.002239,275 0.002239,290 0.002254,312 0.00227,408 0.002456}
+{3 0.012552,4 0.008136,13 0.012068,14 0.012068,20 0.021951,24 0.026346,32 0.015475,70 0.04021,77 0.057704,128 0.04384,129 0.050286,250 0.057704,257 0.055403,276 0.06415,300 0.057704,316 0.1283,355 0.06052,367 0.06415,587 0.069267,716 0.06415,812 0.078014}
+{1 0.144272,9 0.201179,28 0.248025,164 0.406524}
+{3 0.008143,4 0.005278,7 0.101048,13 0.007829,14 0.007829,27 0.242145,30 0.124988,59 0.228363,358 0.039262,420 0.033588,421 0.033588,422 0.033588,423 0.033588,424 0.033588,425 0.033588,426 0.033588}
+{0 0.294036,2 0.114966,12 0.057096,23 0.062512,26 0.035927,32 0.002533,33 0.029135,36 0.028741,40 0.029335,44 0.02498,50 0.017373,53 0.010288,54 0.02532,60 0.032428,62 0.018086,68 0.017963,73 0.010563,76 0.003385,81 0.010851,82 0.018086,85 0.006949,92 0.018209,104 0.007234,112 0.003545,113 0.010851,114 0.011001,115 0.003569,118 0.003475,122 0.010778,126 0.010926,135 0.003617,137 0.003498,159 0.003545,172 0.007234,180 0.003642,185 0.003617,195 0.003642,220 0.003667,225 0.003667,226 0.003667,227 0.003964,241 0.003667,244 0.003667,260 0.003667,275 0.003667,290 0.003692,312 0.003718,408 0.004023}
+{3 0.021991,4 0.014254,7 0.077963,13 0.021142,14 0.021142,65 0.171534,258 0.101091,319 0.088096,521 0.088096,548 0.121348,665 0.136672,666 0.136672}
+{0 0.282763,2 0.101345,12 0.050332,23 0.055106,26 0.033782,32 0.002977,33 0.025683,36 0.025336,40 0.02586,44 0.02936,50 0.02042,53 0.012092,54 0.02976,60 0.028586,62 0.021257,68 0.021114,73 0.012415,76 0.003978,81 0.012754,82 0.021257,85 0.008168,92 0.021403,104 0.008503,112 0.004166,113 0.012754,114 0.01293,115 0.004194,118 0.004084,122 0.012668,126 0.012842,135 0.004251,137 0.004111,159 0.004166,172 0.008503,180 0.004281,185 0.004251,195 0.004281,220 0.00431,225 0.00431,226 0.00431,227 0.00466,241 0.00431,244 0.00431,260 0.00431,275 0.00431,290 0.00434,312 0.00437,408 0.004729}
+{4 0.024561,5 0.084255,10 0.087244,15 0.098989,78 0.182689,121 0.167243,134 0.161371,218 0.193648}
+{6 0.061333,8 0.066558,13 0.019673,14 0.019673,18 0.031435,20 0.035782,21 0.037029,73 0.070137,150 0.209146,182 0.209146,303 0.112914,686 0.127173}
+{0 0.327065,2 0.117223,12 0.058217,23 0.06374,26 0.039074,32 0.002296,33 0.026406,36 0.02605,40 0.026588,44 0.02264,50 0.015746,53 0.009324,54 0.022948,60 0.029391,62 0.016392,68 0.016281,73 0.009574,76 0.003068,81 0.009835,82 0.016392,85 0.006298,92 0.016504,104 0.006557,112 0.003213,113 0.009835,114 0.00997,115 0.003234,118 0.003149,122 0.009769,126 0.009902,135 0.003278,137 0.00317,159 0.003213,172 0.006557,180 0.003301,185 0.003278,195 0.003301,220 0.003323,225 0.003323,226 0.003323,227 0.003593,241 0.003323,244 0.003323,260 0.003323,275 0.003323,290 0.003346,312 0.00337,408 0.003647}
+{0 0.272969,2 0.115857,12 0.057539,23 0.062997,26 0.038619,32 0.002723,33 0.027403,36 0.027033,40 0.027592,44 0.026851,50 0.018675,53 0.011059,54 0.027217,60 0.030501,62 0.019441,68 0.019309,73 0.011355,76 0.003638,81 0.011665,82 0.019441,85 0.00747,92 0.019574,104 0.007776,112 0.00381,113 0.011665,114 0.011825,115 0.003836,118 0.003735,122 0.011586,126 0.011744,135 0.003888,137 0.00376,159 0.00381,172 0.007776,180 0.003915,185 0.003888,195 0.003915,220 0.003942,225 0.003942,226 0.003942,227 0.004261,241 0.003942,244 0.003942,260 0.003942,275 0.003942,290 0.003969,312 0.003996,408 0.004325}
+{1 0.045023,9 0.062782,28 0.077402,76 0.037877,90 0.094824,93 0.094824,98 0.094824,102 0.094824,116 0.094824,118 0.038882,136 0.09791,137 0.03914,356 0.126865}
+{3 0.023954,4 0.015527,6 0.035899,7 0.042462,8 0.038958,13 0.02303,14 0.02303,24 0.050276,32 0.02953,57 0.076733,188 0.220234,194 0.211452,289 0.098798,323 0.110117}
+{4 0.024686,5 0.084686,10 0.08769,15 0.099495,80 0.183623,98 0.157083,121 0.168098,218 0.194638}
+{6 0.053051,8 0.057571,13 0.017017,14 0.017017,18 0.027191,20 0.030951,21 0.03203,22 0.039023,46 0.138061,180 0.062749,293 0.195336,498 0.220003,723 0.110002}
+{0 0.362837,2 0.09003,12 0.044713,23 0.048954,26 0.03001,32 0.002645,33 0.022816,36 0.022508,40 0.022973,44 0.026082,50 0.01814,53 0.010742,54 0.026438,60 0.025395,62 0.018884,68 0.018756,73 0.011029,76 0.003534,81 0.01133,82 0.018884,85 0.007256,92 0.019013,104 0.007554,112 0.003701,113 0.01133,114 0.011486,115 0.003726,118 0.003628,122 0.011254,126 0.011408,135 0.003777,137 0.003652,159 0.003701,172 0.007554,180 0.003803,185 0.003777,195 0.003803,220 0.003829,225 0.003829,226 0.003829,227 0.004139,241 0.003829,244 0.003829,260 0.003829,275 0.003829,290 0.003855,312 0.003882,408 0.004201}
+{3 0.117707,4 0.076296,115 0.20445,165 0.601547}
+{1 0.143034,242 0.403035,259 0.453931}
+{3 0.049307,4 0.03196,38 0.130208,207 0.209988,270 0.272088,369 0.306448}
+{4 0.020759,5 0.071213,10 0.07374,15 0.250998,19 0.08848,121 0.141355,157 0.15441,545 0.199045}
+{3 0.032153,4 0.020841,41 0.257617,138 0.125403,400 0.164321,543 0.199833,544 0.199833}
+{6 0.036382,8 0.039481,13 0.02334,14 0.02334,18 0.037294,19 0.067068,20 0.042451,21 0.043931,80 0.234085,633 0.150876,634 0.150876,635 0.150876}
+{0 0.356676,2 0.138241,12 0.068656,23 0.075168,26 0.044594,32 0.001572,33 0.029383,36 0.028986,40 0.029585,44 0.015503,50 0.010782,53 0.006385,54 0.015714,60 0.032705,62 0.011224,68 0.011148,73 0.006556,76 0.002101,81 0.006735,82 0.011224,85 0.004313,92 0.011301,104 0.00449,112 0.0022,113 0.006735,114 0.006827,115 0.002215,118 0.002156,122 0.006689,126 0.006781,135 0.002245,137 0.002171,159 0.0022,172 0.00449,180 0.00226,185 0.002245,195 0.00226,220 0.002276,225 0.002276,226 0.002276,227 0.00246,241 0.002276,244 0.002276,260 0.002276,275 0.002276,290 0.002291,312 0.002307,408 0.002497}
+{6 0.097291,8 0.05279,13 0.031207,14 0.031207,18 0.049866,20 0.056761,21 0.058739,51 0.107415,80 0.312991,538 0.201733}
+{6 0.069705,8 0.037822,13 0.022359,14 0.022359,18 0.035727,20 0.040667,21 0.042084,24 0.04881,32 0.028669,54 0.040944,122 0.081334,253 0.256657,347 0.128329,651 0.144534}
+{4 0.019428,5 0.066645,15 0.0783,94 0.132289,151 0.144506,562 0.186278,563 0.186278,564 0.186278}
+{0 0.016642,2 0.017894,11 0.024668,12 0.017774,23 0.019459,26 0.017894,32 0.012615,33 0.018139,36 0.017894,38 0.027022,40 0.018263,44 0.017774,47 0.024668,48 0.02732,50 0.017306,53 0.01708,54 0.018016,60 0.020189,62 0.018016,68 0.017894,73 0.017537,76 0.016858,81 0.018016,82 0.018016,85 0.017306,92 0.018139,104 0.018016,112 0.017655,113 0.018016,114 0.018263,115 0.017774,118 0.017306,122 0.017894,126 0.018139,135 0.018016,137 0.017421,143 0.027022,159 0.017655,172 0.018016,180 0.018139,185 0.018016,195 0.018139,220 0.018263,225 0.018263,226 0.018263,227 0.019745,241 0.018263,244 0.018263,260 0.018263,275 0.018263,290 0.01839,295 0.027627,312 0.018517}
+{1 0.130308,9 0.181707,216 0.274442,285 0.413544}
+{6 0.029684,8 0.032213,13 0.019043,14 0.019043,18 0.030428,20 0.034636,21 0.035843,24 0.041571,30 0.050666,31 0.144049,32 0.024417,176 0.101223,291 0.190988,691 0.123098,692 0.123098}
+{6 0.055356,8 0.060072,13 0.017756,14 0.017756,18 0.028372,20 0.032296,21 0.033421,28 0.124355,120 0.169799,137 0.062884,223 0.188767,282 0.094384,713 0.114781}
+{1 0.017672,101 0.035195,644 0.049795,861 0.056084,862 0.056084,863 0.056084,864 0.056084,865 0.056084,866 0.056084,867 0.056084,868 0.056084,869 0.056084,870 0.056084,871 0.056084,872 0.056084,873 0.056084,874 0.056084,875 0.056084,876 0.056084}
+{0 0.282911,2 0.11959,11 0.155457,12 0.059393,23 0.004364,26 0.034513,32 0.000283,33 0.026442,36 0.028493,38 0.063632,40 0.026624,44 0.000399,47 0.048684,48 0.064335,50 0.001552,53 0.000383,54 0.000404,60 0.004981,62 0.001616,68 0.000401,73 0.000393,76 0.000378,81 0.000404,82 0.000404,85 0.000776,92 0.000407,97 0.003676,103 0.021066,104 0.000808,107 0.025304,112 0.000396,113 0.000404,114 0.00041,115 0.000399,118 0.000388,122 0.000401,126 0.000407,135 0.000404,137 0.000391,143 0.000606,159 0.000396,172 0.000404,180 0.000407,185 0.000404,190 0.010938,195 0.000407,220 0.00041,225 0.00041,226 0.00041,241 0.00041,244 0.00041,260 0.00041,275 0.00041,290 0.000412,295 0.00062,312 0.000415,408 0.000449}
+{0 0.470456,2 0.101536,11 0.114026,12 0.050427,23 0.015046,26 0.031813,32 0.00001,33 0.019319,36 0.01931,38 0.03106,40 0.019452,44 0.000015,47 0.042836,48 0.031402,50 0.000057,53 0.000014,54 0.000015,62 0.00006,68 0.000015,73 0.000015,76 0.000014,81 0.000015,82 0.000015,85 0.000029,92 0.000015,97 0.000384,103 0.025267,104 0.00003,107 0.011049,112 0.000015,113 0.000015,114 0.000015,115 0.000015,118 0.000014,122 0.000015,126 0.000015,135 0.000015,137 0.000014,143 0.000022,159 0.000015,172 0.000015,180 0.000015,185 0.000015,190 0.008344,195 0.000015,220 0.000015,225 0.000015,226 0.000015,241 0.000015,244 0.000015,260 0.000015,275 0.000015,281 0.000072,290 0.000015,295 0.000023,298 0.003874,312 0.000015,374 0.003604,408 0.000017}
+{0 0.103366,1 0.124467,9 0.173563,66 0.247883,268 0.35072}
+{3 0.033829,4 0.021927,35 0.102163,57 0.108364,128 0.118148,149 0.13552,276 0.172883,372 0.144067,497 0.163099}
