@@ -17,6 +17,7 @@
 			"table/table"
 			"table/xindex"
 			"learn/nb"
+			"chapter2"
 			))
 
 (defun make1 (files)

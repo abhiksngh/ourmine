@@ -22,3 +22,15 @@
   (check
     (equalp (list (+ 1 1 1) 'times 'the 'fun)
          '(3 TIMES THE FUN))))
+
+;2.4.1 cons Function
+
+(deftest test-2_4-1 ()
+  (check
+    (equalp (cons 'white (cons 'russians nil)) '(white russians))))
+
+;2.4.2 car Function
+
+(deftest test-2_4-2 ()
+  (check
+    (equalp (car '(10 9 8 7 6)) '10)))
