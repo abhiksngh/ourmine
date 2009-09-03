@@ -34,3 +34,40 @@
 (deftest test-2_4-2 ()
   (check
     (equalp (car '(10 9 8 7 6)) '10)))
+
+;2.4.3 cdr function
+
+(deftest test-2_4-3 ()
+  (check
+    (equalp (cdr '(1 2 3)) '(2 3))))
+
+;2.4.4 nth function
+
+(deftest test-2_4-4 ()
+  (check
+    (equalp (fourth '(4 3 2 1)) '1)))
+
+;2.5.1 listp function
+
+(deftest test-2_5-1 ()
+  (check
+    (eql (listp '(this is a list)) 't)))
+
+;2.6 defun
+
+(defun quickfun (x)
+  (* x x))
+
+(deftest test-2_6 ()
+  (check
+    (eql (quickfun 6) 36)))
+
+;2.10 Variables (let statement)
+
+(defun 2_10 (x)
+  (let ((thisvar 1000))
+    (+ x thisvar)))
+
+(deftest test-2_10 ()
+  (check
+    (eql (2_10 -999) 1)))
