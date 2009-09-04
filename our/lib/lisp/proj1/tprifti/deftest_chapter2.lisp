@@ -16,6 +16,13 @@
     (check (equal (+ a b c)
                   (apply #'+ '(1 2 3))))))
 
+(deftest test_assignment ()
+  (let* ((lst (list nil 2 3 4)))
+    (funcall #'(lambda (x) (setf  (car x) (apply #'+ (cdr lst))))
+             lst)
+    (check (equal (car lst) 9))))
+                      
+
 (deftest test_do()
   (let* ((start 1)
          (end 5)
