@@ -10,3 +10,15 @@
 (deftest test-10_1 ()
   (check
     (eql (eval '(* 8 8 8)) 512)))
+
+;10.2 Macros
+;
+
+(defmacro set-to-happy (x)
+  (list 'setf x 1))
+
+(let ((y 0))
+  (set-to-happy y)
+   (deftest test-10_2 ()
+     (check
+       (eql y 1))))
