@@ -15,3 +15,14 @@
     (check (equal '(100 101 102 103 104) lst))))
              
  
+(deftest test_filter ()
+  (let* (( lst '(1 (2) (1 2) 3 4))
+         ( lst1 (filter #'(lambda (x) (listp x)) lst)))
+    (check (equal lst1 '(T T)))))
+
+(deftest test_most ()
+  (let* ((lst nil))
+    (multiple-value-bind (elm score) (most #'length '((1) (1 2) (1 2 3)))
+      (setf lst (list elm score)))
+    (check (equal '((1 2 3) 3) lst))))
+                          
