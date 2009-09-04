@@ -35,7 +35,12 @@
              lst)
     (check (equal (car lst) 9))))
                       
+(deftest test_assignment1 ()
+  (let* ((lst '(a b b b )))
+    (setf lst (remove (car lst) lst))
+    (check (equal lst '(b b b)))))
 
+  
 (deftest test_do()
   (let* ((start 1)
          (end 5)
@@ -45,3 +50,12 @@
       (setf lst (cons (* i i) lst)))
     (check (equal (reverse lst) '(1 4 9 16 25)))))
 
+(
+
+(deftest test_functions ()
+  (labels ((list_incf (lst)
+             (if (listp lst)
+                 (mapcar #'(lambda (x) (+ x 1)) lst)
+                 nil)
+             ))
+    (check (equal (list_incf '(1 2 3 4)) '(2 3 4 5)))))
