@@ -1,6 +1,19 @@
 (deftest test_eval ()
   (check (equal (+ 1 3) (/ (* 2 4) 2))))
 
+(deftest test_list ()
+  (check (equal
+          (list (and (listp 3) t) (+ 1 3))
+          '(nil 4))))
+
+(deftest test_list1 ()
+  (let* ((lst '(1 2 '(2 3) 4)))
+    (labels ((listElem (x) (and (not (null x))
+                                (or (listp (car x))
+                                    (listElem (cdr x))))))
+      (check (listElem lst)))))
+                            
+                            
 (deftest test_cons ()
   (check (equal (cons '(1 2) '(3 4 5)) (list '(1 2) 3 4 5))))
 
@@ -31,3 +44,4 @@
         ((> i end) )
       (setf lst (cons (* i i) lst)))
     (check (equal (reverse lst) '(1 4 9 16 25)))))
+
