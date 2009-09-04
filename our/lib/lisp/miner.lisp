@@ -18,6 +18,7 @@
 			"table/xindex"
 			"learn/nb"
                         "proj1/tprifti/deftest_chapter2"
+			"proj1/anelson/chapter3"
 			))
 
 (defun make1 (files)
