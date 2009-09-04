@@ -38,7 +38,6 @@
         (c 3))
     (check (equal (+ a b c)
                   (apply #'+ '(1 2 3))))))
-
 ;;;; Testing the setf function
 (deftest test_assignment ()
   (let* ((lst (list nil 2 3 4)))
@@ -64,8 +63,6 @@
       ;;building a list containing as elements the squares of i
       (setf lst (cons (* i i) lst)))
     (check (equal (reverse lst) '(1 4 9 16 25)))))
-
-(
 
 ;;;; Testing the local functions
 (deftest test_functions ()
