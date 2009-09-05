@@ -1,0 +1,7 @@
+(deftest test_quicksort ()
+  (let* ((vec #(1 2 4 5 3))
+         (vec1 (quicksort vec 0 4))
+         (lst nil))
+    (dotimes (x (length vec1))
+      (setf lst (append1 lst (svref vec1 x))))
+    (check (equal lst '(1 2 3 4 5)))))
