@@ -19,7 +19,8 @@
 			"learn/nb"
                         "proj1/tprifti/deftest_chapter2"
                         "proj1/tprifti/deftest_chapter6"
-                        "proj1/figures/utility"
+                        "proj1/tprifti/deftest_chapter10"
+                        "proj1/figures/graham"
 			"proj1/anelson/chapter3"
 			))
 
