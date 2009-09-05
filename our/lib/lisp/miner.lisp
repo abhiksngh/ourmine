@@ -18,6 +18,7 @@
 			"table/xindex"
 			"learn/nb"
                         "proj1/tprifti/deftest_chapter2"
+                        "proj1/tprifti/deftest_chapter6"
                         "proj1/figures/utility"
 			"proj1/anelson/chapter3"
 			))
