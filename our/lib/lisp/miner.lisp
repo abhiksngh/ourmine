@@ -18,11 +18,8 @@
 			"table/xindex"
 			"learn/nb"
                         "proj1/tprifti/deftest_chapter2"
-<<<<<<< .mine
                         "proj1/figures/utility"
-=======
 			"proj1/anelson/chapter3"
->>>>>>> .r539
 			))
 
 (defun make1 (files)
