@@ -120,7 +120,7 @@
 	  (parse-month (second toks))
 	  (parse-integer (third toks)))))
 
-(defconstant month-names
+(setq month-names
   #("jan" "feb" "mar" "apr" "may" "jun"
     "jul" "aug" "sep" "oct" "nov" "dec"))
 

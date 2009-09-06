@@ -8,7 +8,7 @@
 (deftest test-for ()
   (check
     (for x 1 5
-      (princ x))))
+      (princ x)))) ;will print out 1 2 3 4 5
 
 (defmacro in (obj &rest choices)
   (let ((insym (gensym)))
@@ -18,7 +18,7 @@
 
 (deftest test-in()
   (check
-    (in 'a 'b 'c 'a 'd)))
+    (eq t (in 'a 'b 'c 'a 'd))))
 
 ;; randomly chooses an argument to evaluate
 (defmacro random-choice (&rest exprs)
@@ -30,7 +30,7 @@
 
 (deftest test-random-choice()
   (check
-    (random-choice "yes" "no")))
+    (random-choice "yes" "no"))) ; will print out either 'yes' or 'no' randomly
 
 
 (defmacro avg (&rest args)
@@ -38,7 +38,7 @@
 
 (deftest test-avg()
   (check
-    (avg 1 2 3 4 5)))
+    (eq 3 (avg 1 2 3 4 5))))
 
 ; with this macro, instead of (let ((x (gensym)) (y (gensym)) (z (gensym)))
 ; ...)
@@ -52,8 +52,8 @@
 
 (deftest test-with-gensyms()
   (check
-    (with-gensyms (x y z)
-      (list x y z))))
+   (with-gensyms (x y z)
+     (list x y z)))) ; reserves 3 memory locations
 
 ;; this macro allows us to use the variable it to refer to the
 ; value returned by the test argument in a conditional
@@ -63,6 +63,6 @@
 
 (deftest test-aif()
   (check
-    (aif (/ 10 5)
+    (eq 3 (aif (/ 10 5) ;10/5 = 2, 2 + 1 = 3
 	 (1+ it)
-	 0)))
+	 0))))
