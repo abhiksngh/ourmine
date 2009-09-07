@@ -17,3 +17,7 @@ awk 'BEGIN{p[cnt++]=$0;}
        return med
      }'
 }
+
+acc(){
+    awk '/Correctly/{print $5}' | head -n 1
+}
