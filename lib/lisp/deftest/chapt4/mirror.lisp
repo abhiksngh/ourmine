@@ -1,0 +1,13 @@
+(defun mirror? (s)
+  (let ((len (length s)))
+    (and (evenp len)
+         (do ((forward 0 (+ forward 1))
+              (back (- len 1) (- back 1)))
+             ((or (> forward back)
+                  (not (eql (elt s forward)
+                            (elt s back))))
+              (> forward back))))))
+
+(deftest test-mirror? ()
+  (check (mirror? "aabbaa")
+         (not (mirror? "abcd"))))

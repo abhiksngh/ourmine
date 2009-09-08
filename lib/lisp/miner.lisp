@@ -2,7 +2,12 @@
 
 (defparameter *files* '(
 			"tests/deftest"  ; must be loaded first
-			"deftest/chapter4"
+			"deftest/chapt4/binsearch"
+                        "deftest/chapt4/vector"
+                        "deftest/chapt4/mirror"
+                        "deftest/chapt4/strings"
+                        "deftest/chapt4/tokens"
+                        "deftest/chapt4/parsedate"
 			))
 
 (defun make1 (files)
