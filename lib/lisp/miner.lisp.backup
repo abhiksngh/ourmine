@@ -2,7 +2,21 @@
 
 (defparameter *files* '(
 			"tests/deftest"  ; must be loaded first
-			"deftest/chapter4"
+			"tricks/lispfuns"
+			"tricks/macros"
+			"tricks/number"
+			"tricks/string"
+			"tricks/list"
+			"tricks/hash"
+			"tricks/random"
+			"tricks/normal"
+			"tricks/caution"
+			"table/structs"
+			"table/header"
+			"table/data"
+			"table/table"
+			"table/xindex"
+			"learn/nb"
 			))
 
 (defun make1 (files)
