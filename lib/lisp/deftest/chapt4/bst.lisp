@@ -1,7 +1,7 @@
 (defstruct (node (:print-function
                   (lambda (n s d)
-                    (format s "#<~A>" (node-elt n)))))
-  elt (1 nil) (r nil))
+                    (format s "#<~S>" (node-elt n)))))
+  elt (l nil) (r nil))
 
 (defun bst-insert (obj bst <)
   (if (null bst)
@@ -12,12 +12,12 @@
             (if (funcall < obj elt)
                 (make-node
                  :elt elt
-                 :l   (bst-insert obj (node-1  bst) <)
+                 :l   (bst-insert obj (node-l  bst) <)
                  :r   (node-r bst))
                 (make-node
                  :elt elt
                  :r   (bst-insert obj (node-r bst) <)
-                 :l   (node-1 bst)))))))
+                 :l   (node-l bst)))))))
 
 (defun bst-find (obj bst <)
   (if (null bst)
@@ -26,12 +26,12 @@
         (if (eql obj elt)
             bst
             (if (funcall < obj elt)
-                (bst-find obj (node-1 bst) <)
+                (bst-find obj (node-l bst) <)
                 (bst-find obj (node-r bst) <))))))
 
 (defun bst-min (bst)
   (and bst
-       (or (bst-min (node-1 bst)) bst)))
+       (or (bst-min (node-l bst)) bst)))
 
 (defun bst-max (bst)
   (and bst
@@ -46,15 +46,15 @@
             (if (funcall < obj elt)
                 (make-node
                  :elt elt
-                 :l (bst-remove obj (node-1 bst) <)
+                 :l (bst-remove obj (node-l bst) <)
                  :r (node-r bst))
                 (make-node
                  :elt elt
                  :r (bst-remove obj (node-r bst) <)
-                 :l (node-1 bst)))))))
+                 :l (node-l bst)))))))
 
 (defun percolate (bst)
-  (cond ((null (node-1 bst))
+  (cond ((null (node-l bst))
          (if (null (node-r bst))
              nil
              (rperc bst)))
@@ -65,5 +65,27 @@
 
 (defun rperc (bst)
   (make-node :elt (node-elt (node-r bst))
-             :l (percolate (node-1 bst))
+             :l (percolate (node-l bst))
              :r (node-r bst)))
+
+(defun lperc (bst)
+  (make-node :elt (node-elt (node-1 bst))
+             :l (percolate (node-l bst))
+             :r (node-r bst)))
+
+(defun bst-traverse (fn bst)
+  (when bst
+    (bst-traverse fn (node-l bst))
+    (funcall fn (node-elt bst))
+    (bst-traverse fn (node-r bst))))
+
+(deftest test-bstmin ()
+  (check (= (node-elt (bst-min (prepareTestTree))) 1)))
+
+(deftest test-bstmax ()
+  (check (= (node-elt (bst-max (prepareTestTree))) 9)))
+
+
+(defun prepareTestTree ()
+  (let ((nums nil)) (dolist (x '(5 8 4 2 1 9 6 7 3) nums)
+    (setf nums (bst-insert x nums #'<)))))

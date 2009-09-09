@@ -18,10 +18,8 @@
                     obj)))))))
 
 (deftest test-binsearch ()
-  (check (= (bin-search 3 #(1 2 3 4 5 6)) 3)
-         (null (bin-search 11 #(1 2 3 4 5 6)))))
+  (check (= (bin-search 3 #(1 2 3 4 5 6)) 3)))
 
 (deftest test-finder ()
-  (check (= (finder 3 #(1 2 3 4 5 6) 1 5) 3)
-         (null (finder 11 #(1 2 3 4 5 6) 1 5))))
+  (check (= (finder 3 #(1 2 3 4 5 6) 1 5) 3)))
 

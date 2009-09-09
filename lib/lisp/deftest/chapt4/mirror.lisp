@@ -9,5 +9,4 @@
               (> forward back))))))
 
 (deftest test-mirror? ()
-  (check (mirror? "aabbaa")
-         (not (mirror? "abcd"))))
+  (check (mirror? "aabbaa")))
