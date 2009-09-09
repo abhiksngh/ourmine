@@ -5,7 +5,7 @@
           (parse-integer (third toks)))))
 
 ;Trips strange warning when (load "miner") occurs.  Seems to work fine otherwise.
-(defconstant month-names
+(defvar month-names
   #("jan" "feb" "mar" "apr" "may" "jun"
     "jul" "aug" "sep" "oct" "nov" "dec"))
 
