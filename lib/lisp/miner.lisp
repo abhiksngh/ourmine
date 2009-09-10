@@ -12,7 +12,7 @@
                         "deftest/chapt2/first-copy"
                         "deftest/chapt4/bst"
                         "deftest/chapt14/evenodd"
-                        "deftest/chapt2/third"
+                        ;"deftest/chapt2/third"
 			))
 
 (defun make1 (files)

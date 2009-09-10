@@ -5,6 +5,6 @@
       (list y x z) "nonumber" )))
        
 (deftest test-ourlist ()
-  (let (L (our-list (+ 10 7) "My" "deftest"))
-        (check (= (car(cdr(L))) 17))))
+  (let ((l (our-list (+ 10 7) "My" "deftest" )))
+        (check (= (car(cdr l)) 17))))
         
