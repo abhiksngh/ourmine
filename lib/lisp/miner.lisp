@@ -8,13 +8,11 @@
                         "deftest/chapt4/strings"
                         "deftest/chapt4/tokens"
                         "deftest/chapt4/parsedate"
-<<<<<<< .mine
                         "deftest/chapt2/first"
                         "deftest/chapt2/first-copy"
-=======
                         "deftest/chapt4/bst"
                         "deftest/chapt14/evenodd"
->>>>>>> .r586
+                        "deftest/chapt2/third"
 			))
 
 (defun make1 (files)
