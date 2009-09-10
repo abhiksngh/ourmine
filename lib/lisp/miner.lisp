@@ -8,6 +8,8 @@
                         "deftest/chapt4/strings"
                         "deftest/chapt4/tokens"
                         "deftest/chapt4/parsedate"
+                        "deftest/chapt4/bst"
+                        "deftest/chapt14/evenodd"
 			))
 
 (defun make1 (files)
