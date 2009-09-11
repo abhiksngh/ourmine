@@ -36,7 +36,7 @@
               (let ((delta (/ (+ (f tbl class i feature)
                                  (* m prior))
                               (+ (f tbl class) m))))
-                (incf tmp (log delta))))))
+                (setf tmp 1)))))
         (when (> tmp like)
           (setf like tmp
                 classification class))))
