@@ -2,7 +2,8 @@
   (check T))
 
 ;=================================
-;Starting Chapter 2
+;Chapter 2
+;=================================
 ;2.2 deftest
 
 (deftest test-evaluation ()
@@ -70,3 +71,31 @@
     (setf L (+ L 1))) L))
 (deftest test-iteration ()
     (check (= (iteration 1 5) 6)))
+
+;=================================
+;CHAPTER 5
+;=================================
+;5.2 deftest
+(let* ((x 5) (y (* x x)) (z (* y x)))
+  (deftest test-nestlet ()
+  (check (equal (list x y z) '(5 25 125)))))
+
+;=================================
+;5.3 deftest
+(defun Odd-Even (x)
+  (when (oddp x) 'True)
+  )
+(deftest test-OddEven ()
+  (check (equal (Odd-Even 7) 'True)))
+
+;================================
+;5.3 deftest2
+(defun month-length (mon)
+  (case mon
+    ((jan mar may jul aug oct dec) 31)
+    ((apr jun sept nov) 30)
+    (feb 28)
+    (otherwise "wrong month")))
+(deftest test-month ()
+  (check (= (month-length 'sept) 30)))
+;=================================
