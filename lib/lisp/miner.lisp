@@ -22,6 +22,7 @@
                         "deftest/chapt3/append"
                         "deftest/chapt3/mapcar"
                         "deftest/chapt3/shortest-path"
+                        "deftest/chapt10/macro"
                         "deftest/chapt3/uncompress"
                         "deftest/chapt6/utility.lisp"
 			))
