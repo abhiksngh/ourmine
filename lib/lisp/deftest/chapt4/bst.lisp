@@ -54,24 +54,31 @@
                  :l (node-l bst)))))))
 
 (defun percolate (bst)
-  (cond ((null (node-l bst))
-         (if (null (node-r bst))
-             nil
-             (rperc bst)))
-        ((null (node-r bst)) (lperc bst))
-        (t (if (zerop (random 2))
-               (lperc bst)
-               (rperc bst)))))
+  (let ((l (node-l bst)) (r (node-r bst)))
+    (cond ((null l) r)
+          ((null r) l)
+          (t (if (zerop (random 2))
+                 (make-node :elt (node-elt (bst-max l))
+                            :r r
+                            :l (bst-remove-max l))
+                 (make-node :elt (node-elt (bst-min r))
+                            :r (bst-remove-min r)
+                            :l l)))))) 
 
-(defun rperc (bst)
-  (make-node :elt (node-elt (node-r bst))
-             :l (percolate (node-l bst))
-             :r (node-r bst)))
+(defun bst-remove-min (bst)
+  (if (null (node-l bst))  
+      (node-r bst)
+      (make-node :elt (node-elt bst)
+                 :l   (bst-remove-min (node-l bst))
+                 :r   (node-r bst))))
 
-(defun lperc (bst)
-  (make-node :elt (node-elt (node-1 bst))
-             :l (percolate (node-l bst))
-             :r (node-r bst)))
+(defun bst-remove-max (bst)
+  (if (null (node-r bst)) 
+      (node-l bst)
+      (make-node :elt (node-elt bst)
+                 :l (node-l bst)
+                 :r (bst-remove-max (node-r bst)))))
+
 
 (defun bst-traverse (fn bst)
   (when bst
@@ -89,3 +96,10 @@
 (defun prepareTestTree ()
   (let ((nums nil)) (dolist (x '(5 8 4 2 1 9 6 7 3) nums)
     (setf nums (bst-insert x nums #'<)))))
+
+(deftest test-bst-remove ()
+  (check 
+    (not (bst-find 9 (bst-remove 9 (prepareTestTree) #'<) #'<)) 
+  )
+)
+    

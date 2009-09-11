@@ -23,6 +23,7 @@
                         "deftest/chapt3/mapcar"
                         "deftest/chapt3/shortest-path"
                         "deftest/chapt3/uncompress"
+                        "deftest/chapt6/utility.lisp"
 			))
 
 (defun make1 (files)
