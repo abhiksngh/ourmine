@@ -84,3 +84,18 @@
     (let ((testString (with-output-to-string(out)
       (stream-subst " loves " " adores " in out))))
       (check (string-equal testString "Kel adores Tim Menzies")))))
+
+(deftest test-newbuf ()
+  (let ((x (new-buf 5)))
+    (check (eql (length (buf-vec x)) 5))))
+
+(deftest test-bufclear ()
+  (let ((x (new-buf 5)))
+    (setf (buf-start x) 4 (buf-used x) 4
+          (buf-new x) 4 (buf-end x) 4)
+    (buf-clear x)
+    (check (and
+                 (eql (buf-start x) -1)
+                 (eql (buf-used x) -1)
+                 (eql (buf-new x) -1)
+                 (eql (buf-end x) -1)))))
