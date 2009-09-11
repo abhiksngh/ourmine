@@ -7,3 +7,4 @@
   (let ((n nil))
     (truthify n)
     (check n)))
+
