@@ -13,6 +13,16 @@
                         "deftest/chapt4/bst"
                         "deftest/chapt14/evenodd"
                        ; "deftest/chapt2/third"
+                        "deftest/chapt3/ourlistp"
+                        "deftest/chapt3/compress"
+                        "deftest/chapt3/nth"
+                        "deftest/chapt3/eql"
+                        "deftest/chapt3/reverse"
+                        "deftest/chapt3/last"
+                        "deftest/chapt3/append"
+                        "deftest/chapt3/mapcar"
+                        "deftest/chapt3/shortest-path"
+                        "deftest/chapt3/uncompress"
 			))
 
 (defun make1 (files)
