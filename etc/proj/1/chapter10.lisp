@@ -1,3 +1,10 @@
+;;; 10.1 Evaluate
+
+(deftest evaluation ()
+  (check (equalp
+    9
+    (eval `(+ 3 3 3)))))
+
 ;;; 10.2 Macros [Required]
 
 (defmacro truthify (x)
@@ -7,4 +14,14 @@
   (let ((n nil))
     (truthify n)
     (check n)))
+
+;;; 10.3 Backquote
+
+;;; 10.4 Quicksort
+
+;;; 10.5 Macro Design
+
+;;; 10.6 Generalized Reference
+
+;;; 10.7 Macro Utilities
 
