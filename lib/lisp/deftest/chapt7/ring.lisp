@@ -74,3 +74,13 @@
              (setf pos 0))))
     (buf-flush buf out)))
 
+(deftest test-filesubst ()
+  (file-subst " abcd" " kale" "deftest/chapt7/inputfile.txt" "deftest/chapt7/outputfile.txt")
+  (with-open-file (out "deftest/chapt7/outputfile.txt" :direction :input)
+    (check (string-equal (read-line out nil) "This is exciting text: kale"))))
+
+(deftest test-streamsubst ()
+  (with-input-from-string(in "Kel loves Tim Menzies")
+    (let ((testString (with-output-to-string(out)
+      (stream-subst " loves " " adores " in out))))
+      (check (string-equal testString "Kel adores Tim Menzies")))))
