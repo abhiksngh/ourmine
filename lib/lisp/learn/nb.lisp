@@ -23,7 +23,7 @@
   (let* ((classes        (klasses tbl))
          (nclasses       (nklasses tbl))
          (n              (f        tbl))
-	 (classi         (table-class tbl))
+         (classi         (table-class tbl))
          (like           most-negative-fixnum)
          (classification (first classes)))
     (dolist (class classes)
@@ -39,8 +39,91 @@
                 (incf tmp (log delta))))))
         (when (> tmp like)
           (setf like tmp
-                classification class))))
+                classification class) )))
     classification))
+
+(defun hyperpipes-train (tbl)
+  (let* ((instances (table-all tbl))
+         (classi (table-class tbl))
+         (seen-array (create-seen-array tbl))
+         (max-array (create-numeric-array tbl))
+         (min-array (create-numeric-array tbl)))
+    (dolist (instance instances)  ;; loop thru the instances
+      (let* ((features (eg-features instance))
+             (instance-class (nth (table-class tbl) features)))
+       (doitems (feature i features)  ;; loop thru the attribute values for an instance
+          (unless (= classi i)
+            (unless (unknownp feature)
+              (cond ((numericp feature) ;; handle numeric attributes
+                      (if (> feature (get-numeric-value tbl max-array instance-class i))
+                          (set-numeric-array tbl max-array instance-class i feature))
+                      (if (< feature (get-numeric-value tbl min-array instance-class i))
+                          (set-numeric-array tbl min-array instance-class i feature)))
+                    (t  ;; handle enum attributes
+                      (set-seen-array tbl seen-array instance-class i feature))))))))
+    (values seen-array max-array min-array)))
+
+(defun hyperpipes-most-contained (tbl instance seen-array max-array min-array)
+  (let ((best -1)
+        (what nil)
+        (classes (klasses tbl))
+        (classi (table-class tbl))
+        (features (eg-features instance)))
+    (dolist (class classes)
+      (let ((count 0))
+        (doitems (feature i features)
+          (unless (= classi i)
+            (unless (unknownp feature)
+              (setf count (+ count (hyperpipes-contains tbl seen-array max-array min-array class i feature))))))
+        (setf count (/ count (1- (table-width tbl))))
+        (cond ((>= count best)
+                (setf best count)
+                (setf what class)))))
+    what))
+
+(defun hyperpipes-contains (tbl seen-array max-array min-array klass i value)
+  (cond ((numericp value)
+          (if (and (>= (get-numeric-value tbl max-array klass i) value) 
+                   (<= (get-numeric-value tbl min-array klass i) value))
+              1
+              0))
+        (t
+          (if (= (get-seen-value tbl seen-array klass i value) 1)
+              1
+              0))))
+
+(defun create-seen-array (tbl)
+  (let ((nclasses (length (klasses tbl)))
+        (nattr (table-width tbl))
+        (value-count-max 0))
+    (dolist (col (table-columns tbl))
+      (if (typep col 'discrete)
+          (setf value-count-max (max (length (discrete-uniques col)) value-count-max))))
+    (make-array (list nclasses nattr value-count-max) :initial-element 0)))
+
+(defun set-seen-array (tbl seen-array klass i value)
+  (setf (aref seen-array (position klass (klasses tbl))
+                         i
+                         (position value (discrete-uniques (nth i (table-columns tbl)))))
+        1))
+
+(defun get-seen-value (tbl seen-array klass i value)
+  (aref seen-array (position klass (klasses tbl))
+                         i
+                         (position value (discrete-uniques (nth i (table-columns tbl))))))
+
+(defun create-numeric-array (tbl)
+  (let ((nclasses (length (klasses tbl)))
+        (nattr (table-width tbl)))
+    (make-array (list nclasses nattr) :initial-element 0)))
+
+(defun set-numeric-array (tbl numeric-array klass i value)
+  (setf (aref numeric-array (position klass (klasses tbl))
+                            i)
+        value))
+
+(defun get-numeric-value (tbl numeric-array klass i)
+  (aref numeric-array (position klass (klasses tbl)) i))
 
 (defun stress-test-nb (&optional (repeats 10000))
   (with-output-to-string (str)
@@ -70,23 +153,25 @@
 		(overcast hot  normal FALSE play))))
   
   (defun random-test-nb1 (&optional (n 0.3) (str t))
-    (let* (train 
-	   test
-	   (k         (* n (length egs))))
+    (let* (train test (k (* n (length egs))))
       (dolist (eg (shuffle egs))
-	(if (> (decf k) 0)
-	    (push eg test)
-	    (push eg train)))
+        (if (> (decf k) 0)
+          (push eg test)
+          (push eg train)))
       (nb (make-weather train)
-	  (make-weather test)
-	  :stream str)))
+          (make-weather test)
+          :stream str)))
   
   (defun self-test-nb ()
     (nb (make-weather egs) 
-	(make-weather egs)))
+        (make-weather egs)))
  
   (defun self-simple-test-nb ()
     (nb-simple  (make-weather egs) 
-		(make-weather egs)))
+                (make-weather egs)))
 
- )
+  (defun hyperpipes-test ()
+    (let* ((tbl (make-weather egs)))
+      (multiple-value-bind (seen-array max-array min-array) (hyperpipes-train tbl)
+        (hyperpipes-most-contained tbl (car (table-all tbl)) seen-array max-array min-array))))
+)
