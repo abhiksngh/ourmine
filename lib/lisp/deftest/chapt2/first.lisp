@@ -99,3 +99,49 @@
 (deftest test-month ()
   (check (= (month-length 'sept) 30)))
 ;=================================
+
+
+
+
+
+
+;=================================
+;CHAPTER 10
+;=================================
+;10.2 deftest
+(defmacro nill (p)
+  (list 'setf p nil))
+
+(deftest nill-test ()
+  (let ((x 10))
+  (check (equal (nill x) nil))))
+
+;=================================
+;10.4 deftest
+(defmacro while (test &rest body)
+  `(do ()
+    ((not , test))
+    ,@body))
+    
+(defun quicksort (vec l r)
+  (let ((i l)
+        (j r)
+        (p (svref vec (round (+ l r) 2))))
+    (while (<= i j)
+      (while (< (svref vec i) p) (incf i))
+      (while (> (svref vec j) p) (decf j))
+      (when (<= i j)
+        (rotatef (svref vec i) (svref vec j))
+        (incf i)
+        (decf j)))
+    (if (> (- j l) 1) (quicksort vec l j))
+    (if (> (- r i) 1) (quicksort vec i r)))
+  vec)
+
+(deftest test-sort ()
+  (let* ((ourvec  #(4 3 6 7 1 6 8 9))
+         (sortvec (quicksort ourvec 0 7)))
+    (check (equal (svref sortvec 0) 1))))
+
+;=================================
+;
