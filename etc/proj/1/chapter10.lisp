@@ -17,6 +17,11 @@
 
 ;;; 10.3 Backquote
 
+(deftest backquote () 
+  (check (equalp
+    '(B 2 M)
+    `(B ,(+ 1 1) M)))
+
 ;;; 10.4 Quicksort
 
 ;;; 10.5 Macro Design
