@@ -1,3 +1,11 @@
+;;; 3.3 Pointers 
+
+(deftest pointers () 
+  (check 
+    (let* ((x '(A B)) (y '(A B)))
+      (and (not (eq x y))
+           (equalp x y))))
+
 ;;; 3.6 Access [Required]
 
 (deftest access ()
