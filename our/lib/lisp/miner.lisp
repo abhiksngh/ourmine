@@ -23,7 +23,9 @@
                         "proj1/figures/graham"
 			"proj1/anelson/chapter3"
 			"proj1/wmensah/chapter4"
+			"proj1/anelson/chapter5"
 			"proj1/wmensah/chapter7"
+			"proj1/anelson/chapter10-4"
 			"proj1/wmensah/chapter10-7"
 			"proj1/wmensah/chapter14-5"
 			))
