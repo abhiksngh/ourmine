@@ -21,7 +21,7 @@
 
 (deftest test-bin-search ()
   (check
-    (bin-search 3 #(0 1 2 3 4 5 6 7 8 9))))
+    (eq 3 (bin-search 3 #(0 1 2 3 4 5 6 7 8 9)))))
 
 
 ;;; sort a string of characters. The function char< takes care of this.
@@ -64,7 +64,7 @@
 
 (deftest test-mirror()
   (check
-    (mirror? "abba")))
+    (eq t (mirror? "abba"))))
 
 
 ;; position function
