@@ -84,8 +84,8 @@
 	  :stream str)))
   
   (defun self-test-hyperpipes ()
-    (hp (make-weather egs) 
-	(make-weather egs)))
+    (hp (vote) 
+	(vote)))
 
   (defun self-test-hyperpipes1()
     (hp (group1bolts)

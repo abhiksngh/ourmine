@@ -1,50 +1,9 @@
 ;;chapter 5 tests
 
-;; testing progn
-(deftest progn-test ()
-  (progn
-    (format t "a")
-    (format t "b")
-    (let ((res (+ 11 12)))
-      (check 
-	(equalp res 23)))))
-
-;;testing return-from
-(defun return-from-func ()
-  (format t "goblins")
-  (return-from return-from-func 'wizards)
-  (format t "dragons"))
-
-(deftest return-from-test ()
-  (check 
-    (equalp (return-from-func) 'wizards)))
-
-;;testing let*
-(deftest let-star-test ()
-  (let* ((x 5)
-	 (y 10))
-    (check 
-      (equalp (+ x y) 15))))
-
-
-;;testing leap year
-(deftest leap-test ()
-  (check
-    (equalp '(T NIL T)
-	    (mapcar #'leap? '(1904 1900 1600)))))
-
-
-;; testing date+ function
-(deftest mult-val-list ()
-  (check
-    (equalp
-     (multiple-value-list (date+ 17 12 1997 60))
-     '(15 2 1998))))
-
 ;; fig 5.1 by Graham
-;(defconstant month #(0 31 59 90 120 151 181 212 243 273 304 334 365))
+(defparameter month #(0 31 59 90 120 151 181 212 243 273 304 334 365))
 
-(defconstant yzero 2000)
+(defparameter yzero 2000)
 
 (defun leap? (y)
   (and (zerop (mod y 4))
@@ -105,7 +64,46 @@
   (num->date (+ (date->num d m y) n)))
 
 
+;; testing progn
+(deftest progn-test ()
+  (progn
+    (format t "a")
+    (format t "b")
+    (let ((res (+ 11 12)))
+      (check 
+	(equalp res 23)))))
 
+;;testing return-from
+(defun return-from-func ()
+  (format t "goblins")
+  (return-from return-from-func 'wizards)
+  (format t "dragons"))
+
+(deftest return-from-test ()
+  (check 
+    (equalp (return-from-func) 'wizards)))
+
+;;testing let*
+(deftest let-star-test ()
+  (let* ((x 5)
+	 (y 10))
+    (check 
+      (equalp (+ x y) 15))))
+
+
+;;testing leap year
+(deftest leap-test ()
+  (check
+    (equalp '(T NIL T)
+	    (mapcar #'leap? '(1904 1900 1600)))))
+
+
+;; testing date+ function
+(deftest mult-val-list ()
+  (check
+    (equalp
+     (multiple-value-list (date+ 17 12 1997 60))
+     '(15 2 1998))))
 
 
 
