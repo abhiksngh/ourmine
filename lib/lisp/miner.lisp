@@ -18,6 +18,9 @@
 			"table/xindex"
 			"learn/nb"
                         "proj1/deftests/tests"
+                        "proj1/HyperPipes/structs"
+                        "proj1/HyperPipes/HyperPipe"
+                        "proj1/TWCNB/nb-ourfinal"
 			))
 
 (defun make1 (files)
