@@ -17,6 +17,7 @@
 			"table/table"
 			"table/xindex"
 			"learn/nb"
+                        "proj1/deftests/tests"
 			))
 
 (defun make1 (files)
