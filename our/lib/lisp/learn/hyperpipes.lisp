@@ -84,9 +84,24 @@
 	  :stream str)))
   
   (defun self-test-hyperpipes ()
-    (hp (vote) 
-	(vote)))
-
+    (progn
+      (hp (vote) 
+          (vote))
+      (hp (mushroom)
+          (mushroom))
+      (hp (splice)
+          (splice))
+      (hp (soybean)
+          (soybean))
+      (hp (audiology)
+          (audiology))
+      (hp (contact-lens)
+          (contact-lens))
+      (hp (kr-vs-kp)
+          (kr-vs-kp))
+      (hp (primary-tumor)
+          (primary-tumor))))
+    
   (defun self-test-hyperpipes1()
     (hp (group1bolts)
         (group1bolts)))

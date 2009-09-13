@@ -31,6 +31,14 @@
 			;"proj1/wmensah/chapter10-7"
 			"proj1/wmensah/chapter14-5"
                         "learn/hyperpipes"
+                        "tests/data/primary-tumor"
+                        "tests/data/vote"
+                        "tests/data/mushroom"
+                        "tests/data/audiology"
+                        "tests/data/splice"
+                        "tests/data/soybean"
+                        "tests/data/contactlens"
+                        "tests/data/kr-vs-kp"
 			))
 
 (defun make1 (files)
