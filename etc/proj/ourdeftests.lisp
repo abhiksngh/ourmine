@@ -5,9 +5,9 @@
 ;; Write 50 deftests showing your understand Paul Graham's text chapters
 ;;    * 2,3,4 :
 ;;    * 5 (but not 5.6)
-;;    * 6.1,6.2,6.3,6.4,6.5,6.9,
+;;    * 6.[1-5],6.9,
 ;;    * 7,
-;;    * 10.1,10.2,10.3,10.4,10.5,10.6,10.7
+;;    * 10.[1-7]
 ;;    * 14.5 
 
 ;; 30 tests should relate to basic stuff (chapters 2,3,4); 
