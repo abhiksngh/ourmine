@@ -2,6 +2,7 @@
 
 (defparameter *files* '(
 			"tests/deftest"  ; must be loaded first
+			"tests/ourdeftests"
 			"tricks/lispfuns"
 			"tricks/macros"
 			"tricks/number"
