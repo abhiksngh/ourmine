@@ -30,6 +30,7 @@
                         "proj1/anelson/chapter10-6"
 			"proj1/wmensah/chapter10-7"
 			"proj1/wmensah/chapter14-5"
+                        "proj1/tprifti/hyperpipes"
 			))
 
 (defun make1 (files)

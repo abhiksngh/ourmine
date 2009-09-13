@@ -36,7 +36,7 @@
               (let ((delta (/ (+ (f tbl class i feature)
                                  (* m prior))
                               (+ (f tbl class) m))))
-                (setf tmp 1)))))
+                (setf tmp 2)))))
         (when (> tmp like)
           (setf like tmp
                 classification class))))
@@ -81,7 +81,7 @@
 	  (make-weather test)
 	  :stream str)))
   
-  (defun self-test-nb ()
+  (defun self-test-hyperpipes ()
     (nb (make-weather egs) 
 	(make-weather egs)))
  
