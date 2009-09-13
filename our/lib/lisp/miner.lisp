@@ -39,6 +39,8 @@
                         "tests/data/soybean"
                         "tests/data/contactlens"
                         "tests/data/kr-vs-kp"
+                        "tests/data/weather_nominal"
+                        "tests/data/weather2"
 			))
 
 (defun make1 (files)

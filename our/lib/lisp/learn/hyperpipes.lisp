@@ -99,6 +99,10 @@
           (contact-lens))
       (hp (kr-vs-kp)
           (kr-vs-kp))
+      (hp (weather_nominal)
+          (weather_nominal))
+      (hp (weather2)
+          (weather2))
       (hp (primary-tumor)
           (primary-tumor))))
     
