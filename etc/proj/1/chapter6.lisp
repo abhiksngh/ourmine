@@ -10,3 +10,15 @@
     (negativate 8))
   )
 )
+
+;;; 6.3 Parameter Lists
+
+(defun makelist (x &rest args)
+  (list x args))
+
+(deftest paramlists ()
+  (check (equalp
+    '(A (B C))
+    (makelist 'A 'B 'C))))
+
+;;; 6.4 6.5 6.9
