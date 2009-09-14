@@ -21,4 +21,14 @@
     '(A (B C))
     (makelist 'A 'B 'C))))
 
+;;; 6.3 Parameter Lists (Part 2 - Optional Args)
+
+(defun hasoptionals (a b &optional (c 10))
+  (list a b c))
+
+(deftest optionalargs ()
+  (check (equalp
+    '(1 2 10)
+    (hasoptionals 1 2))))
+
 ;;; 6.4 6.5 6.9
