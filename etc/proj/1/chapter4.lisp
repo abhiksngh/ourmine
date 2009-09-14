@@ -33,7 +33,7 @@
                               str :start p1)))
          (cons (subseq str p1 p2)
                (if p2
-                   (tokens str test p2)
+                   (removenonalpha str test p2)
                    nil)))
        nil)))
 
@@ -50,4 +50,4 @@
 (deftest test-structure ()
    (setf p (make-item :price 5 :name "Chicken"))
    (check
-    (equal (item-price) 5)))
+    (equal (item-price p) 5)))
