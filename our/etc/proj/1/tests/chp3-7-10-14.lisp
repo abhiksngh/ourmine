@@ -1,47 +1,4 @@
 ;Chapter 3 tests
-;3.2 Equality
-(deftest test-equality ()
-  (let (x)
-    (setf x (cons 'a nil))
-  (check (samep
-          (equal x (cons 'a nil)) 'T))))
-
-;3.4 Building Lists
-(deftest test-copylist ()
-  (let ((z)(a))
-  (setf z '(a b c)
-        a '(copy-list z))
-  (check (samep
-  z '(A B C)))))
-
-;3.4 Append
-(deftest test-append ()
-  (check (samep
-          (append '(a b) '(c d) '(e)) '(A B C D E))))
-
-;3.6 Access
-(deftest test-nth ()
-  (check (samep
-          (nth 1 '(a b c)) '(B))))
-
-;3.7 Do mapcar and maplist
-(deftest test-maplist ()
-  (check (samep
-          (maplist #'(lambda (x) x)
-                   '(a b c)) '((A B C) (B C) (C)))))
-
-;3.11 Sets
-(deftest test-union ()
-  (check (samep
-          (union '(a b c) '(c b s)) '(A C B S))))
-
-;3.12 Stacks
-(deftest test-stacks ()
-  (let (x)
-    (setf x '(b))
-  (check (samep
-          (push 'a x) '(A B)))))
-
 
 ;Figure 3.6 support code
 (defun n-elts (elt n)
@@ -57,15 +14,12 @@
             (compr elt (+ n 1) (cdr lst))
             (cons (n-elts elt n)
                   (compr next 1 (cdr lst)))))))
+
 (defun compress (x)
   (if (consp x)
       (compr (car x) 1 (cdr x))
       x))
 
-;Deftest for Compress
-(deftest test-compress()
-  (check (samep
-    (compress '(1 1 1 0 1 0 0 0 0 1)) '((3 1) 0 1 (4 0) 1))))
 
 ;Figure 3.7 support code
 (defun list-of (n elt)
@@ -82,11 +36,41 @@
             (append (apply #'list-of elt)
                     rest)
             (cons elt rest)))))
+      
 
-;Deftest for Uncompress
-(deftest test-uncompress()
+;3.2 Equality
+(deftest test-equality ()
+  (let (x)
+    (setf x (cons 'a nil))
   (check (samep
-          (uncompress '((3 1) 0 1 (4 0) 1)) '(1 1 1 0 1 0 0 0 0 1))))
+          (equal x (cons 'a nil)) 'T))))
+
+;3.4 Building Lists
+(deftest test-copylist ()
+  (let ((z)(a))
+  (setf z '(a b c)
+        a '(copy-list z))
+  (check (samep
+  z '(A B C)))))
+
+;3.4 + 3.6 + 3.7 + 3.12 (figs 3.6/3.7)  Append and Access and Maplist and Compress and Uncompress
+(deftest test-append ()
+  (check (and
+    (samep (append '(a b) '(c d) '(e)) '(A B C D E))
+    (samep (nth 1 '(a b c)) 'B)
+    (samep (maplist #'(lambda (x) x)
+                    '(a b c)) '((A B C) (B C) (C)))
+    (samep (union '(a b c) '(c b c)) '(A C B C))
+    (samep (compress '(1 1 1 0 1 0 0 0 0 1)) '((3 1) 0 1 (4 0) 1))
+    (samep (uncompress '((3 1) 0 1 (4 0) 1)) '(1 1 1 0 1 0 0 0 0 1)))))
+
+;3.12 Stacks
+(deftest test-stacks ()
+  (let (x)
+    (setf x '(b))
+  (check (samep
+          (push 'a x) '(A B)))))
+
 
 ;Figure 3.12 support code
 (defun new-paths (path node net)
@@ -340,22 +324,19 @@
       (samep y '9))))
 
 (deftest test-in ()
-  (check
-    (samep (in '(a b c d e f) 'z 'y 'x 'f) 'T)))
+  (check (and
+    (samep (in 'a 'z 'y 'x 'a) 'T)
+    (samep (avg 2 4 8) '14/3)
+    (samep (aif (+ 1 1)(* 2 it)) '4))))
+    
 
 (deftest test-random-choice ()
+  (let (choice)
+    (setf choice (random-choice '(cake) '(death)))
   (check
-    (or (samep (random-choice '(cake) '(death)) '(cake)) (samep (random-choice '(cake) '(death)) '(death)))))
-
-(deftest test-avg ()
-  (check
-    (samep (avg 2 4 8) '14/3)))
+    (or (samep choice '(cake)) (samep choice '(death))))))
 
 ;For use of with-gensyms, please see ntimes,for or in macros.
-
-(deftest test-aif ()
-  (check
-    (samep (aif (+ 1 1)(* 2 it)) '4)))
 
 ;------------------------
 ;Function to run all of the tests
@@ -364,19 +345,11 @@
   (test-equality)
   (test-copylist)
   (test-append)
-  (test-nth)
-  (test-maplist)
-  (test-union)
   (test-stacks)
-  (test-compress)
-  (test-uncompress)
   (test-shortest-path)
   (test-ringandfiles)
   (test-quicksort)
   (test-ntimes)
   (test-for)
-  (test-in)
-  (test-random-choice)
-  (test-avg)
-  (test-aif))
+  (test-random-choice))
   

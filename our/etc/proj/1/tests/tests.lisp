@@ -17,30 +17,24 @@
        (not (char= c #\ ))))
 
 (deftest tokens-test ()
-  (check
+  (check (and 
     (equalp 
       (tokens "aaBBBcDDD" #'upper-case-p 0)
-      '("BBB" "DDD")))
-  (check
+      '("BBB" "DDD"))
     (equalp
       (tokens "aaBBBcDDD" #'lower-case-p 0)
-      '("aa" "c")))
-  (check
+      '("aa" "c")) 
     (equalp
       (tokens "aaaa   bbbb cccc.dddd eeee f123" #'alphanumericp 0)
-      '("aaaa" "bbbb" "cccc" "dddd" "eeee" "f123"))))
+      '("aaaa" "bbbb" "cccc" "dddd" "eeee" "f123")))))
 
 (deftest constituent-test ()
-  (check
-    (constituent #\a))
-  (check
-    (not (constituent #\ )))
-  (check
-    (constituent #\A))
-  (check
-    (constituent #\$))
-  (check
-    (constituent #\1)))
+  (check (and
+    (constituent #\a)
+    (not (constituent #\ ))
+    (constituent #\A)
+    (constituent #\$)
+    (constituent #\1))))
 
 ;; Figure 4.5
 (defstruct (node (:print-function
@@ -87,32 +81,27 @@
   (let (bst)
     (dolist (i '(1 2 3 4 5 6 7 8 9 10))
       (setf bst (bst-insert i bst #'<)))
-    (check
+    (check (and
       (equalp 
         (node-elt (bst-min bst))
-        1))
+        1)
     (setf bst (bst-insert 0 bst #'<))
-    (check
       (equalp 
         (node-elt (bst-min bst))
-        0))
-    (check
+        0)
       (equalp 
         (node-elt (bst-max bst))
-        10))
+        10)
     (setf bst (bst-insert 11 bst #'<))
-    (check
       (equalp 
         (node-elt (bst-max bst))
-        11))
-    (check
+        11)
       (equalp
         (node-elt (bst-find 5 bst #'<))
-        5))
-    (check
+        5)
       (equalp
         (bst-find 12 bst #'<)
-        nil))))
+        nil)))))
 
 ;;Figure 4.6
 (defun bst-remove-min (bst)
@@ -163,108 +152,94 @@
   (let (bst)
     (dolist (i '(1 2 3 4 5 6 7 8 9 10))
       (setf bst (bst-insert i bst #'<)))
-    (check
+    (check (and 
       (equalp
         (node-elt (bst-find 5 bst #'<))
-        5))
+        5)
     (setf bst (bst-remove 5 bst #'<))
-    (check
       (equalp
         (bst-find 5 bst #'<)
-        nil))
-    (check
+        nil)
       (equalp
         (node-elt (bst-max bst))
-        10))
+        10)
     (setf bst (bst-remove 10 bst #'<))
-    (check
       (equalp
         (node-elt (bst-max bst))
-        9))))
+        9)))))
 
 (deftest vector-test ()
   (let ((vec (vector 1 2 3 4 5 6 7 8 9 10)))
-      (check
+      (check (and
         (equalp
           (svref vec 0)
-          1))
-      (check
+          1)
         (equalp
           (svref vec 9)
-          10))
+          10)
       (setf (svref vec 9) 0)
-      (check
         (equalp
           (svref vec 9)
-          0))))
+          0)))))
 
 (deftest string-test ()
-  (check
+  (check (and
     (not (equal
           "abc"
-          "ABC")))
-  (check
+          "ABC"))
     (string-equal
       "abc"
-      "ABC"))
-  (check
+      "ABC")
     (char=
       (aref "abc" 0)
       (char "abc" 0)
-      #\a)))
+      #\a))))
 
 (deftest elt-test ()
-  (check
+  (check (and
     (equalp
       (elt '(a b c) 0)
-      'a))
-  (check
+      'a)
     (equalp
       (elt "abc" 0)
-      #\a))
-  (check
+      #\a)
     (equalp
       (elt (vector 'a 'b 'c) 0)
-      'a)))
+      'a))))
 
 (defstruct point x y)
 (deftest struct-test ()
   (let ((p (make-point :x 4 :y 2)))
-    (check
+    (check (and
       (equalp 
         (point-x p)
-        4))
-    (check
+        4)
       (equalp 
         (point-y p)
-        2))
+        2)
     (setf (point-x p) 6)
     (setf (point-y p) 9)
-    (check
       (equalp 
         (point-x p)
-        6))
-    (check
+        6)
       (equalp 
         (point-y p)
-        9))))
+        9)))))
 
 (deftest ht-test ()
   (let ((ht (make-hash-table)))
-    (check
+    (check (and
       (equalp
         (gethash 'a ht)
-        nil))
+        nil)
     (setf (gethash 'a ht) 1)
-    (check
       (equalp
         (gethash 'a ht)
-        1))
+        1)
     (remhash 'a ht)
-    (check
       (equalp
         (gethash 'a ht)
-        nil))))
+        nil)))))
 
 (deftest reduce-test ()
   (check
@@ -334,22 +309,19 @@
   (num->date (+ (date->num d m y) n)))
 
 (deftest num->date-test ()
-  (check
+  (check (and
     (equalp
       (multiple-value-list (date+ 7 9 2009 10))
-      '(17 9 2009)))
-  (check
+      '(17 9 2009))
     (equalp
       (multiple-value-list (num->date 0))
-      '(1 1 2000)))
-  (check
+      '(1 1 2000))
     (equalp
       (date+ 7 9 2009 21)
-      (num->date (+ (date->num 7 9 2009) 21))))
-  (check
+      (num->date (+ (date->num 7 9 2009) 21)))
     (=
       (num-year 400)
-      2001)))
+      2001))))
 
 ;; Figure 6.1
 (defun single? (lst)
@@ -384,39 +356,31 @@
         (values wins max))))
 
 (deftest util-test ()
-  (check
-    (single? '(a)))
-  (check
-    (not (single? '(a b))))
-  (check
-    (not (single? 'a)))
-  (check
+  (check (and
+    (single? '(a))
+    (not (single? '(a b)))
+    (not (single? 'a))
     (equalp
       (append1 '(a b c) 'd)
-      '(a b c d)))
-  (check
+      '(a b c d))
     (equalp
       (map-int #'(lambda (i) (* i 5)) 10)
-      '(0 5 10 15 20 25 30 35 40 45)))
-  (check
+      '(0 5 10 15 20 25 30 35 40 45))
     (equalp
       (filter #'(lambda (i) (and (oddp i) i)) '(1 2 3 4 5 6 7 8 9 10))
-      '(1 3 5 7 9)))
-  (check
+      '(1 3 5 7 9))
     (=
       (most #'identity '(1 2 3 4 5 6 7 8 9 10))
-      10)))
+      10))))
 
 ;; Chapter 6.1 Tests
 (deftest global-fn-test ()
-  (check
-    (fboundp '+))
-  (check
-    (not (fboundp 'not-a-function)))
-  (check
+  (check (and
+    (fboundp '+)
+    (not (fboundp 'not-a-function))
     (equalp
       (symbol-function '+)
-      #'+)))
+      #'+))))
 
 ;; Chapter 6.2 Tests
 (deftest local-fn-test ()
@@ -428,15 +392,14 @@
 
 ;; Chapter 10.1 Tests
 (deftest eval-test ()
-  (check
+  (check (and
     (equalp
       (eval '(car (list 'a 'b 'c)))
-      (car (list 'a 'b 'c))))
-  (check
+      (car (list 'a 'b 'c)))
     (=
       (eval (+ 1 2 3))
       (+ 1 2 3)
-      6)))
+      6))))
 
 ;; Chapter 10.2 Tests
 (defmacro multiply10 (i)
@@ -450,11 +413,10 @@
 
 ;; Chapter 10.3 Tests
 (deftest backquote-test ()
-  (check
+  (check (and
     (equalp
       `(1 2 3 ,(+ 2 2))
       '(1 2 3 4)))
-  (check
     (equalp
       `(1 ,@(list 2 3 4))
       '(1 2 3 4))))
