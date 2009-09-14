@@ -31,4 +31,11 @@
     '(1 2 10)
     (hasoptionals 1 2))))
 
-;;; 6.4 6.5 6.9
+;;; 6.4 Utilities
+
+(deftest appending ()
+  (check (equalp
+    '(A B C D)
+    (append '(A B) (cons 'C '(D))))))
+
+;;; 6.5 6.9
