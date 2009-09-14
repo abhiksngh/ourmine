@@ -5,7 +5,7 @@
     9
     (eval `(+ 3 3 3)))))
 
-;;; 10.2 Macros [Required]
+;;; 10.2 Macros
 
 (defmacro truthify (x)
   (list 'setf x T))
@@ -15,7 +15,7 @@
     (truthify n)
     (check n)))
 
-;;; Figure 10.2 Macro Utilities
+;;; Figure 10.2 Macro Utilities [Required]
 (defmacro avg (&rest args)
   `(/ (+ ,@args) ,(length args)))
 

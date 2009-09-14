@@ -1,4 +1,4 @@
-;;; 7.1 Streams [Required]
+;;; 7.1 Streams
 
 (deftest inputstream () 
   (check (equalp
@@ -7,4 +7,4 @@
   )
 )
 
-
+;;; Figure 7.1 Ring Buffers [Required]

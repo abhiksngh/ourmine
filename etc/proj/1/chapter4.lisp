@@ -4,7 +4,7 @@
   (let ((arr (make-array '(4 4) :initial-element 13)))
     (check (equalp (aref arr (random 4) (random 4)) 13))))
 
-;;; 4.2 Binary Search [Required]
+;;; 4.2 Binary Search
 
 (defun binsearch (item vector &optional (start 0) (end (length vector)))
   (let ((pivot (round (/ (+ start end) 2))))
@@ -29,6 +29,8 @@
     2
     (binsearch 3 '(1 2 3 4 5 6 7 8)))))
 
+;;; Figure 4.2 Identifying Tokens [Required]
+
 ;;; 4.3 String Functions
 
 (deftest teststrings ()
@@ -40,7 +42,7 @@
                                     (string (char alph 8))))
     (check (equalp name "ELI"))))
 
-;;; 4.5 Parsing Based on Test[Required]
+;;; 4.5 Parsing Based on Test
 (deftest tokenremoval ()
   (defun removenonalpha (str test start)
     (let ((p1 (position-if test str :start start)))
@@ -58,6 +60,10 @@
      (equal (removenonalpha "eli123abc..d" 
 		#'alpha-char-p 0) 
 		'("eli" "abc" "d"))))
+
+;;; Figure 4.5 Binary Search Trees, Lookup/Insertion [Required]
+
+;;; Figure 4.6 Binary Search Trees, Deletion [Required]
 
 ;;; 4.6 Structures [Required]
 (defstruct item

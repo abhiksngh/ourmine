@@ -9,7 +9,7 @@
           (return returnme)
           (setf returnme (append returnme `(,x)))))))))
 
-;;; 5.2 Context [Required]
+;;; 5.2 Context
 
 (deftest context ()
   (let ((n 1) (firstn nil) (secondn nil))
@@ -19,6 +19,8 @@
     (check (not (equalp firstn secondn)))
   )
 )
+
+;;; Figure 5.2 Date Arithmetic [Required]
 
 ;;; 5.3 Conditionals
 

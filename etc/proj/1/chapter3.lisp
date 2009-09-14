@@ -26,7 +26,8 @@
     (setf (car l) 'Elijah)
     (check (equal (car m) 'Eli))))
 
-;;; Figure 3.6 Run-Length encoding: Compression
+;;; Figure 3.6 Run-Length encoding: Compression [Required]
+
 (defun compress (x)
   (if (consp x)
       (compr (car x) 1 (cdr x))
@@ -62,7 +63,7 @@
 )
 
 
-;;; 3.7 Mapping Functions [Required]
+;;; 3.7 Mapping Function
 
 (deftest invert ()
   (check (equalp
@@ -70,6 +71,8 @@
     (mapcar #'null '(nil t nil)))
   )
 )
+
+;;; Figure 3.7: RLE Decompression [Required]
 
 ;;; 3.10 Add Join
 
@@ -85,7 +88,7 @@
         (m (subseq l 1 3)))
     (check (equalp m (list '2 '3)))))
 
-;;; 3.12 Stacks [Required]
+;;; 3.12 Stacks
 
 (deftest reverse2 ()
   (let ((stack nil))
@@ -100,3 +103,5 @@
     )
   )
 )
+
+;;; 3.12 Breadth-First Search [Required]

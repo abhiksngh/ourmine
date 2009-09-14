@@ -1,4 +1,4 @@
-;;; 6.1 Global Functions [Required]
+;;; 6.1 Global Functions
 
 (defun negativate (n)
   "Takes an integer and performs a permutation upon it to mirror it's value across the integer spectrum."
@@ -10,6 +10,8 @@
     (negativate 8))
   )
 )
+
+;;; Figure 6.1 Utility Functions [Required]
 
 ;;; 6.3 Parameter Lists
 
