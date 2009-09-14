@@ -41,3 +41,14 @@
 (deftest test-sum-greater()
   (check
     (sum-greater 1 4 3)))
+
+; MP
+; An essential =]
+(deftest test-list ()
+  (check
+   (equal '(ASYMBOL 19 ("SlImEy" "SiLlY" "StRiNg")) (list 'asymbol (- 21 2) '("SlImEy" "SiLlY" "StRiNg")))))
+
+; It's like an obsfuscated alphabet.
+(deftest test-remove ()
+  (check
+   (equal '(A B C D E F G) (remove 'Z '(Z A Z B Z C Z Z Z D E F Z G)))))
