@@ -376,7 +376,7 @@
   (test-ntimes)
   (test-for)
   (test-in)
-  (test-random-choices)
+  (test-random-choice)
   (test-avg)
   (test-aif))
   
