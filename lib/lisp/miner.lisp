@@ -17,6 +17,7 @@
 			"table/table"
 			"table/xindex"
 			"learn/nb"
+                        "learn/hyperpipes"
 			))
 
 (defun make1 (files)

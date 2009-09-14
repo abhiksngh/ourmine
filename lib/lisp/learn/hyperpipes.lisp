@@ -9,6 +9,21 @@
 (load "learn/sonar")
 (load "learn/hypothyroid")
 
+(defun test-hp ()
+  (hp (vote-train) (vote-test))
+   (hp (mushroom) (mushroom))
+   (hp (soybean) (soybean))
+   (hp (primary-tumor) (primary-tumor))
+   (hp (kr-vs-kp) (kr-vs-kp))
+   (hp (cleveland-14-heart-disease) (cleveland-14-heart-disease))
+   (hp (sick) (sick))
+   (hp (sonar) (sonar))
+   (hp (hypothyroid) (hypothyroid))
+   )
+
+
+;(hp train test &key (stream t))
+
 
 (defun hp (train test &key (stream t))
   (format stream "~a~%" (table-name train))
@@ -22,6 +37,7 @@
     (hp-train train min-array max-array seen-array)
     (dolist (instance all)
       (incf total-classified)
+      ;Query the mostContained function to discover the class in which the instance the most contained.
       (let* ((got     (hp-mostContained test instance min-array max-array seen-array))
 	     (want    (eg-class instance))
 	     (success (eql got want)))
