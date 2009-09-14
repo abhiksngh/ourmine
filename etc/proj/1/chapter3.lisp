@@ -39,6 +39,12 @@
   )
 )
 
+;;; 3.10 Add Join
+(deftest testaddjoin ()
+  (let ((l (list 'a 'b 'c 'd 'e)))
+    (check 
+      (member 'q (adjoin 'q l)))))
+
 ;;; 3.12 Stacks [Required]
 
 (deftest reverse2 ()
