@@ -28,10 +28,11 @@
 
 ;;; Figure 3.6 Run-Length encoding: Compression [Required]
 
-(defun compress (x)
-  (if (consp x)
-      (compr (car x) 1 (cdr x))
-      x))
+
+(defun n-elts (elt n)
+  (if (> n 1)
+      (list n elt)
+      elt))
 
 (defun compr (elt n lst)
   (if (null lst)
@@ -42,10 +43,10 @@
 	    (cons (n-elts elt n)
 		  (compr next 1 (cdr lst)))))))
 
-(defun n-elts (elt n)
-  (if (> n 1)
-      (list n elt)
-      elt))
+(defun compress (x)
+  (if (consp x)
+      (compr (car x) 1 (cdr x))
+      x))
 
 (deftest runlengthencoding ()
   (check
