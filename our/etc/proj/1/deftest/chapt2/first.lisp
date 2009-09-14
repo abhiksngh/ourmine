@@ -99,10 +99,10 @@
   (check (= (month-length 'sept) 30)))
 ;=================================
 ;5.1 figure
-;(defconstant month
-;    #(0 31 59 90 120 151 181 212 243 273 304 334 365))
+(defvar month
+    #(0 31 59 90 120 151 181 212 243 273 304 334 365))
 
-(defconstant yzero 2000)
+(defvar yzero 2000)
 
 (defun leap? (y)
     (and (zerop (mod y 4))
