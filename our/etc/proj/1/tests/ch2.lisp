@@ -15,18 +15,20 @@
 
 (deftest test-enigma()
   (check
-    (enigma '(nil 3 4 5))
-    (enigma '(nil))
-    (not (enigma '(3 4 5)))
-    (enigma '( 3 4 5 nil))))
+    (and 
+      (enigma '(nil 3 4 5))
+      (enigma '(nil))
+      (not (enigma '(3 4 5)))
+      (enigma '( 3 4 5 nil)))))
 
   
 (deftest test-remove()
     (let ((lst '(c a r a t)))
       (let ((x (remove 'a lst)))
         (check 
+	 (and
           (equal lst '(c a r a t))
-          (samep x '(c r t))))))
+          (samep x '(c r t)))))))
 
 (defun length10 (lst)
   (if (null lst) 0
@@ -35,34 +37,16 @@
 
 (deftest test-length()
   (check
+   (and
     (equal (length10 '(1 2 3 4 5 6 nil)) 7)
     (equal (length10 '(nil)) 1)
-    (equal (length10 '()) 0)))
-
-#|(defun idots (x)
-  (if (> x 0)
-      (do ((i 0 (+ 1 i)))
-          ((equal i x) 'done)
-        (format t "."))))
-
-(defun rdots (x)
-  (if (> x 0)
-      (progn
-        (format t ".")
-        (rdots (- x 1)))))
-
-
-(deftest test-rdots()
-  (let ((x (rdots 0)))
-    (print x)
-    (check
-       (samep x "NIL"))))
-|#
+    (equal (length10 '()) 0))))
 
 (deftest test-fcall()
   (check
+   (and
     (samep (apply #'+ 1 '(3 7)) 11)
-    (samep (funcall #'+ 3 7 1) 11)))
+    (samep (funcall #'+ 3 7 1) 11))))
 
 (deftest test-dolist()
   (let ((n 0))
@@ -93,6 +77,7 @@
   (check
     (samep (quote (aha)) '(aha))))
 
+#|
 (defun tests10()
   (test-enigma)
   (test-remove)
@@ -105,4 +90,4 @@
   (test-and)
   (test-quote)
   )
-
+|#

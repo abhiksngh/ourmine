@@ -341,7 +341,7 @@
 ;------------------------
 ;Function to run all of the tests
 
-(defun run-ltests ()
+#|(defun run-ltests ()
   (test-equality)
   (test-copylist)
   (test-append)
@@ -352,4 +352,5 @@
   (test-ntimes)
   (test-for)
   (test-random-choice))
-  
+  |#
+

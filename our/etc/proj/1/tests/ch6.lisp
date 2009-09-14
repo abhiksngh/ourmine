@@ -9,8 +9,9 @@
   (let ((n (philosoph 'life)))
     (let ((m (philosoph 'life 'opportunity)))
       (check
-        (samep n "(life is good)")
-        (samep m "(life is opportunity)")))))
+	(and
+          (samep n "(life is good)")
+          (samep m "(life is opportunity)"))))))
 
 
 (deftest test-rest()
@@ -29,3 +30,5 @@
   (let ((n (list (stamp10) (stamp10) (reset10) (reset10) (stamp10))))
     (check
       (samep n '(1 2 0 0 1)))))
+
+

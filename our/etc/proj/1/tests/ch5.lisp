@@ -35,8 +35,9 @@
 
 (deftest test-isnumber ()
   (check 
+   (and 
     (eql (isnumber 'a) nil)
-    (eql (isnumber 3/8) nil)))
+    (eql (isnumber 3/8) nil))))
 
 ;; chapter 5.4
 (deftest test-seqdo ()
