@@ -27,3 +27,11 @@
     (check (if wannapass
       t
       nil))))
+
+;;; 5.4 Iteration
+
+(deftest multiplyfive ()
+  (check (equalp
+    '(5 10 15)
+    (let ((x '(1 2 3)))
+      (mapcar #'(lambda (y) (setf y (* y 5))) x)))))
