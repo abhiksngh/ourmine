@@ -74,6 +74,28 @@
 
 ;;; Figure 3.7: RLE Decompression [Required]
 
+(defun uncompress (msg)
+  (if (null msg)
+    nil
+    (let ((decoded nil))
+      (dolist (x msg)
+        (if (listp x)
+          (dotimes (pass (car x) nil)
+            (setf decoded (append decoded `(,(cadr x))))
+          )
+          (setf decoded (append decoded `(,x)))
+        )
+      )
+      decoded
+    )
+  )
+)
+
+(deftest testuncompress ()
+  (check (equalp
+    '(1 1 1 0 1 0 0 0 0 1)
+    (uncompress '((3 1) 0 1 (4 0) 1)))))
+
 ;;; 3.10 Add Join
 
 (deftest testaddjoin ()
