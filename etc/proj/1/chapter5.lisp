@@ -35,3 +35,12 @@
     '(5 10 15)
     (let ((x '(1 2 3)))
       (mapcar #'(lambda (y) (setf y (* y 5))) x)))))
+
+;;; 5.4 Iteration (Again)
+
+(deftest fivefactorial ()
+  (check (equalp
+    120
+    (let ((result 1))
+      (dotimes (x 5 result)
+        (setf result (* result (+ x 1))))))))
