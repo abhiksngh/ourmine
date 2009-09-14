@@ -14,7 +14,7 @@
 
 (deftest test-2_2-2 ()
   (check
-    (eql (quote (+ 10 10)) '(+ 10 10))))
+    (equalp (quote (+ 10 10)) '(+ 10 10))))
 
 ;2.3.1 List Function
 
