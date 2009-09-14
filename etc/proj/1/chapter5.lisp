@@ -5,6 +5,17 @@
     (let ((n 2))
       (setf secondn n))
     (setf firstn n)
-    (not (equalp firstn secondn))
+    (check (not (equalp firstn secondn)))
   )
 )
+
+;;; 5.2 Dolist
+
+(deftest dolisting ()
+  (check (equalp
+    '(A B C)
+    (let ((returnme '()))
+      (dolist (x '(A B C D E))
+        (if (equalp x 'D)
+          (return returnme)
+          (setf returnme (append returnme `(,x)))))))))
