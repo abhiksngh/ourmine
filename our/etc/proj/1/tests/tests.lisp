@@ -45,6 +45,7 @@
 ;; Figure 4.5
 (defstruct (node (:print-function
                   (lambda (n s d)
+                    (declare (ignore d))
                     (format s "#<~A>" (node-elt n)))))
   elt (l nil) (r nil))
 
