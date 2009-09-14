@@ -15,6 +15,14 @@
     (truthify n)
     (check n)))
 
+;;; Figure 10.2 Macro Utilities
+(defmacro avg (&rest args)
+  `(/ (+ ,@args) ,(length args)))
+
+(deftest utilities()
+  (check
+    (= 6 (avg 3 2 1))))
+
 ;;; 10.3 Backquote
 
 (deftest backquote () 
@@ -52,6 +60,8 @@
      (= 3 (elt (quicksort (vector 3 2 1) 0 2) 2)))))
 
 ;;; 10.5 Macro Design
+
+
 
 ;;; 10.6 Generalized Reference
 
