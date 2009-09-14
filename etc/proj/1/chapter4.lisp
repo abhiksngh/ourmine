@@ -29,6 +29,17 @@
     2
     (binsearch 3 '(1 2 3 4 5 6 7 8)))))
 
+;;; 4.3 String Functions
+
+(deftest teststrings ()
+  (let ((alph "ZYXWVUTSRQPONMLKJIHGFEDCBA")
+       (name nil))
+    (setf alph (sort alph #'char<))
+    (setf name (concatenate 'string (string (char alph 4))
+                                    (string (char alph 11))
+                                    (string (char alph 8))))
+    (check (equalp name "ELI"))))
+
 ;;; 4.5 Parsing Based on Test[Required]
 (deftest tokenremoval ()
   (defun removenonalpha (str test start)
