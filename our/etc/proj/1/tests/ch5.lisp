@@ -1,11 +1,11 @@
 ;; chapter 5.1
-(defun square(x)
+(defun squarea(x)
   (if (or (floatp x) (integerp x))
       (* x x)
-      (return-from square nil)))
+      (return-from squarea nil)))
 
 (deftest test-square()
-  (let (( n (square 'a)))
+  (let (( n (squarea 'a)))
     (check
       (samep n nil))))
 
