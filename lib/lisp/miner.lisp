@@ -18,6 +18,8 @@
 			"table/xindex"
 			"learn/nb"
 			"chapter2"
+                        "chapter6"
+                        ;"chapter7"
                         "chapter10"
 			))
 
