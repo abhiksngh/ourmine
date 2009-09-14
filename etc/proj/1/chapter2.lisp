@@ -18,6 +18,10 @@
     '(A B C)
     (list 'A 'B 'C))))
 
+(deftest nillist ()
+  (check
+    (null ())))
+
 ;;; 2.4 List Operations
 
 (deftest listops () 
