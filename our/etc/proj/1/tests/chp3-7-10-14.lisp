@@ -273,9 +273,9 @@
 ;(defconstant yzero 2000) 
 
 ;(defun leap? (y)
-  (and (zerop (mod y 4))
-       (or (zerop (mod y 400))
-           (not (zerop (mod y 100))))))
+;  (and (zerop (mod y 4))
+;       (or (zerop (mod y 400))
+;           (not (zerop (mod y 100))))))
 
 ;(defun year-days (y) (if (leap? y) 366 365))
 
