@@ -1,3 +1,14 @@
+;;; 5.1 Control
+
+(deftest dolisting ()
+  (check (equalp
+    '(A B C)
+    (let ((returnme '()))
+      (dolist (x '(A B C D E))
+        (if (equalp x 'D)
+          (return returnme)
+          (setf returnme (append returnme `(,x)))))))))
+
 ;;; 5.2 Context [Required]
 
 (deftest context ()
@@ -9,13 +20,4 @@
   )
 )
 
-;;; 5.2 Dolist
 
-(deftest dolisting ()
-  (check (equalp
-    '(A B C)
-    (let ((returnme '()))
-      (dolist (x '(A B C D E))
-        (if (equalp x 'D)
-          (return returnme)
-          (setf returnme (append returnme `(,x)))))))))
