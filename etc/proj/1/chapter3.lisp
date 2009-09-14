@@ -104,4 +104,14 @@
   )
 )
 
+;;; 3.14 Assoc-lists
+
+(deftest test-assoc-list ()
+  (let ((testcons '(+ . ADD)))
+    (check
+      (equal
+       (rest (cons '+ 'ADD))
+       (rest testcons)))))
+
 ;;; 3.12 Breadth-First Search [Required]
+
