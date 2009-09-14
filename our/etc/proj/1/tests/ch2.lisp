@@ -100,7 +100,7 @@
   (test-fcall)
   (test-dolist)
   (test-local)
-  (test-format)
+  ;(test-format)
   (test-or)
   (test-and)
   (test-quote)
