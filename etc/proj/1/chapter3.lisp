@@ -40,10 +40,18 @@
 )
 
 ;;; 3.10 Add Join
+
 (deftest testaddjoin ()
   (let ((l (list 'a 'b 'c 'd 'e)))
     (check 
       (member 'q (adjoin 'q l)))))
+
+;;; 3.11 Subsequences
+
+(deftest testsubseq ()
+  (let* ((l (list '1 '2 '3 '4 '5))
+        (m (subseq l 1 3)))
+    (check (equalp m (list '2 '3)))))
 
 ;;; 3.12 Stacks [Required]
 
