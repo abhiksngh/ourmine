@@ -22,3 +22,55 @@
    (deftest test-10_2 ()
      (check
        (eql y 1))))
+
+;10.3 Backquote
+(let ((var1 'cat) (var2 'hat))
+  (deftest test-10_3 ()
+    (check
+      (equalp `(The ,var1 in the ,var2) '(the cat in the hat)))))
+;10.4 Quicksort
+
+(defmacro while(test &rest body)
+  `(do ()
+       ((not ,test))
+     ,@body))
+
+(defun quicksort(vec l r)
+  (let ((i l)
+        (j r)
+        (p (svref vec (round (+ l r) 2))))
+    (while (<= i j)
+      (while (< (svref vec i) p) (incf i))
+      (while (> (svref vec j) p) (decf j))
+      (when (<= i j)
+        (rotatef (svref vec i) (svref vec j))
+        (incf i)
+        (decf j)))
+    (if (> (- j l) 1) (quicksort vec l j))
+    (if (< (- r i) 1) (quicksort vec i r)))
+  vec)
+    
+;10.5 Macro Design
+
+(defmacro ntimes (n &rest body)
+  (let ((g (gensym
+
+;10.6 Generalized References
+(deftest test-10_6()
+  (define-modify-macro append1f (val)
+    (lambda (lst val) (append lst (list val))))
+  (check
+   (equalp (let ((lst '(w x y)))
+    (append1f lst 'z)
+    lst)
+	   '(w x y z))))
+     
+
+;10.7 Example: Macro Utilities
+
+(defmacro avg (&rest args)
+    `(/ (+ ,@args) ,(length args)))
+
+(deftest test-10_7 ()
+  (check
+    (equalp (avg 200 1000 6) 402)))
