@@ -25,11 +25,6 @@
 
 ;;; 4.5 Parsing Based on Test[Required]
 (deftest tokenremoval ()
-  (check
-     (equal (removenonalpha "eli123abc..d" 
-		#'alpha-char-p 0) 
-		'("eli" "abc" "d"))))
-
   (defun removenonalpha (str test start)
     (let ((p1 (position-if test str :start start)))
       (if p1
@@ -42,6 +37,11 @@
                    nil)))
        nil)))
 
+  (check
+     (equal (removenonalpha "eli123abc..d" 
+		#'alpha-char-p 0) 
+		'("eli" "abc" "d"))))
+
 ;;; 4.6 Structures [Required]
 (defstruct item
   price
@@ -50,4 +50,4 @@
 (deftest test-structure ()
    (setf p (make-item :price 5 :name "Chicken"))
    (check
-    (equal (point-price) 5)))
+    (equal (item-price) 5)))
