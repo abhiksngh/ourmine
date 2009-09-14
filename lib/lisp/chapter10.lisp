@@ -53,7 +53,16 @@
 ;10.5 Macro Design
 
 (defmacro ntimes (n &rest body)
-  (let ((g (gensym
+  (let ((g (gensym))
+        (h (gensym)))
+    `(let ((,h ,n))
+       (do ((,g 0 (+ ,g 1)))
+           ((>= ,g ,h))
+         ,@body))))
+
+(deftest test-10_5 ()
+  (check
+    (string-equal (ntimes 10 (princ ".")) nil)))
 
 ;10.6 Generalized References
 (deftest test-10_6()
@@ -74,3 +83,11 @@
 (deftest test-10_7 ()
   (check
     (equalp (avg 200 1000 6) 402)))
+
+
+;14.5  Iteration with loop
+
+(deftest test-14_5 ()
+  (check
+    (equalp (loop for x in '(11 12 13 14)
+                 collect (1+ x)) '(12 13 14 15))))
