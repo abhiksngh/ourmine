@@ -1,8 +1,8 @@
 ; disable an irritating SBCL flag
 (defparameter *files* '(
 			"../../../../lib/lisp/tests/deftest"
-			"../../../../lib/lisp/tricks/macros"
 			"../../../../lib/lisp/tricks/lispfuns"
+			"../../../../lib/lisp/tricks/macros"
 			"../../../../lib/lisp/tricks/number"
 			"../../../../lib/lisp/tricks/string"
 			"../../../../lib/lisp/tricks/list"
