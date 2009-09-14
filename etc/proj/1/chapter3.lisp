@@ -4,6 +4,12 @@
   (check
      (consp l))))
 
+;;; 3.2 Equality
+(deftest check-cons-equality ()
+  (check
+    (null
+     (eql (cons 'a nil) (cons 'a nil)))))
+
 ;;; 3.3 Pointers 
 
 (deftest pointers () 
