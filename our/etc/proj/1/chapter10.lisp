@@ -23,6 +23,21 @@
      (check
        (eql y 1))))
 
+;Figure 10.2
+
+(defmacro for (var start stop &body body)
+  (let ((gstop (gensym)))
+    `(do ((,var ,start (1+ ,var))
+          (,gstop ,stop))
+          ((> ,var ,gstop))
+          ,@body)))
+
+(let ((sum 0))
+  (for x 1 30 (setf sum (+ x sum)))
+  (deftest test-fig-10_2 ()
+    (check
+      (eql sum 465))))
+
 ;10.3 Backquote
 (let ((var1 'cat) (var2 'hat))
   (deftest test-10_3 ()
@@ -69,11 +84,11 @@
   (define-modify-macro append1f (val)
     (lambda (lst val) (append lst (list val))))
   (check
-   (equalp (let ((lst '(w x y)))
-    (append1f lst 'z)
-    lst)
-	   '(w x y z))))
-     
+    (equalp (let ((lst '(w x y)))
+              (append1f lst 'z)
+              lst)
+            '(w x y z))))
+
 
 ;10.7 Example: Macro Utilities
 
