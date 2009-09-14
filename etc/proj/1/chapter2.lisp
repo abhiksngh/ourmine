@@ -26,8 +26,9 @@
 ;;; 2.5 If Statements
 
 (deftest test-if ()
-        ;Test to see that the if operation is working properly
-        (if nil
+	(let ((x nil) (y nil) (z nil))        
+
+	(if nil
                 (setf x 1)
                 (setf x 0))
 
@@ -35,10 +36,10 @@
                 (setf y 0)
                 (setf y 1))
 
-        (if 27
+        (if 50
                 (setf z 0)
                 (setf z 1))
-        (check (equal (+ x y z) 0)))
+        (check (equal (+ x y z) 0))))
 
 
 ;;; 2.7 Recursion 
