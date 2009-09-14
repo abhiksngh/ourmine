@@ -24,10 +24,15 @@
 
 ;;; 10.4 Quicksort
 ;; Liberally lifted from page 165, Common ANSI Lisp
-(defun quicksort (vec 1 r)
+(defmacro while (test &rest body)
+  `(do ()
+    ((not ,test))
+    ,@body))
+
+(defun quicksort (vec l r)
   (let ((i l)
 	(j r)
-	(p svref vec (round (+ 1 r) 2)))
+	(p (svref vec (round (+ l r) 2))))
     (while (<= i j)
       (while (< (svref vec i) p) (incf i))
       (while (> (svref vec j) p) (decf j))
@@ -35,13 +40,16 @@
 	(rotatef (svref vec i) (svref vec j))
 	(incf i)
 	(decf j)))
-    (if (> (- j 1) 1) (quicksort vec 1 j))
-    (if (> (- r i) 1) (quicksort vec i r)))
+    (if (>= (- j l) 1) (quicksort vec l j))
+    (if (>= (- r i) 1) (quicksort vec i r)))
   vec)
 
-
-
-
+(deftest test-quicksort ()
+  (check
+    (and
+     (= 1 (elt (quicksort (vector 3 2 1) 0 2) 0))
+     (= 2 (elt (quicksort (vector 3 2 1) 0 2) 1))
+     (= 3 (elt (quicksort (vector 3 2 1) 0 2) 2)))))
 
 ;;; 10.5 Macro Design
 
