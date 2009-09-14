@@ -1,3 +1,4 @@
+;Chapter 3 tests
 ;3.2 Equality
 (deftest test-equality ()
   (let (x)
@@ -252,45 +253,45 @@
 
 ;Figure 14.2 Support Code
 ;Scores based on the function
-(defun most (fn lst)
-  (if (null lst)
-      (values nil nil)
-      (loop with wins = (car lst)
-           with max = (funcall fn wins)
-           for obj in (cdr lst)
-           for score = (funcall fn obj)
-           when (> score max)
-           do (setf wins obj
-                    max score)
-           finally (return (values wins max)))))
+;(defun most (fn lst)
+;  (if (null lst)
+;      (values nil nil)
+;      (loop with wins = (car lst)
+;           with max = (funcall fn wins)
+;           for obj in (cdr lst)
+;           for score = (funcall fn obj)
+;           when (> score max)
+;           do (setf wins obj
+;                    max score)
+;           finally (return (values wins max)))))
 
 ;(deftest test-most ()
 ;  (check
 ;    (samep (most #'length '((a b) (a b c) (a))) '((A B C) 3))))
 
 
-(defconstant yzero 2000) 
+;(defconstant yzero 2000) 
 
-(defun leap? (y)
+;(defun leap? (y)
   (and (zerop (mod y 4))
        (or (zerop (mod y 400))
            (not (zerop (mod y 100))))))
 
-(defun year-days (y) (if (leap? y) 366 365))
+;(defun year-days (y) (if (leap? y) 366 365))
 
-(defun num-year (n)
-  (if (< n 0)
-      (loop for y downfrom (- yzero 1)
-           until (<= d n)
-           sum (- (year-days y)) into d
-           finally (return (values (+ y 1) (- n d))))
-      (loop with prev = 0
-           for y from yzero
-           until (> d n)
-           do (setf prev d)
-           sum (year-days y) into d
-           finally (return (values (- y 1)
-                                   (- n prev))))))
+;(defun num-year (n)
+;  (if (< n 0)
+;      (loop for y downfrom (- yzero 1)
+;           until (<= d n)
+;           sum (- (year-days y)) into d
+;           finally (return (values (+ y 1) (- n d))))
+;      (loop with prev = 0
+;           for y from yzero
+;           until (> d n)
+;           do (setf prev d)
+;           sum (year-days y) into d
+;           finally (return (values (- y 1)
+;                                   (- n prev))))))
 
 
 ;Section 10.7
@@ -355,3 +356,27 @@
 (deftest test-aif ()
   (check
     (samep (aif (+ 1 1)(* 2 it)) '4)))
+
+;------------------------
+;Function to run all of the tests
+
+(defun run-ltests ()
+  (test-equality)
+  (test-copylist)
+  (test-append)
+  (test-nth)
+  (test-maplist)
+  (test-union)
+  (test-stacks)
+  (test-compress)
+  (test-uncompress)
+  (test-shortest-path)
+  (test-ringandfiles)
+  (test-quicksort)
+  (test-ntimes)
+  (test-for)
+  (test-in)
+  (test-random-choices)
+  (test-avg)
+  (test-aif))
+  
