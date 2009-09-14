@@ -199,9 +199,8 @@
     (data
     :name 'vote
     :columns '(handicapped-infants water-project-cost-sharing adoption-of-the-budget-resolution physician-fee-freeze el-salvador-aid religious-groups-in-schools anti-satellite-test-ban aid-to-nicaraguan-contras mx-missile immigration synfuels-corporation-cutback education-spending superfund-right-to-sue crime duty-free-exports export-administration-act-south-africa Class)
-    :egs
-    '(
-      (n y n y y y n n n y ? y y y n y republican)
+    :egs 
+     '((n y n y y y n n n y ? y y y n y republican)
       (n y n y y y n n n n n y y y n ? republican)
       (? y y ? y y n n n n y n y y n n democrat)
       (n y y n ? y n n n n y n y n n y democrat)
@@ -267,14 +266,6 @@
       (y y y n n n y y y n y n n n n y democrat)
       (y y y n n n y y y n y ? n n n y democrat)
       (y y n y y y y n n n n y y y n y republican)
-)))      
-      
-(defun vote-test ()
-  (data
-    :name 'vote
-    :columns '(handicapped-infants water-project-cost-sharing adoption-of-the-budget-resolution physician-fee-freeze el-salvador-aid religious-groups-in-schools anti-satellite-test-ban aid-to-nicaraguan-contras mx-missile immigration synfuels-corporation-cutback education-spending superfund-right-to-sue crime duty-free-exports export-administration-act-south-africa Class)
-    :egs
-    '(
       (n y n y y y y n n n y y y y n y republican)
       (n y n y y y n n n y n y y y n n republican)
       (y ? y n n n y y y n n n y n y y democrat)
@@ -299,7 +290,14 @@
       (n n n y y y n n n n n y y y n n republican)
       (n y y n y y y n y y y n y y n y democrat)
       (n n n y y y n n n y n ? y y n ? republican)
-      (y n y n n n y y y y n n n n y y democrat)
+       )))
+
+(defun vote-test()
+    (data
+    :name 'vote
+    :columns '(handicapped-infants water-project-cost-sharing adoption-of-the-budget-resolution physician-fee-freeze el-salvador-aid religious-groups-in-schools anti-satellite-test-ban aid-to-nicaraguan-contras mx-missile immigration synfuels-corporation-cutback education-spending superfund-right-to-sue crime duty-free-exports export-administration-act-south-africa Class)
+    :egs
+     '((y n y n n n y y y y n n n n y y democrat)
       (y n y n n n y y y y y n n n y y democrat)
       (y y y n n n y y n y y n n ? y y democrat)
       (y n y n n n y n y y y n n n y y democrat)
