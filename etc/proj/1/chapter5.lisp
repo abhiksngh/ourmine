@@ -20,4 +20,10 @@
   )
 )
 
+;;; 5.3 Conditionals
 
+(deftest conditionals ()
+  (let ((wannapass t))
+    (check (if wannapass
+      t
+      nil))))
