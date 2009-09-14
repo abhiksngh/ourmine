@@ -1,3 +1,9 @@
+;;; 4.1 Arrays
+
+(deftest testarray ()
+  (let ((arr (make-array '(4 4) :initial-element 13)))
+    (check (equalp (aref arr (random 4) (random 4)) 13))))
+
 ;;; 4.2 Binary Search [Required]
 
 (defun binsearch (item vector &optional (start 0) (end (length vector)))
