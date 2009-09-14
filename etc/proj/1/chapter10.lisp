@@ -23,6 +23,25 @@
     `(B ,(+ 1 1) M))))
 
 ;;; 10.4 Quicksort
+;; Liberally lifted from page 165, Common ANSI Lisp
+(defun quicksort (vec 1 r)
+  (let ((i l)
+	(j r)
+	(p svref vec (round (+ 1 r) 2)))
+    (while (<= i j)
+      (while (< (svref vec i) p) (incf i))
+      (while (> (svref vec j) p) (decf j))
+      (when (<= i j)
+	(rotatef (svref vec i) (svref vec j))
+	(incf i)
+	(decf j)))
+    (if (> (- j 1) 1) (quicksort vec 1 j))
+    (if (> (- r i) 1) (quicksort vec i r)))
+  vec)
+
+
+
+
 
 ;;; 10.5 Macro Design
 
