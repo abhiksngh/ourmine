@@ -114,6 +114,33 @@
         nil))))
 
 ;;Figure 4.6
+(defun bst-remove-min (bst)
+  (if (null (node-l bst))  
+      (node-r bst)
+      (make-node :elt (node-elt bst)
+                 :l   (bst-remove-min (node-l bst))
+                 :r   (node-r bst))))
+
+(defun bst-remove-max (bst)
+  (if (null (node-r bst)) 
+      (node-l bst)
+      (make-node :elt (node-elt bst)
+                 :l (node-l bst)
+                 :r (bst-remove-max (node-r bst)))))
+
+
+(defun percolate (bst)
+  (let ((l (node-l bst)) (r (node-r bst)))
+    (cond ((null l) r)
+          ((null r) l)
+          (t (if (zerop (random 2))
+                 (make-node :elt (node-elt (bst-max l))
+                            :r r
+                            :l (bst-remove-max l))
+                 (make-node :elt (node-elt (bst-min r))
+                            :r (bst-remove-min r)
+                            :l l)))))) 
+
 (defun bst-remove (obj bst <)
   (if (null bst)
       nil
@@ -130,31 +157,6 @@
                   :r (bst-remove obj (node-r bst) <)
                   :l (node-l bst)))))))
 
-(defun percolate (bst)
-  (let ((l (node-l bst)) (r (node-r bst)))
-    (cond ((null l) r)
-          ((null r) l)
-          (t (if (zerop (random 2))
-                 (make-node :elt (node-elt (bst-max l))
-                            :r r
-                            :l (bst-remove-max l))
-                 (make-node :elt (node-elt (bst-min r))
-                            :r (bst-remove-min r)
-                            :l l)))))) 
-
-(defun bst-remove-min (bst)
-  (if (null (node-l bst))  
-      (node-r bst)
-      (make-node :elt (node-elt bst)
-                 :l   (bst-remove-min (node-l bst))
-                 :r   (node-r bst))))
-
-(defun bst-remove-max (bst)
-  (if (null (node-r bst)) 
-      (node-l bst)
-      (make-node :elt (node-elt bst)
-                 :l (node-l bst)
-                 :r (bst-remove-max (node-r bst)))))
 
 (deftest bst-remove-test ()
   (let (bst)
@@ -282,8 +284,7 @@
        (or (zerop (mod y 400))
            (not (zerop (mod y 100))))))
 
-(defun date->num (d m y)
-  (+ (- d 1) (month-num m y) (year-num y)))
+(defun year-days (y) (if (leap? y) 366 365))
 
 (defun month-num (m y)
   (+ (svref month (- m 1))
@@ -297,12 +298,8 @@
         (dotimes (i (- yzero y) (- d))
           (incf d (year-days (+ y i)))))))
 
-(defun year-days (y) (if (leap? y) 366 365))
-
-(defun num->date (n)
-  (multiple-value-bind (y left) (num-year n)
-    (multiple-value-bind (m d) (num-month left y)
-      (values d m y))))
+(defun date->num (d m y)
+  (+ (- d 1) (month-num m y) (year-num y)))
 
 (defun num-year (n)
   (if (< n 0)
@@ -314,6 +311,10 @@
             (d (year-days y) (+ d (year-days y))))
            ((> d n) (values y (- n prev))))))
 
+(defun nmon (n)
+  (let ((m (position n month :test #'<)))
+    (values m (+ 1 (- n (svref month (- m 1)))))))
+
 (defun num-month (n y)
   (if (leap? y)
       (cond ((= n 59) (values 2 29))
@@ -321,9 +322,12 @@
             (t        (nmon n)))
       (nmon n)))
 
-(defun nmon (n)
-  (let ((m (position n month :test #'<)))
-    (values m (+ 1 (- n (svref month (- m 1)))))))
+
+(defun num->date (n)
+  (multiple-value-bind (y left) (num-year n)
+    (multiple-value-bind (m d) (num-month left y)
+      (values d m y))))
+
 
 (defun date+ (d m y n)
   (num->date (+ (date->num d m y) n)))
