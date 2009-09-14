@@ -3,6 +3,7 @@
 ;;chapter2.lisp
 ;;Created 9/3/09
 ;;Last Modified 9/3/09
+;;Test Count: 10
 
 ;2.2.1 Simple Evaluation
 

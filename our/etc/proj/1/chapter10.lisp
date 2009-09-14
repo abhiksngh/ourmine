@@ -3,6 +3,7 @@
 ;;chapter10.lisp
 ;;Created 9/3/09
 ;;Last Modified 9/14/09
+;;Test Count: 7
 
 ;10.1 Eval function
 ;Forces LISP to evaluate a list as code
@@ -99,10 +100,3 @@
   (check
     (equalp (avg 200 1000 6) 402)))
 
-
-;14.5  Iteration with loop
-
-(deftest test-14_5 ()
-  (check
-    (equalp (loop for x in '(11 12 13 14)
-                 collect (1+ x)) '(12 13 14 15))))

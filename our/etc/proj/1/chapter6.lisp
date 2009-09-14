@@ -1,3 +1,5 @@
+;Test Count: 7
+
 ;6.1 Global Functions
 
 (setf (symbol-function 'times5) 

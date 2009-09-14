@@ -1,3 +1,5 @@
+;Test Count: 10
+
 (deftest testCarCdr()
   (check
     (eql 'c (car(cdr(cdr '(a b c d e f)))))))
