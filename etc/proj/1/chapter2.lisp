@@ -17,7 +17,7 @@
 (deftest islist ()
   (check (listp '(a b c))))
 
-;;; 2.6 
+;;; 2.7 Recursion 
 
 (defun fibonacci (N)
   (if (or (zerop N) (= N 1))
@@ -27,3 +27,14 @@
 (deftest examlerecursion ()
   (check (equalp (fibonacci 5) 8)))
 
+;;; 2.13 Iteration
+
+(defun addup (n)
+  (let (( p 0 ))
+  (do ((i 1 (+ i 1)))
+      ((> i n) p)
+    (setf p (+ p i))
+	p)))
+(deftest exampleiteration ()
+  (check (equalp (addup 5) 15)))
+     
