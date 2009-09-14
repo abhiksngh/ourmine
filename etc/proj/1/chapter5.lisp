@@ -5,6 +5,6 @@
     (let ((n 2))
       (setf secondn n))
     (setf firstn n)
-    (not (equalp firstn secondn)
+    (not (equalp firstn secondn))
   )
 )

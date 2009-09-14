@@ -46,3 +46,11 @@
     result)
   )
 
+(defun tests ()
+  ;;;(make) 
+  (tests-reset) 
+  (dolist (one *tests*)
+    (if (fboundp one)
+	(funcall one)
+	(format t "; unknown test: [~a]~%" one)))
+  (tests-report))

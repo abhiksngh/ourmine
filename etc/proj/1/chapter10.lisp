@@ -20,7 +20,7 @@
 (deftest backquote () 
   (check (equalp
     '(B 2 M)
-    `(B ,(+ 1 1) M)))
+    `(B ,(+ 1 1) M))))
 
 ;;; 10.4 Quicksort
 
