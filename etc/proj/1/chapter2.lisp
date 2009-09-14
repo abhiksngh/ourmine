@@ -12,4 +12,7 @@
     '(A B C)
     (cons (car '(A nil)) (cdr '(nil B C))))))
 
+;;; 2.5 Truth
 
+(deftest islist ()
+  (check (listp '(a b c))))

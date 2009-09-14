@@ -48,6 +48,7 @@
   name)
 
 (deftest test-structure ()
-   (setf p (make-item :price 5 :name "Chicken"))
-   (check
-    (equal (item-price p) 5)))
+   (let ((p nil)) 
+     (setf p (make-item :price 5 :name "Chicken"))
+       (check
+         (equal (item-price p) 5))))
