@@ -1,5 +1,22 @@
-(load "deftest.lisp")
-(load "dca.lsip")
-;(load "awhite.lisp")
-;(load "<blake.lisp")
-(print "Loaded Project Members Files. Ready for testing")
+(defparameter *files* '(
+                        "tests/deftest"
+                        "dca"
+                        ))
+
+
+(defun make1 (files)
+  (let ((n 0))
+    (dolist (file files)
+      (format t ";;;; ~a.lisp~%" file)
+      (incf n)
+      (load file))
+    (format t ";;;; ~a files loaded~%" n)))
+
+(defun make (&optional (verbose nil))
+  (if verbose
+      (make1 *files*)
+      (handler-bind
+          ((style-warning #'muffle-warning))
+        (make1 *files*))))
+
+(make)

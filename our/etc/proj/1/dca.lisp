@@ -25,7 +25,7 @@
 
 (deftest test-assign()
   (check
-    (= 10 (my assign))))
+    (= 10 (my-assign))))
 
 (defun change-variable(x)
   (let ((value 42))
@@ -39,7 +39,7 @@
 (defun pow-two-iter(x)
   (let ((value 1))
     (do ((i 0 (+ i 1)))
-        ((<= i x) value)
+        ((>= i x) value)
       (setf value (+ value value)))))
 
 (deftest test-iter()
@@ -67,7 +67,7 @@
 
 (deftest test-cons()
   (check
-    (eql 'a (car (add-to-list '(b c d) 'a)))))
+    (eql 'a (car (my-cons '(b c d) 'a)))))
 
 (defun type-real(x)
   (typep x 'real))
@@ -111,3 +111,4 @@
 (deftest test-mbind()
   (check
     (eql '2 (car (multiple-bind 2 5)))))
+
