@@ -16,3 +16,14 @@
 
 (deftest islist ()
   (check (listp '(a b c))))
+
+;;; 2.6 
+
+(defun fibonacci (N)
+  (if (or (zerop N) (= N 1))
+    1
+    (+ (fibonacci (- N 1)) (fibonacci (- N 2)))))
+
+(deftest examlerecursion ()
+  (check (equalp (fibonacci 5) 8)))
+
