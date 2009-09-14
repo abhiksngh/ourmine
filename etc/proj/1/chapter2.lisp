@@ -1,8 +1,15 @@
 ;;; 2.2 Order of Operations
 
 (deftest test-order-operations ()
-        (check
-                (equal (/ (- 6 4) (- 8 6)) 1)))
+  (check
+   (equal (/ (- 6 4) (- 8 6)) 1)))
+
+;;; 2.2 Evaluation
+(deftest test-evaluation ()
+  (check
+   (=
+    3
+    (/ (- 7 1) (- 4 2)))))
 
 ;;; 2.3 Data
 
