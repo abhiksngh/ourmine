@@ -63,6 +63,13 @@
 (deftest examlerecursion ()
   (check (equalp (fibonacci 5) 8)))
 
+;;; 2.11 Assignment
+(deftest test-assignment ()
+  (let ((x 0))
+    (setf x 1)
+    (check
+      (= x 1))))
+
 ;;; 2.13 Iteration
 
 (defun addup (n)
