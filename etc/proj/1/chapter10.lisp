@@ -21,7 +21,7 @@
 
 (deftest utilities()
   (check
-    (= 6 (avg 3 2 1))))
+    (= 2 (avg 3 2 1))))
 
 ;;; 10.3 Backquote
 
@@ -60,7 +60,21 @@
      (= 3 (elt (quicksort (vector 3 2 1) 0 2) 2)))))
 
 ;;; 10.5 Macro Design
+(defmacro ntimes (n &rest body)
+  (let ((g (gensym))
+	(h (gensym)))
+    `(let ((,h ,n))
+      (do ((,g 0 (+ ,g 1)))
+	  ((>= ,g ,h))
+	,@body))))
 
+(deftest macrodesign ()
+  (let ((x 0))
+    (ntimes 3
+	    (setf x (+ x 1)))
+    (check
+      (=
+       3 x))))
 
 
 ;;; 10.6 Generalized Reference
