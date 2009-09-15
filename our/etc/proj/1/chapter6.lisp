@@ -7,7 +7,7 @@
 (defun map-int (fn n)
   (let ((acc nil))
      (dotimes (i n)
-        (oush (funcall fn i) acc))
+        (push (funcall fn i) acc))
      (nreverse acc)))
 
 (deftest test-single? ()
