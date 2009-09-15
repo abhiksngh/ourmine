@@ -74,7 +74,7 @@
                  :r   (node-r bst)))
 
 (defun Make-Test-Tree ()
-  (let (nums nil)) 
+  (let ((nums))
     (dolist (x '(5 8 4 2 1 9 6 7 3) nums)
        (setf nums (bst-insert x nums #'<))))
 
