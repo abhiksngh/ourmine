@@ -76,9 +76,9 @@
       elt))
 
 ; Could also do: (equal '(tens) (n-elts 1 tens))
-(deftest test-n-elts ()
-  (check
-   (equal '(4 tens) (n-elts 4 tens))))
+;(deftest test-n-elts ()
+  ;(check
+   ;(equal '(4 tens) (n-elts 4 tens))))
 
 (deftest test-compress ()
   (check
