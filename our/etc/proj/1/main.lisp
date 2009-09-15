@@ -1,6 +1,8 @@
 (defparameter *files* '(
                         "deftest"
-                        "dca"
+                        "chapter2"
+			   "chapter5"
+                        "chapter10"
                         ))
 
 
