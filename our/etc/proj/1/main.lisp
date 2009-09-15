@@ -21,3 +21,5 @@
       (handler-bind 
 	  ((style-warning #'muffle-warning))
 	(make1 *files*))))
+
+(make)
