@@ -256,14 +256,15 @@ function quart(min,q1,median,q3,max,width, scale,  i,l,str) {
 }
 
 winLossTie() {
-	local fields=10
-	local key=1
+    local fields=10
+    local key=1
     local performance=$fields
     local high=1
     local confidence=95
 	local input="-"	
 	while [ `echo $1 | grep "-"` ]; do
 		case $1 in
+		        -t|--test)    test=$2;        shift 2;;
 			-f|--fields)  fields=$2;      shift 2;;
 			--99)         confidence=99;  shift 1;;
 			--95)         confidence=95;  shift 1;;
@@ -276,12 +277,23 @@ winLossTie() {
 			     return 1;;
     	esac
 	done
-	(echo "#key,ties,win,loss,win-loss"
-	gawk -f $Awk/mwutmp.awk Fields=$fields Key=$key Performance=$performance \
-	                High=$high Confidence=$confidence $input |
-	sort -t, -r -n -k 5,5
-	) | malign
 
+	title="#key,ties,win,loss,win-loss"
+	tmp=$Tmp/tmp
+
+	if [ "$test" = "mw" ]; then
+	    echo $title >> $tmp
+	    gawk -f $Awk/mwutmp.awk Fields=$fields Key=$key Performance=$performance \
+		High=$high Confidence=$confidence $input | sort -t, -r -n -k 5,5 >> $tmp  
+	fi
+	
+	if [ "$test" = "w" ]; then
+	    echo $title >> $tmp
+	    gawk -f $Awk/wilcox.awk Fields=$fields Key=$key Performance=$performance \
+	                High=$high Confidence=$confidence $input | sort -t, -r -n -k 5,5 >> $tmp
+	fi
+	cat $tmp | malign
+	rm -rf $tmp
 }
 
 docsToSparff(){
