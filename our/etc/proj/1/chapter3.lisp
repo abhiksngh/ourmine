@@ -34,6 +34,7 @@
 (deftest test-last ()
   (check
     (equal '(3) (last '(1 2 3)))
+    (equal 'zack (last '(tim mark shaun zack)))
   )
 )
 
@@ -46,12 +47,14 @@
 (deftest test-nth ()
   (check
     (equal 1 (nth 0 '(1 2 3)))
+    (equal 20 (nth 3 '(5 10 15 20)))
   )
 )
 
 (deftest test-reverse ()
   (check
     (equal '(a b c) (reverse '(c b a)))
+    (equal 'tim (first (reverse '(zack shaun mark tim))))
   )
 )
 
