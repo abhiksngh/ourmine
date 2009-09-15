@@ -60,8 +60,8 @@
           (rperc bst)))
       ((null (node-r bst)) (lperc bst))
       (t (if (zerop (random 2))
-            (lperc bat)
-	    (rperc bat)))))
+            (lperc bst)
+	    (rperc bst)))))
 
 (defun rperc (bst)
       (make-node :elt (node-elt (node-r bst))
@@ -79,8 +79,9 @@
        (setf nums (bst-insert x nums #'<))))
 
 (deftest test-bst-remove ()
-  (check 
-    (equal (bst-find 2 #'<) (bst-remove 2 (Make-Test-Tree) #'<))))
+  (let ((tree (Make-Test-Tree)))
+      (check 
+        (equal (bst-find 2 tree #'<) (bst-remove 2 tree #'<)))))
 
 (defun parse-date (str)
   (let ((toks (tokens str #'constituent 0)))

@@ -1,11 +1,11 @@
-(defparameter *files* '("deftest.lisp"
+(defparameter *files* '("deftest"
                         "chapter2"
                         "chapter3"
                         "chapter4"
                         "chapter6"
                         "chapter10"))
 
-(format t "Tests Ready")
+(format t "Tests Ready~%")
 
 (defun make1 (files)
   (let ((n 0))
