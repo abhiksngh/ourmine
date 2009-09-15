@@ -9,15 +9,15 @@
   (+ x y))
 
 (deftest test-add()
-  (check
-    (= 5 (add 3 2))))
+  (check (= 5 (add 3 2)))
+  (check (= 100 (add 50 50))))
 
 (defun subtract(a b)
   (- a b))
 
 (deftest test-subtract()
-  (check
-    (= 1 (subtract 3 2))))
+  (check (= 1 (subtract 3 2)))
+  (check (= 2 (subtract 100 98))))
 
 (deftest test-third()
   (check
@@ -28,8 +28,8 @@
     (listp '(a b c))))
 
 (deftest test-not()
-  (check
-    (not nil)))
+  (check (not nil))
+  (check (not (not (not nil)))))
 
 (deftest test-and()
   (check
@@ -39,8 +39,8 @@
   (> (+ x y) z))
 
 (deftest test-sum-greater()
-  (check
-    (sum-greater 1 4 3)))
+  (check (sum-greater 1 4 3))
+  (check (not (sum-greater 1 1 9001))))
 
 ; MP
 ; An essential =]
@@ -50,5 +50,5 @@
 
 ; It's like an obsfuscated alphabet.
 (deftest test-remove ()
-  (check
-   (equal '(A B C D E F G) (remove 'Z '(Z A Z B Z C Z Z Z D E F Z G)))))
+  (check (equal '(A B C D E F G) (remove 'Z '(Z A Z B Z C Z Z Z D E F Z G))))
+  (check (equal '(zack shaun mark) (remove 'tim '(zack shaun tim mark)))))
