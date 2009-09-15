@@ -19,8 +19,8 @@
 			"tests/ch2"
 			"tests/ch5"
 			"tests/ch6"
+                        "tests/tests"
 			"tests/chp3-7-10-14"
-			"tests/tests"
 			))
 
 (defun make1 (files)

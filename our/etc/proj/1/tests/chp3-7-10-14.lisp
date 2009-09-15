@@ -237,47 +237,57 @@
 
 ;Figure 14.2 Support Code
 ;Scores based on the function
-;(defun most (fn lst)
-;  (if (null lst)
-;      (values nil nil)
-;      (loop with wins = (car lst)
-;           with max = (funcall fn wins)
-;           for obj in (cdr lst)
-;           for score = (funcall fn obj)
-;           when (> score max)
-;           do (setf wins obj
-;                    max score)
-;           finally (return (values wins max)))))
+(defun mostwithloop (fn lst)
+  (if (null lst)
+      (values nil nil)
+      (loop with wins = (car lst)
+           with max = (funcall fn wins)
+           for obj in (cdr lst)
+           for score = (funcall fn obj)
+           when (> score max)
+           do (setf wins obj
+                    max score)
+           finally (return (values wins max)))))
 
-;(deftest test-most ()
-;  (check
-;    (samep (most #'length '((a b) (a b c) (a))) '((A B C) 3))))
+(deftest test-most ()
+  (check
+    (samep (mostwithloop #'identity '(1 2 3 4 5 6 7 8 9 10)) 10)))
 
+(defun num-yearloop (n)
+  (if (< n 0)
+      (loop for y downfrom (- yzero 1)
+           until (<= d n)
+           sum (- (year-days y)) into d
+           finally (return (values (+ y 1) (- n d))))
+      (loop with prev = 0
+           for y from yzero
+           until (> d n)
+           do (setf prev d)
+           sum (year-days y) into d
+           finally (return (values (- y 1)
+                                   (- n prev))))))
 
-;(defconstant yzero 2000) 
+(deftest test-numyearloop ()
+  (check
+    (samep (num-year 400) 2001)))
 
-;(defun leap? (y)
-;  (and (zerop (mod y 4))
-;       (or (zerop (mod y 400))
-;           (not (zerop (mod y 100))))))
+;Section 10.6
+(define-modify-macro our-incf (&optional (y 1)) +)
 
-;(defun year-days (y) (if (leap? y) 366 365))
+(define-modify-macro append1f (val)
+  (lambda (lst val) (append lst (list val))))
 
-;(defun num-year (n)
-;  (if (< n 0)
-;      (loop for y downfrom (- yzero 1)
-;           until (<= d n)
-;           sum (- (year-days y)) into d
-;           finally (return (values (+ y 1) (- n d))))
-;      (loop with prev = 0
-;           for y from yzero
-;           until (> d n)
-;           do (setf prev d)
-;           sum (year-days y) into d
-;           finally (return (values (- y 1)
-;                                   (- n prev))))))
+(deftest test-our-incf ()
+  (let (x)
+    (setf x 1)
+    (check (samep (our-incf x) 2))))
 
-
+(deftest test-append1f ()
+  (let (lst)
+    (setf lst '(a b c))
+    (append1f lst 'd)
+    (check (samep lst '(a b c d)))))
+  
 ;Section 10.7
 ;Figure 10.2 Macro Utilities
 (defmacro for (var start stop &body body)
