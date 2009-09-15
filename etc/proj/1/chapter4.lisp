@@ -82,6 +82,7 @@
 
 (defstruct (node (:print-function
                   (lambda (n s d)
+                    (setf d d)  ;;; The book's code is bugged.
                     (format s "# <~A>" (node-elt n)))))
    elt (l nil) (r nil))
 
