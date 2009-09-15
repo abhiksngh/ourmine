@@ -10,7 +10,7 @@
 
 (deftest test-add()
   (check
-    (= 5 (subtract 3 2))))
+    (= 5 (add 3 2))))
 
 (defun subtract(a b)
   (- a b))
