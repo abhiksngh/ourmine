@@ -3,8 +3,7 @@
                         "chapter3"
                         "chapter4"
                         "chapter6"
-                        "chapter10"
-                        "chapter14"))
+                        "chapter10"))
 
 (format t "Tests Ready~%")
 
