@@ -134,7 +134,7 @@
 
 (deftest test-tokens ()
   (check
-   (equal ("123" "456" "789") (tokens "123abc456*&^789." #'numberp 0))))
+   (equal '("123" "456" "789") (tokens "123abc456*&^789." #'numberp 0))))
 
 (deftest test-constituent ()
   (check
