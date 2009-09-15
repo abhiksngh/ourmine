@@ -131,14 +131,18 @@
 )))
 ;;; Figure 4.6 Binary Search Trees, Deletion [Required]
 
+(defmacro delay (expr)
+  "Graham has this tendancy to write code with circular dependancies, throwing warnings.  This is a stopgap. -Drew" 
+  `(lambda () ,expr))
+
 (defun rperc (bst)
  (make-node :elt (node-elt (node-r bst))
             :l (node-l bst)
-            :r (percolate (node-r bst))))
+            :r (delay '(percolate (node-r bst)))))
   
 (defun lperc (bst)
   (make-node :elt (node-elt (node-l bst))
-             :l (percolate (node-l bst))
+             :l (delay '(percolate (node-l bst)))
              :r (node-r bst)))
 
 (defun percolate (bst)
@@ -156,7 +160,7 @@
      nil
      (let ((elt (node-elt bst)))
        (if (eql obj elt)
-           (percolate bst)
+           (delay '(percolate bst))
             (if (funcall < obj elt)
                 (make-node
                    :elt elt
