@@ -256,6 +256,7 @@ function quart(min,q1,median,q3,max,width, scale,  i,l,str) {
 }
 
 winLossTie() {
+    #run using winLossTie --input <file.csv> --test <mw,w> --fields <10> --perform <15> --key <4> --95
     local fields=10
     local key=1
     local performance=$fields
