@@ -104,11 +104,11 @@
 
 (deftest test-string-equal ()
   (check
-    (string-equal "tom" "tom"))))
+    (string-equal "tom" "tom")))
 
 (deftest test-equal-string ()
   (check
-    (equal "tim" "tim"))))
+    (equal "tim" "tim")))
 
 (deftest test-svref ()
   (let ((v (vector 14 15 16)))
