@@ -34,7 +34,7 @@
 (deftest test-last ()
   (check
     (equal '(3) (last '(1 2 3)))
-    (equal 'zack (last '(tim mark shaun zack)))
+    (equal '(zack) (last '(tim mark shaun zack)))
   )
 )
 
