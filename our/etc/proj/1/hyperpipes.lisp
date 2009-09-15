@@ -1,24 +1,3 @@
-(defun nb (train test &key (stream t))
-  (let* ((acc 0)
-	(all  (table-all test))
-	(max  (length all)))
-    (dolist (one all (/ acc max))
-      (let* ((got     (bayes-classify (eg-features one) (xindex train)))
-	     (want    (eg-class one))
-	     (success (eql got want)))
-	(incf acc (if success 1.0 0.0))
-	(format stream "~a ~a ~a ~a~%"  got want  
-		(round (* 100 (/ acc max)))
-		(if success "   " "<--"))))))
-
-(defun nb-simple (train test &key (stream t))
-  (xindex train)
-  (dolist (one (table-all test))
-    (let* ((got     (bayes-classify (eg-features one) train))
-	   (want    (eg-class one))
-	   (success (eql got want)))
-      (format stream "~a ~a ~a~%"  got want (if (eql got want) "   " "<--")))))
-
 (defun bayes-classify (one tbl &optional (m 2) (k 1))
   (let* ((classes        (klasses tbl))
          (nclasses       (nklasses tbl))
@@ -41,92 +20,38 @@
           (setf like tmp
                 classification class) )))
     classification))
+	
+(defun nb (train test &key (stream t))
+  (let* ((acc 0)
+	(all  (table-all test))
+	(max  (length all)))
+    (dolist (one all (/ acc max))
+      (let* ((got     (bayes-classify (eg-features one) (xindex train)))
+	     (want    (eg-class one))
+	     (success (eql got want)))
+	(incf acc (if success 1.0 0.0))
+	(format stream "~a ~a ~a ~a~%"  got want  
+		(round (* 100 (/ acc max)))
+		(if success "   " "<--"))))))
 
-(load "tests/data/audiology.lisp")
-(load "tests/data/kr-vs-kp.lisp")
-(load "tests/data/primary-tumor.lisp")
-(load "tests/data/vehicle.lisp")
-(load "tests/data/vote.lisp")
-(load "tests/data/weather.nominal.lisp")
-(load "tests/data/weather2.lisp")
-(load "tests/data/weathernumerics.lisp")
-(load "tests/data/vowel")
-(load "tests/data/splice")
+(defun nb-simple (train test &key (stream t))
+  (xindex train)
+  (dolist (one (table-all test))
+    (let* ((got     (bayes-classify (eg-features one) train))
+	   (want    (eg-class one))
+	   (success (eql got want)))
+      (format stream "~a ~a ~a~%"  got want (if success "   " "<--")))))
 
-(defun hyperpipes-test ()
-  (hyperpipes (audiology) (audiology))
-  (hyperpipes (kr-vs-kp) (kr-vs-kp))
-  (hyperpipes (primary-tumor) (primary-tumor))
-  (hyperpipes (vehicle) (vehicle))
-  (hyperpipes (vote) (vote))
-  (hyperpipes (weather.nominal) (weather.nominal))
-  (hyperpipes (weather2) (weather2))
-  (hyperpipes (weather-numerics) (weather-numerics))
-  (hyperpipes (splice) (splice))
-  (hyperpipes (vowel) (vowel)))
-  
-
-;Uses the instances in train to build the seen array and then
-;uses the instances in test to test the classifier.
-(defun hyperpipes (train test &key (stream t))
-  (format stream "~a~%" (table-name train))
-  (multiple-value-bind (seen-array max-array min-array) (hyperpipes-train train)
-    (dolist (instance (table-all test))
-      (let* ((got (hyperpipes-most-contained test instance seen-array max-array min-array))
-             (want (eg-class instance))
-             (success (eql got want)))	      
-        (format stream "~a ~a ~a ~%" got want (if success "   " "<--"))))))
-
-(defun hyperpipes-train (tbl)
-  (let* ((instances (table-all tbl))
-         (classi (table-class tbl))
-         (seen-array (create-seen-array tbl))
-         (max-array (create-numeric-array tbl most-negative-fixnum))
-         (min-array (create-numeric-array tbl most-positive-fixnum)))
-    (dolist (instance instances)  ;; loop thru the instances
-      (let* ((features (eg-features instance))
-             (instance-class (nth (table-class tbl) features)))
-        (doitems (feature i features)  ;; loop thru the attribute values for an instance
-          (let ((column-name (header-name (nth i (table-columns tbl)))))
-            (unless (= classi i)
-              (unless (unknownp feature)
-                (cond ((numericp column-name) ;; handle numeric attributes
-                        (if (> feature (get-numeric-value tbl max-array instance-class i))
-                            (set-numeric-array tbl max-array instance-class i feature))
-                        (if (< feature (get-numeric-value tbl min-array instance-class i))
-                            (set-numeric-array tbl min-array instance-class i feature)))
-                      (t  ;; handle enum attributes
-                        (set-seen-array tbl seen-array instance-class i feature)))))))))
-    (values seen-array max-array min-array)))
-
-(defun hyperpipes-most-contained (tbl instance seen-array max-array min-array)
-  (let ((best -1)
-        (what nil)
-        (classes (klasses tbl))
-        (classi (table-class tbl))
-        (features (eg-features instance)))
-    (dolist (class classes) ;; loop thru the classes
-      (let ((count 0))
-        (doitems (feature i features) ;; loop thru the attribute values for an instance
-          (unless (= classi i)
-            (unless (unknownp feature)
-              (setf count (+ count (hyperpipes-contains tbl seen-array max-array min-array class i feature))))))
-        (setf count (/ count (1- (table-width tbl))))
-        (cond ((>= count best)
-                (setf best count)
-                (setf what class)))))
-    what))
-
-(defun hyperpipes-contains (tbl seen-array max-array min-array klass i value)
-  (cond ((numericp (header-name (nth i (table-columns tbl))))
-          (if (and (>= (get-numeric-value tbl max-array klass i) value) 
-                   (<= (get-numeric-value tbl min-array klass i) value))
-              1
-              0))
-        (t
-          (if (= (get-seen-value tbl seen-array klass i value) 1)
-              1
-              0))))
+(load "../../../../lib/lisp/tests/data/audiology.lisp")
+(load "../../../../lib/lisp/tests/data/kr-vs-kp.lisp")
+(load "../../../../lib/lisp/tests/data/primary-tumor.lisp")
+(load "../../../../lib/lisp/tests/data/vehicle.lisp")
+(load "../../../../lib/lisp/tests/data/vote.lisp")
+(load "../../../../lib/lisp/tests/data/weather.nominal.lisp")
+(load "../../../../lib/lisp/tests/data/weather2.lisp")
+(load "../../../../lib/lisp/tests/data/weathernumerics.lisp")
+(load "../../../../lib/lisp/tests/data/vowel")
+(load "../../../../lib/lisp/tests/data/splice")
 
 ;; Creates an array whose dimensions are number of classes X number of attribute columns X max number of attribute values
 (defun create-seen-array (tbl)
@@ -167,11 +92,79 @@
 (defun get-numeric-value (tbl numeric-array klass i)
   (aref numeric-array (position klass (klasses tbl)) i))
 
-(defun stress-test-nb (&optional (repeats 10000))
-  (with-output-to-string (str)
-    (dotimes (i repeats t)
-      (random-test-nb1 0.2 str)))
-  t)
+(defun hyperpipes-train (tbl)
+  (let* ((instances (table-all tbl))
+         (classi (table-class tbl))
+         (seen-array (create-seen-array tbl))
+         (max-array (create-numeric-array tbl most-negative-fixnum))
+         (min-array (create-numeric-array tbl most-positive-fixnum)))
+    (dolist (instance instances)  ;; loop thru the instances
+      (let* ((features (eg-features instance))
+             (instance-class (nth (table-class tbl) features)))
+        (doitems (feature i features)  ;; loop thru the attribute values for an instance
+          (let ((column-name (header-name (nth i (table-columns tbl)))))
+            (unless (= classi i)
+              (unless (unknownp feature)
+                (cond ((numericp column-name) ;; handle numeric attributes
+                        (if (> feature (get-numeric-value tbl max-array instance-class i))
+                            (set-numeric-array tbl max-array instance-class i feature))
+                        (if (< feature (get-numeric-value tbl min-array instance-class i))
+                            (set-numeric-array tbl min-array instance-class i feature)))
+                      (t  ;; handle enum attributes
+                        (set-seen-array tbl seen-array instance-class i feature)))))))))
+    (values seen-array max-array min-array)))
+
+(defun hyperpipes-contains (tbl seen-array max-array min-array klass i value)
+  (cond ((numericp (header-name (nth i (table-columns tbl))))
+          (if (and (>= (get-numeric-value tbl max-array klass i) value) 
+                   (<= (get-numeric-value tbl min-array klass i) value))
+              1
+              0))
+        (t
+          (if (= (get-seen-value tbl seen-array klass i value) 1)
+              1
+              0))))
+
+(defun hyperpipes-most-contained (tbl instance seen-array max-array min-array)
+  (let ((best -1)
+        (what nil)
+        (classes (klasses tbl))
+        (classi (table-class tbl))
+        (features (eg-features instance)))
+    (dolist (class classes) ;; loop thru the classes
+      (let ((count 0))
+        (doitems (feature i features) ;; loop thru the attribute values for an instance
+          (unless (= classi i)
+            (unless (unknownp feature)
+              (setf count (+ count (hyperpipes-contains tbl seen-array max-array min-array class i feature))))))
+        (setf count (/ count (1- (table-width tbl))))
+        (cond ((>= count best)
+                (setf best count)
+                (setf what class)))))
+    what))
+
+;Uses the instances in train to build the seen array and then
+;uses the instances in test to test the classifier.
+(defun hyperpipes (train test &key (stream t))
+  (format stream "~a~%" (table-name train))
+  (multiple-value-bind (seen-array max-array min-array) (hyperpipes-train train)
+    (dolist (instance (table-all test))
+      (let* ((got (hyperpipes-most-contained test instance seen-array max-array min-array))
+             (want (eg-class instance))
+             (success (eql got want)))	      
+        (format stream "~a ~a ~a ~%" got want (if success "   " "<--"))))))
+
+(defun hyperpipes-test ()
+  (hyperpipes (audiology) (audiology))
+  (hyperpipes (kr-vs-kp) (kr-vs-kp))
+  (hyperpipes (primary-tumor) (primary-tumor))
+  (hyperpipes (vehicle) (vehicle))
+  (hyperpipes (vote) (vote))
+  (hyperpipes (weather.nominal) (weather.nominal))
+  (hyperpipes (weather2) (weather2))
+  (hyperpipes (weather-numerics) (weather-numerics))
+  (hyperpipes (splice) (splice))
+  (hyperpipes (vowel) (vowel)))
 
   (defun make-weather (eg)
     (data :name    'weather 
@@ -212,3 +205,9 @@
     (nb-simple  (make-weather egs) 
                 (make-weather egs)))
 )
+
+(defun stress-test-nb (&optional (repeats 10000))
+  (with-output-to-string (str)
+    (dotimes (i repeats t)
+      (random-test-nb1 0.2 str)))
+  t)

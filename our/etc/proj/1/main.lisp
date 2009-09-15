@@ -10,12 +10,12 @@
 			"../../../../lib/lisp/tricks/random"
 			"../../../../lib/lisp/tricks/normal"
 			"../../../../lib/lisp/tricks/caution"
-			;(load "../../../../lib/lisp/table/structs")
-			;(load "../../../../lib/lisp/table/header")
-			;(load "../../../../lib/lisp/table/data")
-			;(load "../../../../lib/lisp/table/table")
-			;(load "../../../../lib/lisp/table/xindex")
-			;(load "../../../../lib/lisp/learn/nb")
+			"../../../../lib/lisp/table/structs"
+			"../../../../lib/lisp/table/header"
+			"../../../../lib/lisp/table/data"
+			"../../../../lib/lisp/table/table"
+			"../../../../lib/lisp/table/xindex"
+			;"../../../../lib/lisp/learn/nb"
 			"tests/ch2"
 			"tests/ch5"
 			"tests/ch6"
