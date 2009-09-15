@@ -1,7 +1,7 @@
 (defparameter *files* '(
                         "deftest"
                         "chapter2"
-			   "chapter5"
+                        "chapter5"
                         "chapter7"
                         "chapter10"
                         "awhite"
