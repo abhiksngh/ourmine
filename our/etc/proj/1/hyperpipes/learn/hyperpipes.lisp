@@ -1,8 +1,11 @@
-(load "learn/vote")
-(load "learn/mushroom")
+;hyperpipes.lisp
+;Group 11
+
+(load "learn/vote") ;Split this data set into (vote-train) and (vote-test) due to overfitting.  Everyone was republican.
+(load "learn/mushroom") ;Seems to work 2-3x faster than nb with ~10% less accuracy.
 (load "learn/soybean")
-(load "learn/primary-tumor")
-(load "learn/kr-vs-kp")
+(load "learn/primary-tumor") ;Performs very poorly
+(load "learn/kr-vs-kp") ;Performs @ ~50%
 (load "learn/cleveland-14-heart-disease")
 (load "learn/hungarian-14-heart-disease")
 (load "learn/sick")
@@ -10,11 +13,11 @@
 (load "learn/hypothyroid")
 
 (defun test-hp ()
-  (hp (vote-train) (vote-test))
+  (hp (vote-train) (vote-test)) ;Split this data set into (vote-train) and (vote-test) due to overfitting.  Everyone was Republican according to Hyperpipes!
    (hp (mushroom) (mushroom))
    (hp (soybean) (soybean))
-   (hp (primary-tumor) (primary-tumor))
-   (hp (kr-vs-kp) (kr-vs-kp))
+   (hp (primary-tumor) (primary-tumor)) ;Performs very poorly
+   (hp (kr-vs-kp) (kr-vs-kp)) ;Performs @ ~ 50%
    (hp (cleveland-14-heart-disease) (cleveland-14-heart-disease))
    (hp (sick) (sick))
    (hp (sonar) (sonar))
@@ -120,40 +123,49 @@
              (setf what per-klass))))))
       
 
-;;Array helper functions follow!
-;;*MinMaxValue functions work with numeric arrays.
+;;Array helper functions follow! Quick access and easy to work with!!!
+;;*MinMaxValue functions work with numeric arrays to determine if the numeric value falls within a certain range.
 ;;*Seen* functions work with the discrete functions.
 
-;;Numeric arrays are 2-dimensional matrices.  One for min-one for max.
-(defun buildMinMaxArr (tbl)
-  (make-array (list (length (klasses tbl)) (table-width tbl)) :initial-element 0))
+;Numeric arrays are 2-dimensional arrays.  One for min-one for max.
+;Seen arrays are 3-dimensional arrays.
 
-(defun setMinMaxValue (tbl arr klass i value)
-  (setf (aref arr (position klass (klasses tbl))
+;Set an array location at the intersection of class and the ith feature to a value.
+(defun setMinMaxValue (tbl arr class i value)
+  (setf (aref arr (position class (klasses tbl))
               i)
         value))
 
-(defun grabMinMaxValue (tbl arr klass i)
-  (aref arr (position klass (klasses tbl))
+;Grab the value at the intersection of klass and i.
+(defun grabMinMaxValue (tbl arr class i)
+  (aref arr (position class (klasses tbl))
         i))
 
-(defun buildSeenArr (tbl)
-  (let ((maxValue 0))
-    (dolist (per-column (table-columns tbl))
-      (if (typep per-column 'discrete)
-          (setf maxValue (max maxValue (length(discrete-uniques per-column))))))
-    (make-array (list (length (klasses tbl)) (table-width tbl) maxValue) :initial-element 0)))
-
-(defun setSeenArr (tbl arr klass i value)
-  (setf (aref arr (position klass (klasses tbl))
+;Set an array location at the intersection of the class, ith feature, and the nth unique discrete value.
+(defun setSeenArr (tbl arr class i value)
+  (setf (aref arr (position class (klasses tbl))
               i
               (position value
                         (discrete-uniques
                          (nth i (table-columns tbl)))))
         1))
 
-(defun grabSeenValue (tbl arr klass i value)
-  (aref arr (position klass (klasses tbl)) i
+;Grab the array value at the intersection of the class, ith feature, and nth unique discrete value.
+(defun grabSeenValue (tbl arr class i value)
+  (aref arr (position class (klasses tbl)) i
         (position value
                   (discrete-uniques
                          (nth i (table-columns tbl))))))
+
+;Create a 2 dimensional array.  num classes x number of attributes
+(defun buildMinMaxArr (tbl)
+  (make-array (list (length (klasses tbl)) (1- (table-width tbl))) :initial-element 0))
+
+;Create a 3 dimensional array.  (num classes x number of attributes -1 (class won't enter seen table) x largest number of discrete values for a feature)
+(defun buildSeenArr (tbl)
+  (let ((maxValue 0))
+    (dolist (per-column (table-columns tbl))
+      ;If we're looking at column of discrete values, we want to make sure that we have plenty of room for the attribute with the most discrete values.
+      (if (typep per-column 'discrete)
+          (setf maxValue (max maxValue (length(discrete-uniques per-column))))))
+    (make-array (list (length (klasses tbl)) (1- (table-width tbl)) maxValue) :initial-element 0)))
