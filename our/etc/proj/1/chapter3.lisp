@@ -1,5 +1,5 @@
 (defun shortest-path (start end net)
-  (bfs and (list (list start)) net))
+  (bfs end (list (list start)) net))
 
 (defun bfs (end queue net)
   (if (null queue)
@@ -8,7 +8,7 @@
         (let ((node (car path)))
           if (eql node end)
              (reverse path)
-             (bfs and
+             (bfs end
                   (append (cdr queue)
                           (new-paths path node net))
                   net)))))
