@@ -1,5 +1,5 @@
 (defparameter *files* '(
-                        "tests/deftest"
+                        "deftest"
                         "dca"
                         ))
 
