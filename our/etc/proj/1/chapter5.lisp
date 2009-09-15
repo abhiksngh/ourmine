@@ -84,7 +84,7 @@
 ; 5.2 (5 tests)
 (deftest test-date+ ()
   (check
-   (equal (values (4 1 2001)) (date+ 1 1 2001 3))))
+   (equal (values 4 1 2001) (date+ 1 1 2001 3))))
 
 ; Look for the first position in month where n is less than value.
 ; Basically, return and days where days is (value [days] passed in = time [days] in earlier months).
@@ -95,7 +95,7 @@
 ; Basically just nmon but we account for leap years.
 (deftest test-num-month ()
   (check
-   (equal (values 2 29) (num-month (59 2000)))))
+   (equal (values 2 29) (num-month 59 2000))))
 
 ;
 (deftest test-num-year ()
