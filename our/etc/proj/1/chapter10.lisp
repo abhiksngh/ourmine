@@ -81,14 +81,14 @@
     (string-equal (ntimes 10 (princ ".")) nil)))
 
 ;10.6 Generalized References
-(deftest test-10_6()
-  (define-modify-macro append1f (val)
-    (lambda (lst val) (append lst (list val))))
-  (check
-    (equalp (let ((lst '(w x y)))
-              (append1f lst 'z)
-              lst)
-            '(w x y z))))
+;(deftest test-10_6()
+;  (define-modify-macro append1f (val)
+;    (lambda (lst val) (append lst (list val))))
+;  (check
+;    (equalp (let ((lst '(w x y)))
+;              (append1f lst 'z)
+;              lst)
+;            '(w x y z))))
 
 
 ;10.7 Example: Macro Utilities
