@@ -6,12 +6,12 @@
       nil
       (let ((path (car queue)))
         (let ((node (car path)))
-          if (eql node end)
+          (if (eql node end)
              (reverse path)
              (bfs end
                   (append (cdr queue)
                           (new-paths path node net))
-                  net)))))
+                  net))))))
 
 (defun new-paths (path node net)
   (mapcar #'(lambda (n)
