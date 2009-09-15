@@ -1,0 +1,2 @@
+(load "miner")
+(make)
