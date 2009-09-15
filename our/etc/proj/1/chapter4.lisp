@@ -113,7 +113,7 @@
 
 (deftest test-svref ()
   (let ((v (vector 14 15 16)))
-    (check (= 14 (svref vec 0)))))
+    (check (= 14 (svref v 0)))))
 
 ; MP
 ; Fig. 4.2 (2 tests)
