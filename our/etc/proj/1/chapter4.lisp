@@ -54,7 +54,7 @@
                  :l (node-l bst)))))))
 
 (defun percolate (bst)
-  (cond ((null (node-1 bst))
+  (cond ((null (node-l bst))
       (if (null (node-r bst))
           nil
           (rperc bst)))
@@ -69,7 +69,7 @@
                  :r (percolate (node-r bst))))
 
 (defun lperc (bst)
-      (make-node :elt (node-elt (node-1 bst))
+      (make-node :elt (node-elt (node-l bst))
                  :l   (percolate (node-l bst))
                  :r   (node-r bst)))
 
