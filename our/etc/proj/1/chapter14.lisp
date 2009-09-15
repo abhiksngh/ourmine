@@ -26,3 +26,6 @@
 	   finally (return (values (- y 1)
 				   (- n prev))))))
 
+(deftest test-most ()
+  (check
+   (
