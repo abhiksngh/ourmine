@@ -135,7 +135,8 @@
 
 (deftest test-tokens ()
   (check
-   (equal '("123" "456" "789") (tokens "123abc456*&^789." #'numberp 0))))
+;   (equal '("123" "456" "789") (tokens "123abc456*&^789." #'numberp 0))))
+   (equal '("abc" "d" "ef") (tokens "123abc4$32d9898ef." #'alpha-char-p 0))))
 
 (deftest test-constituent ()
   (check
