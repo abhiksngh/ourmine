@@ -73,13 +73,14 @@
   (check
    (equal 731  (year-num 2002))))
 
+; Days in month prior.
 (deftest test-month-num ()
   (check
-   (equal 1127 (month-num 2 2003))))
+   (equal 31 (month-num 2 2001))))
 
 (deftest test-date-num ()
   (check
-   (equal 1495 (date->num 3 2 2004))))
+   (equal 1494 (date->num 3 2 2004))))
 
 ; 5.2 (5 tests)
 (deftest test-date+ ()
