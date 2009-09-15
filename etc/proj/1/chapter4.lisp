@@ -83,7 +83,7 @@
 (defstruct (node (:print-function
                   (lambda (n s d)
                     (setf d d)  ;;; The book's code is bugged.
-                    (format s "# <~A>" (node-elt n)))))
+                    (format s "<~A>" (node-elt n)))))
    elt (l nil) (r nil))
 
 (defun bst-insert (obj bst <)
@@ -121,7 +121,61 @@
   (and bst
        (or (bst-max (node-r bst)) bst)))
 
+(deftest testinsertfind ()
+  (let ((n nil))
+    (check (and (null
+      (dolist (i '(9 4 7 8 5 2 3 1 6))
+        (setf n (bst-insert i n #'<))))
+    (null (bst-find 15 n #'<)))
+    ;;(string= (string (bst-find 5 n #'<)) "<5>")
+)))
 ;;; Figure 4.6 Binary Search Trees, Deletion [Required]
+
+(defun rperc (bst)
+ (make-node :elt (node-elt (node-r bst))
+            :l (node-l bst)
+            :r (percolate (node-r bst))))
+  
+(defun lperc (bst)
+  (make-node :elt (node-elt (node-l bst))
+             :l (percolate (node-l bst))
+             :r (node-r bst)))
+
+(defun percolate (bst)
+ (cond ((null (node-l bst))
+       (if (null (node-r bst))
+            nil
+            (rperc bst)))
+       ((null (node-r bst)) (lperc bst))
+       (t (if (zerop (random 2))
+          (lperc bst)
+          (rperc bst)))))
+
+(defun bst-remove (obj bst <)
+ (if (null bst)
+     nil
+     (let ((elt (node-elt bst)))
+       (if (eql obj elt)
+           (percolate bst)
+            (if (funcall < obj elt)
+                (make-node
+                   :elt elt
+                   :l (bst-remove obj (node-l bst) <)
+                   :r (node-r bst))
+                (make-node
+                   :elt elt
+                   :r (bst-remove obj (node-r bst) <)
+                   :l (node-l bst)))))))
+
+(deftest testinsertdelete ()
+  (let ((n nil))
+    (check (and (null
+      (dolist (i '(9 4 7 8 5 2 3 1 6))
+        (setf n (bst-insert i n #'<))))
+    (bst-remove 9 n #'<))
+    ;;(string= (string (bst-find 5 n #'<)) "<5>")
+)))
+
 
 ;;; 4.6 Structures [Required]
 (defstruct item
