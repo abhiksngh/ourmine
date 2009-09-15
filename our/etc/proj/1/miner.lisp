@@ -18,9 +18,13 @@
 			"table/xindex"
 			"learn/nb"
 			"chapter2"
+                        "chapter3"
+                        "chapter4"
+                       ; 
                         "chapter6"
-                        ;"chapter7"
+                       ; "chapter7"
                         "chapter10"
+                        "chapter14"
 			))
 
 (defun make1 (files)

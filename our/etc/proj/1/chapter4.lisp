@@ -102,5 +102,5 @@
       (eql (node-elt(bst-min nums)) 1234)))
   (deftest test-fig-4-5_3 ()
     (check
-      (eql (bst-max nums) 1234))))
+      (eql (node-elt(bst-max nums)) 1234))))
                                         ; Figure 4.6
