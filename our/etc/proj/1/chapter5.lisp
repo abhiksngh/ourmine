@@ -96,3 +96,11 @@
            (= 2 (car (cdr l)))
            (= 2000 (car (cdr (cdr l))))))))
 
+(defun prog-block(x y z)
+  (progn
+    (+ x y)
+    (+ y z)))
+
+(deftest test-prog()
+  (check
+   (= 5 (prog-block 4 3 2))))
