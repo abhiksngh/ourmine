@@ -68,7 +68,7 @@
 	(if (eql next elt)
 	    (compr elt (+ n 1) (cdr lst))
 	    (cons (n-elts elt n)
-		  (ocmpr next 1 (cdr lst)))))))
+		  (compr next 1 (cdr lst)))))))
 
 (defun n-elts (elt n)
   (if (> n 1)
