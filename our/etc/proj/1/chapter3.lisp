@@ -45,7 +45,7 @@
 
 (deftest test-nth ()
   (check
-    (equal '(1) (nth 0 '(1 2 3)))
+    (equal 1 (nth 0 '(1 2 3)))
   )
 )
 
