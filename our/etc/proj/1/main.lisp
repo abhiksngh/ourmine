@@ -1,6 +1,7 @@
 (defparameter *files* '(
                         "deftest"
                         "chapter2"
+                        "chapter4"
                         "chapter5"
                         "chapter7"
                         "chapter10"
@@ -11,7 +12,7 @@
                         "dca"
                         "filters"
                         "inReverse"
-                        "isCompress"
+                        "isCompas"
                         "isMirror"
                         "isSingle"
                         "isUncomp"
