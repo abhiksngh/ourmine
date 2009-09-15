@@ -1,8 +1,24 @@
 (defparameter *files* '(
                         "deftest"
                         "chapter2"
-			   "chapter5"
+			"chapter5"
                         "chapter10"
+                        "awhite"
+                        "listEqual"
+                        "carList"
+                        "appends"
+                        "dca"
+                        "filters"
+                        "inReverse"
+                        "isCompress"
+                        "isMirror"
+                        "isSingle"
+                        "isUncomp"
+                        "loops"
+                        "mapInt"
+                        "mostLen"
+                        "myStack"
+                        "nthElt"
                         ))
 
 
