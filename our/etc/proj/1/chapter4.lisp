@@ -113,3 +113,40 @@
 (deftest test-svref ()
   (let ((v (vector 14 15 16)))
     (check (= 14 (svref vec 0)))))
+
+; MP
+; Fig. 4.2 (2 tests)
+(defun tokens (str test start)
+  (let ((p1 (position-if test str :start start)))
+    (if p1
+	(let ((p2 (position-if #'(lambda (c)
+				   (not (funcall test c)))
+			       str :start p1)))
+	  (cons (subseq str p1 p2)
+		(if p2
+		    (tokens str test p2)
+		    nil)))
+	nil)))
+
+(defun constituent (c)
+  (and (graphic-char-p c)
+       (not (char= c #\  ))))
+
+(deftest test-tokens ()
+  (check
+   (equal ("123" "456" "789") (tokens "123abc456*&^789." #'numberp 0))))
+
+(deftest test-constituent ()
+  (check
+   (equal T (constituent #\d))))
+
+; Fig 4.8 (1 test)
+(defun bst-traverse (fn bst)
+  (when bst
+    (bst-traverse fn (node-l bst))
+    (funcall fn (node-elt bst))
+    (bst-traverse fn (node-r bst))))
+
+;(deftest test-bst-traverse ()
+;  (check
+;   (let ((tree (Make-Test-Tree)))
