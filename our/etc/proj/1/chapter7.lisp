@@ -76,4 +76,13 @@
       (buf-reset buffer)
       (and (= (buf-start buffer) (buf-used buffer))
            (= (buf-end buffer)   (buf-new buffer))))))
-      
+
+(deftest test-buf-clear ()
+  (check
+    (let ((buffer (new-buf 3)))
+      (buf-insert #\b buffer)
+      (buf-insert #\a buffer)
+      (buf-pop buffer)
+      (buf-next buffer)
+      (buf-clear buffer)
+      (= -1 (buf-start buffer) (buf-end buffer) (buf-used buffer) (buf-new buffer)))))
