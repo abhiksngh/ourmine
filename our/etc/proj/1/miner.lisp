@@ -22,7 +22,7 @@
                         "chapter4"
                        ; 
                         "chapter6"
-                       ; "chapter7"
+                        "chapter7"
                         "chapter10"
                         "chapter14"
 			))
