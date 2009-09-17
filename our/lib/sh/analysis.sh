@@ -1,23 +1,39 @@
-median(){
+analyzeClusterSimFile(){
 
-awk 'BEGIN{p[cnt++]=$0;}
-     {p[cnt++]=$0;}
-     END{print median(p,cnt)}
+	local kmeanssimfile=$1
+	local genicsimfile=$2
+	local canopysimfile=$3
+	local outfile=$4
+	
+	echo "k,dataset,kmeans_intersim,kmeans_intrasim,genic_intersim,genic_intrasim,canopy_intersim,canopy_intrasim" > ~/tmp/tmpsim
+ 
+	for kmeans_line in `cat $kmeanssimfile`; do		
+		kmeans_intersim=`echo $kmeans_line | awk 'BEGIN{FS=",";}{print $4}'`	
+		kmeans_intrasim=`echo $kmeans_line | awk 'BEGIN{FS=",";}{print $5}'`
 
-     function median(p,max){
-       for(i=0;i<max;i++)
-       for(j=1;j<max;j++){
-          if(p[j] < p[j-1]){
-             tmp=p[j-1]; p[j-1]=p[j]; p[j]=tmp;
-          }
-       }
+		kmeans_k_and_dataset=`echo $kmeans_line | cut -f2,3 -d,`
+		
+		#get genic and canopy diffs too
+		genic_intersim=`cat $genicsimfile | grep ,$kmeans_k_and_dataset | awk 'BEGIN{FS=",";}{print $4}'`
+		genic_intrasim=`cat $genicsimfile | grep ,$kmeans_k_and_dataset | awk 'BEGIN{FS=",";}{print $5}'`
+		canopy_intersim=`cat $canopysimfile | grep ,$kmeans_k_and_dataset | awk 'BEGIN{FS=",";}{print $4}'`
+		canopy_intrasim=`cat $canopysimfile | grep ,$kmeans_k_and_dataset | awk 'BEGIN{FS=",";}{print $5}'`			
 
-       middle=max/2;
-       max%2 != 0.0 ? med=(p[middle-0.5]+p[middle+0.5])/2 : med=p[middle];
-       return med
-     }'
-}
+		#divided values
+		genic_intersim_div=`div $genic_intersim $kmeans_intersim`
+		genic_intrasim_div=`div $genic_intrasim $kmeans_intrasim`
+		canopy_intersim_div=`div $canopy_intersim $kmeans_intersim`
+		canopy_intrasim_div=`div $canopy_intrasim $kmeans_intrasim`
 
-acc(){
-    awk '/Correctly/{print $5}' | head -n 1
+		genic_final_intersim=`sub $genic_intersim_div 1`
+		canopy_final_intersim=`sub $canopy_intersim_div 1`
+		genic_final_intrasim=`mult $genic_intrasim_div 100`
+		canopy_final_intrasim=`mult $canopy_intrasim_div 100`				
+
+		echo "$kmeans_k_and_dataset,0.0,100.0,$genic_final_intersim,$genic_final_intrasim,$canopy_final_intersim,$canopy_final_intrasim" >> ~/tmp/tmpsim		
+		
+	done
+
+	cat ~/tmp/tmpsim | sort -t, -k1,1 -g | malign > $outfile
+	rm -rf ~/tmp/tmpsim
 }

@@ -81,7 +81,7 @@ public class Similarities {
 
                 for(String s : pair)
                 {
-                    //we have an instance index marker
+					 //we have an instance index marker
                     if(!s.contains(" ")){continue;}
                     String[] tmp = s.split(" ");
                     try
@@ -127,7 +127,7 @@ public class Similarities {
 
         for(Cluster cluster : clusters)
         {
-            finalSim+=(((cluster.getMembers().size()+1.0)*intraClusterSimilarity(cluster))/_instances.size());
+            finalSim+=intraClusterSimilarity(cluster);
         }
 
         return finalSim;
@@ -141,7 +141,7 @@ public class Similarities {
         {
             for(Cluster clusterB : clusters)
             {
-                finalSim+=(((clusterA.getMembers().size()+1.0)*interClusterSimilarity(clusterA, clusterB))/_instances.size());
+                finalSim+=interClusterSimilarity(clusterA, clusterB);
             }
         }
         return finalSim;
@@ -156,7 +156,7 @@ public class Similarities {
         {
             for(String[] c2Mem : c2.getMembers())
             {
-                similarity+=(((dist.cosineSimilarity(c1Mem, c2Mem)+1.0)/2.0)/((c1.getMembers().size()+1.0) * (c2.getMembers().size()+1.0)));
+                similarity+=(dist.cosineSimilarity(c1Mem, c2Mem)+1.0)/2.0;
             }
         }
         return similarity;
@@ -171,7 +171,7 @@ public class Similarities {
         {
             for(String [] inst2 : cluster.getMembers())
             {
-                similarity+=((((dist.cosineSimilarity(inst1, inst2)+1.0)/2.0))/(cluster.getMembers().size() * cluster.getMembers().size()));
+                similarity+=(dist.cosineSimilarity(inst1, inst2)+1.0)/2.0;
             }
         }
 

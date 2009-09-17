@@ -35,7 +35,6 @@ Files="
                 $Base/workers/worker_cluster_analysis.sh
                 $Base/workers/worker_reduce.sh
                 $Base/workers/worker_defects.sh
-                $Base/workers/worker_learner_analysis.sh
 		$Base/demos.sh		
 		$Base/demos1.sh		
 		$Base/demos2.sh		

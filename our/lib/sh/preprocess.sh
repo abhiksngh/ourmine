@@ -1,7 +1,8 @@
 discretizeViaFayyadIrani() {
-    local out=$2
+    blab "x"
     $Weka weka.filters.supervised.attribute.Discretize \
-		-c last -R first-last  -i $1 -o $out
+		-c last -R first-last  -i $1 -o $Tmp/tmp.arff
+    cat $Tmp/tmp.arff
 }
 logArff() { 
 	cat - | gawk -F, '
