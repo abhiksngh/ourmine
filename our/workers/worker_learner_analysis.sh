@@ -22,3 +22,39 @@ analysis1(){
 	done
     done
 } 
+
+analysis2(){
+    local origdata=$1
+    local outstats=$2
+    local runs=2
+    local bins=10
+    local nattrs="2 4 6 8 10 12 14 16 18 20"
+    local learners="nb j48 zeror oner adtree bnet rbfnet"
+    local reducers="infogain chisquared oneR"
+    local tmpred=$Tmp/red
+
+    (echo "#run,n,reducer,bin,learner,goal,a,b,c,d,acc,pd,pf,prec,bal" 
+	for((run=1;run<=$runs;run++)); do	   
+	    for n in $nattrs; do
+		for reducer in $reducers; do
+		    $reducer $origdata $n $tmpred
+		    for((bin=1;bin<=$bins;bin++)); do		       
+			makeTrainAndTest $origdata $bins $bin			
+			goals=`cat $origdata | getClasses --brief`
+			for learner in $learners; do			    
+			    $learner train.arff test.arff | gotwant > result.dat
+			    for goal in $goals; do
+			    	for goal in $goals; do
+				    cat result.dat | 
+				    abcd --prefix "$run,$n,$reducer,$bin,$learner,$goal" \
+					--goal "$goal" \
+					--decimals 1
+				done
+			    done
+			    blabln "$run,$n,$reducer,$bin,$learner"
+			done
+		    done
+		done
+	    done
+	done) | malign > $outstats
+} 
