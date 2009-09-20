@@ -1,3 +1,15 @@
+bnet(){
+        local learner=weka.classifiers.bayes.BayesNet
+	$Weka $learner -t $1 -T $2 -D \
+	    -Q weka.classifiers.bayes.net.search.local.K2 -- -P 2 -S BAYES \
+	    -E weka.classifiers.bayes.net.estimate.SimpleEstimator -- -A 0.5 
+}
+bnet10(){
+        local learner=weka.classifiers.bayes.BayesNet
+	$Weka $learner -i -t $1 -D \
+	    -Q weka.classifiers.bayes.net.search.local.K2 -- -P 2 -S BAYES \
+	    -E weka.classifiers.bayes.net.estimate.SimpleEstimator -- -A 0.5 
+}
 nb() {
  	local learner=weka.classifiers.bayes.NaiveBayes
 	$Weka $learner -t $1 -T $2  
@@ -29,6 +41,14 @@ oner() {
 oner10() {
         local learner=weka.classifiers.rules.OneR
 	$Weka $learner -i -t $1
+}
+rbfnet(){
+        local learner=weka.classifiers.functions.RBFNetwork
+	$Weka $learner -t $1 -T $2 -B 2 -S 1 -R 1.0E-8 -M -1 -W 0.1
+}
+rbfnet10(){
+        local learner=weka.classifiers.functions.RBFNetwork
+	$Weka $learner -i -t $1 -B 2 -S 1 -R 1.0E-8 -M -1 -W 0.1
 }
 ridor() {
        local learner=weka.classifiers.rules.Ridor
