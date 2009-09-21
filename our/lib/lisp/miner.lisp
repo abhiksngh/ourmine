@@ -31,6 +31,7 @@
 			;"proj1/wmensah/chapter10-7"
 			"proj1/wmensah/chapter14-5"
                         "learn/hyperpipes"
+                        "proj1/tprifti/TWCNB"
                         "tests/data/primary-tumor"
                         "tests/data/vote"
                         "tests/data/mushroom"

@@ -47,8 +47,8 @@
   (data
    :name   'weather
    :columns '(forecast temp humidty $windy play)
-   :egs    '((sunny    hot  high   FALSE no) 
-             (sunny    hot  high   TRUE  yes)
+   :egs    '((sunny    hot  high   3 no) 
+             (sunny    hot  high   4.56  yes)
              (sunny    hot  high         yes)
              )))
 

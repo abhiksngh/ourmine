@@ -12,6 +12,11 @@
         :klass   (table-class tbl)
         :columns (columns-header (table-columns tbl))))
 
+(defun get-features (struct)
+  (let* ((lst-features '()))
+    (dolist (obj struct lst-features)
+      (setf lst-features (cons (eg-features obj) lst-features)))))
+
 (defun klasses (tbl)
   (discrete-uniques (table-class-header tbl)))
 

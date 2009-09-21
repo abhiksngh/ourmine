@@ -19,11 +19,11 @@
       (dolist (indx indx-lst)
         ;(format t "~A " (nth indx (eg-features i)))
         (setf (nth indx (eg-features i))
-              (log-item (eg-features i) indx))))))
+              (log-item (nth indx (eg-features i)) indx))))))
         
 (defun log-item (row pos)
   (let* ((n (nth pos row)))
-    (if (and (not (unknownp n)) (numberp n))
+    (if (not (unknownp n))
         (if (< n 0.0001)
             (log 0.0001 10)
             (log n 10))
@@ -32,3 +32,12 @@
 (defun test-numeric-cols (cols)
   (dolist (i cols t)
     (format t "~A " i)))
+
+;; new data set 
+(defun new-data (train &rest args)
+  (let* ((new-data (table-copy train (get-features (table-all train)))))
+    (dolist (dat args new-data)
+      (let* ((dat-set (table-all dat)))
+        (setf (table-all new-data)
+              (append (table-all new-data)  dat-set))))))
+    
