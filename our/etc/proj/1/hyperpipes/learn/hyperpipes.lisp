@@ -39,7 +39,7 @@
         (correctly-classified 0))
     ;;We use hp-train to accept a training set of data and generate arrays with min-values, max-values, and if we've seen any of those features.
     (hp-train train min-array max-array seen-array)
-    (dolist (instance all)
+    dolist (instance all)
       (incf total-classified)
       ;Query the mostContained function to discover the class in which the instance the most contained.
       (let* ((got     (hp-mostContained test instance min-array max-array seen-array))
