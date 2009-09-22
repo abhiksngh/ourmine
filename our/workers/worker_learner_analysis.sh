@@ -26,9 +26,9 @@ analysis1(){
 analysis2(){
     local origdata=$1
     local outstats=$2
-    local runs=2
-    local bins=10
-    local nattrs="2 4 6 8 10 12 14 16 18 20"
+    local runs=1
+    local bins=5
+    local nattrs="4" #"2 4 6 8 10 12 14 16 18 20"
     local learners="nb j48 zeror oner adtree bnet rbfnet"
     local reducers="infogain chisquared oneR"
     local tmpred=$Tmp/red
@@ -39,18 +39,16 @@ analysis2(){
 		for reducer in $reducers; do
 		    $reducer $origdata $n $tmpred
 		    for((bin=1;bin<=$bins;bin++)); do		       
-			makeTrainAndTest $origdata $bins $bin			
-			goals=`cat $origdata | getClasses --brief`
+			makeTrainAndTest $tmpred.arff $bins $bin			
+			goals=`cat $tmpred.arff | getClasses --brief`
 			for learner in $learners; do			    
 			    $learner train.arff test.arff | gotwant > result.dat
 			    for goal in $goals; do
-			    	for goal in $goals; do
-				    cat result.dat | 
-				    abcd --prefix "$run,$n,$reducer,$bin,$learner,$goal" \
-					--goal "$goal" \
-					--decimals 1
-				done
-			    done
+				cat result.dat | 
+				abcd --prefix "$run,$n,$reducer,$bin,$learner,$goal" \
+				    --goal "$goal" \
+				    --decimals 1
+			    done			    
 			    blabln "$run,$n,$reducer,$bin,$learner"
 			done
 		    done
