@@ -26,9 +26,9 @@ analysis1(){
 analysis2(){
     local origdata=$1
     local outstats=$2
-    local runs=1
-    local bins=5
-    local nattrs="4" #"2 4 6 8 10 12 14 16 18 20"
+    local runs=2
+    local bins=10
+    local nattrs="2 4 6 8 10 12 14 16 18 20"
     local learners="nb j48 zeror oner adtree bnet rbfnet"
     local reducers="infogain chisquared oneR"
     local tmpred=$Tmp/red
