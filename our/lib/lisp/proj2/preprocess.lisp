@@ -32,3 +32,12 @@
 (defun test-numeric-cols (cols)
   (dolist (i cols t)
     (format t "~A " i)))
+
+;; new data set 
+(defun new-data (train &rest args)
+  (let* ((new-data (table-copy train (get-features (table-all train)))))
+    (dolist (dat args new-data)
+      (let* ((dat-set (table-all dat)))
+        (setf (table-all new-data)
+              (append (table-all new-data)  dat-set))))))
+    
