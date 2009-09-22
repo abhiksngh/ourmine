@@ -1,5 +1,6 @@
 (defparameter *files* '(
                         "tests/deftest"
+                        "data/ar3"
                         "tricks/lispfuns"
                         "tricks/macros"
                         "tricks/number"

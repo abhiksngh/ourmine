@@ -1,12 +1,14 @@
 ; under dev.
 ; * currently sorting function uses files, look into sort-field
-; * sorting function calls bin function with hardcoded # of bins
-;   - alter sort function to pass back class-list
 ; * the 'bins' directory is required to generate bin files
 
 ; testing function 
 (deftest test-bins ()
-  (class-sort (sonar))
+  (let* ((nbins 10)
+         (n-instances (negs (ar3)))) ; get the number of instances in the data set
+      (bins (class-sort (ar3)) nbins n-instances) ; sort the data into n bins
+      (build-data-sets nbins) ; build train and test data sets from the bins
+  )
 )
 
 ;----------------------------------------------------------
@@ -57,7 +59,8 @@
                
       )
       ; call the bins function to sort data into bins
-      (bins class-list 10 n-instances)
+;     (bins class-list 10 n-instances)
+      class-list
   )
 )
 
@@ -127,4 +130,45 @@
         )
     )
   )
+)
+
+; constructs a test set of data from 10% of the data and
+; a training set of data from 90% randomly
+; the data sets are placed in test.dat and train.dat respectively
+(defun build-data-sets (nfiles)
+    (let* ((test (ceiling (/ nfiles 10)))
+           (test-path (make-pathname :name "./bins/test.dat"))
+                           (test-stream (open test-path :direction :output
+                                                      :if-exists :append
+                                                      :if-does-not-exist :create))
+           (train-path (make-pathname :name "./bins/train.dat"))
+                           (train-stream (open train-path :direction :output
+                                                       :if-exists :append
+                                                       :if-does-not-exist :create)))
+        (loop for i from 0 to (- test 1)
+              do 
+                  (let* ((path (make-pathname :name (format nil "./bins/~A.dat" i)))
+                          (instream (open path :direction :input)))
+                  (loop for line = (read-line instream nil :eof)
+                      until (eql line :eof)
+                      do
+                          (format test-stream "~A~%" line)
+                  )
+                  (delete-file path))
+        )
+        (close test-stream)
+
+       (loop for i from test to (- nfiles 1)
+              do
+                  (let* ((path (make-pathname :name (format nil "./bins/~A.dat" i)))
+                         (instream (open path :direction :input)))
+                  (loop for line = (read-line instream nil :eof)
+                      until (eql line :eof)
+                      do
+                          (format train-stream "~A~%" line)
+                  )
+                  (delete-file path))
+        )
+        (close train-stream)
+    ) 
 )

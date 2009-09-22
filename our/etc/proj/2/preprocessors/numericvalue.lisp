@@ -16,7 +16,7 @@
   (let* ((path (make-pathname :name "proc_data.dat"))
         (str (open path :direction :output
                        :if-exists :supersede)))
-  (numval (sonar) :stream str))
+  (numval (ar3) :stream str))
 )
 
 ; replaces numerical values less than 0.0001 with 0.0001
