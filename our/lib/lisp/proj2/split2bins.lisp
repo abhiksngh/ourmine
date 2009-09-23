@@ -8,23 +8,22 @@
          (n (length egs))
          (bin-size (round (/ n bins)))
          (temp-bin)
-         (bucket)
-         (count 1))
-    (format t "Bin Size: ~A, Items in each Bin: ~A ~%" bins bin-size)
+         (bucket (create-bucket bins))
+         (count 0))
     (dotimes (start n bucket)
-      (let* ((indx (random (length egs))))
-        (if (< count bin-size)
-            (progn
-              (if (not (null (nth indx egs)))
-                  (setf temp-bin (cons (nth indx egs) temp-bin)))
-              (setf egs (remove (nth indx egs) egs))
-              (setf count (1+ count)))
-            (progn
-              (if (not (null temp-bin))
-                  (setf bucket (cons temp-bin bucket)))
-              (setf temp-bin '())
-              (if (not (null (nth indx egs)))
-                  (setf temp-bin (cons (nth indx egs) temp-bin)))
-              (setf egs (remove (nth indx egs) egs))
-              (setf count 1)))))))
+      (progn
+        (setf temp-bin (nth (random (- n 1)) egs))
+        (setf (nth count bucket) (cons temp-bin (nth count bucket)))
+        (remove temp-bin egs)
+        (if (= count (- bins 1))
+            (setf count 0)
+            (incf count))))))
+                
+
+; creates a bucket containing 'size' number of bins
+(defun create-bucket (size)
+  (let* ((bucket))
+    (dotimes (start size bucket)
+      (setf bucket (cons '() bucket)))))
+                
       
