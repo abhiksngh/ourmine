@@ -1,0 +1,30 @@
+;; split2bins
+;; Splits a data-set into N bins (default = 10)
+;; Parameters: training data & number of bins)
+
+(defun split2bins (data &optional (bins 10))
+  (let* ((table-data (table-all data))
+         (egs (get-features table-data))
+         (n (length egs))
+         (bin-size (round (/ n bins)))
+         (temp-bin)
+         (bucket)
+         (count 1))
+    (format t "Bin Size: ~A, Items in each Bin: ~A ~%" bins bin-size)
+    (dotimes (start n bucket)
+      (setf indx (random (length egs)))
+      (if (< count bin-size)
+          (progn
+            (if (not (null (nth indx egs)))
+                (setf temp-bin (cons (nth indx egs) temp-bin)))
+            (setf egs (remove (nth indx egs) egs))
+            (setf count (1+ count)))
+          (progn
+            (if (not (null temp-bin))
+                (setf bucket (cons temp-bin bucket)))
+            (setf temp-bin '())
+            (if (not (null (nth indx egs)))
+                (setf temp-bin (cons (nth indx egs) temp-bin)))
+            (setf egs (remove (nth indx egs) egs))
+            (setf count 1))))))
+      
