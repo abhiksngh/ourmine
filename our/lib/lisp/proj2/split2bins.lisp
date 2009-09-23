@@ -6,7 +6,6 @@
   (let* ((table-data (table-all data))
          (egs (get-features table-data))
          (n (length egs))
-         (bin-size (round (/ n bins)))
          (temp-bin)
          (bucket (create-bucket bins))
          (count 0))
