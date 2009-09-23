@@ -42,6 +42,9 @@
                         "tests/data/kr-vs-kp"
                         "tests/data/weather_nominal"
                         "tests/data/weather2"
+                        "proj2/distances"
+                        "proj2/split2bins"
+                        "proj2/preprocess"
 			))
 
 (defun make1 (files)
