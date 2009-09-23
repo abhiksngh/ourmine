@@ -12,32 +12,35 @@
    ;
 ;
 
+; testing function for the numerical value function
 (deftest test-numval ()
-  (let* ((path (make-pathname :name "proc_data.dat"))
-        (str (open path :direction :output
-                       :if-exists :supersede)))
-  (numval (ar3) :stream str))
+    (let* ((path (make-pathname :name "proc_data.dat"))
+           (str (open path :direction :output
+                           :if-exists :supersede)))
+        (numval (ar3) :stream str)
+    )
 )
 
-; replaces numerical values less than 0.0001 with 0.0001
+; Replaces numerical values less than 0.0001 with 0.0001
 ;  and performs a log on all numerical data
-;  It passes through all symbolic data untouched 
+;  Passes through all symbolic data untouched 
 (defun numval (data &key stream)
-  (format stream "~a~%" (table-name data))
-  (let ((all-instances (table-all data)))
-     (dolist (per-instance all-instances)
-       (let* ((all-features (eg-features per-instance)))
-         (format stream "(")
-         (doitems (per-feature i all-features)
-           (if (numberp per-feature)
-             (if (< per-feature 0.0001)
-               ; (format t "0.0001 <-Changed!" )
-                 (format stream "~A " (log 0.0001))
-                 (format stream "~A " (log per-feature)))
-             (format stream "~A " per-feature)
-           )
-         )
-         (format stream ")~%")
-       )))
-  (close stream)
+    (format stream "~a~%" (table-name data))
+    (let ((all-instances (table-all data)))
+        (dolist (per-instance all-instances)
+            (let* ((all-features (eg-features per-instance)))
+                (format stream "(")
+                (doitems (per-feature i all-features)
+                    (if (numberp per-feature)
+                        (if (< per-feature 0.0001)
+                            (format stream "~A " (log 0.0001))
+                            (format stream "~A " (log per-feature)))
+                        (format stream "~A " per-feature)
+                    )
+                )
+                (format stream ")~%")
+            )
+        )
+    )
+    (close stream)
 )
