@@ -25,4 +25,17 @@
     (dotimes (start size bucket)
       (setf bucket (cons '() bucket)))))
                 
-      
+
+;; builds train data from 90% of the data and test data from 10%
+;; usage: (traintest-bins (make-data2))
+(defun traintest-bins (data)
+  (let* ((bucket (split2bins data))
+         (bucket-size (length bucket))
+         (test-size (round (* 0.1 bucket-size)))
+         (temp-bin)
+         (test))
+    (dotimes (start test-size)
+      (setf temp-bin (nth (random bucket-size) bucket))
+      (setf test (cons temp-bin test))
+      (remove temp-bin bucket))
+    (values bucket test)))
