@@ -41,3 +41,41 @@
         (setf (table-all new-data)
               (append (table-all new-data)  dat-set))))))
     
+
+;;k-nearest-neighbor
+(defun k-nearest (instance train &optional (k 10))
+  (let* ((klist (make-hash-table :test 'equal))
+         (k-nearest)
+         (key))
+    (dolist (obj train klist)
+      (setf (gethash obj klist)(euc instance obj)))
+    (dotimes (i k (reverse k-nearest))
+           (if (= (hash-table-count klist) 0)
+               (return-from k-nearest (reverse k-nearest))
+               (progn      
+                 (setf key (get-hash-nearest klist))
+                 (setf k-nearest (push key k-nearest))
+                 (remhash key klist))))))
+
+;;util function for k-nearest
+(defun get-hash-nearest (ht)
+  (let* ((key)
+         (val most-positive-fixnum))
+    (maphash #'(lambda (k v) (if ( <= (gethash k ht) val)
+                                 (progn
+                                 (setf key k)
+                                 (setf val v)))) ht)
+  key))
+                                 
+
+
+;; util function to print hash                                 
+(defun print-hash (hash)
+  (maphash #'(lambda (k v) (format t "~A = ~A~%" k v))
+           hash))
+
+
+
+
+
+  
