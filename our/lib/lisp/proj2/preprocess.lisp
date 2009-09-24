@@ -33,6 +33,36 @@
   (dolist (i cols t)
     (format t "~A " i)))
 
+;;normalize function 
+(defun norm-data (data)
+  (xindex data)
+  (norm-data2 (find-numeric-cols data) data))
+
+(defun norm-data2 (indx-lst data)
+  (let* ((all (table-all data))
+         (cols (table-columns data)))
+    (dolist (i all)
+      (let* ((instance (eg-features i)))
+        (dolist (indx indx-lst)
+          (let* ((max nil)
+                 (min nil))
+            (multiple-value-bind (ma mi) (get-range (nth indx cols) (eg-class i))
+              (setf min mi)
+              (setf max ma))
+            (setf (nth indx instance) (normalize min max (nth indx (eg-features i))))))))))
+        
+;;normalize
+(defun normalize (min max val)
+  (/ (- val min) (- max min)))
+
+;;get range for a specific class
+(defun get-range (col class)
+  (let* ((h (header-f col))
+         (min-max-struct (gethash class h))
+         (min (normal-min min-max-struct))
+         (max (normal-max min-max-struct)))
+    (values max min)))
+
 ;; new data set 
 (defun new-data (train &rest args)
   (let* ((new-data (table-copy train (get-features (table-all train)))))
