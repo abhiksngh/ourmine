@@ -14,7 +14,7 @@
 
 (defun get-features (struct)
   (let* ((lst-features '()))
-    (dolist (obj struct lst-features)
+    (dolist (obj struct (copy-tree lst-features))
       (setf lst-features (cons (eg-features obj) lst-features)))))
 
 (defun klasses (tbl)

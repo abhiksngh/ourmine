@@ -43,7 +43,7 @@
                         "tests/data/weather_nominal"
                         "tests/data/weather2"
                         "proj2/distances"
-                        "proj2/split2bins"
+                       ; "proj2/split2bins"
                         "proj2/preprocess"
 			))
 
