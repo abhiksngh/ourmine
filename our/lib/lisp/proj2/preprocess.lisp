@@ -73,6 +73,15 @@
     
 
 ;;k-nearest-neighbor
+
+(defun k (test train)
+  (let* ((final nil)
+         (ts (get-features (table-all test)))
+         (tr (get-features (table-all train))))
+    (dolist (obj ts final)
+      (setf final (append final (k-nearest obj tr))))))
+
+
 (defun k-nearest (instance train &optional (k 10))
   (let* ((klist (make-hash-table :test 'equal))
          (k-nearest)
