@@ -19,7 +19,7 @@
       (dolist (indx indx-lst)
         ;(format t "~A " (nth indx (eg-features i)))
         (setf (nth indx (eg-features i))
-              (log-item (nth indx (eg-features i)) indx))))))
+              (log-item (eg-features i) indx))))))
         
 (defun log-item (row pos)
   (let* ((n (nth pos row)))
