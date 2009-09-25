@@ -11,9 +11,15 @@
     (dolist (inst instances clusters)
       (let* ((cls (calc-dist inst lstCentroids)))
         (setf (nth cls clusters) (cons inst (nth cls clusters)))))))
-      
 
-
+;; determine if the centroids have moved
+(defun centroids-move (oldcents newcents &optional (indx 0))
+     (if (not (equal (nth indx oldcents)
+                        (nth indx newcents)))
+             (return-from centroids-move nil)
+                 (if (= indx (length oldcents))
+                     (return-from centroids-move t)
+                     (centroids-move oldcents newcents (incf indx)))))
 
 ;;get random position from the total size
 (defun get-rand-k (size lst)
@@ -42,3 +48,7 @@
 (defun make-clusters (lstCentroids)
   (if (null lstCentroids) nil
       (cons (list (car lstCentroids)) (make-clusters (cdr lstCentroids)))))
+
+
+;;recalculate centroids
+
