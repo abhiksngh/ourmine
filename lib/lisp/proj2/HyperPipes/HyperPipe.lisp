@@ -163,3 +163,10 @@
 			(cdr l)
 			(cons (car l) (remove-nth (- n 1) (cdr l))))))
  
+(defun testFileRead(fileName)
+  (let ((fileStream (open (concatenate `string "proj2/HyperPipes/Data/" fileName))))
+    
+    (eval (read-from-string (read-line fileStream)))
+    )
+  )
+ 
