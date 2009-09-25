@@ -49,6 +49,10 @@
   (if (null lstCentroids) nil
       (cons (list (car lstCentroids)) (make-clusters (cdr lstCentroids)))))
 
-
-;;recalculate centroids
-
+;;claculate mean of clusters
+(defun cluster-mean (cluster)
+   (let* ((sum (apply #'mapcar #'+ cluster))
+          (len (length cluster)))
+     (dolist (obj sum)
+       (setf (nth (position obj sum) sum)(float (/ obj len))))
+     sum))
