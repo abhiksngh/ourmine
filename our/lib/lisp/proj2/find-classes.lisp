@@ -1,18 +1,3 @@
-(defun find-classes (lst &optional (indices (list (- (length (car lst)) 1))))
-  "returns the class with the highest rank among multiple classes. Classes don't have to be in the last column.
-   If the list passed to this function is not a list of lists, the column number which contains the classes will
-   have to be provided"
-  (let* ((classes))
-    (if (not (listp (car lst)))
-        (dolist (ndx indices classes)
-          (setf classes (cons (nth ndx lst) classes)))
-        (progn
-          (dolist (instance lst classes)
-            (dolist (ndx indices classes)
-              (setf classes (add-class (nth ndx instance) classes))))
-          (if (listp classes)
-              (majority classes) nil)))))
-        
 (defun add-class (c clist)
   "checks if class is in class-list, if it is, increment its count, else add it"
     (if (null (assoc c clist))
@@ -31,3 +16,37 @@
             (setf majority-class (car item))
             (setf highest-rank (cdr item)))))
     majority-class))
+
+
+(defun get-col (clist colnum)
+  "goes through a table, creates a list out of each element in the rows and returns the list"
+  (let* ((col-list))
+    (dolist (item clist)
+      (setf col-list (cons (nth colnum item) col-list)))
+    col-list))
+
+
+(defun get-all-cols (clist cols)
+  (let* ((allcols))
+    (dolist (i cols allcols)
+      (setf allcols (cons (get-col clist i) allcols)))))
+
+
+(defun find-majority (lst)
+  (let* ((classes))
+    (dolist (item lst)
+      (setf classes (add-class (nth (position item lst) lst) classes)))
+    (if (listp classes)
+        (majority classes) nil)))
+
+
+(defun find-classes (data indices)
+  (let* ((result-classes))
+    (if (not (listp (car data)))
+        (dolist (i indices (reverse result-classes))
+          (setf result-classes (cons (nth i data) result-classes)))
+        (progn
+          (let* ((c-list (get-all-cols data indices)))
+            (dolist (item c-list result-classes)
+              (setf result-classes (cons (find-majority item) result-classes))))))))
+    
