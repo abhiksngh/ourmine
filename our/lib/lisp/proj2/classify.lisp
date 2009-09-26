@@ -2,7 +2,7 @@
   (let ((score 0))
     (dolist (i d1 (float (/ score (length d2))))
       (let* ((lst (k-nearest i d2 k))
-             (len (list (- (length (car lst)) 1)))
+             (len (list (length (car lst))))
              (want (find-classes i len))
              (got (find-classes lst len)))
         (if (listp want)
