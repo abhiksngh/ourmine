@@ -53,3 +53,17 @@ reduceViaOneR(){
 oneR(){
     reduceViaOneR $1 $2 $3
 }
+
+reduceViaWrapper(){
+    local numattrs=$2
+    local out=$3
+    $Weka  weka.filters.supervised.attribute.AttributeSelection \
+	-S "weka.attributeSelection.Ranker -T -1.7976931348623157E308 -N "$numattrs"" \
+	-E "weka.attributeSelection.ReliefFAttributeEval -M -1 -D 1 -K 10 -A 2" \
+	-i $1 -o $out.arff
+}
+
+wrapper(){
+    reduceViaWrapper $1 $2 $3
+}
+
