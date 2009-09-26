@@ -1,0 +1,15 @@
+(defun classify-knn (d1 d2 k &optional (n (length (car d2))))
+  (let ((score 0))
+    (dolist (i d1 (float (/ score (length d2))))
+      (let* ((lst (k-nearest i d2 k))
+             (len (list (- (length (car lst)) 1)))
+             (want (find-classes i len))
+             (got (find-classes lst len)))
+        (if (listp want)
+            (setf want (car want)))
+        (if (listp got)
+            (setf got (car got)))
+        (if (equal want got)
+            (incf score))))))
+
+
