@@ -1,9 +1,6 @@
-(defun ar3 ()
-	(data
-		:name 'ar3
-		:columns '(total_loc blank_loc comment_loc code_and_comment_loc executable_loc unique_operands unique_operators total_operands total_operators halstead_vocabulary halstead_length halstead_volume halstead_level halstead_difficulty halstead_effort halstead_error halstead_time branch_count decision_count call_pairs condition_count multiple_condition_count cyclomatic_complexity cyclomatic_density decision_density design_complexity design_density normalized_cyclomatic_complexity formal_parameters Class)
-		:egs
-		'( 
+(let*
+    ((table
+     '(
 (307 116 44 5 147 138 23 245 366 161 611 3104 0.04898 20.4167 63373.3333 1.0347 3520.7407 94 47 43 39 10 37 0.2517 1.2051 43 1.1622 0.12052 0 true)
 (3 0 0 0 3 4 6 6 8 10 14 32 0.22222 4.5 144 0.010667 8 0 0 0 0 0 1 0.33333 0 0 0 0.33333 0 false)
 (268 72 22 0 174 125 23 337 484 148 821 4102 0.032254 31.004 127178.408 1.3673 7065.4671 190 95 0 94 32 64 0.36782 1.0106 0 0 0.23881 0 false)
@@ -68,3 +65,39 @@
 (10 0 0 0 10 11 7 30 38 18 68 196 0.10476 9.5455 1870.9091 0.065333 103.9394 24 12 1 12 6 7 0.7 1 1 0.14286 0.7 0 false)
 (333 94 53 9 186 56 18 352 469 74 821 3533 0.017677 56.5714 199866.8571 1.1777 11103.7143 114 57 23 56 15 40 0.21505 1.0179 23 0.575 0.12012 0 true)
 )))
+
+(defun ar3 (&optional (eg table))
+	(data
+		:name 'ar3
+		:columns '(total_loc blank_loc comment_loc code_and_comment_loc executable_loc unique_operands unique_operators total_operands total_operators halstead_vocabulary halstead_length halstead_volume halstead_level halstead_difficulty halstead_effort halstead_error halstead_time branch_count decision_count call_pairs condition_count multiple_condition_count cyclomatic_complexity cyclomatic_density decision_density design_complexity design_density normalized_cyclomatic_complexity formal_parameters Class)
+                :egs eg))
+
+
+
+(defun seg-ar3 (&optional (n 0.3))
+  (let* (train
+         test
+         (k (* n (length table))))
+    (dolist (per-instance (shuffle table))
+      (if (> (decf k) 0)
+          (push per-instance test)
+          (push per-instance train)
+          ))
+    (values (ar3 train) (ar3 test))))
+
+(deftest test-segar3 ()
+  (let*
+      (train
+       test)
+    (multiple-value-bind (train test) (seg-ar3)
+    (check
+      (= (length (egs (ar3)))
+         (+ (length (egs train)) (length (egs test)))
+         )
+      )
+    )))
+
+
+
+)
+
