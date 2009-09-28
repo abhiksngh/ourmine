@@ -23,6 +23,7 @@
                         "table/data"
                         "table/table"
                         "table/xindex"
+                        "preprocessors/sub-sampling"
                         "discretizers/discretizers"
                         "preprocessors/bins"
                         "preprocessors/numericvalue"
