@@ -17,7 +17,7 @@
       (setf clusters (create-new-clusters instances lstCentroids (make-clusters lstCentroids)))
       (setf oldCentroids (copy-tree lstCentroids))
       ;(format t "Old Centorids ~A~%" oldCentroids)
-      (setf lstCentroids (new-centroids clusters))
+      (setf lstCentroids (new-centroids clusters)))))
       ;(format t "New Centorids ~A~%" lstCentroids))))
       
     

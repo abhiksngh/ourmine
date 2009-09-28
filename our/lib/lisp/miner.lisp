@@ -45,6 +45,7 @@
                         "proj2/distances"
                         "proj2/split2bins"
                         "proj2/preprocess"
+                        "proj2/k-means"
 			))
 
 (defun make1 (files)
