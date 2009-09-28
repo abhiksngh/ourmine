@@ -503,7 +503,7 @@
 (defun shared-CM1 (&optional (eg table))
 	(data
 		:name 'shared-CM1
-		:columns '(loc vg evg ivg v l d i e b t lOCode lOComment locCodeAndComment niq_Op uniq_Opnd total_Op total_Opnd branchCount defects)
+		:columns '($loc $vg $evg $ivg $v $l $d $i $e $b $t $lOCode $lOComment $locCodeAndComment $niq_Op $uniq_Opnd $total_Op $total_Opnd $branchCount defects)
 		:egs eg
                 ))
 

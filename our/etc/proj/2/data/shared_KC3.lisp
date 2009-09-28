@@ -463,7 +463,7 @@
 (defun shared-KC3 (&optional (eg table))
 	(data
 		:name 'shared-KC3
-		:columns '(loc vg evg ivg v l d i e b t lOCode lOComment locCodeAndComment niq_Op uniq_Opnd total_Op total_Opnd branchCount defects)
+		:columns '($loc $vg $evg $ivg $v $l $d $i $e $b $t $lOCode $lOComment $locCodeAndComment $niq_Op $uniq_Opnd $total_Op $total_Opnd $branchCount defects)
 		:egs eg
                 ))
 
