@@ -231,7 +231,8 @@
           )
         )
       )
-    (/ totalRight totalChecks)
+    (print (/ totalRight totalChecks))
+    MyHyperPipes
     )
 
 
@@ -306,7 +307,7 @@
   (let ((currentCentroid nil)
         (currentMax 0))
     (dolist (currentPipe HyperPipes)
-      (let ((currentCount 0)
+      (let* ((currentCount 0)
             (pipeBounds (HyperPipe-numericBounds currentPipe))
             (numberOfAttributes (length pipeBounds))
             )
@@ -334,6 +335,7 @@
                 )
               )
           )
+        (print (list currentCount (HyperPipe-class currentPipe)))
         (if (> currentCount currentMax)
             (progn
               (setf currentMax currentCount)
@@ -342,6 +344,7 @@
             )
         )
       )
+    (list currentMax (HyperPipe-class currentCentroid))
     )
   )
 
