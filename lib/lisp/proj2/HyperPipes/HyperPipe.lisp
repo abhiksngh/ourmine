@@ -6,12 +6,49 @@
                                (list (make-HyperPipe :numericBounds (let ((numericBounds (list)))
                                                                 (dotimes (i numberOfAttributes numericBounds)
                                                                   (setf numericBounds (append numericBounds (list (make-NumericBound)))))) :class currentClass)))))))
+
+(defun CreateSingleHyperPipe (numberOfAttributes Class)
+  (let ((HyperPipe nil))
+    (setf HyperPipe (make-HyperPipe :numericBounds (let ((numericBounds (list)))
+                                                     (dotimes (i numberOfAttributes numericBounds)
+                                                       (setf numericBounds (append numericBounds (list (make-NumericBound)))))) :class Class))))
 ;Add experience to the HyperPipes. The function first finds the appropriate pipe for this experience based on the experience class.
 ;Then for each attribute update the bin with the new min and max if the experience attribute is smaller than the current min or
 ;larger than the current max.
 (defun AddExperience (pipes experience)
   ;(print (ExperienceInstance-class experience))
   (let ((pipe (FindPipe pipes (ExperienceInstance-class experience))))
+    
+     (dotimes (current (length (ExperienceInstance-attributes experience)) pipe)
+       (let ((currentBound (nth current (HyperPipe-numericBounds pipe)))
+             (currentExperience (nth current (ExperienceInstance-attributes experience))))
+         
+         (if (not (equal currentExperience '?))
+             (if (numberp currentExperience)
+                 (progn
+                   (setf (NumericBound-min currentBound) (min currentExperience (NumericBound-min currentBound)))
+                   (setf (NumericBound-max currentBound) (max currentExperience (NumericBound-max currentBound)))
+                   )
+                 (setf (NumericBound-nonNumeric currentBound) (remove-duplicates (append (NumericBound-nonNumeric currentBound) (list currentExperience))))
+                 )
+             )
+                   
+         )
+       )
+     pipes)
+  )
+
+(defun AddExperienceNew (pipes experience)
+  ;(print (ExperienceInstance-class experience))
+  (let ((pipe (FindPipe pipes (ExperienceInstance-class experience))))
+    (if (null pipe)
+        (progn
+          (print "adding new pipe")
+          (setf pipes (append pipes (list (CreateSingleHyperPipe (length (ExperienceInstance-attributes experience)) (ExperienceInstance-class experience)))))
+          (setf pipe (FindPipe pipes (ExperienceInstance-class experience)))
+          )
+        )
+        
     
      (dotimes (current (length (ExperienceInstance-attributes experience)) pipe)
        (let ((currentBound (nth current (HyperPipe-numericBounds pipe)))
@@ -169,4 +206,100 @@
     (eval (read-from-string (read-line fileStream)))
     )
   )
- 
+
+
+(defun demoHyperPipesNew(&optional (dataFileName "primary-tumor"))
+  (print "*************Demoing HyperPipes**************")
+  ;(load (concatenate `string "HyperPipes/Data/" dataFileName ".lisp"))
+
+  (let ((MyHyperPipes (list))
+        (totalChecks 0)
+        (totalRight 0))
+    (with-open-file (stream (concatenate `string "proj2/HyperPipes/Data/" dataFileName ".lisp"))
+      (do ((line (read-line stream nil) (read-line stream nil))) ((null line))
+        (let* ((attributeValues (eval (read-from-string line)))
+               (tiedClasses (GetTiedClasses MyHyperPipes attributeValues))
+               (successOrFailure (find (nth (- (length attributeValues) 1) attributeValues) tiedClasses))
+               )
+          (format t "~%Expected Result: ~a Actual Result: ~a" (nth (- (length attributeValues) 1) attributeValues) tiedClasses)
+          (incf totalChecks)
+          (if (not (null successOrFailure))
+              (incf totalRight)
+              )
+          (print successOrFailure)
+          (setf MyHyperPipes (AddExperienceNew MyHyperPipes (make-ExperienceInstance :attributes (remove-nth (- (length attributeValues) 1) attributeValues) :class (nth (- (length attributeValues) 1) attributeValues))))
+          )
+        )
+      )
+    (/ totalRight totalChecks)
+    )
+
+
+
+    ;
+    ;(let ((Accuracy 0)
+    ;      (Total 0))
+
+    ;(dolist (currentDataPoint (table-all dataTable))
+    ;  (let* ((currentAttributes (EG-features currentDataPoint))
+    ;         (DistributionResults (doDistributions (make-ExperienceInstance :attributes (remove-nth (table-class dataTable) (eg-features currentDataPoint))) MyHyperPipes))
+    ;         (normalizedResults (normalizeResults DistributionResults)))
+    ;    (let ((HighestValue ())
+    ;          (currentMax most-negative-fixnum))
+
+
+    ;      (dolist (result normalizedResults)
+    ;        (if (>= (second result) currentMax)
+    ;            (progn
+    ;              (if (= (second result) currentMax)
+    ;                  (setf HighestValue (append HighestValue (list (first result))))
+    ;                  (setf HighestValue (list (first result)))
+    ;                  )
+    ;              (setf currentMax (second result))
+                 
+    ;              )
+    ;            )
+            
+    ;        )
+    ;      (if (find (nth (table-class dataTable) (eg-features currentDataPoint)) HighestValue)
+    ;          (incf Accuracy))
+    ;      (incf Total)
+    ;      (format t "~%Expected Result: ~a Actual Result: ~a" (nth (table-class dataTable) (eg-features currentDataPoint)) HighestValue)
+    ;      )
+    ;    )
+    ;  )
+    ;(format t "~%~%The accuracy is ~a" (/ Accuracy Total))
+    ;)
+    ;(setf MyQuestion (make-ExperienceInstance :attributes '(365 8000 400 98 blue)))
+    ;(print MyHyperPipes)
+    ;(setf distributions (doDistributions MyQuestion MyHyperPipes))
+    ;(print distributions)
+    ;(setf distributions (normalizeResults distributions))
+    ;(print distributions)
+    ;)
+  )
+
+(defun GetTiedClasses(MyHyperPipes AttributeValues)
+  (let* ((currentMax most-negative-fixnum)
+        (HighestValue ())
+        (DistributionResults (doDistributions (make-ExperienceInstance :attributes (remove-nth (- (length AttributeValues) 1) AttributeValues)) MyHyperPipes))
+        (normalizedResults (normalizeResults DistributionResults)))
+    (dolist (result normalizedResults)
+      (if (>= (second result) currentMax)
+          (progn
+            (if (= (second result) currentMax)
+                (setf HighestValue (append HighestValue (list (first result))))
+                (setf HighestValue (list (first result)))
+                )
+            (setf currentMax (second result))
+
+            )
+          )
+
+      )
+    HighestValue
+    
+    )
+  )
+
+
