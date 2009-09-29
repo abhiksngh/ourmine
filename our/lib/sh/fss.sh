@@ -54,7 +54,7 @@ oneR(){
     reduceViaOneR $1 $2 $3
 }
 
-reduceViaWrapper(){
+reduceViaRelief(){
     local numattrs=$2
     local out=$3
     $Weka  weka.filters.supervised.attribute.AttributeSelection \
@@ -63,7 +63,8 @@ reduceViaWrapper(){
 	-i $1 -o $out.arff
 }
 
-wrapper(){
-    reduceViaWrapper $1 $2 $3
+relief(){
+    reduceViaRelief $1 $2 $3
 }
+
 
