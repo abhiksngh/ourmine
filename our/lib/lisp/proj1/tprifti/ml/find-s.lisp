@@ -40,7 +40,7 @@
 
 
 (defun test-find-s ()
-  (find-s (make-data-Enjoy-Sports)))
+  (find-s (make-data-Enjoy-Sports) '(Sunny Warm ? ? ? ?)))
 
 
 (defun stat-test-find-s()
