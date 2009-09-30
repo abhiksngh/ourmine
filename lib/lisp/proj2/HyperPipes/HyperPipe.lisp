@@ -111,7 +111,7 @@
       (setf distributions (append distributions (list (list (HyperPipe-class pipe) (calculateDistribution pipe newExperience)))))
     
     )
-    (print distributions)
+    ;(print distributions)
     distributions
   ))
 
@@ -176,7 +176,12 @@
             
             )
           (if (find (nth (table-class dataTable) (eg-features currentDataPoint)) HighestValue)
-              (incf Accuracy))
+              (progn
+                (incf Accuracy)
+                (format outputFile "~a ~a~%" 1 (length HighestValue))
+                )
+              (format outputFile "~a ~a~%" 0 (length HighestValue))
+              )
           (incf Total)
           (format t "~%Expected Result: ~a Actual Result: ~a" (nth (table-class dataTable) (eg-features currentDataPoint)) HighestValue)
           )
@@ -214,7 +219,8 @@
 
   (let ((MyHyperPipes (list))
         (totalChecks 0)
-        (totalRight 0))
+        (totalRight 0)
+        (outputFile (open "outputFile.txt" :direction :output :if-does-not-exist :create :if-exists :overwrite)))
     (with-open-file (stream (concatenate `string "proj2/HyperPipes/Data/" dataFileName ".lisp"))
       (do ((line (read-line stream nil) (read-line stream nil))) ((null line))
         (let* ((attributeValues (eval (read-from-string line)))
@@ -224,7 +230,11 @@
           (format t "~%Expected Result: ~a Actual Result: ~a" (nth (- (length attributeValues) 1) attributeValues) tiedClasses)
           (incf totalChecks)
           (if (not (null successOrFailure))
-              (incf totalRight)
+              (progn
+                (incf totalRight)
+                (format outputFile "~a ~a~%" 1 (length tiedClasses))
+                )
+              (format outputFile "~a ~a~%" 0 (length tiedClasses))
               )
           (print successOrFailure)
           (setf MyHyperPipes (AddExperienceNew MyHyperPipes (make-ExperienceInstance :attributes (remove-nth (- (length attributeValues) 1) attributeValues) :class (nth (- (length attributeValues) 1) attributeValues))))
