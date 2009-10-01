@@ -113,6 +113,10 @@ function analyze(firstKey, secondKey,   firststr,secondstr,pop1,pop2)
 	secondstr=secondstr " " secondCounter " " PerformanceArray[secondKey,secondCounter];
     }
 
+    if(N[firstKey] != N[secondKey]){
+	    print "The samples must be of equal size! Results will not be correct."; return; 
+    }
+
     mult=0.5
     s2a(firststr,pop1);
     s2a(secondstr,pop2);
