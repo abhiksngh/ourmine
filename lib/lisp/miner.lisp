@@ -17,7 +17,7 @@
 			"table/table"
 			"table/xindex"
 			"learn/nb"
-                        "proj/1/awhite"
+                        "normalize"
 			))
 
 (defun make1 (files)
