@@ -63,7 +63,8 @@ demo004worker(){
 	    done
 	done | sort -t, -r -n -k 11,11) | malign  > $out
     
-    less $out
+    #perform wilcoxon test on the ouput, perform=pd, key=learner
+    winLossTie --input $out --test w --fields 14 --key 4 --perform 11 
 }
 
 
