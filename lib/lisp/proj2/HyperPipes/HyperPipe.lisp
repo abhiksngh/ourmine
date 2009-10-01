@@ -213,7 +213,7 @@
   )
 
 
-(defun demoHyperPipesNew(&optional (dataFileName "primary-tumor"))
+(defun demoHyperPipesNew(&optional (dataFileName "primary-tumor") (Alpha 0))
   (print "*************Demoing HyperPipes**************")
   ;(load (concatenate `string "HyperPipes/Data/" dataFileName ".lisp"))
 
@@ -224,7 +224,7 @@
     (with-open-file (stream (concatenate `string "proj2/HyperPipes/Data/" dataFileName ".lisp"))
       (do ((line (read-line stream nil) (read-line stream nil))) ((null line))
         (let* ((attributeValues (eval (read-from-string line)))
-               (tiedClasses (GetTiedClasses MyHyperPipes attributeValues))
+               (tiedClasses (GetTiedClasses2 MyHyperPipes attributeValues Alpha))
                (successOrFailure (find (nth (- (length attributeValues) 1) attributeValues) tiedClasses))
                )
           (format t "~%Expected Result: ~a Actual Result: ~a" (nth (- (length attributeValues) 1) attributeValues) tiedClasses)
@@ -290,28 +290,62 @@
     ;)
   )
 
-(defun GetTiedClasses(MyHyperPipes AttributeValues)
+(defun GetTiedClasses(MyHyperPipes AttributeValues Alpha)
   (let* ((currentMax most-negative-fixnum)
-        (HighestValue ())
-        (DistributionResults (doDistributions (make-ExperienceInstance :attributes (remove-nth (- (length AttributeValues) 1) AttributeValues)) MyHyperPipes))
-        (normalizedResults (normalizeResults DistributionResults)))
+         (HighestValue ())
+         (DistributionResults (doDistributions (make-ExperienceInstance :attributes (remove-nth (- (length AttributeValues) 1) AttributeValues)) MyHyperPipes))
+         (normalizedResults (normalizeResults DistributionResults))
+         (minValue nil)
+         (maxValue nil)
+         (adjustmentValue nil)
+         )
     (dolist (result normalizedResults)
       (if (>= (second result) currentMax)
-          (progn
-            (if (= (second result) currentMax)
-                (setf HighestValue (append HighestValue (list (first result))))
-                (setf HighestValue (list (first result)))
-                )
-            (setf currentMax (second result))
-
-            )
+          (setf currentMax (second result))
           )
-
       )
-    HighestValue
+
+    (setf adjustmentValue (* currentMax Alpha))
+    (setf minValue (- currentMax adjustmentValue))
+    (setf maxValue (+ currentMax adjustmentValue))
     
+    (dolist (result normalizedResults)
+       (if (and (>= (second result) minValue) (<= (second result) maxValue))
+           (setf HighestValue (append HighestValue (list (first result))))
+           )
+       )
+    HighestValue
     )
   )
+
+(defun GetTiedClasses2(MyHyperPipes AttributeValues Alpha)
+  (let* ((currentMax most-negative-fixnum)
+         (HighestValue ())
+         (DistributionResults (doDistributions (make-ExperienceInstance :attributes (remove-nth (- (length AttributeValues) 1) AttributeValues)) MyHyperPipes))
+         (normalizedResults (normalizeResults DistributionResults))
+         (minValue nil)
+         (maxValue nil)
+         (adjustmentValue nil)
+         )
+    (dolist (result normalizedResults)
+      (if (>= (second result) currentMax)
+          (setf currentMax (second result))
+          )
+      )
+    ;make it so it adjust the same for every one (1 up or 1 down etc... rather than depending on the currentMax
+    (setf adjustmentValue (* (- (length AttributeValues) 1) Alpha))
+    (setf minValue (- currentMax adjustmentValue))
+    (setf maxValue (+ currentMax adjustmentValue))
+    
+    (dolist (result normalizedResults)
+       (if (and (>= (second result) minValue) (<= (second result) maxValue))
+           (setf HighestValue (append HighestValue (list (first result))))
+           )
+       )
+    HighestValue
+    )
+  )
+
 
 (defun FindCentroid(HyperPipes)
   (let ((currentCentroid nil)
