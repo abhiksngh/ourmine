@@ -232,16 +232,18 @@
           (if (not (null successOrFailure))
               (progn
                 (incf totalRight)
-                (format outputFile "~a ~a~%" 1 (length tiedClasses))
+                (format outputFile "~a ~a ~a~%" 1 (length tiedClasses) tiedClasses)
                 )
-              (format outputFile "~a ~a~%" 0 (length tiedClasses))
+              (format outputFile "~a ~a ~a~%" 0 (length tiedClasses) tiedClasses)
               )
           (print successOrFailure)
           (setf MyHyperPipes (AddExperienceNew MyHyperPipes (make-ExperienceInstance :attributes (remove-nth (- (length attributeValues) 1) attributeValues) :class (nth (- (length attributeValues) 1) attributeValues))))
           )
         )
+      (close outputFile)
       )
     (print (/ totalRight totalChecks))
+    (print Alpha)
     MyHyperPipes
     )
 

@@ -162,4 +162,12 @@
 		(if (= n 0)
 			(cdr l)
 			(cons (car l) (remove-nth (- n 1) (cdr l))))))
+
+(defun testFileRead(fileName)
+  (let ((fileStream (open (concatenate `string "HyperPipes/Data/" fileName))))
+    (print (read-line fileStream))
+    (print "next line:")
+    (print (read-line fileStream))
+    )
+  )
  

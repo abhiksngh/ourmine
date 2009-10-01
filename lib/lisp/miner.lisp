@@ -16,7 +16,7 @@
 			"table/data"
 			"table/table"
 			"table/xindex"
-			"learn/nb"
+			"learn/nb2"
                         "proj2/HyperPipes/structs"
                         "proj2/HyperPipes/HyperPipe"
 			))
