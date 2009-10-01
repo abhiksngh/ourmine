@@ -67,4 +67,16 @@ relief(){
     reduceViaRelief $1 $2 $3
 }
 
+reduceViaCFS(){
+    local numattrs=$2
+    local out=$3
+    $Weka  weka.filters.supervised.attribute.AttributeSelection \
+	-S "weka.attributeSelection.GreedyStepwise -R -T -1.7976931348623157E308 -N "$numattrs"" \
+	-E "weka.attributeSelection.CfsSubsetEval" \
+	-i $1 -o $out.arff
+}
+
+cfs(){
+    reduceViaCFS $1 $2 $3
+}
 
