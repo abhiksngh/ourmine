@@ -14,7 +14,7 @@
          (acc (/ (+ A D) (+ A B C D)))
          (pd (/ D (+ B D)))
          (pf (/ C (+ A C)))
-         (f (/ (* 2 prec (/ pd pf)) (+ prec (/ pd pf))))
+         (f (/ (* 2 prec pd) (+ prec pd)))
          (g (/ (* 2 pf pd) (+ pf pd)))
          (params (list A B C D acc prec pd pf f g)))
     params))
