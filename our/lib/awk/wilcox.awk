@@ -1,6 +1,6 @@
 #!/usr/bin/gawk -f
 
-#This code represents a major overall by Adam Nelson from an original implementation by Omid Jalali (2007). This newly edited version contains new Mann-Whitney U Test and Wilcoxon Test code.
+#This code represents a major overhaul by Adam Nelson from an original implementation by Omid Jalali (2007). This newly edited version contains new Mann-Whitney U Test and Wilcoxon Test code.
 
 
 #Usage:		./wilcox Fields=10 Key=2,3,6 Performance=9 High=1 Confidence=95 filename
