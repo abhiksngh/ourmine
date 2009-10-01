@@ -28,9 +28,9 @@ analysis2(){
     local outstats=$2
     local runs=2
     local bins=10
-    local nattrs="2 4 6 8 10 12 14 16 18 20"
+    local nattrs="40" #"2 4 6 8 10 12 14 16 18 20"
     local learners="nb j48 zeror oner adtree bnet rbfnet"
-    local reducers="infogain chisquared oneR"
+    local reducers="cfs infogain chisquared oneR"
     local tmpred=$Tmp/red
 
     (echo "#run,n,reducer,bin,learner,goal,a,b,c,d,acc,pd,pf,prec,bal" 
