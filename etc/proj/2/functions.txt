@@ -1,0 +1,27 @@
+Pre-Processor = sub-sample
+  During training, find the minority class and throw away instances (at 
+  random) from the other classes till all classes have the same frequency.
+  Use the learner trained on this sub-sample on the test data (without 
+  sub-sampling)
+
+Discretizer = bin-logging
+  N-bins: Find max and min of each numeric columns. Replace number X with 
+    round(N*(X - min)/(max-min)).
+  Same as N-bins but "N" is set to the log of the number of unique values.
+
+Clusterer = genic
+  See gupta04_genic.pdf for explaination.
+
+Feature Subset Selection = relief
+  See 97kononenko_relief.pdf for explaination.
+  See http://code.google.com/p/ourmine/wiki/Cs473proj2#Relief also.
+  Useful attributes differentiate between instances from other class.
+  Randomly pick some instances (here, 250).
+  Find something similar, in an another class.
+  Compute distance this one to the other one.
+  Stochastic sampler: scales to large data sets.
+
+Classifiers = naievebayes, towr
+  See 95NM-GH-IHW-Develop_twor.pdf for explaination.
+  See http://code.google.com/p/ourmine/wiki/Cs473proj2#Classifiers also.
+
