@@ -2,6 +2,8 @@
 ;;;   lines until they are all equal in prevelence.  Once the classes are all the same size, the data
 ;;;   is now ready for the discretizer.
 
+;;; Claimee: Drew
+
 (defun subsample (data)
    ;;; Poll for frequency of all class types.  Keep tally.
    ;;; Identify smallest class, hold this value.
