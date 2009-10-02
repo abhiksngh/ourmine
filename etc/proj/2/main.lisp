@@ -1,0 +1,7 @@
+(load binlogging.lisp)
+(load genic.lisp)
+(load main.lisp)
+(load naivebayes.lisp)
+(load relief.lisp)
+(load subsample.lisp)
+(load twor.lisp)
