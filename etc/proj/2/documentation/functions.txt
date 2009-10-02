@@ -1,4 +1,4 @@
-Pre-Processor = sub-sample
+Pre-Processor = sub-sample  
   During training, find the minority class and throw away instances (at 
   random) from the other classes till all classes have the same frequency.
   Use the learner trained on this sub-sample on the test data (without 
