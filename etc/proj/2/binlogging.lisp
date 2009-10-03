@@ -10,6 +10,8 @@
 
 (print " - Loading Bin-Logging") ;; Output for a pretty log
 
-(defun binlogging (data &key precision)
+(defun binlogging (data &key (precision 0))
+  
+
   data
 )
