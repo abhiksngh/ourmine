@@ -3,11 +3,15 @@
 ;;;   is now ready for the discretizer.
 
 ;;; Claimee: Drew
-(print " - Loading Subsample") ;; Logging for a pretty run
+
+(print " - Loading Subsample") ;;; Logging for a pretty run.
+
 (defun subsample (data)
-   ;;; Poll for frequency of all class types.  Keep tally.
+  (let ((minorityClass nil) (classTally nil))
+     ;;; Poll for frequency of all class types.  Keep tally.
    ;;; Identify smallest class, hold this value.
    ;;; Begin to do multiple passes over the data.  If a class is encountered that is too large,
    ;;;   randomly decide to remove it or not, decrement tally.
-   ;;; At the end of a pass, if all counts are not equal, pass again.  Else, return data subset.
+   ;;; At the end of a pass, if all counts are not equal, pass again.  Else, return data subset. 
+  )
 )
