@@ -3,7 +3,7 @@
 ;;;   is now ready for the discretizer.
 
 ;;; Claimee: Drew
-
+(print " - Loading Subsample") ;; Logging for a pretty run
 (defun subsample (data)
    ;;; Poll for frequency of all class types.  Keep tally.
    ;;; Identify smallest class, hold this value.
