@@ -46,6 +46,7 @@
                         "proj2/split2bins"
                         "proj2/preprocess"
                         "proj2/k-means"
+                        "proj2/learn"
 			))
 
 (defun make1 (files)
