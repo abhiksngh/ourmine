@@ -1,26 +1,26 @@
-;; Main.lisp
+;; Main
 ;; This file loads the basic function for each of our data mining techniques
 ;; and defuns the learn function - which executes them based on function passing
 
 (print "Loading Pre-processors...")
-(load subsample.lisp)
+(load "subsample")
 (print "Complete.")
 
 (print "Loading Discretizers...")
-(load binlogging.lisp)
+(load "binlogging")
 (print "Complete.")
 
 (print "Loading Clusterers...")
-(load genic.lisp)
+(load "genic")
 (print "Complete.")
 
 (print "Loading Feature Subset Selectors..."
-(load relief.lisp)
+(load "relief")
 (print "Complete.")
 
 (print "Loading Classifiers...")
-(load naivebayes.lisp)
-(load twor.lisp)
+(load "naivebayes")
+(load "twor")
 (print "Complete.")
 
 (defun learn (&key 	(k 	10)
