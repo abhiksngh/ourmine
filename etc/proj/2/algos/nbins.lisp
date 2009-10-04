@@ -6,7 +6,7 @@
 ;;;   but the meaning of the column has changed.  There should be a key on the function for the precision of the
 ;;;   rounding function.
 
-;;; Claimee: Elijah
+;;; Claimee: Elijah -- Completed
 
 (print " - Loading N-Bins") ;; Output for a pretty log
 

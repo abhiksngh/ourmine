@@ -45,7 +45,7 @@
       (push (count-uniques table #'(lambda (x) (nth doer (eg-features x)))) uniques ))))
 
 (defun count-unique-features (table)
-  "Unique features in each column"
+  ;;"Unique features in each column"
   (mapcar #'length (list-unique-features table)))
 
 (defun find-testiest (l test)
