@@ -2,14 +2,24 @@
 ;;;   lines until they are all equal in prevelence.  Once the classes are all the same size, the data
 ;;;   is now ready for the discretizer.
 
-;;; Claimee: Drew
+;;; Claimee: Drew - COMPLETED
 
 (print " - Loading Subsample") ;;; Logging for a pretty run.
 
-(defun subsample (table)
-  (let ((minority (minority-class table)) (ranks (count-classes table)) (tablecopy (copy-table table))
-   ;;; Begin to do multiple passes over the data.  If a class is encountered that is too large,
-   ;;;   randomly decide to remove it or not, decrement tally.
-   ;;; At the end of a pass, if all counts are not equal, pass again.  Else, return data subset. 
+(defun subsample (srctable)
+  (let ((diffs (minority-diff srctable)) (table (copy-table srctable)))
+    (dolist (x diffs)
+      (loop while (not (equalp (second x) 0)) do
+        (let ((random-row-num (random (length (table-all table)))))
+          (if (equalp (first x) (eg-class (nth random-row-num (table-all table))))
+            (setf 
+              (table-all table) (remove (nth random-row-num (table-all table)) (table-all table))
+              (second x) (- (second x) 1)
+            )
+          )
+        )
+      )
+    )
+    table
   )
 )
