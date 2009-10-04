@@ -21,15 +21,32 @@
 	 (if
 	  (< (nth 1 greatest) (nth 1 class))
 	  (setf greatest class)))))))
+
+(defun majority-class-list (tbl)
+  "Return a list containing features of instances in the majority class"
+  (mapcar 'eg-features ((lambda (x) (l
+et ((y '())) (dolist (l (egs x) y) (if (eql (majority-class x) (eg-class l)) (push l y))))) tbl)))
 	 
 (defun oner(tbl)
   (let* 
       ((cols (columns-header (table-columns tbl)))
-       (counts (mapcar #'cons cols (list-unique-features tbl)))
-       (maj-class (majority-class tbl)))
-    (dolist (col cols)
-      (let ((found '()))
-	
+       (maj-class (majority-class tbl))
+       (major-features (majority-class-list tbl))
+       (counts-all '())
+       (i 0))
+    (dolist (col (reverse (cdr (reverse cols)))) ;for each column
+      (let ((counts '()))
+	(dolist (l major-features) ; for each instance
+	  (let ((this (nth i l)))
+	    (print this)
+	    (if (null counts) ; is it a new list? then put in first value w/ '1'
+		(push (cons this 1) counts)
+	      (if (null (assoc this counts)) ;this isn't in the list yet
+		  (push (cons this 1) counts) ; add it
+		  (incf (cdr (assoc this counts)))))))
+	(incf i)
+	(push (cons col counts) counts-all)))
+    counts-all))
 
 
 
