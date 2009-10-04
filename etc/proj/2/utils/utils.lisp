@@ -93,3 +93,6 @@
     (dolist (arow (table-all l))
       (push (eg-features arow) allrows))
     allrows))
+
+(defun rowclass (tbl rowN)
+  (last (eg-features (nth rowN (table-all tbl)))))
