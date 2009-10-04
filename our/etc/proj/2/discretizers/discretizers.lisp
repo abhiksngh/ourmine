@@ -1,21 +1,3 @@
-; FILE SUMMARY:
-; discretization function for pre-processing
-; the equal-width function will perform discretization on a passed
-; data set for each column in the col-list and output the data
-; to 'filename'.  The 'N' value can be manually specified, or 
-; defaulted to a value of 10.  Also, optionally a bin-logging
-; flag can be supplied that will calculate N based upon 
-; the number of unique values in each designated column
-;
-; LEFT TO DO:
-; implement equal-frequency discretization using a sorting algorithm
-
-
-; testing function for the equal width discretization function
-(defun test-width ()
-    (equal-width (ar3) (list '1 '2 '3 '4 '5 '6 '7 '8 '9 '10 '11 '12 '13 '14 '15 '16 '17 '18 '19 '20 '21 '22 '23 '24 '25 '26 '27) "sorted.dat" :bin-logging t)
-)
-
 ;------------------------------------------------------------------------------
 ; EQUAL-WIDTH FUNCTION - discretizes the designated columns in the passed 
 ;                      - data set into N equal-width bins (only numeric)
@@ -32,11 +14,15 @@
 ; calculate the bin-sizes based upon N and the min/max values
 ; convert the data into discretized form
 ;------------------------------------------------------------------------------
-(defun equal-width (data col-list filename &key N bin-logging)
+(defun equal-width (data col-list &key N bin-logging)
     (let* ((all  (table-all data))
           (max-array (buildDataArr data)) 
           (min-array (buildDataArr data))
           (bin-sizes (buildDataArr data)))
+
+        (when (not col-list) ; nil flag indicates all columns should be used
+            (setf col-list (build-list (table-width data)))
+        )
 
         ; generate arrays of min/max for each column
         (build-arrays data min-array max-array col-list)
@@ -50,7 +36,18 @@
         )
 
         ; discretize the numeric data into the spec'd bins
-        (convert-values data min-array bin-sizes filename)
+        (convert-values data min-array bin-sizes)
+    )
+)
+
+;-------------
+(defun build-list (n)
+    (let ((new-list (list )))
+        (loop for i from 0 to n
+            do
+                (setf new-list (append new-list (list i)))
+        )
+        new-list 
     )
 )
 
@@ -138,46 +135,14 @@
     )
 )
 
-;------------------------------------------------------------------------------
-; SETVALUE FUNCTION - set the i'th value of array 'arr' to 'value'
-; ARGUMENTS
- ; - INPUT: array of data, location in array to place value, and value
- ; - RETURN: altered array by reference
- ; - BYPRODUCT: N/A
-
-; SETVALUE ALGORITHM
-; set the ith element of array to value
-;------------------------------------------------------------------------------
 (defun setValue (arr value i)
     (setf (aref arr i) value)
 )
 
-;------------------------------------------------------------------------------
-; GRABVALUE FUNCTION - return the i'th value of array 'arr'
-; ARGUMENTS
- ; - INPUT: array of data, location in array to get value
- ; - RETURN: the i'th element in the array
- ; - BYPRODUCT: N/A
-
-; SETVALUE ALGORITHM
-; return the ith element of the array
-;------------------------------------------------------------------------------
 (defun grabValue (arr i)
     (aref arr i)
 )
 
-; create an array with n elements where n is the number of data features
-;------------------------------------------------------------------------------
-; BUILDDATAARR FUNCTION - create an array with N elements where N is the
-;                         number of data features
-; ARGUMENTS
- ; - INPUT: set of data
- ; - RETURN: an array of length n full of nil values
- ; - BYPRODUCT: N/A
-
-; BUILDDATAARR ALGORITHM
-; create an array with a width value equal to the width of the table
-;------------------------------------------------------------------------------
 (defun buildDataArr (data)
     (make-array (table-width data) :initial-element nil)
 )
@@ -199,23 +164,40 @@
 ;   else
 ;     write the original value to the new file
 ;------------------------------------------------------------------------------
-(defun convert-values (data min-array bin-sizes filename)
+(defun convert-values (data min-array bin-sizes)
     (let* ((all-instances (table-all data))
-           (path (format nil "~A" filename))
-           (out-stream (open path :direction :output
+           (str (open "./tmp.dat" :direction :IO
                                   :if-exists :supersede
-                                  :if-does-not-exist :create)))    
+                                  :if-does-not-exist :create))
+           (eg-set))
+    
         (dolist (per-instance all-instances)
             (let* ((all-features (eg-features per-instance)))
-                (format out-stream "(")
+                (format str "(")
                 (doitems (per-feature i all-features)
                     (if (aref min-array i) 
-                        (format out-stream "~A " (floor (/ (- per-feature (aref min-array i)) (aref bin-sizes i))))
-                        (format out-stream "~A " per-feature)
+                        (format str "~A " (floor (/ (- per-feature (aref min-array i)) (aref bin-sizes i))))
+                        (format str "~A " per-feature)
                     )
                 )
             )
-            (format out-stream ")~%")
+            (format str ")~%")
+        )
+
+        ; read all instances from the file and build instance list
+        (loop for line = (read-line str nil :eof)
+              until (eql line :eof)
+            do
+                (push line eg-set)
+        )
+
+        (close str)
+        (delete-file "./tmp.dat") ; clean up tmp file
+
+        ; build new data-set
+        (data :name 'disc-set
+              :columns (columns-header (table-columns data))
+              :egs eg-set
         )
     )
 )
@@ -242,7 +224,6 @@
     )
 )
 
-; calculate the number of unique values for a column of data
 ;------------------------------------------------------------------------------
 ; UNIQUE-VALS FUNCTION - calculate the # of unique values for a column of data
 ; ARGUMENTS
