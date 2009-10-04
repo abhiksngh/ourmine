@@ -14,7 +14,7 @@
     (dolist (x (table-all table)) 
       (if (null (gethash (eg-class x) class-count))
 	  (setf (gethash (eg-class x) class-count) 1 seen (append seen (list (eg-class x))))
-	  g0(setf (gethash (eg-class x) class-count) (+ 1 (gethash (eg-class x) class-count)))
+	  (setf (gethash (eg-class x) class-count) (+ 1 (gethash (eg-class x) class-count)))
 	  )
       )
     (dolist (x seen)
@@ -101,14 +101,14 @@
 (defun justclasses (tbl)
   "A list of the classes in tbl"
   (let ((classes '()))
-    (dolist (l (first (last (list-unique-features weather))))
+    (dolist (l (first (last (list-unique-features tbl))))
       (push (first l) classes))
     classes))
 
 (defun allvals (tbl)
   "Return a list with all the unique values from each column without count"
   (let ((classes '())) 
-    (dolist (l (list-unique-features weather))
+    (dolist (l (list-unique-features tbl))
       (let ((subclasses '()))
 	(dolist (x l)
 	  (push (first x) subclasses))

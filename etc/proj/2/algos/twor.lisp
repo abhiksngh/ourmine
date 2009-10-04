@@ -3,33 +3,43 @@
 
 (print " - Loading TwoR") ;; Output for a pretty log
 
-(defun mkstruct (tbl)
-  "Makes a structure based off of the unique classes in a dataset"
-; Use as: (make-class-str
-  (let ((x (justclasses tbl)) (m '()))
-    (dotimes (n (length x))
-      (push `(,(pop x) 0) m))
-    (push 'class-str m)
-    (push 'defstruct m)
-    (eval m)))
+(load "lib/loaddeps")
+(load "utils/utils")
+(load "d-data/weathernumerics.lisp")
 
-(defun make-stat-table (tbl)
-  "Creates an assoc list of structs designed to hold frequency data structs"
-  (let ((strlst '()) (col 0))
-    (dolist (l (allvals tbl))
-      (let ((values '()))
-	(dotimes (n (length l))
-	  (push (cons (nth n l) (make-class-str)) values))
-	(push (cons col values) strlst))
-      (incf col))
-    (cdr strlst)))
+(defparameter w (weather-numerics))
 
-(defun twor (tbl)
-  (let* ((stat-struct (mkstruct tbl))
-	 (stat-table (make-stat-table(tbl))))
-    (dolist (l (allvals tbl))
-      (print l)))
-  tbl)
+(defun majority-class(tbl)
+  "Names the majority class of a dataset"
+  (let ((classes (count-classes tbl))
+	(greatest '()))
+    (dolist (class classes (car greatest))
+      (if
+       (null greatest)
+       (setf greatest class)
+       (progn
+	 (if
+	  (< (nth 1 greatest) (nth 1 class))
+	  (setf greatest class)))))))
+	 
+(defun oner(tbl)
+  (let* 
+      ((cols (columns-header (table-columns tbl)))
+       (counts (mapcar #'cons cols (list-unique-features tbl)))
+       (maj-class (majority-class tbl)))
+    (dolist (col cols)
+      (let ((found '()))
+	
+
+
+
+
+
+
+
+
+; use (rowclass tbl N) later on when traveling down columns
+
 
    
 
