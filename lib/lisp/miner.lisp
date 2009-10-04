@@ -17,7 +17,7 @@
 			"table/table"
 			"table/xindex"
 			"learn/nb"
-                        "normalize"
+                        "kmeans"
 			))
 
 (defun make1 (files)
