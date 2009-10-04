@@ -94,5 +94,6 @@
       (push (eg-features arow) allrows))
     allrows))
 
-(defun rowclass (tbl rowN)
-  (last (eg-features (nth rowN (table-all tbl)))))
+(defun rowclass (tbl n)
+  "Return the class of row n"
+  (last (eg-features (nth n (table-all tbl)))))
