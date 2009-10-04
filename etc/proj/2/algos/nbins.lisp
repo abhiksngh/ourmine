@@ -1,4 +1,4 @@
-;;; Binlogging: Observe the number of distinct rows.  Take this number and do the log() of it.  This is N.
+;;; N-logging: N is arbitrary.
 ;;;   Iterate over each of the numeric columns, row by row.  Take the numeric value, and we replace it with
 ;;;   the value defined by the function newX = round(N * (oldX - min)/(max - min)), where oldX is the value of the
 ;;;   the present row's value for the selected column.  Min and Max are the minimum and maximum values of
@@ -8,15 +8,14 @@
 
 ;;; Claimee: Elijah
 
-(print " - Loading Bin-Logging") ;; Output for a pretty log
+(print " - Loading N-Bins") ;; Output for a pretty log
 
-(defun binlogging (table)
+(defun nbins (table &optional (n 5))
   (let ((maxes (find-testiest-numerics table #'max)) 
-       (mins (find-testiest-numerics table #'min)) 
-       (n (mapcar #'log (count-unique-features table))))
+       (mins (find-testiest-numerics table #'min)))
 
     (dotimes (doer (length maxes))
       (if (nth doer maxes)
-        (do-over-specific-feature table #'(lambda (x) (round (* (nth doer n) (/ (- x (nth doer mins)) (- (nth doer maxes) (nth doer mins)))))) doer))))
+        (do-over-specific-feature table #'(lambda (x) (round (* n (/ (- x (nth doer mins)) (- (nth doer maxes) (nth doer mins)))))) doer))))
   table
 )
