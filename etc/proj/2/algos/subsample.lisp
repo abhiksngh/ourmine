@@ -18,9 +18,7 @@
 )
 
 (defun subsample (table)
-  (let ((minority (minority-class table)) (ranks (count-classes table)))
-   ;;; Poll for frequency of all class types.  Keep tally.
-   ;;; Identify smallest class, hold this value.
+  (let ((minority (minority-class table)) (ranks (count-classes table)) (tablecopy (copy-table table))
    ;;; Begin to do multiple passes over the data.  If a class is encountered that is too large,
    ;;;   randomly decide to remove it or not, decrement tally.
    ;;; At the end of a pass, if all counts are not equal, pass again.  Else, return data subset. 

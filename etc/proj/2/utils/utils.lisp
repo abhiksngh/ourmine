@@ -19,3 +19,17 @@
     ranks
   )
 )
+
+(defun minority-diff (table)
+  (let ((ranks (count-classes table)) (minority (minority-class table)) (minimum nil))
+    (dolist (x ranks)
+      (if (equalp minority (first x))
+        (setf minimum (second x) ranks (remove x ranks))
+      )
+    )
+    (dolist (x ranks)
+      (setf (second x) (- (second x) minimum))
+    )
+    ranks
+  )
+)
