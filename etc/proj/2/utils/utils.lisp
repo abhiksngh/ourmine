@@ -97,3 +97,20 @@
 (defun rowclass (tbl n)
   "Return the class of row n"
   (last (eg-features (nth n (table-all tbl)))))
+
+(defun justclasses (tbl)
+  "A list of the classes in tbl"
+  (let ((classes '()))
+    (dolist (l (first (last (list-unique-features weather))))
+      (push (first l) classes))
+    classes))
+
+(defun allvals (tbl)
+  "Return a list with all the unique values from each column without count"
+  (let ((classes '())) 
+    (dolist (l (list-unique-features weather))
+      (let ((subclasses '()))
+	(dolist (x l)
+	  (push (first x) subclasses))
+	(push subclasses classes)))
+    (reverse classes)))
