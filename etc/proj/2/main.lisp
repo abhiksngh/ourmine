@@ -3,24 +3,24 @@
 ;; and defuns the learn function - which executes them based on function passing
 
 (print "Loading Pre-processors...")
-(load "subsample")
+(load "algos/subsample")
 (print "Complete.")
 
 (print "Loading Discretizers...")
-(load "binlogging")
+(load "algos/binlogging")
 (print "Complete.")
 
 (print "Loading Clusterers...")
-(load "genic")
+(load "algos/genic")
 (print "Complete.")
 
-(print "Loading Feature Subset Selectors..."
-(load "relief")
+(print "Loading Feature Subset Selectors...")
+(load "algos/relief")
 (print "Complete.")
 
 (print "Loading Classifiers...")
-(load "naivebayes")
-(load "twor")
+(load "algos/naivebayes")
+(load "algos/twor")
 (print "Complete.")
 
 (defun learn (&key 	(k 	10)
@@ -31,9 +31,9 @@
 			(classifier	#'naivebayes)
 			(train		"train.lisp")
 			(test		"test.lisp"))
-	(let ((training (load train)))
-	     ((testing (load test)))
-	
-	
-	)
-)
+  (let ((training (load train)))
+    ((testing (load test)))
+    
+    
+    )
+  )
