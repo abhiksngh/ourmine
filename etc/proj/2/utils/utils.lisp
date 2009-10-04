@@ -60,4 +60,29 @@
 	  (push (find-testiest (mapcar #'car (nth doer uniques)) test) testiest-numerics)
           (push nil testiest-numerics))))))
       
-      
+(defun minority-class (table)
+  (let ((minority (list nil 0)) (ranks (count-classes table)))
+    (dolist (x ranks)
+      (if (or (< (second x) (second minority)) (equalp (second minority) 0))
+        (setf minority x)
+      )
+    )
+    (first minority)
+  )
+)
+
+(defun minority-diff (table)
+  (let ((ranks (count-classes table)) (minority (minority-class table)) (minimum nil))
+    (dolist (x ranks)
+      (if (equalp minority (first x))
+        (setf minimum (second x) ranks (remove x ranks))
+      )
+    )
+    (dolist (x ranks)
+      (setf (second x) (- (second x) minimum))
+    )
+    ranks
+  )
+)
+
+
