@@ -24,10 +24,9 @@
 
 (defun majority-class-list (tbl)
   "Return a list containing features of instances in the majority class"
-  (mapcar 'eg-features ((lambda (x) (l
-et ((y '())) (dolist (l (egs x) y) (if (eql (majority-class x) (eg-class l)) (push l y))))) tbl)))
+  (mapcar 'eg-features ((lambda (x) (let ((y '())) (dolist (l (egs x) y) (if (eql (majority-class x) (eg-class l)) (push l y))))) tbl)))
 	 
-(defun oner(tbl)
+ (defun oner(tbl)
   (let* 
       ((cols (columns-header (table-columns tbl)))
        (maj-class (majority-class tbl))
@@ -38,7 +37,6 @@ et ((y '())) (dolist (l (egs x) y) (if (eql (majority-class x) (eg-class l)) (pu
       (let ((counts '()))
 	(dolist (l major-features) ; for each instance
 	  (let ((this (nth i l)))
-	    (print this)
 	    (if (null counts) ; is it a new list? then put in first value w/ '1'
 		(push (cons this 1) counts)
 	      (if (null (assoc this counts)) ;this isn't in the list yet
@@ -46,22 +44,38 @@ et ((y '())) (dolist (l (egs x) y) (if (eql (majority-class x) (eg-class l)) (pu
 		  (incf (cdr (assoc this counts)))))))
 	(incf i)
 	(push (cons col counts) counts-all)))
-    counts-all))
+    (reverse counts-all)
 
+    ;We use accuracy to store the counts for each column
+    (let ((accuracy '())
 
+	  ; j allows us to iterate over list in 'feats'
+	  (j 0)
+	  ; feats represents all observed features.
+	  ; feats contains a list for each column (attribute)
+	  ; each list stores an assoc list of the attr values and
+	  ; how many times each one appeared.
+	  (feats (list-unique-features tbl))
+	  (cols (columns-header (table-columns tbl))))
+      ; col is the column we are classifying 
+      (dolist (col (reverse (cdr (reverse cols)))) ; drop the classes column, put back in order...
+	; the jist of this method is to iterate over each column of attributes
+	; Find out how many times an attribute value appeared over all
+	; Find out how many tmes an attribute value appeared in the target class
+	; This dolist will loop for each column
 
+	(let*
+	    ; select the present working column, j, from the full set
+	    ((these-tokens-tuples (nth j feats))
+	     (these-tokens (mapcar 'car these-tokens-tuples))) ; list of observed attr values in this column
 
+	  
+	  (print (assoc these-tokens-tuples)
+	  
+	  ;print (assoc col counts-all)) ; like this: (FORECAST (SUNNY . 2) (RAINY . 3) (OVERCAST . 4))
+	  (print (cdr (assoc col counts-all)))) ; like this: ((SUNNY . 2) (RAINY . 3) (OVERCAST . 4))
+	
 
+	(incf j)))))
+      
 
-
-
-; use (rowclass tbl N) later on when traveling down columns
-
-
-   
-
-
-
-;;for each column a
-;;;;;;for each value, v, in a
-;;;;;;;;;;
