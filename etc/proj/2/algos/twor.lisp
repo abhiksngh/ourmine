@@ -25,12 +25,12 @@
 (defun majority-class-list (tbl)
   "Return a list containing features of instances in the majority class"
   (mapcar 'eg-features ((lambda (x) (let ((y '())) (dolist (l (egs x) y) (if (eql (majority-class x) (eg-class l)) (push l y))))) tbl)))
-	 
+	
+ 
  (defun oner(tbl)
   (let* 
       ((cols (columns-header (table-columns tbl)))
-       (maj-class (majority-class tbl))
-       (major-features (majority-class-list tbl))
+        (major-features (majority-class-list tbl))
        (counts-all '())
        (i 0))
     (dolist (col (reverse (cdr (reverse cols)))) ;for each column
@@ -67,15 +67,20 @@
 	(let*
 	    ; select the present working column, j, from the full set
 	    ((these-tokens-tuples (nth j feats))
-	     (these-tokens (mapcar 'car these-tokens-tuples))) ; list of observed attr values in this column
+	     (these-tokens (mapcar 'car these-tokens-tuples)) ; list of observed attr values in this column
+	     (class-count-list (cdr (assoc col counts-all)))) ; list of the counts of class intances in this column
 
-	  
-	  (print (assoc these-tokens-tuples)
-	  
-	  ;print (assoc col counts-all)) ; like this: (FORECAST (SUNNY . 2) (RAINY . 3) (OVERCAST . 4))
-	  (print (cdr (assoc col counts-all)))) ; like this: ((SUNNY . 2) (RAINY . 3) (OVERCAST . 4))
-	
+	  ;(print these-tokens-tuples)    ; like this: ((RAINY 5) (OVERCAST 4) (SUNNY 5))
+	  ;(print (cdr (assoc col counts-all))) ; like this: ((SUNNY . 2) (RAINY . 3) (OVERCAST . 4))
 
+	  (dolist
+	      (this-token these-tokens)
+	    (let* 
+		((full-count (nth 1 (assoc this-token these-tokens-tuples)))
+		 (class-count (cdr (assoc this-token class-count-list)))
+		 (measure (/ class-count full-count)))
+	      (format t "Occurrences of: ~A~% Total: ~A;    Class: ~A~%" this-token full-count class-count))))
+	    
 	(incf j)))))
       
 
