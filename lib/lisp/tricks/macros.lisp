@@ -15,15 +15,15 @@
      (terpri)
      ,last)))
 
-(deftest test-o ()
-  (let* ((a 'tim)
-	 (b 'tom)
-	 (result  (with-output-to-string (s)
-		    (let ((*standard-output* s))
-		      (o a b)))))
-    (check
-      (samep result
-	     "[A]=[TIM] [B]=[TOM]"))))
+;; (deftest test-o ()
+;;   (let* ((a 'tim)
+;; 	 (b 'tom)
+;; 	 (result  (with-output-to-string (s)
+;; 		    (let ((*standard-output* s))
+;; 		      (o a b)))))
+;;     (check
+;;       (samep result
+;; 	     "[A]=[TIM] [B]=[TOM]"))))
 
 ;;;; iteration tricks
 
@@ -36,15 +36,15 @@
   `(let ((,n -1))
      (dolist (,one ,list ,out)  (incf ,n) ,@body)))
 
-(deftest test-doitems ()
-  (check (samep
-	  (with-output-to-string (s)
-	    (doitems (item pos '(the quick brown fox))
-	      (format s "~a is at position ~a~%" item pos)))
-	  "THE is at position 0
-           QUICK is at position 1
-           BROWN is at position 2
-           FOX is at position 3")))
+;; (deftest test-doitems ()
+;;   (check (samep
+;; 	  (with-output-to-string (s)
+;; 	    (doitems (item pos '(the quick brown fox))
+;; 	      (format s "~a is at position ~a~%" item pos)))
+;; 	  "THE is at position 0
+;;            QUICK is at position 1
+;;            BROWN is at position 2
+;;            FOX is at position 3")))
 ;;;; hash tricks
 
 (defmacro inch (key hash &optional (inc 1))

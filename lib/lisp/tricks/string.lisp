@@ -19,7 +19,7 @@
   (string= (string-downcase (whiteout (format nil "~a" thing1)))
 	   (string-downcase (whiteout (format nil "~a" thing2)))))
 
-(deftest test-samep ()
-    (check (samep "4 Score and SEVEN years
-                   ago our     fore-fathers"
-                  "4 score and seven years ago our fore-fathers")))
+;; (deftest test-samep ()
+;;     (check (samep "4 Score and SEVEN years
+;;                    ago our     fore-fathers"
+;;                   "4 score and seven years ago our fore-fathers")))

@@ -43,57 +43,57 @@
 (defun class-index (klass width)
   (if (< klass 0) (+ klass width) klass))
 
-(defun make-data1 ()
-  (data
-   :name   'weather
-   :columns '(forecast temp humidty $windy play)
-   :egs    '((sunny    hot  high   FALSE no) 
-             (sunny    hot  high   TRUE  yes)
-             (sunny    hot  high         yes)
-             )))
+;; (defun make-data1 ()
+;;   (data
+;;    :name   'weather
+;;    :columns '(forecast temp humidty $windy play)
+;;    :egs    '((sunny    hot  high   FALSE no) 
+;;              (sunny    hot  high   TRUE  yes)
+;;              (sunny    hot  high         yes)
+;;              )))
 
-(deftest test-table ()
-  (check 
-    (samep 
-     (make-data1)
-  "#S(TABLE
-   :NAME WEATHER
-   :COLUMNS (#S(DISCRETE
-                :NAME FORECAST
-                :CLASSP NIL
-                :IGNOREP NIL
-                :F {hash of 0 items}
-                :UNIQUES (SUNNY))
-             #S(DISCRETE
-                :NAME TEMP
-                :CLASSP NIL
-                :IGNOREP NIL
-                :F {hash of 0 items}
-                :UNIQUES (HOT))
-             #S(DISCRETE
-                :NAME HUMIDTY
-                :CLASSP NIL
-                :IGNOREP NIL
-                :F {hash of 0 items}
-                :UNIQUES (HIGH))
-             #S(NUMERIC
-                :NAME $WINDY
-                :CLASSP NIL
-                :IGNOREP NIL
-                :F {hash of 0 items})
-             #S(DISCRETE
-                :NAME PLAY
-                :CLASSP T
-                :IGNOREP NIL
-                :F {hash of 0 items}
-                :UNIQUES (YES NO)))
-   :CLASS 4
-   :CAUTIONS #(CAUTION :ALL ((SUNNY HOT HIGH YES) wrong size
-                             TRUE is not a number
-                             FALSE is not a number) :PATIENCE 17)
-   :ALL (#S(EG :FEATURES (SUNNY HOT HIGH TRUE YES) :CLASS YES)
-         #S(EG :FEATURES (SUNNY HOT HIGH FALSE NO) :CLASS NO))
-   :INDEXED NIL)
-"
-)))
+;; (deftest test-table ()
+;;   (check 
+;;     (samep 
+;;      (make-data1)
+;;   "#S(TABLE
+;;    :NAME WEATHER
+;;    :COLUMNS (#S(DISCRETE
+;;                 :NAME FORECAST
+;;                 :CLASSP NIL
+;;                 :IGNOREP NIL
+;;                 :F {hash of 0 items}
+;;                 :UNIQUES (SUNNY))
+;;              #S(DISCRETE
+;;                 :NAME TEMP
+;;                 :CLASSP NIL
+;;                 :IGNOREP NIL
+;;                 :F {hash of 0 items}
+;;                 :UNIQUES (HOT))
+;;              #S(DISCRETE
+;;                 :NAME HUMIDTY
+;;                 :CLASSP NIL
+;;                 :IGNOREP NIL
+;;                 :F {hash of 0 items}
+;;                 :UNIQUES (HIGH))
+;;              #S(NUMERIC
+;;                 :NAME $WINDY
+;;                 :CLASSP NIL
+;;                 :IGNOREP NIL
+;;                 :F {hash of 0 items})
+;;              #S(DISCRETE
+;;                 :NAME PLAY
+;;                 :CLASSP T
+;;                 :IGNOREP NIL
+;;                 :F {hash of 0 items}
+;;                 :UNIQUES (YES NO)))
+;;    :CLASS 4
+;;    :CAUTIONS #(CAUTION :ALL ((SUNNY HOT HIGH YES) wrong size
+;;                              TRUE is not a number
+;;                              FALSE is not a number) :PATIENCE 17)
+;;    :ALL (#S(EG :FEATURES (SUNNY HOT HIGH TRUE YES) :CLASS YES)
+;;          #S(EG :FEATURES (SUNNY HOT HIGH FALSE NO) :CLASS NO))
+;;    :INDEXED NIL)
+;; "
+;; )))
 

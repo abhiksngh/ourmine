@@ -21,12 +21,12 @@
        (format stream "~a" after)
        h)))
 
-(deftest test-showh ()
-  (let ((h (make-hash-table)))
-    (dolist (one '(apple pear banana))
-      (setf (gethash (length (string one)) h) one))
-   (check
-     (samep (with-output-to-string (s) (showh h  :stream s))
-            "4 = PEAR
-             5 = APPLE
-             6 = BANANA"))))
+;; (deftest test-showh ()
+;;   (let ((h (make-hash-table)))
+;;     (dolist (one '(apple pear banana))
+;;       (setf (gethash (length (string one)) h) one))
+;;    (check
+;;      (samep (with-output-to-string (s) (showh h  :stream s))
+;;             "4 = PEAR
+;;              5 = APPLE
+;;              6 = BANANA"))))

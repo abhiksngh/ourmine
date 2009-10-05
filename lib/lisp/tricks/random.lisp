@@ -43,6 +43,6 @@
       (maphash #'cache counts)
       (sort out #'sorter))))
 
-(deftest test-random ()
-  (check
-    (samep (random-demo) (random-demo))))
+;; (deftest test-random ()
+;;   (check
+;;     (samep (random-demo) (random-demo))))

@@ -28,13 +28,13 @@
     (* (/ (* (sqrt (* 2 pi)) sigma))
        (exp (* (- (/ (* 2 (square sigma)))) (square (- x mu)))))))
 
-;; (deftest test-normal ()
-;;   (let ((n (make-normal)))
-;;     (dolist (x '( 1 2 3 4 5 4 3 2 1))
-;;       (add n x))
-;;     (check 
-;;       (samep n "#S(NORMAL :MAX 5 :MIN 1 :N 9 :SUM 25 :SUMSQ 85)")
-;;       (equal (mean n) (/ 25 9))
-;;       (equal (stdev n) 1.3944334)
-;;       (samep (format nil "~10,9f" (pdf n 5))  ".080357649")
-;;     )))
+(deftest test-normal ()
+  (let ((n (make-normal)))
+    (dolist (x '( 1 2 3 4 5 4 3 2 1))
+      (add n x))
+    (check 
+      (samep n "#S(NORMAL :MAX 5 :MIN 1 :N 9 :SUM 25 :SUMSQ 85)")
+      (equal (mean n) (/ 25 9))
+      (equal (stdev n) 1.3944334)
+      (samep (format nil "~10,9f" (pdf n 5))  ".080357649")
+    )))

@@ -4,4 +4,4 @@
 (load "lib/header.lisp")
 (load "lib/table.lisp")
 (load "lib/data.lisp")
-
+(load "lib/xindex.lisp")
