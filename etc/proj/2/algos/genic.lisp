@@ -67,3 +67,33 @@
   )
 )
 
+(defun genic (table &optional (generation-size 4) (num-clusters 3))
+  (let ((generation nil) (clusters nil) (clusters-weight (make-list num-clusters)) 
+       (generations (floor (/ (length (table-all table)) generation-size))))
+    (setf clusters (new-random-center table num-clusters))
+    (fill clusters-weight 0)
+    (loop for i from 0 to (- generations 2) do
+      (setf generation (fetch-generation table generation-size i))
+      (loop for j from 0 to (- generation-size 1) do
+        (let ((sample (nth j generation)))
+          (let ((best-cluster (score-clusters sample clusters table)))
+            (setf (nth best-cluster clusters-weight) (+ 1 (nth best-cluster clusters-weight)))
+          )
+        )
+      )
+      (let ((worst-score generation-size) (worst-position nil))
+        (loop for k from 0 to (- (length clusters-weight) 1) do
+          (if (or
+                (and (null worst-score) (null worst-position))
+                (<= (nth k clusters-weight) worst-score))
+            (setf worst-score (nth k clusters-weight) worst-position k)
+          )
+        )
+        (setf (nth worst-position clusters) (first (new-random-center table)))
+      )
+      (fill clusters-weight 0)
+    )
+    clusters
+  )
+)
+
