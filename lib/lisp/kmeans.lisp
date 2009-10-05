@@ -11,17 +11,23 @@
 
 (defun kmeans (k)
   (let* ((tbl (xindex (test-data)))
-         (centroids (kmeans-find-centroid k (f tbl))))
+         (centroid0 '()))
+    (dolist (n (kmeans-find-centroid k (f tbl)))
+      (push (nth n (table-all tbl)) centroid0))
     ))
 
 
 (defun kmeans-find-centroid (k length)
   (let ((centroid-list '()))
-    (if (< k length)
+    (if (<= k length)
         (progn
-          (dotimes (n k centroid-list)
+          (dotimes (n k)
             (let ((number (random length)))
               (if (member number centroid-list)
                   (setf n (- n 1))
-                  (push number centroid-list))))))))
-      
+                  (push number centroid-list))))
+          (sort centroid-list #'<)))))
+
+(defun kmeans-move-centroid ())
+
+(defun kmeans-distance ())
