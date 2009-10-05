@@ -14,7 +14,8 @@
   (mapcar #'header-name cols))
    
 (defun numericp (x)
-  (equal (char (symbol-name x) 0) #\$))
+  (if (not (symbolp x)) nil
+      (equal (char (symbol-name x) 0) #\$)))
 
 (defun ignorep (x)
   (and (symbolp x)
