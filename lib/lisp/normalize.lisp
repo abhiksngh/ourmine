@@ -3,7 +3,7 @@
    :name 'test
    :columns '($number1 symbol $number2 stuff)
    :egs '((2 hey 2 true)
-          (2 hey 2 true)
+          (1 hey 2 true)
           (3 hey 2 true)
           (4 hey 2 false)
           (4 bye 2 false)
