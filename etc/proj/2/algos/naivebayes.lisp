@@ -56,5 +56,5 @@
     (setf emperical (dolist (row (table-all table) (reverse emperical))
                       (push (eg-class row) emperical)))
     (setf result (dotimes (n (length predictions) (reverse result))
-                      (push (print (list (nth n predictions) (nth n emperical) (equalp (nth n predictions) (nth n emperical)))) result)))
+                      (push (list (nth n predictions) (nth n emperical) (equalp (nth n predictions) (nth n emperical)))) result))
 ))
