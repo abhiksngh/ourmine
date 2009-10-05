@@ -97,3 +97,37 @@
   )
 )
 
+(defun genic2 (table &optional (generation-size 4) (num-clusters 10))
+  (let ((generation nil) (clusters nil) (clusters-weight (make-list num-clusters)) 
+       (generations (floor (/ (length (table-all table)) generation-size))))
+    (setf clusters (new-random-center table num-clusters))
+    (fill clusters-weight 0)
+    (loop for i from 0 to (- generations 2) do
+      (setf generation (fetch-generation table generation-size i))
+      (loop for j from 0 to (- generation-size 1) do
+        (let ((sample (nth j generation)))
+          (let ((best-cluster (score-clusters sample clusters table)))
+            (setf (nth best-cluster clusters-weight) (+ 1 (nth best-cluster clusters-weight)))
+          )
+        )
+      )
+      (let ((best-score (first (sort (copy-list clusters-weight) #'>))) (expand-clusters t))
+        (loop for k from 0 to (- (length clusters-weight) 1) do
+          (if (<= (nth k clusters-weight) (/ best-score 2))
+            (setf (nth k clusters) (first (new-random-center table)) expand-clusters nil)
+          )
+        )
+        (if expand-clusters
+          (let ((to-add (floor (* (length clusters) 0.5))))
+            (setf 
+              clusters-weight (append clusters-weight (make-list to-add))
+              clusters (append clusters (new-random-center table to-add))
+            )
+          )
+        )
+      )
+      (fill clusters-weight 0)
+    )
+    clusters
+  )
+)
