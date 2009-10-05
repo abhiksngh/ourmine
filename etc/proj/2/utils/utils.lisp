@@ -10,18 +10,7 @@
   (mapcar #'eg-class (table-all tbl)))
 
 (defun count-classes (table)
-  (let ((class-count (make-hash-table)) (seen nil) (ranks nil))
-    (dolist (x (table-all table)) 
-      (if (null (gethash (eg-class x) class-count))
-	  (setf (gethash (eg-class x) class-count) 1 seen (append seen (list (eg-class x))))
-	  (setf (gethash (eg-class x) class-count) (+ 1 (gethash (eg-class x) class-count)))
-	  )
-      )
-    (dolist (x seen)
-      (setf ranks (append ranks (list (list x (gethash x class-count)))))
-      )
-    ranks
-    )
+  (count-uniques table #'eg-class)
   )
 
 (defun count-uniques (table opener)
