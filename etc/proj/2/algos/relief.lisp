@@ -1,6 +1,6 @@
 ;;; Claimee: Drew
 
-;; Run a trial of n comparisons and weight the importance of each column.
+;;; Run a trial of n comparisons and weight the importance of each column.
 
 (print " - Loading Relief") ;; Output for a pretty log
 
