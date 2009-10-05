@@ -133,7 +133,17 @@
 )
 
 (defun genic (table &optional (generation-size 4) (num-clusters 3))
-  (let* ((clusters (genic-clusters table generation-size num-clusters)) (clustered-tables (make-list (length clusters) :initial-element (copy-table table))))
+  (let* ((clusters (genic-clusters table generation-size num-clusters)) (clustered-tables (make-list (length clusters))))
+    (loop for n from 0 to (- num-clusters 1) do
+      (setf 
+        (nth n clustered-tables) (make-table)
+        (table-name (nth n clustered-tables)) (table-name table)
+        (table-columns (nth n clustered-tables)) (table-columns table)
+        (table-class (nth n clustered-tables)) (table-class table)
+        (table-cautions (nth n clustered-tables)) (table-cautions table)
+        (table-indexed (nth n clustered-tables)) (table-indexed table)
+      )
+    )
     (dolist (x (table-all table) clustered-tables)
       (let ((target-table (score-clusters x clusters table)))
         (setf 
@@ -145,7 +155,17 @@
 )
 
 (defun genic2 (table)
-  (let* ((clusters (genic2-clusters table)) (clustered-tables (make-list (length clusters) :initial-element (copy-table table))))
+  (let* ((clusters (genic2-clusters table)) (clustered-tables (make-list (length clusters))))
+    (loop for n from 0 to (- (length clusters) 1) do
+      (setf 
+        (nth n clustered-tables) (make-table)
+        (table-name (nth n clustered-tables)) (table-name table)
+        (table-columns (nth n clustered-tables)) (table-columns table)
+        (table-class (nth n clustered-tables)) (table-class table)
+        (table-cautions (nth n clustered-tables)) (table-cautions table)
+        (table-indexed (nth n clustered-tables)) (table-indexed table)
+      )
+    )
     (dolist (x (table-all table) clustered-tables)
       (let ((target-table (score-clusters x clusters table)))
         (setf 
