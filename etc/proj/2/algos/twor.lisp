@@ -3,15 +3,13 @@
 
 (print " - Loading TwoR") ;; Output for a pretty log
 
-(load "d-data/weathernumerics.lisp")
-(load "../1/deftest.lisp")
 (load "../../../lib/lisp/tricks/string.lisp")
-(load "../../../lib/lisp/table/data.lisp")
-(load "../../../lib/lisp/table/header.lisp")
-(load "../../../lib/lisp/table/structs.lisp")
-(load "../../../lib/lisp/table/table.lisp")
+;(load "../../../lib/lisp/table/data.lisp")
+;(load "../../../lib/lisp/table/header.lisp")
+;(load "../../../lib/lisp/table/structs.lisp")
+;(load "../../../lib/lisp/table/table.lisp")
 (load "../../../lib/lisp/table/xindex.lisp")
-(load "../../../lib/lisp/tricks/caution.lisp")
+;(load "../../../lib/lisp/tricks/caution.lisp")
 (load "../../../lib/lisp/tricks/hash.lisp")
 (load "../../../lib/lisp/tricks/list.lisp")
 (load "../../../lib/lisp/tricks/macros.lisp")
@@ -21,10 +19,6 @@
 
 
 
-
-
-
-(defparameter w (weather-numerics))
 
 (defun majority-class(tbl)
   "Names the majority class of a dataset"
@@ -102,9 +96,9 @@
 
 
 ; trunk/our/lib/lisp/table/       
-(dolist (col (table-columns (xindex (weather-numerics))))
-  (format t "~%~a~%" (header-name col))
-  (showh (header-f col)))
+;(dolist (col (table-columns (xindex (weather-numerics))))
+;  (format t "~%~a~%" (header-name col))
+;  (showh (header-f col)))
 
 
 
