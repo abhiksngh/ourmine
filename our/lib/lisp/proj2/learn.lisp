@@ -3,11 +3,11 @@
 
   (let* ((train (make-data-k))
          (clusters (funcall cluster train))
-         (cluster-tables '()))
-    
-    (setf cluster-tables (make-cluster-tables clusters train))))
-
-
+         (cluster-tables '())
+         (lst-centroids '()))
+    (setf cluster-tables (make-cluster-tables clusters train))
+    (setf lst-centroids (get-cls-means cluster-tables))
+    (values cluster-tables lst-centroids)))
 
 
 (defun make-cluster-tables (clusters train)
@@ -27,14 +27,24 @@
     (setf lst-cols (cons (header-name obj) lst-cols)))))
 
 
-;(defun get-cls-means(cluster-tables)
-;  (let* ((centroids '()))
- ;   (dolist (obj cluster-tables centroids)
-  ;    (let* ((features (get-features (table-all obj)))
-   ;          (class (table-class obj)))
-    ;    (setf centroids (append (cluster-mean features class) centroids))))))
+(defun get-cls-means(cluster-tables)
+  (let* ((centroids '()))
+   (dolist (obj cluster-tables centroids)
+     (let* ((features (get-features (table-all obj)))
+            (class (table-class obj)))
+       (setf centroids (append centroids (list (cluster-mean features class))))))))
 
 (defun del-empty-clusters (cluster-tables)
   (dolist (obj cluster-tables cluster-tables)
     (if (not (table-all obj))
         (setf cluster-tables (remove obj cluster-tables)))))
+
+(defun get-closest-centroid (one lstCentroids)
+  (let ((dist most-positive-fixnum)
+        (position))
+    (dolist (obj lstCentroids position)
+      (if ( <= (euc one obj) dist)
+          (progn (setf dist (euc one obj))
+                 (setf position (position obj lstCentroids :test #'equal)))))))
+                 
+    
