@@ -9,10 +9,6 @@
 (defun gimme-classes (tbl)
   (mapcar #'eg-class (table-all tbl)))
 
-(defun count-classes (table)
-  (count-uniques table #'eg-class)
-  )
-
 (defun count-uniques (table opener)
   (let ((item-count (make-hash-table)) (seen nil) (ranks nil))
     (dolist (x (table-all table))
@@ -26,6 +22,10 @@
       )
     ranks
     )
+  )
+
+(defun count-classes (table)
+  (count-uniques table #'eg-class)
   )
 
 (defun list-unique-features (table)
