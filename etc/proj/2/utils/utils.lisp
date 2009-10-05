@@ -48,6 +48,35 @@
   ;;"Unique features in each column"
   (mapcar #'length (list-unique-features table)))
 
+(defun count-uniques-by-class (table opener klass)
+  (let ((item-count (make-hash-table)) (seen nil) (ranks nil))
+    (dolist (x (table-all table))
+      (if (eql klass (eg-class x)) 
+        (if (null (gethash (funcall opener x) item-count))
+          (setf (gethash (funcall opener x) item-count) 1 seen (append seen (list (funcall opener x))))
+          (setf (gethash (funcall opener x) item-count) (+ 1 (gethash (funcall opener x) item-count)))
+          )
+        (if (null (gethash (funcall opener x) item-count))
+          (setf (gethash (funcall opener x) item-count) 0 seen (append seen (list (funcall opener x))))
+          )
+        )
+    )
+    (dolist (x seen)
+      (setf ranks (append ranks (list (list x (gethash x item-count)))))
+      )
+    ranks
+    )
+  )
+
+(defun list-unique-features-by-class (table klass)
+  (let ((uniques nil))
+    (dotimes (doer (length (table-columns table)) (reverse uniques))
+      (push (count-uniques-by-class table #'(lambda (x) (nth doer (eg-features x))) klass) uniques ))))
+
+(defun count-unique-features-by-class (table klass)
+  ;;"Unique features in each column by class"
+  (mapcar #'length (list-unique-features-by-class table klass)))
+
 (defun find-testiest (l test)
   (let ((testiest (car l)))
     (dolist (item l testiest)
@@ -88,25 +117,25 @@
 
 
 (defun tablerows (l)
-  "Returns a list of all the rows in a given table"
+  ;;"Returns a list of all the feature rows in a given table"
   (let ((allrows '()))
     (dolist (arow (table-all l))
       (push (eg-features arow) allrows))
     allrows))
 
 (defun rowclass (tbl n)
-  "Return the class of row n"
+  ;;"Return the class of row n"
   (last (eg-features (nth n (table-all tbl)))))
 
 (defun justclasses (tbl)
-  "A list of the classes in tbl"
+  ;;"A list of the classes in tbl"
   (let ((classes '()))
     (dolist (l (first (last (list-unique-features tbl))))
       (push (first l) classes))
     classes))
 
 (defun allvals (tbl)
-  "Return a list with all the unique values from each column without count"
+  ;;"Return a list with all the unique values from each column without count"
   (let ((classes '())) 
     (dolist (l (list-unique-features tbl))
       (let ((subclasses '()))
