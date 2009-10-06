@@ -1,8 +1,9 @@
 (defparameter *files* '(
                         "tests/deftest"
                         "data/ar3"
-;                        "data/combined_CM1"
-;                        "data/combined_KC1"
+                        "data/sick"
+                        "data/combined_CM1"
+                        "data/combined_KC1"
 ;                        "data/combined_KC2"
 ;                        "data/combined_KC3"
 ;                        "data/combined_MW1"
@@ -37,6 +38,9 @@
                         "preprocessors/sort"
                         "preprocessors/nvalues"
                         "preprocessors/numericvalue"
+                        "preprocessors/knn"
+;                        "learners/hyperpipes"
+                        "learners/nb"
                         ))
 
 (defun make1 (files)

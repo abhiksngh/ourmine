@@ -1,57 +1,31 @@
+
+
+;;Normalization functions.  Attempts to use xindex as an easier means of working with Menzie's datasets.
 (defun normalizeData(table)
   (let* ((xtable (xindex table))
          (data (table-all xtable))
-         (columns (find-numeric-cols (table-columns xtable))))
-    (dolist (per-data data)
+         (columns (numeric-col table))
+         (cols (table-columns table)))
+    (print "dolist 1")
+    (dolist (per-data data data)
       (let ((per-instance (eg-features per-data)))
-        (dolist (per-index numCols)
-          (let* ((head (header-f (nth per-index (table-columns data))))
-                (f-struct (gethash (eg-class per-instance head)))
+        (print "dolist 2")
+        (dolist (per-index columns)
+          (let* ((head (header-f (nth per-index cols)))
+                (f-struct (gethash (eg-class per-instance) head))
                 (classMinimum (normal-min f-struct))
                 (classMaximum (normal-max f-struct)))
+            (print "setf")
             (setf (nth per-index per-instance) (normal classMinimum classMaximum(nth per-index (eg-features per-data))))))))))
 
 (defun normal (classMinimum classMaximum value)
-  (/ (- value classMinimum) (- classMaximum classMinimum))
+  (/ (- value classMinimum) (- classMaximum classMinimum)))
     
-(defun find-numeric-cols(data)
+(defun numeric-col(data)
   (let* ((columns)
          (i 0)
-         (cols (table-columns data))
+         (cols (table-columns data)))
          (dolist (per-col cols columns)
            (if (numericp (header-name per-col))
                (setf columns (append columns (list i))))
-           (incf i)))))    
-
-;;Starting over to try to figure out how to use xindex.  Maybe that will stop my brain from bending... I hope...
-;Use this to get the minimum and maximums of each numeric column.
-(defun getColumnMinMax (tbl min-array max-array)
-  (let ((all-instances (table-all tbl))
-        (classi (table-class tbl)))
-    (dolist (per-instance all-instances)
-       (let* ((all-features (eg-features per-instance))
-              (per-instance-class (nth classi all-features)))
-         (doitems (per-feature i all-features)
-           (let ((col-title (header-name (nth i (table-columns tbl)))))
-             (unless (= classi i)
-               (unless (unknownp per-feature)
-                 (cond ((numericp col-title)
-                        
-                       (if (> per-feature (grabMinMaxValue tbl max-array per-instance-class i))
-                           (setMinMaxValue tbl max-array per-instance-class i per-feature))
-                       (if (< per-feature (grabMinMaxValue tbl min-array per-instance-class i))
-                           (setMinMaxValue tbl min-array per-instance-class i per-feature)))
-                      )))))))))
-
-(defun buildMinMaxArr (tbl)
-  (make-array (list (length (klasses tbl)) (1- (table-width tbl))) :initial-element 0))
-
-
-(defun setMinMaxValue (tbl arr class i value)
-  (setf (aref arr (position class (klasses tbl))
-              i)
-        value))
-
-(defun grabMinMaxValue (tbl arr class i)
-  (aref arr (position class (klasses tbl))
-        i))
+           (incf i))))
