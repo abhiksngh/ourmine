@@ -32,6 +32,7 @@
 (print "Loading Data...")
 (load "d-data/weathernumerics")
 (load "d-data/boston-housing")
+(load "d-data/mushroom")
 (print "Complete.")
 
 (defun learn (&key 	(k 	3)
@@ -40,8 +41,8 @@
 			(clusterer	#'genic)
 			(fss		#'relief)
 			(classifier	#'naivebayes)
-			(train		#'weather-numerics)
-			(test		#'weather-numerics))
+			(train		#'boston-housing)
+			(test		#'boston-housing))
   (let ((training (funcall train))
     (testing (funcall test))
     (clusters nil)
@@ -57,11 +58,13 @@
     (setf training (funcall discretizer training))
     (setf testing (funcall discretizer testing))
     (print " - Discretizer Complete.")
-
+    (print training)
     (print "Running Training Tables through Clusterer...")
     (setf clusters (funcall clusterer training k))
     (print " - Clustering Complete.")
-
+    (if (not (listp clusters))
+      (setf clusters (list clusters)))
+    (print clusters)
     (print "Pruning Cluster with FSS...")
     (dolist (cluster clusters)
       (setf cluster (funcall fss cluster)))
@@ -69,7 +72,11 @@
 
     (print "Running Analysis...")
     (dotimes (n (length (table-all testing)))
-      (push (first (funcall clusterer (nth (score-clusters (eg-features (nth n (table-all testing))) clusters testing) clusters) (create-a-single-line-table n testing))) results )) 
+      (push results 
+         (first 
+           (funcall clusterer 
+              (nth 
+                (score-clusters (nth n (table-all testing)) (genic-clusters training 4 3) testing) clusters) (create-a-single-line-table n testing))))) 
 
     (print " - Analysis Complete.")
  
