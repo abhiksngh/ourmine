@@ -162,3 +162,7 @@
     possibly-negative
   )
 )
+
+(defun create-a-single-line-table (n original)
+  (let ((abc (copy-table original)))
+    (setf (table-all abc) (list (nth n (table-all original)))) abc))
