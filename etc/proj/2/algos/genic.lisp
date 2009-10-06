@@ -132,7 +132,7 @@
   )
 )
 
-(defun genic (table &optional (generation-size 4) (num-clusters 3))
+(defun genic (table &optional (num-clusters 3) (generation-size 4))
   (let* ((clusters (genic-clusters table generation-size num-clusters)) (clustered-tables (make-list (length clusters))))
     (loop for n from 0 to (- num-clusters 1) do
       (setf 
