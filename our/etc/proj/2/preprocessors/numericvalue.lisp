@@ -22,6 +22,7 @@
           (eg-set)) 
 
         ; build file of processed instances
+      (format str " '(")
         (let ((all-instances (table-all data)))
             (dolist (per-instance all-instances) ; for every instance
                 (let* ((all-features (eg-features per-instance)))
@@ -39,21 +40,25 @@
                 )
             )
         )
+	(format str ")")
         (close str)
 
         (setf str (open "./tmp.dat" :direction :input))
-
+	(setf eg-set (read str))
         ; read all instances from the file and build instance list
-        (loop for line = (read-line str nil :eof)
-              until (eql line :eof)
-            do
-                (push line eg-set)
-        )
+;        (loop for line = (read-line str nil :eof)
+ ;             until (eql line :eof)
+  ;          do
+   ;             (push line eg-set)
+    ;    )
        
         (close str)
-        (delete-file "./tmp.dat") ; clean up tmp file
+        ;(delete-file "./tmp.dat") ; clean up tmp file
 
         ; build new data-set
+	(print (first eg-set))
+;	(o (length (columns-header (table-columns data)))
+	;   (length (first (first eg-set))))
         (data :name 'log-set
               :columns (columns-header (table-columns data))
               :egs eg-set
@@ -61,3 +66,23 @@
     )
 )
 
+(defmethod numval2 ((header numeric) feature)
+  (declare (ignore header))
+  (log (max feature 0.00001)))
+
+(defmethod numval2 ((header discrete) feature)
+    (declare (ignore header))
+    feature)
+
+(defun numval1 (data)
+  (let* (eg-set
+	 (header (table-columns data))
+	 (all-instances (table-all data)))
+    (dolist (per-instance all-instances) ; for every instance
+      (push (mapcar #'numval2 
+		    header
+		    (eg-features per-instance))
+	    eg-set))
+    (data :name 'log-set
+	  :columns (columns-header (table-columns data))
+	  :egs eg-set)))
