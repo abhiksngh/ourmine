@@ -29,5 +29,5 @@
       (setf pruned (append pruned (list tmp))))))
 
 
-(defun rank-via-infogain (dataset &optional (n (length (car dataset))))
+(defun rank-via-infogain (dataset &optional (n (/ (length (car dataset)) 2)))
   (prune-cols (extract-best-cols (infogain dataset) n) dataset))
