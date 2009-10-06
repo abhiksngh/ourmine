@@ -17,7 +17,7 @@
         (if (= count (- bins 1))
             (setf count 0)
             (incf count))))
-    (list (make-simple-table (car bucket)) (make-simple-table (cdr bucket)))))
+    (list (make-simple-table (table-name data) (table-columns data)(car bucket)) (make-simple-table (table-name data) (table-columns data)(cdr bucket)))))
                 
 
 ; creates a bucket containing 'size' number of bins
