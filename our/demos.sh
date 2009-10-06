@@ -6,24 +6,24 @@ demo000(){
 
 # naive bayes
 demo001() {
-    local train=$Data/discrete/weather.arff
+    local train=$Data/discrete/iris.arff
     nb10 $train
 }
 
 # j48
 demo002() {
-    local train=$Data/discrete/weather.arff
+    local train=$Data/discrete/iris.arff
     j4810 $train
 }
 
 # j48 + extraction
 demo003() {
-    local train=$Data/discrete/weather.arff
     demo002 | para 18 16
 }
 
 demo004(){
-    demo004worker
+    local out=$Save/demo004-results.csv
+    demo004worker $out
 }
 
 # run learners and perform analysis
@@ -33,7 +33,7 @@ demo004worker(){
     local data="$Data/discrete/iris.arff"
     local bins=10
     local runs=5
-    local out=$Save/demo004-results.csv
+    local out=$1
     
     cd $Tmp
     (echo "#data,run,bin,learner,goal,a,b,c,d,acc,pd,pf,prec,bal"
