@@ -151,6 +151,11 @@
       r1
       r2)))
 
+(defun testiest-truthiness-list (tness test)
+  (let ((ret (first tness)))
+    (dotimes (n (- (length tness) 1))
+     (setf ret (testiest-truthiness ret (nth (+ n 1) tness) test))) ret))
+
 (defun unnegitify (possibly-negative)
   (if (< possibly-negative 0)
     0

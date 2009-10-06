@@ -21,25 +21,61 @@
 (print "Complete.")
 
 (print "Loading Feature Subset Selectors...")
-(load "algos/relief")
+;;(load "algos/relief")
 (print "Complete.")
 
 (print "Loading Classifiers...")
 (load "algos/naivebayes")
-(load "algos/twor")
+;;(load "algos/twor")
+(print "Complete.")
+
+(print "Loading Data...")
+(load "d-data/weathernumerics")
+(load "d-data/boston-housing")
 (print "Complete.")
 
 (defun learn (&key 	(k 	10)
 			(preprocessor	#'subsample)
-			(discretizer	#'binlog)
+			(discretizer	#'binlogging)
 			(clusterer	#'genic)
-			(fss		#'relief)
+			(fss		"#'relief")
 			(classifier	#'naivebayes)
-			(train		"train.lisp")
-			(test		"test.lisp"))
-  (let ((training (load train)))
-    ((testing (load test)))
-    
-    
-    )
+			(train		#'weather-numerics)
+			(test		#'weather-numerics))
+  (let ((training (funcall train))
+    (testing (funcall test)))
+
+    (print "Running Tables through Preprocessor...")
+    (setf training (funcall preprocessor training))
+    (setf testing (funcall preprocessor testing))
+    (print " - Preprocessor Complete.")
+
+    (print "Running Tables through Discretizer...")
+    (setf training (funcall discretizer training))
+    (setf testing (funcall discretizer testing))
+    (print " - Discretizer Complete.")
+    (print training)
+    (print testing)
+
+    (print "Running Tables through Clusterer...")
+    (setf training (funcall clusterer training))
+    ;;(setf testing (funcall clusterer testing))
+    (print " - Clusterer Complete.")
+ 
+    ;(print "Running FSS...")
+    ;(setf training (mapcar fss training))
+    ;(setf testing (mapcar fss testing))
+    ;(print " - FSS Complete.")
+    ; Comment these next two lines when you uncomment the FSS!!!!!!!!!!
+    (setf training (list training))
+    (setf testing (list testing))
+
+    (print "Running Classifier...")
+    (setf testing (mapcar #'(lambda (trainn) (funcall classifier trainn testing)) training))
+    (setf testing (testiest-truthiness-list testing #'max))
+    (print testing)
+    (print "Done.")
   )
+)
+
+(learn)
