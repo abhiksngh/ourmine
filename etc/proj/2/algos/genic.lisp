@@ -67,7 +67,7 @@
   )
 )
 
-(defun genic-clusters (table &optional (generation-size 4) (num-clusters 3))
+(defun genic-clusters (table &optional (num-clusters 3) (generation-size 4))
   (let ((generation nil) (clusters nil) (clusters-weight (make-list num-clusters)) 
        (generations (floor (/ (length (table-all table)) generation-size))))
     (setf clusters (new-random-center table num-clusters))
@@ -97,7 +97,7 @@
   )
 )
 
-(defun genic2-clusters (table &optional (generation-size 4) (num-clusters 10))
+(defun genic2-clusters (table &optional (num-clusters 10) (generation-size 4))
   (let ((generation nil) (clusters nil) (clusters-weight (make-list num-clusters)) 
        (generations (floor (/ (length (table-all table)) generation-size))))
     (setf clusters (new-random-center table num-clusters))
