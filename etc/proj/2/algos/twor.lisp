@@ -23,10 +23,6 @@
   
 )
 
-(defun cols-choose-2(tbl)
-)
-
-
 (defun majority-class(tbl)
   "Names the majority class of a dataset"
   (let ((classes (count-classes tbl))
@@ -102,22 +98,41 @@
     accuracy))
 
 
-(defmacro g-add (ht key val)
-  `(setf (gethash ,key ,ht) ,val))
+;; (defmacro g-add (ht key val)
+;;   `(setf (gethash ,key ,ht) ,val))
 
 
-(let
-    ((cols (columns-header (table-columns (xindex (weather-numerics)))))
-     (binHash (make-hash-table)))
-  (dotimes (n (length cols))
-    (dolist (col cols)
+;; (let
+;;     ((cols (columns-header (table-columns (xindex (weather-numerics)))))
+;;      (binHash (make-hash-table)))
+;;   (dotimes (n (length cols))
+;;     (dolist (col cols)
       
-    
-
 ; trunk/our/lib/lisp/table/       
 ;(dolist (col (table-columns (xindex (weather-numerics))))
 ;  (format t "~%~a~%" (header-name col))
 ;  (showh (header-f col)))
 
+(defmacro g-add (ht key val)
+  `(setf (gethash ,key ,ht) ,val))
 
+(defun data-attrs(tbl)
+  "Don't include the class column"
+  (reverse (cdr (reverse (columns-header (table-columns tbl))))))
 
+(defun create-pair(l r)
+  (list (concatenate 'string (string l) (string r)) (list l r)))
+
+(defun pair-cols(tbl)
+  "Pair the columns together"
+  (let
+      ((cols (data-attrs tbl))
+       (pair-columns '()))
+    (dotimes
+	(n (length cols))
+      (let
+	  ((col (pop cols)))
+	(push (list col '(,col)) pair-columns)
+	(dolist (r cols)
+	  (push (create-pair col r) pair-columns))))
+    (reverse pair-columns)))
