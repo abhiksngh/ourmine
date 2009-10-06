@@ -21,3 +21,11 @@ awk 'BEGIN{p[cnt++]=$0;}
 acc(){
     awk '/Correctly/{print $5}' | head -n 1
 }
+
+extractGoals(){
+    local goal=$1
+    local prefix=$2
+    local file=$3
+
+    cat $file | abcd --prefix $prefix --goal $goal --decimals 1 
+}
