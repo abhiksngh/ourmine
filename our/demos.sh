@@ -23,7 +23,7 @@ demo003() {
 
 demo004(){
     local out=$Save/demo004-results.csv
-    demo004worker $out
+    [ -f $out ] && echo "Caution: File exists!" || demo004worker $out
 }
 
 # run learners and perform analysis
