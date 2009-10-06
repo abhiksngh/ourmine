@@ -18,6 +18,13 @@
 (load "../../../lib/lisp/tricks/random.lisp")
 
 
+(defun twoR (tbl)
+  "Give me a table and I'll give you a bigger one!"
+  
+)
+
+(defun cols-choose-2(tbl)
+)
 
 
 (defun majority-class(tbl)
@@ -94,6 +101,18 @@
 	(incf j)))
     accuracy))
 
+
+(defmacro g-add (ht key val)
+  `(setf (gethash ,key ,ht) ,val))
+
+
+(let
+    ((cols (columns-header (table-columns (xindex (weather-numerics)))))
+     (binHash (make-hash-table)))
+  (dotimes (n (length cols))
+    (dolist (col cols)
+      
+    
 
 ; trunk/our/lib/lisp/table/       
 ;(dolist (col (table-columns (xindex (weather-numerics))))
