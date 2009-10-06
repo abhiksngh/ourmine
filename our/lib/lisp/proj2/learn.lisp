@@ -3,12 +3,11 @@
 
   (let* ((train (make-data-k))
          (clusters (funcall cluster train))
-         (discData))
          (cluster-tables '())
          (lst-centroids '()))
+    (setf cluster-tables (make-cluster-tables clusters train))
     (setf lst-centroids (get-cls-means cluster-tables))
-    (setf discData (discretize2 (xindex train)))
-  (nb discData discData)))
+    (values cluster-tables lst-centroids)))
 
 
 (defun make-cluster-tables (clusters train)
