@@ -59,6 +59,16 @@
                  (progn
                    (setf (NumericBound-min currentBound) (min currentExperience (NumericBound-min currentBound)))
                    (setf (NumericBound-max currentBound) (max currentExperience (NumericBound-max currentBound)))
+                   (if (= (NumericBound-numOccured currentBound) 0)
+                       (progn
+                         (setf (NumericBound-numOccured currentBound) 1)
+                         (setf (NumericBound-mean currentBound) currentExperience)
+                         )
+                       (progn
+                         (setf (NumericBound-mean currentBound) (/ (+ (* (NumericBound-mean currentBound) (NumericBound-numOccured currentBound)) currentExperience) (+ (NumericBound-numOccured currentBound) 1)))
+                         (incf (NumericBound-numOccured currentBound))
+                         )
+                       )
                    )
                  (setf (NumericBound-nonNumeric currentBound) (remove-duplicates (append (NumericBound-nonNumeric currentBound) (list currentExperience))))
                  )
@@ -100,6 +110,31 @@
     (/ count numAttributes)
     )
   )
+(defun calculateDistributionNew (pipe newExperience &optional (counter 0) (type 0))
+  ;(print newExperience)
+  (let ((count 0)
+        (numAttributes (length (ExperienceInstance-attributes newExperience))))
+    (dotimes (current numAttributes pipe)
+      (let ((currentBound (nth current (HyperPipe-numericBounds pipe)))
+            (currentExperience (nth current (ExperienceInstance-attributes newExperience))))
+        (if (or
+             (and (not (equal currentExperience '?))
+                  (not (numberp currentExperience))
+                  (member currentExperience (NumericBound-nonNumeric currentBound)))
+             (and (numberp currentExperience)
+                 (>= currentExperience (NumericBound-min currentBound))
+                 (<= currentExperience (NumericBound-max currentBound))))
+            (if (= counter 1)
+                (incf count)
+                (incf count (calculateDistanceFromMean (NumericBound-min currentBound) (NumericBound-max currentBound) (NumericBound-mean currentBound) currentExperience type))
+                )
+            )
+        ))
+    ;(print count)
+    ;(print numAttributes)
+    (/ count numAttributes)
+    )
+  )
 
 
 
@@ -108,7 +143,7 @@
     (dolist (pipe HyperPipes distributions)
       ;(print (HyperPipe-class pipe))
       ;(print (calculateDistribution pipe newExperience))
-      (setf distributions (append distributions (list (list (HyperPipe-class pipe) (calculateDistribution pipe newExperience)))))
+      (setf distributions (append distributions (list (list (HyperPipe-class pipe) (calculateDistributionNew pipe newExperience)))))
     
     )
     ;(print distributions)
@@ -392,6 +427,26 @@
       )
     (list currentMax (HyperPipe-class currentCentroid))
     )
+  )
+
+
+(defun calculateDistanceFromMean(min max mean value &optional (type 0))
+  (if (= max min)
+      1
+      (if (= type 0)
+          (/
+           (-
+            (- max min)
+            (abs (- value mean))
+            )
+           (- max min)
+           )
+          (let ((largestGap nil))
+            (setf largestGap (max (- max mean) (- mean min)))
+            (/ (- largestGap (abs (- value mean))) largestGap)
+            )
+          )
+      )
   )
 
 

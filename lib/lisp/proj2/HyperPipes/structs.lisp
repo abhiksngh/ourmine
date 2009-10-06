@@ -2,4 +2,4 @@
 
 (defstruct HyperPipe numericBounds class)
 
-(defstruct NumericBound (min most-positive-fixnum) (max most-negative-fixnum) (nonNumeric (list)))
+(defstruct NumericBound (min most-positive-fixnum) (max most-negative-fixnum) (mean nil) (numOccured 0) (nonNumeric (list)))
