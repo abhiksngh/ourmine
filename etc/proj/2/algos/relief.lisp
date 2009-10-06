@@ -67,8 +67,8 @@
   )
 )
 
-(defun relief (table weights)
-  (let* ((sorted-weights (sort (copy-list weights) #'>)) (threshold (nth (round (/ (length weights) 3)) sorted-weights)) (newtable nil))
+(defun relief (table)
+  (let* ((weights (relief-col-weights table)) (sorted-weights (sort (copy-list weights) #'>)) (threshold (nth (round (/ (length weights) 3)) sorted-weights)) (newtable nil))
     (setf 
         newtable (make-table)
         (table-name newtable) (table-name table)
