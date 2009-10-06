@@ -47,6 +47,14 @@
     (data :name name
           :columns new-cols
           :egs instances)))
+
+(defun make-simple-table (name cols instances)
+  (let* ((new-cols))
+    (dolist (c cols)
+      (setf new-cols (append new-cols (list (header-name c)))))
+    (data :name name
+          :columns new-cols
+          :egs instances)))
    
 
 
