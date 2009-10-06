@@ -8,7 +8,7 @@
 
 (defun closest-member (table row-number find-same-class)
   (let ((target-class (eg-class (nth row-number (table-all table)))))
-    (loop for i from 1 to (- (length (table-all table)) 1) do
+    (loop for i from 1 to (- (length (table-all table)) 2) do
       (let ((left (nth (unnegitify (- row-number i)) (table-all table))) (right (nth (unoverbound (+ row-number i) table) (table-all table))))
         (if (and (not (null (eg-class left))) (equalp (eg-class left) target-class))
           (if find-same-class 
@@ -28,6 +28,7 @@
         )
       )
     )
+    row-number
   )
 )
 
@@ -36,7 +37,11 @@
 (defun relief-diff (column-num target neighbor &optional (divisor-n 1))
   (let ((score 0) (target-feature (nth column-num (eg-features target))) (neighbor-feature (nth column-num (eg-features neighbor))))
     (if (and (realp target-feature) (realp neighbor-feature))
-      (setf score (+ score (/ (abs (- target-feature neighbor-feature)) (+ target-feature neighbor-feature))))
+      (let ((top (abs (- target-feature neighbor-feature))) (bottom (+ target-feature neighbor-feature)))
+        (if (not (zerop bottom))
+          (setf score (+ score (/ top bottom)))
+        )
+      )
       (if (equalp target-feature neighbor-feature)
         (setf score (+ score 1))
       )

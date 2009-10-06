@@ -157,14 +157,14 @@
      (setf ret (testiest-truthiness ret (nth (+ n 1) tness) test))) ret))
 
 (defun unnegitify (possibly-negative)
-  (if (and (not (null possibly-negative)) (< possibly-negative 0))
+  (if (or (null possibly-negative) (< possibly-negative 0))
     0
     possibly-negative
   )
 )
 
 (defun unoverbound (possibly-toobig table)
-  (if (and (not (null possibly-toobig)) (>= possibly-toobig (length (table-all table))))
+  (if (or (null possibly-toobig) (>= possibly-toobig (length (table-all table))))
     (- (length (table-all table)) 1)
     possibly-toobig
   )
