@@ -27,3 +27,7 @@
       (dolist (col colnums)
 	(setf tmp (append tmp (list (nth col row)))))
       (setf pruned (append pruned (list tmp))))))
+
+
+(defun rank-via-infogain (dataset &optional (n (length (car dataset))))
+  (prune-cols (extract-best-cols (infogain dataset) n) dataset))
