@@ -18,6 +18,21 @@
 			"table/xindex"
 			"learn/nb"
                         "kmeans"
+                        "proj/1/listEqual"
+                        "proj/1/carList"
+			"proj/1/isCompress"
+			"proj/1/isUncomp"
+                        "proj/1/isMirror"
+                        "proj/1/nthElt"
+                        "proj/1/inReverse"
+                        "proj/1/myStack"
+                        "proj/1/isSingle"
+                        "proj/1/appends"
+                        "proj/1/mapInt"
+                        "proj/1/filters"
+			"proj/1/mostLen"
+			"proj/1/loops"
+			"proj/1/bfst"
 			))
 
 (defun make1 (files)
