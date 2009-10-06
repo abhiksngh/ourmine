@@ -46,3 +46,23 @@
 )
 
 ;;; Run loop n times, return list of weights.
+
+(defun relief (table &optional (iterations nil))
+  (if (null iterations)
+    (setf iterations 250)
+  )
+  (let ((column-weights (make-list (length (eg-features (first (table-all table)))) :initial-element 0)))
+    (loop for i from 0 to iterations do
+      (let* ((record-num (random (length (table-all table)))) (hit (closest-member table record-num t)) (miss (closest-member table record-num nil)))
+        (loop for j from 0 to (- (length column-weights) 1) do
+          (let 
+              ((round-score-hit (relief-diff j (nth record-num (table-all table)) (nth hit (table-all table)) iterations)) 
+               (round-score-miss (relief-diff j (nth record-num (table-all table)) (nth miss (table-all table)) iterations)))
+            (setf (nth j column-weights) (- (+ (nth j column-weights) round-score-miss) round-score-hit))
+          )
+        )
+      )
+    )
+    column-weights
+  )
+)

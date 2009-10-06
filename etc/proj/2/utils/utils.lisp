@@ -150,3 +150,10 @@
     (if (funcall test one two)
       r1
       r2)))
+
+(defun unnegitify (possibly-negative)
+  (if (< possibly-negative 0)
+    0
+    possibly-negative
+  )
+)
