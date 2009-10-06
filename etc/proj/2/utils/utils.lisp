@@ -163,6 +163,13 @@
   )
 )
 
+(defun unoverbound (possibly-toobig table)
+  (if (>= possibly-toobig (length (table-all table)))
+    (- (length (table-all table)) 1)
+    possibly-toobig
+  )
+)
+
 (defun create-a-single-line-table (n original)
   (let ((abc (copy-table original)))
     (setf (table-all abc) (list (nth n (table-all original)))) abc))

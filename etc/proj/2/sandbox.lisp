@@ -14,10 +14,17 @@
   )
 )
 
+(defun unoverbound (possibly-toobig table)
+  (if (>= possibly-toobig (length (table-all table)))
+    (- (length (table-all table)) 1)
+    possibly-toobig
+  )
+)
+
 (defun closest-member (table row-number find-same-class)
   (let ((target-class (eg-class (nth row-number (table-all table)))))
     (loop for i from 1 to (length (table-all table)) do
-      (let ((left (nth (unnegitify (- row-number i)) (table-all table))) (right (nth (+ row-number i) (table-all table))))
+      (let ((left (nth (unnegitify (- row-number i)) (table-all table))) (right (nth (unoverbound (+ row-number i) table) (table-all table))))
         (if (and (not (null (eg-class left))) (equalp (eg-class left) target-class))
           (if find-same-class 
             (return (unnegitify (- row-number i)))
@@ -28,10 +35,10 @@
         )
         (if (and (not (null (eg-class right))) (equalp (eg-class right) target-class))
           (if find-same-class
-            (return (+ row-number i))
+            (return (unoverbound (+ row-number i) table))
           )
           (if (and (not (null (eg-class right))) (not find-same-class))
-            (return (+ row-number i))
+            (return (unoverbound (+ row-number i) table))
           )
         )
       )
