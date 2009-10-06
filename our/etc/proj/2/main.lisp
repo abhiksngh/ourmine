@@ -20,6 +20,7 @@
                         "tricks/macros"
                         "tricks/caution"
                         "tricks/hash"
+                        "tricks/normal"
                         "tricks/number"
                         "tricks/random"
                         "tricks/string"
