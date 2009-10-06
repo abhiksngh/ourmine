@@ -16,7 +16,8 @@
         (remove temp-bin egs)
         (if (= count (- bins 1))
             (setf count 0)
-            (incf count))))))
+            (incf count))))
+    (list (create-simple-table (car bucket)) (create-simple-table (cdr bucket)))))
                 
 
 ; creates a bucket containing 'size' number of bins

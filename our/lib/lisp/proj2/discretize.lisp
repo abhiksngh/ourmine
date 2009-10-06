@@ -1,6 +1,21 @@
 ; discretize:
 ; call: (discretize train 10 1) = discretize dataset 'train' with 10 bins using column #1
 
+(defun discretize (dataset &optional (bins 10))
+  (let* ((dataset (xindex dataset))
+         (class-column-number (table-class dataset))
+         (table-data (get-features (table-all dataset)))
+         (counter 0)
+         (intel (get-intel dataset class-column-number table-data bins)))
+    (dolist (instance table-data table-data)
+      (setf counter 0)
+      (dolist (item instance)
+        (if (not (eq counter class-column-number))
+            (progn
+              (setf (nth counter instance) (which-bin (nth counter intel) item))
+              (incf counter)))))))
+
+
 (defun get-col-maxmin (dataset &optional (colnum 0))
   "discretizes a dataset based on values in 'column' - default column = 1"
   (let* ((umin)
@@ -26,21 +41,15 @@
         (setf maxmin (list umax umin))))))
 
 
-(defun discretize (dataset &optional (bins 10) (colnum 0))
-  (let* ((maxmin (get-col-maxmin dataset colnum))
-         (max (first maxmin))
-         (min (second maxmin))
-         (index)
-         (range (- max min))
-         (bin-range (/ range bins))
-         (instances (get-features (table-all dataset))))
-    (format t "max: ~a ~%min: ~a ~%bin-range: ~a ~%" max min bin-range)
-    (setf bucket-info (create-bucket-info max min bins))
-    (setf bucket (create-bucket bins))
-    (dolist (item instances (merge-bins bucket))
-      (setf index (which-bin bucket-info (nth colnum item)))
-      (setf (nth index bucket) (cons item (nth index bucket))))))
-    
+(defun get-intel (dataset class-column-number table-data &optional (bins 10))
+  (let* ((intel '()))
+    (dotimes (n (- (length (car table-data)) 1)(reverse  intel))
+      (if (not (eq n class-column-number))
+          (progn
+            (let* ((maxmin (get-col-maxmin dataset n))
+                   (max (first maxmin))
+                   (min (second maxmin)))
+              (setf intel (cons (create-bucket-info max min bins) intel))))))))
 
 (defun create-bucket-info (max min bins)
   "creates an association list containing the ranges for each bin (ie. (low . high) for bin 1, 2 etc)
@@ -65,7 +74,4 @@
           (incf count)))))
     
 
-(defun merge-bins (bucket)
-  (let* ((dataset))
-    (dolist (item bucket dataset)
-      (setf dataset (append item dataset)))))
+
