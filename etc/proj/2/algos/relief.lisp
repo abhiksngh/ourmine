@@ -8,22 +8,22 @@
 
 (defun closest-member (table row-number find-same-class)
   (let ((target-class (eg-class (nth row-number (table-all table)))))
-    (loop for i from 1 to (length (table-all table)) do
+    (loop for i from 1 to (- (length (table-all table)) 1) do
       (let ((left (nth (unnegitify (- row-number i)) (table-all table))) (right (nth (unoverbound (+ row-number i) table) (table-all table))))
         (if (and (not (null (eg-class left))) (equalp (eg-class left) target-class))
           (if find-same-class 
-            (return (unnegitify (- row-number (- i 5))))
+            (return (unnegitify (- row-number i)))
           )
           (if (and (not (null (eg-class right))) (not find-same-class))
-            (return (unnegitify (- row-number (- i 5))))
+            (return (unnegitify (- row-number i)))
           )
         )
         (if (and (not (null (eg-class right))) (equalp (eg-class right) target-class))
           (if find-same-class
-            (return (unoverbound (+ row-number (- i 5)) table))
+            (return (unoverbound (+ row-number i) table))
           )
           (if (and (not (null (eg-class right))) (not find-same-class))
-            (return (unoverbound (+ row-number (- i 5)) table))
+            (return (unoverbound (+ row-number i) table))
           )
         )
       )
@@ -53,7 +53,7 @@
   )
   (let ((column-weights (make-list (length (eg-features (first (table-all table)))) :initial-element 0)))
     (loop for i from 0 to iterations do
-      (let* ((record-num (random (length (table-all table)))) (hit (closest-member table record-num t)) (miss (closest-member table record-num nil)))
+      (let* ((record-num (random (- (length (table-all table)) 1))) (hit (closest-member table record-num t)) (miss (closest-member table record-num nil)))
         (loop for j from 0 to (- (length column-weights) 1) do
           (let 
               ((round-score-hit (relief-diff j (nth record-num (table-all table)) (nth hit (table-all table)) iterations)) 
