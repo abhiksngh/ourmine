@@ -1,5 +1,5 @@
 ;; split2bins
-;; Splits a data-set into N bins (default = 10)
+;; Splits a data-set into N bins (default = 10) then splits them into 10% and 90%
 ;; Parameters: training data & number of bins)
 
 (defun split2bins (data &optional (bins 10))
@@ -17,7 +17,8 @@
         (if (= count (- bins 1))
             (setf count 0)
             (incf count))))
-    (list (make-simple-table (table-name data) (table-columns data)(car bucket)) (make-simple-table (table-name data) (table-columns data)(cdr bucket)))))
+    (list (make-simple-table (table-name data) (table-columns data) (blowup-bins (car bucket)))
+          (make-simple-table (table-name data) (table-columns data) (blowup-bins (cdr bucket))))))
                 
 
 ; creates a bucket containing 'size' number of bins
@@ -28,7 +29,6 @@
                 
 
 ;; builds train data from 90% of the data and test data from 10%
-;; usage: (traintest-bins (make-data2))
 (defun traintest-bins (data)
   (let* ((bucket (split2bins data))
          (bucket-size (length bucket))
@@ -40,3 +40,13 @@
       (setf test (cons temp-bin test))
       (remove temp-bin bucket))
     (values bucket test)))
+
+
+(defun blowup-bins (bucket)
+  "explodes the bins in a bucket so the bucket is filled up with only instances"
+  (let* ((newlist '()))
+    (if (listp (car (car bucket)))
+        (dolist (bin inst newlist)
+          (dolist (i bin)
+            (setf newlist (cons i newlist))))
+        bucket)))
