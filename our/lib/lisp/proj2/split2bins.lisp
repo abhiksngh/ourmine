@@ -46,7 +46,7 @@
   "explodes the bins in a bucket so the bucket is filled up with only instances"
   (let* ((newlist '()))
     (if (listp (car (car bucket)))
-        (dolist (bin inst newlist)
+        (dolist (bin bucket newlist)
           (dolist (i bin)
             (setf newlist (cons i newlist))))
         bucket)))
