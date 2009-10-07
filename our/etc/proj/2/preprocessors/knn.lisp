@@ -1,19 +1,28 @@
+;;Super ultra sexy euclidean distance one-liner!!!
+(defun eucDistance(instance)
+  (sqrt (apply '+ (mapcar 'square instance))))
 
-;;Normalization functions.  Attempts to use xindex as an easier means of working with Menzie's datasets.
+(defun features-as-a-list(table)
+  (let* ((data (shuffle (table-all (xindex table))))
+         result)
+    (dotimes (i (length data) result)
+      (push (eg-features(nth i (table-all table)))  result))))
 
+;;Remove num instances from a dataset at random.
 (defun remove-a-few(table num)
   (let* ((data (shuffle (table-all (xindex table))))
          result)
     (dotimes (i (- (length data) num) (build-a-data (table-name table) (columns-header (table-columns table)) result))
       (push (eg-features(nth i (table-all table)))  result))))
 
+;;Create a new dataset.
 (defun build-a-data(name columns egs)
   (data
    :name name
    :columns columns
    :egs egs))
   
-
+;;Normalize numeric data functions!  xindex is sweeeeeeeeeeet...
 (defun normalizeData(table)
   (let* ((xtable (xindex table))
          (data (table-all xtable))
