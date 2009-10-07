@@ -98,5 +98,3 @@
     (nb-simple  (make-weather egs) 
 		(make-weather egs)))
 
- )
-
