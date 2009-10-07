@@ -1,5 +1,19 @@
 
 ;;Normalization functions.  Attempts to use xindex as an easier means of working with Menzie's datasets.
+
+(defun remove-a-few(table num)
+  (let* ((data (shuffle (table-all (xindex table))))
+         result)
+    (dotimes (i (- (length data) num) (build-a-data (table-name table) (columns-header (table-columns table)) result))
+      (push (eg-features(nth i (table-all table)))  result))))
+
+(defun build-a-data(name columns egs)
+  (data
+   :name name
+   :columns columns
+   :egs egs))
+  
+
 (defun normalizeData(table)
   (let* ((xtable (xindex table))
          (data (table-all xtable))
