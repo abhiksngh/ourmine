@@ -1,22 +1,20 @@
 
-
 ;;Normalization functions.  Attempts to use xindex as an easier means of working with Menzie's datasets.
 (defun normalizeData(table)
   (let* ((xtable (xindex table))
          (data (table-all xtable))
          (columns (numeric-col table))
          (cols (table-columns table)))
-    (print "dolist 1")
-    (dolist (per-data data data)
-      (let ((per-instance (eg-features per-data)))
-        (print "dolist 2")
+    (dolist (per-data data xtable)
+      (let ((per-instance per-data))
         (dolist (per-index columns)
           (let* ((head (header-f (nth per-index cols)))
                 (f-struct (gethash (eg-class per-instance) head))
                 (classMinimum (normal-min f-struct))
                 (classMaximum (normal-max f-struct)))
-            (print "setf")
-            (setf (nth per-index per-instance) (normal classMinimum classMaximum(nth per-index (eg-features per-data))))))))))
+            (if (= classMaximum 0)
+                (setf classMaximum 0.001))
+            (setf (nth per-index (eg-features per-instance)) (normal classMinimum classMaximum (nth per-index (eg-features per-data))))))))))
 
 (defun normal (classMinimum classMaximum value)
   (/ (- value classMinimum) (- classMaximum classMinimum)))
