@@ -7,7 +7,7 @@
          (table-data (get-features (table-all dataset)))
          (counter 0)
          (intel (get-intel dataset class-column-number table-data bins)))
-    (dolist (instance table-data table-data)
+    (dolist (instance table-data (make-desc-table (table-name dataset) (table-columns dataset) table-data))
       (setf counter 0)
       (dolist (item instance)
         (if (not (eq counter class-column-number))
