@@ -10,6 +10,14 @@
     (values cluster-tables lst-centroids)))
 
 
+(defun no-disc-nb (train)
+  (let* ((lst (split2bins train))
+         (train (xindex (car lst)))
+         (test (xindex (car (cdr lst)))))
+    ;(format t "~A~%"  train)
+    ;(format t "~A~%" test)
+   (nb-num train test)))
+                     
 (defun make-cluster-tables (clusters train)
   (let* ((cluster-tables '())
          (cluster-nr 1))
