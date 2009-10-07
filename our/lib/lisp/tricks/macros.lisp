@@ -45,6 +45,7 @@
            QUICK is at position 1
            BROWN is at position 2
            FOX is at position 3")))
+
 ;;;; hash tricks
 
 (defmacro inch (key hash &optional (inc 1))
@@ -52,16 +53,16 @@
 	 (+ (gethash ,key ,hash 0) ,inc)))
 
 ;;;; profiling tricks
-(defmacro watch (code)
-  `(progn
-    (sb-profile:unprofile)
-    (sb-profile:reset)
-    (sb-profile:profile ,@(my-funs))
-    (eval ,code)
-    (sb-profile:report)
-    (sb-profile:unprofile)
-    t)
-)
+;(defmacro watch (code)
+;  `(progn
+;    (sb-profile:unprofile)
+;    (sb-profile:reset)
+;    (sb-profile:profile ,@(my-funs))
+;    (eval ,code)
+;   (sb-profile:report)
+;    (sb-profile:unprofile)
+;    t)
+;)
 
 (defun my-funs ()
   (let ((out '()))

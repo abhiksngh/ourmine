@@ -30,4 +30,6 @@
 
 
 (defun rank-via-infogain (dataset &optional (n (/ (length (car dataset)) 2)))
-  (prune-cols (extract-best-cols (infogain dataset) n) dataset))
+  (let ((result))
+    (setf result (prune-cols (extract-best-cols (infogain dataset) n) dataset))
+    result))

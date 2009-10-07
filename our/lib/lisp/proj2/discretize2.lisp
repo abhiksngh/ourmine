@@ -55,7 +55,9 @@
     (data :name name
           :columns new-cols
           :egs instances)))
-   
+
+(defun table-egs-to-lists (data)
+  (get-features (table-all data)))
 
 
 

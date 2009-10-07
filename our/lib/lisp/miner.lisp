@@ -47,6 +47,8 @@
                         "proj2/preprocess"
                         "proj2/k-means"
                         "proj2/learn"
+                        "proj2/infogain"
+                        "proj2/ranker"
                         "proj2/nb-num"
                         "proj2/discretize2"
 			))
