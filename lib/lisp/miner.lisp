@@ -19,7 +19,6 @@
 			"learn/nb"
                         "normalize"
                         "kmeans"
-                        "nbins"
 			))
 
 (defun make1 (files)

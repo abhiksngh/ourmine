@@ -17,11 +17,18 @@
     (dotimes (i (length centroid-list));this grabs the centroid data
       (push (nth (nth i centroid-list) (table-all tbl)) centroid0)) ;puts the centroid data in centroid0
     (setf centroid0 (reverse centroid0))
+    ;while loop will go here to see if centroids stop moving
+    (let ((cluster '())) ;creates a list that will have each centroid with a list to itself to store the rows
+      (dolist (i centroid-list) 
+        (push `(,i) cluster))
+      (setf cluster (reverse cluster))
     (dolist (row (table-all tbl)) ;checks all rows for distance
       (if (member n centroid-list) ;if the row being checked is already a centroid
           '(centroid) ;does nothing
-          (kmeans-distance centroid0 row (table-columns tbl))) ;finds which centroid is closest to the row
-      (incf n))))
+          (push row (nth (kmeans-distance centroid0 row (table-columns tbl)) cluster))) ;finds which centroid is closest to the row and then pushes the row to the cluster list
+      (incf n))
+    (dotimes (cent (length centroid-list)) ;do each centroid to find the median
+      (kmeans-move-centroid (nth cent cluster) centroid0 (table-columns tbl)))))) ;move the centroids in the cluster list
 
 (defun kmeans-find-centroid (k length)
   (let ((centroid-list '())) 
@@ -32,7 +39,7 @@
               (decf n) ;if it was already in the list subtract 1 from n
               (push number centroid-list)))))));if it wasn't already in the list push it onto the list
 
-(defun kmeans-move-centroid (centroid rows columns))
+(defun kmeans-move-centroid (cluster centroids columns))
        
 (defun kmeans-distance (centroids row columns)
   (let ((i 0)
