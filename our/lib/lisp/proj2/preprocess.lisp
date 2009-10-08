@@ -14,8 +14,8 @@
   (log-data2 (find-numeric-cols data) data))
 
 (defun log-data2 (indx-lst data)
-  (let* ((all (table-all data)))
-    (dolist (i all)
+  (let* ((all (table-all  data)))
+    (dolist (i all data)
       (dolist (indx indx-lst)
         ;(format t "~A " (nth indx (eg-features i)))
         (setf (nth indx (eg-features i))
@@ -24,10 +24,12 @@
 (defun log-item (row pos)
   (let* ((n (nth pos row)))
     (if (not (unknownp n))
-        (if (< n 0.0001)
-            (log 0.0001 10)
-            (log n 10))
-        n)))
+        (if (or (= n 1)
+                (= n 0))
+            (return-from log-item (log 0.0001 10))
+            (return-from log-item (log n 10))))))
+            
+   
 
 (defun test-numeric-cols (cols)
   (dolist (i cols t)

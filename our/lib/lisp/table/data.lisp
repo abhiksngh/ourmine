@@ -20,7 +20,7 @@
   (let ((oops (table-cautions tbl)))
     (when
 	(ok (= (table-width tbl) (length one))
-	    oops "~a wrong size" one)
+	    oops "" one)
       (mapc #'(lambda(column datum)
 		(datum column datum oops))
 	    (table-columns tbl) 

@@ -19,6 +19,9 @@
     ;(format t "~A~%" test)
    (nb-num train test)))
 
+(defun test-no-disc-centroid-nb ()
+  (no-disc-centroid-nb (shared_pc1)))
+                                
 
 (defun no-disc-centroid-nb (train &key (stream t))
   (let* ((acc 0)

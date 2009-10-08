@@ -1,10 +1,9 @@
 (defun shared_PC1 ()
 	(data
 		:name 'shared_PC1
-		:columns '( $loc $vg $evg $ivg $v $l $d $i $e $b $t $lOCode $lOComment $locCodeAndComment $uniq_Op $uniq_Opnd $total_Op $total_Opnd $branchCount defects)
+		:columns '( $loc $v $ev $iv $v $l $d $i $e $b $t $lOCode $lOComment $locCodeAndComment $uniq_Op $uniq_Opnd $total_Op $total_Opnd $branchCount defects)
 		:egs
-		'(			
-			( 69 13 7 8 2441.67 0.04 26.83 90.99 65518.01 0.81 3639.89 68 34 1 22 66 217 161 25 false )
+		'(	( 69 13 7 8 2441.67 0.04 26.83 90.99 65518.01 0.81 3639.89 68 34 1 22 66 217 161 25 false )
 			( 12 4 1 2 272.48 0.12 8.31 32.81 2263.1 0.09 125.73 10 1 2 13 18 32 23 7 false )
 			( 3 1 1 1 19.65 0.5 2 9.83 39.3 0.01 2.18 2 0 1 4 3 4 3 1 false )
 			( 13 4 1 3 454.95 0.04 27.3 16.66 12420.23 0.15 690.01 13 0 0 21 15 49 39 7 false )
@@ -1112,5 +1111,4 @@
 			( 5 1 1 1 39.86 0.21 4.67 8.54 186.03 0.01 10.33 5 0 0 7 3 8 4 1 false )
 			( 6 1 1 1 34.87 0.5 2 17.43 69.74 0.01 3.87 6 0 0 4 5 6 5 1 true )
 			( 5 1 1 1 43.02 0.29 3.5 12.29 150.57 0.01 8.36 5 0 0 7 5 7 5 1 false )
-			( 6 1 1 1 116.69 0.14 7.33 15.91 855.74 0.04 47.54 6 2 0 11 9 15 12 1 false )
-			)))
+			( 6 1 1 1 116.69 0.14 7.33 15.91 855.74 0.04 47.54 6 2 0 11 9 15 12 1 false))))
