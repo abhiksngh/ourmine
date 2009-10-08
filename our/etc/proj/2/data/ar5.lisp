@@ -36,7 +36,7 @@
 (defun ar5 ()
   (data
    :name 'ar5
-   :columns '(total_loc blank_loc comment_loc code_and_comment_loc executable_loc unique_operands unique_operators total_operands total_operators halstead_vocabulary halstead_length halstead_volume halstead_level halstead_difficulty halstead_effort halstead_error halstead_time branch_count decision_count call_pairs condition_count multiple_condition_count cyclomatic_complexity cyclomatic_density decision_density design_complexity design_density normalized_cyclomatic_complexity formal_parameters defects)
+   :columns '($total_loc $blank_loc $comment_loc $code_and_comment_loc $executable_loc $unique_operands $unique_operators $total_operands $total_operators $halstead_vocabulary $halstead_length $halstead_volume $halstead_level $halstead_difficulty $halstead_effort $halstead_error $halstead_time $branch_count $decision_count $call_pairs $condition_count $multiple_condition_count $cyclomatic_complexity $cyclomatic_density $decision_density $design_complexity $design_density $normalized_cyclomatic_complexity $formal_parameters defects)
    :egs
    '(
      (82 26 9 0 47 55 12 91 132 67 223 937 0.10073 9.9273 9301.8545 0.31233 516.7697 20 10 20 4 1 10 0.21277 2.5 20 2 0.12195 0 false)
