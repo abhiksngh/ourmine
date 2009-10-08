@@ -278,7 +278,7 @@
         )
       (close outputFile)
       )
-    (print (/ totalRight totalChecks))
+    (print (float (/ totalRight totalChecks)))
     (print Alpha)
     MyHyperPipes
     )
