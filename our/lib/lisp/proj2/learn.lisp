@@ -10,7 +10,7 @@
     (values cluster-tables lst-centroids)))
 
 
-(defun no-disc-nb (train)
+(defun no-disc-nb (train)NO YES 0 <--
   "split into 10 bins and apply naive bayes"
   (let* ((lst (split2bins train))
          (train (xindex (car lst)))
@@ -19,6 +19,17 @@
     ;(format t "~A~%" test)
    (nb-num train test)))
 
+
+(defun no-disc-centroid-nb (train)
+  "applies naive bayes on centroids"
+  (let* ((lst (split2bins train))
+         (train (xindex (car lst)))
+         (clusters (k-means train))
+         (cluster-tables (make-cluster-tables clusters train))
+         (cls-means (get-cls-means cluster-tables))
+         (test (xindex (car (cdr lst)))))
+    (dolist (test_inst (get-features (table-all test)))
+      (bayes-classify-num test_inst (xindex (nth (nth (get-closest-centroid test_inst cls-means) cls-means) cluster-tables))))))
 
 (defun disc-nb (train)
   "discretize and apply naive bayes"
