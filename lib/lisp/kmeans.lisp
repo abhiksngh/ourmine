@@ -32,8 +32,8 @@
               (decf n) ;if it was already in the list subtract 1 from n
               (push number centroid-list)))))));if it wasn't already in the list push it onto the list
 
-(defun kmeans-move-centroid ())
-                 
+(defun kmeans-move-centroid (centroid rows columns))
+       
 (defun kmeans-distance (centroids row columns)
   (let ((i 0)
         (distance1 0)

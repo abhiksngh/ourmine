@@ -9,19 +9,22 @@
           (4 bye 2 false)
           )))
 
-;(defun normalize ()
-;  (let* ((tbl (xindex (test-data)))
-;         (n 0))
-;    (dolist (col (table-columns tbl) tbl)
-;      (if (numericp (header-name col))
-;          (progn
-;            (if (zerop (max-min)) ;checks if max-min is zero to avoid dividing by 0
-;                (progn
-;                  (dolist (row (table-all tbl)) ;loop through each row of data
-;                    (if (numberp (nth n (eg-features row))) ;checks if that data is a number
-;                        (setf (nth n (eg-features row)) 1.0)))) ;sets that data to 1.0 instead of dividing by 0
-;                (progn
-;                  (dolist (row (table-all tbl)) ;loop through each row of data
-;                    (if (numberp (nth n (eg-features row))) ;checks if the data is a number
-;                        (setf (nth n (eg-features row)) (/ (- (nth n (eg-features row)) min) (- max min))))))))) ;normalizes the number
-;      (setf n (+ n 1))))) ;increment the counter of the column being altered
+(defun normalize ()
+  (let ((tbl (xindex (test-data)))
+        (n 0))
+    (dolist (col (table-columns tbl) tbl)
+      (when (numericp (header-name col))
+        (let ((n-normal (make-normal)))
+        (dolist (row (table-all tbl))
+          (when (numberp (nth n (eg-features row)))
+              (add n-normal (nth n (eg-features row)))))
+        (if (zerop (- (normal-max n-normal) (normal-min n-normal))) ;checks if max-min is zero to avoid dividing by 0
+            (progn
+              (dolist (row (table-all tbl)) ;loop through each row of data
+                (if (numberp (nth n (eg-features row))) ;checks if that data is a number
+                    (setf (nth n (eg-features row)) 1.0)))) ;sets that data to 1.0 instead of dividing by 0
+            (progn
+              (dolist (row (table-all tbl)) ;loop through each row of data
+                (if (numberp (nth n (eg-features row))) ;checks if the data is a number
+                    (setf (nth n (eg-features row)) (/ (- (nth n (eg-features row)) (normal-min n-normal)) (- (normal-max n-normal) (normal-min n-normal)))))))))) ;normalizes the number
+        (incf n)))) ;increment the counter of the column being altered
