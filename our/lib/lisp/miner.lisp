@@ -51,6 +51,13 @@
                         "proj2/ranker"
                         "proj2/nb-num"
                         "proj2/discretize2"
+                        "proj2/data/shared_PC1"
+                        "proj2/data/shared_CM1"
+                        "proj2/data/shared_KC1"
+                        "proj2/data/shared_KC2"
+                        "proj2/data/shared_KC3"
+                        "proj2/data/shared_MC2"
+                        "proj2/data/shared_MW1"                       
 			))
 
 (defun make1 (files)
