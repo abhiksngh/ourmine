@@ -248,22 +248,32 @@
   )
 
 
-(defun demoHyperPipesNew(&optional (dataFileName "primary-tumor") (Alpha 0) (countType 0) (meanType 0) (oldway 0))
+(defun demoHyperPipesNew(&optional (dataFileName "primary-tumor") (Alpha 0) (countType 0) (meanType 0) (oldway 0) (useCentroid 0))
   (print "*************Demoing HyperPipes**************")
   ;(load (concatenate `string "HyperPipes/Data/" dataFileName ".lisp"))
 
-  (let ((MyHyperPipes (list))
+  (let* ((MyHyperPipes (list))
         (totalChecks 0)
         (totalRight 0)
-        (outputFile (open (concatenate `string "proj2/HyperPipes/OutputFiles/outputFile" (format nil "~a" countType) (format nil "~a" meanType) "-" (format nil "~a" (round (* Alpha 100))) "-" (format nil "~a" oldway) ".txt") :direction :output :if-does-not-exist :create :if-exists :overwrite)))
+        (outputFileName (concatenate `string "proj2/HyperPipes/OutputFiles/outputFile" (format nil "~a" countType) (format nil "~a" meanType) (format nil "~a" useCentroid) "-" (format nil "~a" (round (* Alpha 100))) "-" (format nil "~a" oldway) ".txt"))
+        (outputFile nil))
+    (ignore-errors
+        (delete-file outputFileName)
+        )
+    ;(setf outputFile (open outputFileName :direction :output :if-does-not-exist :create :if-exists :overwrite))
+    ;(format outputFile "Results from test:~%")
+    ;(close outputFile)
+    ;(setf outputFile nil)
     (with-open-file (stream (concatenate `string "proj2/HyperPipes/Data/" dataFileName ".lisp"))
       (do ((line (read-line stream nil) (read-line stream nil))) ((null line))
         (let* ((attributeValues (eval (read-from-string line)))
                (tiedClasses (GetTiedClasses2 MyHyperPipes attributeValues Alpha countType meanType oldway))
+               (tiedClasses (TrimTiedClasses tiedClasses MyHyperPipes useCentroid))
                (successOrFailure (find (nth (- (length attributeValues) 1) attributeValues) tiedClasses))
                )
           ;(format t "~%Expected Result: ~a Actual Result: ~a" (nth (- (length attributeValues) 1) attributeValues) tiedClasses)
           (incf totalChecks)
+          (setf outputFile (open outputFileName :direction :output :if-does-not-exist :create :if-exists :append))
           ;(print tiedClasses)
           (if (not (null successOrFailure))
               (progn
@@ -272,6 +282,7 @@
                 )
               (format outputFile "~a ~a ~a~%" 0 (length tiedClasses) tiedClasses)
               )
+          (close outputFile)
           (print successOrFailure)
           (setf MyHyperPipes (AddExperienceNew MyHyperPipes (make-ExperienceInstance :attributes (remove-nth (- (length attributeValues) 1) attributeValues) :class (nth (- (length attributeValues) 1) attributeValues))))
           )
@@ -401,6 +412,7 @@
 (defun FindCentroid(HyperPipes)
   (let ((currentCentroid nil)
         (currentMax 0))
+    ;(print HyperPipes)
     (dolist (currentPipe HyperPipes)
       (let* ((currentCount 0)
             (pipeBounds (HyperPipe-numericBounds currentPipe))
@@ -430,8 +442,8 @@
                 )
               )
           )
-        (print (list currentCount (HyperPipe-class currentPipe)))
-        (if (> currentCount currentMax)
+        ;(print (list currentCount (HyperPipe-class currentPipe)))
+        (if (>= currentCount currentMax)
             (progn
               (setf currentMax currentCount)
               (setf currentCentroid currentPipe)
@@ -464,3 +476,28 @@
   )
 
 
+(defun TrimTiedClasses(tiedClasses MyHyperPipes useCentroid)
+  (if (or (= 0 useCentroid) (null tiedClasses) (null MyHyperPipes) (< (length tiedClasses) 2))
+      tiedClasses
+      (progn
+        (let ((listOfPipes ())
+              (foundClass nil))
+          (dolist (currentClass tiedClasses)
+            (let ((currentFoundPipe (FindPipe MyHyperPipes currentClass)))
+              (if (not (null currentFoundPipe))
+                  (setf listOfPipes (append listOfPipes (list currentFoundPipe)))
+                  )
+  
+              )
+            )
+          ;(print listOfPipes)
+          (setf foundClass (FindCentroid listOfPipes))
+          ;(print foundClass)
+          (setf foundClass (list (second foundClass)))
+          foundClass
+          )
+
+
+        )
+      )
+  )
