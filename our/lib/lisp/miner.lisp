@@ -30,7 +30,7 @@
                         "proj1/anelson/chapter10-6"
 			;"proj1/wmensah/chapter10-7"
 			"proj1/wmensah/chapter14-5"
-                        "learn/hyperpipes"
+                        ;"learn/hyperpipes"
                         "proj1/tprifti/TWCNB"
                         "tests/data/primary-tumor"
                         "tests/data/vote"

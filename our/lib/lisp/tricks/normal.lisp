@@ -1,7 +1,7 @@
 (defstruct normal 
   (max (* -1 most-positive-single-float))
   (min       most-positive-single-float)
-  (n 0)
+  (n 1)
   (sum 0)
   (sumSq 0))
 
