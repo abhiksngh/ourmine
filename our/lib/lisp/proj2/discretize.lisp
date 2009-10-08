@@ -17,13 +17,13 @@
 
 
 (defun get-col-maxmin (dataset &optional (colnum 0))
-  "discretizes a dataset based on values in 'column' - default column = 1"
+  "returns the max and min values (out of all classes) in a column"
   (let* ((umin)
          (umax)
          (min)
          (max)
          (maxmin '())
-         (dataset (xindex dataset)) ; get the min and max for each column
+         (dataset (xindex dataset)) 
          (class-column-number (table-class dataset)) ; get column # that has the unique classes in it
          (class-data (nth class-column-number (table-columns dataset))) ; get the structure containing the unique classes
          (classes (discrete-uniques class-data))

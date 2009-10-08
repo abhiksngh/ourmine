@@ -11,12 +11,20 @@
 
 
 (defun no-disc-nb (train)
+  "split into 10 bins and apply naive bayes"
   (let* ((lst (split2bins train))
          (train (xindex (car lst)))
          (test (xindex (car (cdr lst)))))
     ;(format t "~A~%"  train)
     ;(format t "~A~%" test)
    (nb-num train test)))
+
+
+(defun disc-nb (train)
+  "discretize and apply naive bayes"
+  (no-disc-nb (discretize train)))
+         
+      
                      
 (defun make-cluster-tables (clusters train)
   (let* ((cluster-tables '())
