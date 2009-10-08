@@ -1,6 +1,16 @@
-all:
-	latex hyperpipes2.tex
-	dvipdf hyperpipes2.dvi ~/hyperpipes2.pdf
+Src=multipipes
+Out=~/multipipes.pdf
+all: dvi pdf finished
+
+dvi:
+	latex $(Src).tex
+
+pdf:
+	dvipdf $(Src).dvi $(out)
+
+finished:
+	@printf "\n\n-.,_,.-=^=-.,_,.-=^=-.,_,.-=^=-.,_,.-=^=-.,_,.-=^=\n"
+	@printf "Output pdf at: $(Out)\n\n"
 
 clean:
 	rm -f *.dvi *.log *.aux
