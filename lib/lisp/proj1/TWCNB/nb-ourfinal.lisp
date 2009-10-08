@@ -204,3 +204,6 @@
 		(make-weather egs)))
 
  )
+
+(defun self-test-custom (dataset)
+  (nb dataset dataset))

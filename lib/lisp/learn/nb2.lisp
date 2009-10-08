@@ -3,7 +3,10 @@
         (testSet (data :name (table-name TableSet)))
         (count 0)
         (wins 0)
-        )
+        (result 0)
+        (won 0)
+        (outputFile (open (concatentate `string "proj2/HyperPipes/OutputFiles/nb-outputFile-" TableSet ".txt") :direction :output :if-does-not-exist :create :if-exists :overwrite)))
+    
     (setf (table-columns trainingSet) (table-columns TableSet))
     (setf (table-class trainingSet) (table-class TableSet))
     (setf (table-columns testSet) (table-columns TableSet))
@@ -16,11 +19,17 @@
             (setf (table-indexed testSet) nil)
             ;(print trainingSet)
             ;(print testSet)
-            (if (= 1 (nb trainingSet testSet))
-                (incf wins)
-                )
+
+            (setf result (nb trainingSet testSet))
             
-            
+            (if (= 1 result)
+                (progn 
+                  (incf wins)
+                  (setf won 1)
+                  )
+                )            
+            (format outputFile "~a 1 ~a~%" won result)
+            (setf won 0)
             )
           )
       (setf (table-all trainingSet) (append (table-all trainingSet) (list oneEg)))

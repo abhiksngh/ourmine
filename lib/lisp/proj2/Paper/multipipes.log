@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=latex 2009.9.15)  8 OCT 2009 02:38
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=latex 2009.9.15)  8 OCT 2009 15:08
 entering extended mode
  %&-line parsing enabled.
 **multipipes.tex
@@ -220,14 +220,16 @@ No file multipipes.bbl.
 [1
 
 
+] [2
+
 ] (./multipipes.aux) ) 
 Here is how much of TeX's memory you used:
  1858 strings out of 95087
  20913 string characters out of 1183278
- 70872 words of memory out of 1500000
+ 71872 words of memory out of 1500000
  4989 multiletter control sequences out of 10000+50000
  41925 words of font info for 53 fonts, out of 1200000 for 2000
  28 hyphenation exceptions out of 8191
- 39i,10n,26p,228b,248s stack positions out of 5000i,500n,6000p,200000b,5000s
+ 39i,10n,26p,949b,248s stack positions out of 5000i,500n,6000p,200000b,5000s
 
-Output written on multipipes.dvi (1 page, 4084 bytes).
+Output written on multipipes.dvi (2 pages, 5336 bytes).
