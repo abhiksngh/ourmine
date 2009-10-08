@@ -1,4 +1,4 @@
-(defun k-means (train &optional (k 10) (iteration 100))
+(defun k-means (train &optional (k 10) (iteration 20))
   (let* ((instances (get-features (table-all train)))
          (class (table-class train))
          (size (length instances))
@@ -14,19 +14,18 @@
     (setf clusters (make-clusters lstCentroids))
     (setf clusters (create-new-clusters instances lstCentroids clusters class))
     (setf lstCentroids (new-centroids clusters class))
-    (do ()
-        ((check-all-centroids oldCentroids lstCentroids) clusters)
-      (if (< tmpcounter iteration)
-          (progn
-            (setf clusters (create-new-clusters instances lstCentroids (make-clusters lstCentroids) class))
-            (incf tmpcounter)
-            (setf oldCentroids (copy-tree lstCentroids))
-                                        ;(format t "Old Centorids ~A~%" oldCentroids)
-            (setf lstCentroids (new-centroids clusters class)))))))
-                                        ;(format t "New Centorids ~A~%" lstCentroids))))
-      
-    
+    (dotimes (i iteration clusters)
+        (if (or (check-all-centroids oldCentroids lstCentroids)
+                (< tmpcounter iteration))
+        (progn
+          (setf clusters (create-new-clusters instances lstCentroids (make-clusters lstCentroids) class))
+          (incf tmpcounter)
+          (setf oldCentroids (copy-tree lstCentroids))
+           ;(format t "Old Centorids ~A~%" oldCentroids)
+          (setf lstCentroids (new-centroids clusters class)))
+        (return-from k-means clusters)))))
 
+   
 
     
 
