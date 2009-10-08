@@ -1,7 +1,7 @@
 (defun shared_MC2 ()
 	(data
 		:name 'shared_MC2
-		:columns '( $loc $v(g) $ev(g) $iv(g) $v $l $d $i $e $b $t $lOCode $lOComment $locCodeAndComment $uniq_Op $uniq_Opnd $total_Op $total_Opnd $branchCount defects)
+		:columns '($loc $vg $evg $ivg $v $l $d $i $e $b $t $lOCode $lOComment $locCodeAndComment $uniq_Op $uniq_Opnd $total_Op $total_Opnd $branchCount defects)
 		:egs
 		'(			
 			( 21 61 678.28 0 1 12 8.07 84.01 5476.14 0.23 1 125 1 48 9 34 64 304.23 1 false )

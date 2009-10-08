@@ -1,7 +1,7 @@
 (defun shared_KC2 ()
 	(data
 		:name 'shared_KC2
-		:columns '( $loc $v(g) $ev(g) $iv(g) $v $l $d $i $e $b $t $lOCode $lOComment $locCodeAndComment $uniq_Op $uniq_Opnd $total_Op $total_Opnd $branchCount defects)
+		:columns '( $loc $vg $evg $ivg $v $l $d $i $e $b $t $lOCode $lOComment $locCodeAndComment $uniq_Op $uniq_Opnd $total_Op $total_Opnd $branchCount defects)
 		:egs
 		'(			
 			( 4 1 1 1 8 0.67 1.5 5.33 12 0 0.67 2 0 0 3 1 3 1 1 false )

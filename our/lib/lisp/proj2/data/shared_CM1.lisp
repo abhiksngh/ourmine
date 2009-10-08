@@ -1,7 +1,7 @@
 (defun shared_CM1 ()
 	(data
 		:name 'shared_CM1
-		:columns '( $loc $v(g) $ev(g) $iv(g) $v $l $d $i $e $b $t $lOCode $lOComment $locCodeAndComment $uniq_Op $uniq_Opnd $total_Op $total_Opnd $branchCount defects)
+		:columns '( $loc $vg $evg $ivg $v $l $d $i $e $b $t $lOCode $lOComment $locCodeAndComment $uniq_Op $uniq_Opnd $total_Op $total_Opnd $branchCount defects)
 		:egs
 		'(			
 			( 25 8 8 1 1252.14 0.04 27.04 46.31 33856.01 0.42 1880.89 0 8 0 19 26 154 74 15 false )

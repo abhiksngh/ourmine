@@ -1,7 +1,7 @@
 (defun shared_PC1 ()
 	(data
 		:name 'shared_PC1
-		:columns '( $loc $v(g) $ev(g) $iv(g) $v $l $d $i $e $b $t $lOCode $lOComment $locCodeAndComment $uniq_Op $uniq_Opnd $total_Op $total_Opnd $branchCount defects)
+		:columns '( $loc $vg $evg $ivg $v $l $d $i $e $b $t $lOCode $lOComment $locCodeAndComment $uniq_Op $uniq_Opnd $total_Op $total_Opnd $branchCount defects)
 		:egs
 		'(			
 			( 69 13 7 8 2441.67 0.04 26.83 90.99 65518.01 0.81 3639.89 68 34 1 22 66 217 161 25 false )
