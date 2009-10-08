@@ -19,8 +19,9 @@
     ;(format t "~A~%" test)
    (nb-num train test)))
 
-(defun test-no-disc-centroid-nb ()
-  (no-disc-centroid-nb (shared_pc1)))
+(defun test-no-disc-centroid-nb (train)
+  (let* ((copy (make-simple-table (table-name train) (table-columns train) (table-egs-to-lists train)))) 
+    (no-disc-centroid-nb (log-data1 copy))))
                                 
 
 (defun no-disc-centroid-nb (train &key (stream t))
@@ -39,10 +40,10 @@
              (want (nth class test_inst))
              (got (bayes-classify-num test_inst  (xindex closest-cluster)))
              (success (equal got want)))
-        (incf acc (if success 1.00 0.00))
-        (format stream "~A ~A ~A ~A~%"  got want
-                (round (* 100 (/ acc max)))
-                (if success "    " "<- - -"))))))
+        (incf acc (if success 1.00 0.00))))))
+                ;(format stream "~A ~A ~A ~A~%"  got want
+                ;(round (* 100 (/ acc max)))
+                ;(if success "    " "<- - -"))))))
 
 
 
