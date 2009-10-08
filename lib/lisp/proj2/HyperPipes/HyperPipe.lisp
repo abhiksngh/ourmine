@@ -43,7 +43,7 @@
   (let ((pipe (FindPipe pipes (ExperienceInstance-class experience))))
     (if (null pipe)
         (progn
-          (print "adding new pipe")
+          ;(print "adding new pipe")
           (setf pipes (append pipes (list (CreateSingleHyperPipe (length (ExperienceInstance-attributes experience)) (ExperienceInstance-class experience)))))
           (setf pipe (FindPipe pipes (ExperienceInstance-class experience)))
           )
@@ -283,14 +283,14 @@
               (format outputFile "~a ~a ~a~%" 0 (length tiedClasses) tiedClasses)
               )
           (close outputFile)
-          (print successOrFailure)
+          ;(print successOrFailure)
           (setf MyHyperPipes (AddExperienceNew MyHyperPipes (make-ExperienceInstance :attributes (remove-nth (- (length attributeValues) 1) attributeValues) :class (nth (- (length attributeValues) 1) attributeValues))))
           )
         )
       (close outputFile)
       )
     (print (float (/ totalRight totalChecks)))
-    (print Alpha)
+    ;(print Alpha)
     MyHyperPipes
     )
 
