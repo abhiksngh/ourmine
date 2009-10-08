@@ -1,6 +1,45 @@
+(defun k-nearest-per-instance(instance table &optional (k 10))
+  ;;Set the class to a numeric, so we don't have to build code to handle a single discrete at the end of a line.  This zero will have no impact on the distance.
+  (let* ((instance (eg-features instance))
+         (xtable (xindex table))
+         (data (table-all xtable))
+         (resultHash (make-hash-table))
+         (cozyNeighborList (make-list k :initial-element  (list 0 most-positive-long-float))))
+    ;;Populate a hash table of distances from the instance to all neighbors.
+    (setf (nth (1- (length instance)) instance) 0)
+    (doitems (per-instance i data)
+      (let* ((per-instance (eg-features per-instance))
+             (distanceList))
+         (setf (nth (1- (length per-instance)) per-instance) 0)
+         (doitems (per-attribute n per-instance)
+           (push (- (nth n instance) per-attribute) distanceList))
+         (setf (gethash i resultHash) (eucDistance distanceList))))
+    ;;Create a list of the k closest neighbors. Working the Lisp-fu.
+    (print "maphash")
+    (maphash #'(lambda (key value)
+                 (print key)
+                 (print value)
+                 (print cozyNeighborList)
+                 (let* ((questionable (first cozyNeighborList)))
+                   (if (and
+                        (< value (second questionable))
+                        (not (= value 0)))
+                       (progn
+                         (setf (first (first cozyNeighborList)) key)
+                         (setf (second (first cozyNeighborList)) value)
+                         (sort cozyNeighborList #'> :key #'second)
+                         )))
+                   )
+             resultHash)))
+
+         
 ;;Super ultra sexy euclidean distance one-liner!!!
-(defun eucDistance(instance)
-  (sqrt (apply '+ (mapcar 'square instance))))
+(defun eucDistance(lst)
+  (sqrt (apply '+ (mapcar 'square lst))))
+
+(deftest test-eucDistance()
+  (check
+    (= (eucDistance '(3 4)) 5.0)))
 
 (defun features-as-a-list(table)
   (let* ((data (shuffle (table-all (xindex table))))
