@@ -132,7 +132,7 @@
 	(n (length cols))
       (let
 	  ((col (pop cols)))
-	(push (list col '(,col)) pair-columns)
+	(push (list (string col) `(,col)) pair-columns)
 	(dolist (r cols)
 	  (push (create-pair col r) pair-columns))))
     (reverse pair-columns)))
