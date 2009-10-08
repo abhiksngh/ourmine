@@ -289,9 +289,11 @@
         )
       (close outputFile)
       )
-    (print (float (/ totalRight totalChecks)))
+    ;(print (float (/ totalRight totalChecks)))
     ;(print Alpha)
-    MyHyperPipes
+    ;MyHyperPipes
+    (float (/ totalRight totalChecks))
+    
     )
 
 
@@ -457,7 +459,7 @@
 
 
 (defun calculateDistanceFromMean(min max mean value &optional (type 0))
-  (if (= max min)
+  (if (or (= max min) (not (numberp value)))
       1
       (if (= type 0)
           (/
