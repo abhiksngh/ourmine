@@ -37,8 +37,9 @@
              (got (bayes-classify-num test_inst  (xindex closest-cluster)))
              (success (equal got want)))
         (incf acc (if success 1.00 0.00))
-        (format stream "~A ~A~%"  got want)
-        (if success "    " "<- - -")))))
+        (format stream "~A ~A ~A ~A~%"  got want
+                (round (* 100 (/ acc max)))
+                (if success "    " "<- - -"))))))
 
 
 
