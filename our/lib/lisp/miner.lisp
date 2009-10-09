@@ -32,6 +32,7 @@
 			;"proj1/wmensah/chapter14-5"
                         ;"learn/hyperpipes"
                         ;"proj1/tprifti/TWCNB"
+                        "proj2/discretize"
                         "proj2/discretize2"
                         ;"tests/data/primary-tumor"
                         ;"tests/data/vote"
