@@ -6,13 +6,12 @@
          (resultHash (make-hash-table))
          (cozyNeighborList))
     ;;Populate a hash table of distances from the instance to all neighbors.
-    (setf (nth (1- (length instance)) instance) 0)
     (doitems (per-instance i data)
       (let* ((per-instance (eg-features per-instance))
              (distanceList))
-         (setf (nth (1- (length per-instance)) per-instance) 0)
          (doitems (per-attribute n per-instance)
-           (push (- (nth n instance) per-attribute) distanceList))
+           (if (numberp per-attribute)
+               (push (- (nth n instance) per-attribute) distanceList)))
          (setf (gethash i resultHash) (eucDistance distanceList))))
     ;;Create a list of the k closest neighbors. Working the Lisp-fu.
     (maphash #'(lambda (key value)
