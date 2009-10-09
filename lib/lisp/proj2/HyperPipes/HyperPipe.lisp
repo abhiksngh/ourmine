@@ -260,10 +260,7 @@
     (ignore-errors
         (delete-file outputFileName)
         )
-    ;(setf outputFile (open outputFileName :direction :output :if-does-not-exist :create :if-exists :overwrite))
-    ;(format outputFile "Results from test:~%")
-    ;(close outputFile)
-    ;(setf outputFile nil)
+
     (with-open-file (stream (concatenate `string "proj2/HyperPipes/Data/" dataFileName ".lisp"))
       (do ((line (read-line stream nil) (read-line stream nil))) ((null line))
         (let* ((attributeValues (eval (read-from-string line)))
@@ -287,7 +284,7 @@
           (setf MyHyperPipes (AddExperienceNew MyHyperPipes (make-ExperienceInstance :attributes (remove-nth (- (length attributeValues) 1) attributeValues) :class (nth (- (length attributeValues) 1) attributeValues))))
           )
         )
-      (close outputFile)
+      ;(close outputFile)
       )
     ;(print (float (/ totalRight totalChecks)))
     ;(print Alpha)
@@ -297,49 +294,73 @@
     )
 
 
-
-    ;
-    ;(let ((Accuracy 0)
-    ;      (Total 0))
-
-    ;(dolist (currentDataPoint (table-all dataTable))
-    ;  (let* ((currentAttributes (EG-features currentDataPoint))
-    ;         (DistributionResults (doDistributions (make-ExperienceInstance :attributes (remove-nth (table-class dataTable) (eg-features currentDataPoint))) MyHyperPipes))
-    ;         (normalizedResults (normalizeResults DistributionResults)))
-    ;    (let ((HighestValue ())
-    ;          (currentMax most-negative-fixnum))
-
-
-    ;      (dolist (result normalizedResults)
-    ;        (if (>= (second result) currentMax)
-    ;            (progn
-    ;              (if (= (second result) currentMax)
-    ;                  (setf HighestValue (append HighestValue (list (first result))))
-    ;                  (setf HighestValue (list (first result)))
-    ;                  )
-    ;              (setf currentMax (second result))
-                 
-    ;              )
-    ;            )
-            
-    ;        )
-    ;      (if (find (nth (table-class dataTable) (eg-features currentDataPoint)) HighestValue)
-    ;          (incf Accuracy))
-    ;      (incf Total)
-    ;      (format t "~%Expected Result: ~a Actual Result: ~a" (nth (table-class dataTable) (eg-features currentDataPoint)) HighestValue)
-    ;      )
-    ;    )
-    ;  )
-    ;(format t "~%~%The accuracy is ~a" (/ Accuracy Total))
-    ;)
-    ;(setf MyQuestion (make-ExperienceInstance :attributes '(365 8000 400 98 blue)))
-    ;(print MyHyperPipes)
-    ;(setf distributions (doDistributions MyQuestion MyHyperPipes))
-    ;(print distributions)
-    ;(setf distributions (normalizeResults distributions))
-    ;(print distributions)
-    ;)
   )
+
+(defun demoHyperPipesBatchNew(&optional (dataFileName "primary-tumor") (Alpha 0) (countType 0) (meanType 0) (oldway 0) (useCentroid 0) (learn .6))
+  (print "*************Demoing HyperPipes**************")
+  ;(load (concatenate `string "HyperPipes/Data/" dataFileName ".lisp"))
+
+  (let* ((MyHyperPipes (list))
+        (totalChecks 0)
+        (totalRight 0)
+         (numberOfLines 0)
+         (numberToLearn 1)
+         (currentLine 1)
+        (outputFileName (concatenate `string "proj2/HyperPipes/OutputFiles/outputFileBATCH-" dataFileName (format nil "~a" countType) (format nil "~a" meanType) (format nil "~a" useCentroid) "-" (format nil "~a" (round (* Alpha 100))) "-" (format nil "~a" oldway) ".txt"))
+        (outputFile nil))
+    (ignore-errors
+        (delete-file outputFileName)
+        )
+    
+    (with-open-file (stream (concatenate `string "proj2/HyperPipes/Data/" dataFileName ".lisp"))
+      (do ((line (read-line stream nil) (read-line stream nil))) ((null line))
+        (incf numberOfLines)
+        )
+      )
+    (setf numberToLearn (ceiling (* numberOfLines learn)))
+    
+    (with-open-file (stream (concatenate `string "proj2/HyperPipes/Data/" dataFileName ".lisp"))
+      (do ((line (read-line stream nil) (read-line stream nil))) ((null line))
+
+        (if (<= currentLine numberToLearn)
+            (let* ((attributeValues (eval (read-from-string line))))
+              (setf MyHyperPipes (AddExperienceNew MyHyperPipes (make-ExperienceInstance :attributes (remove-nth (- (length attributeValues) 1) attributeValues) :class (nth (- (length attributeValues) 1) attributeValues))))
+              )
+            (let* ((attributeValues (eval (read-from-string line)))
+                   (tiedClasses (GetTiedClasses2 MyHyperPipes attributeValues Alpha countType meanType oldway))
+                   (tiedClasses (TrimTiedClasses tiedClasses MyHyperPipes useCentroid))
+                   (successOrFailure (find (nth (- (length attributeValues) 1) attributeValues) tiedClasses))
+                   )
+                                        ;(format t "~%Expected Result: ~a Actual Result: ~a" (nth (- (length attributeValues) 1) attributeValues) tiedClasses)
+              (incf totalChecks)
+              (setf outputFile (open outputFileName :direction :output :if-does-not-exist :create :if-exists :append))
+                                        ;(print tiedClasses)
+              (if (not (null successOrFailure))
+                  (progn
+                    (incf totalRight)
+                    (format outputFile "~a ~a ~a~%" 1 (length tiedClasses) tiedClasses)
+                    )
+                  (format outputFile "~a ~a ~a~%" 0 (length tiedClasses) tiedClasses)
+                  )
+              (close outputFile)
+                                        ;(print successOrFailure)
+              ;(setf MyHyperPipes (AddExperienceNew MyHyperPipes (make-ExperienceInstance :attributes (remove-nth (- (length attributeValues) 1) attributeValues) :class (nth (- (length attributeValues) 1) attributeValues))))
+              )
+            )
+        (incf currentLine)
+        )
+      ;(close outputFile)
+      )
+    ;(print (float (/ totalRight totalChecks)))
+    ;(print Alpha)
+    ;MyHyperPipes
+    (float (/ totalRight totalChecks))
+    
+    )
+
+
+  )
+
 
 (defun GetTiedClasses(MyHyperPipes AttributeValues Alpha)
   (let* ((currentMax most-negative-fixnum)
