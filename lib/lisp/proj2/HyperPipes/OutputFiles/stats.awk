@@ -8,6 +8,7 @@ function main() {
 	while (getline < Filename) {
 		Size++
 	}
+	print Size
 	close(Filename)
 	while (getline < Filename) {
 		if ($1 ~ "1")

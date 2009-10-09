@@ -1,4 +1,3 @@
-'()
 '(october normal gt-norm norm yes same-lst-yr low-areas pot-severe none 90-100 abnorm abnorm absent dna dna absent absent absent abnorm no above-sec-nde brown present firm-and-dry absent none absent norm dna norm absent absent norm absent norm diaporthe-stem-canker)
 '(august normal gt-norm norm yes same-lst-two-yrs scattered severe fungicide 80-89 abnorm abnorm absent dna dna absent absent absent abnorm yes above-sec-nde brown present firm-and-dry absent none absent norm dna norm absent absent norm absent norm diaporthe-stem-canker)
 '(july normal gt-norm norm yes same-lst-yr scattered severe fungicide lt-80 abnorm abnorm absent dna dna absent absent absent abnorm yes above-sec-nde dna present firm-and-dry absent none absent norm dna norm absent absent norm absent norm diaporthe-stem-canker)

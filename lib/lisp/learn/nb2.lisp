@@ -5,7 +5,7 @@
         (wins 0)
         (result 0)
         (won 0)
-        (outputFile (open (concatentate `string "proj2/HyperPipes/OutputFiles/nb-outputFile-" TableSet ".txt") :direction :output :if-does-not-exist :create :if-exists :overwrite)))
+        (outputFile (open (concatenate `string "proj2/HyperPipes/OutputFiles/nb-outputFile-" TableSet ".txt") :direction :output :if-does-not-exist :create :if-exists :overwrite)))
     
     (setf (table-columns trainingSet) (table-columns TableSet))
     (setf (table-class trainingSet) (table-class TableSet))
