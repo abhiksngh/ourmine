@@ -1,0 +1,6 @@
+(defun nb-batch(datafile)
+  (load "miner.lisp")
+  (load (concatenate `string "proj2/HyperPipes/NBData/" (format nil "~a" datafile) ".lisp"))
+  (nb-incremental-test (eval (read-from-string (concatenate `string "("datafile")"))))
+  (quit)
+)

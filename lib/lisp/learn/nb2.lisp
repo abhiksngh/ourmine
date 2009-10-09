@@ -5,7 +5,7 @@
         (wins 0)
         (result 0)
         (won 0)
-        (outputFile (open (concatenate `string "proj2/HyperPipes/OutputFiles/nb-outputFile-" TableSet ".txt") :direction :output :if-does-not-exist :create :if-exists :overwrite)))
+        (outputFile (open (concatenate `string "proj2/HyperPipes/NBOutput/nb-outputFile-" (format nil "~a" (table-name TableSet)) ".txt") :direction :output :if-does-not-exist :create :if-exists :overwrite)))
     
     (setf (table-columns trainingSet) (table-columns TableSet))
     (setf (table-class trainingSet) (table-class TableSet))
@@ -27,7 +27,7 @@
                   (incf wins)
                   (setf won 1)
                   )
-                )            
+                )
             (format outputFile "~a 1 ~a~%" won result)
             (setf won 0)
             )
@@ -35,6 +35,7 @@
       (setf (table-all trainingSet) (append (table-all trainingSet) (list oneEg)))
       (incf count)
       )
+    (close outputFile)
     (/ wins (- count 1))
     )
   
@@ -49,9 +50,10 @@
 	     (want    (eg-class one))
 	     (success (eql got want)))
 	(incf acc (if success 1.0 0.0))
-	(format stream "~a ~a ~a ~a~%"  got want  
-		(round (* 100 (/ acc max)))
-		(if success "   " "<--"))))))
+;	(format stream "~a ~a ~a ~a~%"  got want  
+;		(round (* 100 (/ acc max)))
+;		(if success "   " "<--"))))))
+))))
 
 (defun nb-simple (train test &key (stream t))
   (xindex train)
