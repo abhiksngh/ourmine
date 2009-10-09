@@ -19,13 +19,18 @@
     ;(format t "~A~%" test)
    (nb-num train test)))
 
-(defun test-no-disc-centroid-nb (train)
+(defun test-no-disc-centroid-nb (train &optional (assoc 0))
   (let* ((copy (make-simple-table (table-name train) (table-columns train) (table-egs-to-lists train)))) 
-    (no-disc-centroid-nb (log-data1 copy))))
-                                
+    (no-disc-centroid-nb (log-data1 copy) assoc)))
 
-(defun no-disc-centroid-nb (train &key (stream t))
+(defun disc-centroid-nb (train &optional (assoc 0)))
+  "discretize data and apply naive bayes on centroids"
+  (let* ((train (discretize train)))
+    (test-no-disc-centroid-nb train assoc)))
+
+(defun no-disc-centroid-nb (train &optional (assoc 0) &key (stream t))
   (let* ((acc 0)
+         (gotwant_assoc '())
          (max (length (table-all train)))
          (class (table-class train))
          (lst (split2bins train))
@@ -34,18 +39,21 @@
          (cluster-tables (make-cluster-tables clusters train))
          (cls-means (get-cls-means cluster-tables))
          (test (xindex (car (cdr lst)))))
-    (dolist (test_inst (get-features (table-all test)) (/ acc max))
+    (dolist (test_inst (get-features (table-all test)))
       (let* ((closest-cent (get-closest-centroid test_inst cls-means))
              (closest-cluster (nth closest-cent cluster-tables))
              (want (nth class test_inst))
              (got (bayes-classify-num test_inst  (xindex closest-cluster)))
              (success (equal got want)))
-        (incf acc (if success 1.00 0.00))))))
-                ;(format stream "~A ~A ~A ~A~%"  got want
-                ;(round (* 100 (/ acc max)))
-                ;(if success "    " "<- - -"))))))
-
-
+        (incf acc (if success 1.00 0.00))
+        (if (= assoc 0)
+            (format stream "~A ~A ~A ~A~%"  got want
+                (round (* 100 (/ acc max)))
+                (if success "    " "<- - -")))
+        (setf gotwant_assoc (acons got want gotwant_assoc))))
+    (if (= assoc 0)
+        (/ acc max)
+        (list gotwant_assoc (/ acc max)))))
 
 (defun disc-nb (train)
   "discretize and apply naive bayes"

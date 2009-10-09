@@ -22,7 +22,8 @@
               (log-item (eg-features i) indx))))))
         
 (defun log-item (row pos)
-  (let* ((n (nth pos row)))
+  (let* ((n (nth pos row))
+         (val n))
     (if (not (unknownp n))
         (if (or (= n 1)
                 (= n 0))
