@@ -15,15 +15,15 @@
   (let* ((lst (split2bins train))
          (train (xindex (car lst)))
          (test (xindex (car (cdr lst)))))
-    ;(format t "~A~%"  train)
-    ;(format t "~A~%" test)
+            ;(format t "~A~%"  train)
+            ;(format t "~A~%" test)
    (nb-num train test)))
 
 (defun test-no-disc-centroid-nb (train &optional (assoc 0))
   (let* ((copy (make-simple-table (table-name train) (table-columns train) (table-egs-to-lists train)))) 
     (no-disc-centroid-nb (log-data1 copy) assoc)))
 
-(defun disc-centroid-nb (train &optional (assoc 0)))
+(defun disc-centroid-nb (train &optional (assoc 0))
   "discretize data and apply naive bayes on centroids"
   (let* ((train (discretize train)))
     (test-no-disc-centroid-nb train assoc)))
