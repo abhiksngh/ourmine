@@ -256,6 +256,9 @@
         (totalChecks 0)
         (totalRight 0)
         (outputFileName (concatenate `string "proj2/HyperPipes/OutputFiles/outputFile-" dataFileName (format nil "~a" countType) (format nil "~a" meanType) (format nil "~a" useCentroid) "-" (format nil "~a" (round (* Alpha 100))) "-" (format nil "~a" oldway) ".txt"))
+         
+                                     
+         
         (outputFile nil))
     (ignore-errors
         (delete-file outputFileName)
@@ -307,9 +310,11 @@
          (numberToLearn 1)
          (currentLine 1)
         (outputFileName (concatenate `string "proj2/HyperPipes/OutputFiles/outputFileBATCH-" dataFileName (format nil "~a" countType) (format nil "~a" meanType) (format nil "~a" useCentroid) "-" (format nil "~a" (round (* Alpha 100))) "-" (format nil "~a" oldway) ".txt"))
+         (outputFileName2 (concatenate `string "proj2/HyperPipes/OutputFiles/outputFileBATCH-" dataFileName (format nil "~a" countType) (format nil "~a" meanType) (format nil "~a" useCentroid) "-" (format nil "~a" (round (* Alpha 100))) "-" (format nil "~a" oldway) "-PLOT.txt"))
         (outputFile nil))
     (ignore-errors
         (delete-file outputFileName)
+        (delete-file outputFileName2)
         )
     
     (with-open-file (stream (concatenate `string "proj2/HyperPipes/Data/" dataFileName ".lisp"))
@@ -354,7 +359,10 @@
     ;(print (float (/ totalRight totalChecks)))
     ;(print Alpha)
     ;MyHyperPipes
-    (float (/ totalRight totalChecks))
+    (setf outputFile (open outputFileName2 :direction :output :if-does-not-exist :create :if-exists :append))
+    (format outputFile "~a~%" (float (/ totalRight totalChecks)))
+    (close outputFile)
+    
     
     )
 
