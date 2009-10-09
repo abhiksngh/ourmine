@@ -147,58 +147,48 @@
     (make-array (table-width data) :initial-element nil)
 )
 
-;------------------------------------------------------------------------------
-; CONVERT-VALUES FUNCTION - discretize the passed data and place it into
-;                           the new file 'filename'
-; ARGUMENTS
- ; - INPUT: a set of data, an array of min values, the bin-sizes, filename
- ; - RETURN: N/A
- ; - BYPRODUCT: creates a file 'filename' full of discretized data
+(defun numval1 (data)
+  (let* (eg-set
+         (header (table-columns data))
+         (all-instances (table-all data)))
+    (dolist (per-instance all-instances) ; for every instance
+      (push (mapcar #'numval2
+                    header
+                    (eg-features per-instance))
+            eg-set))
+    (data :name 'log-set
+          :columns (columns-header (table-columns data))
+          :egs eg-set)))
 
-; CONVERT-VALUES ALGORITHM
-; for every instance of data
-;   for every feature of the instance
-;   if the value isn't nil (representing no discretization)
-;     run the value through the discretization function
-;     write the new value to the new file
-;   else
-;     write the original value to the new file
-;------------------------------------------------------------------------------
+
 (defun convert-values (data min-array bin-sizes)
     (let* ((all-instances (table-all data))
-           (str (open "./tmp.dat" :direction :IO
-                                  :if-exists :supersede
-                                  :if-does-not-exist :create))
-           (eg-set))
-    
+           (eg-set) (eg-sub-set))
+
         (dolist (per-instance all-instances)
-            (let* ((all-features (eg-features per-instance)))
-                (format str "(")
-                (doitems (per-feature i all-features)
-                    (if (aref min-array i) 
-                        (format str "~A " (floor (/ (- per-feature (aref min-array i)) (aref bin-sizes i))))
-                        (format str "~A " per-feature)
-                    )
-                )
-            )
-            (format str ")~%")
+;            (doitems (per-feature i (eg-features per-instance))
+;                (if (aref min-array i) 
+;                    (push (floor (/ (- per-feature (aref min-array i)) (aref bin-sizes i))) eg-sub-set)
+;                    (push per-feature eg-set)
+;                )
+;            )
+
+            (push (mapcar #'convert-values2 (eg-features per-instance) (coerce min-array 'list)  (coerce bin-sizes 'list)) eg-set)
+
+            
         )
-
-        ; read all instances from the file and build instance list
-        (loop for line = (read-line str nil :eof)
-              until (eql line :eof)
-            do
-                (push line eg-set)
-        )
-
-        (close str)
-        (delete-file "./tmp.dat") ; clean up tmp file
-
         ; build new data-set
         (data :name 'disc-set
               :columns (columns-header (table-columns data))
               :egs eg-set
         )
+    )
+)
+
+(defun convert-values2 (per-feature array-min bin-size) 
+    (if array-min
+        (floor (/ (- per-feature array-min) bin-size))
+        per-feature
     )
 )
 
