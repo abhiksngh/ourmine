@@ -4,7 +4,7 @@
          (xtable (xindex table))
          (data (table-all xtable))
          (resultHash (make-hash-table))
-         (cozyNeighborList (make-list k :initial-element  (list 0 most-positive-long-float))))
+         (cozyNeighborList))
     ;;Populate a hash table of distances from the instance to all neighbors.
     (setf (nth (1- (length instance)) instance) 0)
     (doitems (per-instance i data)
@@ -15,22 +15,11 @@
            (push (- (nth n instance) per-attribute) distanceList))
          (setf (gethash i resultHash) (eucDistance distanceList))))
     ;;Create a list of the k closest neighbors. Working the Lisp-fu.
-    (print "maphash")
     (maphash #'(lambda (key value)
-                 (print key)
-                 (print value)
-                 (print cozyNeighborList)
-                 (let* ((questionable (first cozyNeighborList)))
-                   (if (and
-                        (< value (second questionable))
-                        (not (= value 0)))
-                       (progn
-                         (setf (first (first cozyNeighborList)) key)
-                         (setf (second (first cozyNeighborList)) value)
-                         (sort cozyNeighborList #'> :key #'second)
-                         )))
-                   )
-             resultHash)))
+                 (if (not(= value 0))
+                 (setf cozyNeighborList (append (list (list key value)) cozyNeighborList))))
+                 resultHash)
+    (sort cozyNeighborList #'< :key #'second)))
 
          
 ;;Super ultra sexy euclidean distance one-liner!!!
