@@ -1,50 +1,50 @@
-%\begin{figure}
-%\begin{figure}
+\begin{figure}
+\begin{figure}
 %\footnotesize
-%\begin{algorithmic}
-%\boutput
-%\ain{performance score}{0 $<=$ score $<=$ 1}{(defined in \S2.7)}
-%\aline
-%\WHILE{$X < numberOfTrials$}
-%\STATE{$tasks := generateTasks(size)$}
-%\STATE{$teams := generateTeams(tasks,teamSize)$}
-%\STATE{$teams.applyDependancy(interDependancy)$}
-%\STATE{$teams.applyCriticality(criticality,modifier)$}
-%\STATE{$stoppingAt := iterationsToComplete (2\; to\; 6)$}
-%\WHILE{$iteration < stoppingAt$}
-%\FORALL{team in teams}
-%\STATE{$team.budget \mbox{+=} (Total Cost / 6)$}
-%\STATE{$AvailableTasks := null$}
-%\FORALL{task in team}
-%\IF{$no Dependencies \&\& no\; Children$}
-%\IF{$not Completed$}
-%\STATE{$AvailableTasks.append(task)$}
-%\ENDIF
-%\ENDIF
-%\ENDFOR
-%\STATE{$AvailableTasks.applySortingPolicy(type)$}
-%\FORALL{task in AvailableTasks}
-%\IF{$budget - task.cost) < 0$}
-%\STATE{$break$}
-%\ELSE
-%\STATE{$budget := budget - task.cost$}
-%\STATE{$task.completed := true$}
-%\ENDIF
-%\ENDFOR
-%\IF{$budget > 0$}
-%\IF{$AvailableTasks\; is\; empty$}
-%\STATE{$budget := 0$}
-%\ENDIF
-%\ENDIF
-%\STATE{$team.discoverNewTasks(\lambda)$}
-%\FORALL{$task \in team$}
-%\STATE{$change := (N(0,\sigma)*culture)$}
-%\STATE{$task.value \mbox{~+=~} (maxTaskValue * change)$}
-%\ENDFOR
-%\ENDFOR
-%\ENDWHILE
-%\ENDWHILE 
-%\end{algorithmic}
-%\caption{POM2 Pseudo Code.}\label{fig:pom2}
-%\end{figure}
-%\end{figure}
+\begin{algorithmic}
+\boutput
+\ain{performance score}{0 $<=$ score $<=$ 1}{(defined in \S2.7)}
+\aline
+\WHILE{$X < numberOfTrials$}
+\STATE{$tasks := generateTasks(size)$}
+\STATE{$teams := generateTeams(tasks,teamSize)$}
+\STATE{$teams.applyDependancy(interDependancy)$}
+\STATE{$teams.applyCriticality(criticality,modifier)$}
+\STATE{$stoppingAt := iterationsToComplete (2\; to\; 6)$}
+\WHILE{$iteration < stoppingAt$}
+\FORALL{team in teams}
+\STATE{$team.budget \mbox{+=} (Total Cost / 6)$}
+\STATE{$AvailableTasks := null$}
+\FORALL{task in team}
+\IF{$no Dependencies \&\& no\; Children$}
+\IF{$not Completed$}
+\STATE{$AvailableTasks.append(task)$}
+\ENDIF
+\ENDIF
+\ENDFOR
+\STATE{$AvailableTasks.applySortingPolicy(type)$}
+\FORALL{task in AvailableTasks}
+\IF{$budget - task.cost) < 0$}
+\STATE{$break$}
+\ELSE
+\STATE{$budget := budget - task.cost$}
+\STATE{$task.completed := true$}
+\ENDIF
+\ENDFOR
+\IF{$budget > 0$}
+\IF{$AvailableTasks\; is\; empty$}
+\STATE{$budget := 0$}
+\ENDIF
+\ENDIF
+\STATE{$team.discoverNewTasks(\lambda)$}
+\FORALL{$task \in team$}
+\STATE{$change := (N(0,\sigma)*culture)$}
+\STATE{$task.value \mbox{~+=~} (maxTaskValue * change)$}
+\ENDFOR
+\ENDFOR
+\ENDWHILE
+\ENDWHILE 
+\end{algorithmic}
+\caption{POM2 Pseudo Code.}\label{fig:pom2}
+\end{figure}
+\end{figure}
