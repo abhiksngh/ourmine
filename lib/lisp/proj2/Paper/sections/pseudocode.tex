@@ -1,45 +1,38 @@
 %\begin{figure}
 \begin{program}
 %\footnotesize
-\begin{algorithmic}\WHILE{$X < numberOfTrials$}
-\STATE{$tasks := generateTasks(size)$}
-\STATE{$teams := generateTeams(tasks,teamSize)$}
-\STATE{$teams.applyDependancy(interDependancy)$}
-\STATE{$teams.applyCriticality(criticality,modifier)$}
-\STATE{$stoppingAt := iterationsToComplete (2\; to\; 6)$}
-\WHILE{$iteration < stoppingAt$}
-\FORALL{team in teams}
-\STATE{$team.budget \mbox{+=} (Total Cost / 6)$}
-\STATE{$AvailableTasks := null$}
-\FORALL{task in team}
-\IF{$no Dependencies \&\& no\; Children$}
-\IF{$not Completed$}
-\STATE{$AvailableTasks.append(task)$}
-\ENDIF
+\begin{algorithmic}
+\STATE{$HyperPipes := array[]$}
+\STATE{$LinesGuessed := 0$}
+\STATE{$LinesGuessedCorrectly := 0$}
+\FORALL{Line in DataFile}
+\IF{$HyperPipes is not empty$}
+\STATE{$LinesGuessed++$}
+\STATE{$BestScore := 0$}
+\STATE{$BestClass := []$}
+\FORALL{HPipe in HyperPipes}
+\STATE{$HPipeScore := 0$}
+\FORALL{Attribute in Line}
+\IF($Attribute.value <= HPipe.Attribute.max && Attribute.value >= HPipe.Attribute.min$}
+\STATE{$HPipeScore++$}
 \ENDIF
 \ENDFOR
-\STATE{$AvailableTasks.applySortingPolicy(type)$}
-\FORALL{task in AvailableTasks}
-\IF{$budget - task.cost) < 0$}
-\STATE{$break$}
+\IF{$HPipeScore >= BestScore$}
+\IF{$HPipeScore := BestScore$}
+\STATE{$BestClass := BestClass + HPipe.class$}
 \ELSE
-\STATE{$budget := budget - task.cost$}
-\STATE{$task.completed := true$}
-\ENDIF
-\ENDFOR
-\IF{$budget > 0$}
-\IF{$AvailableTasks\; is\; empty$}
-\STATE{$budget := 0$}
+\STATE{$BestClass := array(HPipe.class)$}
+\STATE{$BestScore := HPipeScore$}
 \ENDIF
 \ENDIF
-\STATE{$team.discoverNewTasks(\lambda)$}
-\FORALL{$task \in team$}
-\STATE{$change := (N(0,\sigma)*culture)$}
-\STATE{$task.value \mbox{~+=~} (maxTaskValue * change)$}
 \ENDFOR
-\ENDFOR
-\ENDWHILE
-\ENDWHILE 
+\IF{$BestClass contains Line.class$}
+\STATE{$LinesGuessedCorrectly++$}
+\ENDIF
+\ENDIF
+\STATE{$HyperPipes := AddExperience(Line,HyperPipes)$}
+\ENDFOR 
 \end{algorithmic}
-\caption{HyperPipes Pseudo Code.}\label{Pseudocode}\end{program}
+\caption{HyperPipes Pseudo Code.}\label{Pseudocode}
+\end{program}
 %\end{figure}
