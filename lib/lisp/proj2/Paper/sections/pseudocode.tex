@@ -9,7 +9,7 @@
 \ForAll {$Line in DataFile$}
 \If{$HyperPipes is not empty$}
 \State $LinesGuessed++$
-\State $LinesGuessedCorrectly += Classify(MyHyperPipes,Line)$
+\State $LinesGuessedCorrectly \mbox{+=} Classify(MyHyperPipes,Line)$
 \EndIf
 \State $HyperPipes := AddExperience(Line,HyperPipes)$
 \EndFor
