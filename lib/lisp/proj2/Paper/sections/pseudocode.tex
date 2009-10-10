@@ -13,7 +13,7 @@
 \FORALL{HPipe in HyperPipes}
 \STATE{$HPipeScore := 0$}
 \FORALL{Attribute in Line}
-\IF{$Attribute.val <= HPipe.Attribute.max \&\& Attribute.val >= HPipe.Attribute.min$}
+\IF{$Attribute.val <= HPipe.Attribute.max\; \&\&\; Attribute.val >= HPipe.Attribute.min$}
 \STATE{$HPipeScore++$}
 \ENDIF
 \ENDFOR
@@ -26,7 +26,7 @@
 \ENDIF
 \ENDIF
 \ENDFOR
-\IF{$BestClass contains Line.class$}
+\IF{$BestClass\; contains\; Line.class$}
 \STATE{$LinesGuessedCorrectly++$}
 \ENDIF
 \ENDIF
