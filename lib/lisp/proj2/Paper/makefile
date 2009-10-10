@@ -13,4 +13,4 @@ finished:
 	@printf "Output pdf at: $(Out)\n\n"
 
 clean:
-	rm -f *.dvi *.log *.aux
+	rm -f *.dvi *.log *.aux *.pdf
