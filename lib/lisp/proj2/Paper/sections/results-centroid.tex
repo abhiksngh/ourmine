@@ -22,7 +22,7 @@ is chosen as the classification. Pseudocode:
 \ForAll(TestPipe in HyperPipes)
 \If{$MainPipe != TestPipe$}
 \ForAll{Attr in MainPipe}
-\If{$((MainPipe.Attr.min > TestPipe.Attr.min) \&\& (MainPipe.Attr.min < TestPipe.Attr.min)) || ((MainPipe.Attr.max < TestPipe.Attr.max) && (MainPipe.Attr.max > TestPipe.Attr.max))$}
+\If{$((MainPipe.Attr.min > TestPipe.Attr.min) \&\& (MainPipe.Attr.min < TestPipe.Attr.min)) || ((MainPipe.Attr.max < TestPipe.Attr.max) \&\& (MainPipe.Attr.max > TestPipe.Attr.max))$}
 \State {$CurrentPipeScore++$}
 \EndIf
 \EndFor
