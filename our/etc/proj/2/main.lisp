@@ -4,7 +4,8 @@
 ;
 ; Defun learn (use template from project definition).
 ;(format t "Loading files~a");
-(load "lib/miner")
+(load "miner")
+(load "modules/bore")
 
 
 ;(defun learn (&key (k 8)
