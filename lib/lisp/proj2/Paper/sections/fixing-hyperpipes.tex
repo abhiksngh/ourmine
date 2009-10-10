@@ -16,11 +16,12 @@ hyperpipes now states that if the score is greater than the
 best score set the best class to an array containing only the 
 current class. If the current score is equal to the best score 
 then append the current class to the list of best classes.
+
+
 \subsubsection{Fixing Over Fitting}
 As described previously Hyperpipes has an over fitting issue 
 when it learns too much. While we have no implemented these 
 potential fixes our possible solutions are described below:
-
 \begin{enumerate}
 \item Limit Number of Rows To Be Learned: 
 	It might be effective to simply limit the number of rows 
@@ -49,9 +50,25 @@ does is it changes the scoring mechanism. In the pseudocode for
 Classify you will notice that it returns 1 if the current attribute 
 value falls within the range of that given by the HyperPipe for that 
 Attribute. The Weighted Means changes the 1 to a number between 0 
-and 1 which represents the distance from the mean but still falls 
-in the range.
-\item Slowly Changing Ranges
-\item Outlier Detection Algorithms
+and 1 which represents the distance from the mean within the range. 
+Two versions of this are explained further in Section 5.
+\item Slowly Changing Ranges: This fix has not been implemented. 
+This fix involves setting up some way of expanding the ranges more 
+slowly for instance, if you encounter a value lower than the current 
+min instead of setting the min to the current value set the min 
+according to some calculation that accounts for the frequency of 
+numbers lower than the current min.
+\item Outlier Detection Algorithms: This fix has not been implemented. 
+There are numerous proven outlier detection algorithms which could be 
+used to attempt to detect outliers as we encounter them.
 \end{enumerate}
+
+
 \subsubsection{Fixing Memory Management}
+As explained above the old HyperPipes implementation needs information 
+on the entire dataset for intialization. We saw value in making 
+HyperPipes work on an ever changing stream of data. We implemented this 
+by intializing our set of HyperPipes to an empty array. As new classes 
+are discovered a new HyperPipe is created for that class and appended 
+to the HyperPipes array. This allows us to use a straight datafile with 
+just columns of data and no header information. 
