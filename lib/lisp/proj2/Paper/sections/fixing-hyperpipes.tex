@@ -1,4 +1,42 @@
-\emph{Plumbing reference}
-
-Explain appending fix
-
+\subsubsection{Fixing Tied Classes}
+When it was discovered that HyperPipes tended to choose classes 
+towards the end of the classes list we investigated further to 
+find that many classes were tieing against other classes. We 
+then decided that this was unacceptable. Overwriting a class 
+with another class of the same score puts a large emphasis on 
+the order in which you score the classes. For this issue we 
+decided to temporarily throw away the idea of classification 
+and modified the code to return any classes who tied. This 
+simple modification proved to us that this issue alone was a 
+major factor in HyperPipes demise when put up against other 
+classifiers. To recap the original hyperpipes said that if 
+the current score is equal to or greater than the best score 
+set the best class to the current class. After modification 
+hyperpipes now states that if the score is greater than the 
+best score set the best class to an array containing only the 
+current class. If the current score is equal to the best score 
+then append the current class to the list of best classes.
+\subsubsection{Fixing Over Fitting}
+As described previously Hyperpipes has an over fitting issue 
+when it learns too much. While we have no implemented these 
+potential fixes our possible solutions are described below:
+\begin{itemize}
+	\item{Limit Number of Rows To Be Learned}
+	It might be effective to simply limit the number of rows 
+	that HyperPipes will use when doing its learning. This 
+	number of rows might be calculated based on the number 
+	classes and it may also require that this limit be 
+	evenly distributed across all classes.
+	\item{Detect Overfitting by Class Overlap}
+	It may be possible to detect over-fitting by determining 
+	the amount of overlap between classes. In other words, 
+	if the number of attributes in a HyperPipe reaches a 
+	certain level we could say that we should not modify our 
+	HyperPipes with the information learned in this new line
+	as it would cause too much overlap between classes.
+	\item{weighted distance}
+	\item{centroids via overlap}
+	\item{increasing alpha}
+\end{itemize}
+\subsubsection{Fixing Outliers}
+\subsubsection{Fixing Memory Management}
