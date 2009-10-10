@@ -7,8 +7,8 @@
 \State $LinesGuessed := 0$
 \State $LinesGuessedCorrectly := 0$
 \ForAll {$Line in DataFile$}
-\State $LinesGuessed++$
-\State $LinesGuessedCorrectly \mbox{+=} Classify(MyHyperPipes,Line)$
+\State $Guessed++$
+\State $GuessedCorrectly \mbox{+=} Classify(MyHyperPipes,Line)$
 \State $HyperPipes := AddExperience(Line,HyperPipes)$
 \EndFor
 \State $Accuracy := LinesGuessedCorrectly/LinesGuessed$
