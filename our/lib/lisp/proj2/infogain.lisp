@@ -116,9 +116,9 @@
 	     (rainy mild high TRUE no)))
 
 (setf weather-num '(
-		     (2 0 6 2 yes)
-		     (0 8 0 0 yes)
-		     (0 1 3 3 no)
-		     (0 0 4 2 yes)
+		     (2.0 0 6 2 yes)
+		     (0 8.7 0 0.1 yes)
+		     (0 1 3.1 3 no)
+		     (0 0 4 nil yes)
 		     (2 0 0 2 no)
-		     (3 1 4 2 yes)))
+		     (3 1 4.01 2 yes)))

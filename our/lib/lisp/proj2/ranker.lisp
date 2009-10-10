@@ -9,8 +9,8 @@
     (dolist (sortedrank attranks)
       (setf current 0)
       (dolist (rank orig)
-	(if (and (equal sortedrank rank)
-		 (not (contains used rank)))		
+	(if (and (equal sortedrank rank))
+		 ;(not (contains used rank)))		
 	    (progn ()
 		   (setf used (append used (list rank)))
 		   (setf keepcols (append keepcols (list current)))))
@@ -42,9 +42,10 @@
   (multiple-value-bind (colnums insts)
       (rank-via-infogain (table-egs-to-lists table) n)
     (let ((cols))
+      (setf colnums (remove-duplicates colnums))
       (dolist (col colnums)
         (setf cols (append cols (list (nth col (table-columns table))))))
-      (make-desc-table 'infogain-res-table cols insts))))
+      (make-simple-table 'infogain-res-table cols insts))))
     
     
 

@@ -66,26 +66,33 @@
            (cluster-tables (make-cluster-tables clusters train))
            (cls-means (get-cls-means cluster-tables))
            (test (xindex (car (cdr lst)))))
-      (dolist (test_inst (get-features (table-all test)))
-        (let* ((closest-cent (get-closest-centroid test_inst cls-means))
-               (closest-cluster (nth closest-cent cluster-tables))
-               (want (nth class test_inst))
-               (got (bayes-classify-num test_inst  (xindex (infogain-table closest-cluster n))))
-               (success (equal got want)))
-          (incf acc (if success 1.00 0.00))
-          (if (= assoc 0)
-              (format stream "~A ~A ~A ~A~%"  got want
-                      (round (* 100 (/ acc max)))
-                      (if success "    " "<- - -")))
-          (setf gotwant_assoc (acons got want gotwant_assoc))))
-      (if (= assoc 0)
-          (/ acc max)
-          (list gotwant_assoc (/ acc max)))))
-
+      (dolist (one cluster-tables)
+          ;(format t "~A~%"  cls-means)
+          ;(format t "~A~%" one)
+          ;(return-from disc-infogain-centroid-nb)))))
+          (infogain-table (xindex one) n))))
+          ;(return-from disc-infogain-centroid-nb)))))
+        
+(defun debug-cls (train)
+  (let* ((cluster-table (make-cluster-tables (k-means train) train)))
+    (format t "~A~%" (length cluster-table))
+      ;(format t "~A~%" (car cluster-table))
+      (format t "~A~%" (get-features (table-all (discretize (car cluster-table)))))
+      (rank-via-infogain (get-features (table-all (discretize (car cluster-table)))))))
 
 (defun disc-nb (train)
   "discretize and apply naive bayes"
   (no-disc-nb (discretize train)))
+
+(setf lst '((9 7 0 0 7 9 1 8 4 7 4 9 0 0 0 2 9 9 7 FALSE)
+            (0 0 0 0 5 9 0 23 0 5 0 0 3 0 4 8 4 6 0 TRUE)
+            (6 2 1 1 3 9 2 5 2 3 2 6 9 0 4 4 4 4 2 TRUE)
+            (0 0 0 0 0 9 2 3 0 0 0 0 5 0 3 1 0 2 0 FALSE)
+            (3 0 0 0 7 9 2 7 5 7 5 3 7 0 3 4 8 7 0 TRUE)
+            (5 7 9 7 6 9 2 7 5 6 5 4 0 9 4 6 7 6 7 FALSE)
+            (2 3 3 1 0 0 23 0 23 0 23 1 0 6 9 0 1 1 2 FALSE)
+            (0 7 5 3 0 0 4 2 1 0 1 0 0 0 6 0 3 0 7 FALSE)
+            (5 9 3 9 9 9 2 9 8 23 8 5 0 4 5 9 9 9 9 FALSE)))
          
       
                      
