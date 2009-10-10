@@ -1,4 +1,4 @@
-\SubSubSection{Tied Classes}
+\subsubsection{Tied Classes}
 During development of the original HyperPipes implementation it was noted 
 that the code only kept track of the most recently seen class with a score 
 equal to or greater than the largest score seen to that point. This means
@@ -6,7 +6,7 @@ that when running HyperPipes if multiple classes tied in score the class
 tested last would be blindly chosen. We found that this anomoly caused our 
 HyperPipes implementation to prefer the last classes discovered once it 
 learns many rows.
-\SubSubSection{Susceptible to Over Fitting}
+\subsubsection{Susceptible to Over Fitting}
 HyperPipes has the ability to have very low overhead costs in terms of 
 memory. However, this benefit is overshadowed by HyperPipes susceptibility 
 to overfitting. As more and more rows are added as experience to a HyperPipe 
@@ -17,7 +17,7 @@ HyperPipe expand the scores become very high and the likelyhood of
 encountering the issue in the previous sub-section becomes greater. That is, 
 as each of the HyperPipes expand their min and max attribute values start to 
 become so similar to eachother that they all begin to acheive common scores.
-\SubSubSection{Outliers Ruin Scoring}
+\subsubsection{Outliers Ruin Scoring}
 As shown in the AddExperience function pseudocode a HyperPipe contains a set 
 of bounds for each attribute. These bounds indicate the min and a max value 
 ever seen for this attribute for this class. This becomes a problem when an 
@@ -28,7 +28,7 @@ if this is the only time a number this large is encountered for this class.
  You have now expanded this HyperPipe to a max so large that this attribute 
 loses its ability to classify (It always matched on this attribute for this 
 class).
-\SubSubSection{Memory Management}
+\subsubsection{Memory Management}
 The original HyperPipes required prior knowledge of the dataset. In other 
 words it created all of the necessary HyperPipes at the beginning and 
 modified them as it went through the dataset. This means that if a new class 
