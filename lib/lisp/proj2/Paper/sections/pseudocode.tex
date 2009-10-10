@@ -2,6 +2,7 @@
 \begin{program}
 %\footnotesize
 \begin{algorithmic}
+\Procedure {RunHyperPipes}{$Nothing$}
 \State $HyperPipes := array[]$
 \State $LinesGuessed := 0$
 \State $LinesGuessedCorrectly := 0$
@@ -32,6 +33,7 @@
 \EndIf
 \State $HyperPipes := AddExperience(Line,HyperPipes)$
 \EndFor
+\EndProcedure
 \end{algorithmic}
 \caption{HyperPipes Pseudo Code.}\label{Pseudocode}
 \end{program}
