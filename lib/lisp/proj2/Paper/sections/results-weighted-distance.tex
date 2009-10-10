@@ -17,7 +17,7 @@ were discussed and they are as follows:
 \item Weighted Distance From Mean 1: In this calculation it was 
 decided that the distance from mean should be calculated as:
 \begin{equation}
-  DistFromMean=\frac{(Max-Min)-|(Mean-Val)|}{(Max-Min)}
+  WghtDist=\frac{(Max-Min)-|(Mean-Val)|}{(Max-Min)}
 \end{equation}
 where Max, Min, and Mean are the max, min, and mean values for 
 the attribute in the HyperPipe for the class currenlty being 
@@ -29,7 +29,7 @@ method is slightly different from the one above:
   BigGap = max((Max-Mean),(Mean-Min))
 \end{equation}
 \begin{equation}
-  DistFromMean=\frac{(BigGap)-|(Mean-Val)|}{(BigGap)}
+  WghtDist=\frac{(BigGap)-|(Mean-Val)|}{(BigGap)}
 \end{equation}
 where Max, Min, and Mean are the max, min, and mean values for 
 the attribute in the HyperPipe for the class currenlty being 
