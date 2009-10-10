@@ -39,4 +39,19 @@ potential fixes our possible solutions are described below:
 
 
 \subsubsection{Fixing Outliers}
+We have implemented some fixes to the problem of outliers. 
+However, there are many other outlier fixing strategies that have 
+not been implemented. Below is a list of our outlier fixing 
+strategies and thier implemtation status:
+\begin{enumerate}
+\item Weighted Means: This fix has been implemented. What this fix 
+does is it changes the scoring mechanism. In the pseudocode for 
+Classify you will notice that it returns 1 if the current attribute 
+value falls within the range of that given by the HyperPipe for that 
+Attribute. The Weighted Means changes the 1 to a number between 0 
+and 1 which represents the distance from the mean but still falls 
+in the range.
+\item Slowly Changing Ranges
+\item Outlier Detection Algorithms
+\end{enumerate}
 \subsubsection{Fixing Memory Management}
