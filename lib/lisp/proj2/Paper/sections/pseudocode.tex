@@ -13,7 +13,7 @@
 \FORALL{HPipe in HyperPipes}
 \STATE{$HPipeScore := 0$}
 \FORALL{Attribute in Line}
-\IF{$Attr.val <= HPipe.Attr.max\; \&\&\; Attr.val >= HPipe.Attr.min$}
+\IF{$Attr <= HPipe.Attr.max\; \&\&\; Attr >= HPipe.Attr.min$}
 \STATE{$HPipeScore++$}
 \ENDIF
 \ENDFOR
