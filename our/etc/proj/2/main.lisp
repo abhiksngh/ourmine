@@ -4,24 +4,8 @@
 ;
 ; Defun learn (use template from project definition).
 ;(format t "Loading files~a");
+(load "lib/miner")
 
-(defparameter *files* '("../../../lib/lisp/tests/deftest"
-			"../../../lib/lisp/tricks/normal"))
-
-(defun make1 (files)
-  (let ((n 0))
-    (dolist (file files)  
-      (format t ";;;; ~a.lisp~%"  file)
-      (incf n)
-      (load file))
-    (format t ";;;; ~a files loaded~%" n)))
-
-(defun make (&optional (verbose nil))
-  (if verbose
-      (make1 *files*)
-      (handler-bind
-          ((style-warning #'muffle-warning))
-        (make1 *files*))))
 
 ;(defun learn (&key (k 8)
 	;      (prep #'bore)
@@ -39,5 +23,5 @@
 ;    )
 
 
-(format t "Loading Files~%")
-(make)
+(load "../../../lib/lisp/tests/data/quake")
+(bore (quake) '(focal_depth))
