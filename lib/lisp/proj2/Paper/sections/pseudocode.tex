@@ -43,7 +43,7 @@
 \begin{program}
 
 \begin{algorithmic}
-%\Procedure blah
+\Procedure {Classify}{$HyperPipes$,$Line$,$LinesGuessed$,$LinesGuessedCorrectly$}
 \If{$HyperPipes\; is\; not\; empty$}
 \State{$LinesGuessed++$}
 \State{$BestScore := 0$}
@@ -68,7 +68,7 @@
 \State{$LinesGuessedCorrectly++$}
 \EndIf
 \EndIf
-
+\EndProcedure
 \end{algorithmic}
 \caption{HyperPipes Classify Pseudo Code.}\label{PseudocodeClass}
 \end{program}
