@@ -26,10 +26,10 @@ classified.
 \item Weighted Distance From Mean 2: The calculation in this 
 method is slightly different from the one above:
 \begin{equation}
-  LargestGap = max((Max-Mean),(Mean-Min))
+  BigGap = max((Max-Mean),(Mean-Min))
 \end{equation}
 \begin{equation}
-  DistFromMean=\frac{(LargestGap)-|(Mean-Val)|}{(LargestGap)}
+  DistFromMean=\frac{(BigGap)-|(Mean-Val)|}{(BigGap)}
 \end{equation}
 where Max, Min, and Mean are the max, min, and mean values for 
 the attribute in the HyperPipe for the class currenlty being 
@@ -40,4 +40,3 @@ classified.
 
 
 graph of weighted distance classification accuracy
-
