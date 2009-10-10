@@ -20,14 +20,13 @@
 
 
 \begin{program}
-
 \begin{algorithmic}
 \Procedure {Classify}{$HyperPipes$,$Line$}
 \State{$BestScore := 0$}
 \State{$BestClass := []$}
 \ForAll{HPipe in HyperPipes}
 \State{$HPipeScore := 0$}
-\ForAll{Attribute in Line}
+\ForAll{Attr in Line}
 \If{$Attr <= HPipe.Attr.max\; \&\&\; Attr >= HPipe.Attr.min$}
 \State{$HPipeScore++$}
 \EndIf
@@ -45,6 +44,23 @@
 \State \Return 1
 \EndIf
 \State \Return 0
+\EndProcedure
+\end{algorithmic}
+\caption{HyperPipes Classify Pseudo Code.}\label{PseudocodeClass}
+\end{program}
+
+\begin{program}
+\begin{algorithmic}
+\Procedure {AddExperience}{$HyperPipes$,$Line$}
+\State{$CurrentPipe := FindPipe(Line.class,HyperPipes)$}
+\If{$null\; CurrentPipe$}
+\State{$HyperPipes := HyperPipes + CreateHyperPipe(Line.class)$}
+\State{$CurrentPipe := FindPipe(Line.class,HyperPipes)$}
+\EndIf
+\ForAll{Attr in Line}
+\State{$CurrentPipe.max := max(CurrentPipe.max,Attr)$}
+\State{$CurrentPipe.min := min(CurrentPipe.min,Attr)$}
+\EndFor
 \EndProcedure
 \end{algorithmic}
 \caption{HyperPipes Classify Pseudo Code.}\label{PseudocodeClass}
