@@ -6,10 +6,10 @@
          (class-column-number (table-class dataset))
          (table-data (get-features (table-all dataset)))
          (counter 0)
-         (intel (get-intel dataset class-column-number table-data bins)))
+         (intel (get-intel dataset class-column-number table-data bins)))    
     (dolist (instance table-data (make-desc-table (table-name dataset) (table-columns dataset) table-data))
       (setf counter 0)
-      (dolist (item instance)
+      (dolist (item instance)        
         (if (not (eq counter class-column-number))
             (progn
               (setf (nth counter instance) (which-bin (nth counter intel) item))
@@ -43,12 +43,12 @@
 
 (defun get-intel (dataset class-column-number table-data &optional (bins 10))
   (let* ((intel '()))
-    (dotimes (n (- (length (car table-data)) 1)(reverse  intel))
+    (dotimes (n (- (length (car table-data)) 1) (reverse intel))
       (if (not (eq n class-column-number))
           (progn
             (let* ((maxmin (get-col-maxmin dataset n))
-                   (max (first maxmin))
-                   (min (second maxmin)))
+                   (max (float (first maxmin)))
+                   (min (float (second maxmin))))
               (setf intel (cons (create-bucket-info max min bins) intel))))))))
 
 (defun create-bucket-info (max min bins)
@@ -56,7 +56,7 @@
    this is used to determine the bin which a value falls in"
   (let* ((bucket)
          (range (- max min))
-         (bin-range (/ range bins))
+         (bin-range (/ range (- bins 1)))
          (low min)
          (high (+ min bin-range)))
     (dotimes (n bins (reverse bucket))
@@ -67,11 +67,16 @@
 
 (defun which-bin (bucket-info val)
   "takes a bucket-info list and a val and retuns the bin # which the value falls in"
-  (let* ((count 0))
+  (let* ((count 0)
+         (rg))
     (dolist (range bucket-info)
+      (setf rg range)
       (if (and (>= val (car range)) (<= val (cdr range)))
-          (return (values count range))
+          (return-from which-bin (values count range))
           (incf count)))))
+
+
+  
     
 
 
