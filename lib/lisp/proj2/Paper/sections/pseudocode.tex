@@ -30,10 +30,43 @@
 \STATE{$LinesGuessedCorrectly++$}
 \ENDIF
 \ENDIF
-\COMMENT{$Add Experience to the HyperPipes$}
+
 \STATE{$HyperPipes := AddExperience(Line,HyperPipes)$}
 \ENDFOR 
 \end{algorithmic}
 \caption{HyperPipes Pseudo Code.}\label{Pseudocode}
+\end{program}
+%\end{figure}
+
+%\begin{figure}
+\begin{program}
+%\footnotesize
+\begin{algorithmic}
+\IF{$HyperPipes is not empty$}
+\STATE{$LinesGuessed++$}
+\STATE{$BestScore := 0$}
+\STATE{$BestClass := []$}
+\FORALL{HPipe in HyperPipes}
+\STATE{$HPipeScore := 0$}
+\FORALL{Attribute in Line}
+\IF{$Attr <= HPipe.Attr.max\; \&\&\; Attr >= HPipe.Attr.min$}
+\STATE{$HPipeScore++$}
+\ENDIF
+\ENDFOR
+\IF{$HPipeScore >= BestScore$}
+\IF{$HPipeScore := BestScore$}
+\STATE{$BestClass := BestClass + HPipe.class$}
+\ELSE
+\STATE{$BestClass := array(HPipe.class)$}
+\STATE{$BestScore := HPipeScore$}
+\ENDIF
+\ENDIF
+\ENDFOR
+\IF{$BestClass\; contains\; Line.class$}
+\STATE{$LinesGuessedCorrectly++$}
+\ENDIF
+\ENDIF
+\end{algorithmic}
+\caption{HyperPipes Classify Pseudo Code.}\label{PseudocodeClass}
 \end{program}
 %\end{figure}
