@@ -4,14 +4,14 @@
 \begin{algorithmic}
 \Procedure {RunHyperPipes}{$Nothing$}
 \State $HyperPipes := array[]$
-\State $LinesGuessed := 0$
-\State $LinesGuessedCorrectly := 0$
+\State $Guessed := 0$
+\State $GuessedCorrect := 0$
 \ForAll {$Line in DataFile$}
 \State $Guessed++$
-\State $GuessedCorrectly \mbox{+=} Classify(MyHyperPipes,Line)$
+\State $GuessedCorrect \mbox{+=} Classify(MyHyperPipes,Line)$
 \State $HyperPipes := AddExperience(Line,HyperPipes)$
 \EndFor
-\State $Accuracy := LinesGuessedCorrectly/LinesGuessed$
+\State $Accuracy := GuessedCorrect/Guessed$
 \EndProcedure
 \end{algorithmic}
 \caption{HyperPipes Pseudo Code.}\label{Pseudocode}
