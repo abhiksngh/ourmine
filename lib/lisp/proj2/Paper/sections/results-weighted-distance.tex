@@ -10,7 +10,7 @@ were discussed and they are as follows:
 In this calculation it was decided that the distance from mean 
 should be calculated as:
 \begin{equation}
-  DistFromMean=\frac{(Max-Min)-\abs{(Mean-Val)}}{(Max-Min)}
+  DistFromMean=\frac{(Max-Min)-|(Mean-Val)|}{(Max-Min)}
 \end{equation}
 where Max, Min, and Mean are the max, min, and mean values for 
 the attribute in the HyperPipe for the class currenlty being 
@@ -19,7 +19,7 @@ classified.
 \subsubsection{Weighted Distance From Mean 2}
 \begin{equation}
   LargestGap = max((Max-Mean),(Mean-Min))
-  DistFromMean=\frac{(LargestGap)-\abs{(Mean-Val)}}{(LargestGap)}
+  DistFromMean=\frac{(LargestGap)-|(Mean-Val)|}{(LargestGap)}
 \end{equation}
 where Max, Min, and Mean are the max, min, and mean values for 
 the attribute in the HyperPipe for the class currenlty being 
