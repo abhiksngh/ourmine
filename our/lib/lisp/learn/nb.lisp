@@ -1,7 +1,7 @@
-(defun nb (train test &key (stream t))
+(defun nb-original (train test &key (stream t))
   (let* ((acc 0)
-        (all  (table-all test))
-        (max  (length all)))
+         (all  (table-all test))
+         (max  (length all)))
     (dolist (one all (/ acc max))
       (let* ((got     (bayes-classify (eg-features one) (xindex train)))
              (want    (eg-class one))
@@ -10,6 +10,26 @@
         (format stream "~a ~a ~a ~a~%"  got want  
                 (round (* 100 (/ acc max)))
                 (if success "   " "<--"))))))
+
+(defun nb (train test &optional (assoc 0) (stream t))
+  "modified version of nb - allows you to either output to the stream or return as assoc list"
+  (let* ((acc 0)
+         (all  (table-all test))
+         (max  (length all))
+         (gotwants '()))
+    (dolist (one all)
+      (let* ((got     (bayes-classify (eg-features one) (xindex train)))
+             (want    (eg-class one))
+             (success (eql got want)))
+        (incf acc (if success 1.0 0.0))
+        (if (= assoc 0)
+            (format stream "~a ~a ~a ~a~%"  got want  
+                    (round (* 100 (/ acc max)))
+                    (if success "   " "<--"))
+            (setf gotwants (append gotwants (list (append (list want) got)))))))
+    (if (= assoc 0)
+        (/ acc max)
+        (values gotwants (/ acc max)))))
 
 (defun nb-simple (train test &key (stream t))
   (xindex train)
