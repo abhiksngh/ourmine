@@ -20,23 +20,20 @@ then append the current class to the list of best classes.
 As described previously Hyperpipes has an over fitting issue 
 when it learns too much. While we have no implemented these 
 potential fixes our possible solutions are described below:
-\begin{itemize}
-	\item{Limit Number of Rows To Be Learned}
+
+\subsubsubsection{Limit Number of Rows To Be Learned}
 	It might be effective to simply limit the number of rows 
 	that HyperPipes will use when doing its learning. This 
 	number of rows might be calculated based on the number 
 	classes and it may also require that this limit be 
 	evenly distributed across all classes.
-	\item{Detect Overfitting by Class Overlap}
+\subsubsubsection{Detect Overfitting by Class Overlap}
 	It may be possible to detect over-fitting by determining 
 	the amount of overlap between classes. In other words, 
 	if the number of attributes in a HyperPipe reaches a 
 	certain level we could say that we should not modify our 
 	HyperPipes with the information learned in this new line
 	as it would cause too much overlap between classes.
-	\item{weighted distance}
-	\item{centroids via overlap}
-	\item{increasing alpha}
-\end{itemize}
+\item{weighted distance}
 \subsubsection{Fixing Outliers}
 \subsubsection{Fixing Memory Management}
