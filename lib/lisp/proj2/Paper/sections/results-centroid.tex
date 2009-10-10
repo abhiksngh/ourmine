@@ -21,7 +21,7 @@ is chosen as the classification. Pseudocode:
 \State{$CurrentPipeScore := 0$}
 \ForAll(TestPipe in HyperPipes)
 \If{$MainPipe != TestPipe$}
-\ForAll(Attr in MainPipe)
+\ForAll{Attr in MainPipe}
 \If{$((MainPipe.Attr.min > TestPipe.Attr.min) && (MainPipe.Attr.min < TestPipe.Attr.min)) || ((MainPipe.Attr.max < TestPipe.Attr.max) && (MainPipe.Attr.max > TestPipe.Attr.max))$}
 \State {$CurrentPipeScore++$}
 \EndIf
