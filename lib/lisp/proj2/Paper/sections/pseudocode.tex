@@ -40,36 +40,36 @@
 %\end{figure}
 
 
-%\begin{program}
+\begin{program}
 
-%\begin{algorithmic}
+\begin{algorithmic}
 %\Procedure blah
-%\If{$HyperPipes\; is\; not\; empty$}
-%\State{$LinesGuessed++$}
-%\State{$BestScore := 0$}
-%\State{$BestClass := []$}
-%\ForAll{HPipe in HyperPipes}
-%\State{$HPipeScore := 0$}
-%\ForAll{Attribute in Line}
-%\If{$Attr <= HPipe.Attr.max\; \&\&\; Attr >= HPipe.Attr.min$}
-%\State{$HPipeScore++$}
-%\EndIf
-%\EndFor
-%\If{$HPipeScore >= BestScore$}
-%\If{$HPipeScore := BestScore$}
-%\State{$BestClass := BestClass + HPipe.class$}
-%\Else
-%\State{$BestClass := array(HPipe.class)$}
-%\State{$BestScore := HPipeScore$}
-%\EndIf
-%\EndIf
-%\EndFor
-%\If{$BestClass\; contains\; Line.class$}
-%\State{$LinesGuessedCorrectly++$}
-%\EndIf
-%\EndIf
+\If{$HyperPipes\; is\; not\; empty$}
+\State{$LinesGuessed++$}
+\State{$BestScore := 0$}
+\State{$BestClass := []$}
+\ForAll{HPipe in HyperPipes}
+\State{$HPipeScore := 0$}
+\ForAll{Attribute in Line}
+\If{$Attr <= HPipe.Attr.max\; \&\&\; Attr >= HPipe.Attr.min$}
+\State{$HPipeScore++$}
+\EndIf
+\EndFor
+\If{$HPipeScore >= BestScore$}
+\If{$HPipeScore := BestScore$}
+\State{$BestClass := BestClass + HPipe.class$}
+\Else
+\State{$BestClass := array(HPipe.class)$}
+\State{$BestScore := HPipeScore$}
+\EndIf
+\EndIf
+\EndFor
+\If{$BestClass\; contains\; Line.class$}
+\State{$LinesGuessedCorrectly++$}
+\EndIf
+\EndIf
 
-%\end{algorithmic}
-%\caption{HyperPipes Classify Pseudo Code.}\label{PseudocodeClass}
-%\end{program}
+\end{algorithmic}
+\caption{HyperPipes Classify Pseudo Code.}\label{PseudocodeClass}
+\end{program}
 
