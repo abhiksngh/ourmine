@@ -25,4 +25,4 @@
 
 
 (load "../../../lib/lisp/tests/data/quake")
-(bore (quake) '(focal_depth))
+(bore (quake) '($latitude))

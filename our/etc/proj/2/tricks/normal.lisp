@@ -28,6 +28,11 @@
     (* (/ (* (sqrt (* 2 pi)) sigma))
        (exp (* (- (/ (* 2 (square sigma)))) (square (- x mu)))))))
 
+(defmethod normalize ((n normal) x)
+  (let ((normalized 0))
+    (setf normalized (/ (- x (normal-min n)) (- (normal-max n) (normal-min n))))
+    normalized))
+
 (deftest test-normal ()
   (let ((n (make-normal)))
     (dolist (x '( 1 2 3 4 5 4 3 2 1))
