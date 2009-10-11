@@ -16,14 +16,20 @@
 ; splits a data-set into 10 bins, and preserves class distribution in
 ; bins.  Then builds a test-set from 10% of the data, and train-set from
 ; the remaining 90%
-(defun bins (data-set &optional (nbins 10))
-    (let* ((n-instances (negs data-set))
+(defun bins (data)
+    (let* ((n-instances (negs data))
            (test-set)  
            (train-set)
-           (classes (table-all (sort-table data-set))) ; sorted data-set by class
-           (per-bin (ceiling (/ n-instances nbins))) ; # of instances per bin
-           (filled-bins (fill-bins classes nbins per-bin)))
-       (return-bins data-set filled-bins per-bin)
+
+           ; sort the instances of the table by class value
+           (classes (table-all (sort-table data))) 
+           (per-bin (ceiling (/ n-instances 10))) ; # of instances per bin
+
+           ; fill the bins with the instances evenly 
+           (filled-bins (fill-bins classes 10 per-bin)))
+       
+       ; create train/test data sets out of each bin
+       (return-bins data filled-bins per-bin)
     )
 )
 
@@ -61,19 +67,24 @@
           (start 0) 
           (end))
 
+        ; find the number of instances in the bin
         (loop for i from 1 to max-per
             do
                 (when (aref filled-bins per-bin bin-num) 
                     (incf per-bin)
                 )
         )
-
+        
+        ; if testing, use first 10% of data
         (setf end (floor (/ per-bin 10)))
 
+        ; if not testing, use remaining 90%
         (when (not test)
             (setf start end)
             (setf end (- per-bin 1))
         )
+
+        ; push the instances onto a list
         (loop for row from start to end
             do
                 (push (eg-features (aref filled-bins row bin-num)) eg-set)
@@ -82,6 +93,7 @@
     )
 )
 
+; create train/test data sets for each bin 
 (defun return-bins (data-set filled-bins per-bin)
         (values 
             (data :name 'bin0-test 

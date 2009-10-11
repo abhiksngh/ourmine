@@ -15,7 +15,7 @@
         (setf dataSet (funcall discretizer dataSet))
         (multiple-value-bind (train test) (funcall dataSplitFunc dataSet)
             (multiple-value-bind (trueClass falseClass) (funcall classify train test)
-           (format nil "~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a" prep rowReducer discretizer classify 'TRUE (first trueClass) (second trueClass) (third trueClass) (fourth trueClass)
+            (format nil "~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a" prep rowReducer discretizer classify 'TRUE (first trueClass) (second trueClass) (third trueClass) (fourth trueClass)
                    (acc (first trueClass)
                         (second trueClass)
                         (third trueClass)
@@ -40,6 +40,7 @@
                       (second trueClass)
                       (third trueClass)
                       (fourth trueClass)))
+
            (format nil "~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a" prep rowReducer discretizer classify 'FALSE (first falseClass) (second falseClass) (third falseClass) (fourth falseClass)
                    (acc (first falseClass)
                         (second falseClass)
