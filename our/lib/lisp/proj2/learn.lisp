@@ -19,18 +19,21 @@
             ;(format t "~A~%" test)
    (nb-num train test)))
 
-(defun test-no-disc-centroid-nb (train &optional (assoc 0))
+(defun test-no-disc-centroid-nb (train)
   (let* ((copy (make-simple-table (table-name train) (table-columns train) (table-egs-to-lists train)))) 
-    (no-disc-centroid-nb (log-data1 copy) assoc)))
+    (no-disc-centroid-nb (log-data1 copy))))
+
+(defun test-disc-infogain-centroid-nb (train n)
+  (let* ((copy (make-simple-table (table-name train) (table-columns train) (table-egs-to-lists train)))) 
+    (disc-infogain-centroid-nb (log-data1 copy) n)))
 
 (defun disc-centroid-nb (train &optional (assoc 0))
   "discretize data and apply naive bayes on centroids"
   (let* ((train (discretize train)))
     (test-no-disc-centroid-nb train assoc)))
 
-(defun no-disc-centroid-nb (train &optional (assoc 0) &key (stream t))
+(defun no-disc-centroid-nb (train &key (stream t))
   (let* ((acc 0)
-         (gotwant_assoc '())
          (max (length (table-all train)))
          (class (table-class train))
          (lst (split2bins train))
@@ -46,18 +49,14 @@
              (got (bayes-classify-num test_inst  (xindex closest-cluster)))
              (success (equal got want)))
         (incf acc (if success 1.00 0.00))
-        (if (= assoc 0)
             (format stream "~A ~A ~A ~A~%"  got want
                 (round (* 100 (/ acc max)))
-                (if success "    " "<- - -")))
-        (setf gotwant_assoc (acons got want gotwant_assoc))))
-    (if (= assoc 0)
-        (/ acc max)
-        (list gotwant_assoc (/ acc max)))))
+                (if success "    " "<- - -"))))
+    (format t "~a " (/ acc max))))
 
-(defun disc-infogain-centroid-nb (train n &optional (assoc 0) &key (stream t))
+      
+(defun disc-infogain-centroid-nb (train n &key (stream t))
     (let* ((acc 0)
-           (gotwant_assoc '())
            (max (length (table-all train)))
            (class (table-class train))
            (lst (split2bins train))
@@ -65,20 +64,23 @@
            (clusters (k-means train))
            (cluster-tables (make-cluster-tables clusters train))
            (cls-means (get-cls-means cluster-tables))
-           (test (xindex (car (cdr lst)))))
-      (dolist (one cluster-tables)
-          ;(format t "~A~%"  cls-means)
-          ;(format t "~A~%" one)
-          ;(return-from disc-infogain-centroid-nb)))))
-          (infogain-table (xindex one) n))))
-          ;(return-from disc-infogain-centroid-nb)))))
+           (test (discretize (xindex (car (cdr lst))))))
+       (dolist (test_inst (get-features (table-all test)))
+         (let* ((closest-cent (get-closest-centroid test_inst cls-means))
+                (closest-cluster (nth closest-cent cluster-tables))
+                (want (nth class test_inst))
+                (got (bayes-classify-num  test_inst (xindex (infogain-table (discretize (xindex closest-cluster)) n))))
+                (success (equal got want)))
+           (incf acc (if success 1.00 0.00))
+           (format stream "~A ~A ~A ~A~%"  got want
+                   (round (* 100 (/ acc max)))
+                   (if success "    " "<- - -"))))))
+      
+            
         
 (defun debug-cls (train)
-  (let* ((cluster-table (make-cluster-tables (k-means train) train)))
-    (format t "~A~%" (length cluster-table))
-      ;(format t "~A~%" (car cluster-table))
-      (format t "~A~%" (get-features (table-all (discretize (car cluster-table)))))
-      (rank-via-infogain (get-features (table-all (discretize (car cluster-table)))))))
+  (let* ((cluster-tables (make-cluster-tables (k-means train) train)))
+      (infogain-table (discretize (car cluster-tables)) 3)))
 
 (defun disc-nb (train)
   "discretize and apply naive bayes"
@@ -97,13 +99,24 @@
       
                      
 (defun make-cluster-tables (clusters train)
-  (let* ((cluster-tables '())
+  (let* ((cluster-tables)
+         (len (length (table-columns train)))
+         (cls (remove-centroid clusters len))
          (cluster-nr 1))
-    (dolist (obj clusters)
+    (dolist (obj cls)
       (setf cluster-tables (append cluster-tables
                                    (list (data :name cluster-nr :columns (get-col-names (table-columns train)) :egs obj))))
       (setf cluster-nr (incf cluster-nr)))
     (del-empty-clusters cluster-tables)))
+
+(defun remove-centroid (clusters len)
+  (let* ((new-clusters))
+    (dolist (cls clusters new-clusters)
+      (dolist (inst cls)
+        (if (not (equal (length inst) len))
+            (setf new-clusters (append new-clusters (list (remove inst cls)))))))))
+        
+        
 
 
 

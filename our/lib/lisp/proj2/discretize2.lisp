@@ -31,7 +31,9 @@
          (max (car (last range)))
          (r (/ (- max min) k-bins))
          (bin))
-    (setf bin (floor (float (/ (- value min) r))))))
+    (if (equal r 0) (setf bin 0)
+        (setf bin (floor (float (/ (- value min) r)))))
+    bin))
 
 (defun disc-instance (ranges inst k-bins class)
   (let* ((new-inst '()))
