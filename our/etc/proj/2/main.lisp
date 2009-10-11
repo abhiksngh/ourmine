@@ -15,12 +15,10 @@
 			"../../../../lib/lisp/table/data"
 			"../../../../lib/lisp/table/table"
 			"../../../../lib/lisp/table/xindex"
-			;"../../../../lib/lisp/learn/nb"
-			"tests/ch2"
-			"tests/ch5"
-			"tests/ch6"
-                        "tests/tests"
-			"tests/chp3-7-10-14"
+			"../../../../lib/lisp/learn/nb"
+			"knn"
+			"norm"
+			"proj2"
 			))
 
 (defun make1 (files)

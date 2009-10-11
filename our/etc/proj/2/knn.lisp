@@ -44,7 +44,27 @@
     (dolist (i dists neighbors)
       (push (car i) neighbors))))
     
+(defun euclid-distance (instance1 instance2 tbl)
+  (sqrt (reduce #'+
+                (mapcar #'(lambda (el1 el2 column)
+                          (if (and (numericp column)
+                                   (not (equalp column (header-name (table-class-header tbl)))))
+                              (expt (- el2 el1) 2)
+                              0))
+                        (eg-features instance1)
+                        (eg-features instance2)
+                        (mapcar #'header-name (table-columns tbl))))))
 
+(defun knn2 (instance tbl k)
+  (let ((neighbors nil)
+        (distances nil))
+    (doitems (eg i (egs tbl))
+      (push (list i (euclid-distance instance eg tbl)) distances))
+    (setf distances (nreverse distances))
+    (setf distances (subseq (sort (copy-list distances) #'< :key #'second) 0 k))
+    (dolist (d distances)
+      (push (nth (car d) (egs tbl)) neighbors))
+    (nreverse neighbors)))
 
 
 (defun knn-eval (samples tbl k)
