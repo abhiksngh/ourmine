@@ -17,8 +17,13 @@
 			"../../../../lib/lisp/table/xindex"
 			"../../../../lib/lisp/learn/nb"
 			"knn"
+			"learner"
 			"norm"
-			"proj2"
+			"preprocessor"
+			"util"
+			"data/ar3"
+			"data/ar4"
+			"data/ar5"
 			))
 
 (defun make1 (files)
