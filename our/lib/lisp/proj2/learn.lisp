@@ -32,13 +32,16 @@
   (let* ((train (discretize train)))
     (test-no-disc-centroid-nb train assoc)))
 
+;(defun print-stats (wantgots)
+;  (let ((
+           
 (defun no-disc-centroid-nb (train &key (stream t))
   (let* ((acc 0)
          (max (length (table-all train)))
          (class (table-class train))
          (lst (split2bins train))
-         (train (xindex (car lst)))
-         (test (xindex (car (cdr lst))))
+         (train (xindex (car (cdr lst))))
+         (test (xindex (car lst)))
          (clusters (k-means train))
          (cluster-tables (make-cluster-tables clusters train))
          (cls-means (get-cls-means cluster-tables)))
@@ -77,22 +80,40 @@
                    (round (* 100 (/ acc max)))
                    (if success "    " "<- - -"))))
        (format t "~a ~%" (/ acc max))))
+
+
+;;discretizing the data and applying info gain
+(defun disc-infogain-nb (train n &key (stream t))
+    (let* ((acc 0)
+           (info-data (xindex (infogain-table (discretize train) n)))
+           (max (length (table-all train)))
+           (class (table-class info-data))
+           (lst (split2bins info-data))
+           (test (xindex (car lst)))
+           (train (xindex (car (cdr lst))))
+           (gotwants))
+       (dolist (test_inst (get-features (table-all test)))
+         (let* ((want (nth class test_inst))
+                (got (bayes-classify  test_inst train)))
+                (setf want (list want))
+                (setf gotwants (append gotwants (list (append want got))))))
+         (format t "~a~%" (abcd-stats gotwants :verbose nil))))
             
         
 (defun debug-cls (train)
   (let* ((acc 0)
          (clusters (k-means train))
          (tabs (make-cluster-tables clusters train))
-         (inst '(3 1 1 1 19.65 0.5 2 9.83 39.3 0.01 2.18 2 0 1 4 3 4 3 1 FALSE))
+         (inst '(36 9 5 5 618.64 0.08 12 51.55 7423.67 0.21 412.43 28 6 8 16 30 67 45 17 FALSE))
          (closest-cent (get-closest-centroid inst
                             (get-cls-means tabs))))
     (dolist (obj tabs tabs)
       (setf acc (+ acc (length (table-all obj)))))
       (format t "~A~%" (length tabs))
       (format t "~A~%" closest-cent)
-      (format t "~A~%"(position inst (get-features (table-all (nth closest-cent tabs)))))))
+      (format t "~A~%" (position inst (get-features (table-all (nth closest-cent tabs))) :test #'equal))
+      (nth closest-cent tabs)))
       
-
 (defun disc-nb (train)
   "discretize and apply naive bayes"
   (no-disc-nb (discretize train)))

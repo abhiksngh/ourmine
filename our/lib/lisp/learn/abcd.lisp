@@ -12,6 +12,7 @@
   (defun precision (x) (if(zerop (d x)) 0 (/ (d x) (+ (c x)(d x)))))
   (defun accuracy  (x) (if (and (zerop (a x)) (zerop (d x))) 0
                            (/ (+ (a x) (d x)) (all x))))
+  (defun harmonic-mean (x y)  (/ (* 2 x y) (+ x y)))
   (defun f-measure (x) (if (or (zerop (a x)) (zerop (d x))) 0
                            (harmonic-mean (pd x) (pf x))))
   (defun balance   (x &optional (goalpd 1) (goalpf 0))

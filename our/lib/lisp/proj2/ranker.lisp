@@ -45,7 +45,7 @@
       (setf colnums (remove-duplicates colnums))
       (dolist (col colnums)
         (setf cols (append cols (list (nth col (table-columns table))))))
-      (make-simple-table 'infogain-res-table cols insts))))
+      (make-simple-table 'infogain-res-table cols  insts))))
     
     
 

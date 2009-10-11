@@ -17,6 +17,7 @@
 			"table/table"
 			"table/xindex"
 			"learn/nb"
+                        "learn/abcd"
                         ;"proj1/tprifti/deftest_chapter2"
                         ;"proj1/tprifti/deftest_chapter6"
                         ;"proj1/tprifti/deftest_chapter10"
