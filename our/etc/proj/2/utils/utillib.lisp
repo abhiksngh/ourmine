@@ -22,3 +22,15 @@
   (if (> n 1)
       (list n elt)
       elt))
+
+; INDEXING
+; Returns the numeric index of an element in a list or nil if it cannot be found.
+; NOTE: Returns first match only.
+; TODO: Since lisp allows returning multiple values, make a variant that returns all occurrences.
+(defun indexof (element lst)
+  (if (consp lst)
+      (let ((index 0))
+	(dolist (item lst)
+	  (if (equal element item)
+	      (return index))
+	  (incf index)))))
