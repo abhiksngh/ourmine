@@ -4,6 +4,7 @@
 (defun bore (dataset columnnames)
   (let* ((normalvals (make-array (length columnnames) :initial-element (make-normal)))
 	 (datatable (copy-table dataset))
+         (returntable)
 	 (index ())
 	 (n 0)
 	 (x 0)
@@ -35,7 +36,15 @@
       (dotimes (z y)
 	(setf fields (append fields `(,(nth (+ z n) (eg-features record))))))
       (setf (eg-features record) (append (eg-features record) `(,(borew fields)))))
-    datatable))
+
+
+    (setf returntable (sortw datatable (+ n y)))
+ ;     (nth (+ y n) (eg-features record))
+ ;  (format t "~a ~%" returntable)
+ ;  (dolist (record (table-all datatable))
+ ;    (format t "~a ~%" (> (nth (+ n y) (eg-features record)) (nth (+ n y) (eg-features (car (table-all datatable)))))))
+   (format t "~a ~%" returntable)
+   ))
 
 
 (defun borew (cols)
@@ -46,3 +55,28 @@
       (setf sumofsquares (+ sumofsquares (square num))))
     (setf w (- 1 (/ (sqrt sumofsquares) (sqrt (length cols)))))
     w))
+
+(defun sortw (tbl n)
+  (let ((rtntable)
+        (alist))
+    (setf rtntable (make-table :name (table-name tbl) :columns (columns-header (table-columns tbl)) :class (table-class tbl)))
+    (format t "~a ~%" (type-of (list (car (table-all tbl)))))
+    (dolist (record (table-all tbl))
+      (if (eql (table-all rtntable) nil)
+          (setf (table-all rtntable) (list (car (table-all tbl)))))
+      (dotimes (k (negs tbl))
+        (if (> (nth n (eg-features record)) (nth n (eg-features (car (table-all rtntable)))))
+          (progn
+            (setf k (+ 1 (negs tbl)))
+            (if (eql alist nil)
+                (setf (table-all rtntable) (cons record (table-all rtntable)))
+                (setf (table-all rtntable) (cons alist (cons record (table-all rtntable))))))
+          (progn
+            (setf alist (cons (car (table-all rtntable)) alist))
+            (if (not (list (cdr (table-all rtntable))))
+                (setf (table-all rtntable) (list (cdr (table-all rtntable))))
+                (setf (table-all rtntable) (cons record alist)))))
+        )
+      (setf alist nil)
+      )
+      rtntable))
