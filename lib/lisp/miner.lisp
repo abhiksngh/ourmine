@@ -19,6 +19,7 @@
 			"learn/nb"
                         "normalize"
                         "kmeans"
+                        "ekrem"
 			))
 
 (defun make1 (files)

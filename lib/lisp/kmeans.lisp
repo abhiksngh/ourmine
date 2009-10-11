@@ -53,7 +53,9 @@
                   (setf (nth n (eg-features centroid)) (- (round (/ (length number-list) 2)) 1))
                   (progn
                     (setf (nth n (eg-features centroid)) (even-numeric-median number-list))))))
-          '(discretemedian))
+          (progn
+            )
+            )
       (incf n))))
                 
        
