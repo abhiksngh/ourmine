@@ -32,9 +32,7 @@
   (let* ((train (discretize train)))
     (test-no-disc-centroid-nb train assoc)))
 
-;(defun print-stats (wantgots)
-;  (let ((
-           
+
 (defun no-disc-centroid-nb (train &key (stream t))
   (let* ((acc 0)
          (max (length (table-all train)))
@@ -44,48 +42,45 @@
          (test (xindex (car lst)))
          (clusters (k-means train))
          (cluster-tables (make-cluster-tables clusters train))
-         (cls-means (get-cls-means cluster-tables)))
+         (cls-means (get-cls-means cluster-tables))
+         (gotwants))
     (dolist (test_inst (get-features (table-all test)))
       (let* ((closest-cent (get-closest-centroid test_inst cls-means))
              (closest-cluster (nth closest-cent cluster-tables))
              (want (nth class test_inst))
-             (got (bayes-classify-num test_inst  (xindex closest-cluster)))
-             (success (equal got want)))
-        (incf acc (if success 1.00 0.00))
-            (format stream "~A ~A ~A ~A~%"  got want
-                (round (* 100 (/ acc max)))
-                (if success "    " "<- - -"))))
-    (format t "~a " (/ acc max))))
+             (got (bayes-classify-num test_inst  (xindex closest-cluster))))
+        (setf want (list want))
+        (setf gotwants (append gotwants (list (append want got))))))
+    (format t "~a~%" (abcd-stats gotwants :verbose nil))))
+ 
 
-      
-(defun disc-infogain-centroid-nb (train n &key (stream t))
-    (let* ((acc 0)
-           (info-data (xindex (infogain-table (discretize train) n)))
-           (max (length (table-all train)))
+;;discretizing, applying infogain plus clustering 
+(defun disc-infogain-centroid-nb (train n)
+    (let* ((info-data (xindex (infogain-table (discretize train) n)))
            (class (table-class info-data))
            (lst (split2bins info-data))
            (test (xindex (car lst)))
            (train (xindex (car (cdr lst))))
            (clusters (k-means train))
            (cluster-tables (make-cluster-tables clusters train))
-           (cls-means (get-cls-means cluster-tables)))
+           (cls-means (get-cls-means cluster-tables))
+           (gotwants))
+      (format t "~a " (length clusters))
        (dolist (test_inst (get-features (table-all test)))
          (let* ((closest-cent (get-closest-centroid test_inst cls-means))
                 (closest-cluster (nth closest-cent cluster-tables))
                 (want (nth class test_inst))
-                (got (bayes-classify-num  test_inst closest-cluster))
-                (success (equal got want)))
-           (incf acc (if success 1.00 0.00))
-           (format stream "~A ~A ~A ~A~%"  got want
-                   (round (* 100 (/ acc max)))
-                   (if success "    " "<- - -"))))
-       (format t "~a ~%" (/ acc max))))
+                (got (bayes-classify test_inst closest-cluster)))
+           (setf want (list want))
+           (setf gotwants (append gotwants (list (append want got))))))
+           (format t "~a~%" (abcd-stats gotwants :verbose nil))))
+           
+          
 
 
 ;;discretizing the data and applying info gain
 (defun disc-infogain-nb (train n &key (stream t))
-    (let* ((acc 0)
-           (info-data (xindex (infogain-table (discretize train) n)))
+    (let* ((info-data (xindex (infogain-table (discretize train) n)))
            (max (length (table-all train)))
            (class (table-class info-data))
            (lst (split2bins info-data))

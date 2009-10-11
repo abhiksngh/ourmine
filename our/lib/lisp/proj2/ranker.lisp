@@ -17,7 +17,7 @@
 	(incf current))
       (cond ((> (length keepcols) (- n 1))
             (setf keepcols (append keepcols (list classindx)))
-            (return-from extract-best-cols (sort keepcols #'<)))))))
+            (return-from extract-best-cols (remove-duplicates (sort keepcols #'<))))))))
 	
 
 
