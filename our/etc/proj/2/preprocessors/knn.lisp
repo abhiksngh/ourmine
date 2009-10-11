@@ -35,11 +35,20 @@
                 (push neighbor tmp))))
         (setf returnData (build-a-data (table-name xtrain) (columns-header (table-columns xtrain)) tmp))))))
         
-        
-         
-
-
 ;;Super Burak Bros. Filter
+(defun super-burak(n &rest test-sets)
+  (let* ((train)
+          (test)
+          (columns))
+    (doitems (per-test-set i test-sets)
+      (multiple-value-bind (tmpTrain tmpTest) (funcall per-test-set n)
+        (setf columns (columns-header(table-columns tmpTrain)))
+        (setf train (append train (features-as-a-list tmpTest)))
+        (setf test (append test (features-as-a-list tmpTest)))))
+    (burak (build-a-data 'TRAIN-DATA columns  train)
+           (build-a-data 'TEST-DATA columns test))))
+      
+
 
 
          
