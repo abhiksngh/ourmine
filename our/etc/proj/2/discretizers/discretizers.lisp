@@ -128,7 +128,7 @@
                           (t (setf tmp N))
                     )
                     (setf tmp (/ (- max-val min-val) tmp ))
-                    (setf (aref bin-sizes i) tmp)
+                    (setf (aref bin-sizes i) (max tmp 1))
                 ))
                 (setf i (+ i 1))
         )
@@ -170,7 +170,7 @@
 ; helper function, performs discretization calculation
 (defun convert-values2 (per-feature array-min bin-size) 
     (if array-min
-        (ceiling (/ (- per-feature array-min) bin-size))
+        (floor (/ (- per-feature array-min) bin-size))
         per-feature
     )
 )
