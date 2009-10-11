@@ -6,19 +6,14 @@
                    (discretizer  #'equal-width)
                    ;(cluster      #'(lambda (data) (kmeans k data))) 
                    ;(fss          #'b-squared)
-                   (classify     #'nb-simple))
+                   (classify     #'nb))
   (let* ((dataSet (funcall dataFile)))
     (print prep)
        (dolist (per-prep prep)
-         (print per-prep)
          (setf dataSet (funcall per-prep dataSet)))
-       (print discretizer)
        (setf dataSet (funcall discretizer dataSet))
-       (print classify)
        (multiple-value-bind (train test) (funcall dataSplitFunc dataSet)
          (multiple-value-bind (trueClass falseClass) (funcall classify train test)
-           (print trueClass)
-           (print falseClass)
            (format nil "~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a" prep rowReducer discretizer classify 'TRUE (first trueClass) (second trueClass) (third trueClass) (fourth trueClass)
                    (acc (first trueClass)
                         (second trueClass)
@@ -44,7 +39,6 @@
                       (second trueClass)
                       (third trueClass)
                       (fourth trueClass)))
-
            (format nil "~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a" prep rowReducer discretizer classify 'FALSE (first falseClass) (second falseClass) (third falseClass) (fourth falseClass)
                    (acc (first falseClass)
                         (second falseClass)
@@ -82,16 +76,43 @@
      ;     ... classify that example  using that cluster's classifier
 
 (defun prec(a b c d)
-  (/ d (+ c d)))
+  (/
+   d
+   (if (and
+        (eql c 0)
+        (eql d 0))
+       (log 0.001)
+       (+ c d))))
 
 (defun acc(a b c d)
-  (/ (+ a d) (+ a b c d)))
+  (/
+   (+ a d)
+   (if (and
+        (eql a 0)
+        (eql b 0)
+        (eql c 0)
+        (eql d 0))
+       (log 0.001)
+       (+ a b c d))))
 
 (defun pd(a b c d)
-  (/ d (+ b d)))
+  (/
+   d
+   (if
+    (and
+     (eql b 0)
+     (eql d 0))
+    (log 0.0001)
+    (+ b d))))
 
 (defun pf (a b c d)
-  (/ c (+ a c)))
+  (/
+   c
+   (if (and
+        (eql a 0)
+        (eql c 0))
+       (log 0.001)
+       (+ a c))))
 
 (defun f-calc (a b c d)
   (/ (* 2 (prec a b c d) (acc a b c d)) (+ (prec a b c d) (acc a b c d))))
