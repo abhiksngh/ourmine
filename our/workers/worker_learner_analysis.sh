@@ -56,3 +56,42 @@ analysis2(){
 	    done
 	done) | malign > $outstats
 } 
+
+analysis3(){
+    local origdata=$1
+    local outstats=$2
+    local runs=5
+    local bins=5
+    local learners="nb j48 zeror oner adtree bnet rbfnet"
+    local tmpred=$Tmp/red
+    local mfss=`basename $origdata`
+    mfss=${mfss%.*}
+
+    (echo "#run,mfss_method,bin,learner,goal,a,b,c,d,acc,pd,pf,prec,bal" 
+	for((run=1;run<=$runs;run++)); do	   
+	    for((bin=1;bin<=$bins;bin++)); do		       
+		makeTrainAndTest $origdata $bins $bin		
+		goals=`cat train.arff | getClasses --brief`
+		for learner in $learners; do			    
+		    $learner train.arff test.arff | gotwant > result.dat
+		    for goal in $goals; do
+			cat result.dat | 
+			abcd --prefix "$run,$mfss,$bin,$learner,$goal" \
+			    --goal "$goal" \
+			    --decimals 1
+		    done			    
+		    blabln "$run,$mfss,$bin,$learner"
+		done
+	    done
+	done) | malign > $outstats
+} 
+
+mfssAnalysis(){
+    local mfssDir=$1
+     
+    for file in `ls $mfssDir`; do
+    	mfss=`basename $file`
+    	mfss=${mfss%.*}_STATS.csv
+    	analysis3 $mfssDir$file $Save/$mfss
+     done
+}
