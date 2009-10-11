@@ -31,6 +31,7 @@
                         "table/table"
                         "table/xindex"
                         "./learn"
+                        "reduction/b-squared"
                         "preprocessors/sub-sampling"
                         "discretizers/discretizers"
                         "preprocessors/bins"

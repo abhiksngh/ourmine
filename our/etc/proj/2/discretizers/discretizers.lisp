@@ -147,31 +147,11 @@
     (make-array (table-width data) :initial-element nil)
 )
 
-(defun numval1 (data)
-  (let* (eg-set
-         (header (table-columns data))
-         (all-instances (table-all data)))
-    (dolist (per-instance all-instances) ; for every instance
-      (push (mapcar #'numval2
-                    header
-                    (eg-features per-instance))
-            eg-set))
-    (data :name 'log-set
-          :columns (columns-header (table-columns data))
-          :egs eg-set)))
-
-
 (defun convert-values (data min-array bin-sizes)
     (let* ((all-instances (table-all data))
            (eg-set) (eg-sub-set))
 
         (dolist (per-instance all-instances)
-;            (doitems (per-feature i (eg-features per-instance))
-;                (if (aref min-array i) 
-;                    (push (floor (/ (- per-feature (aref min-array i)) (aref bin-sizes i))) eg-sub-set)
-;                    (push per-feature eg-set)
-;                )
-;            )
 
             (push (mapcar #'convert-values2 (eg-features per-instance) (coerce min-array 'list)  (coerce bin-sizes 'list)) eg-set)
 
