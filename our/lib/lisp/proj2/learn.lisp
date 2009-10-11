@@ -61,8 +61,8 @@
            (max (length (table-all train)))
            (class (table-class info-data))
            (lst (split2bins info-data))
-           (train (xindex (car lst)))
-           (test (xindex (car (cdr lst))))
+           (test (xindex (car lst)))
+           (train (xindex (car (cdr lst))))
            (clusters (k-means train))
            (cluster-tables (make-cluster-tables clusters train))
            (cls-means (get-cls-means cluster-tables)))
@@ -90,7 +90,7 @@
       (setf acc (+ acc (length (table-all obj)))))
       (format t "~A~%" (length tabs))
       (format t "~A~%" closest-cent)
-      (position inst (get-features (table-all (nth closest-cent tabs))))))
+      (format t "~A~%"(position inst (get-features (table-all (nth closest-cent tabs)))))))
       
 
 (defun disc-nb (train)
