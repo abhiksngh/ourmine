@@ -21,12 +21,12 @@
 (let ((newdata (transpose data)))                                 ;make data a list of columns instead of list of rows
    (dolist (sublist newdata newdata)                           ;traverse each column to ...
      (if (typep (car sublist) 'number);if1              ; ...see if it contains numeric or discrete data
-         (let ((interval (/ (- (highest sublist) (lowest sublist)) n)));if numeric, generate bin size
-               (dolist (element sublist sublist)                  ;then go through each element
+         (let ((interval (+ 1 (floor(/ (- (highest sublist) (lowest sublist)) n)))));if numeric, generate bin size
+               (dotimes (element (length sublist) sublist)                  ;then go through each element
                         (dotimes (x n)                          ;at each element, figure out what bin it goes in...
                         (let((thisBin (* interval x)))       ;...by multiplying the bin size by which iteration we're on
                              (if (< element (+ thisBin interval));if2            ;see if number fits the bin
-                                  (if (> (nth element sublist) thisBin);if3
+                                  (if (>= (nth element sublist) thisBin);if3
                                      (setf (nth element sublist) thisBin) ; 
                                       ;else3                  
                                     );close if3
