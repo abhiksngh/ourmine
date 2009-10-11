@@ -1,15 +1,3 @@
-(defun test-hp ()
-  (hp (vote-train) (vote-test))
-   (hp (mushroom) (mushroom))
-   (hp (soybean) (soybean))
-   (hp (primary-tumor) (primary-tumor))
-   (hp (kr-vs-kp) (kr-vs-kp))
-   (hp (cleveland-14-heart-disease) (cleveland-14-heart-disease))
-   (hp (sick) (sick))
-   (hp (sonar) (sonar))
-   (hp (hypothyroid) (hypothyroid))
-   )
-
 
 ;(hp train test &key (stream t))
 

@@ -6,16 +6,15 @@
                    (discretizer  #'equal-width)
                    ;(cluster      #'(lambda (data) (kmeans k data))) 
                    ;(fss          #'b-squared)
-                   (classify     #'hp))
+                   (classify     #'nb))
     (let* ((dataSet (funcall dataFile)))
-        (print prep)
         (dolist (per-prep prep)
             (setf dataSet (funcall per-prep dataSet))
         )
         (setf dataSet (funcall discretizer dataSet))
         (multiple-value-bind (train test) (funcall dataSplitFunc dataSet)
             (multiple-value-bind (trueClass falseClass) (funcall classify train test)
-            (format nil "~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a" prep rowReducer discretizer classify 'TRUE (first trueClass) (second trueClass) (third trueClass) (fourth trueClass)
+           (print (format nil "~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a ~%" prep rowReducer discretizer classify 'TRUE (first trueClass) (second trueClass) (third trueClass) (fourth trueClass)
                    (acc (first trueClass)
                         (second trueClass)
                         (third trueClass)
@@ -39,9 +38,8 @@
                    (g (first trueClass)
                       (second trueClass)
                       (third trueClass)
-                      (fourth trueClass)))
-
-           (format nil "~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a" prep rowReducer discretizer classify 'FALSE (first falseClass) (second falseClass) (third falseClass) (fourth falseClass)
+                      (fourth trueClass))))
+        (print (format nil "~a, ~a~% ~a, ~a~% ~a~% ~a, ~a, ~a, ~a~% ~a, ~a, ~a, ~a~% ~a ~a ~%" prep rowReducer discretizer classify 'FALSE (first falseClass) (second falseClass) (third falseClass) (fourth falseClass)
                    (acc (first falseClass)
                         (second falseClass)
                         (third falseClass)
@@ -66,16 +64,7 @@
                       (second falseClass)
                       (third falseClass)
                       (fourth falseClass)))))))
-                   
-
-     ; first prep train and test
-     ; then run the discretizer
-     ; then cluster the training set into k clusters
-     ; the do FSS on each cluster 
-     ; then on the remaining attributes, train a classifier for each cluster
-     ; then for all example in the test set
-     ;     ... find the cluster with the nearest centroid...
-     ;     ... classify that example  using that cluster's classifier
+    T)
 
 (defun prec(a b c d)
   (/
