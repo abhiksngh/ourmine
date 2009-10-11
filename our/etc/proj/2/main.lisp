@@ -6,6 +6,7 @@
 ;(format t "Loading files~a");
 (load "miner")
 (load "modules/bore")
+(load "modules/oner")
 
 
 ;(defun learn (&key (k 8)
@@ -24,4 +25,6 @@
 ;    )
 
 (load "../../../lib/lisp/tests/data/quake")
+(load "../../../lib/lisp/tests/data/sick")
 (bore (quake) '($latitude))
+(oner (sick))
