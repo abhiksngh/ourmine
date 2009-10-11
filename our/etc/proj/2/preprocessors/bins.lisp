@@ -5,7 +5,7 @@
     (let* ((n-instances (negs data-set))
            (test-set)  
            (train-set)
-           (classes (sort-table data-set)) ; sorted data-set by class
+           (classes (table-all (sort-table data-set))) ; sorted data-set by class
            (per-bin (ceiling (/ n-instances nbins))) ; # of instances per bin
            (filled-bins (fill-bins classes nbins per-bin))) ; bin-matrix
            (build-data-sets data-set filled-bins nbins per-bin) 
