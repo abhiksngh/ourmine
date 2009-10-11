@@ -31,7 +31,7 @@
                         "table/table"
                         "table/xindex"
                         "./learn"
-                        "reduction/b-squared"
+                        ;"reduction/b-squared"
                         "preprocessors/sub-sampling"
                         "discretizers/discretizers"
                         "preprocessors/bins"
@@ -40,7 +40,7 @@
                         "preprocessors/nvalues"
                         "preprocessors/numericvalue"
                         "preprocessors/knn"
-;                        "learners/hyperpipes"
+                        "learners/hyperpipes"
                         "learners/nb"
                         ))
 

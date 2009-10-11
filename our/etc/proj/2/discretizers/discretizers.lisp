@@ -14,7 +14,7 @@
 ; calculate the bin-sizes based upon N and the min/max values
 ; convert the data into discretized form
 ;------------------------------------------------------------------------------
-(defun equal-width (data col-list &key N bin-logging)
+(defun equal-width (data &key col-list N bin-logging)
     (let* ((all  (table-all data))
           (max-array (buildDataArr data)) 
           (min-array (buildDataArr data))
@@ -159,7 +159,7 @@
         )
         ; build new data-set
         (data :name 'disc-set
-              :columns (columns-header (table-columns data))
+              :columns (numeric-to-discrete(columns-header (table-columns data)))
               :egs eg-set
         )
     )
@@ -227,3 +227,12 @@
         (length vals)
     )
 )
+
+(defun numeric-to-discrete(cols)
+  (let* ((tmp))
+    (doitems (per-col i cols (reverse tmp))
+      (let* ((per-colString (string per-col)))
+        (if (numericp per-col)
+        (setf per-colString (subseq per-colString 1  (length per-colString))))
+        (multiple-value-bind (sym-title existance) (intern per-colString)
+          (push sym-title tmp))))))

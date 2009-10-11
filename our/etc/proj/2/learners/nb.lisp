@@ -1,15 +1,30 @@
 (defun nb (train test &key (stream t))
   (let* ((acc 0)
 	(all  (table-all test))
-	(max  (length all)))
+	(max  (length all))
+        (trueClass (make-list 4 :initial-element 0))
+        (falseClass (make-list 4 :initial-element 0)))
     (dolist (one all (/ acc max))
       (let* ((got     (bayes-classify (eg-features one) (xindex train)))
 	     (want    (eg-class one))
 	     (success (eql got want)))
-	(incf acc (if success 1.0 0.0))
-	(format stream "~a ~a ~a ~a~%"  got want  
-		(round (* 100 (/ acc max)))
-		(if success "   " "<--"))))))
+        (if success (if (equal want 'TRUE)
+                             (progn
+                               (incf (first trueClass))
+                               (incf (fourth falseClass)))
+                             (progn
+                               (incf (first falseClass))
+                               (incf (fourth trueClass))))
+            (if (equal got 'TRUE)
+                (progn
+                  (incf (third trueClass))
+                  (incf (second falseClass)))
+                (progn
+                  (incf (third falseClass))
+                  (incf (second trueClass)))))))
+    (values trueClass falseClass)))
+                         
+	
 
 (defun nb-simple (train test &key (stream t))
   (xindex train)
