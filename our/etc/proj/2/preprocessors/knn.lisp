@@ -1,4 +1,4 @@
-(defun k-nearest-per-instance(instance table &optional (k 10))
+(defun k-nearest-per-instance(instance table &optional (distfunc #'eucDistance))
   ;;Set the class to a numeric, so we don't have to build code to handle a single discrete at the end of a line.  This zero will have no impact on the distance.
   (let* ((instance (eg-features instance))
          (xtable (xindex table))
@@ -12,13 +12,35 @@
          (doitems (per-attribute n per-instance)
            (if (numberp per-attribute)
                (push (- (nth n instance) per-attribute) distanceList)))
-         (setf (gethash i resultHash) (eucDistance distanceList))))
+         (setf (gethash i resultHash) (funcall distfunc distanceList))))
     ;;Create a list of the k closest neighbors. Working the Lisp-fu.
     (maphash #'(lambda (key value)
                  (if (not(= value 0))
                  (setf cozyNeighborList (append (list (list key value)) cozyNeighborList))))
                  resultHash)
     (sort cozyNeighborList #'< :key #'second)))
+
+;;Burak Filter
+(defun burak(train test)
+  (let* ((xtrain (normalizedata (xindex train)))
+         (xtest (table-all(normalizedata(xindex test))))
+         (tmp)
+         (returnData)
+         )
+    (doitems (per-instance i xtest returnData)
+      (let* ((nearest-neighbors (subseq (k-nearest-per-instance per-instance xtrain) 0 10)))
+        (doitems (per-neighbor j nearest-neighbors)
+          (let* ((neighbor (eg-features (nth (first per-neighbor) (table-all xtrain)))))
+            (if (null (member neighbor tmp))
+                (push neighbor tmp))))
+        (setf returnData (build-a-data (table-name xtrain) (columns-header (table-columns xtrain)) tmp))))))
+        
+        
+         
+
+
+;;Super Burak Bros. Filter
+
 
          
 ;;Super ultra sexy euclidean distance one-liner!!!
@@ -67,7 +89,9 @@
             (setf (nth per-index (eg-features per-instance)) (normal classMinimum classMaximum (nth per-index (eg-features per-data))))))))))
 
 (defun normal (classMinimum classMaximum value)
-  (/ (- value classMinimum) (- classMaximum classMinimum)))
+  (/ (- value classMinimum) (if (= (- classMaximum classMinimum) 0)
+                                0.0001
+                                (- classMaximum classMinimum))))
     
 (defun numeric-col(data)
   (let* ((columns)
