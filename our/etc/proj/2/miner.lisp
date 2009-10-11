@@ -17,6 +17,7 @@
 			"table/table"
 			"table/xindex"
 			"learn/nb"
+			"utils/utillib"
 			))
 
 (defun make1 (files)

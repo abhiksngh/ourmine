@@ -23,6 +23,5 @@
     ; Code.
 ;    )
 
-
 (load "../../../lib/lisp/tests/data/quake")
 (bore (quake) '($latitude))
