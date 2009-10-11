@@ -22,7 +22,9 @@
         (min-array (buildMinMaxArr train))
         (seen-array (buildSeenArr train))
         (total-classified 0)
-        (correctly-classified 0))
+        (correctly-classified 0)
+        (trueClass (make-list 4 :initial-element 0))
+        (falseClass (make-list 4 :initial-element 0)))
     ;;We use hp-train to accept a training set of data and generate arrays with min-values, max-values, and if we've seen any of those features.
     (hp-train train min-array max-array seen-array)
     (dolist (instance all)
@@ -35,8 +37,23 @@
 	(format stream "~a ~a ~a ~%"  got want
                 (if success "   " "<--"))
         ;;We're keeping track of what we correctly identified.
-        (if success (incf correctly-classified))))
-    (format stream "Correctly Classified Percent: ~a~%" (/ correctly-classified total-classified))))
+        (if success
+            (if (equal want 'TRUE)
+                (progn
+                    (incf (first trueClass))
+                    (incf (fourth falseClass)))
+               (progn
+                    (incf (first falseClass))
+                    (incf (fourth trueClass))))
+            (if (equal got 'TRUE)
+                (progn
+                    (incf (third trueClass))
+                    (incf (second falseClass)))
+                (progn
+                    (incf (third falseClass))
+                    (incf (second trueClass)))))))
+    (values trueClass falseClass))
+)
 
 (defun hp-train (tbl min-array max-array seen-array)
   ;;We consider each instance of data in the training set.
