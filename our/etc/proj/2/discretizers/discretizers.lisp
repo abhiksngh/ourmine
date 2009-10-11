@@ -3,11 +3,11 @@
 ;                      - data set into N equal-width bins (only numeric)
 ;                      - N can be supplied, defaulted to 10, or calculated
 ;                      - via bin-logging algorithm by supplying a flag
+;                      - if no col-list is supplied, all columns are used
 ; ARGUMENTS
- ; - INPUT: a table of data, a list of columns to discretize, the output
- ;          filename (Optional: number of bins N, flag for bin-logging)
- ; - RETURN: N/A
- ; - BYPRODUCT: creates a file with discretized data
+ ; - INPUT: a table of data, a list of columns to discretize
+ ;  (Optional: list of columns, number of bins N, flag for bin-logging)
+ ; - RETURN: discretized table
 
 ; EQUAL-WIDTH ALGORITHM
 ; find the minimum and maximum values for each column of data
@@ -40,7 +40,7 @@
     )
 )
 
-;-------------
+; builds a list of inreasing ints from 0 to n
 (defun build-list (n)
     (let ((new-list (list )))
         (loop for i from 0 to n
@@ -147,6 +147,8 @@
     (make-array (table-width data) :initial-element nil)
 )
 
+; discretize the values in the table based upon calculated ranges and 
+; bin sizes.  Return the newly created discretized table
 (defun convert-values (data min-array bin-sizes)
     (let* ((all-instances (table-all data))
            (eg-set) (eg-sub-set))
@@ -165,6 +167,7 @@
     )
 )
 
+; helper function, performs discretization calculation
 (defun convert-values2 (per-feature array-min bin-size) 
     (if array-min
         (floor (/ (- per-feature array-min) bin-size))
