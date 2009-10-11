@@ -170,7 +170,7 @@
 ; helper function, performs discretization calculation
 (defun convert-values2 (per-feature array-min bin-size) 
     (if array-min
-        (floor (/ (- per-feature array-min) bin-size))
+        (ceiling (/ (- per-feature array-min) bin-size))
         per-feature
     )
 )
