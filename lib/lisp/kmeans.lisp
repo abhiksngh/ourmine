@@ -20,15 +20,15 @@
     ;while loop will go here to see if centroids stop moving
     (let ((cluster '())) ;creates a list that will have each centroid with a list to itself to store the rows
       (dolist (i centroid-list) 
-        (push `(,i) cluster))
+        (push '() cluster))
       (setf cluster (reverse cluster))
     (dolist (row (table-all tbl)) ;checks all rows for distance
       (if (member n centroid-list) ;if the row being checked is already a centroid
           '(centroid) ;does nothing
           (push row (nth (kmeans-distance centroid0 row (table-columns tbl)) cluster))) ;finds which centroid is closest to the row and then pushes the row to the cluster list
       (incf n))
-    (dotimes (cent (length centroid-list)) ;do each centroid to find the median
-      (kmeans-move-centroid (nth cent cluster) centroid0 (table-columns tbl)))))) ;move the centroids in the cluster list
+    (dotimes (i (length centroid-list)) ;do each centroid to find the median
+      (kmeans-move-centroid (nth i cluster) (nth i centroid0) (table-columns tbl)))))) ;move the centroids in the cluster list
 
 (defun kmeans-find-centroid (k length)
   (let ((centroid-list '())) 
@@ -39,7 +39,23 @@
               (decf n) ;if it was already in the list subtract 1 from n
               (push number centroid-list)))))));if it wasn't already in the list push it onto the list
 
-(defun kmeans-move-centroid (cluster centroids columns))
+(defun kmeans-move-centroid (cluster centroid columns)
+  (let ((n 0))
+    (dolist (col columns)
+      (if (numericp (header-name col))
+          (progn
+            (let ((number-list '()))
+              (dolist (row cluster)
+                (if (numberp (nth n (eg-features row)))
+                    (push (nth n (eg-features row)) number-list)))
+              ;sort the list
+              (if (oddp (length number-list))
+                  (setf (nth n (eg-features centroid)) (- (round (/ (length number-list) 2)) 1))
+                  (progn
+                    (setf (nth n (eg-features centroid)) (even-numeric-median number-list))))))
+          '(discretemedian))
+      (incf n))))
+                
        
 (defun kmeans-distance (centroids row columns)
   (let ((i 0)
@@ -68,3 +84,9 @@
               (setf distance2 distance1))))
       (setf distance1 0) ;reset the current distance
       (incf i)))) ;do the next centroid
+
+
+(defun even-numeric-median (numbers)
+  (let ((first (nth (- (/ (length numbers) 2) 1) numbers))
+        (second (nth (/ (length numbers) 2) numbers)))
+    (/ (+ first second) 2)))
