@@ -42,7 +42,7 @@
         (setf results (append results (list (disc-infogain-nb (log-data1 copy) n))))))))
 
 
-2N;;applying only clustering and naive bayes
+;;applying only clustering and naive bayes
 (defun no-disc-centroid-nb (train)
   (let* ((class (table-class train))
          (lst (split2bins train))
