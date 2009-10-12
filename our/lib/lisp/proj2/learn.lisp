@@ -33,13 +33,16 @@
       (let* ((copy (make-simple-table (table-name train) (table-columns train) (table-egs-to-lists train)))) 
         (setf results (append results (list (disc-infogain-centroid-nb (log-data1 copy) n))))))))
 
-(defun disc-centroid-nb (train &optional (assoc 0))
-  "discretize data and apply naive bayes on centroids"
-  (let* ((train (discretize train)))
-    (test-no-disc-centroid-nb train assoc)))
+
+;; testing: Discretizing the data, Infogain, Naive Bayes learner
+(defun test-disc-infogain-nb (train n &key (times 1))
+  (let* ((results))
+    (dotimes (i times results)
+      (let* ((copy (make-simple-table (table-name train) (table-columns train) (table-egs-to-lists train))))
+        (setf results (append results (list (disc-infogain-nb (log-data1 copy) n))))))))
 
 
-;;applying only clustering and naive bayes
+2N;;applying only clustering and naive bayes
 (defun no-disc-centroid-nb (train)
   (let* ((class (table-class train))
          (lst (split2bins train))
