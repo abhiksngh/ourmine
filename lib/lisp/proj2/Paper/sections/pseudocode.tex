@@ -6,7 +6,7 @@
 \State $HyperPipes := array[]$
 \State $Guessed := 0$
 \State $GuessedCorrect := 0$
-\ForAll {$Line in DataFile$}
+\ForAll {Line in DataFile}
 \State $Guessed++$
 \State $GuessedCorrect \mbox{+=} Classify(MyHyperPipes,Line)$
 \State $HyperPipes := AddExperience(Line,HyperPipes)$
@@ -31,7 +31,7 @@
 \State{$HPipeScore++$}
 \EndIf
 \EndFor
-\If{$HPipeScore >= BestScore$}
+\hl{\If{$HPipeScore >= BestScore$}}
 \If{$HPipeScore := BestScore$}
 \State{$BestClass := BestClass + HPipe.class$}
 \Else
