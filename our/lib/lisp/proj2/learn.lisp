@@ -126,7 +126,8 @@
                 (got (bayes-classify-num  test_inst train)))
                 (setf want (list want))
                 (setf gotwants (append gotwants (list (append want got))))))
-         (format t "~a~%" (abcd-stats gotwants :verbose nil))))
+       (abcd-stats gotwants :verbose nil)))
+         ;(format t "~a~%" (abcd-stats gotwants :verbose nil))))
             
         
 (defun debug-cls (train)
