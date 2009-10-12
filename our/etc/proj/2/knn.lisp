@@ -79,6 +79,8 @@
       (equalp (car (knn (car (egs (ar3))) (ar3) 1)) (car (egs (ar3))))
       (equalp (length (knn (car (egs (ar3))) (ar3) 10)) 10))))
 
+;; this is a foo eval
+;; in real world we have to use the *g* metric
 (defun knn-eval (samples tbl k)
   (let ((gs 0))
     (dotimes (i k gs)
