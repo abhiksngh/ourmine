@@ -18,7 +18,7 @@
 			"../../../../lib/lisp/learn/nb"
 			"knn"
 			"learner"
-			"norm"
+			"discretize"
 			"preprocessor"
 			"util"
 			"data/ar3"
