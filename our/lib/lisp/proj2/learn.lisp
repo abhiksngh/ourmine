@@ -52,10 +52,38 @@
         (setf gotwants (append gotwants (list (append want got))))))
     (format t "~a~%" (abcd-stats gotwants :verbose nil))))
  
+; infogain on dataset, cluster original dataset (infogain's best columns only) and apply naive bayes
+(defun disc-infogain-centroid-nb(train n)
+  (let* ((best-cols (extract-best-cols (infogain (table-egs-to-lists train)) (table-egs-to-lists train) n))
+         (train-cols (table-columns train))
+         (numcols (length train-cols))
+         (all (table-egs-to-lists train))
+         (unwanted-cols '())
+         (newdata)
+         (newtable)
+         (temp)
+         (newcols '()))
+    (dolist (col best-cols)
+      (setf newcols (cons (nth col train-cols) newcols)))
+    (setf newdata (get-wanted-cols train best-cols))
+    (setf newtable (make-desc-table (table-name train) newcols newdata))
+    (no-disc-centroid-nb newtable)))
+
+         
+(defun get-wanted-cols (train wanted)
+  (let* ((all (table-egs-to-lists train))
+         (n (length (table-columns train)))
+         (temp)
+         (newdata))
+    (dolist (inst all (reverse newdata))
+      (dolist (col wanted)
+        (setf temp (append (list (nth col inst)) temp)))
+      (setf newdata (append (list (reverse temp)) newdata))
+      (setf temp '()))))
 
 ;;discretizing, applying infogain plus clustering
 ;;this function is wrong
-(defun disc-infogain-centroid-nb (train n)
+(defun disc-infogain-centroid-nb2 (train n)
     (let* ((info-data (xindex (infogain-table (discretize train) n)))
            (class (table-class info-data))
            (lst (split2bins info-data))
