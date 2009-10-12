@@ -29,10 +29,10 @@
       ;(setf column-contents (nth col-count 
       ;(setf column-contents (get-col table col-count))
       ;Is the column numeric?
-      (print "With ?:")
-      (print (remove '? one-column))
-      (print one-column)
-      (print discrete-check-lst)
+      ;(print "With ?:")
+      ;(print (remove '? one-column))
+      ;(print one-column)
+      ;(print discrete-check-lst)
       
       (if (equalp (listp (remove '? one-column)) NIL)
           (setf one-column (list one-column)))
@@ -42,36 +42,36 @@
       (if (subsetp '(t) discrete-check-lst)
           (setf discrete-check-lst '(t)))
       
-      (print "discrete check result:")
-      (print discrete-check-lst)
-      (print (equalp discrete-check-lst '(t)))
+;      (print "discrete check result:")
+;      (print discrete-check-lst)
+;      (print (equalp discrete-check-lst '(t)))
 
       (if (equalp (remove '? one-column) NIL)
           (print "this")
           (progn
             (if (equalp discrete-check-lst '(t))
                 (progn
-                                        ;                  (print "Discrete column")
+                 ; (print "Discrete column")
                   (setf most-common-value (get-most-common one-column))
 
-                  (print "most common:")
-                  (print most-common-value)
+                  ;(print "most common:")
+                  ;(print most-common-value)
 
                   (setf one-column (fix-unknowns one-column most-common-value))
                   (setf fixed-data (append fixed-data (list one-column)))
-                  (print one-column)
+                  ;(print one-column)
                   )
                 (progn
                                         ;If column is numeric
-                  (print "Numeric column")
+                 ; (print "Numeric column")
                   (setf median-value (get-median one-column))
 
-                  (print median-value)
-                  (print median-value)
+                 ; (print median-value)
+                 ; (print median-value)
 
                   (setf one-column (fix-unknowns one-column median-value))
                   (setf fixed-data (append fixed-data (list one-column)))
-                  (print one-column)
+                  ;(print one-column)
                   )
                 )
             )
@@ -86,8 +86,8 @@
     (dotimes (n (table-width table))
       (setf (eg-features (nth n (table-all table))) (nth n fixed-data)))
                                         ;(print (eg-features (nth n (table-all table)))))
-    (print (first fixed-data))
-    (print "UP THERE")
+;    (print (first fixed-data))
+    ;(print "UP THERE")
     
     (setf newtable (data
                     :name (table-name table)
@@ -95,8 +95,9 @@
                     :klass (table-class table)
                     :egs
                     fixed-data))
-   ; newtable))
-    ))                                    ;           NIL))$HUMIDTY
+    
+    newtable))
+                                       ;           NIL))$HUMIDTY
           
 
 (defun is-discrete (item)
