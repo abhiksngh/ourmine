@@ -33,9 +33,7 @@
     )
 )
 
-; fills a 2 dimensional matrix with the passed instances.  The matrix has n
-; columns, where n is the number of desired bins. The instances are 
-; distributed evenly amongst the bins  
+; creates a 2d array and fills it with instances
 (defun fill-bins (instances nbins per-bin)
     (let* ((bin-matrix (make-array (list per-bin nbins) :initial-element nil))
            (col-num 0)
@@ -44,18 +42,18 @@
         ; for each instance in the list (which has been sorted by class)
         (dolist (instance instances)
                 ; write the instance to the bin
-                (setf 
-                      (aref bin-matrix row-num col-num) instance
-                )
-                
+                (setf (aref bin-matrix row-num col-num) instance)
+                 
+                ; move to the next column
                 (incf col-num)
 
+                ; hop back to the first column and down a row
                 (when (= col-num nbins)
                     (setf col-num 0)
                     (incf row-num)
                 )
         )
-        bin-matrix
+        bin-matrix ; return the 2d array
     )
 )
 
