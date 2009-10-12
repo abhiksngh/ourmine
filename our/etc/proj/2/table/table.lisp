@@ -26,3 +26,12 @@
 
 (defun table-class-header (tbl)
   (nth (table-class tbl) (table-columns tbl)))
+
+(defun tablep(tbl)
+(handler-case
+  (and
+   (table-name tbl)
+   (table-class tbl)
+   (table-all tbl)
+   t)
+ (type-error () nil)))

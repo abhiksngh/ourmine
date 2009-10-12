@@ -1,7 +1,7 @@
 (defparameter *files* '(
                         "tests/deftest"
                         "data/ar3"
-;                        "data/sick"
+                        "data/sick"
 ;                        "data/combined_CM1"
 ;                        "data/combined_KC1"
 ;                        "data/combined_KC2"
