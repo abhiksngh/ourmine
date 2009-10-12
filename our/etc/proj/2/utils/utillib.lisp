@@ -35,20 +35,22 @@
 	      (return index))
 	  (incf index)))))
 
+;Displays a simple tabbed table
 (defun display-table-simple (tbl)
   (dolist (column (table-columns tbl))
-    (format t "~a ~a" (header-name column) #\Tab))
+    (format t "~a  ~a" (header-name column) #\Tab))
   (format t "~%")
   (dolist (record (table-all tbl))
     (dolist (item (eg-features record))
       (format t "~a~a~a" item #\Tab #\Tab))
   (format t "~%")))
 
-(defun best-rest (tbl)
+;Returns the top N percent of a table 
+(defun best-of (tbl &optional(n .20))
   (let ((best)
         (returntable))
     (setf returntable (make-table :name (table-name tbl) :columns (table-columns tbl) :class (table-class tbl)))
-    (setf best (floor(* .20 (negs tbl))))
+    (setf best (floor(* n (negs tbl))))
     (dotimes (k best)
       (if (eql (table-all returntable) nil)
           (setf (table-all returntable) (list (car (table-all tbl))))
@@ -56,4 +58,8 @@
       ))
     returntable))
 
- 
+;Sorts a given table on the column N
+(defun sort-on(tbl n)
+  (let ((rtntable (copy-table tbl)))
+    (setf (table-all rtntable) (sort (table-all rtntable) #'>= :key #'(lambda (x) (nth n (eg-features x)))))
+  rtntable))

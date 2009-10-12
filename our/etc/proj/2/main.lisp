@@ -26,5 +26,5 @@
 
 (load "../../../lib/lisp/tests/data/quake")
 (load "../../../lib/lisp/tests/data/sick")
-(bore (quake) '($latitude))
+(display-table-simple (bore (quake) '($latitude $longitude)))
 ;(oner (sick))
