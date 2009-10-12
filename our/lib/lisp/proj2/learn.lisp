@@ -33,10 +33,9 @@
     (test-no-disc-centroid-nb train assoc)))
 
 
-(defun no-disc-centroid-nb (train &key (stream t))
-  (let* ((acc 0)
-         (max (length (table-all train)))
-         (class (table-class train))
+;;applying only clustering and naive bayes
+(defun no-disc-centroid-nb (train)
+  (let* ((class (table-class train))
          (lst (split2bins train))
          (train (xindex (car (cdr lst))))
          (test (xindex (car lst)))
@@ -54,7 +53,8 @@
     (format t "~a~%" (abcd-stats gotwants :verbose nil))))
  
 
-;;discretizing, applying infogain plus clustering 
+;;discretizing, applying infogain plus clustering
+;;this function is wrong
 (defun disc-infogain-centroid-nb (train n)
     (let* ((info-data (xindex (infogain-table (discretize train) n)))
            (class (table-class info-data))
@@ -79,9 +79,8 @@
 
 
 ;;discretizing the data and applying info gain
-(defun disc-infogain-nb (train n &key (stream t))
+(defun disc-infogain-nb (train n)
     (let* ((info-data (xindex (infogain-table (discretize train) n)))
-           (max (length (table-all train)))
            (class (table-class info-data))
            (lst (split2bins info-data))
            (test (xindex (car lst)))
@@ -89,7 +88,7 @@
            (gotwants))
        (dolist (test_inst (get-features (table-all test)))
          (let* ((want (nth class test_inst))
-                (got (bayes-classify  test_inst train)))
+                (got (bayes-classify-num  test_inst train)))
                 (setf want (list want))
                 (setf gotwants (append gotwants (list (append want got))))))
          (format t "~a~%" (abcd-stats gotwants :verbose nil))))
