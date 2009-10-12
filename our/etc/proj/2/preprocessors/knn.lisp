@@ -60,7 +60,7 @@
     (= (eucDistance '(3 4)) 5.0)))
 
 (defun features-as-a-list(table)
-  (let* ((data (shuffle (table-all (xindex table))))
+  (let* ((data (table-all (xindex table)))
          result)
     (dotimes (i (length data) result)
       (push (eg-features(nth i (table-all table)))  result))))

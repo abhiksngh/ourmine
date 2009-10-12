@@ -31,7 +31,7 @@
                         "table/data"
                         "table/table"
                         "table/xindex"
-                        "./learn"
+                      ;  "./learn"
                         "reduction/b-squared"
                         "preprocessors/sub-sample"
                         "discretizers/discretizers"
