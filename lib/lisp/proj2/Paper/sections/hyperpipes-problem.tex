@@ -1,5 +1,5 @@
 \subsubsection{Tied Classes}
-During development of the original HyperPipes implementation it was noted 
+During development of the original HyperPipes ~\cite{Eisenstein04}. implementation it was noted 
 that the code only kept track of the most recently seen class with a score 
 equal to or greater than the largest score seen to that point. This means
 that when running HyperPipes if multiple classes tied in score the class
@@ -35,5 +35,5 @@ modified them as it went through the dataset. This means that if a new class
 is created the entire algorithm would have to start from the beginning with 
 this knowledge that this new class existed. If you were able to control the
 outliers and the over fitting for this algorithm you could use this type of 
-classifier in a real world situation where ne classes are constantly being 
+classifier in a real world situation where new classes are constantly being 
 discovered. 
