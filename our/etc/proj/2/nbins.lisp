@@ -24,8 +24,8 @@
          (let ((interval (+ 1 (floor(/ (- (highest sublist) (lowest sublist)) n)))));if numeric, generate bin size
                (dotimes (element (length sublist) sublist)                  ;then go through each element
                         (dotimes (x n)                          ;at each element, figure out what bin it goes in...
-                        (let((thisBin (* interval x)))       ;...by multiplying the bin size by which iteration we're on
-                             (if (< element (+ thisBin interval));if2            ;see if number fits the bin
+                        (let((thisBin (+ (* interval x) (lowest sublist))))       ;...by multiplying the bin size by which iteration we're on
+                             (if (< (nth element sublist) (+ thisBin interval)); (lowest sublist)));if2            ;see if number fits the bin
                                   (if (>= (nth element sublist) thisBin);if3
                                      (setf (nth element sublist) thisBin) ; 
                                       ;else3                  
