@@ -65,7 +65,6 @@
          (train-cols (table-columns train))
          (numcols (length train-cols))
          (all (table-egs-to-lists train))
-         (unwanted-cols '())
          (newdata)
          (newtable)
          (temp)
@@ -87,30 +86,6 @@
         (setf temp (append (list (nth col inst)) temp)))
       (setf newdata (append (list (reverse temp)) newdata))
       (setf temp '()))))
-
-;;discretizing, applying infogain plus clustering
-;;this function is wrong
-(defun disc-infogain-centroid-nb2 (train n)
-    (let* ((info-data (xindex (infogain-table (discretize train) n)))
-           (class (table-class info-data))
-           (lst (split2bins info-data))
-           (test (xindex (car lst)))
-           (train (xindex (car (cdr lst))))
-           (clusters (k-means train))
-           (cluster-tables (make-cluster-tables clusters train))
-           (cls-means (get-cls-means cluster-tables))
-           (gotwants))
-      (format t "~a " (length clusters))
-       (dolist (test_inst (get-features (table-all test)))
-         (let* ((closest-cent (get-closest-centroid test_inst cls-means))
-                (closest-cluster (nth closest-cent cluster-tables))
-                (want (nth class test_inst))
-                (got (bayes-classify test_inst closest-cluster)))
-           (setf want (list want))
-           (setf gotwants (append gotwants (list (append want got))))))
-           (format t "~a~%" (abcd-stats gotwants :verbose nil))))
-           
-          
 
 
 ;;discretizing the data and applying info gain
