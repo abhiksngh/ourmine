@@ -27,4 +27,4 @@
 (load "../../../lib/lisp/tests/data/quake")
 (load "../../../lib/lisp/tests/data/sick")
 (bore (quake) '($latitude))
-(oner (sick))
+;(oner (sick))
