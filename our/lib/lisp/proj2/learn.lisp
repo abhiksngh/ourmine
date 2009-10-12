@@ -19,13 +19,19 @@
             ;(format t "~A~%" test)
    (nb-num train test)))
 
-(defun test-no-disc-centroid-nb (train)
-  (let* ((copy (make-simple-table (table-name train) (table-columns train) (table-egs-to-lists train)))) 
-    (no-disc-centroid-nb (log-data1 copy))))
+;;testing: No Discretization on the data. Naive Bayes learner
+(defun test-no-disc-centroid-nb (train &key (times 1))
+  (let* ((results))
+    (dotimes (i times results)
+      (let* ((copy (make-simple-table (table-name train) (table-columns train) (table-egs-to-lists train)))) 
+        (setf results (append results (list (no-disc-centroid-nb (log-data1 copy)))))))))
 
-(defun test-disc-infogain-centroid-nb (train n)
-  (let* ((copy (make-simple-table (table-name train) (table-columns train) (table-egs-to-lists train)))) 
-    (disc-infogain-centroid-nb (log-data1 copy) n)))
+;;testing: Discretizing the data. Naive Bayes learner
+(defun test-disc-infogain-centroid-nb (train n &key (times 1))
+  (let* ((results))
+    (dotimes (i times results)
+      (let* ((copy (make-simple-table (table-name train) (table-columns train) (table-egs-to-lists train)))) 
+        (setf results (append results (list (disc-infogain-centroid-nb (log-data1 copy) n))))))))
 
 (defun disc-centroid-nb (train &optional (assoc 0))
   "discretize data and apply naive bayes on centroids"
@@ -50,7 +56,8 @@
              (got (bayes-classify-num test_inst  (xindex closest-cluster))))
         (setf want (list want))
         (setf gotwants (append gotwants (list (append want got))))))
-    (format t "~a~%" (abcd-stats gotwants :verbose nil))))
+    (abcd-stats gotwants :verbose nil)))
+    ;(format t "~a~%" (abcd-stats gotwants :verbose nil))))
  
 ; infogain on dataset, cluster original dataset (infogain's best columns only) and apply naive bayes
 (defun disc-infogain-centroid-nb(train n)
