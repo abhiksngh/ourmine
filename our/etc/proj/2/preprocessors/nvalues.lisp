@@ -19,7 +19,7 @@
          test
          (k (* n (length (table-all table)))))
     (dolist (per-instance (shuffle (table-all table)))
-      (if (> (decf k) 0)
+      (if (>= (decf k) 0)
           (push (eg-features per-instance) test)
           (push (eg-features per-instance) train)
           ))

@@ -51,10 +51,6 @@
     (burak (build-a-data 'TRAIN-DATA columns  train)
            (build-a-data 'TEST-DATA columns test))))
       
-
-
-
-         
 ;;Super ultra sexy euclidean distance one-liner!!!
 (defun eucDistance(lst)
   (sqrt (apply '+ (mapcar 'square lst))))
@@ -97,12 +93,37 @@
                 (classMinimum (normal-min f-struct))
                 (classMaximum (normal-max f-struct)))
             (if (= classMaximum 0)
-                (setf classMaximum 0.001))
+                (setf classMaximum (log 0.001)))
             (setf (nth per-index (eg-features per-instance)) (normal classMinimum classMaximum (nth per-index (eg-features per-data))))))))))
+
+(defun normalizeDataTrainAndTest(train test)
+  (let* ((combinedDataSet (nvalues 0.0 train test))
+         (combinedDataSet (xindex combinedDataSet))
+         (combinedData (table-all combinedDataSet))
+         (cols (table-columns combinedDataSet)))
+    (dolist (per-set (list (xindex train) (xindex test)) (values train test))
+      (print "per-set")
+      (let* ((columns (numeric-col per-set))
+             (table-data (table-all per-set)))
+        (print "per-data")
+        (dolist (per-data table-data)
+           (dolist (per-index columns)
+             (print "per-index")
+             (let* ((header (header-f (nth per-index cols)))
+                    (f-struct (gethash (eg-class per-data) header))
+                    (classMinimum (normal-min f-struct))
+                    (classMaximum (normal-max f-struct)))
+               (if (= classMaximum 0)
+                   (setf classMaximum (log 0.001)))
+               (print "setf")
+               (setf (nth per-index (eg-features per-data)) (normal classMinimum classMaximum (nth per-index (eg-features per-data)))))))))))
+      
+    
+  
 
 (defun normal (classMinimum classMaximum value)
   (/ (- value classMinimum) (if (= (- classMaximum classMinimum) 0)
-                                0.0001
+                                (log 0.0001)
                                 (- classMaximum classMinimum))))
     
 (defun numeric-col(data)
