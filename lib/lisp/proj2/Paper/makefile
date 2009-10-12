@@ -4,7 +4,7 @@ all: dvi pdf finished
 
 dvi:
 	latex $(Src).tex
-	bibex $(Src).bib
+	bibex $(Src)
 	latex $(Src).tex
 	latex $(Src).tex
 
