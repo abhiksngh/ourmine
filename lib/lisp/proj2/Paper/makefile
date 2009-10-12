@@ -17,3 +17,10 @@ finished:
 
 clean:
 	rm -f *.dvi *.log *.aux *.pdf
+
+update:
+	svn update
+	latex $(Src).tex
+	bibtex $(Src)
+	latex $(Src).tex
+	latex $(Src).tex
