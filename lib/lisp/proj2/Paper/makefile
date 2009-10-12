@@ -4,6 +4,9 @@ all: dvi pdf finished
 
 dvi:
 	latex $(Src).tex
+	bibex $(Src).bib
+	latex $(Src).tex
+	latex $(Src).tex
 
 pdf:
 	dvipdf $(Src).dvi $(out)
