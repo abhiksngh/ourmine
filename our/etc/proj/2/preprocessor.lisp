@@ -3,15 +3,13 @@
 ;;Returns a modified copy of the table structure.
 (defun numeric-preprocessor (tbl)
   (setf tbl (table-deep-copy tbl))
-  (let ((classi (table-class tbl)))
-    (dolist (eg (egs tbl))
-      (doitems (feature i (eg-features eg))
-        (let ((column-name (header-name (nth i (table-columns tbl)))))
-          (unless (= classi i)
-              (unless (unknownp feature)
-                (if (numericp column-name)
-                  (setf (nth i (eg-features eg)) (log (max 0.0001 feature)))))))))
-    tbl))
+  (dolist (row (get-table-feature-lists tbl))
+    (doitems (column-header columni (get-table-column-headers tbl))
+      (if (and (column-header-numericp column-header)
+               (not (column-header-classp column-header))
+               (not (unknownp (nth columni row))))
+        (setf (nth columni row) (log (max 0.0001 (nth columni row)))))))
+  tbl)
 
 (deftest numeric-preprocessor-test ()
   (check
@@ -20,6 +18,26 @@
               (log (first (eg-features (first (egs (ar3)))))))
       (equalp (second (eg-features (first (egs (numeric-preprocessor (ar3))))))
               (log (second (eg-features (first (egs (ar3))))))))))
+
+;;Takes a table structure and returns the symbol representing the minority class and 
+;;the number of instances of the minority class.
+(defun find-minority-class (tbl)
+  (xindex tbl)
+  (let ((minority-class nil)
+        (minority-class-count most-positive-fixnum))
+    (maphash #'(lambda (k v)
+                (cond ((< v minority-class-count)
+                      (setf minority-class k)
+                      (setf minority-class-count v))))
+             (header-f (table-class-header tbl)))
+    (values (car minority-class) minority-class-count)))
+
+(deftest find-minority-class-test ()
+  (check
+    (and
+      (equalp (find-minority-class (ar3)) 'true)
+      (equalp (find-minority-class (ar4)) 'true)
+      (equalp (find-minority-class (ar5)) 'true))))
 
 ;;Takes a table structure and randomly removes instances from the non-minority classes
 ;;until all classes have the same frequency.
@@ -44,26 +62,6 @@
       (equalp (length (egs (sub-sample (ar4)))) 40)
       (equalp (length (egs (sub-sample (ar5)))) 16))))
 
-;;Takes a table structure and returns the symbol representing the minority class and 
-;;the number of instances of the minority class.
-(defun find-minority-class (tbl)
-  (xindex tbl)
-  (let ((minority-class nil)
-        (minority-class-count most-positive-fixnum))
-    (maphash #'(lambda (k v)
-                (cond ((< v minority-class-count)
-                      (setf minority-class k)
-                      (setf minority-class-count v))))
-             (header-f (table-class-header tbl)))
-    (values (car minority-class) minority-class-count)))
-
-(deftest find-minority-class-test ()
-  (check
-    (and
-      (equalp (find-minority-class (ar3)) 'true)
-      (equalp (find-minority-class (ar4)) 'true)
-      (equalp (find-minority-class (ar5)) 'true))))
-
 ;;Takes a table structure of training data and a table structure of test data and
 ;;returns a table structure of training data consisting of the 10 nearest neighbors
 ;;from the original training set of each instance in the test set, with duplicates
@@ -71,8 +69,8 @@
 (defun burak-filter (train test)
   (setf train (table-deep-copy train))
   (let ((train-instances nil))
-    (dolist (eg (egs test))
-      (setf train-instances (append (knn eg train 10) train-instances)))
+    (dolist (row (get-table-rows test))
+      (setf train-instances (append (knn row train 10) train-instances)))
     (setf (table-all train) (remove-duplicates train-instances :test #'equalp))
     train))
 

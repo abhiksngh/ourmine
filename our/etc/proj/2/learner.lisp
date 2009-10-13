@@ -40,7 +40,28 @@
 		(maphash #'(lambda (k v) k (setf (gethash k a) (- d-sum v))) d)
 		(values a b c d)))
 
-(defun learn (train test &key (k 1)
+(defun statistics-output (stats)
+  (format t "prep, discretizer, cluster, fss, classify, class, a, b, c, d, acc, prec, pd, pf, f, g~%")
+  (dolist (stat stats)
+    (format t "~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~,1F, ~,1F, ~,1F, ~,1F, ~,1F, ~,1F~%" 
+      (string-downcase (remove ">" (subseq (format nil "~a" (nth 0 stat)) (length "#<FUNCTION ")) :test #'string-equal))
+      (string-downcase (remove ">" (subseq (format nil "~a" (nth 1 stat)) (length "#<FUNCTION ")) :test #'string-equal))
+      (string-downcase (remove ">" (subseq (format nil "~a" (nth 2 stat)) (length "#<FUNCTION ")) :test #'string-equal))
+      (string-downcase (remove ">" (subseq (format nil "~a" (nth 3 stat)) (length "#<FUNCTION ")) :test #'string-equal))
+      (string-downcase (remove ">" (subseq (format nil "~a" (nth 4 stat)) (length "#<FUNCTION ")) :test #'string-equal))
+      (string-downcase (format nil "~a" (nth 5 stat)))
+      (nth 6 stat)
+      (nth 7 stat)
+      (nth 8 stat)
+      (nth 9 stat)
+      (* 100 (nth 10 stat))
+      (* 100 (nth 11 stat))
+      (* 100 (nth 12 stat))
+      (* 100 (nth 13 stat))
+      (* 100 (nth 14 stat))
+      (* 100 (nth 15 stat)))))
+
+(defun learner (train test &key (k 1)
                               (prep #'identity) ;Takes 1 table returns 1 table
                               (discretizer #'identity) ;Takes 1 table returns 1 table
                               (clusterer #'default-clusterer) ;Takes k and 1 table returns a list of tables
@@ -74,26 +95,27 @@
 				     (f (/ (* 2 precision pd) (+ precision pd)))
   				   (g (/ (* 2 pf pd) (+ pf pd))))
   			(push (list prep discretizer clusterer fss classifier klass a b c d accuracy precision pd pf f g) statistics)))
-  	(statistics-output statistics))))
+  	statistics)))
 
-(defun statistics-output (stats)
-  (format t "prep, discretizer, cluster, fss, classify, class, a, b, c, d, acc, prec, pd, pf, f, g~%")
-  (dolist (stat stats)
-    (format t "~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~,1F, ~,1F, ~,1F, ~,1F, ~,1F, ~,1F~%" 
-      (string-downcase (remove ">" (subseq (format nil "~a" (nth 0 stat)) (length "#<FUNCTION ")) :test #'string-equal))
-      (string-downcase (remove ">" (subseq (format nil "~a" (nth 1 stat)) (length "#<FUNCTION ")) :test #'string-equal))
-      (string-downcase (remove ">" (subseq (format nil "~a" (nth 2 stat)) (length "#<FUNCTION ")) :test #'string-equal))
-      (string-downcase (remove ">" (subseq (format nil "~a" (nth 3 stat)) (length "#<FUNCTION ")) :test #'string-equal))
-      (string-downcase (remove ">" (subseq (format nil "~a" (nth 4 stat)) (length "#<FUNCTION ")) :test #'string-equal))
-      (string-downcase (format nil "~a" (nth 5 stat)))
-      (nth 6 stat)
-      (nth 7 stat)
-      (nth 8 stat)
-      (nth 9 stat)
-      (nth 10 stat)
-      (nth 11 stat)
-      (nth 12 stat)
-      (nth 13 stat)
-      (nth 14 stat)
-      (nth 15 stat))))
+(deftest learner-test ()
+  (check
+    (equalp
+      (mapcar #'(lambda (stat) (subseq stat 6)) (learner (ar3) (ar3) :discretizer #'10bins :classifier-train #'nb-train :classifier #'nb-classify))
+      '((54 2 1 6 20/21 6/7 3/4 1/55 4/5 6/169)
+        (6 1 2 54 20/21 27/28 54/55 1/4 36/37 108/271)))))
+
+(defun learn (train test &key (k 1)
+                              (prep #'identity)
+                              (discretizer #'identity)
+                              (clusterer #'default-clusterer)
+                              (fss #'identity)
+                              (classifier-train #'identity)
+                          	  (classifier #'identity))
+  (statistics-output (learner train test :k k 
+                                         :prep prep 
+                                         :discretizer discretizer 
+                                         :clusterer clusterer 
+                                         :fss fss 
+                                         :classifier-train classifier-train 
+                                         :classifier classifier)))
 

@@ -1,3 +1,5 @@
+;;Returns a complete copy of a discrete column header and all of its members
+;;except f.
 (defmethod header-deep-copy ((column discrete))
   (let ((new-column (make-discrete)))
     (setf (discrete-name new-column) (discrete-name column))
@@ -5,7 +7,9 @@
     (setf (discrete-ignorep new-column) (discrete-ignorep column))
     (setf (discrete-uniques new-column) (copy-list (discrete-uniques column)))
     new-column))
-  
+
+;;Returns a complete copy of a numeric column header and all of its members
+;;except f.
 (defmethod header-deep-copy ((column numeric))
   (let ((new-column (make-numeric)))
     (setf (numeric-name new-column) (numeric-name column))
@@ -13,12 +17,15 @@
     (setf (numeric-ignorep new-column) (numeric-ignorep column))
     new-column))
 
+;;Returns a complete copy of an eg structure and all of its members.
 (defun eg-deep-copy (eg)
   (let ((new-eg (make-eg)))
     (setf (eg-features new-eg) (copy-list (eg-features eg)))
     (setf (eg-class new-eg) (eg-class eg))
     new-eg))
 
+;;Returns a complete copy of a table structure and all of its members.
+;;If tbl was indexed, the copy will need to be re-indexed.
 (defun table-deep-copy (tbl)
   (let ((new-tbl (make-table)))
     (setf (table-name new-tbl) (table-name tbl))
@@ -57,13 +64,25 @@
 (defun column-header-numericp (column-header)
   (typep column-header 'numeric))
 
+;;Returns true if columni is the class column.
+(defun table-column-classp (tbl columni)
+  (header-classp (get-table-column-header tbl columni)))
+
+;;Returns true if column-header is the class column.
+(defun column-header-classp (column-header)
+  (header-classp column-header))
+
 ;;Returns a list of eg structures representing the rows in the table structure.
 (defun get-table-rows (tbl)
   (table-all tbl))
 
 ;;Returns a list of feature lists from the table structure.
-(defun get-table-features (tbl)
+(defun get-table-feature-lists (tbl)
   (mapcar #'eg-features (get-table-rows tbl)))
+
+;;Returns the feature list in row.
+(defun get-row-features (row)
+  (eg-features row))
 
 ;;Modifies tbl to convert the header structure for columni into a discrete
 ;;column header.
