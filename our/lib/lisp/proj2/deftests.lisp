@@ -42,6 +42,12 @@
            (eq (length (table-egs-to-lists (car (cdr bucket)))) 6)))))
 
 
+;; k-nearest neighbor. Testing for the first nearest neighbor
+(deftest test-k-nearest ()
+  (check
+    (equal (k-nearest (car (table-egs-to-lists (deftest_data))) (table-egs-to-lists (deftest_data)) 1)
+           '((69 13 7 8 2441.67 0.04 26.83 90.99 65518.01 0.81 3639.89 68 34 1 22 66
+              217 161 25 FALSE)))))
 
 
 (defun deftest_data()
