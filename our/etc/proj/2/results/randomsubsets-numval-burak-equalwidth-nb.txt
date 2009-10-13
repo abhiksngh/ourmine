@@ -1,0 +1,576 @@
+; SLIME 2008-02-23
+CL-USER> (load "main")
+;;;; tests/deftest.lisp
+;;;; data/ar3.lisp
+;;;; reduction/median.lisp
+;;;; data/sick.lisp
+;;;; data/shared_CM1.lisp
+;;;; data/shared_KC1.lisp
+;;;; data/shared_KC2.lisp
+;;;; data/shared_KC3.lisp
+;;;; data/shared_MC2.lisp
+;;;; data/shared_MW1.lisp
+;;;; data/shared_PC1.lisp
+;;;; tricks/lispfuns.lisp
+;;;; tricks/list.lisp
+;;;; tricks/macros.lisp
+;;;; tricks/caution.lisp
+;;;; tricks/hash.lisp
+;;;; tricks/normal.lisp
+;;;; tricks/number.lisp
+;;;; tricks/random.lisp
+;;;; tricks/string.lisp
+;;;; table/structs.lisp
+;;;; table/header.lisp
+;;;; table/data.lisp
+;;;; table/table.lisp
+;;;; table/xindex.lisp
+;;;; ./learn.lisp
+;;;; reduction/b-squared.lisp
+;;;; preprocessors/sub-sample.lisp
+;;;; discretizers/discretizers.lisp
+;;;; preprocessors/bins.lisp
+;;;; preprocessors/list-search.lisp
+;;;; preprocessors/sort.lisp
+;;;; preprocessors/nvalues.lisp
+;;;; preprocessors/numericvalue.lisp
+;;;; preprocessors/knn.lisp
+;;;; classifiers/hyperpipes.lisp
+;;;; classifiers/nb.lisp
+;;;; 37 files loaded
+T
+CL-USER> (runLearnSet)
+
+"" 
+"SEG-SHARED-CM1" 
+"
+Train: 0.1%, Test: 0.9%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 15, 8, 75, 214, 0.73397434, 0.7404844, 0.963964, 0.8333333, 0.73721504, 0.8939014
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 214, 75, 8, 15, 0.73397434, 0.65217394, 0.16666667, 0.036036037, 0.6906605, 0.05925926
+
+"
+Train: 0.2%, Test: 0.8%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 32, 13, 116, 276, 0.7048055, 0.70408165, 0.9550173, 0.7837838, 0.7044434, 0.8609692
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 276, 116, 13, 32, 0.7048055, 0.7111111, 0.21621622, 0.044982698, 0.7079443, 0.07447189
+
+"
+Train: 0.3%, Test: 0.7%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 32, 14, 123, 302, 0.7091295, 0.7105882, 0.9556962, 0.7935484, 0.7098581, 0.8671071
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 302, 123, 14, 32, 0.7091295, 0.6956522, 0.20645161, 0.044303797, 0.7023262, 0.072952285
+
+"
+Train: 0.4%, Test: 0.6%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 29, 19, 111, 327, 0.73251027, 0.74657536, 0.9450867, 0.79285717, 0.73947597, 0.8623049
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 327, 111, 19, 29, 0.73251027, 0.6041667, 0.20714286, 0.054913294, 0.6621769, 0.08681267
+
+"
+Train: 0.5%, Test: 0.5%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 26, 23, 99, 348, 0.75403225, 0.7785235, 0.9380054, 0.792, 0.76608217, 0.85884154
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 348, 99, 23, 26, 0.75403225, 0.53061223, 0.208, 0.06199461, 0.6228941, 0.09551953
+
+"
+Train: 0.6%, Test: 0.39999998%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 38, 11, 151, 297, 0.67404425, 0.6629464, 0.96428573, 0.7989418, 0.6684493, 0.8738613
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 297, 151, 11, 38, 0.67404425, 0.7755102, 0.2010582, 0.035714287, 0.72122604, 0.060654428
+
+"
+Train: 0.7%, Test: 0.3%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 32, 17, 121, 327, 0.722334, 0.72991073, 0.9505814, 0.7908497, 0.7261026, 0.8633899
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 327, 121, 17, 32, 0.722334, 0.6530612, 0.20915033, 0.049418606, 0.68595314, 0.07994709
+
+"
+Train: 0.8%, Test: 0.19999999%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 10, 39, 44, 404, 0.832998, 0.90178573, 0.9119639, 0.8148148, 0.8660281, 0.86065656
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 404, 44, 39, 10, 0.832998, 0.20408164, 0.18518518, 0.08803612, 0.3278429, 0.11933905
+
+"
+Train: 0.9%, Test: 0.100000024%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 23, 26, 99, 349, 0.7484909, 0.77901787, 0.9306667, 0.8114754, 0.7634494, 0.8669937
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 349, 99, 26, 23, 0.7484909, 0.46938777, 0.18852459, 0.06933333, 0.5769581, 0.101381704
+
+"
+End of SEG-SHARED-CM1" 
+"" 
+"SEG-SHARED-KC1" 
+"
+Train: 0.1%, Test: 0.9%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 125, 77, 224, 723, 0.73803306, 0.76346356, 0.90375, 0.6418338, 0.750533, 0.7505996
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 723, 224, 77, 125, 0.73803306, 0.6188119, 0.3581662, 0.09625, 0.6731847, 0.15172653
+
+"
+Train: 0.2%, Test: 0.8%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 169, 102, 303, 986, 0.74038464, 0.76493406, 0.90625, 0.6419492, 0.75245917, 0.7515395
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 986, 303, 102, 169, 0.74038464, 0.6236162, 0.35805085, 0.09375, 0.6770023, 0.1485932
+
+"
+Train: 0.3%, Test: 0.7%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 178, 122, 373, 1070, 0.7160069, 0.74151075, 0.897651, 0.676951, 0.72853565, 0.7718341
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 1070, 373, 122, 178, 0.7160069, 0.5933333, 0.323049, 0.10234899, 0.6489234, 0.1554485
+
+"
+Train: 0.4%, Test: 0.6%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 196, 112, 378, 1139, 0.7315068, 0.750824, 0.9104716, 0.6585366, 0.7410396, 0.7642776
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 1139, 378, 112, 196, 0.7315068, 0.6363636, 0.34146342, 0.089528374, 0.6806264, 0.14186193
+
+"
+Train: 0.5%, Test: 0.5%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 210, 111, 435, 1135, 0.7112639, 0.72292995, 0.91091496, 0.6744186, 0.7170495, 0.7750268
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 1135, 435, 111, 210, 0.7112639, 0.6542056, 0.3255814, 0.08908507, 0.68154263, 0.13989288
+
+"
+Train: 0.6%, Test: 0.39999998%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 211, 113, 426, 1239, 0.72900957, 0.74414414, 0.9164201, 0.6687598, 0.73649913, 0.77324337
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 1239, 426, 113, 211, 0.72900957, 0.65123457, 0.33124018, 0.08357988, 0.6879308, 0.13347964
+
+"
+Train: 0.7%, Test: 0.3%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 205, 120, 409, 1304, 0.7404318, 0.7612376, 0.91573036, 0.6661238, 0.7506906, 0.7712339
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 1304, 409, 120, 205, 0.7404318, 0.63076925, 0.33387622, 0.084269665, 0.68121535, 0.13457331
+
+"
+Train: 0.8%, Test: 0.19999999%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 207, 117, 411, 1337, 0.74517375, 0.76487416, 0.9195323, 0.66504854, 0.75489545, 0.77185535
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 1337, 411, 117, 207, 0.74517375, 0.6388889, 0.33495146, 0.08046768, 0.68795043, 0.12976179
+
+"
+Train: 0.9%, Test: 0.100000024%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 208, 118, 425, 1355, 0.74216527, 0.76123595, 0.91989136, 0.67140603, 0.75157964, 0.77624786
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 1355, 425, 118, 208, 0.74216527, 0.6380368, 0.328594, 0.08010862, 0.6861731, 0.12881352
+
+"
+End of SEG-SHARED-KC1" 
+"" 
+"SEG-SHARED-KC2" 
+"
+Train: 0.1%, Test: 0.9%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 54, 20, 56, 186, 0.75949365, 0.76859504, 0.9029126, 0.5090909, 0.7640172, 0.6510814
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 186, 56, 20, 54, 0.75949365, 0.7297297, 0.4909091, 0.097087376, 0.74431425, 0.16211347
+
+"
+Train: 0.2%, Test: 0.8%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 74, 20, 73, 259, 0.7816901, 0.7801205, 0.9283154, 0.49659863, 0.78090453, 0.6470568
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 259, 73, 20, 74, 0.7816901, 0.78723407, 0.50340134, 0.07168459, 0.7844523, 0.12549818
+
+"
+Train: 0.3%, Test: 0.7%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 74, 27, 71, 288, 0.78695655, 0.8022284, 0.9142857, 0.48965517, 0.79451907, 0.6377544
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 288, 71, 27, 74, 0.78695655, 0.7326733, 0.5103448, 0.08571429, 0.7588453, 0.14677685
+
+"
+Train: 0.4%, Test: 0.6%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 78, 24, 80, 287, 0.7782516, 0.78201634, 0.92282957, 0.5063291, 0.78012943, 0.6538889
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 287, 80, 24, 78, 0.7782516, 0.7647059, 0.49367088, 0.07717042, 0.7714193, 0.13347593
+
+"
+Train: 0.5%, Test: 0.5%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 83, 21, 97, 288, 0.7586912, 0.74805194, 0.93203884, 0.5388889, 0.753334, 0.68292326
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 288, 97, 21, 83, 0.7586912, 0.7980769, 0.4611111, 0.067961164, 0.77788585, 0.11846264
+
+"
+Train: 0.6%, Test: 0.39999998%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 76, 31, 67, 335, 0.8074656, 0.8333333, 0.91530055, 0.46853146, 0.82019556, 0.6197965
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 335, 67, 31, 76, 0.8074656, 0.71028036, 0.5314685, 0.08469945, 0.7557615, 0.14611305
+
+"
+Train: 0.7%, Test: 0.3%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 83, 22, 100, 307, 0.76171875, 0.75429976, 0.9331307, 0.5464481, 0.7579911, 0.68926036
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 307, 100, 22, 83, 0.76171875, 0.7904762, 0.45355192, 0.0668693, 0.7758311, 0.11655443
+
+"
+Train: 0.8%, Test: 0.19999999%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 79, 28, 83, 331, 0.7869482, 0.7995169, 0.9220056, 0.5123457, 0.79318273, 0.6586749
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 331, 83, 28, 79, 0.7869482, 0.7383177, 0.48765433, 0.07799443, 0.76185775, 0.13448034
+
+"
+Train: 0.9%, Test: 0.100000024%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 82, 25, 90, 324, 0.77927065, 0.7826087, 0.9283668, 0.5232558, 0.7809361, 0.6692832
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 324, 90, 25, 82, 0.77927065, 0.76635516, 0.47674417, 0.071633235, 0.7727589, 0.124551915
+
+"
+End of SEG-SHARED-KC2" 
+"" 
+"SEG-SHARED-KC3" 
+"
+Train: 0.1%, Test: 0.9%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 19, 11, 63, 197, 0.74482757, 0.75769234, 0.94711536, 0.76829267, 0.75120485, 0.84838337
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 197, 63, 11, 19, 0.74482757, 0.6333333, 0.23170732, 0.052884616, 0.6845705, 0.08611455
+
+"
+Train: 0.2%, Test: 0.8%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 28, 11, 92, 262, 0.7379135, 0.740113, 0.95970696, 0.76666665, 0.7390116, 0.8523941
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 262, 92, 11, 28, 0.7379135, 0.71794873, 0.23333333, 0.04029304, 0.72779423, 0.06871932
+
+"
+Train: 0.3%, Test: 0.7%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 37, 5, 124, 251, 0.6906475, 0.66933334, 0.98046875, 0.77018636, 0.6798234, 0.8626984
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 251, 124, 5, 37, 0.6906475, 0.88095236, 0.22981367, 0.01953125, 0.7742779, 0.036002725
+
+"
+Train: 0.4%, Test: 0.6%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 34, 7, 104, 287, 0.7430556, 0.73401535, 0.97619045, 0.7536232, 0.7385078, 0.85058844
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 287, 104, 7, 34, 0.7430556, 0.8292683, 0.24637681, 0.023809524, 0.78379834, 0.043422733
+
+"
+Train: 0.5%, Test: 0.5%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 30, 12, 105, 299, 0.73766816, 0.740099, 0.9614148, 0.7777778, 0.7388816, 0.85990137
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 299, 105, 12, 30, 0.73766816, 0.71428573, 0.22222222, 0.03858521, 0.72578865, 0.06575342
+
+"
+Train: 0.6%, Test: 0.39999998%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 36, 7, 107, 300, 0.74666667, 0.7371007, 0.9771987, 0.74825174, 0.7418529, 0.84753597
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 300, 107, 7, 36, 0.74666667, 0.8372093, 0.25174826, 0.022801302, 0.78935003, 0.041815314
+
+"
+Train: 0.7%, Test: 0.3%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 28, 15, 92, 322, 0.7658643, 0.7777778, 0.95548964, 0.76666665, 0.77177507, 0.85072654
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 322, 92, 15, 28, 0.7658643, 0.6511628, 0.23333333, 0.044510387, 0.7038713, 0.0747597
+
+"
+Train: 0.8%, Test: 0.19999999%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 30, 13, 101, 313, 0.75054705, 0.75603867, 0.9601227, 0.77099234, 0.75328285, 0.855226
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 313, 101, 13, 30, 0.75054705, 0.6976744, 0.22900763, 0.0398773, 0.7231456, 0.0679265
+
+"
+Train: 0.9%, Test: 0.100000024%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 10, 33, 22, 392, 0.8796499, 0.9468599, 0.92235297, 0.6875, 0.91201836, 0.7877957
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 392, 22, 33, 10, 0.8796499, 0.23255815, 0.3125, 0.07764706, 0.36786237, 0.12438749
+
+"
+End of SEG-SHARED-KC3" 
+"" 
+"SEG-SHARED-MW1" 
+"
+Train: 0.1%, Test: 0.9%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 9, 10, 24, 209, 0.86507934, 0.8969957, 0.9543379, 0.72727275, 0.8807485, 0.8254752
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 209, 24, 10, 9, 0.86507934, 0.47368422, 0.27272728, 0.0456621, 0.6121685, 0.07822686
+
+"
+Train: 0.2%, Test: 0.8%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 19, 9, 68, 252, 0.77873564, 0.7875, 0.9655172, 0.7816092, 0.7830933, 0.86388385
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 252, 68, 9, 19, 0.77873564, 0.6785714, 0.21839081, 0.03448276, 0.72521126, 0.05956113
+
+"
+Train: 0.3%, Test: 0.7%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 17, 13, 70, 288, 0.78608245, 0.8044693, 0.95681065, 0.8045977, 0.7951696, 0.8741274
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 288, 70, 13, 17, 0.78608245, 0.56666666, 0.1954023, 0.04318937, 0.65857995, 0.07074264
+
+"
+Train: 0.4%, Test: 0.6%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 18, 13, 72, 290, 0.783715, 0.80110496, 0.9570957, 0.8, 0.7923146, 0.87152517
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 290, 72, 13, 18, 0.783715, 0.58064514, 0.2, 0.04290429, 0.66706777, 0.07065217
+
+"
+Train: 0.5%, Test: 0.5%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 17, 14, 56, 313, 0.825, 0.84823847, 0.9571865, 0.7671233, 0.83645785, 0.85168
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 313, 56, 14, 17, 0.825, 0.5483871, 0.23287672, 0.042813454, 0.6588373, 0.07232943
+
+"
+Train: 0.6%, Test: 0.39999998%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 15, 16, 27, 342, 0.8925, 0.9268293, 0.95530725, 0.64285713, 0.90934074, 0.7685393
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 342, 27, 16, 15, 0.8925, 0.48387095, 0.35714287, 0.044692736, 0.6275268, 0.079443894
+
+"
+Train: 0.7%, Test: 0.3%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 18, 13, 84, 287, 0.75870645, 0.7735849, 0.95666665, 0.8235294, 0.76607347, 0.8851195
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 287, 84, 13, 18, 0.75870645, 0.58064514, 0.1764706, 0.043333333, 0.65783954, 0.069580734
+
+"
+Train: 0.8%, Test: 0.19999999%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 14, 16, 31, 341, 0.8830846, 0.9166667, 0.9551821, 0.6888889, 0.8995623, 0.80046946
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 341, 31, 16, 14, 0.8830846, 0.46666667, 0.31111112, 0.04481793, 0.6106401, 0.078349076
+
+"
+Train: 0.9%, Test: 0.100000024%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 11, 20, 31, 340, 0.8731343, 0.91644204, 0.9444444, 0.7380952, 0.89426416, 0.8286164
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 340, 31, 20, 11, 0.8731343, 0.3548387, 0.26190478, 0.055555556, 0.50460696, 0.09166667
+
+"
+End of SEG-SHARED-MW1" 
+"" 
+"SEG-SHARED-MC2" 
+"
+Train: 0.1%, Test: 0.9%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 19, 15, 20, 49, 0.66019416, 0.71014494, 0.765625, 0.51282054, 0.6842592, 0.61422753
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 49, 20, 15, 19, 0.66019416, 0.5588235, 0.4871795, 0.234375, 0.605294, 0.31649083
+
+"
+Train: 0.2%, Test: 0.8%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 26, 23, 22, 79, 0.7, 0.7821782, 0.7745098, 0.45833334, 0.73881096, 0.5758781
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 79, 22, 23, 26, 0.7, 0.53061223, 0.5416667, 0.2254902, 0.6036484, 0.31842387
+
+"
+Train: 0.3%, Test: 0.7%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 33, 18, 39, 58, 0.6148649, 0.5979381, 0.7631579, 0.5416667, 0.60628337, 0.63361347
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 58, 39, 18, 33, 0.6148649, 0.64705884, 0.45833334, 0.23684211, 0.63055116, 0.31230283
+
+"
+Train: 0.4%, Test: 0.6%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 29, 21, 31, 77, 0.6708861, 0.712963, 0.78571427, 0.51666665, 0.69128484, 0.6234004
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 77, 31, 21, 29, 0.6708861, 0.58, 0.48333332, 0.21428572, 0.62214124, 0.29692832
+
+"
+Train: 0.5%, Test: 0.5%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 25, 26, 20, 88, 0.7106918, 0.8148148, 0.7719298, 0.44444445, 0.75919986, 0.5641026
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 88, 20, 26, 25, 0.7106918, 0.49019608, 0.5555556, 0.22807017, 0.58020127, 0.3233831
+
+"
+Train: 0.6%, Test: 0.39999998%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 39, 13, 39, 67, 0.6708861, 0.6320755, 0.8375, 0.5, 0.65090275, 0.62616825
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 67, 39, 13, 39, 0.6708861, 0.75, 0.5, 0.1625, 0.7082405, 0.24528302
+
+"
+Train: 0.7%, Test: 0.3%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 27, 24, 15, 93, 0.754717, 0.8611111, 0.7948718, 0.35714287, 0.8044113, 0.49284577
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 93, 15, 24, 27, 0.754717, 0.5294118, 0.64285713, 0.20512821, 0.6222991, 0.31101513
+
+"
+Train: 0.8%, Test: 0.19999999%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 19, 33, 15, 93, 0.7, 0.8611111, 0.7380952, 0.44117647, 0.772242, 0.5522565
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 93, 15, 33, 19, 0.7, 0.3653846, 0.5588235, 0.26190478, 0.4801444, 0.3566553
+
+"
+Train: 0.9%, Test: 0.100000024%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 30, 22, 33, 75, 0.65625, 0.6944444, 0.77319586, 0.52380955, 0.6748072, 0.62452686
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 75, 33, 22, 30, 0.65625, 0.5769231, 0.47619048, 0.22680412, 0.61403507, 0.30726257
+
+"
+End of SEG-SHARED-MC2" 
+"" 
+"SEG-SHARED-PC1" 
+"
+Train: 0.1%, Test: 0.9%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 29, 16, 189, 462, 0.7054598, 0.7096774, 0.9665272, 0.8669725, 0.7075623, 0.91404706
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 462, 189, 16, 29, 0.7054598, 0.64444447, 0.13302752, 0.033472802, 0.6735732, 0.053487033
+
+"
+Train: 0.2%, Test: 0.8%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 31, 29, 184, 702, 0.7748414, 0.7923251, 0.96032834, 0.855814, 0.7834857, 0.90506387
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 702, 184, 29, 31, 0.7748414, 0.51666665, 0.14418605, 0.03967168, 0.6199493, 0.062223144
+
+"
+Train: 0.3%, Test: 0.7%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 35, 38, 205, 768, 0.7676864, 0.7893114, 0.9528536, 0.8541667, 0.77834874, 0.9008153
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 768, 205, 38, 35, 0.7676864, 0.47945204, 0.14583333, 0.047146402, 0.5902614, 0.07125636
+
+"
+Train: 0.4%, Test: 0.6%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 40, 36, 250, 757, 0.73591876, 0.75173783, 0.9546028, 0.86206895, 0.7437442, 0.9059792
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 757, 250, 36, 40, 0.73591876, 0.5263158, 0.13793103, 0.045397226, 0.6137142, 0.06831119
+
+"
+Train: 0.5%, Test: 0.5%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 26, 48, 126, 894, 0.84095067, 0.87647057, 0.9490446, 0.82894737, 0.8583433, 0.8849399
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 894, 126, 48, 26, 0.84095067, 0.35135135, 0.17105263, 0.050955415, 0.49562803, 0.07852019
+
+"
+Train: 0.6%, Test: 0.39999998%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 39, 37, 226, 805, 0.76242095, 0.78079534, 0.956057, 0.8528302, 0.77149874, 0.9014982
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 805, 226, 37, 39, 0.76242095, 0.5131579, 0.14716981, 0.04394299, 0.613435, 0.06767817
+
+"
+Train: 0.7%, Test: 0.3%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 53, 24, 312, 717, 0.6962025, 0.696793, 0.9676113, 0.8547945, 0.6964976, 0.90771097
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 717, 312, 24, 53, 0.6962025, 0.6883117, 0.14520548, 0.032388665, 0.69223464, 0.05296359
+
+"
+Train: 0.8%, Test: 0.19999999%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 32, 44, 163, 869, 0.8131769, 0.84205425, 0.9518072, 0.83589745, 0.82736367, 0.8900947
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 869, 163, 44, 32, 0.8131769, 0.42105263, 0.16410257, 0.04819277, 0.5548243, 0.07450524
+
+"
+Train: 0.9%, Test: 0.100000024%" 
+prep, rowReducer, discretizer, classifier, class,  a, b, c, d, acc, prec, pd, pf, f, g
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, TRUE, 40, 37, 204, 827, 0.78249097, 0.80213386, 0.9571759, 0.8360656, 0.7921907, 0.89253104
+
+NUMVAL1, BURAK, EQUAL-WIDTH-TRAIN-TEST, NB, FALSE, 827, 204, 37, 40, 0.78249097, 0.5194805, 0.16393442, 0.042824075, 0.62442046, 0.0679086
+
+"
+End of SEG-SHARED-PC1" NIL
+CL-USER> 
