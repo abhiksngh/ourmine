@@ -5,6 +5,8 @@
   (sum 0)
   (sumSq 0))
 
+(defstruct (bin (:include normal)) name)
+
 (defmethod add ((n normal) x)
   (incf (normal-n     n) 1)
   (incf (normal-sum   n) x)

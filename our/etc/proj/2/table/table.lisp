@@ -10,7 +10,8 @@
   (data :egs     new
         :name    (table-name tbl)
         :klass   (table-class tbl)
-        :columns (columns-header (table-columns tbl))))
+        :columns (columns-header (table-columns tbl))
+        :ranges  (table-ranges tbl)))
 
 (defun klasses (tbl)
   (discrete-uniques (table-class-header tbl)))

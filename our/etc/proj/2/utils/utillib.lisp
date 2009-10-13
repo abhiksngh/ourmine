@@ -84,6 +84,7 @@
     returntable))
 
 ;Sorts a given table on the column N
+;used in Bore
 (defun sort-on(tbl n)
   (let ((rtntable (copy-table tbl)))
     (setf (table-all rtntable) (sort (table-all rtntable) #'>= :key #'(lambda (x) (nth n (eg-features x)))))
@@ -96,8 +97,36 @@
 
 
 ;Populates an istance of normal with N columns data
+;Used in Bore & Normal Chops
 (defun fill-normal (tbl n)
   (let ((rtnnorm (make-normal)))
     (dolist (record (table-all tbl))
       (add rtnnorm (nth n (eg-features record))))
     rtnnorm))
+
+;Useful operator function
+;used in Normal Chops
+(defun directional-magic (i under at over)
+  (cond ((< i 0) under)
+        ((= i 0) at)
+        ((> i 0) over)))
+
+(defun directional-compare (i)
+  (directional-magic i #'< #'= #'>))
+
+(defun directional-integer (i)
+  (directional-magic i (1+ i) i (1- i)))
+
+;initailizes n amount of bins into an array
+;used in Normal Chops
+(defun init-bins (bins n)
+  (dotimes (i n)
+     (setf (aref bins i) (make-bin :name (format nil "bin ~a" (- i 3))))))
+
+;Builds a list of bins
+;used in Normal Chops
+(defun build-bin-list (bins)
+  (let (alist)
+    (dotimes (i (length bins))
+      (push (aref bins i) alist))
+   (reverse alist)))

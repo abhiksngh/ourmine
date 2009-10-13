@@ -7,7 +7,7 @@
 (load "miner")
 (load "modules/bore")
 (load "modules/oner")
-;(load "modules/normchops")
+(load "modules/normchops")
 
 (defun learn (&key (k 8)
                    (prep #'normalize-numerics)
@@ -48,4 +48,4 @@
 (load "../../../lib/lisp/tests/data/sick")
 (display-table-simple (bore (quake)))
 ;(oner (sick))
-;(format t "~a ~%" (normal-chops (bore (quake) '($latitude $longitude))))
+(format t "~a ~%" (table-ranges (normal-chops (bore (quake) '($latitude)))))
