@@ -53,15 +53,16 @@
 
 
 (defun abcd-print (x s d)
-    (declare (ignore x))
+  (declare (ignore x))
       ;(format s "#(ABCD :FOR ~a :A ~a :B ~a :C ~a :D ~a :ACC ~2,2f "
        (format s "~a,~a,~a,~a,~a,"
-                        (abcd-for x) (abcd-a x) (abcd-b x)
+       (abcd-for x) (abcd-a x) (abcd-b x)
                                   (abcd-c x) (abcd-d x) (accuracy x))
         ;(format s ":PD ~2,2f :PF ~2,2f :PREC ~2,2f :F ~2,2f :BAL ~2,2f)"
        (format s "~2,2f,~2,2f,~2,2f,~2,2f,~2,2f"
-                          (pd x) (pf  x) (precision x)
-                                    (f-measure x) (balance   x)))
+       (pd x) (pf  x) (precision x)
+       (f-measure x) (balance x)))
+
 
 (defun abcd-matrix (pairs classes h)
     (let ((n 0)

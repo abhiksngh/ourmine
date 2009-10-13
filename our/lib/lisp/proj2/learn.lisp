@@ -7,11 +7,24 @@
             ;(format t "~A~%" test)
    (nb-num train test)))
 
+(defun write-stats (filename str)
+  (setf st (open (make-pathname :name filename) :direction :output
+                            :if-exists :supersede))
+  (format st str)
+  (close st))
+
 (defun test-all (train &optional (times 1) (k 1) (n 5))
-    ;(test-no-disc-centroid-nb train times k)
-    ;(test-disc-infogain-centroid-nb train n times)
-    (test-disc-infogain-nb train times n))
-     
+  (let* (disc-nb disc-info disc-info-nb)
+    (setf disc-nb (test-no-disc-centroid-nb train times k))
+    (write-stats "no-disc-nb-cluster" (format nil "~a" disc-nb))  
+    (setf disc-info (test-disc-infogain-centroid-nb train n times))
+    (write-stats "disc-info-cluster" (format nil "~a" disc-info))
+    (setf disc-info-nb (test-disc-infogain-nb train times n))
+    (write-stats "disc-info-nb" (format nil "~a" disc-info-nb))))
+    
+   ;(format t "No Disc, Cluster (k=~A), Nb ~A~%" k (median disc-nb 4))
+   ; (format t "Disc, Infogain (n=~A), Cluster (k=~A), Nb ~A~%" n k (median disc-info 3))))
+   ;(format t "Disc, Infogain (n=~A), No Clustering, Nb ~A~%" n (median disc-info-nb 3))))
 ;;testing: No Discretization on the data. Naive Bayes learner
 (defun test-no-disc-centroid-nb (train &optional (times 1) (k 1))
   (let* ((results))
@@ -51,7 +64,7 @@
              (got (bayes-classify-num test_inst  (xindex closest-cluster))))
         (setf want (list want))
         (setf gotwants (append gotwants (list (append want got)))))) 
-   (blowup-bins (split (abcd-stats gotwants :verbose nil)))))
+   (split (abcd-stats gotwants :verbose nil))))
     ;(format t "~a~%" (abcd-stats gotwants :verbose nil))))
  
 ; infogain on dataset, cluster original dataset (infogain's best columns only) and apply naive bayes
@@ -96,7 +109,7 @@
                 (got (bayes-classify-num  test_inst train)))
                 (setf want (list want))
                 (setf gotwants (append gotwants (list (append want got))))))
-      (blowup-bins (split  (abcd-stats gotwants :verbose nil)))))
+      (split  (abcd-stats gotwants :verbose nil))))
          ;(format t "~a~%" (abcd-stats gotwants :verbose nil))))
             
         
