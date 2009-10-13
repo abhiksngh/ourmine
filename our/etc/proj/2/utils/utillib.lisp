@@ -4,11 +4,19 @@
 
 ; COMPRESSION
 ; From P. Graham (P. #37)
+; Take a list, call compr on the car 1 and cdr
 (defun compress (x)
   (if (consp x)
       (compr (car x) 1 (cdr x))
       x))
 ; From P. Graham (P. #37)
+; Take an element, the element count, and a list.
+; IF the list is null, we are at the end...
+; --> Return list from n-elts
+; ELSE:
+;  IF lst is a list compare the first element with the current element
+;  --> compress (recurse)
+;  ELSE: cons result of n-elts and compr (recurse)
 (defun compr (elt n lst)
   (if (null lst)
       (list (n-elts elt n))
@@ -18,22 +26,39 @@
 	    (cons (n-elts elt n)
 		  (compr next 1 (cdr lst)))))))
 ; From P. Graham (P. #37)
+; Take a number and an element.
+; IF the number is greater than 1 return a list with the number & element.
+; THEN just return the element.
 (defun n-elts (elt n)
+;  (list n elt))
   (if (> n 1)
       (list n elt)
-      elt))
+      (list n elt)))
 
 ; INDEXING
 ; Returns the numeric index of an element in a list or nil if it cannot be found.
 ; NOTE: Returns first match only.
-; TODO: Since lisp allows returning multiple values, make a variant that returns all occurrences.
 (defun indexof (element lst)
   (if (consp lst)
       (let ((index 0))
 	(dolist (item lst)
 	  (if (equal element item)
 	      (return index))
-	  (incf index)))))
+	  (incf index)))
+      nil))
+; Returns the numeric indeces of an element in a list or nil if not a list or value cannot be found.
+(defun indexesof (element lst)
+  (if (null lst)
+      nil
+      (let ((indexes nil)
+	    (x 0))
+	(dolist (item lst)
+	  (when (equal element item)
+	    (setf indexes (append indexes (list x))))
+	  (incf x))
+	indexes)))
+		     
+ 
 
 ;Displays a simple tabbed table
 (defun display-table-simple (tbl)
@@ -63,6 +88,12 @@
   (let ((rtntable (copy-table tbl)))
     (setf (table-all rtntable) (sort (table-all rtntable) #'>= :key #'(lambda (x) (nth n (eg-features x)))))
   rtntable))
+; Sort-on but with whatever sorting algorithm you want.
+(defun sort-on-gen (tbl n &key (comp #'>))
+  (let ((rtntable (copy-table tbl)))
+    (setf (table-all rtntable) (sort (table-all rtntable) comp :key #'(lambda (x) (nth n (eg-features x)))))
+  rtntable))
+
 
 ;Populates an istance of normal with N columns data
 (defun fill-normal (tbl n)
