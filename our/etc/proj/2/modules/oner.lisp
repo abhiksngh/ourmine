@@ -33,8 +33,11 @@
 		(if (ruleset-exist rules (caadr item))
 		    nil
 		    (progn
+		      ; Get all records with matching attribute values
+		      ; Determine the best rule.
+		      ; Determine the number of errors this rule produces.
 		      nil
-;		      (ruleset-add rules (caadr item)        ; rle pred errs
+		      (ruleset-add rules (caadr item) (cadadr item) 10 (car item)) ; rle pred errs correct
 		      )))
 	      (format t "~a~%" rules))
 	    (return-from oner 'DONE)
@@ -76,8 +79,8 @@
       t))
 
 ; Add a rule to the ruleset
-(defun ruleset-add (rls rle prdctn errs)
-  (push (make-rule :rule rle :prediction prdctn :errors errs) (ruleset-rules rls)))
+(defun ruleset-add (rls rle prdctn errs crct)
+  (push (make-rule :rule rle :prediction prdctn :errors errs :correct crct) (ruleset-rules rls)))
 
 ; Sum our rule errors.
 ; TODO: Needs to be fixed to work correctly with rules structure
