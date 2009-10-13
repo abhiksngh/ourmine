@@ -49,7 +49,7 @@
     )
 )
 (defun score-class (per-instance header classi)
-    (let ((all-features (eg-features per-instance)))
+    (let ((all-features (copy-list (eg-features per-instance))))
         (setf (nth classi all-features) (numval3 (nth classi header) (nth classi all-features)))
         all-features
     )
@@ -116,7 +116,7 @@
         ;Sort each attribute by the median score
         (setf trans-data (transpose 
                          (append (features-as-a-list data) 
-                                 (list (table-columns (ar3))) 
+                                 (list (table-columns data)) 
                                  (list median-scores))))
         (setf attr-data (subseq trans-data 0 (- n-cols 1))) ; just attr
 
