@@ -7,6 +7,11 @@
             ;(format t "~A~%" test)
    (nb-num train test)))
 
+(defun final-test (train)
+  (dotimes (k 6)
+    (dotimes (n 13)
+      (test-all train 10 (+ k 2) (+ n 2)))))
+
 (defun write-stats (filename str)
   (setf st (open (make-pathname :name filename) :direction :output
                             :if-exists :supersede))
