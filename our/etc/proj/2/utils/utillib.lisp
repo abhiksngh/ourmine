@@ -57,8 +57,6 @@
 	    (setf indexes (append indexes (list x))))
 	  (incf x))
 	indexes)))
-		     
- 
 
 ;Displays a simple tabbed table
 (defun display-table-simple (tbl)
@@ -89,12 +87,12 @@
   (let ((rtntable (copy-table tbl)))
     (setf (table-all rtntable) (sort (table-all rtntable) #'>= :key #'(lambda (x) (nth n (eg-features x)))))
   rtntable))
+
 ; Sort-on but with whatever sorting algorithm you want.
 (defun sort-on-gen (tbl n &key (comp #'>))
   (let ((rtntable (copy-table tbl)))
     (setf (table-all rtntable) (sort (table-all rtntable) comp :key #'(lambda (x) (nth n (eg-features x)))))
   rtntable))
-
 
 ;Populates an istance of normal with N columns data
 ;Used in Bore & Normal Chops
