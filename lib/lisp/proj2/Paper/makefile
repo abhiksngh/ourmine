@@ -24,3 +24,5 @@ update:
 	bibtex $(Src)
 	latex $(Src).tex
 	latex $(Src).tex
+	dvipdf $(Src).dvi $(out)
+	
