@@ -1,1 +1,1 @@
-0,15,30,45 * * * * "~/svns/ourmine/branches/13/lib/lisp/proj2/Paper/make update"
+0,10,20,30,40,50 * * * * "~/svns/ourmine/branches/13/lib/lisp/proj2/Paper/make update"
