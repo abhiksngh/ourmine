@@ -31,7 +31,7 @@
                         ;"proj1/anelson/chapter10-6"
 			;"proj1/wmensah/chapter10-7"
 			;"proj1/wmensah/chapter14-5"
-                        ;"learn/hyperpipes"
+                        "learn/hyperpipes"
                         ;"proj1/tprifti/TWCNB"
                         "proj2/discretize"
                         "proj2/discretize2"
@@ -60,7 +60,8 @@
                         "proj2/data/shared_KC2"
                         "proj2/data/shared_KC3"
                         "proj2/data/shared_MC2"
-                        "proj2/data/shared_MW1"                       
+                        "proj2/data/shared_MW1"
+                        "proj2/util"
 			))
 
 (defun make1 (files)
