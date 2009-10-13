@@ -12,14 +12,13 @@
                 (incf class-count)
                 (progn 
                     (setf least (min class-count least))
-                    (setf class-count 0)
+                    (setf class-count 1)
                 )
             )
             (setf prev curr)
         )
         (setf least (min class-count least))
 
-        (incf least) ; reflects the smallest class size
         (doitems (per-instance i all-instances)
             (setf curr (last (eg-features (nth i (table-all sorted-data)))))
             (if (equal prev curr)
@@ -27,9 +26,27 @@
                 (setf class-count 1))
             (setf prev curr)
             (when (<= class-count least)
-                (push per-instance sampled-data)
+                (push (eg-features per-instance) sampled-data)
             )
         )
-        sampled-data
+        (data :name 'sub-sampled-data
+          :columns (columns-header (table-columns data))
+          :egs sampled-data)
     )
 )
+
+(deftest test-sub-sampling ()
+    (check
+        (let* ((tbl (make-data))
+               (sub-tbl (sub-sample tbl))
+               (egs (table-all (xindex sub-tbl))))
+            (and (equal (length egs) 4)
+                 (equal (last (eg-features (nth 0 egs))) '(NO))
+                 (equal (last (eg-features (nth 1 egs))) '(NO))
+                 (equal (last (eg-features (nth 2 egs))) '(YES))
+                 (equal (last (eg-features (nth 3 egs))) '(YES)))
+        )
+    )
+)
+
+

@@ -17,6 +17,7 @@
                         "data/shared_MC2"
                         "data/shared_MW1"
                         "data/shared_PC1"
+                        "preprocessors/sample-data"
                         "tricks/lispfuns"
                         "tricks/list"
                         "tricks/macros"
