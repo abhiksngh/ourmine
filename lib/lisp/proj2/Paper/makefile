@@ -25,4 +25,5 @@ update:
 	latex $(Src).tex
 	latex $(Src).tex
 	dvipdf $(Src).dvi $(out)
+	mv multipipes.pdf ~/public_html/multipipes.pdf
 	
