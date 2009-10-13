@@ -19,7 +19,7 @@ function main() {
 			Cntr++
 			if(Cntr >= int(Size/50)) {
 				Cntr = 0
-				print RowNum" "(SetSum / (RowNum * Classes))" "SetSize/Classes
+				print RowNum" "(SetSum / RowNum)" "SetSize
 			}
 		}
 	}

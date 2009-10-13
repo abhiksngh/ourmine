@@ -23,7 +23,7 @@ set yrange [0:1]
 plot	"$file1" using 1:2 title 'Baseline' with points 1 2,\
 	"$file9" using 1:2 title 'Naive Bayes' with points 2 2,\
 	"$file2" using 1:2 title 'Centroid' with points 3 3,\
-	"$file5" using 1:2 title 'Original' with points 5 6,\
+	"$file5" using 1:2 title 'Original' with points 2 6,\
 	"$file6" using 1:2 title 'Alpha .10' with points 13 4,\
 	"$file7" using 1:2 title 'Alpha .25' with points 9 4,\
 	"$file8" using 1:2 title 'Alpha .50' with points 5 4
@@ -32,7 +32,8 @@ EOF
 
 epstopdf proj2/HyperPipes/Plots/$1.eps
 
-
+#	"$file3" using 1:2 title 'Weighted Numerics (Method 0)' with points 9 3,\
+#	"$file4" using 1:2 title 'Weighted Numerics (Method 1)' with points 9 2,\
 
 #	"$file3" using 1:2 title 'Weighted 0',\
 #	"$file4" using 1:2 title 'Weighted 1',\

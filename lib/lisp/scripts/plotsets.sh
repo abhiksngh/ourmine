@@ -14,8 +14,8 @@ set key inside top left
 set output "../proj2/HyperPipes/Plots/$1-setsize.eps"
 set title "$1"
 set xlabel "Rows Learned"
-set ylabel "% classes in disjunction"
-set yrange [0:1]
+set ylabel "Number of classes in disjunction"
+set yrange [0:22]
 plot	"$inpath/$1-baseline.dat" using 1:2 title 'Baseline',\
 	"$inpath/$1-alpha10.dat" using 1:2 title '10% Alpha',\
 	"$inpath/$1-alpha25.dat" using 1:2 title '25% Alpha',\
