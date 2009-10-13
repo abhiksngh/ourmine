@@ -22,8 +22,8 @@
 	     (want    (eg-class instance))
 	     (success (eql got want)))
         ;Print what we got, what we wanted, and if we won.
-	(format stream "~a ~a ~a ~%"  got want
-                (if success "   " "<--"))
+	;(format stream "~a ~a ~a ~%"  got want
+        ;        (if success "   " "<--"))
         ;;We're keeping track of what we correctly identified.
         (if success
             (if (equal want 'TRUE)

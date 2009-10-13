@@ -1,3 +1,11 @@
+(defun runLearnSet()
+  (let* ((setList (list #'shared-cm1 #'shared-kc1 #'shared-kc2 #'shared-kc3 #'shared-mw1 #'shared-mc2 #'shared-pc1)))
+    (dolist (per-set setList)
+      (print "")
+      (print (parse-name per-set))
+      (multiple-value-bind (trainList testList) (bins (funcall per-set))
+        (learn trainList testList)))))
+
 (defun learn (trainList
               testList
               &key (prep #'numval1)
@@ -6,8 +14,8 @@
                    (rowReducer   #'doNothing)
                    (discretizer  #'equal-width-train-test)
                    ;(cluster      #'(lambda (data) (kmeans k data))) 
-                   ;(fss          #'b-squared)
-                   (classify     #'nb))
+                   (fss          #'doNothing)
+                   (classify     #'hp))
   (if (not(listp trainList))
       (setf trainList (list trainList)))
   (if (not(listp testList))
@@ -22,19 +30,19 @@
            (trainSet (funcall prep trainSet))
            (testSet (funcall prep testSet)))
            (multiple-value-bind (trainSet testSet) (funcall norm trainSet testSet)
-             (multiple-value-bind (trainSet testSet) (funcall discretizer trainSet testSet)
-               (print trainSet)
-               (multiple-value-bind (trueClass falseClass) (funcall classify trainSet testSet)
+             (multiple-value-bind (trainSet testSet) (funcall rowReducer trainSet testSet)
+               (multiple-value-bind (trainSet testSet) (funcall discretizer trainSet testSet)
+                 (multiple-value-bind (trueClass falseClass) (funcall classify trainSet testSet)
             (printHeaderLine)
         (printLine prep rowReducer discretizer classify 'TRUE trueClass)
         (printLine prep rowReducer discretizer classify 'FALSE falseClass))))
-    T)))
+    T))))
 
 (defun printHeaderLine ()
-  (format t "prep, rowReducer, discretizer, classifier, class, ~Ta,~Tb,~Tc,~Td,~Tacc,~Tprec,~Tpd,~Tpf,~Tf,~Tg~%"))
+  (format t "~%prep, rowReducer, discretizer, classifier, class, ~Ta,~Tb,~Tc,~Td,~Tacc,~Tprec,~Tpd,~Tpf,~Tf,~Tg~%"))
 
 (defun printLine(prep rowReducer discretizer classifier class resultsList)
-              (format t "~a, ~a, ~a, ~a,~T~a,~T~a,~T~a,~T~a,~T~a,~T~a,~T~a,~T~a,~T~a,~T~a,~T~a~%" (parse-name prep) (parse-name rowReducer) (parse-name discretizer) (parse-name classifier) class (first resultsList) (second resultsList) (third resultsList) (fourth resultsList)
+              (format t "~%~a, ~a, ~a, ~a,~T~a,~T~a,~T~a,~T~a,~T~a,~T~a,~T~a,~T~a,~T~a,~T~a,~T~a~%" (parse-name prep) (parse-name rowReducer) (parse-name discretizer) (parse-name classifier) class (first resultsList) (second resultsList) (third resultsList) (fourth resultsList)
                    (float (acc (first resultsList)
                         (second resultsList)
                         (third resultsList)
@@ -103,7 +111,14 @@
   (/ (* 2 (prec a b c d) (acc a b c d)) (+ (prec a b c d) (acc a b c d))))
 
 (defun g (a b c d)
-  (/ (* 2 (pf a b c d) (pd a b c d)) (+ (pf a b c d) (pd a b c d))))
+  (/
+   (*
+    2
+    (pf a b c d)
+    (pd a b c d))
+   (+
+    (pf a b c d)
+    (pd a b c d))))
 
 
 (defun parse-name (me)

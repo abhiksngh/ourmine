@@ -74,6 +74,7 @@
            (V 0) ; magic cut-off value for b
            (trans-data) (attr-data) (class-data)
            (sorted-attr-data)
+           (score-cutoff)
            (keep-cols-i 0)
            (col-names)
            (min-score) (max-score) (cutoff-score)

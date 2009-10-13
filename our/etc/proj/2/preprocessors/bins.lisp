@@ -94,86 +94,107 @@
 ; create train/test data sets for each bin 
 (defun return-bins (data-set filled-bins per-bin)
         (values 
-            (data :name 'bin0-test 
-                  :columns (columns-header (table-columns data-set))
-                  :egs (build-data-set filled-bins 0 per-bin t)
-            )
-            (data :name 'bin0-train
+     
+           (list (data :name 'bin0-train
                   :columns (columns-header (table-columns data-set))
                   :egs (build-data-set filled-bins 0 per-bin nil)
             )
-            (data :name 'bin1-test
-                  :columns (columns-header (table-columns data-set))
-                  :egs (build-data-set filled-bins 1 per-bin t)
-            )
+ 
             (data :name 'bin1-train
                   :columns (columns-header (table-columns data-set))
                   :egs (build-data-set filled-bins 1 per-bin nil)
             )
-            (data :name 'bin2-test
-                  :columns (columns-header (table-columns data-set))
-                  :egs (build-data-set filled-bins 2 per-bin t)
-            )
+
             (data :name 'bin2-train
                   :columns (columns-header (table-columns data-set))
                   :egs (build-data-set filled-bins 2 per-bin nil)
             )
-            (data :name 'bin3-test
-                  :columns (columns-header (table-columns data-set))
-                  :egs (build-data-set filled-bins 3 per-bin t)
-            )
+
             (data :name 'bin3-train
                   :columns (columns-header (table-columns data-set))
                   :egs (build-data-set filled-bins 3 per-bin nil)
             )
-            (data :name 'bin4-test
-                  :columns (columns-header (table-columns data-set))
-                  :egs (build-data-set filled-bins 4 per-bin t)
-            )
+
             (data :name 'bin4-train
                   :columns (columns-header (table-columns data-set))
                   :egs (build-data-set filled-bins 4 per-bin nil)
             )
-            (data :name 'bin5-test
-                  :columns (columns-header (table-columns data-set))
-                  :egs (build-data-set filled-bins 5 per-bin t)
-            )
+
             (data :name 'bin5-train
                   :columns (columns-header (table-columns data-set))
                   :egs (build-data-set filled-bins 5 per-bin nil)
             )
-            (data :name 'bin6-test
-                  :columns (columns-header (table-columns data-set))
-                  :egs (build-data-set filled-bins 6 per-bin t)
-            )
+
             (data :name 'bin6-train
                   :columns (columns-header (table-columns data-set))
                   :egs (build-data-set filled-bins 6 per-bin nil)
             )
-            (data :name 'bin7-test
-                  :columns (columns-header (table-columns data-set))
-                  :egs (build-data-set filled-bins 7 per-bin t)
-            )
+
             (data :name 'bin7-train
                   :columns (columns-header (table-columns data-set))
                   :egs (build-data-set filled-bins 7 per-bin nil)
             )
-            (data :name 'bin8-test
-                  :columns (columns-header (table-columns data-set))
-                  :egs (build-data-set filled-bins 8 per-bin t)
-            )
+
             (data :name 'bin8-train
                   :columns (columns-header (table-columns data-set))
                   :egs (build-data-set filled-bins 8 per-bin nil)
             )
+
+           (data :name 'bin9-train
+                  :columns (columns-header (table-columns data-set))
+                  :egs (build-data-set filled-bins 9 per-bin nil)
+            ))
+            
+          (list  (data :name 'bin0-test 
+                  :columns (columns-header (table-columns data-set))
+                  :egs (build-data-set filled-bins 0 per-bin t)
+            )
+
+            (data :name 'bin1-test
+                  :columns (columns-header (table-columns data-set))
+                  :egs (build-data-set filled-bins 1 per-bin t)
+            )
+
+            (data :name 'bin2-test
+                  :columns (columns-header (table-columns data-set))
+                  :egs (build-data-set filled-bins 2 per-bin t)
+            )
+
+            (data :name 'bin3-test
+                  :columns (columns-header (table-columns data-set))
+                  :egs (build-data-set filled-bins 3 per-bin t)
+            )
+
+            (data :name 'bin4-test
+                  :columns (columns-header (table-columns data-set))
+                  :egs (build-data-set filled-bins 4 per-bin t)
+            )
+
+            (data :name 'bin5-test
+                  :columns (columns-header (table-columns data-set))
+                  :egs (build-data-set filled-bins 5 per-bin t)
+            )
+
+            (data :name 'bin6-test
+                  :columns (columns-header (table-columns data-set))
+                  :egs (build-data-set filled-bins 6 per-bin t)
+            )
+
+            (data :name 'bin7-test
+                  :columns (columns-header (table-columns data-set))
+                  :egs (build-data-set filled-bins 7 per-bin t)
+            )
+
+            (data :name 'bin8-test
+                  :columns (columns-header (table-columns data-set))
+                  :egs (build-data-set filled-bins 8 per-bin t)
+            )
+
             (data :name 'bin9-test
                   :columns (columns-header (table-columns data-set))
                   :egs (build-data-set filled-bins 9 per-bin t)
-            )
-            (data :name 'bin9-train
-                  :columns (columns-header (table-columns data-set))
-                  :egs (build-data-set filled-bins 9 per-bin nil)
-            )
+            ))
+ 
         )
 )
 
