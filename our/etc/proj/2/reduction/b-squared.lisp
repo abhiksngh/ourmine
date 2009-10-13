@@ -103,14 +103,12 @@
                    :key (lambda (k) (nth i (eg-features k)))) r-size)))
 
                     (when (< b V) (setf b 0))
-
                     (if (> r 0)
                         (setf scores (append scores (list (float (/ (square b) (+ b r))))))
                         (setf scores (append scores (list 0.0)))
                     )
                 )
             )
-
             ; compute the median score for all attr vals
             (setf median-scores (append median-scores (list (median scores))))
         )

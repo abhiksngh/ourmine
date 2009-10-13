@@ -43,7 +43,6 @@
 
         ; generate arrays of min/max for each column
         (build-arrays data min-array max-array col-list)
-
         ; find bin sizes based on data range and number of bins
         (cond 
             ((and N) (find-bin-sizes min-array max-array N bin-sizes))
@@ -51,7 +50,6 @@
              (find-bin-sizes min-array max-array (bin-log data col-list) bin-sizes))
             (t (find-bin-sizes min-array max-array 10 bin-sizes))
         )
-
         ; discretize the numeric data into the spec'd bins
         (convert-values data min-array bin-sizes)
     )
@@ -133,20 +131,20 @@
 ;   calculate the bin size based on min, max and N
 ;------------------------------------------------------------------------------
 (defun find-bin-sizes (min-array max-array N bin-sizes)
-    (let* ((max-val 0) (min-val 0) (i 0) (tmp 0) (len (length min-array)))
+    (let* ((max-val 0) (min-val 0) (bin-size) (i 0) (nbins 0) (len (length min-array)))
         (loop until (= i len)
             do
-                (cond ((aref min-array i)
+                (when (aref min-array i)
                     (setf min-val (aref min-array i))
                     (setf max-val (aref max-array i))
-                    (cond ((listp N) 
-                           (setf tmp (car N)))
-                          (t (setf tmp N))
+                    (if (listp N) 
+                        (setf nbins (car N))
+                        (setf nbins N)
                     )
-                    (setf tmp (/ (- max-val min-val) tmp ))
-                    (setf (aref bin-sizes i) (max tmp 1))
-                ))
-                (setf i (+ i 1))
+                    (setf bin-size (/ (- max-val min-val) nbins ))
+                    (setf (aref bin-sizes i) bin-size)
+                )
+                (incf i)
         )
     )
 )
