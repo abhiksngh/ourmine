@@ -249,7 +249,7 @@
 
 
 (defun demoHyperPipesNew(&optional (dataFileName "primary-tumor") (Alpha 0) (countType 0) (meanType 0) (oldway 0) (useCentroid 0))
-  (print "*************Demoing HyperPipes**************")
+  (format t "*************Demoing HyperPipes**************~%")
   ;(load (concatenate `string "HyperPipes/Data/" dataFileName ".lisp"))
 
   (let* ((MyHyperPipes (list))
@@ -263,7 +263,7 @@
     (ignore-errors
         (delete-file outputFileName)
         )
-
+    (with-open-file (outputFile outputFileName :direction :output :if-does-not-exist :create :if-exists :overwrite)
     (with-open-file (stream (concatenate `string "proj2/HyperPipes/Data/" dataFileName ".lisp"))
       (do ((line (read-line stream nil) (read-line stream nil))) ((null line))
         (let* ((attributeValues (eval (read-from-string line)))
@@ -271,24 +271,29 @@
                (tiedClasses (TrimTiedClasses tiedClasses MyHyperPipes useCentroid))
                (successOrFailure (find (nth (- (length attributeValues) 1) attributeValues) tiedClasses))
                )
-          ;(format t "~%Expected Result: ~a Actual Result: ~a" (nth (- (length attributeValues) 1) attributeValues) tiedClasses)
+;          (format t "~%Expected Result: ~a Actual Result: ~a" (nth (- (length attributeValues) 1) attributeValues) tiedClasses)
+;          (format t "~%Success?: ~a~%" successOrFailure)
           (incf totalChecks)
-          (setf outputFile (open outputFileName :direction :output :if-does-not-exist :create :if-exists :append))
+          ;(setf outputFile (open outputFileName :direction :output :if-does-not-exist :create :if-exists :append))
           ;(print tiedClasses)
-          (if (not (null successOrFailure))
+          (if (null successOrFailure)
+              (write-line (format nil "~a ~a ~a" 0 (length tiedClasses) tiedClasses) outputFile)
+;              (format t "~a ~a ~a~%" 0 (length tiedClasses) tiedClasses)
               (progn
                 (incf totalRight)
-                (format outputFile "~a ~a ~a~%" 1 (length tiedClasses) tiedClasses)
+;                (format t "Verified Success")
+                (write-line (format nil "~a ~a ~a" 1 (length tiedClasses) tiedClasses) outputFile)
+;                (format t "~a ~a ~a~%" 1 (length tiedClasses) tiedClasses)
                 )
-              (format outputFile "~a ~a ~a~%" 0 (length tiedClasses) tiedClasses)
               )
-          (close outputFile)
+;          (close outputFile)
           ;(print successOrFailure)
           (setf MyHyperPipes (AddExperienceNew MyHyperPipes (make-ExperienceInstance :attributes (remove-nth (- (length attributeValues) 1) attributeValues) :class (nth (- (length attributeValues) 1) attributeValues))))
           )
         )
       ;(close outputFile)
       )
+    )
     ;(print (float (/ totalRight totalChecks)))
     ;(print Alpha)
     ;MyHyperPipes
@@ -300,7 +305,7 @@
   )
 
 (defun demoHyperPipesBatchNew(&optional (dataFileName "primary-tumor") (Alpha 0) (countType 0) (meanType 0) (oldway 0) (useCentroid 0) (learn .6))
-  (print "*************Demoing HyperPipes**************")
+  (format t "*************Demoing HyperPipes**************~%")
   ;(load (concatenate `string "HyperPipes/Data/" dataFileName ".lisp"))
 
   (let* ((MyHyperPipes (list))
@@ -424,17 +429,21 @@
     ;(setf maxValue (+ currentMax adjustmentValue))
     
     (dolist (result normalizedResults)
+;      (print result)
        (if (>= (second result) minValue)
            (progn
              ;(format t "Result ~a is greater than ~a~%" result minValue)
              (if (= oldway 1)
                  (setf HighestValue (list (first result)))
-                 (setf HighestValue (append HighestValue (list (first result))))
+                 (progn 
+                   (setf HighestValue (append (list (first result)) HighestValue ))
+;                   (print "We appended")
+                   )
                  )
              )
            )
        )
-    ;(print HighestValue)
+;    (print HighestValue)
     HighestValue
     )
   )
