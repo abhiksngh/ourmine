@@ -1,17 +1,19 @@
 (defun equal-width-train-test(train test)
-  (let* ((lengthTrain (length train))
-        (lengthTest (length test))
+  (let* ((lengthTrain (length (table-all (xindex train))))
+        (lengthTest (length (table-all (xindex test))))
         (tmp (nvalues 0.0 train test))
-        (totalLength (length tmp))
+        (totalLength (length (table-all (xindex tmp))))
         (returnTrain)
         (returnTest))
     (setf tmp (equal-width tmp))
-    (setf returnTrain (build-a-data (table-name train)
-                                   (columns-header(table-columns train))
-                                   (subseq tmp 0 (- lengthTrain 1))))))
+    (let* ((returnTrain (build-a-data (table-name train)
+                                   (numeric-to-discrete(columns-header(table-columns train)))
+                                   (subseq (features-as-a-list tmp) 0 (- lengthTrain 1))))
+           (returnTest (build-a-data (table-name test)
+                                     (numeric-to-discrete(columns-header(table-columns test)))
+                                     (subseq (features-as-a-list tmp) 0 (- totalLength 1)))))
+      (values returnTrain returnTest))))
     
-
-
 ;------------------------------------------------------------------------------
 ; EQUAL-WIDTH FUNCTION - discretizes the designated columns in the passed 
 ;                      - data set into N equal-width bins (only numeric)
@@ -36,7 +38,7 @@
 
         (when (not col-list) ; nil flag indicates all columns should be used
             (setf col-list (build-list (table-width data)))
-            (setf col-list (subseq col-list 0 (- (length col-list) 2)))
+            (setf col-list (subseq col-list 0 (- (length col-list) 1)))
         )
 
         ; generate arrays of min/max for each column
