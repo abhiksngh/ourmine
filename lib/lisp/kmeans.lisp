@@ -1,16 +1,16 @@
-(defun test-data()
+(defun test-data2()
   (data
    :name 'test
    :columns '($number1 symbol $number2 stuff)
-   :egs '((0 bye 1 true)
-          (.2 hey 1 true)
-          (.5 hey 1 true)
-          (1 hey 1 false)
-          (1 bye 1 false)
+   :egs '((0.0 bye 1.0 true)
+          (0.2 hey 1.0 true)
+          (0.5 hey 1.0 true)
+          (1.0 hey 1.0 false)
+          (1.0 bye 1.0 false)
           )))
 
 (defun kmeans (k)
-  (let* ((tbl (xindex (test-data)))
+  (let* ((tbl (xindex (test-data2)))
         (centroid-list (kmeans-find-centroid k (f tbl))) ;create a numeric list of what rows are centroids
         (centroid0 '()) ;list for actual centroid data
         (n 0))
@@ -48,7 +48,7 @@
               (dolist (row cluster)
                 (if (numberp (nth n (eg-features row)))
                     (push (nth n (eg-features row)) number-list)))
-              ;sort the list
+              (setf number-list (qsort number-list))
               (if (oddp (length number-list))
                   (setf (nth n (eg-features centroid)) (- (round (/ (length number-list) 2)) 1))
                   (progn
@@ -89,6 +89,19 @@
 
 
 (defun even-numeric-median (numbers)
-  (let ((first (nth (- (/ (length numbers) 2) 1) numbers))
-        (second (nth (/ (length numbers) 2) numbers)))
-    (/ (+ first second) 2)))
+  (let ((f (nth (- (/ (length numbers) 2) 1) numbers))
+        (s (nth (/ (length numbers) 2) numbers)))
+    (/ (+ f s) 2)))
+
+
+(defun qsort (list)
+  (if (<= (length list) 1)
+      list
+      (progn
+        (let ((pivot (car list))
+              (less-then '())
+              (great-then '()))
+          (dolist (n (cdr list) (append (qsort less-then) `(,pivot) (qsort great-then)))
+            (if (< n pivot)
+                (push n less-then)
+                (push n great-then)))))))

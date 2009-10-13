@@ -1,4 +1,4 @@
-(defun test-data ()
+(defun test-data1 ()
   (data
    :name 'test
    :columns '($number1 symbol $number2 stuff)
@@ -10,7 +10,7 @@
           )))
 
 (defun normalize ()
-  (let ((tbl (xindex (test-data)))
+  (let ((tbl (xindex (test-data1)))
         (n 0))
     (dolist (col (table-columns tbl) tbl)
       (when (numericp (header-name col))
@@ -26,5 +26,5 @@
             (progn
               (dolist (row (table-all tbl)) ;loop through each row of data
                 (if (numberp (nth n (eg-features row))) ;checks if the data is a number
-                    (setf (nth n (eg-features row)) (/ (- (nth n (eg-features row)) (normal-min n-normal)) (- (normal-max n-normal) (normal-min n-normal)))))))))) ;normalizes the number
-        (incf n)))) ;increment the counter of the column being altered
+                    (setf (nth n (eg-features row)) (* (/ (- (nth n (eg-features row)) (normal-min n-normal)) (- (normal-max n-normal) (normal-min n-normal))) 1.0)))))))) ;normalizes the number
+      (incf n)))) ;increment the counter of the column being altered
