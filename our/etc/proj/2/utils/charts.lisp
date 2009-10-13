@@ -50,11 +50,3 @@
 								   '("data0" "data1" "data2" "data3" "data4")))
   (let ((mydata (build-test-data-for-bars random-strings)))
 	(show-bar-graph mydata :width width :barchar barchar :predicate predicate)))
-
-;(defun run-times (board)
-;	(let (times)
-;		(dotimes (i 20 (sort times #'<)
-;			(let ((before (get-internal-runtime))
-;				(explore board #'what2do=best)
-;			(push (- (get-internal-runtime) before) times)))))))
-
