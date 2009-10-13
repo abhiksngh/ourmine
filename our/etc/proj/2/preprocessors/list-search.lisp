@@ -1,8 +1,8 @@
 ; return true if the passed argument is found in the passed list
-(defun list-search (class-list class-arg)
+(defun list-search (lst item)
     (let ((found nil))
-        (dolist (per-class class-list)
-            (if (equal per-class class-arg)
+        (dolist (per-item lst)
+            (if (equal per-item item)
                 (return-from list-search t)
                 () ; do nothing
             )
@@ -11,3 +11,9 @@
     )
 )
 
+(deftest test-search ()
+    (check
+        (and (list-search (list 1 2 3 4) 2)
+             (not (list-search (list 1 2 3 4) 5)))
+    ) 
+)

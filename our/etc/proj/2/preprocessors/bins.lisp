@@ -1,15 +1,15 @@
+; make sure classes are distributed properly, instances are placed evenly
 (deftest test-bins ()
-    (multiple-value-bind (b0-test b0-train
-                          b1-test b1-train
-                          b2-test b2-train
-                          b3-test b3-train
-                          b4-test b4-train
-                          b5-test b5-train
-                          b6-test b6-train
-                          b7-test b7-train
-                          b8-test b8-train
-                          b9-test b9-train)
-                          (bins (ar3))
+    (check
+        (multiple-value-bind (train-bins test-bins)
+                              (bins (make-bin-data))
+            (let* ((bin0 (features-as-a-list (first train-bins))))
+                (and (equal (last (first bin0)) '(YES))
+                     (equal (last (second bin0)) '(NO))
+                     (equal (length bin0) 2)
+                )
+            )
+        )
     )
 )
 
