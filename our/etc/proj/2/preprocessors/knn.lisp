@@ -102,23 +102,27 @@
          (combinedData (table-all combinedDataSet))
          (cols (table-columns combinedDataSet)))
     (dolist (per-set (list (xindex train) (xindex test)) (values train test))
-      (print "per-set")
       (let* ((columns (numeric-col per-set))
              (table-data (table-all per-set)))
-        (print "per-data")
         (dolist (per-data table-data)
            (dolist (per-index columns)
-             (print "per-index")
              (let* ((header (header-f (nth per-index cols)))
                     (f-struct (gethash (eg-class per-data) header))
                     (classMinimum (normal-min f-struct))
                     (classMaximum (normal-max f-struct)))
                (if (= classMaximum 0)
                    (setf classMaximum (log 0.001)))
-               (print "setf")
                (setf (nth per-index (eg-features per-data)) (normal classMinimum classMaximum (nth per-index (eg-features per-data)))))))))))
-      
-    
+
+(deftest test-normalizeTrainTest()
+  (multiple-value-bind (train test) (seg-ar3)
+	   (multiple-value-bind (train test) (normalizedataTrainandTest train test)
+	     (check
+                (if (listp (or
+                     (member (eg-features(nth 1 (table-all(normalizedata(Ar3))))) (features-as-a-list train))
+                     (member (eg-features(nth 1 (table-all(normalizedata(ar3))))) (features-as-a-list test))))
+        T
+        nil)))))
   
 
 (defun normal (classMinimum classMaximum value)

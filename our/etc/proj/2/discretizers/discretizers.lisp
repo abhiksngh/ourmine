@@ -1,3 +1,17 @@
+(defun equal-width-train-test(train test)
+  (let* ((lengthTrain (length train))
+        (lengthTest (length test))
+        (tmp (nvalues 0.0 train test))
+        (totalLength (length tmp))
+        (returnTrain)
+        (returnTest))
+    (setf tmp (equal-width tmp))
+    (setf returnTrain (build-a-data (table-name train)
+                                   (columns-header(table-columns train))
+                                   (subseq tmp 0 (- lengthTrain 1))))))
+    
+
+
 ;------------------------------------------------------------------------------
 ; EQUAL-WIDTH FUNCTION - discretizes the designated columns in the passed 
 ;                      - data set into N equal-width bins (only numeric)
@@ -22,6 +36,7 @@
 
         (when (not col-list) ; nil flag indicates all columns should be used
             (setf col-list (build-list (table-width data)))
+            (setf col-list (subseq col-list 0 (- (length col-list) 2)))
         )
 
         ; generate arrays of min/max for each column
@@ -106,7 +121,6 @@
 
 ;------------------------------------------------------------------------------
 ; FIND-BIN-SIZES FUNCTION - calculate the bin sizes for each column
-
 ; ARGUMENTS
  ; - INPUT: arrays of min / max vals, a value of N bins, array for bin-sizes
  ; - RETURN: array of bin-sizes by reference
@@ -159,6 +173,8 @@
 
             
         )
+
+        (setf eg-set (reverse eg-set))
         ; build new data-set
         (data :name 'disc-set
               :columns (numeric-to-discrete(columns-header (table-columns data)))
