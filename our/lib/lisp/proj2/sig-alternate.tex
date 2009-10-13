@@ -183,32 +183,38 @@ is available on the web page to help you with the
 
 \keywords{ACM proceedings, \LaTeX, text tagging}
 
-\section{Introduction}
-The \textit{proceedings} are the records of a conference.
-ACM seeks to give these conference by-products a uniform,
-high-quality appearance.  To do this, ACM has some rigid
-requirements for the format of the proceedings documents: there
-is a specified format (balanced  double columns), a specified
-set of fonts (Arial or Helvetica and Times Roman) in
-certain specified sizes (for instance, 9 point for body copy),
-a specified live area (18 $\times$ 23.5 cm [7" $\times$ 9.25"]) centered on
-the page, specified size of margins (2.54cm [1"] top and
-bottom and 1.9cm [.75"] left and right; specified column width
-(8.45cm [3.33"]) and gutter size (.083cm [.33"]).
+\section{Introduction} 
+By predicting defects in software systems {\em before} the deployment of that software, 
+it is possible to gauge not only the probable quality upon delivery, but also the maintenance effort. 
+Software defect prediction builds models using available company data that can then be applied in order 
+to predict these software faults. But in order to employ these models, a company must have 
+a data repository where information regarding defects from past projects are stored. 
+However, according to Turhan, et. al. \cite{turhan09}, few companies are applying this practice. 
+Turhan, et. al. claims (and we agree), that this is most likely due to a lack of local data repositories.
+When this is the case, companies must use non-local data in order to build defect predictors. Thus, 
+it is not only important to determine how well cross-company data can be used when local data is unavailable, 
+but also to find the presence or absence of a general theory of software defect prediction. In other words, 
+in determining the existence of an empirically-derived correlation between varying defect data sets, 
+a statement can be made in regards to not only the stability of current defect prediction, but also the 
+underlying similarities of cross-company software projects. On the other hand, 
+if no correlation is found to exist, instability of those current predictors may suggest that further research 
+should be conducted in order to provide incite into the variance between projects. 
 
-The good news is, with only a handful of manual
-settings\footnote{Two of these, the {\texttt{\char'134 numberofauthors}}
-and {\texttt{\char'134 alignauthor}} commands, you have
-already used; another, {\texttt{\char'134 balancecolumns}}, will
-be used in your very last run of \LaTeX\ to ensure
-balanced column heights on the last page.}, the \LaTeX\ document
-class file handles all of this for you.
 
-The remainder of this document is concerned with showing, in
-the context of an ``actual'' document, the \LaTeX\ commands
-specifically available for denoting the structure of a
-proceedings paper, rather than with giving rigorous descriptions
-or explanations of such commands.
+%In this paper, we provide introduce recent experiments conducted by the authors of this paper in order to produce 
+%a general hypothesis in regards to the stability or instability of current software defect prediction theories that can be used in further analyses.   
+
+\section{Background}
+
+WC vs. CC stuff here.
+
+\section{The Experiment}
+
+\subsection{Techniques}
+
+\section{Results}
+
+\section{Conclusion}
 
 \section{The {\secit Body} of The Paper}
 Typically, the body of a paper is organized
@@ -534,7 +540,7 @@ and the \textbf{.cls} and \textbf{.tex} files that it describes.
 % initial runs of your .tex file to
 % produce the bibliography for the citations in your paper.
 \bibliographystyle{abbrv}
-\bibliography{sigproc}  % sigproc.bib is the name of the Bibliography in this case
+\bibliography{refs}  % sigproc.bib is the name of the Bibliography in this case
 % You must have a proper ".bib" file
 %  and remember to run:
 % latex bibtex latex latex
