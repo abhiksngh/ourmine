@@ -1,31 +1,13 @@
-;; deftest log-N function
+;; deftest: log-N function
 (deftest test-logn()
   (let* ((testdata (deftest_data)))
     (check
-      (equal (table-egs-to-lists (log-data1 testdata))
-             '((1.8388491 1.1139433 0.845098 0.90309 3.387687 -1.39794 1.4286207
+      (equal (car (table-egs-to-lists (log-data1 testdata)))
+             '(1.8388491 1.1139433 0.845098 0.90309 3.387687 -1.39794 1.4286207
                 1.9589937 4.8163605 -0.09151498 3.5610883 1.8325089 1.5314789 -4.0
-                1.3424227 1.819544 2.3364596 2.206826 1.39794 FALSE)
-               (1.0791812 0.60206 -4.0 0.30103 2.4353347 -0.92081875 0.9196011 1.5160062
-                3.3547037 -1.0457575 2.099439 1.0 -4.0 0.30103 1.1139433 1.2552725
-                1.50515 1.3617278 0.845098 FALSE)
-               (0.47712126 -4.0 -4.0 -4.0 1.2933626 -0.30102998 0.30103 0.99255353
-                1.5943925 -2.0 0.33845648 0.30103 -4.0 -4.0 0.60206 0.47712126 0.60206
-                0.47712126 -4.0 FALSE)
-               (1.1139433 0.60206 -4.0 0.47712126 2.6579638 -1.39794 1.4361626 1.221675
-                4.0941296 -0.82390875 2.8388553 1.1139433 -4.0 -4.0 1.3222193 1.1760913
-                1.690196 1.5910646 0.845098 FALSE)
-               (1.3424227 0.69897 0.69897 0.60206 2.7317739 -1.154902 1.1442627
-                1.5874865 3.876038 -0.74472743 2.6207707 1.3424227 -4.0 -4.0 1.230449
-                1.39794 1.770852 1.6127839 0.9542425 TRUE)
-               (1.2787536 0.69897 -4.0 0.69897 2.506004 -1.0457575 1.0670708 1.4390167
-                3.572947 -0.9586073 2.3176663 1.230449 0.69897 0.30103 1.146128
-                1.1760913 1.6127839 1.39794 0.9542425 FALSE)
-               (-4.0 -4.0 -4.0 -4.0 0.30103 -4.0 -4.0 -4.0 -4.0 -4.0 -4.0 -4.0 -4.0 -4.0
-                0.30103 -4.0 0.30103 -4.0 -4.0 FALSE))))))
+                1.3424227 1.819544 2.3364596 2.206826 1.39794 FALSE)))))
 
-
-;; preprocessor that builds new data from n existing datasets (2 in this case)
+;; deftest: Build new data from n existing datasets (2 in this case)
 (deftest test-make-new-data()
   (let* ((old-data (table-egs-to-lists (deftest_data))))
     (dolist (item (reverse old-data))
@@ -34,7 +16,7 @@
       (equal old-data (table-egs-to-lists (new-data (deftest_data) (deftest_data)))))))
       
 
-;; splits a dataset into a train set and test set
+;; deftest: Splits a dataset into a train set and test set
 (deftest test-split-traintest()
   (let* ((bucket (split2bins (deftest_data))))
     (check
@@ -42,12 +24,20 @@
            (eq (length (table-egs-to-lists (car (cdr bucket)))) 6)))))
 
 
-;; k-nearest neighbor. Testing for the first nearest neighbor
+;; deftest: k-nearest neighbor. Testing for the first nearest neighbor
 (deftest test-k-nearest ()
   (check
     (equal (k-nearest (car (table-egs-to-lists (deftest_data))) (table-egs-to-lists (deftest_data)) 1)
            '((69 13 7 8 2441.67 0.04 26.83 90.99 65518.01 0.81 3639.89 68 34 1 22 66
               217 161 25 FALSE)))))
+
+
+;; deftest: infogain. We want 2 columns
+(deftest test-infogain ()
+  (check
+    (equal (car (table-egs-to-lists (infogain-table (make-data-k) 2)))
+           '(45 20 YES))))
+
 
 
 (defun deftest_data()
