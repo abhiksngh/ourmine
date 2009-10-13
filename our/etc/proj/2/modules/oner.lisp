@@ -77,18 +77,18 @@
 
 ; Add a rule to the ruleset
 (defun ruleset-add (rls rle prdctn errs)
-  (push (make-rule :rule rle :prediction prdctn :errors errs) (rules-rules rls)))
+  (push (make-rule :rule rle :prediction prdctn :errors errs) (ruleset-rules rls)))
 
 ; Sum our rule errors.
 ; TODO: Needs to be fixed to work correctly with rules structure
 (defun ruleset-sumerrors (rls)
   (if (null rls)
       0
-      (+ (rule-errors (car rls)) (rules-sumerrors (cdr rls)))))
+      (+ (rule-errors (car rls)) (ruleset-sumerrors (cdr rls)))))
 
 ; This is probably pre-built or something trivial with mapcar?
 ; Unused, written as a recursion experiment.
 (defun sumlst (lst)
   (if (null lst)
       0
-      (+ (car lst) (testing (cdr lst)))))
+      (+ (car lst) (sumlst (cdr lst)))))
