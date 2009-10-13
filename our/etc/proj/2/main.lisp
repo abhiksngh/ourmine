@@ -9,7 +9,25 @@
 (load "modules/oner")
 ;(load "modules/normchops")
 
+(defun learn (&key (k 8)
+                   (prep #'normalize-numerics)
+				   (discretizer #'10bins)
+				   (clusterer (lambda (data) (kmeans k data)))
+				   (fss #'infogain)
+				   (classify #'naiveBayes)
+				   (train "train.lisp")
+				   (test "test.lisp"))
+  (let ((training (load train))
+		(testing (load test)))
+	(let* ((preptrain (prep training))
+		   (preptest (prep testing))
+		   (discrete-table (discretizer preptrain))
+		   (clusters (clusterer preptrain))
+		   (features (fss clusters))
+		   (classification (classify discrete-table features))))))
 
+<<<<<<< .mine
+=======
 
 ;(defun learn (&key (k 8)
 	;      (prep #'bore)
@@ -28,6 +46,6 @@
 
 (load "../../../lib/lisp/tests/data/quake")
 (load "../../../lib/lisp/tests/data/sick")
-(display-table-simple (bore (quake) ))
+(display-table-simple (bore (quake)))
 ;(oner (sick))
 ;(format t "~a ~%" (normal-chops (bore (quake) '($latitude $longitude))))
