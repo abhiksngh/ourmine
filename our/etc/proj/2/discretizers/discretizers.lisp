@@ -1,3 +1,18 @@
+; tests that bins are split with bin sizes 1/10 of max-min
+;          - discrete values are untouched
+;          - a range of 0 places all instances in the same bin (0)
+(deftest test-equal-width ()
+    (check
+        (let ((disc-data (features-as-a-list (equal-width (make-disc-data)))))
+            (and (equal (first (first disc-data)) 10)
+                 (equal (second (first disc-data)) 10)
+                 (equal (third (first disc-data)) 10)
+                 (equal (fourth (first disc-data)) 0)
+                 (equal (fifth (first disc-data)) 'NO))
+        )
+    )
+)
+
 (defun equal-width-train-test(train test)
   (let* ((lengthTrain (length (table-all (xindex train))))
         (lengthTest (length (table-all (xindex test))))
@@ -50,6 +65,7 @@
              (find-bin-sizes min-array max-array (bin-log data col-list) bin-sizes))
             (t (find-bin-sizes min-array max-array 10 bin-sizes))
         )
+
         ; discretize the numeric data into the spec'd bins
         (convert-values data min-array bin-sizes)
     )
@@ -186,7 +202,10 @@
 ; helper function, performs discretization calculation
 (defun convert-values2 (per-feature array-min bin-size) 
     (if array-min
-        (floor (/ (- per-feature array-min) bin-size))
+        (if (= bin-size 0)
+            0
+            (floor (/ (- per-feature array-min) bin-size))
+        )
         per-feature
     )
 )

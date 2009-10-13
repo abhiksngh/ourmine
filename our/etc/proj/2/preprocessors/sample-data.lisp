@@ -36,3 +36,20 @@
              (5      0      27   45       no)
              )))
 
+(defun make-disc-data ()
+  (data
+   :name   'test-nums
+   :columns '($hours $miles $age $minutes valid)
+   :egs    '((0      0      0    0       yes)
+             (1      1      33   0       yes)
+             (2      0      17   0       yes)
+             (3      1      10   0       yes)
+             (4      0      65   0       yes)
+             (5      1      26   0       no)
+             (6      1      14   0       no)
+             (7      0      48   0       no)
+             (8      1      61   0       no)
+             (9      0      27   0       no)
+             (10     10     100  0       no)
+             )))
+
