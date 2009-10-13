@@ -28,8 +28,8 @@
 
 ;;Burak Filter
 (defun burak(train test)
-  (let* ((xtrain (normalizedata (xindex train)))
-         (xtest (table-all(normalizedata(xindex test))))
+  (let* ((xtrain (xindex train))
+         (xtest (table-all(xindex test)))
          (tmp)
          (returnData)
          )
