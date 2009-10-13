@@ -1,15 +1,3 @@
-(defun learn (&key (k 8)
-              (cluster   #'(lambda (data) (k-means data k))))
-
-  (let* ((train (make-data-k))
-         (clusters (funcall cluster train))
-         (cluster-tables '())
-         (lst-centroids '()))
-    (setf cluster-tables (make-cluster-tables clusters train))
-    (setf lst-centroids (get-cls-means cluster-tables))
-    (values cluster-tables lst-centroids)))
-
-
 (defun no-disc-nb (train)
   "split into 10 bins and apply naive bayes"
   (let* ((lst (split2bins train))
@@ -19,36 +7,40 @@
             ;(format t "~A~%" test)
    (nb-num train test)))
 
+(defun test-all (train &optional (times 1) (k 1) (n 5))
+    ;(test-no-disc-centroid-nb train times k)
+    ;(test-disc-infogain-centroid-nb train n times)
+    (test-disc-infogain-nb train times n))
+     
 ;;testing: No Discretization on the data. Naive Bayes learner
-(defun test-no-disc-centroid-nb (train &key (times 1))
+(defun test-no-disc-centroid-nb (train &optional (times 1) (k 1))
   (let* ((results))
-    (dotimes (i times results)
+    (dotimes (i times (blowup-bins results))
       (let* ((copy (make-simple-table (table-name train) (table-columns train) (table-egs-to-lists train)))) 
-        (setf results (append results (list (no-disc-centroid-nb (log-data1 copy)))))))))
+        (setf results (append results (list (no-disc-centroid-nb (log-data1 copy) k))))))))
+
+;;testing infogain
+(defun test-disc-infogain-nb (train &optional (times 1)(n 5))
+  (let* ((results))
+    (dotimes (i times (blowup-bins results))
+      (let* ((copy (make-simple-table (table-name train) (table-columns train) (table-egs-to-lists train)))) 
+        (setf results (append results (list (disc-infogain-nb (log-data1 copy) n))))))))
 
 ;;testing: Discretizing the data. Naive Bayes learner
-(defun test-disc-infogain-centroid-nb (train n &key (times 1))
+(defun test-disc-infogain-centroid-nb (train n &optional (times 1))
   (let* ((results))
-    (dotimes (i times results)
+    (dotimes (i times (blowup-bins results))
       (let* ((copy (make-simple-table (table-name train) (table-columns train) (table-egs-to-lists train)))) 
         (setf results (append results (list (disc-infogain-centroid-nb (log-data1 copy) n))))))))
 
 
-;; testing: Discretizing the data, Infogain, Naive Bayes learner
-(defun test-disc-infogain-nb (train n &key (times 1))
-  (let* ((results))
-    (dotimes (i times results)
-      (let* ((copy (make-simple-table (table-name train) (table-columns train) (table-egs-to-lists train))))
-        (setf results (append results (list (disc-infogain-nb (log-data1 copy) n))))))))
-
-
 ;;applying only clustering and naive bayes
-(defun no-disc-centroid-nb (train)
+(defun no-disc-centroid-nb (train &optional (k 1))
   (let* ((class (table-class train))
          (lst (split2bins train))
          (train (xindex (car (cdr lst))))
          (test (xindex (car lst)))
-         (clusters (k-means train))
+         (clusters (k-means train k))
          (cluster-tables (make-cluster-tables clusters train))
          (cls-means (get-cls-means cluster-tables))
          (gotwants))
@@ -58,19 +50,16 @@
              (want (nth class test_inst))
              (got (bayes-classify-num test_inst  (xindex closest-cluster))))
         (setf want (list want))
-        (setf gotwants (append gotwants (list (append want got))))))
-    (abcd-stats gotwants :verbose nil)))
+        (setf gotwants (append gotwants (list (append want got)))))) 
+   (blowup-bins (split (abcd-stats gotwants :verbose nil)))))
     ;(format t "~a~%" (abcd-stats gotwants :verbose nil))))
  
 ; infogain on dataset, cluster original dataset (infogain's best columns only) and apply naive bayes
 (defun disc-infogain-centroid-nb(train n)
   (let* ((best-cols (extract-best-cols (infogain (table-egs-to-lists train)) (table-egs-to-lists train) n))
          (train-cols (table-columns train))
-         (numcols (length train-cols))
-         (all (table-egs-to-lists train))
          (newdata)
          (newtable)
-         (temp)
          (newcols '()))
     (dolist (col best-cols)
       (setf newcols (cons (nth col train-cols) newcols)))
@@ -78,10 +67,13 @@
     (setf newtable (make-desc-table (table-name train) newcols newdata))
     (no-disc-centroid-nb newtable)))
 
-         
+(defun split (lst)
+  (let ((out))
+    (setf out (append out (list (list (car lst)))))
+    (setf out (append (list (cdr lst)) out))))
+   
 (defun get-wanted-cols (train wanted)
   (let* ((all (table-egs-to-lists train))
-         (n (length (table-columns train)))
          (temp)
          (newdata))
     (dolist (inst all (reverse newdata))
@@ -104,38 +96,16 @@
                 (got (bayes-classify-num  test_inst train)))
                 (setf want (list want))
                 (setf gotwants (append gotwants (list (append want got))))))
-       (abcd-stats gotwants :verbose nil)))
+      (blowup-bins (split  (abcd-stats gotwants :verbose nil)))))
          ;(format t "~a~%" (abcd-stats gotwants :verbose nil))))
             
         
-(defun debug-cls (train)
-  (let* ((acc 0)
-         (clusters (k-means train))
-         (tabs (make-cluster-tables clusters train))
-         (inst '(36 9 5 5 618.64 0.08 12 51.55 7423.67 0.21 412.43 28 6 8 16 30 67 45 17 FALSE))
-         (closest-cent (get-closest-centroid inst
-                            (get-cls-means tabs))))
-    (dolist (obj tabs tabs)
-      (setf acc (+ acc (length (table-all obj)))))
-      (format t "~A~%" (length tabs))
-      (format t "~A~%" closest-cent)
-      (format t "~A~%" (position inst (get-features (table-all (nth closest-cent tabs))) :test #'equal))
-      (nth closest-cent tabs)))
+
       
 (defun disc-nb (train)
   "discretize and apply naive bayes"
   (no-disc-nb (discretize train)))
 
-(setf lst '((9 7 0 0 7 9 1 8 4 7 4 9 0 0 0 2 9 9 7 FALSE)
-            (0 0 0 0 5 9 0 23 0 5 0 0 3 0 4 8 4 6 0 TRUE)
-            (6 2 1 1 3 9 2 5 2 3 2 6 9 0 4 4 4 4 2 TRUE)
-            (0 0 0 0 0 9 2 3 0 0 0 0 5 0 3 1 0 2 0 FALSE)
-            (3 0 0 0 7 9 2 7 5 7 5 3 7 0 3 4 8 7 0 TRUE)
-            (5 7 9 7 6 9 2 7 5 6 5 4 0 9 4 6 7 6 7 FALSE)
-            (2 3 3 1 0 0 23 0 23 0 23 1 0 6 9 0 1 1 2 FALSE)
-            (0 7 5 3 0 0 4 2 1 0 1 0 0 0 6 0 3 0 7 FALSE)
-            (5 9 3 9 9 9 2 9 8 23 8 5 0 4 5 9 9 9 9 FALSE)))
-         
       
                      
 (defun make-cluster-tables (clusters train)
