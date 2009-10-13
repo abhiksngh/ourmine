@@ -1,32 +1,28 @@
 ; bore.lisp
 ;
 ; Implements the BORE pre-processor.
-(defun bore (dataset columnnames)
+(defun bore (dataset &optional (columnnames (mapcar #'header-name (table-columns dataset))))
   (let* ((normalvals (make-array (length columnnames) :initial-element (make-normal)))
 	 (datatable (copy-table dataset))
          (returntable)
-	 (index ())
+	 (index)
 	 (n 0)
 	 (x 0)
 	 (y 0)
-	 (colname)
-	 (fields ())
+	 (fields)
 	 )
     (dolist (columns (table-columns datatable))
-      (setf colname (header-name columns))
 	(dolist (name columnnames)
-	  (if (equal colname name)   
+	  (if (and (typep columns 'numeric) (equal name (header-name columns)))
 	      (progn
-	       (dolist (record (table-all datatable))
-		(setf index (eg-features record))
-		(setf x (nth n index))
-		(add (aref normalvals y) x))
-	       (setf (table-columns datatable) (append (table-columns datatable)
+                (setf (aref normalvals y) (fill-normal datatable n))
+
+                (setf (table-columns datatable) (append (table-columns datatable)
 				        `(,(make-numeric :name y :ignorep nil :classp nil))))
-	       (dolist (record (table-all datatable))
-		 (setf (eg-features record) (append (eg-features record) `(, (normalize (aref normalvals y)
-					(nth n (eg-features record)))))))
-	      (incf y))
+                (dolist (record (table-all datatable))
+                  (setf (eg-features record) (append (eg-features record) `(, (normalize (aref normalvals y)
+                                                                           (nth n (eg-features record)))))))
+                (incf y))
 	      ))
 	(incf n))
 
@@ -40,7 +36,6 @@
    (setf returntable (best-of (sort-on datatable (+ n y))))
 
    returntable))
-
 
 ;Evaluates the W cloumn
 (defun borew (cols)

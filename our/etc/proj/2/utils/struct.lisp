@@ -7,3 +7,6 @@
   num     ;number         :bin number
   ele     ;list of eg     :all records in bin
 )
+
+;(defmethod pushbin (elem (abin bin))
+ ; (push elem (bin-ele abin)))

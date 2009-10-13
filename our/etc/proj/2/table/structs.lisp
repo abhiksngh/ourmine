@@ -5,6 +5,7 @@
   (cautions (make-caution)) ; list of caution : any load-time errors?
   all                       ; list of eg      : all the examples
   indexed
+  ranges                    ; list of bin ranges
 )
 
 (defstruct eg features class)
@@ -13,3 +14,9 @@
 	   (f (make-hash-table :test #'equal)))
 (defstruct (numeric  (:include header)))
 (defstruct (discrete  (:include header)) uniques)
+
+(defstruct binranges
+  name
+  min
+  max
+)

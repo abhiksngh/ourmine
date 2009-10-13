@@ -63,3 +63,10 @@
   (let ((rtntable (copy-table tbl)))
     (setf (table-all rtntable) (sort (table-all rtntable) #'>= :key #'(lambda (x) (nth n (eg-features x)))))
   rtntable))
+
+;Populates an istance of normal with N columns data
+(defun fill-normal (tbl n)
+  (let ((rtnnorm (make-normal)))
+    (dolist (record (table-all tbl))
+      (add rtnnorm (nth n (eg-features record))))
+    rtnnorm))

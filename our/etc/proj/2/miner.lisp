@@ -18,6 +18,7 @@
 			"table/xindex"
 			"learn/nb"
 			"utils/utillib"
+                        "utils/struct"
 			))
 
 (defun make1 (files)
