@@ -100,7 +100,7 @@
 (deftest learner-test ()
   (check
     (equalp
-      (mapcar #'(lambda (stat) (subseq stat 6)) (learner (ar3) (ar3) :discretizer #'10bins :classifier-train #'nb-train :classifier #'nb-classify))
+      (mapcar #'(lambda (stat) (subseq stat 6)) (learner (ar3) (ar3) :discretizer #'10bins-eq-width :classifier-train #'nb-train :classifier #'nb-classify))
       '((54 2 1 6 20/21 6/7 3/4 1/55 4/5 6/169)
         (6 1 2 54 20/21 27/28 54/55 1/4 36/37 108/271)))))
 
