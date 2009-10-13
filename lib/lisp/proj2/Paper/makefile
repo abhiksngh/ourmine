@@ -10,6 +10,7 @@ dvi:
 
 pdf:
 	dvipdf $(Src).dvi $(out)
+	cp $(Src).pdf ~/
 
 finished:
 	@printf "\n\n-.,_,.-=^=-.,_,.-=^=-.,_,.-=^=-.,_,.-=^=-.,_,.-=^=\n"
