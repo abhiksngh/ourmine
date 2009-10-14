@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2009.4.9)  13 OCT 2009 19:37
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2009.4.9)  13 OCT 2009 19:42
 entering extended mode
  %&-line parsing enabled.
 **sig-alternate.tex
@@ -460,10 +460,9 @@ l.268 \begin
 l.268 \begin
             
 ? 
-<disc_info_cluster_pd.pdf, id=30, 794.97pt x 614.295pt>
-File: disc_info_cluster_pd.pdf Graphic file (type pdf)
-
-<use disc_info_cluster_pd.pdf>
+<disc_info_nb_pd.pdf, id=30, 794.97pt x 614.295pt>
+File: disc_info_nb_pd.pdf Graphic file (type pdf)
+ <use disc_info_nb_pd.pdf>
 Overfull \hbox (12.94499pt too wide) in paragraph at lines 270--271
  [] 
  []
@@ -534,10 +533,9 @@ l.277 \begin
 l.277 \begin
             
 ? 
-<disc_info_cluster_pf.pdf, id=31, 794.97pt x 614.295pt>
-File: disc_info_cluster_pf.pdf Graphic file (type pdf)
-
-<use disc_info_cluster_pf.pdf>
+<disc_info_nb_pf.pdf, id=31, 794.97pt x 614.295pt>
+File: disc_info_nb_pf.pdf Graphic file (type pdf)
+ <use disc_info_nb_pf.pdf>
 Overfull \hbox (12.94499pt too wide) in paragraph at lines 279--280
  [] 
  []
@@ -655,9 +653,9 @@ l.293
 l.293 
       
 ? 
- <./no_disc_nb_cluster_pf.pdf, page is rotated 90 degrees> <./disc_info_cluster
-_pd.pdf, page is rotated 90 degrees> <./disc_info_cluster_pf.pdf, page is rotat
-ed 90 degrees>]
+ <./no_disc_nb_cluster_pf.pdf, page is rotated 90 degrees> <./disc_info_nb_pd.p
+df, page is rotated 90 degrees> <./disc_info_nb_pf.pdf, page is rotated 90 degr
+ees>]
 
 LaTeX Warning: Citation `missingdata' on page \thepage  undefined on input line
  305.
@@ -790,7 +788,7 @@ LaTeX Warning: There were multiply-defined labels.
  ) 
 Here is how much of TeX's memory you used:
  1977 strings out of 94101
- 22087 string characters out of 1165811
+ 22037 string characters out of 1165811
  79205 words of memory out of 1500000
  5195 multiletter control sequences out of 10000+50000
  63916 words of font info for 90 fonts, out of 1200000 for 2000
@@ -812,7 +810,7 @@ vetic/uhvb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/helvetic/uhvr8a.pfb>
 xlive/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texmf-texlive/fonts/type1/u
 rw/times/utmr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmri8a.pfb
 >
-Output written on sig-alternate.pdf (8 pages, 197070 bytes).
+Output written on sig-alternate.pdf (8 pages, 197097 bytes).
 PDF statistics:
  126 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 131072)
