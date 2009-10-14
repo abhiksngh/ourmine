@@ -1,8 +1,16 @@
+(defun table0 ()
+  (data
+   :name 'test
+   :columns '($number1 symbol $number2 stuff)
+   :egs '())
+
+
 (defun n_bins (n table0)
 	(let ((name (table-name table0))	
 	(maopcar #'header-name
 		(table-columns table0)))
 		(rows (magic table0)))
+		(data:name name:columns columns:egs rows)))
 	
 (defun magic (eqs columns)
 	(let (out)

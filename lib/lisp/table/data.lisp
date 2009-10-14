@@ -37,6 +37,12 @@
 
 (defmethod datum ((column numeric) datum oops)
   "things to do when reading a numeric datum"
+   (setf (numeric-max column)
+	(max datum
+             (numeric-max column)))
+  (setf (numeric-min column)
+	(min datum
+             (numeric-min column)))
   (ok (numberp datum) oops"~a is not a number" datum)
   t)
 
