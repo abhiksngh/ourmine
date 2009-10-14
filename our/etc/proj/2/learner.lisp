@@ -141,3 +141,8 @@
                                          :classifier-train classifier-train 
                                          :classifier classifier)))
 
+(defun learn-demo ()
+  (learn (ar3) (ar3) :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify)
+  (learn (ar4) (ar4) :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify)
+  (learn (ar5) (ar5) :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify))
+
