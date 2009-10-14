@@ -245,7 +245,7 @@ Two discretization method were used for performing the experiments: Equal Interv
 Since our main learning algorithm is Naive-Bayes, both discretization method greatly improve the performance of the learner. Naive-Bayes is used with both k-means clustering and equal interval width bins on each of the datasets.
 
 \section{Results}
-Naive-Bayes learner was applied on all data sets. Three learners were tested
+Naive-Bayes learner was applied on all data sets. Three different combinations of preprocesing techniques and feature subset selections were tested on different datasets:
 \begin{itemize}
 \item{Naive-Bayes without discretizing. K-means applied on the data}
 \\In this experiment the data was supplied to the learner without performing any discretization. After splitting the data the train set was clustered using k-means. For each instance on the test data set the closest cluster was determined and the instance was classified using Naive-Bayes trained on that specific cluster.The performance of the learner was tested on different number of clusters k ranging from 2 to 7
@@ -283,7 +283,7 @@ Applying InfoGain on discretize data outperforms the first learner. Data is disc
  \textbf
 \begin
   \begin{center}
-    \includegraphics[width=3.5in]{disc_info_nb_pd.pdf}
+    \includegraphics[width=3.5in]{disc_info_pd.pdf}
   \end{center}
 
   \caption{\small Figure 3. PD: InfoGain and Naive-Bayes}
@@ -295,7 +295,7 @@ Applying InfoGain on discretize data outperforms the first learner. Data is disc
 \textbf
 \begin
   \begin{center}
-    \includegraphics[width=3.5in]{disc_info_nb_pf.pdf}
+    \includegraphics[width=3.5in]{disc_info_pf.pdf}
   \end{center}
   \caption{\small Figure 4. PF InfoGain and Naive-Bayes}
   \label{fig-label} \end{fig-label}
@@ -327,12 +327,12 @@ Applying InfoGain on discretize data outperforms the first learner. Data is disc
 \begin{table}
 \centering
 \caption{Statistics for each learner}
-\begin{tabular}{|c|c|c|} \hline
-Learner&PD&PF\\\hline
-1& 0.57 & 0.47 \\ \hline
-2& & \\ \hline
-3& & \\ \hline
-\hline\end{tabular}
+\begin{tabular}{|c|c|c|c|} \hline
+Learner&PD&PF&Balance\\\hline
+1& 0.57 & 0.47 & 0.42 \\ \hline
+2& 0.86 & 0.09 & 0.21 \\ \hline
+3& 0.5  &0.5  & 0.41 \\ \hline
+\end{tabular}
 \end{table}
 
 \\Table  2. Shows the top 14 columns selected by InfoGain
