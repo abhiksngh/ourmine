@@ -1,3 +1,25 @@
+;;(defun get-nearest-centroid (tbl row centroids)
+;;  (let ((nearest-centroid nil)
+;;        (nearest-centroid-distance most-positive-fixnum))
+;;    (dolist (centroid centroids)
+;;      (let ((centroid-distance (euclid-distance row centroid tbl)))
+;;        (if (< centroid-distance nearest-centroid-distance)
+;;          (setf nearest-centroid-distance centroid-distance
+;;                nearest-centroid centroid))))
+;;    nearest-centroid))
+;;
+;;(defun kmeans (tbl k)
+;;  (setf tbl (table-deep-copy tbl))
+;;  (let ((centroids nil)
+;;        (rows (get-table-rows tbl))
+;;        (row-centroids nil))
+;;    (dotimes (i k)
+;;      (let ((random-int (random (length rows))))
+;;        (push (nth random-int rows) centroids)))
+;;    (dolist (row rows)
+;;      (push (get-nearest-centroid tbl row centroids) row-centroids))
+;;    (setf row-centroids (nreverse row-centroids))
+    
 ;;Stub for a clusterer that returns a list of table structures containing only the training
 ;;set.
 (defun default-clusterer (k train)

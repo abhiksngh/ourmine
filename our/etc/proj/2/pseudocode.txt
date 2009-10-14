@@ -1,0 +1,52 @@
+sub-sample(dataset)
+  //get class with least number of instances
+  minority_class = get_minority_class(dataset)
+  //get number of instances of minority class
+  minority_class_count = get_class_count(dataset, minority_class)
+  //remove rows from each class until all classes have the same number
+  //of instances
+  for each class in classes(dataset)
+    if class != minority_class
+      rows_removed = 0
+      while(rows_removed < get_class_count(dataset, class) - minority_class_count)
+        random_index = random(0, length(dataset))
+        if(class(dataset[random_index]) == class)
+          remove(random_index, dataset)
+          rows_removed++
+
+equal-width-discretizer(dataset, nbins)
+  for each column in dataset
+    for each value in column
+      //change each value to its discretized replacement
+      value = min(n - 1, floor((value - min(column)) / (max(column) - min(column)) * nbins))
+
+equal-frequency-discretizer(dataset, nbins)
+  for each column in dataset
+    sort(dataset, column) //sort dataset by the values in column
+    i = 0
+    for each value in column
+      //change each value to its discretized replacement
+      value = min(n - 1, floor((i / (length(column) - 1)) * nbins))
+
+euclidean-distance(row1, row2)
+  sum = 0
+  for i = 0 to length(row1)
+    sum = sum + expt(row2[i] - row1[i], 2)
+  return sqrt(sum)
+
+k-nearest-neighbors(row1, dataset, k)
+  neighbors = array[length(dataset)]
+  //compute the distance between row1 and each row in dataset
+  for each row in dataset
+    neighbors = (row, euclidean-distance(row1, row))
+  //sort the array of neighbors by distance
+  sort(neighbors)
+  //return the first k neighbors
+  return neighbors[0..k-1]
+
+burak-filter(train, test)
+  training-instances = null
+  for each row in test
+    add(k-nearest-neighbors(row, train, 10), training-instances)
+  return remove_duplicates(training-instances)
+

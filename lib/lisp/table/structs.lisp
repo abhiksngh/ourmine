@@ -12,4 +12,4 @@
 (defstruct header name classp ignorep 
 	   (f (make-hash-table :test #'equal)))
 (defstruct (numeric  (:include header)))
-(defstruct (discrete  (:include header)) uniques)
+(defstruct (discrete  (:include header)) orderp uniques)

@@ -63,18 +63,21 @@
                 :CLASSP NIL
                 :IGNOREP NIL
                 :F {hash of 0 items}
+                :ORDERP NIL
                 :UNIQUES (SUNNY))
              #S(DISCRETE
                 :NAME TEMP
                 :CLASSP NIL
                 :IGNOREP NIL
                 :F {hash of 0 items}
+                :ORDERP NIL
                 :UNIQUES (HOT))
              #S(DISCRETE
                 :NAME HUMIDTY
                 :CLASSP NIL
                 :IGNOREP NIL
                 :F {hash of 0 items}
+                :ORDERP NIL
                 :UNIQUES (HIGH))
              #S(NUMERIC
                 :NAME $WINDY
@@ -86,6 +89,7 @@
                 :CLASSP T
                 :IGNOREP NIL
                 :F {hash of 0 items}
+                :ORDERP NIL
                 :UNIQUES (YES NO)))
    :CLASS 4
    :CAUTIONS #(CAUTION :ALL ((SUNNY HOT HIGH YES) wrong size
