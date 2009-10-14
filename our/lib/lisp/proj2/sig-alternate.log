@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2009.4.9)  13 OCT 2009 20:39
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2009.4.9)  13 OCT 2009 21:37
 entering extended mode
  %&-line parsing enabled.
 **sig-alternate.tex
@@ -842,116 +842,203 @@ l.324 \\T
          he figures show PD and PF plotted against k-number of clusters whic...
 
 ? 
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.338 \\T
+         able  2. Shows the top 14 columns selected by InfoGain
+? 
+! Missing $ inserted.
+<inserted text> 
+                $
+l.344 Feat.&Shared_
+                   PC1&Shared_CN1&Shared_MW1\\\hline
+? 
+! Extra }, or forgotten $.
+<template> \unskip \hfil }
+                          \hskip \tabcolsep \hskip -.5\arrayrulewidth \vrule...
+l.344 Feat.&Shared_PC1&
+                       Shared_CN1&Shared_MW1\\\hline
+? 
+! Missing $ inserted.
+<inserted text> 
+                $
+l.344 Feat.&Shared_PC1&
+                       Shared_CN1&Shared_MW1\\\hline
+? 
+! Missing } inserted.
+<inserted text> 
+                }
+l.344 Feat.&Shared_PC1&
+                       Shared_CN1&Shared_MW1\\\hline
+? 
+! Missing $ inserted.
+<inserted text> 
+                $
+l.344 Feat.&Shared_PC1&Shared_
+                              CN1&Shared_MW1\\\hline
+? 
+! Extra }, or forgotten $.
+<template> \unskip \hfil }
+                          \hskip \tabcolsep \hskip -.5\arrayrulewidth \vrule...
+l.344 Feat.&Shared_PC1&Shared_CN1&
+                                  Shared_MW1\\\hline
+? 
+! Missing $ inserted.
+<inserted text> 
+                $
+l.344 Feat.&Shared_PC1&Shared_CN1&
+                                  Shared_MW1\\\hline
+? 
+! Missing } inserted.
+<inserted text> 
+                }
+l.344 Feat.&Shared_PC1&Shared_CN1&
+                                  Shared_MW1\\\hline
+? 
+! Missing $ inserted.
+<inserted text> 
+                $
+l.344 Feat.&Shared_PC1&Shared_CN1&Shared_
+                                         MW1\\\hline
+? 
+! Extra }, or forgotten $.
+<template> \unskip \hfil }
+                          \hskip \tabcolsep \hskip -.5\arrayrulewidth \vrule...
+l.344 ...&Shared_PC1&Shared_CN1&Shared_MW1\\\hline
+                                                  
+? 
+! Missing $ inserted.
+<inserted text> 
+                $
+l.344 ...&Shared_PC1&Shared_CN1&Shared_MW1\\\hline
+                                                  
+? 
+! Missing } inserted.
+<inserted text> 
+                }
+l.344 ...&Shared_PC1&Shared_CN1&Shared_MW1\\\hline
+                                                  
+? 
+
+Overfull \hbox (70.95517pt too wide) in paragraph at lines 343--360
+ [][] 
+ []
+
 [5
 ! Undefined control sequence.
 <write> \newlabel{fig-label}{{\p@copyrightbox 
                                               \thecopyrightbox }{\thepage }}
-l.333 
+l.369 
       
 ? 
 ! Undefined control sequence.
 <write> ...bel}{{\p@copyrightbox \thecopyrightbox 
                                                   }{\thepage }}
-l.333 
+l.369 
       
 ? 
 ! Undefined control sequence.
 <write> \@writefile{\ext@copyrightbox 
                                       }{\protect \contentsline {copyrightbox...
-l.333 
+l.369 
       
 ? 
 ! Undefined control sequence.
 <write> ...\protect \numberline {\thecopyrightbox 
                                                   }{\ignorespaces \relax \pr...
-l.333 
+l.369 
       
 ? 
 ! Undefined control sequence.
 <write> \newlabel{fig-label}{{\p@copyrightbox 
                                               \thecopyrightbox }{\thepage }}
-l.333 
+l.369 
       
 ? 
 ! Undefined control sequence.
 <write> ...bel}{{\p@copyrightbox \thecopyrightbox 
                                                   }{\thepage }}
-l.333 
+l.369 
       
 ? 
 ! Undefined control sequence.
 <write> \@writefile{\ext@copyrightbox 
                                       }{\protect \contentsline {copyrightbox...
-l.333 
+l.369 
       
 ? 
 ! Undefined control sequence.
 <write> ...\protect \numberline {\thecopyrightbox 
                                                   }{\ignorespaces \relax \pr...
-l.333 
+l.369 
       
 ? 
 ! Undefined control sequence.
 <write> \newlabel{fig-label}{{\p@copyrightbox 
                                               \thecopyrightbox }{\thepage }}
-l.333 
+l.369 
       
 ? 
 ! Undefined control sequence.
 <write> ...bel}{{\p@copyrightbox \thecopyrightbox 
                                                   }{\thepage }}
-l.333 
+l.369 
       
 ? 
  <./disc_info_cluster_pd.pdf, page is rotated 90 degrees> <./disc_info_cluster_
 pf.pdf, page is rotated 90 degrees>]
 
 LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
-ne 393.
-
-
-LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
-ne 408.
+ne 431.
 
 [6]
 
+LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
+ne 446.
+
+
 LaTeX Warning: Citation `bowman:reasoning' on page \thepage  undefined on input
- line 435.
+ line 473.
 
 
 LaTeX Warning: Citation `clark:pct' on page \thepage  undefined on input line 4
-35.
+73.
 
 
 LaTeX Warning: Citation `braams:babel' on page \thepage  undefined on input lin
-e 435.
+e 473.
 
 
 LaTeX Warning: Citation `herlihy:methodology' on page \thepage  undefined on in
-put line 435.
+put line 473.
 
 
 LaTeX Warning: Citation `clark:pct' on page \thepage  undefined on input line 4
-36.
+74.
 
 
 LaTeX Warning: Citation `salas:calculus' on page \thepage  undefined on input l
-ine 437.
+ine 475.
 
 
 LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
-ne 437.
+ne 475.
 
 
 LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
-ne 443.
+ne 481.
 
 
 LaTeX Warning: Citation `Lamport:LaTeX' on page \thepage  undefined on input li
-ne 454.
+ne 492.
 
 
-LaTeX Warning: File `fly.eps' not found on input line 529.
+LaTeX Warning: File `fly.eps' not found on input line 567.
 
 
 ! LaTeX Error: Unknown graphics extension: .eps.
@@ -960,11 +1047,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.529 \epsfig{file=fly.eps}
+l.567 \epsfig{file=fly.eps}
                            
 ? 
 
-LaTeX Warning: File `fly.eps' not found on input line 535.
+LaTeX Warning: File `fly.eps' not found on input line 573.
 
 
 ! LaTeX Error: Unknown graphics extension: .eps.
@@ -973,15 +1060,15 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.535 \epsfig{file=fly.eps, height=1in, width=1in}
+l.573 \epsfig{file=fly.eps, height=1in, width=1in}
                                                   
 ? 
 
 LaTeX Font Warning: Font shape `T1/aett/bx/n' undefined
-(Font)              using `T1/aett/m/n' instead on input line 537.
+(Font)              using `T1/aett/m/n' instead on input line 575.
 
 
-LaTeX Warning: File `flies.eps' not found on input line 547.
+LaTeX Warning: File `flies.eps' not found on input line 585.
 
 
 ! LaTeX Error: Unknown graphics extension: .eps.
@@ -990,11 +1077,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.547 \epsfig{file=flies.eps}
+l.585 \epsfig{file=flies.eps}
                              
 ? 
 
-LaTeX Warning: File `rosette.ps' not found on input line 561.
+LaTeX Warning: File `rosette.ps' not found on input line 599.
 
 
 ! LaTeX Error: Unknown graphics extension: .ps.
@@ -1003,13 +1090,14 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.561 ...{file=rosette.ps, height=1in, width=1in,}
+l.599 ...{file=rosette.ps, height=1in, width=1in,}
                                                   
 ? 
+[7]
 \c@theorem=\count109
 \c@definition=\count110
-[7]
-Overfull \hbox (15.60826pt too wide) detected at line 617
+
+Overfull \hbox (15.60826pt too wide) detected at line 655
 \OML/cmm/m/it/9 l \OT1/cmr/m/n/9 = [] \OML/cmm/m/it/9 f\OT1/cmr/m/n/9 (\OML/cmm
 /m/it/9 x\OT1/cmr/m/n/9 ) = [] [] = [] \OML/cmm/m/it/9 g\OT1/cmr/m/n/9 (\OML/cm
 m/m/it/9 x\OT1/cmr/m/n/9 ) \OMS/cmsy/m/n/9 ^^A [] [] \OT1/cmr/m/n/9 = 0 \OMS/cm
@@ -1018,7 +1106,7 @@ sy/m/n/9 ^^A \OML/cmm/m/it/9 L \OT1/cmr/m/n/9 = 0\OML/cmm/m/it/9 ;
 
 
 LaTeX Warning: Citation `salas:calculus' on page \thepage  undefined on input l
-ine 627.
+ine 665.
 
 (./sig-alternate.bbl
 ! Misplaced alignment tab character &.
@@ -1039,7 +1127,7 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  1987 strings out of 94101
  22315 string characters out of 1165811
- 78205 words of memory out of 1500000
+ 79205 words of memory out of 1500000
  5203 multiletter control sequences out of 10000+50000
  63916 words of font info for 90 fonts, out of 1200000 for 2000
  637 hyphenation exceptions out of 8191
@@ -1060,7 +1148,7 @@ vetic/uhvb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/helvetic/uhvr8a.pfb>
 xlive/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texmf-texlive/fonts/type1/u
 rw/times/utmr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmri8a.pfb
 >
-Output written on sig-alternate.pdf (9 pages, 203972 bytes).
+Output written on sig-alternate.pdf (9 pages, 207289 bytes).
 PDF statistics:
  139 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 131072)

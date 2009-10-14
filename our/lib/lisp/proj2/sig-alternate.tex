@@ -322,17 +322,40 @@ Applying InfoGain on discretize data outperforms the first learner. Data is disc
 \end{figure}
 
 \\The figures show PD and PF plotted against k-number of clusters which varies from 2 to 7. The PD values increase sharply when 3 or more clusters are used. The PD remain unchanged as the number of clusters increases. The PD values are relatively high (more than 90 \%). These high results should be confirmed by performing further testing as to verify the validity of the learner. 
-\\Table 1 Shows the top 13 attributes selected by InfoGain on each data set that was tested. 
+\\Table 1 . Shows the median PD and PF values for the three learners 
 
 \begin{table}
 \centering
-\caption{Frequency of Special Characters}
-\begin{tabular}{|c|c|l|} \hline
-Non-English or Math&Frequency&Comments\\ \hline
-\O & 1 in 1,000& For Swedish names\\ \hline
-$\pi$ & 1 in 5& Common in math\\ \hline
-\$ & 4 in 5 & Used in business\\ \hline
-$\Psi^2_1$ & 1 in 40,000& Unexplained usage\\
+\caption{Statistics for each learner}
+\begin{tabular}{|c|c|c|} \hline
+Learner&PD&PF\\\hline
+1& 0.57 & 0.47 \\ \hline
+2& & \\ \hline
+3& & \\ \hline
+\hline\end{tabular}
+\end{table}
+
+\\Table  2. Shows the top 14 columns selected by InfoGain
+
+\begin{table}
+\centering
+\caption{Top Features selected by InfoGain}
+\begin{tabular}{|c|c|c|c|} \hline
+Feat.&Shared_PC1&Shared_CN1&Shared_MW1\\\hline
+1& LOComment & I & L\\ \hline
+2& LOCCodeAndComment & Uniq-Op & Uniq Opnd\\ \hline
+3& Uniq-Opnd & Uniq-Opnd & LOC\\ \hline
+4&  I & L & LOComment\\ \hline
+5& Uniq-Op & LOComment & LOCCodeAndComment\\ \hline
+6& Total-Opnd & LOC & I\\ \hline
+7& LOC & Total-Op & BranchCount\\ \hline
+8& V & Total-Opnd & V(G)\\ \hline
+9& Total-Op & B & V\\ \hline
+10& B & V & B\\ \hline
+11& LOCode & IV(G) & EV(G)\\ \hline
+12& BranchCount & D & LOCode\\ \hline
+13& L & BranchCount & Total-Op\\ \hline
+
 \hline\end{tabular}
 \end{table}
 
