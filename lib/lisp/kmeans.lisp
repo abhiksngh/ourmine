@@ -22,6 +22,7 @@
       (dolist (i centroid-list) 
         (push '() cluster))
       (setf cluster (reverse cluster))
+      ;While loop goes here
       (dolist (row (table-all tbl)) ;checks all rows for distance
         (if (member n centroid-list) ;if the row being checked is already a centroid
             '(centroid) ;does nothing
@@ -63,7 +64,7 @@
               (setf number-list (qsort number-list))
               (if (oddp (length number-list))
                   (setf (nth n (eg-features centroid)) (nth (floor (/ (length number-list) 2)) number-list))
-                  (setf (nth n (eg-features centroid)) (even-numeric-median number-list)))))))
+                  (setf (nth n (eg-features centroid)) (even-numeric-median number-list))))))
           (progn
             (let ((freq-list '())
                   (freq-count '()))
@@ -73,8 +74,7 @@
                 (if (member row freq-count)
                     (progn
                       ( ))
-                    (push `(,row 1) freq-count)))
-              )) ;find the most common symbol
+                    (push `(,row 1) freq-count)))))) ;find the most common symbol
       (incf n))))
                 
        
