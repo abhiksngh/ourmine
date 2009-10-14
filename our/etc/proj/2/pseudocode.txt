@@ -50,3 +50,18 @@ burak-filter(train, test)
     add(k-nearest-neighbors(row, train, 10), training-instances)
   return remove_duplicates(training-instances)
 
+naive-bayes-classify(instance train)
+  k = 1
+  m = 2
+  classification = null
+  classification_score = inf
+  for each class in classes(train)
+    prior_probability = (k + get_class_count(train, class)) / (length(train) + (k * (length(classes(train)))))
+    sum = 0
+    for each feature in row
+      if(!class_column(feature) && !unknown_feature(feature))
+        sum = sum + (class_frequency(feature, class, train) + (m * prior_probability)) / (length(get_class_count(train class)) + m)
+    if(sum > classification_score)
+      classification = class
+  return classification
+
