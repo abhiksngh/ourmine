@@ -71,16 +71,16 @@
     (dotimes (n (table-width table))
       ;if the current gain is above the min-allowed-gain
       ;Keep
-      (print min-allowed-gain)
-      (print "versus")
-      (print (nth n gain-lst))
-      (print (< min-allowed-gain (nth n gain-lst)))
-      (print " ")
+      ;(print min-allowed-gain)
+      ;(print "versus")
+      ;(print (nth n gain-lst))
+      ;(print (< min-allowed-gain (nth n gain-lst)))
+      ;(print " ")
       
       
       (if (< min-allowed-gain (nth n gain-lst))
           (progn
-            (print "found less")
+     ;       (print "found less")
                                         ;Add to new header
                                         ;Add column to new data
             
@@ -89,9 +89,9 @@
             )
           )
       )
-      (print "new-header")
-      (print new-header)
-      (print (transpose new-data))
+    ;  (print "new-header")
+    ;  (print new-header)
+    ;  (print (transpose new-data))
       (setf new-table (data
                       :name (table-name table)
                       :columns new-header
@@ -109,3 +109,6 @@
 
 (defun i (probability)
   (* (- 0 probability) (log probability 2)))
+
+
+

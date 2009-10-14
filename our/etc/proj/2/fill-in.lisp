@@ -51,9 +51,11 @@
 
       (if (equalp (remove '? one-column) NIL)
           (progn
-            (print "this")
-            (print (columns-header (table-columns source-table)))
-            (print one-column)
+            ;(print "this")
+            ;(print (columns-header (table-columns source-table)))
+            ;(print one-column)
+            (setf one-column (fix-unknowns one-column '??))
+            (setf fixed-data (append fixed-data (list one-column)))
             )
           
           (progn
