@@ -1,3 +1,6 @@
+
+
+
 ;Replace all "?" with the most common symbol (in discrete columns)
 ;or the median value (in numeric columns) for rows of that class.
 
@@ -47,7 +50,12 @@
 ;      (print (equalp discrete-check-lst '(t)))
 
       (if (equalp (remove '? one-column) NIL)
-          (print "this")
+          (progn
+            (print "this")
+            (print (columns-header (table-columns source-table)))
+            (print one-column)
+            )
+          
           (progn
             (if (equalp discrete-check-lst '(t))
                 (progn
@@ -70,7 +78,7 @@
                  ; (print median-value)
 
                   (setf one-column (fix-unknowns one-column median-value))
-                  (setf fixed-data (append fixed-data (list one-column)))
+                  (setf fixed-data (append fixed-data (list one-column)))  
                   ;(print one-column)
                   )
                 )
@@ -97,7 +105,7 @@
                     fixed-data))
     
     newtable))
-                                       ;           NIL))$HUMIDTY
+                                       ;  Here up
           
 
 (defun is-discrete (item)

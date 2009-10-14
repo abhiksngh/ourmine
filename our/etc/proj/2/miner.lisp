@@ -17,8 +17,11 @@
 			"table/table"
 			"table/xindex"
 			"learn/nb"
+                        "fill-in"
+                        "nbins"
                         "tests/data/additionalbolts"
                         "tests/data/anneal"
+                        "tests/data/fishcatch"
 
 			))
 
