@@ -150,28 +150,9 @@ Tomi Prifti\\
 
 \maketitle
 \begin{abstract}
-This paper provides a sample of a \LaTeX\ document which conforms,
-somewhat loosely, to the formatting guidelines for
-ACM SIG Proceedings. It is an {\em alternate} style which produces
-a {\em tighter-looking} paper and was designed in response to
-concerns expressed, by authors, over page-budgets.
-It complements the document \textit{Author's (Alternate) Guide to
-Preparing ACM SIG Proceedings Using \LaTeX$2_\epsilon$\ and Bib\TeX}.
-This source file has been written with the intention of being
-compiled under \LaTeX$2_\epsilon$\ and BibTeX.
+This paper presents a preliminary work on defect prediction data using a combination of preprocessing tools. This can yield beneficial results for organizations that want to know how their software will perform {\em before} it is released. Through this work, and later research, it is hoped that a general theory of software defect prediction will be the outcome, and that the current methods will be more emperically defined as stable or unstable.
 
-The developers have tried to include every imaginable sort
-of ``bells and whistles", such as a subtitle, footnotes on
-title, subtitle and authors, as well as in the text, and
-every optional component (e.g. Acknowledgments, Additional
-Authors, Appendices), not to mention examples of
-equations, theorems, tables and figures.
-
-To make best use of this sample document, run it through \LaTeX\
-and BibTeX, and compare this source code with the printed
-output produced by the dvi file. A compiled PDF version
-is available on the web page to help you with the
-`look and feel'.
+%Three different preprocessing approaches are tested on a number of datasets.  
 \end{abstract}
 
 % A category with the (minimum) three required fields
@@ -214,8 +195,6 @@ Gat et. al. confirmed Turhan et. al.'s results, but instead of implementing a ne
 On the other hand, \cite{zimmerman09} shows that CC data cannot be used to build accurate defect predictors. For example, in one experiment conducted by Zimmerman et. al., Firefox and Internet Explorer were used due to their domain relationship (browsers) in order to determine how well one could predict for the other. It was found that while Firefox could predict for Internet Explorer at a precision of 76.47\%, Firefox could {\em not} predict for Internet Explorer approaching the same precision (4.12\%). However, this experiment did not utilize any form of relevancy filtering, so it is unknown how the two data sets would react to predicting for one another under these circumstances. 
 
 If CC data, when filtered, can be used in order to predict defects, we are left to assume that this is due to the fact that the data sets share some innate similarities of their metrics. But if it is found conclusively that CC data cannot most generally build good defect predictors, we are to conclude that other measures must be taken in either the collection of the WC data, or for more research in the further filtering of CC data.
-
-\subsection{Defect Prediction Stability}
 
 
 
