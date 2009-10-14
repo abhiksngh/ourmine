@@ -14,7 +14,7 @@
     (dolist (per-set setList)
       (print "")
       (print (parse-name per-set))
-        (multiple-value-bind (trainList testList) (bins (funcall per-set))
+        (multiple-value-bind (trainList testList) (bins (b-squared (funcall per-set)))
           (learn trainList testList))
       (print (format nil "~%End of ~a" (parse-name per-set))))))
 

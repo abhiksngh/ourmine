@@ -154,6 +154,8 @@
         ; extract the data
         (setf data (subseq trans-data 0 (- (negs data) 1)))
 
+        (setf data (back-to-class data))
+
         ; build a pruned data table
         (data :name 'col-reduced
           :columns (columns-header col-names)
@@ -164,3 +166,9 @@
 
 (defun transpose (x)
   (apply #'mapcar (cons #'list x)))
+
+(defun back-to-class(data)
+  (dolist (per-data data data)
+    (if (equal (nth (1- (length per-data)) per-data) '10)
+        (setf (nth (1- (length per-data)) per-data) 'TRUE)
+        (setf (nth (1- (length per-data)) per-data)'FALSE))))
