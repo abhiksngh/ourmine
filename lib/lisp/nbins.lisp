@@ -7,7 +7,7 @@
 
 (defun n_bins (n table0)
 	(let ((name (table-name table0))	
-	(maopcar #'header-name
+	(mapcar #'header-name
 		(table-columns table0)))
 		(rows (magic table0)))
 		(data:name name:columns columns:egs rows)))
