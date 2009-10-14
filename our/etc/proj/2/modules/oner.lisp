@@ -3,47 +3,6 @@
 ; Select for classes using one attribute
 ; NOTE: "Missing" is treated as a separate attribute value.
 
-(defun oner (dataset &optional (columns (table-columns dataset)))
-  (let ((datatable (copy-table dataset))
-	(classcount nil)
-	(colindex nil)
-	)
-    ; FOREACH column (attribute) in the dataset.
-    (dolist (column columns)
-      ; IF the column (attribute) is discrete.
-      (if (typep column 'discrete)
-	  (progn
-	    (setf colindex (indexof column (table-columns datatable)))
-	    ; FOREACH value in the column (attribute)
-	    (dolist (record (table-all datatable))
-	      (setf classcount
-		    (append classcount
-			    (list (append (list (nth colindex (eg-features record))) (last (eg-features record)))))))
-	    ; Sort and compress (count).
-	    (setf classcount (count-n-sort classcount))
-	    ; Debugging
-;	    (dolist (item classcount)
-;	      (format t "~a~%" item))
-;	    (return-from oner 'DONE)
-
-	    ; Walk through determining what to keep.
-	    (let ((rules (make-ruleset :attribute (header-name column) :records (length (table-all datatable))))
-		  )
-	      (dolist (item classcount)
-		(if (ruleset-exist rules (caadr item))
-		    nil
-		    (progn
-		      ; Get all records with matching attribute values
-		      ; Determine the best rule.
-		      ; Determine the number of errors this rule produces.
-		      nil
-		      (ruleset-add rules (caadr item) (cadadr item) 10 (car item)) ; rle pred errs correct
-		      )))
-	      (format t "~a~%" rules))
-	    (return-from oner 'DONE)
-	    )
-	  ))))
-
 ; Counts and sorts list of pairs of the form ((number symbol) (number symbol))
 ; First order by number, then symbol.
 ; Compress (count).
@@ -95,3 +54,48 @@
   (if (null lst)
       0
       (+ (car lst) (sumlst (cdr lst)))))
+
+
+
+(defun oner (dataset &optional (columns (table-columns dataset)))
+  (let ((datatable (copy-table dataset))
+	(classcount nil)
+	(colindex nil)
+	)
+    ; FOREACH column (attribute) in the dataset.
+    (dolist (column columns)
+      ; IF the column (attribute) is discrete.
+      (if (typep column 'discrete)
+	  (progn
+	    (setf colindex (indexof column (table-columns datatable)))
+	    ; FOREACH value in the column (attribute)
+	    (dolist (record (table-all datatable))
+	      (setf classcount
+		    (append classcount
+			    (list (append (list (nth colindex (eg-features record))) (last (eg-features record)))))))
+	    ; Sort and compress (count).
+	    (setf classcount (count-n-sort classcount))
+	    ; Debugging
+;	    (dolist (item classcount)
+;	      (format t "~a~%" item))
+;	    (return-from oner 'DONE)
+
+	    ; Walk through determining what to keep.
+	    (let ((rules (make-ruleset :attribute (header-name column) :records (length (table-all datatable))))
+		  )
+	      (dolist (item classcount)
+		(if (ruleset-exist rules (caadr item))
+		    nil
+		    (progn
+		      ; Get all records with matching attribute values
+		      ; Determine the best rule.
+		      ; Determine the number of errors this rule produces.
+		      
+		      nil
+		      (ruleset-add rules (caadr item) (cadadr item) 10 (car item)) ; rle pred errs correct
+		      )))
+	      (format t "~a~%" rules))
+	    (return-from oner 'DONE)
+	    )
+	  ))))
+
