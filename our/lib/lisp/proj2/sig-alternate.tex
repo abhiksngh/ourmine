@@ -220,6 +220,7 @@ If CC data, when filtered, can be used in order to predict defects, we are left 
 
 
 \section{The Experiment}
+The experiments conducted in this project primarily aim at building software defect prediction models given a number of datasets to train on and to determine which turn out to be better defect predictors. To be able to effectively mine the raw data to be used in our experimentation we had to run a number of preprocessing techniques on them. Specifically, our experiments involved applying different combinations of preprocessing algorithms on the datasets available to us and then reducing the datasize by applying feature subsect selections on them, particularly InfoGain. As a result, our experiments can be categorizd into 3 groups. The first group being deliberately omitting discretization of the data, clustering and applying Naive-Bayes learner on it. The second group involved discretizing the data, applying InfoGain on the dataset and then applying Naive-Bayes on it. And finally the third group involved feature subset selection via InfoGain, clustering the data and applying Naive-Bayes. It should be noted that for every experiment, a fresh set of data was used. That is, no altered dataset from one experiment was passed on as input to another. Each experiment produced fascinating results which will be discussed later in section 4.
 
 \subsection{Preparing the Data}
 We employed a number of preprocessing techniques to prepare the original data before applying our learner to it. These include:
@@ -234,7 +235,7 @@ We employed a number of preprocessing techniques to prepare the original data be
 \item{Feature Subset Selection}
 \\Sample bias via {\em InfoGain} whereby each column in the data set is ranked by some criteria and the top n columns are maintained and used for the experiment because they are more likely to have a stronger influence on the results.
 \end{itemize}
-Why are all these preprocessing techniques necessary and why is time wasted them before the learner is applied? Why not use the data in its raw form? When it comes to data mining, real world data is considered by most software engineers as {\em dirty}. This is because the data could be incomplete, that is, be missing some attributes or attribute values or it could simply consist of only aggregated values. In addition to that, the data could be inconsistent, and could also contain errors and outliers.
+Why are all these preprocessing techniques necessary and why is time wasted generating them before the learner is applied? Why not use the data in its raw form? When it comes to data mining, real world data is considered by most software engineers as {\em dirty}. This is because the data could be incomplete, that is, be missing some attributes or attribute values or it could simply consist of only aggregated values. In addition to that, the data could be inconsistent, and could also contain errors and outliers.
 
 
 \subsection{Discretization techniques}
