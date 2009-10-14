@@ -229,6 +229,17 @@ Two discretization method were used for performing the experiments: Equal Interv
 Since our main learning algorithm is Naive-Bayes, both discretization method greatly improve the performance of the learner. Naive-Bayes is used with both k-means clustering and equal interval width bins on each of the datasets.
 
 \section{Results}
+Naive-Bayes learner was applied on all data sets. Three learners were tested
+\begin{itemize}
+\item{Naive-Bayes without discretizing. K-means applied on the data}
+\\In this experiment the data was supplied to the learner without performing any discretization. After splitting the data the train set was clustered using k-means. For each instance on the test data set the closest cluster was determined and the instance was classified using Naive-Bayes trained on that specific cluster.The performance of the learner was tested on different number of clusters k ranging from 2 to 7
+\item{Naive-Bayes with  discretization (10 bins). InfoGain applied on the data}
+\\After discretizing the data InfoGain was applied on the whole data set to retrieve n number of features (columns) where n is a user specified value ranging from 2 to 14.   
+\item{Filter the features with InfoGain. Apply Naive-Bayes with clustering}
+\\In this experiment InfoGain was applied to select the n best features. After selecting the best features a new dataset was build out of the original dataset containing only the selected features returned by InfoGain. The new dataset is clustered using K-Means. The learner is tested using different combinations of n-number of features and k-number of clusters
+\end{itemize}
+
+Running the first learner, Naive-Bayes without discretization on different datasets shows clearly that discretiztion effect the performance of Naive-Byaes. Figure 1 and 2 show the PD PF values after running the learner with different k number of clusters.
 
 \section{Conclusions}
 From the experiments performed on each of the datasets we obtained from NASA and SoftLab, we learn that within-company software defect prediction works when the data accumulated for prior versions of the software is available. The results from our self-test experiments validates this conclusion. In other words, when the company is has been around for years (for example NASA) or older versions of its software have already been in use for years, data generated from such older versions can be analyzed, learned on and used to build defect prediction models in order to predict defects in newer versions of the software.
