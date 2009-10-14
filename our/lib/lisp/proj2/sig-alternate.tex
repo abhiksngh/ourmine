@@ -528,15 +528,25 @@ some or all of the \texttt{{\char'134}def}s recompilation will
 be, to say the least, problematic.
 
 \section{Conclusions}
-This paragraph will end the body of this sample document.
-Remember that you might still have Acknowledgments or
-Appendices; brief samples of these
-follow.  There is still the Bibliography to deal with; and
-we will make a disclaimer about that here: with the exception
-of the reference to the \LaTeX\ book, the citations in
-this paper are to articles which have nothing to
-do with the present subject and are used as
-examples only.
+From the experiments performed on each of the datasets we obtained from NASA and SoftLab, we learn that within-company software defect prediction does actually work when the data accumulated for prior versions of the software is available. In other words, when the company is has been around for years (for example NASA) or older versions of its software have been released, data generated from previous versions can be analyzed, learned on and used to build defect prediction models in order to predict defects in newer versions, or even other software.
+The primary purpose of the project is to show the presence of a general theory of defect prediction. For this project, we built software defect prediction models by learning from the NASA (USA) and SoftLab (Turkey) data sets.
+In our experiments, we ran [ # of tests ] on 10 datasets, each time with a different number of nearest-neighbors and number of columns to be selected via infogain, and despite the fact that these experiments were conducted on randomly selected objects from the different datasets and resulted in inconsistencies in the accuracy of defect predictions, the average accuracy was relatively high.
+On analysis, we noticed that precision, accuracy, probability of detection, and  probability of false alarm turned out to be relatively high for cross-company data as compared to within-company data. Of course, these values were obtained after intensive analysis on the results from applying learners on our datasets which we  pre-processed using a number of machine learning / data mining methods. These datasets were originally in *.arff file formats when received but were converted to *.lisp so they can be processed by the LISP interpreter we used.
+
+\section{Related Work}
+This project is inspired by the Cross-project Defect Prediction work conducted by Thomas Zimmerman et. al. who claimed that software defect prediction works well whenever there is sufficient data to train any models [6] and that in the case where data is insufficient, cross-project defect prediction suffices. In their experiment, they ran 622 cross-project predictions for 12 real-world applications including Microsoft's Internet Explorer and Mozilla Foundation's Firefox web browser, and their results indicated that simply using models from projects in the same domain or with the same process does not lead to accurate predictions. With respect to the experiments they conducted, they learned that Firefox could predict defects in Internet Explorer but not vice versa and they succumbed to the conclusion that this is so because Firefox has more files than Internet Explorer has binaries and that the probability of a software with more data is more likely to predict defects in software with relatively less amount of data or modules.
+Similarly, with our experiments, each row of our datasets represents a modular unit of software from NASA and SoftLab
+
+
+\section{Future Work}
+For this project, we chose to use data from NASA and SoftLab for this project simply because they are 2 complete different companies that operate and function in different ways. 
+The National Aeronautics and Space Administration (NASA) is an agency of the United States government responsible for the nation's engagement in activities related to outer space and space exploration [ 4 ]. SoftLab on the other hand is the youngest research laboratory of computer engineering established in 2003 in Turkey. SoftLab’s purpose is conducting research on various aspects of computer engineering including cost and effort estimation, defect estimation/prevention, value based software engineering and software process development. Its research focuses on implementing existing models using real-life project data and developing enhanced models for defect prediction using machine learning methods with the aim of validating existing models and establishing models for identifying software defects. [ 5 ]
+We believe that for better results and much better success rates at predicting software defects, regression algorithms could be applied to the datasets to model the data with the least error. That is, apply the learners to the datasets a number of times and discard arguments to algorithms such as k-nearest neighbor and infogain that produced less desirable results.
+Moreover, this work could be extended to exploit datasets that comprised of more than 2 classes (TRUE, FALSE) and with multiple class columns (at least 2).
+Nonetheless, a number of other rule-based learners could be used rather than NaiveBayes as was used for this project. These include but are not limited to the PRISM algorithm, introduced by Cendrowska [ 6] which aims at inducing modular classification rules directly from the training set; OneR, TwoR or RIPPER [3], and even HyperPipes. Due to the constraint on time, we were unable to experiment on such learners but the outcome of applying each of them on the same datasets we used would be of great value to software engineers / data miners.
+
+
+
 %\end{document}  % This is where a 'short' article might terminate
 
 %ACKNOWLEDGMENTS are optional
@@ -589,6 +599,8 @@ document in Appendix-appropriate form:
 \subsubsection{Theorem-like Constructs}
 \subsubsection*{A Caveat for the \TeX\ Expert}
 \subsection{Conclusions}
+\subsection{Related Work}
+\subsection{Future Work}
 \subsection{Acknowledgments}
 \subsection{Additional Authors}
 This section is inserted by \LaTeX; you do not insert it.
