@@ -10,7 +10,7 @@
 
 ; Implements the BORE pre-processor.
 (defun bore (dataset &optional (columnnames (mapcar #'header-name (table-columns dataset))))
-  (let* ((normalvals (make-array (length columnnames) :initial-element (make-normal)))
+  (let* ((normalvals)
 	 (datatable (copy-table dataset))
          (returntable)
 	 (n 0)
@@ -20,12 +20,12 @@
 	(dolist (name columnnames)
 	  (if (and (typep columns 'numeric) (equal name (header-name columns)))
 	      (progn
-                (setf (aref normalvals y) (fill-normal datatable n))
+                (setf normalvals (fill-normal datatable n))
 
                 (setf (table-columns datatable) (append (table-columns datatable)
 				        `(,(make-numeric :name y :ignorep nil :classp nil))))
                 (dolist (record (table-all datatable))
-                  (setf (eg-features record) (append (eg-features record) `(, (normalize (aref normalvals y)
+                  (setf (eg-features record) (append (eg-features record) `(, (normalize normalvals
                                                                            (nth n (eg-features record)))))))
                 (incf y))
 	      ))
