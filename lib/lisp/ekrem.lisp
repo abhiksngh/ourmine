@@ -17,6 +17,7 @@
         (art-medians '()))
     (dolist (row (table-all tbl))
       (push (eg-features row) rows))
+    ;while loop
     (dolist (row rows)
       (let* ((best-distance (close-node row (cdr rows) (table-columns tbl))))
         (dotimes (i (length (cdr rows)))
@@ -25,6 +26,9 @@
                 ;(push (make-median row best-node (table-columns tbl)))
                 ;(delete row rows)
                 ;(delete best-node rows))))))))
+                ;recreate rows with the median values
+                ;create branches in the bst till a root exists and exit while
+       ;return a certain median value
          
 (defun close-node (row egs columns)
   (if (= (length egs) 1)

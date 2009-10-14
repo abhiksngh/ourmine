@@ -1,17 +1,5 @@
-(defun test-data1 ()
-  (data
-   :name 'test
-   :columns '($number1 symbol $number2 stuff)
-   :egs '((2 hey 2 true)
-          (1 hey 2 true)
-          (3 hey 2 true)
-          (4 hey 2 false)
-          (4 bye 2 false)
-          )))
-
-(defun normalize ()
-  (let ((tbl (xindex (test-data1)))
-        (n 0))
+(defun normalize (tbl)
+  (let ((n 0))
     (dolist (col (table-columns tbl) tbl)
       (when (numericp (header-name col))
         (let ((n-normal (make-normal)))
