@@ -1,0 +1,61 @@
+This is BibTeX, Version 0.99c (Web2C 7.5.6)
+The top-level auxiliary file: sig-alternate.aux
+The style file: abbrv.bst
+Database file #1: refs.bib
+I was expecting a `,' or a `}'---line 40 of file refs.bib
+ :        
+ :        author    = "T. Zimmermann and N. Nagappan and H. Gall and  E. Giger and B.  Murphy"
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Warning--I didn't find a database entry for "Lamport:LaTeX"
+Warning--I didn't find a database entry for "bowman:reasoning"
+Warning--I didn't find a database entry for "clark:pct"
+Warning--I didn't find a database entry for "braams:babel"
+Warning--I didn't find a database entry for "herlihy:methodology"
+Warning--I didn't find a database entry for "salas:calculus"
+Warning--to sort, need author or key in zimmerman09
+Warning--empty author in zimmerman09
+Warning--empty booktitle in zimmerman09
+Warning--empty year in zimmerman09
+You've used 5 entries,
+            2118 wiz_defined-function locations,
+            531 strings with 4622 characters,
+and the built_in function-call counts, 1694 in all, are:
+= -- 164
+> -- 78
+< -- 2
++ -- 31
+- -- 26
+* -- 113
+:= -- 271
+add.period$ -- 15
+call.type$ -- 5
+change.case$ -- 28
+chr.to.int$ -- 0
+cite$ -- 9
+duplicate$ -- 75
+empty$ -- 136
+format.name$ -- 26
+if$ -- 365
+int.to.chr$ -- 0
+int.to.str$ -- 5
+missing$ -- 5
+newline$ -- 26
+num.names$ -- 8
+pop$ -- 40
+preamble$ -- 1
+purify$ -- 23
+quote$ -- 0
+skip$ -- 51
+stack$ -- 0
+substring$ -- 73
+swap$ -- 20
+text.length$ -- 2
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 20
+warning$ -- 4
+while$ -- 14
+width$ -- 6
+write$ -- 52
+(There was 1 error message)

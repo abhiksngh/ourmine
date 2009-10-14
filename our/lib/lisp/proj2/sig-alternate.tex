@@ -240,8 +240,47 @@ Naive-Bayes learner was applied on all data sets. Three learners were tested
 \end{itemize}
 
 Running the first learner, Naive-Bayes without discretization on different datasets shows clearly that discretiztion effect the performance of Naive-Byaes. Figure 1 and 2 show the PD PF values after running the learner with different k number of clusters.
+\textbf
+\begin
+  \begin{center}
+    \includegraphics[width=3.5in]{no_disc_nb_cluster_pd.pdf}
+  \end{center}
 
+  \caption{\small Figure 1. PD: Naive-Bayes without discretization}
+  \label{fig-label}
+\end{figure}
 
+\textbf
+\begin
+  \begin{center}
+    \includegraphics[width=3.5in]{no_disc_nb_cluster_pf.pdf}
+  \end{center}
+
+  \caption{\small Figure 2. PF: Naive-Bayes without discretization}
+  \label{fig-label} \end{fig-label}
+\end{figure}
+
+PD and PF are ploted agains the number of clusters k. Without discretization Naive-Bayes does not perform well. PD is no higher than 60 \%. The number of clusters computed by k-means does not seem to influence the prediction probability however a relatively better PD are retrieved with 4, 5 and 7 clusters. This results also corresponds with \cite {dough95} which state that discretization influence Naive-Bayes performance.
+\\
+Applying InfoGain on discretize data outperforms the first learner. Data is discretized and InfoGain is used to extract best n features (columns) from the data. Than Naive-Bayes is applyed on the closest cluster of each instance in the train set.Figure 3 and 4 show the PD and PF of this learner.
+
+ \textbf
+\begin
+  \begin{center}
+    \includegraphics[width=3.5in]{disc_info_cluster_pd.pdf}
+  \end{center}
+
+  \caption{\small Figure 3. PD: InfoGain and Naive-Bayes}
+  \label{fig-label} \end{fig-label}
+\end{figure}
+\textbf
+\begin
+  \begin{center}
+    \includegraphics[width=3.5in]{disc_info_cluster_pf.pdf}
+  \end{center}
+  \caption{\small Figure 4. PF InfoGain and Naive-Bayes}
+  \label{fig-label} \end{fig-label}
+\end{figure}
 
 \section{Related Work}
 This project is inspired by the Cross-project Defect Prediction work conducted by Thomas Zimmerman et. al. who claimed that software defect prediction works well whenever there is sufficient data to train any models and that in the case where data is insufficient, cross-project defect prediction suffices\cite{zimmerman09}. In their experiment, they ran 622 cross-project predictions for 12 real-world applications including Microsoft's Internet Explorer and Mozilla Foundation's Firefox web browser, and their results indicated that simply using models from projects in the same domain or with the same process does not lead to accurate predictions. With respect to the experiments they conducted, they learned that Firefox could predict defects in Internet Explorer but not vice versa and they succumbed to the conclusion that this is so because Firefox has more files than Internet Explorer has binaries and that the probability of a software with more data is more likely to predict defects in software with relatively less amount of data or modules. 
