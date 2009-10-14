@@ -13,23 +13,35 @@
   (let* ((tbl (xindex (test-data2)))
         (centroid-list (kmeans-find-centroid k (f tbl))) ;create a numeric list of what rows are centroids
         (centroid0 '()) ;list for actual centroid data
-        (n 0))
+        (n 0)
+        (done-moving nil))
     (dotimes (i (length centroid-list));this grabs the centroid data
       (push (nth (nth i centroid-list) (table-all tbl)) centroid0)) ;puts the centroid data in centroid0
     (setf centroid0 (reverse centroid0))
-    ;while loop will go here to see if centroids stop moving
     (let ((cluster '())) ;creates a list that will have each centroid with a list to itself to store the rows
       (dolist (i centroid-list) 
         (push '() cluster))
       (setf cluster (reverse cluster))
-    (dolist (row (table-all tbl)) ;checks all rows for distance
-      (if (member n centroid-list) ;if the row being checked is already a centroid
-          '(centroid) ;does nothing
-          (push row (nth (kmeans-distance centroid0 row (table-columns tbl)) cluster))) ;finds which centroid is closest to the row and then pushes the row to the cluster list
-      (incf n))
-    (dotimes (i (length centroid-list)) ;do each centroid to find the median
-      (kmeans-move-centroid (nth i cluster) (nth i centroid0) (table-columns tbl)))))) ;move the centroids in the cluster list
-
+      (dolist (row (table-all tbl)) ;checks all rows for distance
+        (if (member n centroid-list) ;if the row being checked is already a centroid
+            '(centroid) ;does nothing
+            (push row (nth (kmeans-distance centroid0 row (table-columns tbl)) cluster))) ;finds which centroid is closest to the row and then pushes the row to the cluster list
+        (incf n))
+      (dotimes (i (length centroid-list)) ;do each centroid to find the median
+        (let ((new-centroid nil))
+          (setf new-centroid (kmeans-move-centroid (nth i cluster) (nth i centroid0) (table-columns tbl))) ;move the centroids in the cluster list
+          (if (samep new-centroid (nth i centroid0))
+              (progn
+                (if (= i 0)
+                    (setf done-moving t)
+                    (progn
+                      (if (equal done-moving nil)
+                          '(nothing)
+                          (setf done-moving t)))))
+              (progn
+                (setf (nth i centroid0) new-centroid)
+                (setf done-moving nil))))))))
+              
 (defun kmeans-find-centroid (k length)
   (let ((centroid-list '())) 
     (when (<= k length) ;if there is going to be more centroids then rows of data
@@ -41,21 +53,28 @@
 
 (defun kmeans-move-centroid (cluster centroid columns)
   (let ((n 0))
-    (dolist (col columns)
+    (dolist (col columns centroid)
       (if (numericp (header-name col))
           (progn
             (let ((number-list '()))
               (dolist (row cluster)
                 (if (numberp (nth n (eg-features row)))
-                    (push (nth n (eg-features row)) number-list)))
+                    (push (nth n (eg-features row)) number-list))
               (setf number-list (qsort number-list))
               (if (oddp (length number-list))
-                  (setf (nth n (eg-features centroid)) (- (round (/ (length number-list) 2)) 1))
-                  (progn
-                    (setf (nth n (eg-features centroid)) (even-numeric-median number-list))))))
+                  (setf (nth n (eg-features centroid)) (nth (floor (/ (length number-list) 2)) number-list))
+                  (setf (nth n (eg-features centroid)) (even-numeric-median number-list)))))))
           (progn
-            )
-            )
+            (let ((freq-list '())
+                  (freq-count '()))
+              (dolist (row cluster)
+                (push (nth n (eg-features row)) freq-list))
+              (dolist (row freq-list)
+                (if (member row freq-count)
+                    (progn
+                      ( ))
+                    (push `(,row 1) freq-count)))
+              )) ;find the most common symbol
       (incf n))))
                 
        
@@ -73,7 +92,8 @@
                     (setf distance1 (+ distance1 (square (- datan (nth n (eg-features current-cent)))))) ;(row - distance) squared
                     (incf distance1))) ;if the row or the centroid had blank data or ? just say it's distance is 1
               (progn
-                (if (samep datan (nth n (eg-features current-cent))) ;if discrete check if the symbol is the same
+                (if (samep datan (nth n (eg-features
+                                         current-cent))) ;if discrete check if the symbol is the same
                     '(nothing) ;if it is the same do nothing
                     (incf distance1)))) ;if it is different add 1
           (incf n))) ;increase the column being checked
@@ -102,6 +122,7 @@
               (less-then '())
               (great-then '()))
           (dolist (n (cdr list) (append (qsort less-then) `(,pivot) (qsort great-then)))
-            (if (< n pivot)
+            (if (<= n pivot)
                 (push n less-then)
                 (push n great-then)))))))
+
