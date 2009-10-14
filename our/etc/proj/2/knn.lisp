@@ -35,10 +35,15 @@
 
 ;; this is a foo eval
 ;; in real world we have to use the *g* metric
-(defun knn-eval (samples tbl k)
+(defun foo-knn-eval (samples tbl k)
   (let ((gs 0))
     (dotimes (i k gs)
       (setf gs (+ gs (reduce #'+ samples))))))
+
+(defun knn-eval (rowsnum tbl)
+   (let ((test (table-deep-copy tbl))
+	(test-all
+   	(last (learn (test tbl)))
 
 (defun bestk (tbl)
   (xindex tbl)
@@ -48,7 +53,8 @@
     (dotimes (i 20 samples)  			; select 20 instances
       (push (my-random-int n) samples))
     (dotimes (k (- n 1) gs)		; evaluate performance for different k
-      (push (knn-eval samples tbl (+ k 1)) gs)) 
+      ;(push (knn-eval samples tbl (+ k 1)) gs)) 
+      (push (knn-eval samples tbl ) gs)) 
     ;; return the k-value which gave the best (max) performance
     (- n 1 (position (reduce #'max gs) gs))))	; gs is reversed
 
