@@ -17,9 +17,9 @@
 			"table/table"
 			"table/xindex"
 			"learn/nb"
+                        "ekrem"
                         "normalize"
                         "kmeans"
-                        "ekrem"
 			))
 
 (defun make1 (files)
