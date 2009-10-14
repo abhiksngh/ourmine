@@ -1,16 +1,21 @@
-; bore.lisp
-;
+;Evaluates the W cloumn
+(defun borew (cols)
+  (let ((w nil)
+	(sumofsquares 0)
+	)
+    (dolist (num cols)
+      (setf sumofsquares (+ sumofsquares (square num))))
+    (setf w (- 1 (/ (sqrt sumofsquares) (sqrt (length cols)))))
+    w))
+
 ; Implements the BORE pre-processor.
 (defun bore (dataset &optional (columnnames (mapcar #'header-name (table-columns dataset))))
   (let* ((normalvals (make-array (length columnnames) :initial-element (make-normal)))
 	 (datatable (copy-table dataset))
          (returntable)
-	 (index)
 	 (n 0)
-	 (x 0)
 	 (y 0)
-	 (fields)
-	 )
+	 (fields))
     (dolist (columns (table-columns datatable))
 	(dolist (name columnnames)
 	  (if (and (typep columns 'numeric) (equal name (header-name columns)))
@@ -36,17 +41,3 @@
    (setf returntable (best-of (sort-on datatable (+ n y))))
 
    returntable))
-
-;Evaluates the W cloumn
-(defun borew (cols)
-  (let ((w nil)
-	(sumofsquares 0)
-	)
-    (dolist (num cols)
-      (setf sumofsquares (+ sumofsquares (square num))))
-    (setf w (- 1 (/ (sqrt sumofsquares) (sqrt (length cols)))))
-    w))
-
-
-
-

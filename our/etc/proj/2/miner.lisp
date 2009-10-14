@@ -19,7 +19,6 @@
 			"learn/nb"
 			"utils/utillib"
 			"utils/charts"
-			"utils/struct"
 			))
 
 (defun make1 (files)

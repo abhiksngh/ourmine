@@ -8,6 +8,8 @@
 (load "modules/bore")
 (load "modules/oner")
 (load "modules/normchops")
+(load "../../../lib/lisp/tests/data/quake")
+(load "../../../lib/lisp/tests/data/sick")
 
 (defun learn (&key (k 8)
                    (prep #'normalize-numerics)
@@ -25,9 +27,3 @@
 		   (clusters (clusterer preptrain))
 		   (features (fss clusters))
 		   (classification (classify discrete-table features))))))
-
-(load "../../../lib/lisp/tests/data/quake")
-(load "../../../lib/lisp/tests/data/sick")
-(display-table-simple (bore (quake)))
-;(oner (sick))
-(format t "~a ~%" (table-ranges (normal-chops (bore (quake) '($latitude)))))
