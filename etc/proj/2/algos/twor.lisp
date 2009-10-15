@@ -115,10 +115,7 @@
 
 (defun paired-strings-to-symbol (l r)
   "Input two strings. Returns their concatenation as a symbol"
-  (let ((tl (intern (concatenate 'string (write-to-string l) (write-to-string r)))))
-    (print tl)
-    tl))
-
+  (intern (concatenate 'string (write-to-string l) (string '-) (write-to-string r))))
 
 (defun pair-row (row)
   "Pair all elements with every other element"
