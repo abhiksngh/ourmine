@@ -88,11 +88,11 @@
     ;(setf training (list training))
     ;(setf testing (list testing))
 
-    ;(print "Running Classifier...")
-    ;(setf testing (mapcar #'(lambda (trainn) (funcall classifier trainn testing)) training))
-    ;(setf testing (testiest-truthiness-list testing #'max))
-    ;(print testing)
-    ;(print "Done.")
+    (print "Running Classifier...")
+    (setf testing (mapcar #'(lambda (trainn) (funcall classifier trainn testing)) training))
+    (setf testing (testiest-truthiness-list testing #'max))
+    (print testing)
+    (print "Done.")
   )
 )
 
