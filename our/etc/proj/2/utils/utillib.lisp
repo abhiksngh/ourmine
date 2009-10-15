@@ -57,6 +57,19 @@
 	    (setf indexes (append indexes (list x))))
 	  (incf x))
 	indexes)))
+; Return sthe numeric indeces of an element in a list or nil if not a list or value cannot be found.
+; Takes a function to define where to look for the element.
+(defun indexesofat (element lst &key (finder #'first))
+  (if (null lst)
+      nil
+      (let ((indexes nil)
+	    (x 0))
+	(dolist (item lst)
+	  (when (equal element (funcall finder item))
+	    (setf indexes (append indexes (list x))))
+	  (incf x))
+	indexes)))
+	
 
 ;Displays a simple tabbed table
 (defun display-table-simple (tbl)
