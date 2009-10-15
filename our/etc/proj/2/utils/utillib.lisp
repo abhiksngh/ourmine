@@ -80,10 +80,15 @@
 
 ;Returns the top N percent of a table 
 (defun best-of (tbl &optional(n .20))
-  (make-table :name (table-name tbl)
-              :columns (table-columns tbl)
-              :class (table-class tbl)
-              :all (subseq (table-all tbl) 0 (floor (* n (negs tbl))))))
+  (let ((best-break (floor (* n (negs tbl)))))
+	(values (make-table :name (table-name tbl)
+						:columns (table-columns tbl)
+						:class (table-class tbl)
+						:all (subseq (table-all tbl) 0 best-break))
+			(make-table :name (format nil "~a-REST" (table-name tbl))
+						:columns (table-columns tbl)
+						:class (table-class tbl)
+						:all (subseq (table-all tbl) (1+ best-break))))))
 
 ;Sorts a given table on the column N
 ;used in Bore
