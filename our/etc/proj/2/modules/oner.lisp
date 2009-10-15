@@ -14,10 +14,12 @@
 							   (format nil "~a" (first b)))))))
 	      (lambda (c d) (string< (format nil "~a" (first (last c)))
 				     (format nil "~a" (first (last d)))))))
-   (lambda (e f) (cond ((typep (first e) 'REAL)
+   (lambda (e f) (cond ((and
+			 (typep (caadr e) 'REAL)
+			 (typep (caadr f) 'REAL))
 			(< (if (eql (caadr e) '?) 0 (caadr e))
 			   (if (eql (caadr f) '?) 0 (caadr f))))
-		       ((typep (first e) 'SYMBOL)
+		       ((typep (caadr e) 'SYMBOL)
 			(string< (format nil "~a" (first (last e)))
 				 (format nil "~a" (first (last f)))))))))
 
@@ -76,7 +78,15 @@
     (list greatest errors)))
 
 (defun ruleset-select-best (rls)
-  (append (list (ruleset-attribute rls))))
+  (let ((rle)
+	(best 0)
+	(rate 0))
+    (dolist (item (ruleset-rules rls))
+      (setf rate (/ (rule-errors item) (+ (rule-errors item) (rule-correct item))))
+      (when (< best rate)
+	(setf best rate)
+	(setf rle item)))
+    (append (list (ruleset-attribute rls) rle))))
 
 ; We can probably condense some loops (and speed things up).
 (defun oner (dataset &optional (columns (table-columns dataset)))
@@ -107,10 +117,11 @@
 	;	(format t "GREATEST: ~A~%" rl-lst)
 		(setf rule-to-add (nth (first rl-lst) classcount))
 	      (ruleset-add rules (caadr rule-to-add) (cadadr rule-to-add) (second rl-lst) (car rule-to-add))))
-	   (format t "~A~%" rules)
+	  ; (format t "~A~%" rules)
 	   ; Pick the best rule for this column.
 	   (setf best-rules (append best-rules (list (ruleset-select-best rules))))
 	   )))
-;	    )))
-      (return-from oner 'DONE)
-)))
+;      (return-from oner 'DONE)
+)
+    (format t "~A~%" best-rules)
+))
