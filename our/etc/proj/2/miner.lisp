@@ -23,11 +23,13 @@
                         
                         "tests/data/additionalbolts"
                         "tests/data/anneal"
-<<<<<<< .mine
-			"fill-in"
-=======
                         "tests/data/fishcatch"
->>>>>>> .r1525
+                        
+;<<<<<<< .mine
+;			"fill-in"
+;=======
+                       
+;>>>>>>> .r1525
 
 			))
 
