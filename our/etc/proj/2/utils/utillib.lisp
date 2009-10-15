@@ -7,33 +7,21 @@
 
 ; COMPRESSION
 ; From P. Graham (P. #37)
-; Take a list, call compr on the car 1 and cdr
 (defun compress (x)
   (if (consp x)
       (compr (car x) 1 (cdr x))
       x))
 ; From P. Graham (P. #37)
-; Take an element, the element count, and a list.
-; IF the list is null, we are at the end...
-; --> Return list from n-elts
-; ELSE:
-;  IF lst is a list compare the first element with the current element
-;  --> compress (recurse)
-;  ELSE: cons result of n-elts and compr (recurse)
 (defun compr (elt n lst)
   (if (null lst)
       (list (n-elts elt n))
       (let ((next (car lst)))
-	(if (equal next elt) ; Note slight modification from Graham's version.
+	(if (equal next elt)
 	    (compr elt (+ n 1) (cdr lst))
 	    (cons (n-elts elt n)
 		  (compr next 1 (cdr lst)))))))
 ; From P. Graham (P. #37)
-; Take a number and an element.
-; IF the number is greater than 1 return a list with the number & element.
-; THEN just return the element.
 (defun n-elts (elt n)
-;  (list n elt))
   (if (> n 1)
       (list n elt)
       (list n elt)))
