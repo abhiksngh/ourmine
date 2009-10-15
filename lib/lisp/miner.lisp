@@ -17,9 +17,7 @@
 			"table/table"
 			"table/xindex"
 			"learn/nb"
-                        "ekrem"
-                        "normalize"
-                        "kmeans"
+                        "loadlib"
 			))
 
 (defun make1 (files)
