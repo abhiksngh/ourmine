@@ -6,18 +6,16 @@ nb-lisp(){
     local testfile=$2
     local trainfile=$1  
     local testlisp=test.lisp
-    local trainlisp=train.lisp    
-    arffToLisp $testfile > $testlisp
-    arffToLisp $trainfile > $trainlisp
-    local testfun=`getDataDefun $testlisp`  
-    local trainfun=`getDataDefun $trainlisp` 
+    local trainlisp=train.lisp 
+    local testfun=`cat $testfile | getDataDefun`  
+    local trainfun=`cat $trainfile | getDataDefun` 
 
     sbcl --noinform --eval '
-  (progn (load "'$load'") (load "'$testlisp'") (load "'$trainlisp'")
+  (progn (load "'$load'") 
   (print (nb ('$testfun') ('$trainfun')))
   (quit))'  > $Tmp/tmp
 
-  cat $Tmp/tmp | grep "(" | formatGotWant
+  cat $Tmp/tmp | grep "(" | formatGotWant | tr A-Z a-z
 }
 
 catchLispStats(){   
@@ -38,14 +36,14 @@ catchLispStats(){
             goals=`cat $dat | getClasses --brief`
 	        for bin in $bins; do
 		    makeTrainAndTest $dat $bins $bin
-		    for learner in $learners; do
-                    $learner train.arff test.arff | gotwant > produced.dat
-                    for goal in $goals; do
-			cat produced.dat | 
-			abcd --prefix "`basename $dat`,$learner,$goal" --goal "$goal" --decimals 1 >> $out
-                    done
+		    for learner in $learners; do			
+			$learner train.arff test.arff | gotwant > produced.dat		     
+			for goal in $goals; do
+			    cat produced.dat | 
+			    abcd --prefix "`basename $dat`,$learner,$goal" --goal "$goal" >> $out
+			done
 		    done
-            done
 		done
+	done
 	winLossTie --test w --fields 12 --perform 9 --input $out --key 2
 }
