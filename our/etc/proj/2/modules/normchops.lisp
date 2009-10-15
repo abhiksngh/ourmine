@@ -17,17 +17,21 @@
     (loop for i from end downto 1 do (chop-trampoline i))))
 
 (defun normal-chops (tbl)
-  (let (normval (rtntable (table-clone tbl)) (bins (make-array 7)) std m (n 0))
+  (let (normval
+        (bins (make-array 7))
+        std
+        m
+        (n 0))
     (init-bins bins 7)
-    (dolist (column (table-columns rtntable))
+    (dolist (column (table-columns tbl))
       (when (typep column 'numeric)
-        (setf normval (fill-normal rtntable n))
+        (setf normval (fill-normal tbl n))
         (setf std (stdev normval))
         (setf m (mean normval))
-        (dolist (record (table-all rtntable))
+        (dolist (record (table-all tbl))
           (chopscan record bins n m std))
         (incf n)
-        (push (build-bin-list bins) (table-ranges rtntable))
+        (push (build-bin-list bins) (table-ranges tbl))
         (init-bins bins 7)))
-    (setf (table-ranges rtntable) (reverse (table-ranges rtntable)))
-    rtntable))
+    (setf (table-ranges tbl) (reverse (table-ranges tbl)))
+    tbl))

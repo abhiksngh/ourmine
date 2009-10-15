@@ -10,16 +10,16 @@
 						  (< (if (eql (first a) '?) 0 (first a))
 						     (if (eql (first b) '?) 0 (first b))))
 						 ((typep (first a) 'SYMBOL)
-						  (string< (string (first a))
-							   (string (first b)))))))
-	      (lambda (c d) (string< (string (first (last c)))
-				     (string (first (last d)))))))
+						  (string< (format nil "~a" (first a))
+							   (format nil "~a" (first b)))))))
+	      (lambda (c d) (string< (format nil "~a" (first (last c)))
+				     (format nil "~a" (first (last d)))))))
    (lambda (e f) (cond ((typep (first e) 'REAL)
 			(< (if (eql (caadr e) '?) 0 (caadr e))
 			   (if (eql (caadr f) '?) 0 (caadr f))))
 		       ((typep (first e) 'SYMBOL)
-			(string< (string (first (last e)))
-				 (string (first (last f)))))))))
+			(string< (format nil "~a" (first (last e)))
+				 (format nil "~a" (first (last f)))))))))
 
 
 (defstruct ruleset

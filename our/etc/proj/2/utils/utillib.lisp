@@ -80,23 +80,16 @@
 
 ;Returns the top N percent of a table 
 (defun best-of (tbl &optional(n .20))
-  (let ((best)
-        (returntable))
-    (setf returntable (make-table :name (table-name tbl) :columns (table-columns tbl) :class (table-class tbl)))
-    (setf best (floor(* n (negs tbl))))
-    (dotimes (k best)
-      (if (eql (table-all returntable) nil)
-          (setf (table-all returntable) (list (car (table-all tbl))))
-          (setf (table-all returntable) (append (table-all returntable) `(,(nth k (table-all tbl)))))
-      ))
-    returntable))
+  (make-table :name (table-name tbl)
+              :columns (table-columns tbl)
+              :class (table-class tbl)
+              :all (subseq (table-all tbl) 0 (floor (* n (negs tbl))))))
 
 ;Sorts a given table on the column N
 ;used in Bore
 (defun sort-on(tbl n)
-  (let ((rtntable (table-clone tbl)))
-    (setf (table-all rtntable) (sort (table-all rtntable) #'>= :key #'(lambda (x) (nth n (eg-features x)))))
-  rtntable))
+    (sort (table-all tbl) #'>= :key (lambda (x) (nth n (eg-features x))))
+    tbl)
 
 ; Sort-on but with whatever sorting algorithm you want.
 (defun sort-on-gen (tbl n &key (comp #'>))

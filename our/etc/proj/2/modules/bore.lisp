@@ -21,7 +21,7 @@
 						`(,(make-numeric :name y :ignorep nil :classp nil))))
 		  (dolist (record (table-all datatable))
 			(setf (eg-features record)
-				  (append (eg-features record) `(, (normalize (aref normalvals y)
+				  (append (eg-features record) `(, (normalize normalvals
 															  (nth n (eg-features record)))))))
 		  (incf y)))
 	  (incf n))
