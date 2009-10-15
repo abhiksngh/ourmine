@@ -1,3 +1,4 @@
+;subsetp
 (defun elementOf (list value)
   (let ((found nil))
   (dolist (current list)
@@ -5,14 +6,22 @@
         (setf found T)
         nil))found))
 
-(defun unique-count (list)
-  (let* ((sorted-list (sort list #'<))
-        (uniques 0)
-        (iteration 1))
-    (dolist (current sorted-list uniques)
-      (if (equalp current (nth iteration sorted-list))
-           (incf iteration)
-          (let ((x))(incf iteration)(incf uniques))))))
+;(length (remove-duplicates list))
+(defun unique-count (lst)
+  (length (remove-duplicates lst)))
+
+
+;(defun unique-count (list)
+ ;; (let* ((sorted-list)
+  ;       (uniques 0)
+  ;       (iteration 1)
+   ;      (x))
+   ; (if (numberp (first list)
+   ; (dolist (current sorted-list uniques)
+     ; (if (equalp current (nth iteration sorted-list))
+    ;       (incf iteration)
+      ;    (progn
+       ;     (incf iteration)(incf uniques))))))
 
 ;(defun unique-count (list)
 ;  (let ((uniques 0)
@@ -30,22 +39,39 @@
          (pass-count 0)
          (fail-count 0)
          (uniques-per-column)
-    (if (equalp (elementOf test-column test-value) T)
-        ((dolist (current test-column)
-           (if (equalp current test-value)
-               (incf pass-count)
-               (incf fail-count)))
-         (dolist (current (transpose (dataset)))
-           (setf uniques-per-column (append uniques-per-column (unique-count current)))
-         (let((row-num 1))
-           (dolist (current dataset)
-             (let ((column-num 1))
-               
-                 
-        (format t "value not found~%" nil))))
+         (row-num)
+         (column-num)
+         )
+    (if (subsetp (list test-value) test-column)
+        (progn
+          (dolist (current test-column)
+            (if (equalp current test-value)
+                (incf pass-count)
+                (incf fail-count)))
+          (dolist (current (transpose dataset))
+            (setf uniques-per-column (append uniques-per-column (unique-count current)))
+            (setf row-num 1)
+            (dolist (current2 dataset)
+              ;probably not a good idea to use current again
+              ;changed to current2
+              (setf column-num 1)
+              )
+            )
+          )
+        
+        ;(format t "value not found~%")
+        (print "value not found")
+        )
+    )
+  )
+        
 
 
 
-
+         
+         
+        
+    
+  
 
   ;sample execution: (naivebayes 4 (nth x (transpose (get-data (*datatable*)))) (*datatable*))

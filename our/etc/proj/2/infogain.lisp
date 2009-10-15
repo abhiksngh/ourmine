@@ -51,15 +51,12 @@
          (transposed-data (transpose (get-data source-table)))
          )
 
-    
-    
-;get info-gain for all columns
-    (dolist (one-column transposed-data)
       
+    ;get info-gain for all columns
+    (dolist (one-column transposed-data)
       (setf gain-lst (append gain-lst (list (compute-infogain one-column))))
       )
     
-
     ;get the max gain
     (setf max-gain (max-list gain-lst))
 
@@ -67,7 +64,6 @@
     (setf min-allowed-gain (* max-gain (/ percent 100)))
 
     ;for width of table
-
     (dotimes (n (table-width table))
       ;if the current gain is above the min-allowed-gain
       ;Keep
@@ -95,7 +91,7 @@
       (setf new-table (data
                       :name (table-name table)
                       :columns new-header
-                      :klass (table-class table)
+                      :klass (- (length (first (transpose new-data))) 1)
                       :egs
                       (transpose new-data)))
       ))
