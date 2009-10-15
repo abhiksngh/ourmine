@@ -4,12 +4,7 @@
 (print " - Loading TwoR") ;; Output for a pretty log
 
 (load "../../../lib/lisp/tricks/string.lisp")
-;(load "../../../lib/lisp/table/data.lisp")
-;(load "../../../lib/lisp/table/header.lisp")
-;(load "../../../lib/lisp/table/structs.lisp")
-;(load "../../../lib/lisp/table/table.lisp")
 (load "../../../lib/lisp/table/xindex.lisp")
-;(load "../../../lib/lisp/tricks/caution.lisp")
 (load "../../../lib/lisp/tricks/hash.lisp")
 (load "../../../lib/lisp/tricks/list.lisp")
 (load "../../../lib/lisp/tricks/macros.lisp")
@@ -113,26 +108,24 @@
 ;  (format t "~%~a~%" (header-name col))
 ;  (showh (header-f col)))
 
-(defmacro g-add (ht key val)
-  `(setf (gethash ,key ,ht) ,val))
 
-(defun data-attrs(tbl)
-  "Don't include the class column"
-  (reverse (cdr (reverse (columns-header (table-columns tbl))))))
+(defun all-but-last-row(row)
+  "Input a row, returns all but the last item in the list"
+  (reverse (cdr (reverse (columns-header (table-columns row))))))
 
-(defun create-pair(l r)
-  (list (concatenate 'string (string l) (string r)) (list l r)))
+(defun paired-strings-to-symbol (l r)
+  "Input two strings. Returns their concatenation as a symbol"
+  (let ((tl (intern (concatenate 'string (write-to-string l) (write-to-string r)))))
+    (print tl)
+    tl))
 
-(defun pair-cols(tbl)
-  "Pair the columns together"
-  (let
-      ((cols (data-attrs tbl))
-       (pair-columns '()))
-    (dotimes
-	(n (length cols))
-      (let
-	  ((col (pop cols)))
-	(push (list (string col) `(,col)) pair-columns)
+
+(defun pair-row (row)
+  "Pair all elements with every other element"
+  (let ((cols row) (pair-columns '()))
+    (dotimes (n (length cols))
+      (let ((col (pop cols)) (features '()))
+	(push col pair-columns)
 	(dolist (r cols)
-	  (push (create-pair col r) pair-columns))))
+	  (push (paired-strings-to-symbol col r) pair-columns))))
     (reverse pair-columns)))
