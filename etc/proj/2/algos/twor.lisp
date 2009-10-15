@@ -136,5 +136,5 @@
 (defun twoR (tbl)
   "Give me a table and I'll give you a bigger one!"
   (let ((new-table (xindex (data :name (table-name tbl) :columns (gen-paired-col-headers tbl) :egs (gen-paired-feature-list tbl)))))
-    (print new-table)
+;    (print new-table)
     (oner new-table)))
