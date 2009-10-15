@@ -8,6 +8,7 @@
 (load "modules/bore")
 (load "modules/oner")
 (load "modules/normchops")
+;(load "modules/genic2")
 (load "../../../lib/lisp/tests/data/quake")
 (load "../../../lib/lisp/tests/data/sick")
 

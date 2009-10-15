@@ -1,3 +1,7 @@
+(defun discrete-column (col)
+   (make-discrete :name (header-name col) :classp (header-classp col)
+                  :ignorep (header-ignorep col)))
+
 (defun chop-it-up (record bins i column mean stddev &key (base 3))
   (when (funcall (directional-compare i)
                  (nth column (eg-features record))
@@ -39,6 +43,4 @@
       (setf (table-ranges tbl) (reverse (table-ranges tbl)))
       tbl))
 
- (defun discrete-column (col)
-   (make-discrete :name (header-name col) :classp (header-classp col)
-                  :ignorep (header-ignorep col)))
+ 
