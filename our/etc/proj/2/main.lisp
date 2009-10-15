@@ -1,5 +1,5 @@
 (load "miner")
-(load "make-data")
+(load "tests/data/primary-tumor")
 (load "learn/nb")
 
 (defun learn (&key (k            8)

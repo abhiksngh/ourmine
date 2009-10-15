@@ -19,9 +19,10 @@
          (new-header)
          (new-columns)
          )
-    (dolist (item all)
+    (dolist (item all) ; <== could appear as third arg
       (setf prob (probability item column))
       (setf sum (+ sum (* prob (i prob))))
+      ; (incf sum (* prob (i prob)))
 ;      (print sum)))
       )
     sum))
@@ -106,5 +107,6 @@
 (defun i (probability)
   (* (- 0 probability) (log probability 2)))
 
+; (1- 
 
 

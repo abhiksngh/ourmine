@@ -9,10 +9,16 @@
           ()
      ))))
 
+;; (defun highest (data &key  (comp #'<) (key #'identity))
+;;   (let ((highval (funcall key (car data))))
+;;     (dolist (current data highval)
+;;       (if (funcall comp (funcall key current) (funcall key highval))
+;;           (setf highval current)))))
+
 (defun highest (data)
   (let ((highval (car data)))
     (dolist (current data highval)
-      (if (> current highval)
+      (if (< current highval)
           (setf highval current)
           ()
      ))))
