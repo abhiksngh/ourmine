@@ -1,4 +1,4 @@
-(defun test-data2()
+(defun david-test()
   (data
    :name 'test
    :columns '($number1 symbol $number2 stuff)
@@ -16,26 +16,30 @@
 ;;Author David Asselstine
 
 (defun kmeans (k)
-  (let* ((tbl (xindex (test-data2)))
+  (let* ((tbl (xindex (david-test)))
          (centroid-list (kmeans-find-centroid k (f tbl)))
          (centroid0 '())
          (rem-rows '())
+         (column-names '())
          (done nil))
     (dolist (i centroid-list)
-      (push (nth i (table-all tbl)) centroid0)) 
+      (push (eg-features (nth i (table-all tbl))) centroid0))
     (setf centroid0 (reverse centroid0))
     (dotimes (i (f tbl))
       (if (not (member i centroid-list))
-        (push (nth i (table-all tbl)) rem-rows)))
+        (push (eg-features (nth i (table-all tbl))) rem-rows)))
+    (dolist (col (table-columns tbl))
+      (push (header-name col) column-names))
+    (setf column-names (reverse column-names))
     (loop while (not done) do
          (let ((cluster '())
                (n 0))
            (dotimes (i (length centroid-list))
              (push '() cluster))
            (dolist (row rem-rows)
-             (push row (nth (kmeans-closest-centroid centroid0 row (table-columns tbl)) cluster)))
-           (dolist (current-clust cluster)
-             (let ((new-centroid (kmeans-move-centroid current-clust (nth n centroid0) (table-columns tbl))))
+             (push row (nth (kmeans-closest-centroid centroid0 row column-names) cluster)))
+           (dolist (current-clust cluster)             
+             (let ((new-centroid (kmeans-move-centroid current-clust (nth n centroid0) column-names)))
                (if (= n 0)
                    (if (samep new-centroid (nth n centroid0))
                        (setf done t)
@@ -44,7 +48,8 @@
                        (progn
                          (setf (nth n centroid0) new-centroid)
                          (setf done nil)))))
-             (incf n))))))
+             (incf n))))
+    centroid0))
                           
 ;;KMEANS-MOVE-CENTROID
 ;;Moves centroids to the median of all rows closest to it
@@ -53,19 +58,22 @@
 ;;Author David Asselstine
 
 (defun kmeans-move-centroid (cluster centroid columns)
-  (let ((n 0))
-    (dolist (col columns centroid)
-      (if (numericp (header-name col))
+  (let ((n 0)
+        (new-centroid '()))
+    (dotimes (i (length centroid))
+      (push nil new-centroid))
+    (dolist (col columns new-centroid)
+      (if (numericp col)
           (let ((number-list '()))
             (dolist (row cluster)
               (if (numberp (nth n row))
                   (push (nth n row) number-list))
               (setf number-list (qsort number-list))
-              (setf (nth n centroid) (numeric-median number-list))))
+              (setf (nth n new-centroid) (numeric-median number-list))))
           (let ((freq-list '()))
             (dolist (row cluster)
               (push (nth n row) freq-list))
-            (setf (nth n centroid) (most-freq-symbol freq-list))))
+            (setf (nth n new-centroid) (most-freq-symbol freq-list))))
       (incf n))))
 
 ;;KMEANS-FIND-CENTROID

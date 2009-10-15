@@ -8,7 +8,7 @@
   (let ((n 0)
         (distance 0))
     (dolist (col columns)
-      (if (numericp (table-headers col))
+      (if (numericp col)
           (if (numberp (nth n node1))
               (if (numberp (nth n node2))
                   (incf distance (square (- (nth n node2) (nth n node1))))

@@ -17,7 +17,8 @@
 			"table/table"
 			"table/xindex"
 			"learn/nb"
-                        "loadlib"
+                        "utils"
+                        "kmeans"
 			))
 
 (defun make1 (files)
