@@ -131,3 +131,7 @@
   "Give me a table, and I'll give you a list of all the column names paired together"
   (pair-row (mapcar #'(lambda (l) (header-name l)) (table-columns tbl))))
 
+(defun gen-paired-feature-list (tbl)
+  "Give me a table, and I'll give you a list of lists. Each one is the result of pairing every column"
+  
+      
