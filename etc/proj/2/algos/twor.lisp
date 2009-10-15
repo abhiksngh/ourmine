@@ -80,7 +80,7 @@
 	       (numberp class-count)
 	       (progn
 		 ;(format t "Processing: ~A, ~A/~A~%" this-token class-count full-count)
-		 (setf rating (cons this-token (/ class-count full-count)))
+		 (setf rating (cons this-token (float (/ class-count full-count))))
 		 (push rating subaccuracy)))))
 	  ;(format t "Skipping: ~A, ~A/~A~%" this-token class-count full-count))))
 	  (push subaccuracy accuracy))
@@ -110,7 +110,7 @@
 
 (defun paired-strings-to-symbol (l r)
   "Input two strings. Returns their concatenation as a symbol"
-  (intern (concatenate 'string (write-to-string l) (string '-) (write-to-string r))))
+  (intern (remove #\$ (concatenate 'string (write-to-string l) (string '-) (write-to-string r)))))
 
 (defun pair-row (row)
   "Pair all elements with every other element"
@@ -120,10 +120,13 @@
 	(push col pair-columns)
 	(dolist (r cols)
 	  (push (paired-strings-to-symbol col r) pair-columns))))
+    (push (first (reverse row)) pair-columns) ; tack the class on the end
     (reverse pair-columns)))
 
 (defun gen-paired-col-headers (tbl)
   "Give me a table, and I'll give you a list of all the column names paired together"
+;  (let ((col-names (pair-row (mapcar #'(lambda (l) (header-name l)) (table-columns tbl)))))
+;    (append col-names (list (header-name (nth (table-class tbl) (table-columns tbl)))))))
   (pair-row (mapcar #'(lambda (l) (header-name l)) (table-columns tbl))))
 
 (defun gen-paired-feature-list (tbl)
@@ -132,9 +135,6 @@
 
 (defun twoR (tbl)
   "Give me a table and I'll give you a bigger one!"
-  ;; (data) requires.... 
-  ;; table name
-  ;; '(list) of column headers
-  ;; list of row data stored in lists (yo dawg...)
-  (let ((new-table (data :name (table-name tbl) :columns (gen-paired-col-headers tbl) :egs (gen-paired-feature-list tbl))))
+  (let ((new-table (xindex (data :name (table-name tbl) :columns (gen-paired-col-headers tbl) :egs (gen-paired-feature-list tbl)))))
+    (print new-table)
     (oner new-table)))
