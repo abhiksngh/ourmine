@@ -72,7 +72,7 @@ i. .. .,...,,i;,,,;,;,;tfjjfjft..::.:.:i::.::,jLii
 .   ....:.  ....... .........::;.:::...:,t,,::.,tt")
 
 (defun SUPER-IMPORTANT-FUNCTION ()
-  (format t "~a~&*** MENZIES WATCHES YOU COMPILE ***~&~&" *menzies*))
+  (format t "~a~&*** MENZIES IS WATCHING YOU COMPILE ***~&~&" *menzies*))
 
 (defun make1 (files)
   (let ((n 0))
