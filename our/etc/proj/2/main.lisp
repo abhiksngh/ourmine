@@ -33,7 +33,7 @@
     (print "clustering")
     ;(setf clusters (cluster training k))
     (setf clusters training)
-
+y
     
      ; the do FSS on each cluster
     (print "Feature Select")
