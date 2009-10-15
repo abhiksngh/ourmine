@@ -1,6 +1,13 @@
 (defun doNothing (table &rest func )
   table)
 
+(deftest test-nothing()
+     (multiple-value-bind (train test) (doNothing (ar3) (ar3))
+       (check
+         (equal
+          (eg-features (nth 1 (table-all (xindex (ar3)))))
+          (eg-features (nth 1 (table-all (xindex train))))))))
+
 (defun doNothing (test train &rest func)
   (values test train))
 
@@ -26,6 +33,29 @@
                  resultHash)
     (sort cozyNeighborList #'< :key #'second)))
 
+(deftest test-knear()
+  (let* ((train  (xindex(build-a-data 'TRAIN (list '$a '$b '$c '$d) (list
+                                                       '(1 1 1 1)
+                                                       '(1.1 1.1 1.1 1.1)
+                                                       '(1.2 1.2 1.2 1.2)
+                                                       '(1.3 1.3 1.3 1.3)
+                                                       '(1.4 1.4 1.4 1.4)
+                                                       '(1.5 1.5 1.5 1.5)
+                                                       '(1.6 1.6 1.6 1.6)
+                                                       '(1.7 1.7 1.7 1.7)
+                                                       '(1.8 1.8 1.8 1.8)
+                                                       '(1.9 1.9 1.9 1.9)
+						       '(2.0 2.0 2.0 2.0)
+						       '(5 5 5 5)))))
+         (test  (xindex(build-a-data 'TEST (list '$a '$b '$c '$d) (list
+							'(1 1 1 1))))))
+    (check
+      (equal
+       (k-nearest-per-instance (nth 0 (table-all test)) train)
+       '((10 0.20000005) (9 0.4000001) (8 0.5999999) (7 0.79999995) (6 1.0)
+ (5 1.2) (4 1.4000001) (3 1.5999999) (2 1.8) (1 2.0) (0 8.0))))))
+       
+
 ;;Burak Filter
 (defun burak(train test)
   (let* ((xtrain (xindex train))
@@ -43,6 +73,30 @@
             (if (null (member neighbor tmp))
                 (push neighbor tmp))))
         (setf returnData (build-a-data (table-name xtrain) (columns-header (table-columns xtrain)) tmp))))))
+
+(deftest test-burak()
+  (let* ((test (build-a-data 'TRAIN (list '$a '$b '$c '$d) (list
+                                                       (list 1 1 1 1)
+                                                       (list 1.1 1.1 1.1 1.1)
+                                                       (list 1.2 1.2 1.2 1.2)
+                                                       (list 1.3 1.3 1.3 1.3)
+                                                       (list 1.4 1.4 1.4 1.4)
+                                                       (list 1.5 1.5 1.5 1.5)
+                                                       (list 1.6 1.6 1.6 1.6)
+                                                       (list 1.7 1.7 1.7 1.7)
+                                                       (list 1.8 1.8 1.8 1.8)
+                                                       (list 1.9 1.9 1.9 1.9)
+                                                       (list 2.0 2.0 2.0 2.0)
+                                                       (list 5 5 5 5))))
+         (train (build-a-data 'TEST (list '$a '$b '$c '$d) (list
+                                                        (list 1 1 1 1))))
+         (result (burak test train)))
+    (and
+     (check
+       (eql
+        (length (table-all (xindex result)))
+        10))
+     (check (not (member (list 5 5 5 5) (features-as-a-list (xindex result))))))))
         
 ;;Super Burak Bros. Filter
 (defun super-burak(n &rest test-sets)
