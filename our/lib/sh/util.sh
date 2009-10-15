@@ -21,7 +21,7 @@ funs() {
 
 #for lisp                                                                       
 getDataDefun(){                                                                          
-     grep relation | cut -f2,2 -d" "
+     grep relation | cut -f2 -d" "
 }
 
 #for lisp                   
