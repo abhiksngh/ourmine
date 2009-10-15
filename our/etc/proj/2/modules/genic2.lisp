@@ -1,50 +1,3 @@
-;Genic
-;Params   k = fixxed number of centers
-;         n = size of each generation
-;optional m = multiple of k centers default 2
-(defun Genic(tbl k n &optional(multi 2))
-  (let* ((m (* multi k))
-         (rtnlist)
-         (w (make-array m :initial-element 1))
-         (c (gen-centroids tbl m))
-         index
-         (count 0))
-
-    (dolist (record (table-all tbl))
-      (incf count)
-      (setf index (min-distance record c))
-      (setf (nth index c) (move-center (nth index c) (aref w index) (eg-features record)))
-      (incf (aref w index))
-
-      (when (=(mod count n) 0)
-        (dolist (i w)
-          (when (< (prob-surviv i w) (park-miller-randomizer))
-            (setf (nth i c) (new-center tbl m))
-            (setf (aref w i) 1))))
-      )
-    w
-  ))
-
-(defun genic2(tbl (k 10) n &optional(multi 2))
-  (let* ((m (* multi k))
-         (w (make-array m :initial-element 1))
-         (c (gen-centroids tbl m))
-         index
-         (count 0))
-
-    (dolist (record (table-all tbl))
-      (incf count)
-      (setf index (min-distance record c))
-      (setf (nth index c) (move-center (nth index c) (aref w index) (eg-features record)))
-      (incf (aref w index))
-
-      (when (=(mod count n) 0)
-        (dolist (i w)
-          (when (< (prob-surviv i w) (park-miller-randomizer))
-            (setf (nth i c) (new-center rtntable m))
-            (setf (aref w i) 1))))
-      )
-
 (defun max-w (w)
   (let (max (* -1 most-positive-single-float))
     (dolist (ele w)
@@ -71,9 +24,9 @@
 
 (defun gen-centroids (tbl m &optional(factor .01))
   (let ((alist (sample-population (normalize-table tbl) m factor))
-        rtnlist)
+        (rtnlist))  
     (dotimes (n m rtnlist)
-      (push rtnlist (eg-features (pop alist))))))
+      (push (eg-features (pop alist)) rtnlist))))
 
 (defun min-distance (record c)
   (let ((min most-positive-single-float)
@@ -97,9 +50,70 @@
       (incf count))
     index))
      
-            
+;Genic
+;Params   k = fixxed number of centers
+;         n = size of each generation
+;optional m = multiple of k centers default 2
+(defun genic(tbl k n &optional(multi 2))
+  (let* ((m (* multi k))
+         (rtnlist)
+         (w (make-array m :initial-element 1))
+         (c (gen-centroids tbl m))
+         (index 0)
+         (count 0))
+
+    (dolist (record (table-all tbl))
+      (incf count)
+      (setf index (min-distance record c))
+     (setf (nth index c) (move-center (nth index c) (aref w index) (eg-features record)))
+     (incf (aref w index))
+
+      (when (=(mod count n) 0)
+        (dolist (i w)
+          (when (< (prob-surviv i w) (park-miller-randomizer))
+            (setf (nth i c) (new-center tbl m))
+            (setf (aref w i) 1))))
+      )
+    (while (< rtnlist k)
+      (setf rtnlist (cons rtnlist (nth (next-best-w w) c))))
+    (setf (table-columns tbl) (append (table-columns tbl) `(,(make-discrete :name 'clusters)))) 
+    (dolist (record (table-all tbl) tbl)
+      (setf (eg-features record)
+            (append (eg-features record) (format nil "~a" (min-distance rtnlist)))))
+  ))         
           
-          
+(defun genic2(tbl k n &optional(multi 2))
+  (let* ((m (* multi k))
+         (w (make-array m :initial-element 1))
+         (c (gen-centroids tbl m))
+         index
+         (pruned nil)
+         (count 0))
+
+    (dolist (record (table-all tbl))
+      (incf count)
+      (setf index (min-distance record c))
+      (setf (nth index c) (move-center (nth index c) (aref w index) (eg-features record)))
+      (incf (aref w index))
+
+      (when (=(mod count n) 0)
+        (dolist (i w)
+          (when (< (aref w i) (* .5 (max-w w)))
+            (remove (nth i c))
+            (setf pruned t)
+            (remove (aref w i))))
+        (when (not pruned)
+            (setf k (* 1.5 k))
+            (setf m (* k m)))
+        (setf pruned nil))
+      )
+    (while (< rtnlist k)
+      (setf rtnlist (cons rtnlist (nth (next-best-w w) c))))
+    (setf (table-columns tbl) (append (table-columns tbl) `(,(make-discrete :name 'clusters)))) 
+    (dolist (record (table-all tbl) tbl)
+      (setf (eg-features record)
+            (append (eg-features record) (format nil "~a" (min-distance rtnlist)))))
+  ))
 
     
       
