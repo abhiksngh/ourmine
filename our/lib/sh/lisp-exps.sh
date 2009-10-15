@@ -15,7 +15,7 @@ nb-lisp(){
   (print (nb ('$testfun') ('$trainfun')))
   (quit))'  > $Tmp/tmp
 
-  cat $Tmp/tmp | grep "(" | formatGotWant | tr A-Z a-z
+  cat $Tmp/tmp | formatGotWant 
 }
 
 catchLispStats(){   
@@ -45,5 +45,5 @@ catchLispStats(){
 		    done
 		done
 	done
-	winLossTie --test w --fields 12 --perform 9 --input $out --key 2
+	winLossTie --test mw --fields 12 --perform 9 --input $out --key 2
 }

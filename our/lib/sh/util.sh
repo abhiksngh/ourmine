@@ -38,12 +38,14 @@ arffToLisp(){
 
 #for lisp      
 formatGotWant(){
+    grep "(" |
     tr -s "(" " " |
     tr ")" "\n" |
     grep -v "^$" |
     tr "." "," |
     awk 'BEGIN{FS=","}{print 0 " " $1 " 0 " $2 }' |
-    grep -v "0   0"
+    grep -v "0   0" |
+    tr A-Z a-z
 }
 
 
