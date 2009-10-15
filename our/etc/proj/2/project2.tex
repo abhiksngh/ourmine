@@ -99,7 +99,7 @@
 %
 % 1st. author
 \alignauthor
-Lonnie Bowe 
+Lonnie Bowe
 %\titlenote{CS grad}
 \\
        \affaddr{West Virginia University}\\
@@ -107,14 +107,14 @@ Lonnie Bowe
 %       \affaddr{Wallamaloo, New Zealand}\\
        \email{lbowe@csee.wvu.edu}
 \alignauthor
-Aglika Gyaourova \\      
+Aglika Gyaourova \\
        \affaddr{West Virginia University}\\
        \email{agyaouro@csee.wvu.edu}\\
 \alignauthor
 Zack Hutzell\\
        \affaddr{West Virginia University}\\
        \email{zhutzell@csee.wvu.edu}\\
-}      
+}
 
 \maketitle
 \begin{abstract}
@@ -127,44 +127,171 @@ Zack Hutzell\\
 
 
 \section{Methods}
-Our goal is to find a general model for defect predictors. For this purpose, the experiments are divided into  
-within company (WC) and cross-company (CC). For the WC experiments, 90\% of one data set 
-is used for training the classifier and the rest 10\% for evaluating the classifier performance. This process is 
-repeated 10 times, by randomly selecting the instances to be used for evaluation. 
+Our goal is to find a general model for defect predictors. For this purpose, the experiments are divided
+into  within company (WC) and cross-company (CC). For the WC experiments, 90\% of one data set
+is used for training the classifier and the rest 10\% for evaluating the classifier performance. This process
+is repeated 10 times, by randomly selecting the instances to be used for evaluation.
 
-In all data sets, the distribution of the instances from the two classes, i.e. the defect and the 
-non-defect, is imbalanced. The defect class is represented by a smaller number of instances 
- ranging  from 0.4\% to 32\% of all instances in a dataset. While training the number of instances of the 
- non-defect class was reduced to the number of instances in the defect class by random deletion. 
+In all data sets, the distribution of the instances from the two classes, i.e. the defect and the non-defect, is
+imbalanced. The defect class is represented by a smaller number of instances ranging  from 0.4\% to 32\% of
+all instances in different data set~\cite{Turhan2009}. During training the number of instances of the non-defect
+class was reduced to the number of instances in the defect class by random deletion.
 
-The Bayes classifier finds a decision that minimizes the Bayes error among classes. This is the 
-theoretically optimal classifier when the attribute values of each class classes have a normal probability 
-distribution. The Bayes classifier operates using the posterior probabilities of the classes as defined by 
-the Bayes' theorem. In a two class problem having only a single attribute, the classifier decision is the 
-attribute value at which the posterior probability of one of the classes becomes larger than the posterior 
-probability of the other class. The naive Bayes classifier assumes independent attributes. 
-Practice in software engineering has shown that the Bayes classifier performs well even when its 
-assumptions are not met. 
+The Bayes classifier finds a decision that minimizes the Bayes error among classes. This is the theoretically
+optimal classifier when the attribute values of each class classes have a normal probability distribution. The
+Bayes classifier operates using the posterior probabilities of the classes as defined by the Bayes' theorem. In a
+two class problem having only a single attribute, the classifier decision is the attribute value at which the
+posterior probability of one of the classes becomes larger than the posterior probability of the other class. The
+naive Bayes classifier assumes independent attributes. Practice in software engineering has shown that this
+classifier performs well even when its assumptions are not met.
+\begin{figure*}[tbp]
+\makebox[\linewidth]{\hrulefill}
+{\tt\small
+\begin{verbatim}
+naive-bayes-classify(instance train)
+  k = 1
+  m = 2
+  classification = null
+  classification_score = inf
+  for each class in classes(train)
+    prior_probability=(k+get_class_count(train, class))/(length(train)+(k*(length(classes(train)))))
+    sum = 0
+    for each feature in row
+      if(!class_column(feature) && !unknown_feature(feature))
+        sum = sum + (class_frequency(feature, class, train)
+        						         + (m * prior_probability)) / (length(get_class_count(train class)) + m)
+    if(sum > classification_score)
+      classification = class
+  return classification
+\end{verbatim}}
+\makebox[\linewidth]{\hrulefill}
+\caption{Naive Bayes classifier on categorical data.}
+\label{fig:naiveBayes}
+\end{figure*}
 
-Applying naive Bayes on categorical (discrete) data is fast and easy. 
-When using categorical (or discrete) data, the naive Bayes operates on the conditional frequencies of 
-the categorical values is fast and easy. Furthermore, discretization of continuous attributed does not 
-have significant effect on the performance \cite{Dougherty95}.
+Applying naive Bayes on categorical (discrete) data is fast and easy. In this case the naive Bayes operates on the
+conditional frequencies of the categorical values~\ref{fig:naiveBayes}. Since discretization of continuous
+attributed does not have significant effect on the performance~\cite{Dougherty95}, we mapped the attribute
+values into a discrete range before running the learner. A discretization method that accounts for the distribution
+of the values is the equal frequency discretization.  This method splits a list of numbers into a predefined
+number of intervals, such that every interval contains the equal count of list elements,
+figure~\ref{fig:discretization}.
+\begin{figure}[tbp]
+\makebox[\linewidth]{\hrulefill}
+{\tt\small
+\begin{verbatim}
+equal-frequency-discretizer(dataset, bins)
+  for each column in dataset
+    //sort the values in the column
+    sort(dataset, column)
+    for each value in the current column
+      //change each value to its discretized replacement
+      value=min(n-1, floor((value/(length(column)-1))*bins))
+\end{verbatim}}
+\makebox[\linewidth]{\hrulefill}
+\caption{Equal frequency discretization.}
+\label{fig:discretization}
+\end{figure}
 
+Another discretization method, {\tt Nbins}, creates intervals whose value ranges have equal width,
+figure~\ref{fig:nbins}.
+\begin{figure}[tbp]
+\makebox[\linewidth]{\hrulefill}
+{\tt\small
+\begin{verbatim}
+equal-width-discretizer(set, bins)
+    minval=min(set)
+    maxval=max(set)
+    for each value in set
+      //find the interval in which the value belongs
+      //merge the last two intervals
+      value=min(nbins,
+                floor((value-minval)/(maxval-minval)*nbins))
+\end{verbatim}}
+\makebox[\linewidth]{\hrulefill}
+\caption{Equal width discretization ({\tt Nbins}).}
+\label{fig:discretization}
+\end{figure}
 
 \section{Experiments}
-In the CC experiments, the training is performed using the 10 nearest neighbors of each instance in the 
-evaluation set (without duplication). 
-
-Minmax normalization.
-
-Row deletion.
-
-Feature selection.
+We performed experiments on cross-project, within company data using the sets {\tt ar3}, {\tt ar4}, and {\tt
+ar5}. The learner was naive Bayes and data was preprocessed using equal frequency discretization. Deletion of
+rows was used to obtain an equal number of instances in the two classes. Thus, the prior probabilities of the
+classes are the same. Equal priors may be an appropriate assumption and this is one way to achieve it for data
+having a large sample bias. Instances from the over-represented class were deleted at random before training
+the classifier.
+%\begin{center}
+%\fbox{
+%\parbox{.96\linewidth}{
+%ala-bala }}
+%\end{center}
 
 \subsection{Performance evaluation}
+To evaluate the performance of the learned model we used the accuracy, recall, and precision measures, defined
+by:
+%\begin{equation}
+\begin{align}
+accuracy &= (A+D)/(A+B+C+D) \nonumber \\
+precision &= D/(C+D)\\
+recall &= D/(B+D)~, \nonumber
+\end{align}
+%\end{equation}
+where A, B, C, and D are the true negatives, false negatives, false positives, and true positives respectively. The
+accuracy gives the portion of correct decision over all classes. The precision is the portion of true positives from
+all instances predicted as a given class and the recall is the portion of true positives from all instances belonging
+to a given class. All these measures have a range between 0 and 1, with 1 being the best score.
 
+\subsection{Results}
+\begin{figure}[tbp]
+\begin{center}
+\includegraphics[width=.99\linewidth]{pics/accuracy.eps}
+\caption{Accuracy for the ar* data sets using cross-project data.}
+\label{fig:accuracy}
+\end{center}
+\end{figure}
+The accuracy of performance degrade when using cross-project data compared to within project data and the
+original data sets, figure~\ref{fig:accuracy} and figure~\ref{fig:accuBase}. However, when the training data was
+subsampled to equal priors there was significant improvement in performance when training on the {\tt ar3} set
+and testing on the {\tt ar5} set. Moreover, the performance did not degrade when moving from within project to
+cross project experiments. This suggests, that subsampling gives a more accurate  estimation for the
+performance of a model in a cross-project prediction.
+\begin{figure}[tbp]
+\begin{center}
+\includegraphics[width=.99\linewidth]{pics/accuracyBaseline.eps}
+\caption{Accuracy for the ar* data sets using within project data.}
+\label{fig:accuBase}
+\end{center}
+\end{figure}
+Training on data with equal priors is also supported by the precision versus recall plots, figure~\ref{fig:pvr-wos}
+and figure~\ref{fig:pvr-ws}. When using these two measures, the prediction degraded substantially when using
+the original data sets. In contrast, after subsampling, the prediction degraded less and in some cases was better
+in the cross-project experiments compared to within project experiments.
+\begin{figure}[btp]
+\begin{center}
+\includegraphics[width=.99\linewidth]{pics/pvr-wos.eps}
+\caption{Precision versus recall without subsampling. The star inside a circle markers indicate the within project prediction.}
+\label{fig:accuracy}
+\end{center}
+\end{figure}
 
+\begin{figure}[btp]
+\begin{center}
+\includegraphics[width=.99\linewidth]{pics/pvr-ws.eps}
+\caption{Precision versus recall with subsampling. The star inside a circle markers indicate the within project prediction.}
+\label{fig:accuBase}
+\end{center}
+\end{figure}
+
+\section{Conclusions}
+Our goals for the next project are:
+\begin{itemize}
+\item{Implement attribute selection.}
+\item{Implementing knn to be used in the cross-company experiments.}
+\item{Run cross-company experiments.}
+\item{Report results using cross-validation.}
+\item{Try different subsampling, e.g. the Burak or the super-Burak filters.}
+\item{Try different learners.}
+\end{itemize}
 
 % The following two commands are all you need in the
 % initial runs of your .tex file to
@@ -180,6 +307,7 @@ Feature selection.
 %
 %APPENDICES are optional
 %\balancecolumns
-\appendix
-\end{document}
 
+%\appendix
+
+\end{document}

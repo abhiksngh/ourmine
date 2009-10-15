@@ -3,7 +3,7 @@
 (defun euclid-distance (row1 row2 tbl)
   (sqrt (reduce #'+
                 (mapcar #'(lambda (v1 v2 column-header)
-                          (if (and (column-header-orderedp column-header)
+                          (if (and (column-header-numericp column-header)
                                    (not (column-header-classp column-header)))
                             (expt (- v2 v1) 2)
                             0))
@@ -53,7 +53,7 @@
     (dotimes (i 20 samples)  			; select 20 instances
       (push (my-random-int n) samples))
     (dotimes (k (- n 1) gs)		; evaluate performance for different k
-      (push (knn-eval samples tbl (+ k 1)) gs)) 
+      (push (foo-knn-eval samples tbl (+ k 1)) gs)) 
       ;(push (knn-eval samples tbl ) gs)) 
     ;; return the k-value which gave the best (max) performance
     (- n 1 (position (reduce #'max gs) gs))))	; gs is reversed
