@@ -30,8 +30,15 @@
         (setf m (mean normval))
         (dolist (record (table-all tbl))
           (chopscan record bins n m std))
-        (incf n)
         (push (build-bin-list bins) (table-ranges tbl))
-        (init-bins bins 7)))
-    (setf (table-ranges tbl) (reverse (table-ranges tbl)))
-    tbl))
+        (init-bins bins 7))
+      (setf (nth n(table-columns tbl))(discrete-column column))
+      (incf n))
+                 
+      
+      (setf (table-ranges tbl) (reverse (table-ranges tbl)))
+      tbl))
+
+ (defun discrete-column (col)
+   (make-discrete :name (header-name col) :classp (header-classp col)
+                  :ignorep (header-ignorep col)))

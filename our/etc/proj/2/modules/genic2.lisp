@@ -4,26 +4,54 @@
 ;optional m = multiple of k centers default 2
 (defun Genic(tbl k n &optional(multi 2))
   (let* ((m (* multi k))
-         (rtntable (table-clone tbl))
+         (rtnlist)
          (w (make-array m :initial-element 1))
-         (c (gen-centroids rtntable m))
+         (c (gen-centroids tbl m))
          index
          (count 0))
 
-    (dolist (record (table-all rtntable))
+    (dolist (record (table-all tbl))
       (incf count)
       (setf index (min-distance record c))
       (setf (nth index c) (move-center (nth index c) (aref w index) (eg-features record)))
       (incf (aref w index))
 
-      (when (count ***mod n = 0)
+      (when (=(mod count n) 0)
+        (dolist (i w)
+          (when (< (prob-surviv i w) (park-miller-randomizer))
+            (setf (nth i c) (new-center tbl m))
+            (setf (aref w i) 1))))
+      )
+    w
+  ))
+
+(defun genic2(tbl (k 10) n &optional(multi 2))
+  (let* ((m (* multi k))
+         (w (make-array m :initial-element 1))
+         (c (gen-centroids tbl m))
+         index
+         (count 0))
+
+    (dolist (record (table-all tbl))
+      (incf count)
+      (setf index (min-distance record c))
+      (setf (nth index c) (move-center (nth index c) (aref w index) (eg-features record)))
+      (incf (aref w index))
+
+      (when (=(mod count n) 0)
         (dolist (i w)
           (when (< (prob-surviv i w) (park-miller-randomizer))
             (setf (nth i c) (new-center rtntable m))
             (setf (aref w i) 1))))
-      ) 
-  ))     
+      )
 
+(defun max-w (w)
+  (let (max (* -1 most-positive-single-float))
+    (dolist (ele w)
+      (if (> ele max)
+          (setf max ele)))
+    max))
+    
 (defun prob-surviv (index w)
   (let ((sum 0))
     (dolist (i w)
