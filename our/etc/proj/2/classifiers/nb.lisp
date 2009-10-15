@@ -8,7 +8,7 @@
       (let* ((got     (bayes-classify (eg-features one) (xindex train)))
 	     (want    (eg-class one))
 	     (success (eql got want)))
-        (if success (if (equal want 'TRUE)
+        (if success (if (equal want 'FALSE)
                              (progn
                                (incf (first trueClass))
                                (incf (fourth falseClass)))

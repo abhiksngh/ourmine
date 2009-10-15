@@ -20,10 +20,17 @@
          (k (* n (length (table-all table)))))
     (dolist (per-instance (shuffle (table-all table)))
       (if (>= (decf k) 0)
-          (push (eg-features per-instance) test)
           (push (eg-features per-instance) train)
+          (push (eg-features per-instance) test)
           ))
     (values (make-train-data (columns-header (table-columns table)) train) (make-test-data (columns-header (table-columns table)) test))))
+
+(deftest test-nvalues()
+  (multiple-value-bind (train test) (nvalues 0.3 (ar3))
+    (check
+     (equal
+      (floor (* 0.3 (length (table-all (ar3)))))
+      (length (table-all train))))))
 
 (defun make-train-data (cols eg)
   (data

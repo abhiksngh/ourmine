@@ -34,7 +34,10 @@
          (returnData)
          )
     (doitems (per-instance i xtest returnData)
-      (let* ((nearest-neighbors (subseq (k-nearest-per-instance per-instance xtrain) 0 10)))
+      (let* ((nearest-neighbors (k-nearest-per-instance per-instance xtrain))
+             (nearest-neighbors (if (< (length nearest-neighbors) 10)
+                                    nearest-neighbors
+                                    (subseq nearest-neighbors 0 10))))
         (doitems (per-neighbor j nearest-neighbors)
           (let* ((neighbor (eg-features (nth (first per-neighbor) (table-all xtrain)))))
             (if (null (member neighbor tmp))
@@ -100,7 +103,7 @@
             (setf (nth per-index (eg-features per-instance)) (normal classMinimum classMaximum (nth per-index (eg-features per-data))))))))))
 
 (defun normalizeDataTrainAndTest(train test)
-  (let* ((combinedDataSet (nvalues 0.0 train test))
+  (let* ((combinedDataSet (nvalues 1.0 train test))
          (combinedDataSet (xindex combinedDataSet))
          (combinedData (table-all combinedDataSet))
          (cols (table-columns combinedDataSet)))
@@ -118,7 +121,7 @@
                (setf (nth per-index (eg-features per-data)) (normal classMinimum classMaximum (nth per-index (eg-features per-data)))))))))))
 
 (deftest test-normalizeTrainTest()
-  (multiple-value-bind (train test) (seg-ar3)
+  (multiple-value-bind (train test) (seg-shared-kc1)
 	   (multiple-value-bind (train test) (normalizedataTrainandTest train test)
 	     (check
                 (if (listp (or

@@ -16,7 +16,7 @@
 (defun equal-width-train-test(train test)
   (let* ((lengthTrain (length (table-all (xindex train))))
         (lengthTest (length (table-all (xindex test))))
-        (tmp (nvalues 0.0 train test))
+        (tmp (nvalues 1.0 train test))
         (totalLength (length (table-all (xindex tmp))))
         (returnTrain)
         (returnTest))

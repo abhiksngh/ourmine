@@ -1,11 +1,11 @@
 (defun runLearnSetNoBins()
-  (let* ((setList (list #'seg-shared-cm1 #'seg-shared-kc1 #'seg-shared-kc2 #'seg-shared-kc3 #'seg-shared-mw1 #'seg-shared-mc2 #'seg-shared-pc1)))
+  (let* ((setList (list #'shared-cm1 #'shared-kc1 #'shared-kc2 #'shared-kc3 #'shared-mw1 #'shared-mc2 #'shared-pc1)))
     (dolist (per-set setList)
       (print "")
       (print (parse-name per-set))
-      (dolist (percent (list 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9))
+      (dolist (percent (list 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95))
         (print(format nil "~%Train: ~a%, Test: ~a%" percent (- 1.0 percent)))
-        (multiple-value-bind (train test) (funcall per-set percent)
+        (multiple-value-bind (train test) (nvalues percent (funcall per-set))
           (learn train test)))
       (print (format nil "~%End of ~a" (parse-name per-set))))))
 
@@ -14,7 +14,7 @@
     (dolist (per-set setList)
       (print "")
       (print (parse-name per-set))
-        (multiple-value-bind (trainList testList) (bins (b-squared (funcall per-set)))
+        (multiple-value-bind (trainList testList) (bins (b-squared(funcall per-set)))
           (learn trainList testList))
       (print (format nil "~%End of ~a" (parse-name per-set))))))
 
@@ -27,7 +27,7 @@
                    (discretizer  #'equal-width-train-test)
                    ;(cluster      #'(lambda (data) (kmeans k data))) 
                    (fss          #'doNothing)
-                   (classify     #'nb))
+                   (classify     #'hp))
   (if (not(listp trainList))
       (setf trainList (list trainList)))
   (if (not(listp testList))
@@ -86,7 +86,7 @@
    (if (and
         (eql c 0)
         (eql d 0))
-       (log 0.001)
+       1
        (+ c d))))
 
 (defun acc(a b c d)
@@ -97,7 +97,7 @@
         (eql b 0)
         (eql c 0)
         (eql d 0))
-       (log 0.001)
+       1
        (+ a b c d))))
 
 (defun pd(a b c d)
@@ -107,7 +107,7 @@
     (and
      (eql b 0)
      (eql d 0))
-    (log 0.0001)
+    1
     (+ b d))))
 
 (defun pf (a b c d)
@@ -116,7 +116,7 @@
    (if (and
         (eql a 0)
         (eql c 0))
-       (log 0.001)
+       1
        (+ a c))))
 
 (defun f-calc (a b c d)
@@ -124,16 +124,16 @@
 
 (defun g (a b c d)
 (let* ((a (if (eql a 0)
-              (log 0.001)
+              1
               a))
        (b (if (eql b 0)
-              (log 0.001)
+              1
               b))
        (c (if (eql c 0)
-              (log 0.001)
+              1
               c))
        (d (if (eql d 0)
-              (log 0.001)
+              1
               d)))
   (/
    (*
