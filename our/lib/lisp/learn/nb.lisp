@@ -7,9 +7,11 @@
 	     (want    (eg-class one))
 	     (success (eql got want)))
 	(incf acc (if success 1.0 0.0))
-	(format stream "~a ~a ~a ~a~%"  got want  
-		(round (* 100 (/ acc max)))
-		(if success "   " "<--"))))))
+	(setf got (list got))
+        (setf gotwants (append gotwants (list (append got want))))))))
+	;(format stream "~a ~a ~a ~a~%"  got want  
+	;	(round (* 100 (/ acc max)))
+	;	(if success "   " "<--"))))))
 
 (defun nb-simple (train test &key (stream t))
   (xindex train)
