@@ -11,7 +11,6 @@ show() {
    	fi
 }
 
-#for lisp
 funs() {
     cat $Base/lib/sh/* $Base/workers/* | 
     awk '/\(\)[ \t\n]*{/' | 
@@ -20,23 +19,24 @@ funs() {
     sort
 }
 
-#for lisp
-getDataDefun(){
-     echo -n "`cat $1 | grep defun | awk '{print $2}'`"
+#for lisp                                                                       
+getDataDefun(){                                                                          
+     grep relation | cut -f2,2 -d" "
 }
 
+#for lisp                   
 arffToLisp(){
     local arff=$1
     local was=`pwd`
-    local new=train.lisp
-    cd $Tmp; rm -rf $new
-    makeTrainAndTest $1 1 0
-    mv $new $was
+    cp $arff $Tmp
+    cd $Tmp
+    makeTrainAndTest $arff 1 0
+    mv train.lisp $was
     cd $was
     cat $new
 }
 
-#for lisp
+#for lisp      
 formatGotWant(){
     tr -s "(" " " |
     tr ")" "\n" |
@@ -45,6 +45,7 @@ formatGotWant(){
     awk 'BEGIN{FS=","}{print 0 " " $1 " 0 " $2 }' |
     grep -v "0   0"
 }
+
 
 para() { 
 	cat - |
