@@ -126,3 +126,8 @@
 	(dolist (r cols)
 	  (push (paired-strings-to-symbol col r) pair-columns))))
     (reverse pair-columns)))
+
+(defun gen-paired-col-headers (tbl)
+  "Give me a table, and I'll give you a list of all the column names paired together"
+  (pair-row (mapcar #'(lambda (l) (header-name l)) (table-columns tbl))))
+
