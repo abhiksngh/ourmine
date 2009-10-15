@@ -13,11 +13,6 @@
 (load "../../../lib/lisp/tricks/random.lisp")
 
 
-(defun twoR (tbl)
-  "Give me a table and I'll give you a bigger one!"
-  
-)
-
 (defun majority-class(tbl)
   "Names the majority class of a dataset"
   (let ((classes (count-classes tbl))
@@ -109,9 +104,9 @@
 ;  (showh (header-f col)))
 
 
-(defun all-but-last-row(row)
+(defun all-but-last-col (row)
   "Input a row, returns all but the last item in the list"
-  (reverse (cdr (reverse (columns-header (table-columns row))))))
+  (reverse (cdr (reverse row))))
 
 (defun paired-strings-to-symbol (l r)
   "Input two strings. Returns their concatenation as a symbol"
@@ -119,9 +114,9 @@
 
 (defun pair-row (row)
   "Pair all elements with every other element"
-  (let ((cols row) (pair-columns '()))
+  (let ((cols (all-but-last-col row)) (pair-columns '()))
     (dotimes (n (length cols))
-      (let ((col (pop cols)) (features '()))
+      (let ((col (pop cols)))
 	(push col pair-columns)
 	(dolist (r cols)
 	  (push (paired-strings-to-symbol col r) pair-columns))))
@@ -133,5 +128,13 @@
 
 (defun gen-paired-feature-list (tbl)
   "Give me a table, and I'll give you a list of lists. Each one is the result of pairing every column"
-  
-      
+  (mapcar #'(lambda (x) (pair-row (eg-features x))) (egs tbl)))
+
+(defun twoR (tbl)
+  "Give me a table and I'll give you a bigger one!"
+  ;; (data) requires.... 
+  ;; table name
+  ;; '(list) of column headers
+  ;; list of row data stored in lists (yo dawg...)
+  (let ((new-table (data :name (table-name tbl) :columns (gen-paired-col-headers tbl) :egs (gen-paired-feature-list tbl))))
+    (oner new-table)))
