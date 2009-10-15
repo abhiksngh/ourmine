@@ -32,10 +32,13 @@
 )
 
 ; Check for existing rules.
-(defun ruleset-exist (rls rule)
-  (if (null (indexof rule (car (ruleset-rules rls))))
-      nil
-      t))
+;(defun ruleset-exist (rls test)
+;  (indexof test (car (ruleset-rules rls))))
+(defun ruleset-exist (rls test)
+  (dolist (item (ruleset-rules rls))
+    (if (equal test (rule-rule item))
+        (return t)
+	(return nil))))
 
 ; Add a rule to the ruleset
 (defun ruleset-add (rls rle prdctn errs crct)
@@ -75,24 +78,25 @@
 			    (list (append (list (nth colindex (eg-features record))) (last (eg-features record)))))))
 	    ; Sort and compress (count).
 	    (setf classcount (count-n-sort classcount))
-	    ; Debugging
-;	    (dolist (item classcount)
-;	      (format t "~a~%" item))
-;	    (return-from oner 'DONE)
-
 	    ; Walk through determining what to keep.
 	    (let ((rules (make-ruleset :attribute (header-name column) :records (length (table-all datatable))))
 		  )
 	      (dolist (item classcount)
 		(if (ruleset-exist rules (caadr item))
 		    nil
-		    (progn
+		    (let ((indeces)
+			  (rule-to-add))
 		      ; Get all records with matching attribute values
 		      ; Determine the best rule.
 		      ; Determine the number of errors this rule produces.
-		      
-		      nil
-		      (ruleset-add rules (caadr item) (cadadr item) 10 (car item)) ; rle pred errs correct
+		      (setf indeces (indexesofat (caadr item) classcount :finder #'caadr))
+		      (cond ((= (length indeces) 1) (setf rule-to-add item))
+			    ((>= (first item) (first (nth (cadr indeces) classcount)))
+			     (setf rule-to-add (nth (cadr indeces) classcount)))
+			    ((<= (first item) (first (nth (cadr indeces) classcount)))
+			     (setf rule-to-add (nth (cadr indeces) classcount))))
+		      (ruleset-add rules (caadr rule-to-add) (cadadr rule-to-add) 10 (car rule-to-add))
+		      ; rle pred errs correct
 		      )))
 	      (format t "~a~%" rules))
 	    (return-from oner 'DONE)
