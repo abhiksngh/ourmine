@@ -1,21 +1,25 @@
 ; oneR.lisp - Classifier
-;
+
 ; Select for classes using one attribute
 ; NOTE: "Missing" is treated as a separate attribute value.
-
-; Counts and sorts list of pairs of the form ((number symbol) (number symbol))
-; First order by number, then symbol.
-; Compress (count).
-; Order again according to attribute value.
 (defun count-n-sort (pair-lst)
+;  (format t "~A~%~%~%~%~%~%~%_________________________~%~%~%~%~%~%~%" pair-lst)
   (sort
    (compress (sort
-	      (sort pair-lst (lambda (a b) (< (if (eql (first a) '?) 0 (first a))
-					      (if (eql (first b) '?) 0 (first b)))))
-	      (lambda (a b) (string< (string (first (last a)))
-				     (string (first (last b)))))))
-   (lambda (a b) (< (if (eql (caadr a) '?) 0 (caadr a))
-		    (if (eql (caadr b) '?) 0 (caadr b))))))
+	      (sort pair-lst (lambda (a b) (cond ((typep (first a) 'REAL)
+						  (< (if (eql (first a) '?) 0 (first a))
+						     (if (eql (first b) '?) 0 (first b))))
+						 ((typep (first a) 'SYMBOL)
+						  (string< (string (first a))
+							   (string (first b)))))))
+	      (lambda (c d) (string< (string (first (last c)))
+				     (string (first (last d)))))))
+   (lambda (e f) (cond ((typep (first e) 'REAL)
+			(< (if (eql (caadr e) '?) 0 (caadr e))
+			   (if (eql (caadr f) '?) 0 (caadr f))))
+		       ((typep (first e) 'SYMBOL)
+			(string< (string (first (last e)))
+				 (string (first (last f)))))))))
 
 
 (defstruct ruleset
@@ -59,44 +63,48 @@
       (+ (car lst) (sumlst (cdr lst)))))
 
 (defun greatest (indeces classcount)
-  (let ((greatest (first indeces)))
+  (let ((greatest (first indeces))
+	(errors 0))
     (if (< (length indeces) 2)
 	(first indeces)
 	(dolist (index indeces)
+	  (incf errors (first (nth index classcount)))
 	  (when (> (if (eql (first (nth index classcount)) '?) 0 (first (nth index classcount)))
 		   (if (eql (first (nth greatest classcount)) '?) 0 (first (nth greatest classcount))))
 	    (setf greatest index))))
-	greatest))
+    (decf errors (first (nth greatest classcount)))
+    (list greatest errors)))
 
 
 (defun oner (dataset &optional (columns (table-columns dataset)))
   (let ((datatable (copy-table dataset))
-	(classcount nil)
 	(colindex nil))
-    ; FOREACH column (attribute) in the dataset.
-    (dolist (column columns)
-      ; IF the column (attribute) is discrete.
+    (dolist (column columns) ; FOREACH column (attribute) in the column list/dataset.
       (when (typep column 'discrete)
-	(setf colindex (indexof column (table-columns datatable)))
-	    ; FOREACH value in the column (attribute)
-	(dolist (record (table-all datatable))
-	  (setf classcount
-		(append classcount
-			(list (append (list (nth colindex (eg-features record))) (last (eg-features record)))))))
+	(let ((classcount nil))
+	  (setf colindex (indexof column (table-columns datatable)))
+	  (dolist (record (table-all datatable)) ; FOREACH value in the column (attribute).
+	    (setf classcount
+		  (append classcount
+			  (list (append (list (nth colindex (eg-features record))) (last (eg-features record)))))))
 	; Sort and compress (count).
-	(setf classcount (count-n-sort classcount))
-	(format t "DEBUG: ~A~%" classcount)
+	  (setf classcount (count-n-sort classcount))
+	;(format t "DEBUG: ~A~%" classcount)
        	; Walk through determining what to keep.
-	(let ((rules (make-ruleset :attribute (header-name column) :records (length (table-all datatable))))
-	      (rule-to-add))
-	  (dolist (item classcount)
-	    (when (null (ruleset-exist rules (caadr item)))
+	  (let ((rules (make-ruleset :attribute (header-name column) :records (length (table-all datatable))))
+		(rule-to-add)
+		(rl-lst))
+	    (dolist (item classcount)
+	      (when (null (ruleset-exist rules (caadr item)))
 	      ; Get all records with matching attribute values
 	      ; Determine the best rule.
 	      ; Determine the number of errors this rule produces.
-	      (setf rule-to-add (nth (greatest (indexesofat (caadr item) classcount :finder #'caadr) classcount) classcount))
-	      (ruleset-add rules (caadr rule-to-add) (cadadr rule-to-add) 10 (car rule-to-add))
-	      ))
-	  (format t "~A~%" rules)
-	  ))
-      (return-from oner 'DONE))))
+		(setf rl-lst (greatest (indexesofat (caadr item) classcount :finder #'caadr) classcount))
+	;	(format t "GREATEST: ~A~%" rl-lst)
+		(setf rule-to-add (nth (first rl-lst) classcount))
+	      (ruleset-add rules (caadr rule-to-add) (cadadr rule-to-add) (second rl-lst) (car rule-to-add))))
+	    ;(format t "~A~%" rules))))
+	    )))
+      (return-from oner 'DONE)
+)
+    ))
