@@ -20,6 +20,6 @@
 		(preptest (funcall prep testing))
 		(discrete-table (funcall discretizer preptrain))
 		(clustered-table (funcall clusterer preptrain k))
-		(features (funcall fss clustered-table)
+		(features (funcall fss clustered-table))
 		(classification (funcall classify discrete-table features)))
   (values preptest classification)))

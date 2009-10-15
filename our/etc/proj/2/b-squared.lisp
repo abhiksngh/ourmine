@@ -1,7 +1,0 @@
-(defun b-squared (tbl &optional (percentile .20))
-  (multiple-value-bind (tblbest tblrest) (bore tbl percentile)
-	(let* ((acc 0)
-		   (all-best (table-all tblbest))
-		   (all-rest (table-all tblrest))
-		   (max-best (length all-best))
-		   (max-rest (length all-rest))))))
