@@ -49,7 +49,7 @@
                          (setf (nth n centroid0) new-centroid)
                          (setf done nil)))))
              (incf n))))
-    centroid0))
+    (kmeans-build-cluster centroid0 rem-rows column-names)))
                           
 ;;KMEANS-MOVE-CENTROID
 ;;Moves centroids to the median of all rows closest to it
@@ -60,21 +60,24 @@
 (defun kmeans-move-centroid (cluster centroid columns)
   (let ((n 0)
         (new-centroid '()))
-    (dotimes (i (length centroid))
-      (push nil new-centroid))
-    (dolist (col columns new-centroid)
-      (if (numericp col)
-          (let ((number-list '()))
-            (dolist (row cluster)
-              (if (numberp (nth n row))
-                  (push (nth n row) number-list))
-              (setf number-list (qsort number-list))
-              (setf (nth n new-centroid) (numeric-median number-list))))
-          (let ((freq-list '()))
-            (dolist (row cluster)
-              (push (nth n row) freq-list))
-            (setf (nth n new-centroid) (most-freq-symbol freq-list))))
-      (incf n))))
+    (if (not (equal cluster nil))
+        (progn
+          (dotimes (i (length centroid))
+            (push nil new-centroid))
+          (dolist (col columns new-centroid)
+            (if (numericp col)
+                (let ((number-list '()))
+                  (dolist (row cluster)
+                    (if (numberp (nth n row))
+                        (push (nth n row) number-list))
+                    (setf number-list (qsort number-list))
+                    (setf (nth n new-centroid) (numeric-median number-list))))
+                (let ((freq-list '()))
+                  (dolist (row cluster)
+                    (push (nth n row) freq-list))
+                  (setf (nth n new-centroid) (most-freq-symbol freq-list))))
+            (incf n)))
+        centroid)))
 
 ;;KMEANS-FIND-CENTROID
 ;;Randomly chooses k rows to be centroids
@@ -109,3 +112,18 @@
               (setf distance (euc-distance row current-cent columns))
               (setf best-centroid i))))
       (incf i))))
+
+
+;;KMEANS-BUILD-CLUSTER
+;;This will build the final cluster with the clustered centroids and rows
+;;Parameter: centroids, the centroids. rows, the remaining rows. columns, list of the headers
+;;Returns: A list with all the data clustered together
+;;Author David Asselstine
+
+(defun kmeans-build-cluster (centroids rows columns)
+  (let ((cluster '()))
+    (dolist (cent centroids)
+      (push `(,cent) cluster))
+    (setf cluster (reverse cluster))
+    (dolist (row rows cluster)
+      (push row (nth (kmeans-closest-centroid centroids row columns) cluster)))))
