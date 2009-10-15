@@ -5,6 +5,12 @@
       (subseq randomlist 0 n)
       (elt randomlist 1))))
 
+(defun distance (p q &optional n)
+  (sqrt (reduce #'+ (mapcar (lambda (x y) (* (- x y) (- x y))) p q))))
+
+(defun sample-population (tbl m &optional (factor .01))
+  (any (subseq (table-all tbl) 0 (max m (floor (* (length (table-all tbl)) factor))) m)))
+
 ; COMPRESSION
 ; From P. Graham (P. #37)
 (defun compress (x)
@@ -88,13 +94,13 @@
 ;Sorts a given table on the column N
 ;used in Bore
 (defun sort-on(tbl n)
-  (let ((rtntable (copy-table tbl)))
+  (let ((rtntable (table-clone tbl)))
     (setf (table-all rtntable) (sort (table-all rtntable) #'>= :key #'(lambda (x) (nth n (eg-features x)))))
   rtntable))
 
 ; Sort-on but with whatever sorting algorithm you want.
 (defun sort-on-gen (tbl n &key (comp #'>))
-  (let ((rtntable (copy-table tbl)))
+  (let ((rtntable (table-clone tbl)))
     (setf (table-all rtntable) (sort (table-all rtntable) comp :key #'(lambda (x) (nth n (eg-features x)))))
   rtntable))
 

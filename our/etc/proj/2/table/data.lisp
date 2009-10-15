@@ -2,6 +2,7 @@
 
 
 (defun data (&key name columns egs (klass -1) ranges)
+  (format t "~a~&" name)
   (let* (tmp-egs
 	 (tbl
           (make-table
@@ -18,6 +19,7 @@
     tbl))
 
 (defun datums (one tbl)
+  ;(format t "~a~&" one)
   (let ((oops (table-cautions tbl)))
     (when
 	(ok (= (table-width tbl) (length one))

@@ -17,7 +17,7 @@
     (loop for i from end downto 1 do (chop-trampoline i))))
 
 (defun normal-chops (tbl)
-  (let (normval (rtntable (table-copy tbl)) (bins (make-array 7)) std m (n 0))
+  (let (normval (rtntable (table-clone tbl)) (bins (make-array 7)) std m (n 0))
     (init-bins bins 7)
     (dolist (column (table-columns rtntable))
       (when (typep column 'numeric)

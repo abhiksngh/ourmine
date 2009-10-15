@@ -22,6 +22,11 @@
         :columns (columns-header (table-columns tbl))
         :ranges  (ranges-copy (table-ranges tbl))))
 
+(defun table-clone (tbl)
+  (if (typep (car (table-all tbl)) 'eg)
+    (table-copy tbl (mapcar #'eg-features (table-all tbl)))
+    (table-copy tbl)))
+
 (defun klasses (tbl)
   (discrete-uniques (table-class-header tbl)))
 
