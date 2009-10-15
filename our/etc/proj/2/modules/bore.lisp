@@ -1,11 +1,9 @@
 ;Evaluates the W cloumn
 (defun borew (cols)
-  (let ((w nil)
-		(sumofsquares 0))
+  (let ((sumofsquares 0))
 	(dolist (num cols)
 	  (setf sumofsquares (+ sumofsquares (square num))))
-	(setf w (- 1 (/ (sqrt sumofsquares) (sqrt (length cols)))))
-	w))
+	(- 1 (/ (sqrt sumofsquares) (sqrt (length cols))))))
 
 ; Implements the BORE pre-processor.
 (defun bore (dataset &optional (columnnames (mapcar #'header-name (table-columns dataset))))
