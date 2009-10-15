@@ -117,3 +117,15 @@
 
 (defun directional-integer (i)
   (directional-magic i (1+ i) i (1- i)))
+
+(defun normalize-table (tbl)
+  (let ((rtntable (table-clone tbl))
+        (normval)
+        (n 0))
+    (dolist (column (table-columns rtntable))
+      (when (typep column 'numeric)
+        (setf normval (fill-normal rtntable n))
+        (dolist (record (table-all rtntable))
+          (setf (eg-features record) (normalize normval (nth n (eg-features record))))))
+      (incf n))
+    rtntable))

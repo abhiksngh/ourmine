@@ -19,8 +19,8 @@
   (data :egs     new
         :name    (table-name tbl)
         :klass   (table-class tbl)
-        :columns (columns-header (table-columns tbl))
-        :ranges  (ranges-copy (table-ranges tbl))))
+        :columns (columns-header (table-columns tbl)))
+       ; :ranges  (ranges-copy (table-ranges tbl))))
 
 (defun table-clone (tbl)
   (if (typep (car (table-all tbl)) 'eg)

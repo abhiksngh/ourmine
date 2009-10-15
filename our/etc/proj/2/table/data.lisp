@@ -8,8 +8,8 @@
            :name name
            :columns (columns-new
                      columns
-                     (class-index klass (length columns)))
-           :ranges ranges)))
+                     (class-index klass (length columns))))))
+         ;  :ranges ranges)))
     (setf (table-class tbl) 
 	  (class-index klass (table-width tbl)))
     (dolist (eg egs)
