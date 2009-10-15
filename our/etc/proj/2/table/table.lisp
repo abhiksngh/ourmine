@@ -6,7 +6,6 @@
   (length (table-columns tbl)))
 
 (defun ranges-copy (ranges)
-  (format t "~a~&" ranges)
   (let ((copy))
     (dolist (column ranges (reverse copy))
       (push (let ((new-column))

@@ -5,7 +5,7 @@
       (subseq randomlist 0 n)
       (elt randomlist 1))))
 
-(defun distance (p q &optional n)
+(defun distance (p q)
   (sqrt (reduce #'+ (mapcar (lambda (x y) (* (- x y) (- x y))) p q))))
 
 (defun sample-population (tbl m &optional (factor .01))
@@ -88,7 +88,8 @@
 ;Sorts a given table on the column N
 ;used in Bore
 (defun sort-on(tbl n)
-    (sort (table-all tbl) #'>= :key (lambda (x) (nth n (eg-features x))))
+    (setf (table-all tbl) (sort (copy-list (table-all tbl)) #'>=
+	                            :key (lambda (x) (nth n (eg-features x)))))
     tbl)
 
 ; Sort-on but with whatever sorting algorithm you want.
