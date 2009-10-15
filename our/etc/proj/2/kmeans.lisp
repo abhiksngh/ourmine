@@ -68,7 +68,7 @@
 		(push temp-var temp-list)
 		
 		(progn
-			(setf final-list (reverse temp-list)))))her
+			(setf final-list (reverse temp-list)))));her
 						
 (defun get-data (table)
   (let ((table-data))
