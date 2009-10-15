@@ -14,9 +14,3 @@
 	   (f (make-hash-table :test #'equal)))
 (defstruct (numeric  (:include header)))
 (defstruct (discrete  (:include header)) uniques)
-
-(defstruct binranges
-  name
-  min
-  max
-)

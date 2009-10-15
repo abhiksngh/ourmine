@@ -2,16 +2,25 @@
 
 (defun isa (row tbl)  (nth (table-class tbl) row))
 
-
 (defun table-width (tbl)
   (length (table-columns tbl)))
+
+(defun ranges-copy (ranges)
+  (format t "~a~&" ranges)
+  (let ((copy))
+    (dolist (column ranges (reverse copy))
+      (push (let ((new-column))
+              (dolist (bin column (reverse new-column))
+                (push (copy-bin bin) new-column)))
+            copy))))
+
 
 (defun table-copy (tbl &optional (new (copy-tree (table-all tbl))))
   (data :egs     new
         :name    (table-name tbl)
         :klass   (table-class tbl)
         :columns (columns-header (table-columns tbl))
-        :ranges  (table-ranges tbl)))
+        :ranges  (ranges-copy (table-ranges tbl))))
 
 (defun klasses (tbl)
   (discrete-uniques (table-class-header tbl)))

@@ -1,14 +1,15 @@
 ;;;; the data function returns a table containing some egs
 
 
-(defun data (&key name columns egs  (klass -1))
+(defun data (&key name columns egs (klass -1) ranges)
   (let* (tmp-egs
 	 (tbl
           (make-table
            :name name
            :columns (columns-new
                      columns
-                     (class-index klass (length columns))))))
+                     (class-index klass (length columns)))
+           :ranges ranges)))
     (setf (table-class tbl) 
 	  (class-index klass (table-width tbl)))
     (dolist (eg egs)

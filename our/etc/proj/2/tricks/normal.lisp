@@ -7,6 +7,20 @@
 
 (defstruct (bin (:include normal)) name)
 
+;initailizes n amount of bins into an array
+;used in Normal Chops
+(defun init-bins (bins n)
+  (dotimes (i n)
+     (setf (aref bins i) (make-bin :name (format nil "bin ~a" (- i 3))))))
+
+;Builds a list of bins
+;used in Normal Chops
+(defun build-bin-list (bins)
+  (let (alist)
+    (dotimes (i (length bins))
+      (push (aref bins i) alist))
+   (reverse alist)))
+
 (defmethod add ((n normal) x)
   (incf (normal-n     n) 1)
   (incf (normal-sum   n) x)
@@ -31,9 +45,7 @@
        (exp (* (- (/ (* 2 (square sigma)))) (square (- x mu)))))))
 
 (defmethod normalize ((n normal) x)
-  (let ((normalized 0))
-    (setf normalized (/ (- x (normal-min n)) (- (normal-max n) (normal-min n))))
-    normalized))
+  (/ (- x (normal-min n)) (- (normal-max n) (normal-min n))))
 
 (deftest test-normal ()
   (let ((n (make-normal)))
