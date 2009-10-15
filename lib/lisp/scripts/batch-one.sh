@@ -5,7 +5,7 @@ plotdata=../proj2/HyperPipes/PlotData
 file=`basename $1`	#remove directory
 file=${file%.lisp}	#remove .lisp
 echo "Running all HyperPipes options on $file dataset"
-sbcl --load scripts/batch.lisp --eval "(batch \"$file\")"
+sbcl --load scripts/batch.lisp --noinform --eval "(batch \"$file\")"
 
 echo "Generating Plot Datafile"
 for file in `ls $outpath | grep $1`; do
