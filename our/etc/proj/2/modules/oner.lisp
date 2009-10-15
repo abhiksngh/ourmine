@@ -75,10 +75,14 @@
     (decf errors (first (nth greatest classcount)))
     (list greatest errors)))
 
+(defun ruleset-select-best (rls)
+  (append (list (ruleset-attribute rls))))
 
+; We can probably condense some loops (and speed things up).
 (defun oner (dataset &optional (columns (table-columns dataset)))
   (let ((datatable (copy-table dataset))
-	(colindex nil))
+	(colindex nil)
+	(best-rules))
     (dolist (column columns) ; FOREACH column (attribute) in the column list/dataset.
       (when (typep column 'discrete)
 	(let ((classcount nil))
@@ -87,10 +91,10 @@
 	    (setf classcount
 		  (append classcount
 			  (list (append (list (nth colindex (eg-features record))) (last (eg-features record)))))))
-	; Sort and compress (count).
+	  ; Sort and compress (count).
 	  (setf classcount (count-n-sort classcount))
-	;(format t "DEBUG: ~A~%" classcount)
-       	; Walk through determining what to keep.
+          ;(format t "DEBUG: ~A~%" classcount)
+          ; Walk through determining what to keep.
 	  (let ((rules (make-ruleset :attribute (header-name column) :records (length (table-all datatable))))
 		(rule-to-add)
 		(rl-lst))
@@ -103,7 +107,10 @@
 	;	(format t "GREATEST: ~A~%" rl-lst)
 		(setf rule-to-add (nth (first rl-lst) classcount))
 	      (ruleset-add rules (caadr rule-to-add) (cadadr rule-to-add) (second rl-lst) (car rule-to-add))))
-	   (format t "~A~%" rules))))
+	   (format t "~A~%" rules)
+	   ; Pick the best rule for this column.
+	   (setf best-rules (append best-rules (list (ruleset-select-best rules))))
+	   )))
 ;	    )))
       (return-from oner 'DONE)
 )))
