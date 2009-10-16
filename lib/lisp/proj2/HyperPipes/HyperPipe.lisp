@@ -263,7 +263,7 @@
     (ignore-errors
         (delete-file outputFileName)
         )
-    (with-open-file (outputFile outputFileName :direction :output :if-does-not-exist :create :if-exists :overwrite)
+    (with-open-file (outputFile outputFileName :direction :output :if-does-not-exist :create :if-exists :supersede)
     (with-open-file (stream (concatenate `string "proj2/HyperPipes/Data/" dataFileName ".lisp"))
       (do ((line (read-line stream nil) (read-line stream nil))) ((null line))
         (let* ((attributeValues (eval (read-from-string line)))
