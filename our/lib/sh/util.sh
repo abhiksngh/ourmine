@@ -11,6 +11,20 @@ show() {
    	fi
 }
 
+makeQuartiles(){
+    local csv=$1
+    local key=$2
+    local perform=$3
+    local learners=`cat $csv | grep -v "#" | cut -f$key -d, |
+		    awk '{arr[$0]=$0}END{for(str in arr) print str}'`
+    (echo  
+    for learner in $learners ;do                   
+	echo -n $learner
+	cat $csv | grep $learner | cut -f$perform -d, | quartile
+    done
+    ) | malign
+}
+
 funs() {
     cat $Base/lib/sh/* $Base/workers/* | 
     awk '/\(\)[ \t\n]*{/' | 
