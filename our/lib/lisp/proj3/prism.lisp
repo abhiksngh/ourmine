@@ -1,3 +1,19 @@
+(defun make-rule (tbl class)
+  (let* ((rule)
+         (classi (table-class tbl))
+         (all-freq (get-all-attributes-class-freq tbl class))
+         (greatest (select-greatest-freq all-freq))
+         (attr (car greatest))
+         (value (second  greatest))
+         (new-table (data :name (table-name tbl)
+                          :columns (get-col-names (table-columns tbl))
+                          :egs (get-instances attr value tbl))))
+    (setf rule (list (append rule (list attr value))))
+    (if (= (precision (get-instances attr value tbl) classi class) 1)
+        rule
+        (setf rule (append  rule (make-rule (xindex new-table) class))))))
+         
+  
 
 (defun get-all-attributes-class-freq (tbl class)
   (let* ((lst)
@@ -31,7 +47,25 @@
            (if (< greatest (car (last obj)))
                 ; (format t "~A~%" obj)
                  (setf greatest-attr obj)))))
- 
+
+(defun get-instances (attr value tbl)
+  (let* ((all-instances (get-features (table-all tbl)))
+         (instances))
+    (dolist (inst all-instances instances)
+      (if (equal (nth attr inst) value)
+          (setf instances (append instances (list inst)))))))
+
+(defun precision (instances i  class)
+  (let ((prec 0)
+        (len (length instances)))
+    (dolist (obj instances)
+      (if (equal (nth i obj) class)
+          (incf prec)))
+    (float (/ prec len))))
+
+    
+
+         
 (defun make-data-lenses ()
   (data
    :name   'weather
