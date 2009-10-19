@@ -9,7 +9,8 @@
                           :columns (get-col-names (table-columns tbl))
                           :egs (get-instances attr value tbl))))
     (setf rule (list (append rule (list attr value))))
-    (if (= (precision (get-instances attr value tbl) classi class) 1)
+    (if (or (= (precision (get-instances attr value tbl) classi class) 1)
+            (null (table-all new-table)))
         rule
         (setf rule (append  rule (make-rule (xindex new-table) class))))))
          
@@ -29,24 +30,33 @@
   (let* ((lst)
          (classes (klasses tbl))
          (columns (table-columns tbl))
-         (attr-values (discrete-uniques (nth attr columns))))
+         (attr-values (discrete-uniques (nth attr columns)))
+         (in-case-equal-freq))
     (dolist (val attr-values)
       (let* ((occur 0))
              (dolist (cls classes)
                (incf occur (f tbl cls attr val)))
+             (setf in-case-equal-freq occur)
              (setf occur (float ( / (f tbl class attr val) occur)))
-             (setf lst (append lst (list (list attr val occur))))))
+             (setf lst (append lst (list (list attr val occur in-case-equal-freq))))))
     (reverse lst)))
 
 (defun select-greatest-freq (lst-freq)
   ;(format t "~A~%" lst-freq)
-       (let* ((greatest (car (last (car lst-freq))))
+       (let* ((greatest (third (car lst-freq)))
               (greatest-attr (car lst-freq))
               (rest (reverse (cdr lst-freq))))
          (dolist (obj rest greatest-attr)
-           (if (< greatest (car (last obj)))
-                ; (format t "~A~%" obj)
-                 (setf greatest-attr obj)))))
+           (if (< greatest (third obj))
+                 (setf greatest-attr obj)
+                 (if (= greatest (third obj))
+                     (if ( < (car (last greatest-attr)) (car (last obj)))
+                         (setf greatest-attr obj)))))))
+
+
+                         
+           
+                 
 
 (defun get-instances (attr value tbl)
   (let* ((all-instances (get-features (table-all tbl)))
