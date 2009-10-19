@@ -36,7 +36,8 @@
        (major-features (majority-class-list tbl))
        (counts-all '())
        (i 0)
-       (accuracy '()))
+       (accuracy '())
+       (predictors (make-hash-table)))
     (dolist (col (reverse (cdr (reverse cols)))) ;for each column
       (let ((counts '()))
 	(dolist (l major-features) ; for each instance
@@ -82,28 +83,21 @@
 		 ;(format t "Processing: ~A, ~A/~A~%" this-token class-count full-count)
 		 (setf rating (cons this-token (float (/ class-count full-count))))
 		 (push rating subaccuracy)))))
-	  ;(format t "Skipping: ~A, ~A/~A~%" this-token class-count full-count))))
-	  (push subaccuracy accuracy))
-	(incf j)))
-    accuracy))
+	    (push subaccuracy accuracy)
+	    (push (best-predictor subaccuracy) (gethash col predictors)))
+	    ;(print (best-predictor subaccuracy)))
+	  ;(print subaccuracy)
+	  (incf j)))
+      predictors))
+;      accuracy))
+       
 
+(defun best-predictor (l)
+  (first (sort (copy-list l) '> :key 'cdr)))
 
-;; (defmacro g-add (ht key val)
-;;   `(setf (gethash ,key ,ht) ,val))
-
-
-;; (let
-;;     ((cols (columns-header (table-columns (xindex (weather-numerics)))))
-;;      (binHash (make-hash-table)))
-;;   (dotimes (n (length cols))
-;;     (dolist (col cols)
-      
-; trunk/our/lib/lisp/table/       
-;(dolist (col (table-columns (xindex (weather-numerics))))
-;  (format t "~%~a~%" (header-name col))
-;  (showh (header-f col)))
-
-
+(defun review-predictors (h)
+  "Runs over the hash table, h, and displays each predicting column's accuracy"
+  
 (defun all-but-last-col (row)
   "Input a row, returns all but the last item in the list"
   (reverse (cdr (reverse row))))
