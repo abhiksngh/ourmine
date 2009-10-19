@@ -80,20 +80,21 @@
 	      (if
 	       (numberp class-count)
 	       (progn
-		 ;(format t "Processing: ~A, ~A/~A~%" this-token class-count full-count)
 		 (setf rating (cons this-token (float (/ class-count full-count))))
 		 (push rating subaccuracy)))))
 	    (push subaccuracy accuracy)
 	    (push (best-predictor subaccuracy) (gethash col predictors)))
 	  (incf j)))
-      predictors))
+    (format t "Analysis complete. Printing ratings for your review.~%")
+    (review-predictors predictors)
+    predictors))
 
 (defun best-predictor (l)
   (first (sort (copy-list l) '> :key 'cdr)))
 
 (defun review-predictors (h)
   "Runs over the hash table, h, and displays each predicting column's accuracy"
-  (maphash #'(lambda (x y) (format t "Key: ~A~%     Value:~A~%     Accuracy:~A~%~%" x (first (first y)) (cdr (first y)))) h))
+  (maphash #'(lambda (x y) (format t "Key: ~A~%     Value: ~A~%     Accuracy: ~A~%~%" x (first (first y)) (cdr (first y)))) h))
 
 (defun all-but-last-col (row)
   "Input a row, returns all but the last item in the list"
