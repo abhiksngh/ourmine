@@ -1,7 +1,7 @@
-(defun make-rule (tbl class)
+(defun make-rule (tbl class lst-attributes)
   (let* ((rule)
          (classi (table-class tbl))
-         (all-freq (get-all-attributes-class-freq tbl class))
+         (all-freq (get-all-attributes-class-freq tbl class lst-attributes))
          (greatest (select-greatest-freq all-freq))
          (attr (car greatest))
          (value (second  greatest))
@@ -12,17 +12,18 @@
     (if (or (= (precision (get-instances attr value tbl) classi class) 1)
             (null (table-all new-table)))
         rule
-        (setf rule (append  rule (make-rule (xindex new-table) class))))))
+        (setf rule (append  rule (make-rule (xindex new-table) class (remove attr lst-attributes)))))))
          
   
 
-(defun get-all-attributes-class-freq (tbl class)
+(defun get-all-attributes-class-freq (tbl class lst-attributes)
   (let* ((lst)
          (classi (table-class tbl))
          (columns (table-columns tbl)))
     (dotimes (n  (length columns))
       (unless (= n classi)
-      (setf lst (append lst (get-attribute-class-freq tbl n class)))))
+        (unless (contains lst-attributes n))
+          (setf lst (append lst (get-attribute-class-freq tbl n class)))))
     lst))
 
 
@@ -54,10 +55,6 @@
                          (setf greatest-attr obj)))))))
 
 
-                         
-           
-                 
-
 (defun get-instances (attr value tbl)
   (let* ((all-instances (get-features (table-all tbl)))
          (instances))
@@ -74,8 +71,12 @@
     (float (/ prec len))))
 
     
+(defun make-index-cols (tbl)
+  (let ((columns (length (table-columns tbl)))
+        (col-indexes))
+    (dotimes (x columns col-indexes)
+      (setf col-indexes (append col-indexes (list x))))))
 
-         
 (defun make-data-lenses ()
   (data
    :name   'weather
