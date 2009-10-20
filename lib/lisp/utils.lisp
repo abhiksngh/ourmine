@@ -73,3 +73,25 @@
       (dotimes (i (length found-list) (nth most-frequent found-list))
         (if (> (nth i freq-found-list) (nth most-frequent freq-found-list))
             (setf most-frequent i))))))
+
+;;MAKE-MEDIAN
+;;This will take two nodes and return a median of the two. Requires Normalized Numerics
+;;Parameters: Node1, first list of features. Node2, second list of features. Columns, list of column headers
+;;Returns: List of features
+;;Author David Asselstine
+
+(defun make-median (node1 node2 columns)
+  (let ((new-features '())
+        (n 0))
+    (dolist (col columns)
+      (if (numericp col)
+          (progn
+            (if (numberp (nth n node1))
+                (if (numberp (nth n node2))
+                    (push (numeric-median `(,(nth n node1) ,(nth n node2))) new-features)
+                    (push (nth n node1) new-features))
+                (push (nth n node2) new-features)))
+          (push (nth n node1) new-features))
+      (incf n))
+    (setf new-features (reverse new-features))))
+                    

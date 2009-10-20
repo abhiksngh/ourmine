@@ -1,23 +1,11 @@
-(defun david-test()
-  (data
-   :name 'test
-   :columns '($number1 symbol $number2 stuff)
-   :egs '((0.0 bye 1.0 true)
-          (0.2 hey 1.0 true)
-          (0.5 hey 1.0 true)
-          (1.0 hey 1.0 false)
-          (1.0 bye 1.0 false)
-          )))
-
 ;;KMEANS
 ;;This function clusters all the rows around centroids
 ;;Parameters: k, the amount of centroids to create
-;;Returns: ?
+;;Returns: Cluster of the rows of data and their centroid
 ;;Author David Asselstine
 
-(defun kmeans (k)
-  (let* ((tbl (xindex (david-test)))
-         (centroid-list (kmeans-find-centroid k (f tbl)))
+(defun kmeans (k tbl)
+  (let* ((centroid-list (kmeans-find-centroid k (f tbl)))
          (centroid0 '())
          (rem-rows '())
          (column-names '())
