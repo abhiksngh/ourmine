@@ -1,4 +1,37 @@
 
+(defun prism (train)
+  (let* ((class (table-class train))
+         (lst (split2bins train))
+         (train (xindex (car (cdr lst))))
+         (test (xindex (car lst)))
+         (rules (make-rules-all-classes train))
+         (gotwants))
+    (dolist (test_inst (get-features (table-all test)))
+      (let* ((want (nth class test_inst))
+             (got (classify-prism test_inst  rules train)))
+        (setf want (list want))
+        (setf gotwants (append gotwants (list (append want got))))))
+   (split (abcd-stats gotwants :verbose nil))))
+
+       
+(defun classify-prism (one rules tbl)
+  (let* ((got))
+    (dolist (rls rules)
+      (let* ((class (car rls))
+             (rest (cdr rls)))
+        (dolist (r rest)
+          (if (rule-satisfies-instance r one)
+                (setf got  (append got (list class)))))))
+   (setf got (remove-duplicates  got))
+   (let* ((maxInst 0)
+         (win-class))
+     (dolist (c got win-class)
+       (if (> (f tbl c) maxInst)
+           (progn
+             (setf win-class c)
+             (setf maxInst (f tbl c))))))))
+
+        
 (defun make-rules-all-classes (tbl)
   (let* ((classes (klasses tbl))
          (rules)
@@ -38,7 +71,7 @@
     (setf attributes-left (remove attr attributes-left))
     ;(format t "~a ~% " all-freq)
     ;(format t "~a ~%" new-table)
-    (if (or (= (precision (get-instances attr value tbl) classi class) 1)
+    (if (or (= (precision-prism (get-instances attr value tbl) classi class) 1)
             (null attributes-left))
         rule
             (setf rule (append  rule (make-rule (xindex new-table) class attributes-left))))))
@@ -95,7 +128,7 @@
       (if (equal (nth attr inst) value)
           (setf instances (append instances (list inst)))))))
 
-(defun precision (instances i  class)
+(defun precision-prism (instances i  class)
   (let ((prec 0)
         (len (length instances)))
     (dolist (obj instances)
@@ -157,6 +190,15 @@
   (if (= score (length rule))
   t nil)))
 
+
+(defun prism-self-test (train test &key (stream t))
+  (xindex train)
+  (let ((rules (make-rules-all-classes train))) 
+    (dolist (one (table-all test))
+      (let* ((got     (classify-prism (eg-features one) rules train))
+             (want    (eg-class one))
+             (success (eql got want)))
+        (format stream "~a ~a ~a~%"  got want (if (eql got want) "   " "<--"))))))
 
 (defun make-data-lenses ()
   (data
