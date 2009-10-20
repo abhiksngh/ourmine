@@ -43,42 +43,51 @@
 			(classifier	#'naivebayes)
 			(train		#'boston-housing)
 			(test		#'boston-housing))
-  (let ((training (funcall train))
-    (testing (funcall test))
-    (clusters nil)
-    (cluster nil)
-    (results nil))
-
-    (print "Running Tables through Preprocessor...")
+  (let 
+      ((training (funcall train))
+       (testing (funcall test))
+       (clusters nil)
+       (cluster nil)
+       (results nil))
+    
+    (format t "Running Tables through Preprocessor...")
     (setf training (funcall preprocessor training))
     (setf testing (funcall preprocessor testing))
-    (print " - Preprocessor Complete.")
+    (format t " - Preprocessor Complete.~%")
 
-    (print "Running Tables through Discretizer...")
+
+    (format t "Running Tables through Discretizer...")
     (setf training (funcall discretizer training))
     (setf testing (funcall discretizer testing))
-    (print " - Discretizer Complete.")
+    (format t " - Discretizer Complete.~%")
     (print training)
-    (print "Running Training Tables through Clusterer...")
+
+
+    (format t "Running Training Tables through Clusterer...")
     (setf clusters (funcall clusterer training k))
-    (print " - Clustering Complete.")
+    (format t" - Clustering Complete.~%")
+
+
     (if (not (listp clusters))
-      (setf clusters (list clusters)))
+	(setf clusters (list clusters)))
     (print clusters)
-    (print "Pruning Cluster with FSS...")
+
+
+    (format t "Pruning Cluster with FSS...")
     (dolist (cluster clusters)
       (setf cluster (funcall fss cluster)))
-    (print " - Pruning Complete.")
+    (format t " - Pruning Complete.~%")
 
-    (print "Running Analysis...")
+
+    (format t "Running Analysis...")
     (dotimes (n (length (table-all testing)))
       (push results 
-         (first 
-           (funcall clusterer 
-              (nth 
-                (score-clusters (nth n (table-all testing)) (genic-clusters training 4 3) testing) clusters) (create-a-single-line-table n testing))))) 
+	    (first 
+	     (funcall clusterer 
+		      (nth 
+		       (score-clusters (nth n (table-all testing)) (genic-clusters training 4 3) testing) clusters) (create-a-single-line-table n testing))))) 
+    (format t " - Analysis Complete.~%")
 
-    (print " - Analysis Complete.")
  
     ;(print "Running FSS...")
     ;(setf training (mapcar fss training))
@@ -88,12 +97,11 @@
     ;(setf training (list training))
     ;(setf testing (list testing))
 
-    (print "Running Classifier...")
+
+    (format t "Running Classifier...")
+    (funcall classifier training)
     (setf testing (mapcar #'(lambda (trainn) (funcall classifier trainn testing)) training))
     (setf testing (testiest-truthiness-list testing #'max))
     (print testing)
-    (print "Done.")
-  )
-)
-
-(learn)
+    (format t "Done.")))
+;(learn)
