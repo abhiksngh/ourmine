@@ -11,6 +11,34 @@ show() {
    	fi
 }
 
+buildSetTable(){
+    local dir=$1
+    local intersect
+    local union
+    
+    local here=`pwd`
+    cd $dir
+
+    (echo
+	for da in `ls $dir`; do
+	        for db in `ls $dir`; do
+		    if [ "$da" = "$db" ]; then      
+			    break
+		    else
+			    echo -n "$da/$db,"
+			        union=`cat $db $da | grep "@attribute" | wc -l`
+				    intersect=`cat $db | grep "@attribute" > $Tmp/tmp1; 
+				        cat $da | grep "@attribute" > $Tmp/tmp2;
+					cat $Tmp/tmp1 $Tmp/tmp2 | sort | uniq -d | wc -l`       
+				        echo -n `div $intersect $union`
+					    echo " "
+					    fi
+		        done
+		done) | malign
+    
+    cd $here
+}
+
 makeQuartiles(){
     local csv=$1
     local key=$2
