@@ -146,11 +146,13 @@
 (defun genic-clusters (table &optional (generation-size 10) (num-initial-centers 10) (num-result-centers 10))
   (setf num-result-centers num-result-centers)
   (let ((generation nil) (centers nil) (centers-weight (make-list num-initial-centers)) (generations (ceiling (/ (length (table-all table)) generation-size))))
+    ;;; (2) Setup random initial centers and fill out their weights.
     (setf centers (new-random-center table num-initial-centers))
     (reset-weights centers-weight)
     (loop for i from 0 to generations do
-      (format t "generation: ~D~%" i)
       (setf generation (fetch-generation table generation-size i))
+      ;;; (3) For each individual in the generation, find the nearest center.
+      ;;;     Then, reorient that center based on it's weight, and increase it's weight.
       (loop for j from 0 to (- (length generation) 1) do
         (let ((sample (nth j generation)))
           (let ((best-center (closest-center centers sample)))
@@ -163,13 +165,18 @@
           )
         )
       )
+      ;;; (4) At the end of each generation, do the random culling where
+      ;;;     percentage chances of survival are computed.  Reset weights.
       (cull-centers centers centers-weight table)
       (reset-weights centers-weight)
     )
+    ;;; (5) Merge the closest centers until the number of returned
+    ;;;     centeres is the number desired.
     (merge-centers centers num-result-centers)
   )
 )
 
+;;; (1) GENIC Parameters
 (defun genic (table &optional (generation-size 10) (num-initial-clusters 10) (num-final-clusters 10))
   (let* ((clusters (genic-clusters table generation-size num-initial-clusters num-final-clusters)) (clustered-tables (make-list (length clusters))))
     (loop for n from 0 to (- num-final-clusters 1) do
@@ -189,5 +196,16 @@
           (append (table-all (nth target-table clustered-tables)) (list x)))
       )
     )
+  )
+)
+
+(defun demo ()
+  (let ((results nil))
+    (dolist (x (genic mushtable))
+      (push (length (table-all x)) results)
+    )
+    (format t "genic result cluster sizes: ~%~S~%" results)
+    (format t "genic example cluster centers: ~%~S~%" (genic-clusters mushtable))
+    t
   )
 )
