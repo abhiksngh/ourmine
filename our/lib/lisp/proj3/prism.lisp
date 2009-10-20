@@ -1,18 +1,47 @@
+
+(defun make-rules-all-classes (tbl)
+  (let* ((classes (klasses tbl))
+         (rules)
+         (table (xindex (table-copy tbl))))
+    (dolist (cls classes rules)
+      (setf rules (append rules (list (cons cls (make-rules-for-class tbl  cls))))))))
+
+(defun make-rules-for-class (tbl class)
+  (let* ((rules)
+         (rule)
+         (cont)
+         (instances-to-remove)
+         (new-table))
+    (setf rule (make-rule tbl class (make-index-cols tbl)))
+    (setf rules (list (append rules  rule)))
+    (multiple-value-bind (x y) (check-rule-satisfies-all rule class tbl)
+      (setf cont x)
+      (setf instances-to-remove y))
+    (setf new-table (xindex (remove-instances instances-to-remove tbl)))
+    (if (and (not cont) (not (= (f new-table class) 0)))
+        (setf rules (append rules (make-rules-for-class (xindex new-table) class)))
+         rules)))
+        
+       
 (defun make-rule (tbl class lst-attributes)
   (let* ((rule)
          (classi (table-class tbl))
          (all-freq (get-all-attributes-class-freq tbl class lst-attributes))
          (greatest (select-greatest-freq all-freq))
          (attr (car greatest))
+         (attributes-left lst-attributes)
          (value (second  greatest))
          (new-table (data :name (table-name tbl)
                           :columns (get-col-names (table-columns tbl))
                           :egs (get-instances attr value tbl))))
     (setf rule (list (append rule (list attr value))))
+    (setf attributes-left (remove attr attributes-left))
+    ;(format t "~a ~% " all-freq)
+    ;(format t "~a ~%" new-table)
     (if (or (= (precision (get-instances attr value tbl) classi class) 1)
-            (null (table-all new-table)))
+            (null attributes-left))
         rule
-        (setf rule (append  rule (make-rule (xindex new-table) class (remove attr lst-attributes)))))))
+            (setf rule (append  rule (make-rule (xindex new-table) class attributes-left))))))
          
   
 
@@ -22,8 +51,8 @@
          (columns (table-columns tbl)))
     (dotimes (n  (length columns))
       (unless (= n classi)
-        (unless (contains lst-attributes n))
-          (setf lst (append lst (get-attribute-class-freq tbl n class)))))
+        (unless (not (contains lst-attributes n))
+          (setf lst (append lst (get-attribute-class-freq tbl n class))))))
     lst))
 
 
@@ -46,13 +75,17 @@
   ;(format t "~A~%" lst-freq)
        (let* ((greatest (third (car lst-freq)))
               (greatest-attr (car lst-freq))
-              (rest (reverse (cdr lst-freq))))
+              (rest  (cdr lst-freq)))
          (dolist (obj rest greatest-attr)
-           (if (< greatest (third obj))
-                 (setf greatest-attr obj)
-                 (if (= greatest (third obj))
-                     (if ( < (car (last greatest-attr)) (car (last obj)))
-                         (setf greatest-attr obj)))))))
+           (cond ((< greatest (third obj))
+                  (progn
+                    (setf greatest-attr obj)
+                    (setf greatest (third obj))))
+                 ((= greatest (third obj))
+                     (if (< (car (last greatest-attr)) (car (last obj)))
+                         (progn
+                           (setf greatest-attr obj)
+                           (setf greatest (third obj)))))))))
 
 
 (defun get-instances (attr value tbl)
@@ -73,9 +106,57 @@
     
 (defun make-index-cols (tbl)
   (let ((columns (length (table-columns tbl)))
-        (col-indexes))
+        (col-indexes)
+        (cls (table-class tbl)))
     (dotimes (x columns col-indexes)
-      (setf col-indexes (append col-indexes (list x))))))
+      (unless (= x cls)
+        (setf col-indexes (append col-indexes (list x)))))))
+
+(defun remove-instances (lst tbl)
+  (let* ((new-instances)
+        (old-instances (get-features (table-all tbl))))
+    (dolist (obj lst)
+      (if (contains  old-instances obj)
+          (setf old-instances (remove obj old-instances :test #'equal))))
+    (setf new-instances old-instances)
+    (data :name (table-name tbl)
+          :columns (get-col-names (table-columns tbl))
+          :egs new-instances)))
+
+
+(defun check-rule-satisfies-all (rule class tbl)
+  (let* ((instances (get-class-instances class tbl))
+         (satisfied-instances)
+         (score 0))
+    (dolist (inst instances)
+      (if (rule-satisfies-instance rule inst)
+          (progn
+          (incf score)
+          (setf satisfied-instances (append satisfied-instances (list inst))))))
+    (if (= score (length instances))
+        (values t satisfied-instances)
+        (values nil satisfied-instances))))
+
+
+          
+(defun get-class-instances (class tbl)
+  (let* ((instances)
+         (cls (table-class tbl))
+         (inst (get-features (table-all tbl))))
+    (dolist (obj inst instances)
+      (if (equal (nth cls obj) class)
+          (setf instances (append instances (list obj)))))))
+
+(defun rule-satisfies-instance (rule instance)
+  (let ((score 0))
+  (dolist (conjunction rule)
+    (let ((col (car conjunction))
+          (val (car (last conjunction))))
+      (if (equal val (nth col instance))
+          (incf score))))
+  (if (= score (length rule))
+  t nil)))
+
 
 (defun make-data-lenses ()
   (data

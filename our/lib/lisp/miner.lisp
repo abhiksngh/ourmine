@@ -62,6 +62,7 @@
                         "proj2/data/shared_MC2"
                         "proj2/data/shared_MW1"
                         "proj2/util"
+                        "proj3/prism"
 			))
 
 (defun make1 (files)

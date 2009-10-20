@@ -6,7 +6,7 @@
 (defun table-width (tbl)
   (length (table-columns tbl)))
 
-(defun table-copy (tbl &optional (new (copy-tree (table-all tbl))))
+(defun table-copy (tbl &optional (new (copy-tree (get-features (table-all tbl)))))
   (data :egs     new
         :name    (table-name tbl)
         :klass   (table-class tbl)
