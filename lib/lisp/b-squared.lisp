@@ -1,9 +1,9 @@
 
 (defun b-squared (data className)
-	(let* (score-data(data className))				     ;take the data and set utility values
-		(sort-scored(score-data data))				     ;sort the utility values for chopping
-		(chop-data(sort-scored(score-data data)))		     ;chop the data into the best and rest catergory
-		(find-range(chop-data(sort-scored(score-data data))))))      ;find and sort range with b^2 / (b+r) formula
+	(let* (score-data(data className)				     ;take the data and set utility values
+		(sort-scored(score-data data)				     ;sort the utility values for chopping
+		(find-range(score-data data))		    
+		(sort-scored (find-range(score-data data)))                           ;find and sort range with b^2 / (b+r) formula
 		
 (defun score-data(data className)					    ;takes the data table and the class name to examine
 	(let* clas table-class))					    ;makes a class variable for the table data
@@ -15,3 +15,12 @@
 		    (incf restCtr)))
 
 		
+(defun find-range(score-data data className)
+	(let (rangeBest (bestCtr / (bestCtr + restCtr))
+		(rangeRest (restCtr / (bestCtr + restCtr)))
+		(if (rangeBest rangeRest >)
+			(let rangeBest 0))
+			
+(defun sort-scored(find-range(score-data data className))
+	(let (scoredBest (sort listBest #'))
+		(scoredRest (sort listRest #')))
