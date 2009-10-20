@@ -86,7 +86,13 @@
             )
           )
       )
-    ;  (print "new-header")
+
+
+(if (not (equalp (last transposed-data) (last new-data)))
+    (progn
+      (setf new-data (append new-data (last transposed-data)))
+      (setf new-header (append new-header (last (columns-header (table-columns source-table)))))))
+                                        ;(print "new-header")
     ;  (print new-header)
     ;  (print (transpose new-data))
       (setf new-table (data

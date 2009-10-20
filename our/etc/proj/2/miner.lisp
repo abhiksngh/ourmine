@@ -20,6 +20,7 @@
                         "fill-in"
                         "infogain"
                         "nbins"
+                        "naivebayes"
                         
                         "tests/data/additionalbolts"
                         "tests/data/anneal"
