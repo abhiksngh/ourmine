@@ -1,17 +1,17 @@
 
 === Cumulative Commits =============================================
 
-Thu Oct 15 16:23:48 EDT 2009
+Tue Oct 20 16:25:36 EDT 2009
 "edwaltman.log" , "eliflesher.log" , timbielawa.log
 
     60 ++----+------------+------------+------------+-----------+-----------++
-       |     +            +            +         AA + AA        +            +
+       |     +            +            +         AA + AA AA     +            +
        |                                        A                            |
-    50 ++                                       BBB   BB                    ++
+    50 ++                                       BBB   BB BB                 ++
        |                                                                     |
-       |                                                                     |
-       |                                        A                            |
-    40 ++                                       B      C                    ++
+       |                                                 CC                  |
+       |                                        A      C                     |
+    40 ++                                       B                           ++
        |                                       A      C                      |
        |                                       BCCC                          |
     30 ++                         A           A                             ++
