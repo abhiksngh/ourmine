@@ -18,22 +18,36 @@
 (defun equal-freq (data &optional (nbins 10))
     (let* ((len (length (columns-header (table-columns data))))
            (per-bin (floor (/ (negs data) nbins)))
-           (egs) (features))
+           (egs) (features) (last-features)
+           (bin-num 0)
+           (bin-count 0))
 
        ; for each column
-        (loop for i from 0 to (- len 1)
+        (loop for i from 0 to (- len 2)
             do
                 ; sort the data by that column
-                (setf egs (table-all (sort-table2 data i)))
-                
+                (setf egs (table-all (sort-table2 data i)))                
+
                 ; replace values with bin #, "per-bin" in each bin
-                (doitems (per-instance j egs)
+                (dolist (per-instance egs)
                     (setf features (eg-features per-instance))
-                    (setf (nth i features) (floor (/ j per-bin)))
+                    (when (>= bin-count per-bin)
+                        (if (= (nth i features) (nth i last-features))
+                            (); stay in current bin
+                            (progn 
+                                (incf bin-num) ; move to next bin
+                                (setf bin-count 0) ; reset bin count
+                            )
+                        )
+                    ) 
+                    (setf last-features features)
+                    (setf (nth i features) bin-num)
+                    (incf bin-count)
                 )
+                (setf bin-num 0)
+                (setf bin-count 0)
         )
-        egs
-       ; data 
+        data 
     
 ; we need to determine a number of bins, nbins, divide the #cols by it
 ; that will give us how many in each bin, so starting at the first one
