@@ -4,15 +4,23 @@
 (defparameter mushtable (mushroom))
 
 (defun new-random-center (table &optional (num-needed 1))
-  (let ((newclusters nil) (num-fields (length (table-all table))))
-    (dotimes (n num-needed newclusters)
-      (setf newclusters (append (list (nth (random num-fields) (table-all table))) newclusters))
+  (let ((newclusters nil) (new-center nil) (num-fields (- (length (table-all table)) 1)))
+    (dotimes (n num-needed)
+      (setf new-center (nth (random num-fields) (table-all table)))
+      (setf newclusters (append newclusters (list new-center)))
+    )
+    (if (equalp 1 (length newclusters))
+      (car newclusters)
+      newclusters
     )
   )
 )
 
 (defun fetch-generation (table gen-size generation)
   (let ((start (* gen-size generation)) (end (* gen-size (+ 1 generation))) (subset nil))
+    (if (> end (length (table-all table)))
+      (setf end (- (length (table-all table)) 1))
+    )
     (loop for n from start to end do
       (setf subset (append (list (nth n (table-all table))) subset))
     )
@@ -64,9 +72,122 @@
         )
       )
     )
+    (make-eg :features existing-features :class (eg-class existing-center))
   )
 )
 
-(defun cull-centers (centers weights)
+(defun cull-centers (centers weights table)
+  (let ((weights-sum 0))
+    (dolist (i weights)
+      (setf weights-sum (+ i weights-sum))
+    )
+    (dotimes (i (length centers))
+      (if (< (* (/ (nth i weights) weights-sum) 100) (random 100))
+        (setf (nth i centers) (new-random-center table))
+      )
+    )
+    centers
+  )
+)
+
+(defun linear-distance (point-a point-b)
+  (let ((distance 0))
+    (dotimes (j (length (eg-features point-a)))
+      (if (numericp (nth j (eg-features point-a)))
+        (setf 
+          distance
+          (+ 
+            distance
+            (sqrt (expt (- (nth j (eg-features point-a)) (nth j (eg-features point-b))) 2))     
+          )
+        )
+        (if (not (equalp (nth j (eg-features point-a)) (nth j (eg-features point-b))))
+          (incf distance)
+        )
+      )
+    )
+    distance
+  )
+)
+
+(defun merge-centers (centers num-result-centers)
+  (let ((shortest-distance-seen nil) (center-a nil) (center-b nil))
+    (loop while (> (length centers) num-result-centers) do
+      (loop for i from 0 to (- (length centers) 1) do
+        (loop for j from 0 to (- (length centers) 1) do
+          (if (not (equalp i j))
+            (if (or (null shortest-distance-seen) (null center-a) (null center-b) (< (linear-distance (nth i centers) (nth j centers)) shortest-distance-seen))
+              (setf
+                shortest-distance-seen (linear-distance (nth i centers) (nth j centers))
+                center-a i
+                center-b j
+              )
+            )
+          )
+        )
+      )
+      (let ((new-centers nil))
+        (loop for k from 0 to (- (length centers) 1) do
+          (if (and (not (equalp k center-a)) (not (equalp k center-b)))
+            (setf new-centers (append new-centers (list (nth k centers))))
+          )
+        )
+        (setf centers (append new-centers (list (move-center (nth center-a centers) (nth center-b centers) 1))))
+      )
+    )
+  )
   centers
+)
+
+(defun reset-weights (weights)
+  (fill weights 1)
+)
+
+(defun genic-clusters (table &optional (generation-size 10) (num-initial-centers 10) (num-result-centers 10))
+  (setf num-result-centers num-result-centers)
+  (let ((generation nil) (centers nil) (centers-weight (make-list num-initial-centers)) (generations (ceiling (/ (length (table-all table)) generation-size))))
+    (setf centers (new-random-center table num-initial-centers))
+    (reset-weights centers-weight)
+    (loop for i from 0 to generations do
+      (format t "generation: ~D~%" i)
+      (setf generation (fetch-generation table generation-size i))
+      (loop for j from 0 to (- (length generation) 1) do
+        (let ((sample (nth j generation)))
+          (let ((best-center (closest-center centers sample)))
+            (setf 
+              (nth best-center centers-weight) 
+              (+ 1 (nth best-center centers-weight))
+              (nth best-center centers)
+              (move-center (nth best-center centers) sample (nth best-center centers-weight))
+            )
+          )
+        )
+      )
+      (cull-centers centers centers-weight table)
+      (reset-weights centers-weight)
+    )
+    (merge-centers centers num-result-centers)
+  )
+)
+
+(defun genic (table &optional (generation-size 10) (num-initial-clusters 10) (num-final-clusters 10))
+  (let* ((clusters (genic-clusters table generation-size num-initial-clusters num-final-clusters)) (clustered-tables (make-list (length clusters))))
+    (loop for n from 0 to (- num-final-clusters 1) do
+      (setf 
+        (nth n clustered-tables) (make-table)
+        (table-name (nth n clustered-tables)) (table-name table)
+        (table-columns (nth n clustered-tables)) (table-columns table)
+        (table-class (nth n clustered-tables)) (table-class table)
+        (table-cautions (nth n clustered-tables)) (table-cautions table)
+        (table-indexed (nth n clustered-tables)) (table-indexed table)
+      )
+    )
+    (dolist (x (table-all table) clustered-tables)
+      (let ((target-table (closest-center clusters x)))
+        (setf 
+          (table-all (nth target-table clustered-tables)) 
+          (append (table-all (nth target-table clustered-tables)) (list x)))
+      )
+    )
+  )
 )
