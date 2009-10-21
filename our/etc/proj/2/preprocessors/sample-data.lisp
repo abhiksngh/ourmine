@@ -53,3 +53,20 @@
              (10     10     100  0       no)
              )))
 
+(defun make-col-data ()
+  (data
+   :name   'test-nums
+   :columns '($hours $miles $age $minutes $temp valid)
+   :egs    '((0      0      0    0        0     true)
+             (1      1      33   0        1     true)
+             (2      0      17   0        2     true)
+             (3      1      10   45       0     false)
+             (4      0      65   60       1     false)
+             (5      1      26   15       2     false)
+             (6      1      14   30       0     false)
+             (7      0      48   60       1     false)
+             (8      1      61   15       2     false)
+             (9      0      27   30       0     false)
+             (10     10     100  60       1     false)
+             )))
+

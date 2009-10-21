@@ -1,4 +1,6 @@
-(defun sub-sample (data)
+; row reduction, defaults to subsampling
+; if a "micro" value is supplied, microsampling is used
+(defun sub-sample (data &optional micro)
     (let* ((sorted-data (sort-table data))
            (all-instances (table-all sorted-data))
            (sampled-data)
@@ -6,19 +8,27 @@
            (least most-positive-fixnum) 
            (class-count 0)
            (prev (last (eg-features (nth 0 (table-all (xindex sorted-data)))))))
-        (doitems (per-instance i all-instances)
-            (setf curr (last (eg-features (nth i (table-all sorted-data)))))
-            (if (equal prev curr) 
-                (incf class-count)
-                (progn 
-                    (setf least (min class-count least))
-                    (setf class-count 1)
-                )
-            )
-            (setf prev curr)
-        )
-        (setf least (min class-count least))
 
+        (if micro
+          (setf least micro)
+          (progn 
+            ; find the class that occurs least frequently and record its count
+            (doitems (per-instance i all-instances)
+                (setf curr (last (eg-features (nth i (table-all sorted-data)))))
+                (if (equal prev curr) 
+                    (incf class-count)
+                    (progn 
+                        (setf least (min class-count least))
+                        (setf class-count 1)
+                    )
+                )
+                (setf prev curr)
+            )
+            (setf least (min class-count least)) ; the least count
+          ))
+          
+
+        ; copy no more than "least" of each class to a new table
         (doitems (per-instance i all-instances)
             (setf curr (last (eg-features (nth i (table-all sorted-data)))))
             (if (equal prev curr)
@@ -48,5 +58,4 @@
         )
     )
 )
-
 
