@@ -19,6 +19,34 @@
       (equalp (second (eg-features (first (egs (numeric-preprocessor (ar3))))))
               (log (second (eg-features (first (egs (ar3))))))))))
 
+;;Takes a table structure and returns two table structures, a train table with
+;;90% of the instances from the original table and a test table with 10% of the
+;;instances from the original table.  The two new tables have approximately the
+;;same frequency of each class as the original table.
+(defun split-preprocessor (tbl)
+  (setf tbl (table-deep-copy tbl))
+  (let* ((train (table-deep-copy tbl))
+         (test (table-deep-copy tbl)))
+    (setf (table-all train) nil)
+    (setf (table-all test) nil)
+    (dolist (class (get-table-classes tbl))
+      (let ((class-rows (get-table-class-rows tbl class)))
+        (do ((test-rows-count (ceiling (* (length class-rows) 0.1))))
+            ((= test-rows-count 0))
+          (let ((random-row (nth (random (length class-rows)) class-rows)))
+            (setf class-rows (delete random-row class-rows))
+            (push random-row (table-all test)))
+          (decf test-rows-count))
+      (setf (table-all train) (append class-rows (table-all train)))))
+    (values train test)))
+
+(deftest split-preprocessor-test ()
+  (check
+    (multiple-value-bind (train test) (split-preprocessor (ar3))
+      (and
+        (equalp nil (set-difference (table-all (ar3)) (union (table-all train) (table-all test) :test #'equalp) :test #'equalp))
+        (equalp nil (intersection (table-all train) (table-all test) :test #'equalp))))))
+
 ;;Takes a table structure and returns the symbol representing the minority class and 
 ;;the number of instances of the minority class.
 (defun find-minority-class (tbl)

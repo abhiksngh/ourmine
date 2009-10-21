@@ -1,3 +1,11 @@
+;;Filter function from the ANSI Common Lisp.
+(defun filter (fn lst)
+  (let ((acc nil))
+    (dolist (x lst)
+      (let ((val (funcall fn x)))
+        (if val (push val acc))))
+    (nreverse acc)))
+
 ;;Returns a complete copy of a discrete column header and all of its members
 ;;except f.
 (defmethod header-deep-copy ((column discrete))
@@ -97,6 +105,14 @@
 ;;Returns the feature list in row.
 (defun get-row-features (row)
   (eg-features row))
+
+;;Returns a list containing all class symbols in tbl.
+(defun get-table-classes (tbl)
+  (discrete-uniques (nth (table-class tbl) (get-table-column-headers tbl))))
+
+;;Returns a list of all rows in table with specified class.
+(defun get-table-class-rows (tbl class)
+  (filter #'(lambda (row) (and (equalp (eg-class row) class) row)) (get-table-rows tbl)))
 
 ;;Modifies tbl to convert the header structure for columni into a discrete
 ;;column header.
