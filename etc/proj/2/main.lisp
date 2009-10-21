@@ -99,9 +99,11 @@
 
 
     (format t "Running Classifier...")
-    (funcall classifier training)
-    (setf testing (mapcar #'(lambda (trainn) (funcall classifier trainn testing)) training))
-    (setf testing (testiest-truthiness-list testing #'max))
-    (print testing)
-    (format t "Done.")))
+;;     (funcall classifier training)
+;;     (setf testing (mapcar #'(lambda (trainn) (funcall classifier trainn testing)) training))
+;;     (setf testing (testiest-truthiness-list testing #'max))
+;;     (print testing)
+;;     (format t "Done.")
+    (twor training testing)
+    ))
 ;(learn)

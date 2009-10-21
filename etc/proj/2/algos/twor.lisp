@@ -30,7 +30,7 @@
   "Return a list containing features of instances in the majority class"
   (mapcar 'eg-features ((lambda (x) (let ((y '())) (dolist (l (egs x) y) (if (eql (majority-class x) (eg-class l)) (push l y))))) tbl)))
  
-(defun oner(tbl)
+(defun oner(tbl &optional (test nil))
   (let* 
       ((cols (columns-header (table-columns tbl)))
        (major-features (majority-class-list tbl))
@@ -85,9 +85,56 @@
 	    (push subaccuracy accuracy)
 	    (push (best-predictor subaccuracy) (gethash col predictors)))
 	  (incf j)))
-    (format t "Analysis complete. Printing ratings for your review.~%")
+    ;(format t "Analysis complete. Printing ratings for your review.~%")
     (review-predictors predictors)
-    predictors))
+    (if
+     (not (null test))
+     (predict (gen-sorted-predictor-list predictors) predictors test)
+     predictors)))
+
+(defun predict (plist predictors test)
+  "Give me the prediction list and a table to use"
+  (let
+      ((lastresort (majority-class test))
+       (rows (mapcar #'(lambda (l) (all-but-last-col (eg-features l))) (egs test)))
+       (correct 0)
+       (incorrect 0)
+       (column-index (gen-column-indexer test)))
+    ;go down each row
+    ;go across the best predictors (plist)
+    ;; compare the value of the predictor to
+    ;; the value of that column for the present working row
+    ;; if they're a match then classify as the target class
+    ;;; check your work! if that was correct marking, increment correct
+    ;; if they're a miss then try the next best predictor
+    ;; continue until out of predictors
+    ;; if nothing matches, set it to 'last resort', the most common class
+    ;; 
+    (dolist (r rows)
+      (format t "## Next Row ##~%")
+      (dolist (p plist)
+	(let*
+	    ((i (gethash p column-index))
+	     (inst-val (nth i r))
+	     (pval (first (first (gethash p predictors)))))
+;	  (format t "Checking Predictor ~A:~A against Instance Value ~A~%" p pval inst-val
+	  (if
+	   (equal pval inst-val)
+	   (progn
+	     (format t "Match!~%") (return t)))
+	   (format t "No predictors matched~%"))))))
+	
+	   
+
+;	  (progn
+;	    )))))))
+
+(defun gen-column-indexer (table)
+  "Creates a hash table that maps column names to their index"
+  (let ((column-index (make-hash-table))
+	(cols (columns-header (table-columns table))))
+    (dotimes (n (table-width table) column-index)
+      (setf (gethash (pop cols) column-index) n))))
 
 (defun best-predictor (l)
   (first (sort (copy-list l) '> :key 'cdr)))
@@ -123,7 +170,20 @@
   "Give me a table, and I'll give you a list of lists. Each one is the result of pairing every column"
   (mapcar #'(lambda (x) (pair-row (eg-features x))) (egs tbl)))
 
-(defun twoR (tbl)
+(defun twoR (tbl &optional (test nil))
   "Give me a table and I'll give you a bigger one!"
-  (let ((new-table (xindex (data :name (table-name tbl) :columns (gen-paired-col-headers tbl) :egs (gen-paired-feature-list tbl)))))
-    (oner new-table)))
+;  (let ((new-table (xindex (data :name (table-name tbl) :columns (gen-paired-col-headers tbl) :egs (gen-paired-feature-list tbl)))))
+  (let ((new-table (pair-table tbl)))
+    (if
+     (not (null test))
+     (oner new-table (pair-table test))
+     (oner new-table))))
+
+(defmacro pair-table (tbl)
+  `(xindex (data :name (table-name ,tbl) :columns (gen-paired-col-headers ,tbl) :egs (gen-paired-feature-list ,tbl))))
+
+(defun gen-sorted-predictor-list (hash)
+  "Give me a hash table and I'll give you a sorted list of the best predictors"
+  (let ((keys '()))
+    (maphash #'(lambda (x y) (push x keys)) hash)
+    (reverse (sort keys '< :key #'(lambda (x) (cdr (first (gethash x hash))))))))
