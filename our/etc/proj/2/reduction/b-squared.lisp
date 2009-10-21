@@ -172,3 +172,5 @@
     (if (equal (nth (1- (length per-data)) per-data) '10)
         (setf (nth (1- (length per-data)) per-data) 'TRUE)
         (setf (nth (1- (length per-data)) per-data)'FALSE))))
+
+
