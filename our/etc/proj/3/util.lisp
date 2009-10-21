@@ -114,6 +114,19 @@
 (defun get-table-class-rows (tbl class)
   (filter #'(lambda (row) (and (equalp (eg-class row) class) row)) (get-table-rows tbl)))
 
+;;Updates the uniques property of columni in tbl.
+(defun column-update-discrete-uniques (tbl columni)
+  (if (not (table-column-numericp tbl columni))
+    (setf (discrete-uniques (get-table-column-header tbl columni)) 
+          (remove-duplicates (get-table-column tbl columni) :test #'equalp)))
+  tbl)
+
+;;Updates the uniques property of each discrete column in tbl.
+(defun table-update-discrete-uniques (tbl)
+  (doitems (column-header columni (get-table-column-headers tbl))
+    (column-update-discrete-uniques tbl columni))
+  tbl)
+
 ;;Modifies tbl to convert the header structure for columni into a discrete
 ;;column header.
 (defun numeric2discrete (tbl columni)
@@ -124,10 +137,7 @@
                                                      :orderp t
                                                      :uniques nil))
     (setf (nth columni (table-columns tbl)) column-header)
-    (dolist (row (get-table-column tbl columni))
-      (if (not (member row (discrete-uniques column-header)))
-        (push row (discrete-uniques column-header))))
-    (setf (discrete-uniques column-header) (nreverse (discrete-uniques column-header)))))
+    (column-update-discrete-uniques tbl columni)))
 
 (defun numeric-test-tbl ()
   (data :name 'test

@@ -19,6 +19,23 @@
       (equalp (second (eg-features (first (egs (numeric-preprocessor (ar3))))))
               (log (second (eg-features (first (egs (ar3))))))))))
 
+;;Combines multiple table structures into one.
+(defun combine-preprocessor (tbl1 &rest tbls)
+  (setf tbl1 (table-deep-copy tbl1))
+  (dolist (tbl tbls)
+    (setf (table-all tbl1) (append (table-all tbl) (table-all tbl1))))
+  (table-update-discrete-uniques tbl1)
+  tbl1)
+
+(deftest combine-preprocessor-test ()
+  (check
+    (and
+      (equalp (+ (length (table-all (ar3))) (length (table-all (ar4))) (length (table-all (ar5))))
+              (length (table-all (combine-preprocessor (ar3) (ar4) (ar5)))))
+      (equalp nil 
+              (set-difference (union (table-all (ar3)) (table-all (ar4)) :test #'equalp)
+                              (table-all (combine-preprocessor (ar3) (ar4))) :test #'equalp)))))
+
 ;;Takes a table structure and returns two table structures, a train table with
 ;;90% of the instances from the original table and a test table with 10% of the
 ;;instances from the original table.  The two new tables have approximately the
@@ -38,6 +55,8 @@
             (push random-row (table-all test)))
           (decf test-rows-count))
       (setf (table-all train) (append class-rows (table-all train)))))
+    (table-update-discrete-uniques train)
+    (table-update-discrete-uniques test)
     (values train test)))
 
 (deftest split-preprocessor-test ()
