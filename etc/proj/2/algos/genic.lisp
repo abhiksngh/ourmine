@@ -5,15 +5,23 @@
 (print " - Loading Genic") ;; Output for a pretty log
 
 (defun new-random-center (table &optional (num-needed 1))
-  (let ((newclusters nil) (num-fields (length (table-all table))))
-    (dotimes (n num-needed newclusters)
-      (setf newclusters (append (list (nth (random num-fields) (table-all table))) newclusters))
+  (let ((newclusters nil) (new-center nil) (num-fields (- (length (table-all table)) 1)))
+    (dotimes (n num-needed)
+      (setf new-center (nth (random num-fields) (table-all table)))
+      (setf newclusters (append newclusters (list new-center)))
+    )
+    (if (equalp 1 (length newclusters))
+      (car newclusters)
+      newclusters
     )
   )
 )
 
 (defun fetch-generation (table gen-size generation)
   (let ((start (* gen-size generation)) (end (* gen-size (+ 1 generation))) (subset nil))
+    (if (> end (length (table-all table)))
+      (setf end (- (length (table-all table)) 1))
+    )
     (loop for n from start to end do
       (setf subset (append (list (nth n (table-all table))) subset))
     )
@@ -21,126 +29,158 @@
   )
 )
 
-(defun score-clusters (member clusters table)
-  (let ((number-fields (length (eg-features member))) (scores (make-list (length clusters))))
-    (dotimes (n (length clusters))
-      (setf (nth n scores) 0)
-      (loop for i from 0 to number-fields do
-        (let ((score 0))
-          (if (numeric-p (nth i (eg-features member)))
-            (if (<= (nth i (eg-features member)) (nth i (eg-features (nth n clusters))))
-              (setf score (/ (nth i (eg-features member)) (nth i (eg-features (nth n clusters)))))
-              (setf score 
-                (/ 
-                  (- 
-                    ;;; (Max - C)
-                    (- (nth i (find-testiest-numerics table #'max))
-                       (nth i (eg-features (nth n clusters)))) 
-                    ;;; -(C - Value)
-                    (- 
-                      (nth i (eg-features member)) 
-                      (nth i (eg-features (nth n clusters)))))
-                  (- 
-                    ;;; (Max - C)
-                    (nth i (find-testiest-numerics table #'max)) 
-                    (nth i (eg-features (nth n clusters))))
-                )
+(defun closest-center (centers new-point)
+  (let ((distances (make-list (length centers) :initial-element 0)))
+    (dotimes (i (length centers))
+      (dotimes (j (length (eg-features new-point)))
+        (if (numericp (nth j (eg-features new-point)))
+          (setf 
+            (nth i distances) 
+            (+ 
+              (nth i distances) 
+              (sqrt (expt (- (nth j (eg-features new-point)) (nth j (eg-features (nth i centers)))) 2))     
+            )
+          )
+          (if (not (equalp (nth j (eg-features new-point)) (nth j (eg-features (nth i centers)))))
+            (incf (nth i distances))
+          )
+        )
+      )
+    )
+    (let ((shortest-dist nil) (shortest-pos nil))
+      (dotimes (k (length distances))
+        (if (or (null shortest-dist) (< (nth k distances) shortest-dist))
+          (setf shortest-dist (nth k distances) shortest-pos k)
+        )
+      )
+      shortest-pos
+    )
+  )
+)
+
+(defun move-center (existing-center new-point weight)
+  (let ((existing-features (copy-list (eg-features existing-center))) (new-features (eg-features new-point)))
+    (dotimes (i (length existing-features))
+      (let ((col-val-old (nth i existing-features)) (col-val-new (nth i new-features)))
+        (if (numericp col-val-old)
+          (setf
+            (nth i existing-features)
+            (/ (+ (* weight col-val-old) col-val-new) (+ weight 1))
+          )
+          (if (and (not (equalp col-val-old col-val-new)) (equalp weight 1))
+            (setf (nth i existing-features) col-val-new)
+          )
+        )
+      )
+    )
+    (make-eg :features existing-features :class (eg-class existing-center))
+  )
+)
+
+(defun cull-centers (centers weights table)
+  (let ((weights-sum 0))
+    (dolist (i weights)
+      (setf weights-sum (+ i weights-sum))
+    )
+    (dotimes (i (length centers))
+      (if (< (* (/ (nth i weights) weights-sum) 100) (random 100))
+        (setf (nth i centers) (new-random-center table))
+      )
+    )
+    centers
+  )
+)
+
+(defun linear-distance (point-a point-b)
+  (let ((distance 0))
+    (dotimes (j (length (eg-features point-a)))
+      (if (numericp (nth j (eg-features point-a)))
+        (setf 
+          distance
+          (+ 
+            distance
+            (sqrt (expt (- (nth j (eg-features point-a)) (nth j (eg-features point-b))) 2))     
+          )
+        )
+        (if (not (equalp (nth j (eg-features point-a)) (nth j (eg-features point-b))))
+          (incf distance)
+        )
+      )
+    )
+    distance
+  )
+)
+
+(defun merge-centers (centers num-result-centers)
+  (let ((shortest-distance-seen nil) (center-a nil) (center-b nil))
+    (loop while (> (length centers) num-result-centers) do
+      (loop for i from 0 to (- (length centers) 1) do
+        (loop for j from 0 to (- (length centers) 1) do
+          (if (not (equalp i j))
+            (if (or (null shortest-distance-seen) (null center-a) (null center-b) (< (linear-distance (nth i centers) (nth j centers)) shortest-distance-seen))
+              (setf
+                shortest-distance-seen (linear-distance (nth i centers) (nth j centers))
+                center-a i
+                center-b j
               )
             )
-            (if (equalp (nth i (eg-features member)) (nth i (eg-features (nth n clusters))))
-              (setf score 1)
-              (setf score 0)
-            )
           )
-          (setf (nth n scores) (+ score (nth n scores)))
-        )        
-      )
-    )
-    (let ((bestscore 0) (bestpos 0))
-      (dotimes (n (length scores))
-        (if (>= (nth n scores) bestscore)
-           (setf bestpos n bestscore (nth n scores))
         )
       )
-      bestpos
+      (let ((new-centers nil))
+        (loop for k from 0 to (- (length centers) 1) do
+          (if (and (not (equalp k center-a)) (not (equalp k center-b)))
+            (setf new-centers (append new-centers (list (nth k centers))))
+          )
+        )
+        (setf centers (append new-centers (list (move-center (nth center-a centers) (nth center-b centers) 1))))
+      )
     )
   )
+  centers
 )
 
-(defun genic-clusters (table &optional (generation-size 4) (num-clusters 3))
-  (let ((generation nil) (clusters nil) (clusters-weight (make-list num-clusters)) 
-       (generations (floor (/ (length (table-all table)) generation-size))))
-    (setf clusters (new-random-center table num-clusters))
-    (fill clusters-weight 0)
-    (loop for i from 0 to (- generations 2) do
-      (setf generation (fetch-generation table generation-size i))
-      (loop for j from 0 to (- generation-size 1) do
-        (let ((sample (nth j generation)))
-          (let ((best-cluster (score-clusters sample clusters table)))
-            (setf (nth best-cluster clusters-weight) (+ 1 (nth best-cluster clusters-weight)))
-          )
-        )
-      )
-      (let ((worst-score generation-size) (worst-position nil))
-        (loop for k from 0 to (- (length clusters-weight) 1) do
-          (if (or
-                (and (null worst-score) (null worst-position))
-                (<= (nth k clusters-weight) worst-score))
-            (setf worst-score (nth k clusters-weight) worst-position k)
-          )
-        )
-        (setf (nth worst-position clusters) (first (new-random-center table)))
-      )
-      (fill clusters-weight 0)
-    )
-    clusters
-  )
+(defun reset-weights (weights)
+  (fill weights 1)
 )
 
-(defun genic2-clusters (table &optional (generation-size 4) (num-clusters 10))
-  (let ((generation nil) (clusters nil) (clusters-weight (make-list num-clusters)) 
-       (generations (floor (/ (length (table-all table)) generation-size))))
-    (setf clusters (new-random-center table num-clusters))
-    (fill clusters-weight 0)
-    (loop for i from 0 to (- generations 2) do
+(defun genic-clusters (table &optional (generation-size 10) (num-initial-centers 10) (num-result-centers 10))
+  (setf num-result-centers num-result-centers)
+  (let ((generation nil) (centers nil) (centers-weight (make-list num-initial-centers)) (generations (ceiling (/ (length (table-all table)) generation-size))))
+    ;;; (2) Setup random initial centers and fill out their weights.
+    (setf centers (new-random-center table num-initial-centers))
+    (reset-weights centers-weight)
+    (loop for i from 0 to generations do
       (setf generation (fetch-generation table generation-size i))
-      (loop for j from 0 to (- generation-size 1) do
+      ;;; (3) For each individual in the generation, find the nearest center.
+      ;;;     Then, reorient that center based on it's weight, and increase it's weight.
+      (loop for j from 0 to (- (length generation) 1) do
         (let ((sample (nth j generation)))
-          (let ((best-cluster (score-clusters sample clusters table)))
-            (setf (nth best-cluster clusters-weight) (+ 1 (nth best-cluster clusters-weight)))
-          )
-        )
-      )
-      (let ((best-score (first (sort (copy-list clusters-weight) #'>))) (expand-clusters t))
-        (loop for k from 0 to (- (length clusters-weight) 1) do
-          (if (<= (nth k clusters-weight) (/ best-score 2))
-            (setf (nth k clusters) (first (new-random-center table)) expand-clusters nil)
-          )
-        )
-        (if expand-clusters
-          (let ((to-add (floor (* (length clusters) 0.5))))
+          (let ((best-center (closest-center centers sample)))
             (setf 
-              clusters-weight (append clusters-weight (make-list to-add))
-              clusters (append clusters (new-random-center table to-add))
+              (nth best-center centers-weight) 
+              (+ 1 (nth best-center centers-weight))
+              (nth best-center centers)
+              (move-center (nth best-center centers) sample (nth best-center centers-weight))
             )
           )
         )
       )
-      (fill clusters-weight 0)
+      ;;; (4) At the end of each generation, do the random culling where
+      ;;;     percentage chances of survival are computed.  Reset weights.
+      (cull-centers centers centers-weight table)
+      (reset-weights centers-weight)
     )
-    clusters
+    ;;; (5) Merge the closest centers until the number of returned
+    ;;;     centeres is the number desired.
+    (merge-centers centers num-result-centers)
   )
 )
 
-(defun genic (table &optional (num-clusters 3) (generation-size 4))
-  (if (not (realp generation-size))
-    (setf generation-size 4)
-  )
-  (if (not (realp num-clusters))
-    (setf num-clusters 3)
-  )
-  (let* ((clusters (genic-clusters table generation-size num-clusters)) (clustered-tables (make-list (length clusters))))
-    (loop for n from 0 to (- num-clusters 1) do
+;;; (1) GENIC Parameters
+(defun genic (table &optional (generation-size 10) (num-initial-clusters 10) (num-final-clusters 10))
+  (let* ((clusters (genic-clusters table generation-size num-initial-clusters num-final-clusters)) (clustered-tables (make-list (length clusters))))
+    (loop for n from 0 to (- num-final-clusters 1) do
       (setf 
         (nth n clustered-tables) (make-table)
         (table-name (nth n clustered-tables)) (table-name table)
@@ -151,29 +191,7 @@
       )
     )
     (dolist (x (table-all table) clustered-tables)
-      (let ((target-table (score-clusters x clusters table)))
-        (setf 
-          (table-all (nth target-table clustered-tables)) 
-          (append (table-all (nth target-table clustered-tables)) (list x)))
-      )
-    )
-  )
-)
-
-(defun genic2 (table)
-  (let* ((clusters (genic2-clusters table)) (clustered-tables (make-list (length clusters))))
-    (loop for n from 0 to (- (length clusters) 1) do
-      (setf 
-        (nth n clustered-tables) (make-table)
-        (table-name (nth n clustered-tables)) (table-name table)
-        (table-columns (nth n clustered-tables)) (table-columns table)
-        (table-class (nth n clustered-tables)) (table-class table)
-        (table-cautions (nth n clustered-tables)) (table-cautions table)
-        (table-indexed (nth n clustered-tables)) (table-indexed table)
-      )
-    )
-    (dolist (x (table-all table) clustered-tables)
-      (let ((target-table (score-clusters x clusters table)))
+      (let ((target-table (closest-center clusters x)))
         (setf 
           (table-all (nth target-table clustered-tables)) 
           (append (table-all (nth target-table clustered-tables)) (list x)))
