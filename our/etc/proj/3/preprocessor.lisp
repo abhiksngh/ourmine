@@ -66,6 +66,25 @@
         (equalp nil (set-difference (table-all (ar3)) (union (table-all train) (table-all test) :test #'equalp) :test #'equalp))
         (equalp nil (intersection (table-all train) (table-all test) :test #'equalp))))))
 
+;;Takes a table structure and returns a copy with each numeric column normalized between 0
+;;and 1.
+(defun normalize-preprocessor (tbl)
+  (setf tbl (table-deep-copy tbl))
+  (doitems (column-header columni (get-table-column-headers tbl))
+    (if (column-header-numericp column-header)
+      (let ((col-max (apply #'max (get-table-column tbl columni)))
+            (col-min (apply #'min (get-table-column tbl columni))))
+        (dolist (features (get-table-feature-lists tbl))
+          (setf (nth columni features) (/ (- (nth columni features) col-min) (- col-max col-min)))))))
+  tbl)
+
+(deftest normalize-preprocessor-test ()
+  (check
+    (equalp
+      (get-table-column (normalize-preprocessor (numeric-test-tbl)) 0)
+      '(1 18/19 17/19 16/19 15/19 14/19 13/19 12/19 11/19 10/19 9/19 8/19 7/19 6/19 5/19 4/19 3/19 2/19 1/19 0))))
+      
+
 ;;Takes a table structure and returns the symbol representing the minority class and 
 ;;the number of instances of the minority class.
 (defun find-minority-class (tbl)
