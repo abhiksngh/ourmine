@@ -1,5 +1,7 @@
 (defparameter *files* '(
                         "tests/deftest"
+                        "reduction/prune"
+                        "discretizers/equal-freq"
                         "data/ar3"
                         "reduction/median"
                         "data/sick"
