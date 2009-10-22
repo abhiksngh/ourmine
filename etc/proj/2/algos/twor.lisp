@@ -28,8 +28,14 @@
 
 (defun majority-class-list (tbl)
   "Return a list containing features of instances in the majority class"
-  (mapcar 'eg-features ((lambda (x) (let ((y '())) (dolist (l (egs x) y) (if (eql (majority-class x) (eg-class l)) (push l y))))) tbl)))
- 
+  (mapcar 'eg-features ((lambda (x) (let ((y '()))
+				      (dolist 
+					  (l (egs x) y)
+					(if 
+					 (eql (majority-class x) (eg-class l))
+					 (push l y))))) tbl)
+)) 
+
 (defun oner(tbl &optional (test nil))
   (let* 
       ((cols (columns-header (table-columns tbl)))
@@ -86,11 +92,14 @@
 	    (push (best-predictor subaccuracy) (gethash col predictors)))
 	  (incf j)))
     ;(format t "Analysis complete. Printing ratings for your review.~%")
+
     (review-predictors predictors)
-    (if
-     (not (null test))
-     (predict (gen-sorted-predictor-list predictors) predictors test)
-     predictors)))
+  predictors))
+;;     (if
+;;      (not (null test))
+;;      (predict (gen-sorted-predictor-list predictors) predictors test)
+;;      predictors)))
+
 
 (defun predict (plist predictors test)
   "Give me the prediction list and a table to use"
@@ -156,7 +165,7 @@
   (let ((cols (all-but-last-col row)) (pair-columns '()))
     (dotimes (n (length cols))
       (let ((col (pop cols)))
-	(push col pair-columns)
+	;(push col pair-columns)
 	(dolist (r cols)
 	  (push (paired-strings-to-symbol col r) pair-columns))))
     (push (first (reverse row)) pair-columns) ; tack the class on the end
@@ -172,7 +181,7 @@
 
 (defun twoR (tbl &optional (test nil))
   "Give me a table and I'll give you a bigger one!"
-;  (let ((new-table (xindex (data :name (table-name tbl) :columns (gen-paired-col-headers tbl) :egs (gen-paired-feature-list tbl)))))
+					;  (let ((new-table (xindex (data :name (table-name tbl) :columns (gen-paired-col-headers tbl) :egs (gen-paired-feature-list tbl)))))
   (let ((new-table (pair-table tbl)))
     (if
      (not (null test))
@@ -187,3 +196,54 @@
   (let ((keys '()))
     (maphash #'(lambda (x y) (push x keys)) hash)
     (reverse (sort keys '< :key #'(lambda (x) (cdr (first (gethash x hash))))))))
+
+(defmacro printhash (hash)
+  "Prints KEY: VALUE, over a hash table"
+  `(maphash #'(lambda (x y) (format t "~A: ~A~%" x y)) ,hash))
+
+(defun make-column-rules (n tbl)
+  (let*
+      ((col-count-table (make-hash-table))
+       (column-name (header-name (nth n (table-columns tbl)))))
+    (dolist (l (table-all tbl) (cons column-name col-count-table))
+      (let*
+	  ((attribute-value (nth n (eg-features l)))
+	   (attribute-class (eg-class l))
+	   (appearances (nth 1 (assoc attribute-value (nth n (list-unique-features tbl))))))
+	(if
+	 (null (gethash attribute-value col-count-table))
+	 (setf (gethash attribute-value col-count-table) (make-hash-table)))
+	(let
+	    ((attribute-table (gethash attribute-value col-count-table)))
+	  (incf (gethash attribute-class attribute-table 0) (/ 1 appearances)))))))
+
+ (defun hashlist (hash)
+  (let ((retlist '()))
+    (maphash #'(lambda (x y) (push (cons x y) retlist)) hash)
+    retlist))
+
+(defun seq (size &optional without)
+  (let ((seq '()))
+    (dotimes (n size)
+      (push n seq))
+    (delete without (reverse seq))))
+
+(defun gen-prediction-rules (tbl)
+  "Generates prediction rules on a table"
+  (mapcar #'(lambda (n) (make-column-rules n tbl)) (seq (table-width tbl) (table-class tbl))))
+
+
+
+(dolist 
+	     (column (gen-prediction-rules w2))
+	   (let
+	       ((col-name (car column))
+		(col-attrs (cdr column)))
+	     (format t "~%~%Column: ~A~%" col-name)
+	     (dolist
+		 (attrs (hashlist col-attrs))
+	       (let
+		   ((attr-name (car attrs))
+		    (attr-hash (cdr attrs)))
+		 (format t "Attribute: ~A~%" attr-name)
+		 (print (first (sort (hashlist attr-hash) '> :key 'cdr)))))))
