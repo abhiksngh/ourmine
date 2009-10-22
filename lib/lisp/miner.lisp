@@ -20,7 +20,7 @@
                         "utils"
                         "kmeans"
                         "normalize"
-                        "ekrem"
+                        "cluster"
 			))
 
 (defun make1 (files)

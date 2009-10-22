@@ -109,9 +109,11 @@
 ;;Author David Asselstine
 
 (defun kmeans-build-cluster (centroids rows columns)
-  (let ((cluster '()))
+  (let ((final-cluster '()))
     (dolist (cent centroids)
-      (push `(,cent) cluster))
-    (setf cluster (reverse cluster))
-    (dolist (row rows cluster)
-      (push row (nth (kmeans-closest-centroid centroids row columns) cluster)))))
+      (let ((clust (make-cluster)))
+        (setf (cluster-centroid clust) cent)
+        (push clust final-cluster)))
+    (setf final-cluster (reverse final-cluster))
+    (dolist (row rows final-cluster)
+      (push row (cluster-members (nth (kmeans-closest-centroid centroids row columns) final-cluster))))))  
