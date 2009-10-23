@@ -248,7 +248,7 @@
   )
 
 
-(defun demoHyperPipesNew(&optional (dataFileName "primary-tumor") (Alpha 0) (countType 0) (meanType 0) (oldway 0) (useCentroid 0))
+(defun demoHyperPipesNew(&key (dataFileName "primary-tumor") (Alpha 0) (countType 0) (meanType 0) (oldway 0) (useCentroid 0) (overfitDetect 0) (overfitRevert 0))
   (format t "*************Demoing HyperPipes**************~%")
   ;(load (concatenate `string "HyperPipes/Data/" dataFileName ".lisp"))
 
@@ -271,6 +271,7 @@
                (tiedClasses (TrimTiedClasses tiedClasses MyHyperPipes useCentroid))
                (successOrFailure (find (nth (- (length attributeValues) 1) attributeValues) tiedClasses))
                )
+          
 ;          (format t "~%Expected Result: ~a Actual Result: ~a" (nth (- (length attributeValues) 1) attributeValues) tiedClasses)
 ;          (format t "~%Success?: ~a~%" successOrFailure)
           (incf totalChecks)
@@ -289,6 +290,19 @@
 ;          (close outputFile)
           ;(print successOrFailure)
           (setf MyHyperPipes (AddExperienceNew MyHyperPipes (make-ExperienceInstance :attributes (remove-nth (- (length attributeValues) 1) attributeValues) :class (nth (- (length attributeValues) 1) attributeValues))))
+          (if (= overfitDetect 1)
+              (progn
+                (logRow MyHyperPipes attributeValues)
+                (logResult MyHyperPipes tiedClasses (car (last attributeValues)))
+                (detectOverfit MyHyperPipes 30 .35)
+                )
+              )
+          (if (= overfitRevert 1)
+              (progn
+                (logHistResult MyHyperPipes tiedClasses (car (last attributeValues)))
+                (detectOverfitHist MyHyperPipes 30 .35)
+                )
+              )
           )
         )
       ;(close outputFile)
