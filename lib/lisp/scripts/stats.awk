@@ -1,5 +1,6 @@
 BEGIN {
 	Filename
+	Classes ? Classes : 22
 	main()
 	cntr
 }
@@ -14,13 +15,13 @@ function main() {
 		if ($0 !~ /^[ ]./) {
 			if ($1 ~ "1") {
 				Hits++
-				Score+= $1 / $2
+				Score+= 1 - ( ($2-1) / (Classes-1) )
 			}
 			Total++
 			Cntr++
-			if(Cntr >= int(Size/50)) {
+			if(Cntr >= int(Size/25)) {
 				Cntr = 0
-				print Total" "(Hits / Total)" "(Score / Total)
+				print Total" "(Score / Total)" "(Score / Total)
 			}
 		}
 	}

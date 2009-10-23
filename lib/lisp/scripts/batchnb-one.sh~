@@ -12,7 +12,7 @@ sbcl --load scripts/nb-batch.lisp --eval "(nb-batch \"$file\")"
 echo "Generating Plot Datafiles"
 for file in `ls $outpath | grep $1`; do
 base=`basename $file`
-gawk -f scripts/stats-noavg.awk -v Filename=proj2/HyperPipes/OutputFiles/$file -v Classes=$2 > proj2/HyperPipes/PlotData/$base
+gawk -f scripts/stats-noavg.awk -v Filename=proj2/HyperPipes/OutputFiles/$file -v Classes $2 > proj2/HyperPipes/PlotData/$base
 done
 
 echo "Generating Plot Datafile for NB"

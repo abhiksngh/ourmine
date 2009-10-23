@@ -1,5 +1,5 @@
 BEGIN {
-	NAME ? NAME : NAME="Quake"
+	NAME ? NAME : "DefaultName"
 	getline
 
 	print "(defun "NAME" ()"

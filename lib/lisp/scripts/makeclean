@@ -1,0 +1,4 @@
+rm ../proj2/HyperPipes/OutputFiles/*.txt
+rm ../proj2/HyperPipes/NBOutput/*.txt
+rm ../proj2/HyperPipes/PlotData/*.txt
+rm ../proj2/HyperPipes/PlotData/*.dat
