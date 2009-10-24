@@ -255,7 +255,7 @@
   (let* ((MyHyperPipes (list))
         (totalChecks 0)
         (totalRight 0)
-        (outputFileName (concatenate `string "proj2/HyperPipes/OutputFiles/outputFile-" dataFileName (format nil "~a" countType) (format nil "~a" meanType) (format nil "~a" useCentroid) "-" (format nil "~a" (round (* Alpha 100))) "-" (format nil "~a" oldway) ".txt"))
+        (outputFileName (concatenate `string "proj2/HyperPipes/OutputFiles/outputFile-" dataFileName (format nil "~a" countType) (format nil "~a" meanType) (format nil "~a" useCentroid) "-" (format nil "~a" (round (* Alpha 100))) "-" (format nil "~a" oldway) "-" (format nil "~a" overfitDetect) "-" (format nil "~a" overfitRevert) ".txt"))
          
                                      
          
