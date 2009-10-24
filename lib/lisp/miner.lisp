@@ -19,6 +19,8 @@
 			"learn/nb2"
                         "proj2/HyperPipes/structs"
                         "proj2/HyperPipes/HyperPipe"
+                        "proj2/HyperPipes/logging"
+                        "proj2/HyperPipes/hyperhistory"
 			))
 
 (defun make1 (files)
