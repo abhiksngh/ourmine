@@ -34,7 +34,6 @@
     )
   )
 
-
 (defun logGoodPipe(pipe)
    (setf (aref (HyperPipe-hist pipe) 0) (copyNumericBounds (HyperPipe-numericBounds pipe)))
    (incf (HyperPipe-logged pipe))

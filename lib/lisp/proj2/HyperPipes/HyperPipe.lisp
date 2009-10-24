@@ -318,7 +318,7 @@
 
   )
 
-(defun demoHyperPipesBatchNew(&optional (dataFileName "primary-tumor") (Alpha 0) (countType 0) (meanType 0) (oldway 0) (useCentroid 0) (learn .6))
+(defun demoHyperPipesBatchNew(&key (dataFileName "primary-tumor") (Alpha 0) (countType 0) (meanType 0) (oldway 0) (useCentroid 0) (learn .6))
   (format t "*************Demoing HyperPipes**************~%")
   ;(load (concatenate `string "HyperPipes/Data/" dataFileName ".lisp"))
 
