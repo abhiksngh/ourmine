@@ -1,12 +1,16 @@
 (defun batch(&optional (datafile "letter"))
   (load "miner.lisp")
-  (demohyperpipesnew datafile 0 0 0 0 0) ; disjunction
-  (demohyperpipesnew datafile 0 1 0 0 0) ; mean max-min
-  (demohyperpipesnew datafile 0 1 1 0 0) ; mean largestgap
-  (demohyperpipesnew datafile 0 0 0 1 0) ; original
-  (demohyperpipesnew datafile 0 0 0 0 1) ; centroids  
+  (demohyperpipesnew :dataFileName datafile :Alpha 0 :countType 0 :meantype 0 :oldway 0 :useCentroid 0 :overfitDetect 0 :overfitRevert 0) ; disjunction
+  (demohyperpipesnew :dataFileName datafile :Alpha 0 :countType 1 :meantype 0 :oldway 0 :useCentroid 0 :overfitDetect 0 :overfitRevert 0) ; mean max-min
+  (demohyperpipesnew :dataFileName datafile :Alpha 0 :countType 1 :meantype 1 :oldway 0 :useCentroid 0 :overfitDetect 0 :overfitRevert 0) ; mean largestgap
+  (demohyperpipesnew :dataFileName datafile :Alpha 0 :countType 0 :meantype 0 :oldway 1 :useCentroid 0 :overfitDetect 0 :overfitRevert 0) ; original
+  (demohyperpipesnew :dataFileName datafile :Alpha 0 :countType 0 :meantype 0 :oldway 0 :useCentroid 1 :overfitDetect 0 :overfitRevert 0) ; centroids
+
+;  (demohyperpipesnew :dataFileName datafile :Alpha 0 :countType 0 :meantype 0 :oldway 0 :useCentroid 0 :overfitDetect 1 :overfitRevert 0) ; relearn on overfit
+  (demohyperpipesnew :dataFileName datafile :Alpha 0 :countType 0 :meantype 0 :oldway 0 :useCentroid 0 :overfitDetect 0 :overfitRevert 1) ; revert on overfit
+
   (dotimes (i 10)
-    (demohyperpipesnew datafile (* 0.05 (+ i 1)) 0 0 0 0) 
+    (demohyperpipesnew :dataFileName datafile :Alpha (* 0.05 (+ i 1)) :countType 0 :meantype 0 :oldway 0 :useCentroid 0 :overfitDetect 0 :overfitRevert 0)
   )
   (quit)
 )

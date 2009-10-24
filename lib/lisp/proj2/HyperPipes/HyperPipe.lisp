@@ -38,7 +38,7 @@
      pipes)
   )
 
-(defun AddExperienceNew (pipes experience)
+(defun AddExperienceNew (pipes experience &optional (movePercent 1.0))
   ;(print (ExperienceInstance-class experience))
   (let ((pipe (FindPipe pipes (ExperienceInstance-class experience))))
     (if (null pipe)
@@ -57,8 +57,12 @@
          (if (not (equal currentExperience '?))
              (if (numberp currentExperience)
                  (progn
-                   (setf (NumericBound-min currentBound) (min currentExperience (NumericBound-min currentBound)))
-                   (setf (NumericBound-max currentBound) (max currentExperience (NumericBound-max currentBound)))
+                   (if (equal (Numericbound-min currentBound) most-positive-fixnum)
+                       (progn
+                         (setf (NumericBound-min currentBound) currentExperience)
+                         (setf (NumericBound-max currentBound) currentExperience)))                   
+                   (setf (NumericBound-min currentBound) (min (+ currentExperience (* (- 1 movePercent) (- currentExperience (NumericBound-min currentBound)) )) (NumericBound-min currentBound)))
+                   (setf (NumericBound-max currentBound) (max (- currentExperience (* (- 1 movePercent) (- currentExperience (NumericBound-min currentBound)) )) (NumericBound-max currentBound)))
                    (if (= (NumericBound-numOccured currentBound) 0)
                        (progn
                          (setf (NumericBound-numOccured currentBound) 1)
@@ -248,7 +252,7 @@
   )
 
 
-(defun demoHyperPipesNew(&key (dataFileName "primary-tumor") (Alpha 0) (countType 0) (meanType 0) (oldway 0) (useCentroid 0) (overfitDetect 0) (overfitRevert 0))
+(defun demoHyperPipesNew(&key (dataFileName "primary-tumor") (Alpha 0) (countType 0) (meanType 0) (oldway 0) (useCentroid 0) (overfitDetect 0) (overfitRevert 0) (movePercent 0.5))
   (format t "*************Demoing HyperPipes**************~%")
   ;(load (concatenate `string "HyperPipes/Data/" dataFileName ".lisp"))
 
@@ -291,7 +295,11 @@
               )
 ;          (close outputFile)
           ;(print successOrFailure)
-          (setf MyHyperPipes (AddExperienceNew MyHyperPipes (make-ExperienceInstance :attributes (remove-nth (- (length attributeValues) 1) attributeValues) :class (nth (- (length attributeValues) 1) attributeValues))))
+;          (if (< (random 1.0) 0.1)
+;          (if (equal totalChecks 3) (print MyHyperPipes))
+          (setf MyHyperPipes (AddExperienceNew MyHyperPipes (make-ExperienceInstance :attributes (remove-nth (- (length attributeValues) 1) attributeValues) :class (nth (- (length attributeValues) 1) attributeValues)) movePercent ))
+;          )
+;          (if (equal totalChecks 3) (print MyHyperPipes))          
           (if (= overfitDetect 1)
               (progn
                 (logRow MyHyperPipes attributeValues)

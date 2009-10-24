@@ -45,7 +45,8 @@
 
           (if (< (/ (HyperPipe-CorrectGuess currentPipe) (HyperPipe-Guessed currentPipe)) Cutoff)
               (progn
-                (reset-relearn HyperPipes currentPipe outputFile)
+;                (reset-relearn HyperPipes currentPipe outputFile)
+		 (reset-pipe HyperPipes currentPipe outputFile)
                 
                 )
               )
@@ -80,4 +81,18 @@
         )
       )
   )
-        
+
+(defun reset-pipe(HyperPipes pipe outputFile)
+        (format outputFile "#I did it I did it, yay! for ~a~%" (HyperPipe-class pipe))
+        ;clear everything we learned
+        (dolist (currentBound (HyperPipe-numericBounds pipe))
+          (setf (NumericBound-min currentBound) most-positive-fixnum)
+          (setf (NumericBound-max currentBound) most-negative-fixnum)
+          (setf (NumericBound-mean currentBound) nil)
+          (setf (NumericBound-numOccured currentBound) 0)
+          (setf (NumericBound-nonNumeric currentBound) (list))
+          )
+
+                                        ;learn 100 oldest rows recorded
+     )
+

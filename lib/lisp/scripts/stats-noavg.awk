@@ -13,7 +13,7 @@ function main() {
 	}
 	close(Filename)
 	while (getline < Filename) {
-		if ($0 !~ /^[ ]./) {
+		if ($0 ~ /^[0-1]./) {
 			if ($1 ~ "1") {
 				ringBufferIns(1, Last10, RingSize)
 				Score+= 1 - ( ($2-1) / (Classes-1) )

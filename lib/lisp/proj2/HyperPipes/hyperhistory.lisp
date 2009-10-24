@@ -10,7 +10,8 @@
     )
   )
 
-(defun detectOverfitHist (HyperPipes &optional (Interval 30) (Cutoff .35) (outputFile t))
+(defun detectOverfitHist (HyperPipes &optional (Interval 100) (Cutoff .35) (outputFile t))
+  (setf out-tmp (open "overfittinglog.txt" :direction :output :if-does-not-exist :create :if-exists :append))
   (dolist (currentPipe HyperPipes)
     (if (> (HyperPipe-Guessed currentPipe) Interval)
         (progn
@@ -18,7 +19,9 @@
           (if (< (/ (HyperPipe-CorrectGuess currentPipe) (HyperPipe-Guessed currentPipe)) Cutoff)
               (if (> (HyperPipe-logged currentPipe) 0)
                   (progn
+                    (format out-tmp "BEGIN OLD:~%~a ~%" currentPipe)
                     (revert-pipe currentPipe)
+                    (format out-tmp "BEGIN REVERTED:~% ~a ~%~%~%" currentPipe)
                     (format outputFile "#I did it I did it, yay! for ~a~%" (HyperPipe-class currentPipe))
                     )
                   )
@@ -32,6 +35,7 @@
           )
         )
     )
+  (close out-tmp)
   )
 
 (defun logGoodPipe(pipe)
