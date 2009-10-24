@@ -45,8 +45,8 @@
 
           (if (< (/ (HyperPipe-CorrectGuess currentPipe) (HyperPipe-Guessed currentPipe)) Cutoff)
               (progn
-                (reset-relearn HyperPipes currentPipe)
-                (format outputFile "#I did it I did it, yay! for ~a~%" (HyperPipe-class currentPipe))
+                (reset-relearn HyperPipes currentPipe outputFile)
+                
                 )
               )
 
@@ -58,9 +58,10 @@
     )
   )
 
-(defun reset-relearn(HyperPipes pipe)
+(defun reset-relearn(HyperPipes pipe outputFile)
   (if (> (HyperPipe-logged pipe) 100)
       (progn
+        (format outputFile "#I did it I did it, yay! for ~a~%" (HyperPipe-class pipe))
         ;clear everything we learned
         (dolist (currentBound (HyperPipe-numericBounds pipe))
           (setf (NumericBound-min currentBound) most-positive-fixnum)
