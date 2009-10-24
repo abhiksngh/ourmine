@@ -294,13 +294,13 @@
               (progn
                 (logRow MyHyperPipes attributeValues)
                 (logResult MyHyperPipes tiedClasses (car (last attributeValues)))
-                (detectOverfit MyHyperPipes 30 .35)
+                (detectOverfit MyHyperPipes 30 .35 outputFile)
                 )
               )
           (if (= overfitRevert 1)
               (progn
                 (logHistResult MyHyperPipes tiedClasses (car (last attributeValues)))
-                (detectOverfitHist MyHyperPipes 30 .35)
+                (detectOverfitHist MyHyperPipes 30 .35 outputFile)
                 )
               )
           )

@@ -38,7 +38,7 @@
     )
   )
 
-(defun detectOverfit(HyperPipes &optional (Interval 30) (Cutoff .35))
+(defun detectOverfit(HyperPipes &optional (Interval 30) (Cutoff .35) (outputFile t))
   (dolist (currentPipe HyperPipes)
     (if (> (HyperPipe-Guessed currentPipe) Interval)
         (progn
@@ -46,7 +46,7 @@
           (if (< (/ (HyperPipe-CorrectGuess currentPipe) (HyperPipe-Guessed currentPipe)) Cutoff)
               (progn
                 (reset-relearn HyperPipes currentPipe)
-                (format t "I did it I did it, yay! for ~a~%" (HyperPipe-class currentPipe))
+                (format outputFile "#I did it I did it, yay! for ~a~%" (HyperPipe-class currentPipe))
                 )
               )
 
