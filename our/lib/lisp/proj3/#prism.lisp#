@@ -1,0 +1,273 @@
+exit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+exit
+
+(defun prism (train)
+  (let* ((class (table-class train))
+         (lst (split2bins train))
+         (train (xindex (car (cdr lst))))
+         (test (xindex (car lst)))
+         (rules (make-rules-all-classes train))
+         (gotwants))
+    (dolist (test_inst (get-features (table-all test)))
+      (let* ((want (nth class test_inst))
+             (got (classify-prism test_inst  rules train)))
+        (setf want (list want))
+        (setf gotwants (append gotwants (list (append want got))))))
+   (split (abcd-stats gotwants :verbose nil))))
+
+       
+(defun classify-prism (one rules tbl)
+  (let* ((got))
+    (dolist (rls rules)
+      (let* ((class (car rls))
+             (rest (cdr rls)))
+        (dolist (r rest)
+          (if (rule-satisfies-instance r one)
+                (setf got  (append got (list class)))))))
+   (setf got (remove-duplicates  got))
+   (let* ((maxInst 0)
+         (win-class))
+     (dolist (c got win-class)
+       (if (> (f tbl c) maxInst)
+           (progn
+             (setf win-class c)
+             (setf maxInst (f tbl c))))))))
+
+        
+(defun make-rules-all-classes (tbl)
+  (let* ((classes (klasses tbl))
+         (rules)
+         (table (xindex (table-copy tbl))))
+    (dolist (cls classes rules)
+      (setf rules (append rules (list (cons cls (make-rules-for-class tbl  cls))))))))
+
+(defun make-rules-for-class (tbl class)
+  (let* ((rules)
+         (rule)
+         (cont)
+         (instances-to-remove)
+         (new-table))
+    (setf rule (make-rule tbl class (make-index-cols tbl)))
+    (setf rules (list (append rules  rule)))
+    (multiple-value-bind (x y) (check-rule-satisfies-all rule class tbl)
+      (setf cont x)
+      (setf instances-to-remove y))
+    (setf new-table (xindex (remove-instances instances-to-remove tbl)))
+    (if (and (not cont) (not (= (f new-table class) 0)))
+        (setf rules (append rules (make-rules-for-class (xindex new-table) class)))
+         rules)))
+        
+       
+(defun make-rule (tbl class lst-attributes)
+  (let* ((rule)
+         (classi (table-class tbl))
+         (all-freq (get-all-attributes-class-freq tbl class lst-attributes))
+         (greatest (select-greatest-freq all-freq))
+         (attr (car greatest))
+         (attributes-left lst-attributes)
+         (value (second  greatest))
+         (new-table (data :name (table-name tbl)
+                          :columns (get-col-names (table-columns tbl))
+                          :egs (get-instances attr value tbl))))
+    (setf rule (list (append rule (list attr value))))
+    (setf attributes-left (remove attr attributes-left))
+    ;(format t "~a ~% " all-freq)
+    ;(format t "~a ~%" new-table)
+    (if (or (= (precision-prism (get-instances attr value tbl) classi class) 1)
+            (null attributes-left))
+        rule
+            (setf rule (append  rule (make-rule (xindex new-table) class attributes-left))))))
+         
+  
+
+(defun get-all-attributes-class-freq (tbl class lst-attributes)
+  (let* ((lst)
+         (classi (table-class tbl))
+         (columns (table-columns tbl)))
+    (dotimes (n  (length columns))
+      (unless (= n classi)
+        (unless (not (contains lst-attributes n))
+          (setf lst (append lst (get-attribute-class-freq tbl n class))))))
+    lst))
+
+
+(defun get-attribute-class-freq(tbl attr class)
+  (let* ((lst)
+         (classes (klasses tbl))
+         (columns (table-columns tbl))
+         (attr-values (discrete-uniques (nth attr columns)))
+         (in-case-equal-freq))
+    (dolist (val attr-values)
+      (let* ((occur 0))
+             (dolist (cls classes)
+               (incf occur (f tbl cls attr val)))
+             (setf in-case-equal-freq occur)
+             (setf occur (float ( / (f tbl class attr val) occur)))
+             (setf lst (append lst (list (list attr val occur in-case-equal-freq))))))
+    (reverse lst)))
+
+(defun select-greatest-freq (lst-freq)
+  ;(format t "~A~%" lst-freq)
+       (let* ((greatest (third (car lst-freq)))
+              (greatest-attr (car lst-freq))
+              (rest  (cdr lst-freq)))
+         (dolist (obj rest greatest-attr)
+           (cond ((< greatest (third obj))
+                  (progn
+                    (setf greatest-attr obj)
+                    (setf greatest (third obj))))
+                 ((= greatest (third obj))
+                     (if (< (car (last greatest-attr)) (car (last obj)))
+                         (progn
+                           (setf greatest-attr obj)
+                           (setf greatest (third obj)))))))))
+
+
+(defun get-instances (attr value tbl)
+  (let* ((all-instances (get-features (table-all tbl)))
+         (instances))
+    (dolist (inst all-instances instances)
+      (if (equal (nth attr inst) value)
+          (setf instances (append instances (list inst)))))))
+
+(defun precision-prism (instances i  class)
+  (let ((prec 0)
+        (len (length instances)))
+    (dolist (obj instances)
+      (if (equal (nth i obj) class)
+          (incf prec)))
+    (float (/ prec len))))
+
+    
+(defun make-index-cols (tbl)
+  (let ((columns (length (table-columns tbl)))
+        (col-indexes)
+        (cls (table-class tbl)))
+    (dotimes (x columns col-indexes)
+      (unless (= x cls)
+        (setf col-indexes (append col-indexes (list x)))))))
+
+(defun remove-instances (lst tbl)
+  (let* ((new-instances)
+        (old-instances (get-features (table-all tbl))))
+    (dolist (obj lst)
+      (if (contains  old-instances obj)
+          (setf old-instances (remove obj old-instances :test #'equal))))
+    (setf new-instances old-instances)
+    (data :name (table-name tbl)
+          :columns (get-col-names (table-columns tbl))
+          :egs new-instances)))
+
+
+(defun check-rule-satisfies-all (rule class tbl)
+  (let* ((instances (get-class-instances class tbl))
+         (satisfied-instances)
+         (score 0))
+    (dolist (inst instances)
+      (if (rule-satisfies-instance rule inst)
+          (progn
+          (incf score)
+          (setf satisfied-instances (append satisfied-instances (list inst))))))
+    (if (= score (length instances))
+        (values t satisfied-instances)
+        (values nil satisfied-instances))))
+
+
+          
+(defun get-class-instances (class tbl)
+  (let* ((instances)
+         (cls (table-class tbl))
+         (inst (get-features (table-all tbl))))
+    (dolist (obj inst instances)
+      (if (equal (nth cls obj) class)
+          (setf instances (append instances (list obj)))))))
+
+(defun rule-satisfies-instance (rule instance)
+  (let ((score 0))
+  (dolist (conjunction rule)
+    (let ((col (car conjunction))
+          (val (car (last conjunction))))
+      (if (equal val (nth col instance))
+          (incf score))))
+  (if (= score (length rule))
+  t nil)))
+
+
+(defun prism-self-test (train test &key (stream t))
+  (xindex train)
+  (let ((rules (make-rules-all-classes train))) 
+    (dolist (one (table-all test))
+      (let* ((got     (classify-prism (eg-features one) rules train))
+             (want    (eg-class one))
+             (success (eql got want)))
+        (format stream "~a ~a ~a~%"  got want (if (eql got want) "   " "<--"))))))
+
+(defun make-data-lenses ()
+  (data
+   :name   'weather
+   :columns '(age spectacle atigmatism tear lenses)
+   :egs    '((young myope no reduced none)
+             (young myope no normal soft)
+             (young myope yes reduced none)
+             (young myope yes normal hard)
+             (young hypermetrope no reduced none)
+             (young hypermetrope no normal soft)
+             (young hypermetrope yes reduced none)
+             (young hypermetrope yes normal hard)
+             (pre-presbyopic myope no reduced none)
+             (pre-presbyopic myope no normal soft)
+             (pre-presbyopic myope yes reduced none)
+             (pre-presbyopic myope yes normal hard)
+             (pre-presbyopic hypermetrope no reduced none)
+             (pre-presbyopic hypermetrope no normal soft)
+             (pre-presbyopic hypermetrope yes reduced none)
+             (pre-presbyopic hypermetrope yes normal none)
+             (presbyopic myope no reduced none)
+             (presbyopic myope no normal none)
+             (presbyopic myope yes reduced none)
+             (presbyopic myope yes normal hard)
+             (presbyopic hypermetrope no reduced none)
+             (presbyopic hypermetrope no normal soft)
+             (presbyopic hypermetrope yes reduced none)
+             (presbyopic hypermetrope yes normal none))))

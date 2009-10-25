@@ -1,0 +1,35 @@
+(defun test-classify ()
+  (let* ((train (xindex (car-data))))
+    (classify-id3 train train)))
+
+(defun classify-id3 (train test &key (stream t))
+  (let* ((acc 0)
+         (all  (table-all test))
+         (max  (length all))
+         (id3-tree (id3 train (make-index-cols train))))
+    (dolist (one all (format t "~a~a~a~%" "Accuracy "  (round (* 100 (float (/ acc max)))) " %"))
+      (let* ((got     (classify-id3-inst id3-tree (eg-features one)))
+             (want    (eg-class one))
+             (success (eql got want)))
+        (incf acc (if success 1.0 0.0))
+        (format stream "~a ~a ~a ~a~%"  got want  
+                (round (* 100 (/ acc max)))
+                (if success "   " "<--"))))))
+
+(defun classify-id3-inst (tree instance)
+  (let* ((class)
+         (node (car tree))
+         (value (nth node instance))
+         (pos (find-subtree value tree))
+         (sub-tree (nth pos tree)))
+    (if (atom (car (last sub-tree)))
+        (setf class (car (last sub-tree)))
+        (classify-id3-inst (second sub-tree) instance))))
+
+
+
+(defun find-subtree (value lst)
+  (let ((sub-tree))
+    (dolist (l (cdr lst) sub-tree)
+      (if (equal (car l) value)
+          (setf sub-tree (position l lst :test #'equal))))))

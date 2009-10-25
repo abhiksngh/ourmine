@@ -1,0 +1,519 @@
+SAFETY
+| = HIGH 
+|         NR-PERSONS
+|         | = MORE 
+|         |         BUYING-PRICE
+|         |         | = LOW 
+|         |         |         MAINT-PRICE
+|         |         |         | = LOW 
+|         |         |         |         SIZE-LUGGAGE
+|         |         |         |         | = BIG => VGOOD
+|         |         |         |         | = MED 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => VGOOD
+|         |         |         |         |         | = 4 => VGOOD
+|         |         |         |         |         | = 3 => VGOOD
+|         |         |         |         |         | = 2 => VGOOD
+|         |         |         |         | = SMALL 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => GOOD
+|         |         |         |         |         | = 4 => GOOD
+|         |         |         |         |         | = 3 => GOOD
+|         |         |         |         |         | = 2 => GOOD
+|         |         |         | = MED 
+|         |         |         |         SIZE-LUGGAGE
+|         |         |         |         | = BIG => VGOOD
+|         |         |         |         | = MED 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => VGOOD
+|         |         |         |         |         | = 4 => VGOOD
+|         |         |         |         |         | = 3 => VGOOD
+|         |         |         |         |         | = 2 => VGOOD
+|         |         |         |         | = SMALL 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => GOOD
+|         |         |         |         |         | = 4 => GOOD
+|         |         |         |         |         | = 3 => GOOD
+|         |         |         |         |         | = 2 => GOOD
+|         |         |         | = HIGH 
+|         |         |         |         SIZE-LUGGAGE
+|         |         |         |         | = BIG => VGOOD
+|         |         |         |         | = MED 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => VGOOD
+|         |         |         |         |         | = 4 => VGOOD
+|         |         |         |         |         | = 3 => VGOOD
+|         |         |         |         |         | = 2 => VGOOD
+|         |         |         |         | = SMALL 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => ACC
+|         |         |         |         |         | = 4 => ACC
+|         |         |         |         |         | = 3 => ACC
+|         |         |         |         |         | = 2 => ACC
+|         |         |         | = VHIGH 
+|         |         |         |         NR-DOORS
+|         |         |         |         | = 5MORE => ACC
+|         |         |         |         | = 4 => ACC
+|         |         |         |         | = 3 => ACC
+|         |         |         |         | = 2 
+|         |         |         |         |         SIZE-LUGGAGE
+|         |         |         |         |         | = BIG => ACC
+|         |         |         |         |         | = MED => ACC
+|         |         |         |         |         | = SMALL => ACC
+|         |         | = MED 
+|         |         |         MAINT-PRICE
+|         |         |         | = LOW 
+|         |         |         |         SIZE-LUGGAGE
+|         |         |         |         | = BIG => VGOOD
+|         |         |         |         | = MED 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => VGOOD
+|         |         |         |         |         | = 4 => VGOOD
+|         |         |         |         |         | = 3 => VGOOD
+|         |         |         |         |         | = 2 => VGOOD
+|         |         |         |         | = SMALL 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => GOOD
+|         |         |         |         |         | = 4 => GOOD
+|         |         |         |         |         | = 3 => GOOD
+|         |         |         |         |         | = 2 => GOOD
+|         |         |         | = MED 
+|         |         |         |         SIZE-LUGGAGE
+|         |         |         |         | = BIG => VGOOD
+|         |         |         |         | = MED 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => VGOOD
+|         |         |         |         |         | = 4 => VGOOD
+|         |         |         |         |         | = 3 => VGOOD
+|         |         |         |         |         | = 2 => VGOOD
+|         |         |         |         | = SMALL 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => ACC
+|         |         |         |         |         | = 4 => ACC
+|         |         |         |         |         | = 3 => ACC
+|         |         |         |         |         | = 2 => ACC
+|         |         |         | = HIGH 
+|         |         |         |         NR-DOORS
+|         |         |         |         | = 5MORE => ACC
+|         |         |         |         | = 4 => ACC
+|         |         |         |         | = 3 => ACC
+|         |         |         |         | = 2 
+|         |         |         |         |         SIZE-LUGGAGE
+|         |         |         |         |         | = BIG => ACC
+|         |         |         |         |         | = MED => ACC
+|         |         |         |         |         | = SMALL => ACC
+|         |         |         | = VHIGH 
+|         |         |         |         NR-DOORS
+|         |         |         |         | = 5MORE => ACC
+|         |         |         |         | = 4 => ACC
+|         |         |         |         | = 3 => ACC
+|         |         |         |         | = 2 
+|         |         |         |         |         SIZE-LUGGAGE
+|         |         |         |         |         | = BIG => ACC
+|         |         |         |         |         | = MED => ACC
+|         |         |         |         |         | = SMALL => ACC
+|         |         | = HIGH 
+|         |         |         MAINT-PRICE
+|         |         |         | = LOW 
+|         |         |         |         NR-DOORS
+|         |         |         |         | = 5MORE => ACC
+|         |         |         |         | = 4 => ACC
+|         |         |         |         | = 3 => ACC
+|         |         |         |         | = 2 
+|         |         |         |         |         SIZE-LUGGAGE
+|         |         |         |         |         | = BIG => ACC
+|         |         |         |         |         | = MED => ACC
+|         |         |         |         |         | = SMALL => ACC
+|         |         |         | = MED 
+|         |         |         |         NR-DOORS
+|         |         |         |         | = 5MORE => ACC
+|         |         |         |         | = 4 => ACC
+|         |         |         |         | = 3 => ACC
+|         |         |         |         | = 2 
+|         |         |         |         |         SIZE-LUGGAGE
+|         |         |         |         |         | = BIG => ACC
+|         |         |         |         |         | = MED => ACC
+|         |         |         |         |         | = SMALL => ACC
+|         |         |         | = HIGH 
+|         |         |         |         NR-DOORS
+|         |         |         |         | = 5MORE => ACC
+|         |         |         |         | = 4 => ACC
+|         |         |         |         | = 3 => ACC
+|         |         |         |         | = 2 
+|         |         |         |         |         SIZE-LUGGAGE
+|         |         |         |         |         | = BIG => ACC
+|         |         |         |         |         | = MED => ACC
+|         |         |         |         |         | = SMALL => ACC
+|         |         |         | = VHIGH => UNACC
+|         |         | = VHIGH 
+|         |         |         MAINT-PRICE
+|         |         |         | = LOW 
+|         |         |         |         NR-DOORS
+|         |         |         |         | = 5MORE => ACC
+|         |         |         |         | = 4 => ACC
+|         |         |         |         | = 3 => ACC
+|         |         |         |         | = 2 
+|         |         |         |         |         SIZE-LUGGAGE
+|         |         |         |         |         | = BIG => ACC
+|         |         |         |         |         | = MED => ACC
+|         |         |         |         |         | = SMALL => ACC
+|         |         |         | = MED 
+|         |         |         |         NR-DOORS
+|         |         |         |         | = 5MORE => ACC
+|         |         |         |         | = 4 => ACC
+|         |         |         |         | = 3 => ACC
+|         |         |         |         | = 2 
+|         |         |         |         |         SIZE-LUGGAGE
+|         |         |         |         |         | = BIG => ACC
+|         |         |         |         |         | = MED => ACC
+|         |         |         |         |         | = SMALL => ACC
+|         |         |         | = HIGH => UNACC
+|         |         |         | = VHIGH => UNACC
+|         | = 4 
+|         |         BUYING-PRICE
+|         |         | = LOW 
+|         |         |         MAINT-PRICE
+|         |         |         | = LOW 
+|         |         |         |         SIZE-LUGGAGE
+|         |         |         |         | = BIG => VGOOD
+|         |         |         |         | = MED 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => VGOOD
+|         |         |         |         |         | = 4 => VGOOD
+|         |         |         |         |         | = 3 => VGOOD
+|         |         |         |         |         | = 2 => VGOOD
+|         |         |         |         | = SMALL => GOOD
+|         |         |         | = MED 
+|         |         |         |         SIZE-LUGGAGE
+|         |         |         |         | = BIG => VGOOD
+|         |         |         |         | = MED 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => VGOOD
+|         |         |         |         |         | = 4 => VGOOD
+|         |         |         |         |         | = 3 => VGOOD
+|         |         |         |         |         | = 2 => VGOOD
+|         |         |         |         | = SMALL => GOOD
+|         |         |         | = HIGH 
+|         |         |         |         SIZE-LUGGAGE
+|         |         |         |         | = BIG => VGOOD
+|         |         |         |         | = MED 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => VGOOD
+|         |         |         |         |         | = 4 => VGOOD
+|         |         |         |         |         | = 3 => VGOOD
+|         |         |         |         |         | = 2 => VGOOD
+|         |         |         |         | = SMALL => ACC
+|         |         |         | = VHIGH => ACC
+|         |         | = MED 
+|         |         |         MAINT-PRICE
+|         |         |         | = LOW 
+|         |         |         |         SIZE-LUGGAGE
+|         |         |         |         | = BIG => VGOOD
+|         |         |         |         | = MED 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => VGOOD
+|         |         |         |         |         | = 4 => VGOOD
+|         |         |         |         |         | = 3 => VGOOD
+|         |         |         |         |         | = 2 => VGOOD
+|         |         |         |         | = SMALL => GOOD
+|         |         |         | = MED 
+|         |         |         |         SIZE-LUGGAGE
+|         |         |         |         | = BIG => VGOOD
+|         |         |         |         | = MED 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => VGOOD
+|         |         |         |         |         | = 4 => VGOOD
+|         |         |         |         |         | = 3 => VGOOD
+|         |         |         |         |         | = 2 => VGOOD
+|         |         |         |         | = SMALL => ACC
+|         |         |         | = HIGH => ACC
+|         |         |         | = VHIGH => ACC
+|         |         | = HIGH 
+|         |         |         MAINT-PRICE
+|         |         |         | = LOW => ACC
+|         |         |         | = MED => ACC
+|         |         |         | = HIGH => ACC
+|         |         |         | = VHIGH => UNACC
+|         |         | = VHIGH 
+|         |         |         MAINT-PRICE
+|         |         |         | = LOW => ACC
+|         |         |         | = MED => ACC
+|         |         |         | = HIGH => UNACC
+|         |         |         | = VHIGH => UNACC
+|         | = 2 => UNACC
+| = MED 
+|         NR-PERSONS
+|         | = MORE 
+|         |         BUYING-PRICE
+|         |         | = LOW 
+|         |         |         MAINT-PRICE
+|         |         |         | = LOW 
+|         |         |         |         SIZE-LUGGAGE
+|         |         |         |         | = BIG => GOOD
+|         |         |         |         | = MED 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => GOOD
+|         |         |         |         |         | = 4 => GOOD
+|         |         |         |         |         | = 3 => GOOD
+|         |         |         |         |         | = 2 => GOOD
+|         |         |         |         | = SMALL 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => ACC
+|         |         |         |         |         | = 4 => ACC
+|         |         |         |         |         | = 3 => ACC
+|         |         |         |         |         | = 2 => ACC
+|         |         |         | = MED 
+|         |         |         |         SIZE-LUGGAGE
+|         |         |         |         | = BIG => GOOD
+|         |         |         |         | = MED 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => GOOD
+|         |         |         |         |         | = 4 => GOOD
+|         |         |         |         |         | = 3 => GOOD
+|         |         |         |         |         | = 2 => GOOD
+|         |         |         |         | = SMALL 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => ACC
+|         |         |         |         |         | = 4 => ACC
+|         |         |         |         |         | = 3 => ACC
+|         |         |         |         |         | = 2 => ACC
+|         |         |         | = HIGH 
+|         |         |         |         NR-DOORS
+|         |         |         |         | = 5MORE => ACC
+|         |         |         |         | = 4 => ACC
+|         |         |         |         | = 3 => ACC
+|         |         |         |         | = 2 
+|         |         |         |         |         SIZE-LUGGAGE
+|         |         |         |         |         | = BIG => ACC
+|         |         |         |         |         | = MED => ACC
+|         |         |         |         |         | = SMALL => ACC
+|         |         |         | = VHIGH 
+|         |         |         |         SIZE-LUGGAGE
+|         |         |         |         | = BIG => ACC
+|         |         |         |         | = MED 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => ACC
+|         |         |         |         |         | = 4 => ACC
+|         |         |         |         |         | = 3 => ACC
+|         |         |         |         |         | = 2 => ACC
+|         |         |         |         | = SMALL => UNACC
+|         |         | = MED 
+|         |         |         MAINT-PRICE
+|         |         |         | = LOW 
+|         |         |         |         SIZE-LUGGAGE
+|         |         |         |         | = BIG => GOOD
+|         |         |         |         | = MED 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => GOOD
+|         |         |         |         |         | = 4 => GOOD
+|         |         |         |         |         | = 3 => GOOD
+|         |         |         |         |         | = 2 => GOOD
+|         |         |         |         | = SMALL 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => ACC
+|         |         |         |         |         | = 4 => ACC
+|         |         |         |         |         | = 3 => ACC
+|         |         |         |         |         | = 2 => ACC
+|         |         |         | = MED 
+|         |         |         |         NR-DOORS
+|         |         |         |         | = 5MORE => ACC
+|         |         |         |         | = 4 => ACC
+|         |         |         |         | = 3 => ACC
+|         |         |         |         | = 2 
+|         |         |         |         |         SIZE-LUGGAGE
+|         |         |         |         |         | = BIG => ACC
+|         |         |         |         |         | = MED => ACC
+|         |         |         |         |         | = SMALL => ACC
+|         |         |         | = HIGH 
+|         |         |         |         SIZE-LUGGAGE
+|         |         |         |         | = BIG => ACC
+|         |         |         |         | = MED 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => ACC
+|         |         |         |         |         | = 4 => ACC
+|         |         |         |         |         | = 3 => ACC
+|         |         |         |         |         | = 2 => ACC
+|         |         |         |         | = SMALL => UNACC
+|         |         |         | = VHIGH 
+|         |         |         |         SIZE-LUGGAGE
+|         |         |         |         | = BIG => ACC
+|         |         |         |         | = MED 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => ACC
+|         |         |         |         |         | = 4 => ACC
+|         |         |         |         |         | = 3 => ACC
+|         |         |         |         |         | = 2 => ACC
+|         |         |         |         | = SMALL => UNACC
+|         |         | = HIGH 
+|         |         |         SIZE-LUGGAGE
+|         |         |         | = BIG 
+|         |         |         |         MAINT-PRICE
+|         |         |         |         | = LOW => ACC
+|         |         |         |         | = MED => ACC
+|         |         |         |         | = HIGH => ACC
+|         |         |         |         | = VHIGH => UNACC
+|         |         |         | = MED 
+|         |         |         |         MAINT-PRICE
+|         |         |         |         | = LOW 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => ACC
+|         |         |         |         |         | = 4 => ACC
+|         |         |         |         |         | = 3 => ACC
+|         |         |         |         |         | = 2 => ACC
+|         |         |         |         | = MED 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => ACC
+|         |         |         |         |         | = 4 => ACC
+|         |         |         |         |         | = 3 => ACC
+|         |         |         |         |         | = 2 => ACC
+|         |         |         |         | = HIGH 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => ACC
+|         |         |         |         |         | = 4 => ACC
+|         |         |         |         |         | = 3 => ACC
+|         |         |         |         |         | = 2 => ACC
+|         |         |         |         | = VHIGH => UNACC
+|         |         |         | = SMALL => UNACC
+|         |         | = VHIGH 
+|         |         |         MAINT-PRICE
+|         |         |         | = LOW 
+|         |         |         |         SIZE-LUGGAGE
+|         |         |         |         | = BIG => ACC
+|         |         |         |         | = MED 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => ACC
+|         |         |         |         |         | = 4 => ACC
+|         |         |         |         |         | = 3 => ACC
+|         |         |         |         |         | = 2 => ACC
+|         |         |         |         | = SMALL => UNACC
+|         |         |         | = MED 
+|         |         |         |         SIZE-LUGGAGE
+|         |         |         |         | = BIG => ACC
+|         |         |         |         | = MED 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => ACC
+|         |         |         |         |         | = 4 => ACC
+|         |         |         |         |         | = 3 => ACC
+|         |         |         |         |         | = 2 => ACC
+|         |         |         |         | = SMALL => UNACC
+|         |         |         | = HIGH => UNACC
+|         |         |         | = VHIGH => UNACC
+|         | = 4 
+|         |         BUYING-PRICE
+|         |         | = LOW 
+|         |         |         MAINT-PRICE
+|         |         |         | = LOW 
+|         |         |         |         SIZE-LUGGAGE
+|         |         |         |         | = BIG => GOOD
+|         |         |         |         | = MED 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => GOOD
+|         |         |         |         |         | = 4 => GOOD
+|         |         |         |         |         | = 3 => GOOD
+|         |         |         |         |         | = 2 => GOOD
+|         |         |         |         | = SMALL => ACC
+|         |         |         | = MED 
+|         |         |         |         SIZE-LUGGAGE
+|         |         |         |         | = BIG => GOOD
+|         |         |         |         | = MED 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => GOOD
+|         |         |         |         |         | = 4 => GOOD
+|         |         |         |         |         | = 3 => GOOD
+|         |         |         |         |         | = 2 => GOOD
+|         |         |         |         | = SMALL => ACC
+|         |         |         | = HIGH => ACC
+|         |         |         | = VHIGH 
+|         |         |         |         SIZE-LUGGAGE
+|         |         |         |         | = BIG => ACC
+|         |         |         |         | = MED 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => ACC
+|         |         |         |         |         | = 4 => ACC
+|         |         |         |         |         | = 3 => ACC
+|         |         |         |         |         | = 2 => ACC
+|         |         |         |         | = SMALL => UNACC
+|         |         | = MED 
+|         |         |         MAINT-PRICE
+|         |         |         | = LOW 
+|         |         |         |         SIZE-LUGGAGE
+|         |         |         |         | = BIG => GOOD
+|         |         |         |         | = MED 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => GOOD
+|         |         |         |         |         | = 4 => GOOD
+|         |         |         |         |         | = 3 => GOOD
+|         |         |         |         |         | = 2 => GOOD
+|         |         |         |         | = SMALL => ACC
+|         |         |         | = MED => ACC
+|         |         |         | = HIGH 
+|         |         |         |         SIZE-LUGGAGE
+|         |         |         |         | = BIG => ACC
+|         |         |         |         | = MED 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => ACC
+|         |         |         |         |         | = 4 => ACC
+|         |         |         |         |         | = 3 => ACC
+|         |         |         |         |         | = 2 => ACC
+|         |         |         |         | = SMALL => UNACC
+|         |         |         | = VHIGH 
+|         |         |         |         SIZE-LUGGAGE
+|         |         |         |         | = BIG => ACC
+|         |         |         |         | = MED 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => ACC
+|         |         |         |         |         | = 4 => ACC
+|         |         |         |         |         | = 3 => ACC
+|         |         |         |         |         | = 2 => ACC
+|         |         |         |         | = SMALL => UNACC
+|         |         | = HIGH 
+|         |         |         SIZE-LUGGAGE
+|         |         |         | = BIG 
+|         |         |         |         MAINT-PRICE
+|         |         |         |         | = LOW => ACC
+|         |         |         |         | = MED => ACC
+|         |         |         |         | = HIGH => ACC
+|         |         |         |         | = VHIGH => UNACC
+|         |         |         | = MED 
+|         |         |         |         NR-DOORS
+|         |         |         |         | = 5MORE 
+|         |         |         |         |         MAINT-PRICE
+|         |         |         |         |         | = LOW => ACC
+|         |         |         |         |         | = MED => ACC
+|         |         |         |         |         | = HIGH => ACC
+|         |         |         |         |         | = VHIGH => ACC
+|         |         |         |         | = 4 
+|         |         |         |         |         MAINT-PRICE
+|         |         |         |         |         | = LOW => ACC
+|         |         |         |         |         | = MED => ACC
+|         |         |         |         |         | = HIGH => ACC
+|         |         |         |         |         | = VHIGH => ACC
+|         |         |         |         | = 3 => UNACC
+|         |         |         |         | = 2 => UNACC
+|         |         |         | = SMALL => UNACC
+|         |         | = VHIGH 
+|         |         |         MAINT-PRICE
+|         |         |         | = LOW 
+|         |         |         |         SIZE-LUGGAGE
+|         |         |         |         | = BIG => ACC
+|         |         |         |         | = MED 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => ACC
+|         |         |         |         |         | = 4 => ACC
+|         |         |         |         |         | = 3 => ACC
+|         |         |         |         |         | = 2 => ACC
+|         |         |         |         | = SMALL => UNACC
+|         |         |         | = MED 
+|         |         |         |         SIZE-LUGGAGE
+|         |         |         |         | = BIG => ACC
+|         |         |         |         | = MED 
+|         |         |         |         |         NR-DOORS
+|         |         |         |         |         | = 5MORE => ACC
+|         |         |         |         |         | = 4 => ACC
+|         |         |         |         |         | = 3 => ACC
+|         |         |         |         |         | = 2 => ACC
+|         |         |         |         | = SMALL => UNACC
+|         |         |         | = HIGH => UNACC
+|         |         |         | = VHIGH => UNACC
+|         | = 2 => UNACC
+| = LOW => UNACC
