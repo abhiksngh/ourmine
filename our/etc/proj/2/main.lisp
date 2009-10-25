@@ -43,8 +43,7 @@
                         "preprocessors/sort"
                         "preprocessors/nvalues"
                         "preprocessors/numericvalue"
-                        "preprocessors/knn"
-                        "classifiers/hyperpipes"
+                        "clusterers/knn"
                         "classifiers/nb"
                         ))
 

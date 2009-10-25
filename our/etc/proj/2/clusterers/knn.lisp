@@ -11,6 +11,9 @@
 (defun doNothing (test train &rest func)
   (values test train))
 
+(defun best-k ()
+  (
+
 (defun k-nearest-per-instance(instance table &optional (distfunc #'eucDistance))
   ;;Set the class to a numeric, so we don't have to build code to handle a single discrete at the end of a line.  This zero will have no impact on the distance.
   (let* ((instance (eg-features instance))
