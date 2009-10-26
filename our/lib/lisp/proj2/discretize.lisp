@@ -16,6 +16,7 @@
               (incf counter)))))))
 
 
+
 (defun get-col-maxmin (dataset &optional (colnum 0))
   "returns the max and min values (out of all classes) in a column"
   (let* ((umin)

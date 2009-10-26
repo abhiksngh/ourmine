@@ -1,0 +1,18 @@
+(defun utilscore (dataset &optional bin)
+  "replaces each class symbol with a utility score and sorts"
+  (let* ((data (table-egs-to-lists dataset))
+         (classes (klasses dataset))
+         (class-col (table-class dataset))
+         (inst-score)
+         (sorted-data '())
+         (util-score '()))
+    (setf util-score (acons (car classes) 0 util-score))
+    (setf util-score (acons (car (cdr classes)) 1 util-score))
+    (dolist (instance data)
+      (setf inst-score (cdr (assoc (nth class-col instance) util-score)))
+      (setf (nth class-col instance) inst-score)
+      (if (= inst-score 1)
+          (setf sorted-data (append sorted-data (list instance)))
+          (setf sorted-data (append (list instance) sorted-data))))
+    (make-simple-table (table-name dataset) (table-columns dataset) sorted-data)))
+
