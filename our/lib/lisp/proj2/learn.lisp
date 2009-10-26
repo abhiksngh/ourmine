@@ -18,6 +18,7 @@
   (format st str)
   (close st))
 
+
 (defun test-all (train &optional (times 10) (k 1) (n 5))
   (let* (disc-nb disc-info disc-info-nb)
     (setf disc-nb (test-no-disc-centroid-nb train times k))
@@ -31,6 +32,14 @@
    ; (format t "Disc, Infogain (n=~A), Cluster (k=~A), Nb ~A~%" n k (median disc-info 3))))
    ;(format t "Disc, Infogain (n=~A), No Clustering, Nb ~A~%" n (median disc-info-nb 3))))
 ;;testing: No Discretization on the data. Naive Bayes learner
+
+(defun test-prism-infogain (train &optional (times 1) (n 5))
+  (let* ((results))
+    (dotimes (i times (blowup-bins results))
+      (let* ((copy (make-simple-table (table-name train) (table-columns train) (table-egs-to-lists train)))
+             (disc-copy (xindex copy)))
+        (setf results (append results (list (disc-infogain-prism disc-copy n))))))))
+              
 (defun test-no-disc-centroid-nb (train &optional (times 1) (k 1))
   (let* ((results))
     (dotimes (i times (blowup-bins results))
@@ -84,6 +93,18 @@
     (setf newdata (get-wanted-cols train best-cols))
     (setf newtable (make-desc-table (table-name train) newcols newdata))
     (no-disc-centroid-nb newtable)))
+
+(defun disc-infogain-prism(train n)
+  (let* ((best-cols (extract-best-cols (infogain (table-egs-to-lists train)) (table-egs-to-lists train) n))
+         (train-cols (table-columns train))
+         (newdata)
+         (newtable)
+         (newcols '()))
+    (dolist (col best-cols)
+      (setf newcols (cons (nth col train-cols) newcols)))
+    (setf newdata (get-wanted-cols train best-cols))
+    (setf newtable (make-desc-table (table-name train) newcols newdata))
+    (prism (xindex newtable))))
 
 (defun split (lst)
   (let ((out))
