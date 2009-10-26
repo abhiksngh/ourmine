@@ -36,7 +36,6 @@
                         (funcall (nth i testList))))
            (trainSet (funcall prep trainSet))
            (testSet (funcall prep testSet))
-           (resultSet)
            (trueResult (make-list 4 :initial-element 0))
            (falseResult (make-list 4 :initial-element 0)))
       (multiple-value-bind (trainSet testSet)
@@ -44,10 +43,10 @@
         (setf trainSet (funcall rowReducer trainSet testSet))
         (multiple-value-bind (trainSet testSet)
             (funcall discretizer trainSet testSet)
-          (print trainSet)
           (doitems (per-test i (table-all testSet))
-            (let* ((nearestTrain (subseq (dolist (each-item (k-nearest-per-instance per-test trainSet) resultSet)
-                                   (push (eg-features(nth (first each-item) (table-all trainSet))) resultSet)) 0 (1- k)))
+            (let* ((resultSet)
+                   (nearestTrain (subseq (dolist (each-item (k-nearest-per-instance per-test trainSet) (reverse resultSet))
+                                   (push (eg-features(nth (first each-item) (table-all trainSet))) resultSet )) 0 k))
                    (currentTrainSet (build-a-data (table-name trainSet) (columns-header (table-columns trainSet)) nearestTrain))
                    (currentTestSet (build-a-data (table-name testSet) (columns-header (table-columns testSet)) (list (eg-features per-test)))))
               (multiple-value-bind (trueAnswer falseAnswer) (funcall classify currentTrainSet currentTestSet)
@@ -71,20 +70,18 @@
          (doitems (per-attribute n per-instance-features)
            (if (numericp (nth n (columns-header (table-columns xtable))))
                (push (- (nth n instance) per-attribute) distanceList)
-               (if (equal (nth n instance) per-attribute)
+               (if (eql (nth n instance) per-attribute)
                    (push 0 distanceList)
                    (push 1 distanceList)))
            (setf (gethash i resultHash) (funcall distfunc distanceList)))))
       ;;Create a list of the k closest neighbors. Working the Lisp-fu.
       (maphash #'(lambda (key value)
-                   (if (not(= value 0))
-                       (setf cozyNeighborList (append (list (list key value)) cozyNeighborList))))
+                   (setf cozyNeighborList (append (list (list key value)) cozyNeighborList)))
                resultHash)
       (sort cozyNeighborList #'< :key #'second)))
 
 (deftest test-knear()
-  (let* ((train  (xindex(build-a-data 'TRAIN (list '$a '$b '$c '$d) (list
-                                                       '(1 1 1 1)
+  (let* ((trainNumeric  (xindex(build-a-data 'TRAIN (list '$a '$b '$c '$d) (list
                                                        '(1.1 1.1 1.1 1.1)
                                                        '(1.2 1.2 1.2 1.2)
                                                        '(1.3 1.3 1.3 1.3)
@@ -100,9 +97,9 @@
 							'(1 1 1 1))))))
     (check
       (equal
-       (k-nearest-per-instance (nth 0 (table-all test)) train)
-       '((10 0.20000005) (9 0.4000001) (8 0.5999999) (7 0.79999995) (6 1.0)
- (5 1.2) (4 1.4000001) (3 1.5999999) (2 1.8) (1 2.0) (0 8.0))))))
+       (k-nearest-per-instance (nth 0 (table-all test)) trainNumeric)
+       '((0 0.20000005) (1 0.4000001) (2 0.5999999) (3 0.79999995) (4 1.0)
+ (5 1.2) (6 1.4000001) (7 1.5999999) (8 1.8) (9 2.0) (10 8.0))))))
        
 
 ;;Burak Filter
@@ -186,7 +183,7 @@
   (data
    :name name
    :columns columns
-   :egs egs))
+   :egs (reverse egs)))
   
 ;;Normalize numeric data functions!  xindex is sweeeeeeeeeeet...
 (defun normalizeData(table)
