@@ -1,4 +1,4 @@
-(defun doNothing (table &rest func )
+(defun doNothing (table &rest func)
   table)
 
 (deftest test-nothing()
@@ -11,8 +11,52 @@
 (defun doNothing (test train &rest func)
   (values test train))
 
-(defun best-k ()
-  (
+(defun addLists (list1 list2)
+  (let* ((returnList))
+    (doitems (per-list1 i list1 returnList)
+      (setf (nth i returnList) (+ per-list1 (nth i list2))))))
+
+(defun knn-learn(trainList testList
+                  &key (prep #'numval1)
+                       (norm #'normalizedatatrainandtest)
+                       (k    8)
+                       (rowReducer #'donothing)
+                       (discretizer #'equal-width-train-test)
+                       (classify  #'nb))
+  (when (not (listp trainList))
+    (setf trainList (list trainList)))
+  (when (not (listp testList))
+    (setf testList (list testList)))
+  (doitems (per-data-train i trainList)
+    (let* ((trainSet (if (tablep per-data-train)
+                         per-data-train
+                         (funcall per-data-train)))
+           (testSet (if (tablep (nth i testList))
+                        (nth i testList)
+                        (funcall (nth i testList))))
+           (trainSet (funcall prep trainSet))
+           (testSet (funcall prep testSet))
+           (trueResult (make-list 4 :initial-element 0))
+           (falseResult (make-list 4 :initial-element 0)))
+      (multiple-value-bind (trainSet testSet)
+          (funcall norm trainSet testSet)
+        (setf trainSet (funcall rowReducer trainSet testSet))
+        (multiple-value-bind (trainSet testSet)
+            (funcall discretizer trainSet testSet)
+          (doitems (per-test i testSet)
+            (let* ((nearestTrain (dolist (each-item (k-nearest-per-instance (eg-features per-test) trainSet resultSet))
+                                   (push (nth (first each-item) trainSet) resultSet)))
+                   (currentTrainSet (build-a-data (table-name trainSet) (columns-header (table-columns trainSet)) nearestTrain))
+                   (currentTestSet (build-a-data (table-name testSet) (columns-header (table-columns testSet)) per-test)))
+              (multiple-value-bind (trueAnswer falseAnswer) (funcall classify currentTrainSet currentTestSet)
+                (progn
+                  (setf ((trueResult (addLists trueResult trueAnswer))))
+                  (setf ((falseResult (addLists falseResult falseAnswer))))))))))
+      (printLine t 'TRUE trueResult)
+      (printLine t 'FALSE falseResult))))
+        
+                  
+                
 
 (defun k-nearest-per-instance(instance table &optional (distfunc #'eucDistance))
   ;;Set the class to a numeric, so we don't have to build code to handle a single discrete at the end of a line.  This zero will have no impact on the distance.
@@ -27,7 +71,8 @@
              (distanceList))
          (doitems (per-attribute n per-instance)
            (if (numberp per-attribute)
-               (push (- (nth n instance) per-attribute) distanceList)))
+               (push (- (nth n instance) per-attribute) distanceList)
+               
          (setf (gethash i resultHash) (funcall distfunc distanceList))))
     ;;Create a list of the k closest neighbors. Working the Lisp-fu.
     (maphash #'(lambda (key value)
