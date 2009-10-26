@@ -26,7 +26,7 @@
 (defun combined_KC3 ()
   (data
    :name 'combined_KC3
-   :columns '($loc $v(g) $ev(g) $iv(g) $v $l $d $i $e $b $t $lOCode $lOCcomment $locCodeAndComment $uniq_Op $uniq_Opnd $total_Opnd $branchCount defects)
+   :columns '(loc v(g) ev(g) iv(g) v l d i e b t lOCode lOCcomment locCodeAndComment uniq_Op uniq_Opnd total_Opnd branchCount defects)
    :egs
    '(
 (1.1 1.4 1.4 1.4 1.3 1.3 1.3 1.3 1.3 1.3 1.3 2 2 2 1.2 1.2 1.2 1.2 1.4 false)

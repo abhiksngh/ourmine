@@ -25,7 +25,7 @@
 (defun combined_PC1 ()
   (data
    :name 'combined_PC1
-   :columns '($loc $v(g) $ev(g) $iv(g) $v $l $d $i $e $b $t $lOCode $lOCcomment $locCodeAndComment $uniq_Op $uniq_Opnd $total_Opnd $branchCount defects)
+   :columns '(loc v(g) ev(g) iv(g) v l d i e b t lOCode lOCcomment locCodeAndComment uniq_Op uniq_Opnd total_Opnd branchCount defects)
    :egs
    '( 
 
