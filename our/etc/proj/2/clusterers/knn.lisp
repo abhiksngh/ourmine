@@ -12,7 +12,7 @@
   (values test train))
 
 (defun addLists (list1 list2)
-  (let* ((returnList))
+  (let* ((returnList (make-list 4)))
     (doitems (per-list1 i list1 returnList)
       (setf (nth i returnList) (+ per-list1 (nth i list2))))))
 
@@ -36,6 +36,7 @@
                         (funcall (nth i testList))))
            (trainSet (funcall prep trainSet))
            (testSet (funcall prep testSet))
+           (resultSet)
            (trueResult (make-list 4 :initial-element 0))
            (falseResult (make-list 4 :initial-element 0)))
       (multiple-value-bind (trainSet testSet)
@@ -50,14 +51,11 @@
                    (currentTestSet (build-a-data (table-name testSet) (columns-header (table-columns testSet)) per-test)))
               (multiple-value-bind (trueAnswer falseAnswer) (funcall classify currentTrainSet currentTestSet)
                 (progn
-                  (setf ((trueResult (addLists trueResult trueAnswer))))
-                  (setf ((falseResult (addLists falseResult falseAnswer))))))))))
+                  (setf trueResult (addLists trueResult trueAnswer))
+                  (setf falseResult (addLists falseResult falseAnswer))))))))
       (printLine t 'TRUE trueResult)
       (printLine t 'FALSE falseResult))))
         
-                  
-                
-
 (defun k-nearest-per-instance(instance table &optional (distfunc #'eucDistance))
   ;;Set the class to a numeric, so we don't have to build code to handle a single discrete at the end of a line.  This zero will have no impact on the distance.
   (let* ((instance (eg-features instance))
@@ -79,7 +77,7 @@
                  (if (not(= value 0))
                  (setf cozyNeighborList (append (list (list key value)) cozyNeighborList))))
                  resultHash)
-    (sort cozyNeighborList #'< :key #'second)))
+    (sort cozyNeighborList #'< :key #'second)))))
 
 (deftest test-knear()
   (let* ((train  (xindex(build-a-data 'TRAIN (list '$a '$b '$c '$d) (list
