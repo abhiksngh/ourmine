@@ -1,4 +1,4 @@
-(defun utilscore (dataset &optional bin)
+(defun utilscore (dataset)
   "replaces each class symbol with a utility score and sorts"
   (let* ((data (table-egs-to-lists dataset))
          (classes (klasses dataset))
