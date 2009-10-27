@@ -17,21 +17,27 @@
 			"table/table"
 			"table/xindex"
 			"learn/nb"
-                        "fill-in"
-                        "infogain"
-                        "nbins"
-                        "naivebayes"
+                        "utilities"
+                        ;"normalize"
+                        ;"n-chops"
+                        ;"b-squared
+                        ;"grid"
+                        ;"kmeans" ; need to get this working from 2
+                        ;"Whatever classifer Will is doing"
+                        ;"kth-nearest"
                         
                         "tests/data/additionalbolts"
                         "tests/data/anneal"
                         "tests/data/fishcatch"
+                        "tests/data/primary-tumor"
+                        "tests/data/pollution"
+                        "tests/data/housing"
+                        "tests/data/soybean"
+                        "tests/data/waveform"
+                        "tests/data/basketball"
+                        "tests/data/sick"
+                        "tests/data/elusage"
                         
-;<<<<<<< .mine
-;			"fill-in"
-;=======
-                       
-;>>>>>>> .r1525
-
 			))
 
 (defun make1 (files)
