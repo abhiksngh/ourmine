@@ -178,8 +178,8 @@
         (6 1 2 54 20/21 27/28 54/55 1/4 36/37 108/271)))))
 
 (defun learn (train test &key (k 1)
-                              (prep #'identity)
                               (discretizer #'identity)
+                              (prep #'identity)
                               (clusterer #'default-clusterer)
                               (fss #'identity)
                               (classifier-train #'identity)

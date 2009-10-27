@@ -24,6 +24,16 @@
 			"data/ar3"
 			"data/ar4"
 			"data/ar5"
+			"data/ar3short"
+			"data/ar4short"
+			"data/ar5short"
+			"data/pc1short"
+			"data/cm1short"
+			"data/kc1short"
+			"data/kc2short"
+			"data/kc3short"
+			"data/mc2short"
+			"data/mw1short"
 			))
 
 (defun make1 (files)
