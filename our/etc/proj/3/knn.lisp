@@ -3,7 +3,7 @@
 (defun euclid-distance (row1 row2 tbl)
   (sqrt (reduce #'+
                 (mapcar #'(lambda (v1 v2 column-header)
-                          (if (and (column-header-numericp column-header)
+                          (if (and (column-header-orderedp column-header)
                                    (not (column-header-classp column-header)))
                             (expt (- v2 v1) 2)
                             0))
