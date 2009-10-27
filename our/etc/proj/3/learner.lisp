@@ -1,3 +1,4 @@
+;;Returns k randomly selected rows from tbl.
 (defun get-k-instances (tbl k)
   (setf tbl (table-deep-copy tbl))
   (let ((all-rows (get-table-rows tbl))
@@ -8,6 +9,7 @@
         (setf all-rows (remove (nth randomi all-rows) all-rows))))
     select-rows))
 
+;;Returns the centroid that is closest to row.
 (defun get-nearest-centroid (tbl row centroids)
   (let ((nearest-centroid nil)
         (nearest-centroid-distance most-positive-fixnum))
@@ -18,12 +20,14 @@
                 nearest-centroid centroid))))
     nearest-centroid))
 
+;;Returns the mean of the values in columni if it is an ordered column.
 (defun get-column-average (rows columni)
   (let ((sum 0))
     (dolist (row rows)
       (incf sum (nth columni (eg-features row))))
     (/ sum (length rows))))
 
+;;Returns a new centroid for each centroid in centroid-rows.
 (defun get-new-centroids (tbl centroid-rows)
   (let ((new-centroids nil))
     (maphash #'(lambda (k v) 
@@ -35,6 +39,7 @@
              centroid-rows)
     new-centroids))
 
+;;Returns a new table structure for each centroid in centroid-rows.
 (defun get-new-clusters (tbl centroid-rows)
   (let ((new-clusters nil))
     (maphash #'(lambda (k v)
@@ -45,6 +50,7 @@
              centroid-rows)
     new-clusters))
 
+;;Returns a list of k table structures.
 (defun kmeans (tbl k)
   (setf tbl (table-deep-copy tbl))
   (let ((centroids (get-k-instances tbl k))
