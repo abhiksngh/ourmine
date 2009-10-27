@@ -1,0 +1,32 @@
+(defstruct
+    (cluster
+      (:constructor new-cluster (centroid)))
+  centroid cluster)
+
+(defun kmeans-learn (trainList testList &key
+                     (prep #'numval1)
+                     (norm #'normalizedatatestandtrain)
+                     (k 8)
+                     (rowReducer #'donothing)
+                     (discretizer #'equal-width-train-test)
+                     (classify #'nb))
+  (when (not (listp trainList))
+    (setf trainList (list trainList)))
+  (when (not (listp testList))
+    (setf testList (list testList)))
+  (doitems (per-data-train i trainList)
+    (let* ((trainSet (if (tablep per-data-train)
+                         per-data-train
+                         (funcall per-data-train)))
+           (testSet (if (tablep (nth i testList))
+                        (nth i testList)
+                        (funcall (nth i testList))))
+           (trainSet (funcall prep trainSet))
+           (testSet (funcall prep testSet))
+           (trueResult (make-list 4 :initial-element 0))
+           (falseResult (make-list 4 :initial-element 0)))
+      (multiple-value-bind (trainSet testSet)
+          (funcall norm trainSet testSet)
+        (setf trainSet (funcall rowReducer trainSet testSet))
+        (multiple-value-bind (trainSet testSet)
+            (funcall discretizer trainSet testSet)
