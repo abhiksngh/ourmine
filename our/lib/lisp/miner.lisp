@@ -63,6 +63,7 @@
                         "proj2/data/shared_MW1"
                         "proj2/util"
                         "proj3/prism"
+                        "proj3/split-tables"
                         ;"proj3/mlh2/entropy"
                         ;"proj3/mlh2/classify-id3"
                         ;"proj3/mlh2/id3"
