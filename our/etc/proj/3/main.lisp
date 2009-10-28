@@ -16,11 +16,6 @@
 			"../../../../lib/lisp/table/table"
 			"../../../../lib/lisp/table/xindex"
 			"../../../../lib/lisp/learn/nb"
-			"knn"
-			"learner"
-			"discretize"
-			"preprocessor"
-			"util"
 			"data/ar3"
 			"data/ar4"
 			"data/ar5"
@@ -34,6 +29,11 @@
 			"data/kc3short"
 			"data/mc2short"
 			"data/mw1short"
+			"util"
+			"knn"
+			"discretize"
+			"preprocessor"
+  		"learner"
 			))
 
 (defun make1 (files)

@@ -6,6 +6,13 @@
         (if val (push val acc))))
     (nreverse acc)))
 
+;;Returns the name of a function object.
+(defun function-name (fobject)
+  (do-all-symbols (fsymbol)
+    (when (and (fboundp fsymbol)
+               (eq (symbol-function fsymbol) fobject))
+      (return fsymbol))))
+
 ;;Returns a complete copy of a discrete column header and all of its members
 ;;except f.
 (defmethod header-deep-copy ((column discrete))

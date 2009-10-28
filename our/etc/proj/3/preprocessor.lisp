@@ -108,18 +108,18 @@
 ;;Takes a table structure and randomly removes instances from the non-minority classes
 ;;until all classes have the same frequency.
 ;;Returns a modified copy of the table structure.
-(defun sub-sample (tbl)
-  (setf tbl (table-deep-copy tbl))
-  (multiple-value-bind (mclass mcount) (find-minority-class tbl)
-    (dolist (klass (remove mclass (klasses tbl)))
+(defun sub-sample (train &optional test)
+  (setf train (table-deep-copy train))
+  (multiple-value-bind (mclass mcount) (find-minority-class train)
+    (dolist (klass (remove mclass (klasses train)))
       (do ((rows-removed 0)
-           (classi (table-class tbl)))
-          ((>= rows-removed (- (gethash (list klass klass) (header-f (table-class-header tbl))) mcount)))
-          (let ((randomi (random (length (table-all tbl)))))
-            (cond ((equalp klass (nth classi (eg-features (nth randomi (table-all tbl)))))
-                    (setf (table-all tbl) (delete (nth randomi (table-all tbl)) (table-all tbl)))
+           (classi (table-class train)))
+          ((>= rows-removed (- (gethash (list klass klass) (header-f (table-class-header train))) mcount)))
+          (let ((randomi (random (length (table-all train)))))
+            (cond ((equalp klass (nth classi (eg-features (nth randomi (table-all train)))))
+                    (setf (table-all train) (delete (nth randomi (table-all train)) (table-all train)))
                     (incf rows-removed))))))
-    tbl))
+    train))
 
 (deftest sub-sample-test ()
   (check
