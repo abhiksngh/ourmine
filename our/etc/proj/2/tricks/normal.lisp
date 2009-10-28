@@ -14,13 +14,22 @@
   x)
 
 (defmethod mean ((n normal))
-  (/  (normal-sum n) (normal-n n)))
+  (condition-case nil
+      (/  (normal-sum n) (normal-n n))
+    (arith-error
+     1)))
 
 (defmethod stdev ((n normal))
   (let ((sum   (normal-sum n)) 
 	(sumSq (normal-sumSq n))
 	(n     (normal-n n)))
-    (sqrt (/ (- sumSq(/ (square sum) n)) (- n 1)))))
+    (sqrt (/ (- sumSq
+                (condition-case nil
+                    (/ (square sum) n)
+                (arith-error (/ (square sum) 1)))
+                (- (if (= n 1)
+                       2
+                       n) 1))))))
 
 (defmethod pdf ((n normal) x)
   (let ((mu     (mean n))
