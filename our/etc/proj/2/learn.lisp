@@ -16,35 +16,45 @@
 )
 
 (defun masslearn ()
-    (runlearnset nil "nv_norm_not_freq.dat" 
-                 :rowReducer #'donothing1 
-                 :discretizer #'equal-freq-train-test)
+;    (runlearnset nil "nv_norm_not_freq.dat" 
+;                 :rowReducer #'donothing1 
+;                 :discretizer #'equal-freq-train-test)
     (runlearnset nil "nv_norm_not_width.dat" 
                  :rowReducer #'donothing1 
                  :discretizer #'equal-width-train-test)
-    (runlearnset t "nv_norm_not_freq_bsq.dat" 
-                 :rowReducer #'donothing1 
-                 :discretizer #'equal-freq-train-test)
-    (runlearnset t "nv_norm_not_width_bsq.dat" 
-                 :rowReducer #'donothing1 
-                 :discretizer #'equal-width-train-test)
-    (runlearnset nil "nv_norm_sub_freq.dat" 
-                 :rowReducer #'sub-sample 
-                 :discretizer #'equal-freq-train-test)
-    (runlearnset nil "nv_norm_sub_width.dat" 
-                 :rowReducer #'sub-sample 
-                 :discretizer #'equal-width-train-test)
-    (runlearnset t "nv_norm_sub_freq_bsq.dat" 
-                 :rowReducer #'sub-sample 
-                 :discretizer #'equal-freq-train-test)
-    (runlearnset t "nv_norm_sub_width_bsq.dat" 
-                 :rowReducer #'sub-sample 
-                 :discretizer #'equal-width-train-test)
-    (runlearnset nil "baseline.dat" 
-                 :norm #'donothing
-                 :rowReducer #'donothing1
-                 :discretizer #'donothing)                                     
+;    (runlearnset t "nv_norm_not_freq_bsq.dat" 
+;                 :rowReducer #'donothing1 
+;                 :discretizer #'equal-freq-train-test)
+;    (runlearnset t "nv_norm_not_width_bsq.dat" 
+;                 :rowReducer #'donothing1 
+;                 :discretizer #'equal-width-train-test)
+;    (runlearnset nil "nv_norm_sub_freq.dat" 
+;                 :rowReducer #'sub-sample 
+;                 :discretizer #'equal-freq-train-test)
+;    (runlearnset nil "nv_norm_sub_width.dat" 
+;                 :rowReducer #'sub-sample 
+;                 :discretizer #'equal-width-train-test)
+;    (runlearnset t "nv_norm_sub_freq_bsq.dat" 
+;                 :rowReducer #'sub-sample 
+;                 :discretizer #'equal-freq-train-test)
+;    (runlearnset t "nv_norm_sub_width_bsq.dat" 
+;                 :rowReducer #'sub-sample 
+;                 :discretizer #'equal-width-train-test)
+;    (runlearnset nil "nv_norm_bur_freq.dat"
+;                 :rowReducer #'burak
+;                 :discretizer #'equal-freq-train-test)
+;    (runlearnset nil "nv_norm_bur_width.dat"
+;                 :rowReducer #'burak
+;                 :discretizer #'equal-width-train-test)
+;    (runlearnset t "nv_norm_bur_freq_bsq.dat"
+;                 :rowReducer #'burak
+;                 :discretizer #'equal-freq-train-test)
+;    (runlearnset t "nv_norm_bur_width_bsq.dat"
+;                 :rowReducer #'burak
+;                 :discretizer #'equal-width-train-test)
+
 )
+
 
 (defun runLearnSet(&optional (bsq nil) (filename "output.dat")
                    &key (prep #'numval1)
@@ -68,9 +78,9 @@
         (dolist (per-set setList)
             (format stream "~A~%" (parse-name per-set))
             (multiple-value-bind (trainList testList) 
-                (bins (funcall per-set))               ; no col reduction
-                (when bsq 
+                (if bsq 
                     (bins (b-squared(funcall per-set)))   ; b-squared col red
+                    (bins (funcall per-set))               ; no col reduction
                 )
                 (learn trainList testList stream :norm norm
                                                  :rowReducer rowReducer 
@@ -106,13 +116,13 @@
                             (funcall (nth i testList))))
                (trainSet (funcall prep trainSet))
                (testSet (funcall prep testSet)))
-           
+
             ; normalize both train and test data sets
             (multiple-value-bind (trainSet testSet) 
                 (funcall norm trainSet testSet)
 
                 ; perform row reduction on train set
-                (setf trainSet (funcall rowReducer trainSet))
+                (setf trainSet (funcall rowReducer trainSet testSet))
 
                     ; perform discretization on both data sets
                 (multiple-value-bind (trainSet testSet) 
@@ -214,7 +224,19 @@
        (+ a c))))
 
 (defun f-calc (a b c d)
-  (/ (* 2 (prec a b c d) (acc a b c d)) (+ (prec a b c d) (acc a b c d))))
+(let* ((a (if (eql a 0)
+              1
+              a))
+       (b (if (eql b 0)
+              1
+              b))
+       (c (if (eql c 0)
+              1
+              c))
+       (d (if (eql d 0)
+              1
+              d)))
+  (/ (* 2 (prec a b c d) (acc a b c d)) (+ (prec a b c d) (acc a b c d)))))
 
 (defun g (a b c d)
 (let* ((a (if (eql a 0)

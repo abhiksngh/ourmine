@@ -16,7 +16,7 @@
     (doitems (per-list1 i list1 returnList)
       (setf (nth i returnList) (+ per-list1 (nth i list2))))))
 
-(defun knn-learn(trainList testList
+(defun knn-learn(trainList testList &optional (stream t)
                   &key (prep #'numval1)
                        (norm #'normalizedatatrainandtest)
                        (k    8)
@@ -53,8 +53,8 @@
                 (progn
                   (setf trueResult (addLists trueResult trueAnswer))
                   (setf falseResult (addLists falseResult falseAnswer))))))))
-      (printLine t 'TRUE trueResult)
-      (printLine t 'FALSE falseResult))))
+      (printLine stream 'TRUE trueResult)
+      (printLine stream 'FALSE falseResult))))
         
 (defun k-nearest-per-instance(instance table &optional (distfunc #'eucDistance))
   ;;Set the class to a numeric, so we don't have to build code to handle a single discrete at the end of a line.  This zero will have no impact on the distance.

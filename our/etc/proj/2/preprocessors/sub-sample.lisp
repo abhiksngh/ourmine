@@ -1,6 +1,6 @@
 ; row reduction, defaults to subsampling
 ; if a "micro" value is supplied, microsampling is used
-(defun sub-sample (data &optional micro)
+(defun sub-sample (data empty &optional micro)
     (let* ((sorted-data (sort-table data))
            (all-instances (table-all sorted-data))
            (sampled-data)
