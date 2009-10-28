@@ -19,9 +19,9 @@
 ;    (runlearnset nil "nv_norm_not_freq.dat" 
 ;                 :rowReducer #'donothing1 
 ;                 :discretizer #'equal-freq-train-test)
-    (runlearnset nil "nv_norm_not_width.dat" 
-                 :rowReducer #'donothing1 
-                 :discretizer #'equal-width-train-test)
+;    (runlearnset nil "nv_norm_not_width.dat" 
+;                 :rowReducer #'donothing1 
+;                 :discretizer #'equal-width-train-test)
 ;    (runlearnset t "nv_norm_not_freq_bsq.dat" 
 ;                 :rowReducer #'donothing1 
 ;                 :discretizer #'equal-freq-train-test)
@@ -52,6 +52,10 @@
 ;    (runlearnset t "nv_norm_bur_width_bsq.dat"
 ;                 :rowReducer #'burak
 ;                 :discretizer #'equal-width-train-test)
+    (runlearnset nil "baseline.dat"
+                 :norm #'donothing
+                 :rowReducer #'donothing
+                 :discretizer #'donothing)
 
 )
 
@@ -82,7 +86,8 @@
                     (bins (b-squared(funcall per-set)))   ; b-squared col red
                     (bins (funcall per-set))               ; no col reduction
                 )
-                (learn trainList testList stream :norm norm
+                (learn trainList testList stream :prep prep
+                                                 :norm norm
                                                  :rowReducer rowReducer 
                                                  :discretizer discretizer)
                 (format stream "~%")
