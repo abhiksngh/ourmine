@@ -49,6 +49,7 @@
                                    (push (eg-features(nth (first each-item) (table-all trainSet))) resultSet )) 0 k))
                    (currentTrainSet (build-a-data (table-name trainSet) (columns-header (table-columns trainSet)) nearestTrain))
                    (currentTestSet (build-a-data (table-name testSet) (columns-header (table-columns testSet)) (list (eg-features per-test)))))
+              (print i)
               (multiple-value-bind (trueAnswer falseAnswer) (funcall classify currentTrainSet currentTestSet)
                 (progn
                   (setf trueResult (addLists trueResult trueAnswer))

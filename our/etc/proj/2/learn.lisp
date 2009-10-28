@@ -16,17 +16,19 @@
 )
 
 (defun runLearnSet(&optional (stream t))
-    (let* ((setList (list #'shared-cm1 #'shared-kc1 #'shared-kc2 #'shared-kc3 #'shared-mw1 #'shared-mc2 #'shared-pc1)))
+  (let* ((rowReduceList (list #'donothing #'burak)))
+    (dolist (per-rowReduce rowReduceList)
+      (let* ((setList (list #'shared-cm1 #'shared-kc1 #'shared-kc2 #'shared-kc3 #'shared-mw1 #'shared-mc2 #'shared-pc1)))
         (dolist (per-set setList)
             (format stream "~A~%" (parse-name per-set))
             (multiple-value-bind (trainList testList) 
                                  (bins (b-squared(funcall per-set)))
-                (learn trainList testList stream)
+                (learn trainList testList stream :rowReducer per-rowReduce))
                 (format stream "~%")
             )
         )
     )
-)
+))
 
 (defun learn (trainList
               testList
