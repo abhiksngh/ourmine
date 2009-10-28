@@ -9,7 +9,7 @@
 		    header
 		    (eg-features per-instance))
 	    eg-set))
-    (data :name 'log-set
+    (data :name (format nil "~A_~A" (table-name data) "log-set")
 	  :columns (columns-header (table-columns data))
 	  :egs eg-set)))
 

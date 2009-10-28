@@ -9,9 +9,8 @@
            (class-count 0)
            (prev (last (eg-features (nth 0 (table-all (xindex sorted-data)))))))
 
-        (if micro
-          (setf least micro)
-          (progn 
+    (if (>= (negs data) 10)
+        (progn 
             ; find the class that occurs least frequently and record its count
             (doitems (per-instance i all-instances)
                 (setf curr (last (eg-features (nth i (table-all sorted-data)))))
@@ -25,7 +24,9 @@
                 (setf prev curr)
             )
             (setf least (min class-count least)) ; the least count
-          ))
+
+           (when micro
+               (setf least (max least micro)))
           
 
         ; copy no more than "least" of each class to a new table
@@ -41,8 +42,9 @@
         )
         (data :name 'sub-sampled-data
           :columns (columns-header (table-columns data))
-          :egs sampled-data)
-    )
+          :egs sampled-data))
+    data
+    ))
 )
 
 (deftest test-sub-sampling ()

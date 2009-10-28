@@ -15,27 +15,74 @@
     )
 )
 
-(defun runLearnSet(&optional (stream t))
-  (let* ((rowReduceList (list #'donothing #'burak)))
-    (dolist (per-rowReduce rowReduceList)
-      (let* ((setList (list #'shared-cm1 #'shared-kc1 #'shared-kc2 #'shared-kc3 #'shared-mw1 #'shared-mc2 #'shared-pc1)))
+(defun masslearn ()
+    (runlearnset nil "nv_norm_not_freq.dat" 
+                 :rowReducer #'donothing1 
+                 :discretizer #'equal-freq-train-test)
+    (runlearnset nil "nv_norm_not_width.dat" 
+                 :rowReducer #'donothing1 
+                 :discretizer #'equal-width-train-test)
+    (runlearnset t "nv_norm_not_freq_bsq" 
+                 :rowReducer #'donothing1 
+                 :discretizer #'equal-freq-train-test)
+    (runlearnset t "nv_norm_not_width_bsq.dat" 
+                 :rowReducer #'donothing1 
+                 :discretizer #'equal-width-train-test)
+    (runlearnset nil "nv_norm_sub_freq.dat" 
+                 :rowReducer #'sub-sample 
+                 :discretizer #'equal-freq-train-test)
+    (runlearnset nil "nv_norm_sub_width.dat" 
+                 :rowReducer #'sub-sample 
+                 :discretizer #'equal-width-train-test)
+    (runlearnset t "nv_norm_sub_freq_bsq" 
+                 :rowReducer #'sub-sample 
+                 :discretizer #'equal-freq-train-test)
+    (runlearnset t "nv_norm_sub_width_bsq.dat" 
+                 :rowReducer #'sub-sample 
+                 :discretizer #'equal-width-train-test)
+)
+
+(defun runLearnSet(&optional (bsq nil) (filename "output.dat")
+                   &key (prep #'numval1)
+                        (norm #'normalizedatatrainandtest)
+                        (rowReducer   #'sub-sample)
+                        (discretizer  #'equal-width-train-test)
+                        (classify     #'nb))
+    (let* ((setList (list #'shared-cm1 
+                          #'shared-kc1 
+                          #'shared-kc2 
+                          #'shared-kc3  
+                          #'shared-mw1 
+                          #'shared-mc2 
+                          #'shared-pc1 
+                          #'ar3 #'ar4 
+                          #'ar5))
+           (stream (open filename :direction :output 
+                                  :if-does-not-exist :create
+                                  :if-exists :supersede))
+          )
         (dolist (per-set setList)
             (format stream "~A~%" (parse-name per-set))
             (multiple-value-bind (trainList testList) 
-                                 (bins (b-squared(funcall per-set)))
-                (learn trainList testList stream :rowReducer per-rowReduce))
+                (bins (funcall per-set))               ; no col reduction
+                (when bsq 
+                    (bins (b-squared(funcall per-set)))   ; b-squared col red
+                )
+                (learn trainList testList stream :rowReducer rowReducer 
+                                                 :discretizer discretizer)
                 (format stream "~%")
             )
         )
+        (close stream)
     )
-))
+)
 
 (defun learn (trainList
               testList
-              &optional (stream t)
+              stream
               &key (prep #'numval1)
                    (norm #'normalizedatatrainandtest)
-                   (rowReducer   #'donothing)
+                   (rowReducer   #'sub-sample)
                    (discretizer  #'equal-width-train-test)
                    (classify     #'nb))
     (when (not (listp trainList))
@@ -54,16 +101,23 @@
                             (funcall (nth i testList))))
                (trainSet (funcall prep trainSet))
                (testSet (funcall prep testSet)))
-
+           
+            ; normalize both train and test data sets
             (multiple-value-bind (trainSet testSet) 
-                                 (funcall norm trainSet testSet)
-                (setf trainSet (funcall rowReducer trainSet testSet))
+                (funcall norm trainSet testSet)
 
+                ; perform row reduction on train set
+                (setf trainSet (funcall rowReducer trainSet))
+
+                    ; perform discretization on both data sets
                 (multiple-value-bind (trainSet testSet) 
-                                     (funcall discretizer trainSet testSet)
+                    (funcall discretizer trainSet testSet)
 
+                    ; perform classificiation on both data sets
                     (multiple-value-bind (trueClass falseClass) 
-                                         (funcall classify trainSet testSet)
+                        (funcall classify trainSet testSet)
+
+                        ; print metrics
                         (printLine stream 'TRUE trueClass)
                         (printLine stream 'FALSE falseClass)
                     )

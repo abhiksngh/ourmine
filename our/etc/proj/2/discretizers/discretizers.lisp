@@ -28,6 +28,23 @@
                                      (numeric-to-discrete(columns-header(table-columns test)))
                                      (subseq (features-as-a-list tmp) lengthTrain totalLength))))
       (values returnTrain returnTest))))
+
+(defun equal-freq-train-test(train test)
+  (let* ((lengthTrain (length (table-all (xindex train))))
+        (lengthTest (length (table-all (xindex test))))
+        (tmp (nvalues 1.0 train test))
+        (totalLength (length (table-all (xindex tmp))))
+        (returnTrain)
+        (returnTest))
+    (setf tmp (equal-freq tmp))
+    (let* ((returnTrain (build-a-data (table-name train)
+                                   (numeric-to-discrete(columns-header(table-columns train)))
+                                   (subseq (features-as-a-list tmp) 0 (- lengthTrain 1))))
+           (returnTest (build-a-data (table-name test)
+                                     (numeric-to-discrete(columns-header(table-columns test)))
+                                     (subseq (features-as-a-list tmp) 0 (- totalLength 1)))))
+      (values returnTrain returnTest))))
+
     
 ;------------------------------------------------------------------------------
 ; EQUAL-WIDTH FUNCTION - discretizes the designated columns in the passed 

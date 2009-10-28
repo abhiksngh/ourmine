@@ -32,7 +32,7 @@
                 (dolist (per-instance egs)
                     (setf features (eg-features per-instance))
                     (when (>= bin-count per-bin)
-                        (if (= (nth i features) (nth i last-features))
+                        (if (equal (nth i features) (nth i last-features))
                             (); stay in current bin
                             (progn 
                                 (incf bin-num) ; move to next bin
