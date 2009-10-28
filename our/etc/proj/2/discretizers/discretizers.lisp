@@ -26,7 +26,7 @@
                                    (subseq (features-as-a-list tmp) 0 (- lengthTrain 1))))
            (returnTest (build-a-data (table-name test)
                                      (numeric-to-discrete(columns-header(table-columns test)))
-                                     (subseq (features-as-a-list tmp) 0 (- totalLength 1)))))
+                                     (subseq (features-as-a-list tmp) lengthTrain totalLength))))
       (values returnTrain returnTest))))
     
 ;------------------------------------------------------------------------------
