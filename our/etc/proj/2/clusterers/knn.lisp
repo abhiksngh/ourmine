@@ -1,4 +1,4 @@
-(defun doNothing (table &rest func)
+(defun doNothing1 (table &rest func)
   table)
 
 (deftest test-nothing()
