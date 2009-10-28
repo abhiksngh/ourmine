@@ -48,10 +48,14 @@
         (doitems (feature i one)
           (unless (= classi i)
             (unless (unknownp feature)
-              (let ((delta (/ (+ (f tbl class i feature)
+              (let ((delta (if (numericp (nth i (columns-header (table-columns tbl))))
+                                (pdf (gethash class (header-f (nth i (table-columns tbl)))) feature)                                 
+                               (/ (+ (f tbl class i feature)
                                  (* m prior))
-                              (+ (f tbl class) m))))
-                (incf tmp (log delta))))))
+                              (+ (f tbl class) m)))))
+                (incf tmp (log (if (= delta 0)
+                                   1
+                                   delta)))))))
         (when (> tmp like)
           (setf like tmp
                 classification class))))
