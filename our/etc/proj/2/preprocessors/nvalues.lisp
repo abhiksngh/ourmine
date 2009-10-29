@@ -3,6 +3,7 @@
         returnTest
         columns)
   (dolist (per-func func (values (make-train-data columns returnTrain) (make-test-data columns returnTest)))
+;(format t "~A~%" (table-name (funcall per-func)))
     (multiple-value-bind (train test) (if (tablep per-func)
                                           (seg-dataset per-func n)
                                           (funcall per-func n))

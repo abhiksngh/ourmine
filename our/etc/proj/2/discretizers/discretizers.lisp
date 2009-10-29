@@ -14,6 +14,7 @@
 )
 
 (defun equal-width-train-test(train test)
+;(format t "~A~%~A~%" (length (table-all (xindex train))) (length (table-all (xindex test))))
   (let* ((lengthTrain (length (table-all (xindex train))))
         (lengthTest (length (table-all (xindex test))))
         (tmp (nvalues 1.0 train test))

@@ -9,8 +9,6 @@
            (class-count 0)
            (prev (last (eg-features (nth 0 (table-all (xindex sorted-data)))))))
 
-    (if (>= (negs data) 10)
-        (progn 
             ; find the class that occurs least frequently and record its count
             (doitems (per-instance i all-instances)
                 (setf curr (last (eg-features (nth i (table-all sorted-data)))))
@@ -28,7 +26,6 @@
            (when micro
                (setf least (max least micro)))
           
-
         ; copy no more than "least" of each class to a new table
         (doitems (per-instance i all-instances)
             (setf curr (last (eg-features (nth i (table-all sorted-data)))))
@@ -40,11 +37,11 @@
                 (push (eg-features per-instance) sampled-data)
             )
         )
-        (data :name 'sub-sampled-data
+        (data :name (format nil "~A_~A" (table-name data) "sub")
           :columns (columns-header (table-columns data))
-          :egs (shuffle sampled-data)))
+          :egs (shuffle sampled-data))
     data
-    ))
+    )
 )
 
 (deftest test-sub-sampling ()

@@ -126,10 +126,10 @@
             ; normalize both train and test data sets
             (multiple-value-bind (trainSet testSet) 
                 (funcall norm trainSet testSet)
-
+;(format t "before: ~A" (length (table-all (xindex trainSet))))
                 ; perform row reduction on train set
                 (setf trainSet (funcall rowReducer trainSet testSet))
-
+;(format t "  after: ~A~%" (length (table-all (xindex trainSet))))
                     ; perform discretization on both data sets
                 (multiple-value-bind (trainSet testSet) 
                     (funcall discretizer trainSet testSet)
