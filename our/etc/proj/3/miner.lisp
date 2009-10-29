@@ -18,7 +18,7 @@
 			"table/xindex"
 			"learn/nb"
                         "utilities"
-                        ;"normalize"
+                        "normalize"
                         ;"n-chops"
                         ;"b-squared
                         ;"grid"
