@@ -71,7 +71,7 @@
 
 (defun compute-scores (data b r)
     (let* ((attr-vals) ; unique attr values
-           (V 0) ; magic cut-off value for b
+           (V .5) ; magic cut-off value for b
            (trans-data) (attr-data) (class-data)
            (sorted-attr-data)
            (score-cutoff)

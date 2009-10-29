@@ -58,67 +58,75 @@
     )
 )
 
-; builds a test-set and train-set from the passed bin-matrix
-; 90% of the data is used for training, 10% for testing
-(defun build-data-set (filled-bins bin-num max-per test)
-    (let ((eg-set) 
-          (per-bin 0)
-          (start 0) 
-          (end))
+(defun get-train (bins-list bin-num)
+    (let* ((len (length (nth bin-num bins-list)))
+           (test-size (ceiling (* len .8))))
+        (subseq (nth bin-num bins-list) 0 (- test-size 1))
+    )    
+)
 
-        ; find the number of instances in the bin
-        (loop for i from 1 to max-per
-            do
-                (when (aref filled-bins per-bin bin-num) 
-                    (incf per-bin)
-                )
-        )
-        
-        ; if testing, use first 10% of data
-        (setf end (floor (/ per-bin 10)))
-
-        ; if not testing, use remaining 90%
-        (when (not test)
-            (setf start end)
-            (setf end (- per-bin 1))
-        )
-
-        ; push the instances onto a list
-        (loop for row from start to end
-            do
-                (push (eg-features (aref filled-bins row bin-num)) eg-set)
-        )
-        (shuffle eg-set)
+(defun get-test (bins-list bin-num)
+    (let* ((len (length (nth bin-num bins-list)))
+           (test-size (ceiling (* len .8))))
+        (subseq (nth bin-num bins-list) (- test-size 1))
     )
 )
 
+
+(defun bin-list (filled-bins max-per)
+    (let* ((per-bin 0) (eg-set) (bins-list))
+        (loop for bin-num from 0 to 4
+          do
+            (loop for i from 1 to max-per
+                do
+                    (when (aref filled-bins per-bin bin-num)
+                        (incf per-bin)
+                    )
+            ) ; know how many are in the bin
+            (loop for row from 0 to (- per-bin 1)
+                do
+                    (push (eg-features (aref filled-bins row bin-num)) eg-set)
+            )
+            (setf per-bin 0)
+            (setf eg-set (shuffle eg-set))
+            (push eg-set bins-list)
+            (setf eg-set (list ))
+        )
+        bins-list
+    )
+)
+
+
+
 ; create train/test data sets for each bin 
 (defun return-bins (data-set filled-bins per-bin)
+    (let* ((bins-list (bin-list filled-bins per-bin)))
+
         (values 
      
            (list (data :name (format nil "~A_~A" (table-name data-set) "bin0-train")
                   :columns (columns-header (table-columns data-set))
-                  :egs (build-data-set filled-bins 0 per-bin nil)
+                  :egs (get-train bins-list 0)
             )
  
             (data :name (format nil "~A_~A" (table-name data-set) "bin1-train")
                   :columns (columns-header (table-columns data-set))
-                  :egs (build-data-set filled-bins 1 per-bin nil)
+                  :egs (get-train bins-list 1)
             )
 
             (data :name (format nil "~A_~A" (table-name data-set) "bin2-train")
                   :columns (columns-header (table-columns data-set))
-                  :egs (build-data-set filled-bins 2 per-bin nil)
+                  :egs (get-train bins-list 2)
             )
 
             (data :name (format nil "~A_~A" (table-name data-set) "bin3-train")
                   :columns (columns-header (table-columns data-set))
-                  :egs (build-data-set filled-bins 3 per-bin nil)
+                  :egs (get-train bins-list 3)
             )
 
             (data :name (format nil "~A_~A" (table-name data-set) "bin4-train")
                   :columns (columns-header (table-columns data-set))
-                  :egs (build-data-set filled-bins 4 per-bin nil)
+                  :egs (get-train bins-list 4)
             )
 
 ;            (data :name (format nil "~A_~A" (table-name data-set) "bin5-train")
@@ -149,27 +157,27 @@
             
           (list  (data :name (format nil "~A_~A" (table-name data-set) "bin0-test")
                   :columns (columns-header (table-columns data-set))
-                  :egs (build-data-set filled-bins 0 per-bin t)
+                  :egs (get-test bins-list 0)
             )
 
             (data :name (format nil "~A_~A" (table-name data-set) "bin1-test")
                   :columns (columns-header (table-columns data-set))
-                  :egs (build-data-set filled-bins 1 per-bin t)
+                  :egs (get-test bins-list 1)
             )
 
             (data :name (format nil "~A_~A" (table-name data-set) "bin2-test")
                   :columns (columns-header (table-columns data-set))
-                  :egs (build-data-set filled-bins 2 per-bin t)
+                  :egs (get-test bins-list 2)
             )
 
             (data :name (format nil "~A_~A" (table-name data-set) "bin3-test")
                   :columns (columns-header (table-columns data-set))
-                  :egs (build-data-set filled-bins 3 per-bin t)
+                  :egs (get-test bins-list 3)
             )
 
             (data :name (format nil "~A_~A" (table-name data-set) "bin4-test")
                   :columns (columns-header (table-columns data-set))
-                  :egs (build-data-set filled-bins 4 per-bin t)
+                  :egs (get-test bins-list 4)
             )
 
 ;            (data :name (format nil "~A_~A" (table-name data-set) "bin5-test")
@@ -196,8 +204,8 @@
 ;                  :columns (columns-header (table-columns data-set))
 ;                  :egs (build-data-set filled-bins 9 per-bin t)
 ;            )
- )
- 
-        )
+     )
+     )
+     )
 )
 

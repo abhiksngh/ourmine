@@ -42,7 +42,7 @@
         )
         (data :name 'sub-sampled-data
           :columns (columns-header (table-columns data))
-          :egs sampled-data))
+          :egs (shuffle sampled-data)))
     data
     ))
 )
