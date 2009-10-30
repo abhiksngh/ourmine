@@ -12,3 +12,8 @@
  (learn (ar5short) (ar3short) :prep #'sub-sample :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify) 
  (learn (ar5short) (ar4short) :prep #'sub-sample :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify) 
 )
+
+(defun cvtests ()
+	(cross-validation (mw1) :row-reducer #'sub-sample :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify :file-name "ar3.txt")
+)
+
