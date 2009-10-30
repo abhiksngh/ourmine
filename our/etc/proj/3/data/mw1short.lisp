@@ -1,7 +1,7 @@
 (defun MW1short ()
   (data
    :name 'MW1short
-   :columns '($lOCcomment $uniq_Op $l $d $t $iv(g) defects)
+   :columns '($lOCcomment $uniq_Op $l $d $t $ivg defects)
    :egs
    '( 
 (1 6 3.00 5.40 1.00 0 false)

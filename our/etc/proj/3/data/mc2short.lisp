@@ -1,7 +1,7 @@
 (defun MC2short ()
   (data
    :name 'MC2short
-   :columns '($lOCcomment $uniq_Op $l $d $t $iv(g) defects)
+   :columns '($lOCcomment $uniq_Op $l $d $t $ivg defects)
    :egs
    '( 
 (1 14 16.00 33.73 1.00 0 false)

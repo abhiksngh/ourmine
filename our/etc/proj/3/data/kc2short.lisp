@@ -1,7 +1,7 @@
 (defun KC2short ()
   (data
    :name 'KC2short
-   :columns '($lOCcomment $uniq_Op $l $d $t $iv(g) defects)
+   :columns '($lOCcomment $uniq_Op $l $d $t $ivg defects)
    :egs
    '( 
 (2 1.200000e+00 1.30 1.30 1.30 1.400000e+00 false)

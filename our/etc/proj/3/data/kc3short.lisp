@@ -1,7 +1,7 @@
 (defun KC3short ()
   (data
    :name 'KC3short
-   :columns '($lOCcomment $uniq_Op $l $d $t $iv(g) defects)
+   :columns '($lOCcomment $uniq_Op $l $d $t $ivg defects)
    :egs
    '( 
 (1 6 0.00 3.00 1.00 0 false)

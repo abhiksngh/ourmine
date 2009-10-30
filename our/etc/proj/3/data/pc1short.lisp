@@ -1,7 +1,7 @@
 (defun PC1short ()
   (data
    :name 'PC1short
-   :columns '($lOCcomment $uniq_Op $l $d $t $iv(g) defects)
+   :columns '($lOCcomment $uniq_Op $l $d $t $ivg defects)
    :egs
    '( 
 (2 1.2 1.30 1.30 1.30 1.4 false)
