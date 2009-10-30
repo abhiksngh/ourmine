@@ -17,10 +17,6 @@
 			"table/table"
 			"table/xindex"
 			"learn/nb"
-                        "utils"
-                        "kmeans"
-                        "normalize"
-                        "cluster"
 			))
 
 (defun make1 (files)
