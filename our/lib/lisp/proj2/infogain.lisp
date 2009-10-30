@@ -26,7 +26,7 @@
     (setf tmpres '())
     (dolist (res presplit)
       (setf tmpres (append tmpres (list (float (/ res tmpsum))))))
-    (setf infogains (append infogains (list (weighted-sum (entropy tmpres) final)))))))
+    (setf infogains (append infogains (list (cons (weighted-sum (entropy tmpres) final) col)))))))
     ;;hack to add back the class to the list
     ;;(setf infogains (append infogains (list 0)))))
     ;(format t "~a " (weighted-sum (entropy tmpres) final)))))
