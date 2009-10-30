@@ -9,8 +9,8 @@
          (freq-rest (calc-freq rest attr min max))
          (b (* freq-best (float (/ total-best total))))
          (r (* freq-rest (float (/ total-rest total)))))
-    (format t "~a ~a ~%" min max)
-    (format t "~a ~a ~%" freq-best freq-rest)
+   ; (format t "~a ~a ~%" min max)
+    ;(format t "~a ~a ~%" freq-best freq-rest)
     (/ (* b b) (+ b r))))
 
 
