@@ -164,3 +164,28 @@
       (equalp (length (egs (super-burak-filter (ar4) (list (ar5))))) (length (egs (burak-filter (ar4) (ar5)))))
       (equalp (length (egs (super-burak-filter (ar4) (list (ar3) (ar5))))) 107))))
 
+;;Reduces the number of rows in tbl to n by randomly selecting n rows from tbl.
+(defun micro-sample (tbl &optional (n 50))
+  (setf tbl (table-deep-copy tbl))
+  (if (<= (length (get-table-rows tbl)) n)
+    tbl
+    (let ((rows (get-table-rows tbl))
+          (random-rows nil)
+          (randomi 0))
+      (dotimes (i n)
+        (setf randomi (random (length rows)))
+        (push (nth randomi rows) random-rows)
+        (setf rows (remove (nth randomi rows) rows)))
+      (setf (table-all tbl) random-rows)
+      tbl)))
+
+(deftest micro-sample-test ()
+  (check
+    (and
+      (equalp (length (table-all (micro-sample (ar4)))) 50)
+      (equalp (length (table-all (micro-sample (ar4) 100))) 100)
+      (equalp (length (table-all (micro-sample (ar4) 150))) (length (table-all (ar4)))))))
+
+(defun micro-sample-n50 (train &optional test)
+  (micro-sample train))
+
