@@ -38,7 +38,7 @@
      pipes)
   )
 
-(defun AddExperienceNew (pipes experience &optional (movePercent 1.0))
+(defun AddExperienceNew (pipes experience &optional (movePercent 1.0) (removeOutliers 0))
   ;(print (ExperienceInstance-class experience))
   (let ((pipe (FindPipe pipes (ExperienceInstance-class experience))))
     (if (null pipe)
@@ -70,7 +70,7 @@
                    (setf (NumericBound-mean currentBound) (/ (NumericBound-sum currentBound) (NumericBound-numOccured currentBound)))
                    ;(format t "~a ~a ~a" (NumericBound-sumSquares currentBound) (NumericBound-numOccured currentBound) (NumericBound-mean currentBound))
                    (setf (NumericBound-currentSD currentBound) (sqrt (- (/ (NumericBound-sumSquares currentBound) (NumericBound-numOccured currentBound)) (* (NumericBound-mean currentBound) (NumericBound-mean currentBound)))))
-                   (if (< (NumericBound-numOccured currentBound) 10)
+                   (if (or (= 0 removeOutliers) (< (NumericBound-numOccured currentBound) 10))
                        (setf acceptChange t)
                        (if (or (= (NumericBound-currentSD currentBound) 0) (< (/ (abs (- (NumericBound-mean currentBound) currentExperience)) (NumericBound-currentSD currentBound)) 1.96))
                            (setf acceptChange t)
@@ -83,7 +83,7 @@
                          (setf (NumericBound-min currentBound) (min currentExperience (NumericBound-min currentBound)))
                          (setf (NumericBound-max currentBound) (max currentExperience (NumericBound-max currentBound)))
                          )
-                       (format t "I rejected ~a from current range of ~a-~a" currentExperience (NumericBound-min currentBound) (NumericBound-max currentBound))
+                       ;(format t "I rejected ~a from current range of ~a-~a" currentExperience (NumericBound-min currentBound) (NumericBound-max currentBound))
                        )
                    )
                  (setf (NumericBound-nonNumeric currentBound) (remove-duplicates (append (NumericBound-nonNumeric currentBound) (list currentExperience))))
@@ -264,14 +264,14 @@
   )
 
 
-(defun demoHyperPipesNew(&key (dataFileName "primary-tumor") (Alpha 0) (countType 0) (meanType 0) (oldway 0) (useCentroid 0) (overfitDetect 0) (overfitRevert 0) (movePercent 0.5))
+(defun demoHyperPipesNew(&key (dataFileName "primary-tumor") (Alpha 0) (countType 0) (meanType 0) (oldway 0) (useCentroid 0) (overfitDetect 0) (overfitRevert 0) (movePercent 0.5) (removeOutliers 0))
   (format t "*************Demoing HyperPipes**************~%")
   ;(load (concatenate `string "HyperPipes/Data/" dataFileName ".lisp"))
 
   (let* ((MyHyperPipes (list))
         (totalChecks 0)
         (totalRight 0)
-        (outputFileName (concatenate `string "proj2/HyperPipes/OutputFiles/outputFile-" dataFileName (format nil "~a" countType) (format nil "~a" meanType) (format nil "~a" useCentroid) "-" (format nil "~a" (round (* Alpha 100))) "-" (format nil "~a" oldway) "-" (format nil "~a" overfitDetect) "-" (format nil "~a" overfitRevert) ".txt"))
+        (outputFileName (concatenate `string "proj2/HyperPipes/OutputFiles/outputFile-" dataFileName (format nil "~a" countType) (format nil "~a" meanType) (format nil "~a" useCentroid) "-" (format nil "~a" (round (* Alpha 100))) "-" (format nil "~a" oldway) "-" (format nil "~a" overfitDetect) "-" (format nil "~a" overfitRevert) "-" (format nil "~a" removeOutliers) ".txt"))
          
                                      
          
@@ -309,7 +309,7 @@
           ;(print successOrFailure)
 ;          (if (< (random 1.0) 0.1)
 ;          (if (equal totalChecks 3) (print MyHyperPipes))
-          (setf MyHyperPipes (AddExperienceNew MyHyperPipes (make-ExperienceInstance :attributes (remove-nth (- (length attributeValues) 1) attributeValues) :class (nth (- (length attributeValues) 1) attributeValues)) movePercent ))
+          (setf MyHyperPipes (AddExperienceNew MyHyperPipes (make-ExperienceInstance :attributes (remove-nth (- (length attributeValues) 1) attributeValues) :class (nth (- (length attributeValues) 1) attributeValues)) movePercent removeOutliers ))
 ;          )
 ;          (if (equal totalChecks 3) (print MyHyperPipes))          
           (if (= overfitDetect 1)
