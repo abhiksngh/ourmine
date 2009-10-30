@@ -25,7 +25,7 @@
 (defun shared_KC1 ()
   (data
    :name 'shared_KC1
-   :columns '(loc v(g) ev(g) iv(g) v l d i e b t lOCode lOCcomment locCodeAndComment uniq_Op uniq_Opnd total_Opnd branchCount defects)
+   :columns '(loc vg evg ivg v l d i e b t lOCode lOCcomment locCodeAndComment uniq_Op uniq_Opnd total_Opnd branchCount defects)
    :egs
    '( 
 (1.1 1.4 1.4 1.4 1.3 1.3 1.3 1.3 1.3 1.3 1.3 2 2 2 1.2 1.2 1.2 1.2 1.4 false)
