@@ -66,6 +66,7 @@
                         "proj3/split-tables"
                         "proj3/utilscore"
                         "proj3/score-bsquare"
+                        "proj3/commoncols"
                         ;"proj3/mlh2/entropy"
                         ;"proj3/mlh2/classify-id3"
                         ;"proj3/mlh2/id3"
