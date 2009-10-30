@@ -4,6 +4,7 @@
   class                     ; number          : which column is the header column?
   (cautions (make-caution)) ; list of caution : any load-time errors?
   all                       ; list of eg      : all the examples
+  centroid
   indexed
 )
 

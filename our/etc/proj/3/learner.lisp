@@ -1,88 +1,3 @@
-;;Returns k randomly selected rows from tbl.
-(defun get-k-instances (tbl k)
-  (setf tbl (table-deep-copy tbl))
-  (let ((all-rows (get-table-rows tbl))
-        (select-rows nil))
-    (dotimes (i k)
-      (let ((randomi (random (length all-rows))))
-        (push (nth randomi all-rows) select-rows)
-        (setf all-rows (remove (nth randomi all-rows) all-rows))))
-    select-rows))
-
-;;Returns the centroid that is closest to row.
-(defun get-nearest-centroid (tbl row centroids)
-  (let ((nearest-centroid nil)
-        (nearest-centroid-distance most-positive-fixnum))
-    (dolist (centroid centroids)
-      (let ((centroid-distance (euclid-distance row centroid tbl)))
-        (if (< centroid-distance nearest-centroid-distance)
-          (setf nearest-centroid-distance centroid-distance
-                nearest-centroid centroid))))
-    nearest-centroid))
-
-;;Returns the mean of the values in columni if it is an ordered column.
-(defun get-column-average (rows columni)
-  (let ((sum 0))
-    (dolist (row rows)
-      (incf sum (nth columni (eg-features row))))
-    (/ sum (length rows))))
-
-;;Returns a new centroid for each centroid in centroid-rows.
-(defun get-new-centroids (tbl centroid-rows)
-  (let ((new-centroids nil))
-    (maphash #'(lambda (k v) 
-                (let ((new-centroid (eg-deep-copy k)))
-                  (doitems (column-header columni (get-table-column-headers tbl))
-                    (if (column-header-orderedp column-header)
-                      (setf (nth columni (eg-features new-centroid)) (get-column-average v columni))))
-                  (push new-centroid new-centroids)))
-             centroid-rows)
-    new-centroids))
-
-;;Returns a new table structure for each centroid in centroid-rows.
-(defun get-new-clusters (tbl centroid-rows)
-  (let ((new-clusters nil))
-    (maphash #'(lambda (k v)
-                (let ((new-cluster nil))
-                  (setf new-cluster (table-deep-copy tbl))
-                  (setf (table-all new-cluster) v)
-                  (push new-cluster new-clusters)))
-             centroid-rows)
-    new-clusters))
-
-;;Returns a list of k table structures.
-(defun kmeans (tbl k)
-  (setf tbl (table-deep-copy tbl))
-  (let ((centroids (get-k-instances tbl k))
-        (rows (get-table-rows tbl))
-        (centroid-rows (make-hash-table)))
-    (do ((prev-centroids nil))
-        ((equalp centroids prev-centroids))
-      (clrhash centroid-rows)
-      (dolist (row rows)
-        (push row (gethash (get-nearest-centroid tbl row centroids) centroid-rows)))
-      (setf prev-centroids centroids)
-      (setf centroids (get-new-centroids tbl centroid-rows)))
-    (get-new-clusters tbl centroid-rows)))
-
-(deftest kmeans-test ()
-  (check
-    (and
-      (equalp nil (set-difference (table-all (ar5)) (table-all (car (kmeans (ar5) 1))) :test #'equalp))
-      (equalp (length (table-all (ar5))) (length (table-all (car (kmeans (ar5) 1))))))))
-
-;;Stub for a clusterer that returns a list of table structures containing only the training
-;;set.
-(defun default-clusterer (k train)
-	k
-	(list train))
-
-;;Stub for a function that returns the closest cluster to an instance.
-;;Returns the first cluster in clusters.
-(defun get-cluster (instance clusters)
-	instance
-	(car clusters))
-
 ;;Training function for naive bayes.  Takes a table structure of training data and 
 ;;returns the same table structure with index data.
 (defun nb-train (train)
@@ -145,7 +60,7 @@
 
 (defun learner (train test &key (k 1)
                               (prep #'identity) ;Takes 1 table returns 1 table
-                              (row-reducer #'(lambda (train test) train))
+                              (row-reducer #'default-row-reducer)
                               (discretizer #'identity) ;Takes 1 table returns 1 table
                               (clusterer #'default-clusterer) ;Takes k and 1 table returns a list of tables
                               (fss #'identity) ;Takes 1 table returns 1 table
@@ -159,12 +74,12 @@
     (setf train (funcall discretizer train))
     (setf test (funcall discretizer test))
     (setf train (funcall row-reducer train test))
-    (setf clusters (funcall clusterer k train))
+    (setf clusters (funcall clusterer train k))
 	(dolist (cluster clusters)
 		(setf cluster (funcall fss cluster))
 		(setf cluster (funcall classifier-train cluster)))
 	(dolist (instance (table-all test))
-		(push (funcall classifier (eg-features instance) (get-cluster instance clusters)) results))
+		(push (funcall classifier (eg-features instance) (get-nearest-cluster instance clusters)) results))
 	(setf results (nreverse results))
 	(multiple-value-bind (ah bh ch dh) (p-metrics test results)
 		(dolist (klass (klasses train))
@@ -190,7 +105,7 @@
 
 (defun learn (train test &key (k 1)
                               (prep #'identity)
-                              (row-reducer #'(lambda (train test) train))
+                              (row-reducer #'default-row-reducer)
                               (discretizer #'identity)
                               (clusterer #'default-clusterer)
                               (fss #'identity)
@@ -223,7 +138,7 @@
 
 (defun cross-validation (tbl &key (k 1)
                                   (prep #'identity)
-                                  (row-reducer #'(lambda (train test) train))
+                                  (row-reducer #'default-row-reducer)
                                   (discretizer #'identity)
                                   (clusterer #'default-clusterer)
                                   (fss #'identity)
@@ -270,8 +185,8 @@
     (statistics-output (filter #'(lambda (result) (and (equalp (nth 6 result) defect-class) result)) results) :file-name file-name)))
 
 (defun cross-validation-demo ()
-  (cross-validation (ar3) :row-reducer #'burak-filter :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify)
-  (cross-validation (ar3) :row-reducer #'burak-filter :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify :file-name "test.txt"))
+  (cross-validation (shared_PC1) :row-reducer #'burak-filter :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify)
+  (cross-validation (shared_PC1) :row-reducer #'burak-filter :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify :file-name "test.txt"))
 
 (defun cross-validation-demo2 ()
   (cross-validation2 (ar3) (ar4) :row-reducer #'burak-filter :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify)

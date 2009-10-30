@@ -37,6 +37,8 @@
 			"data/shared_MC2"
 			"data/shared_MW1"
 			"util"
+			"cluster"
+			"row-reduce"
 			"knn"
 			"discretize"
 			"preprocessor"

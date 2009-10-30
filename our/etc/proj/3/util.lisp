@@ -35,10 +35,12 @@
 
 ;;Returns a complete copy of an eg structure and all of its members.
 (defun eg-deep-copy (eg)
-  (let ((new-eg (make-eg)))
-    (setf (eg-features new-eg) (copy-list (eg-features eg)))
-    (setf (eg-class new-eg) (eg-class eg))
-    new-eg))
+  (if (not eg)
+    nil
+    (let ((new-eg (make-eg)))
+      (setf (eg-features new-eg) (copy-list (eg-features eg)))
+      (setf (eg-class new-eg) (eg-class eg))
+      new-eg)))
 
 ;;Returns a complete copy of a table structure and all of its members.
 ;;If tbl was indexed, the copy will need to be re-indexed.
@@ -52,6 +54,7 @@
     (dolist (eg (table-all tbl))
       (push (eg-deep-copy eg) (table-all new-tbl)))
     (setf (table-all new-tbl) (nreverse (table-all new-tbl)))
+    (setf (table-centroid new-tbl) (eg-deep-copy (table-centroid tbl)))
     (setf (table-indexed new-tbl) nil)
     new-tbl))
 
@@ -121,6 +124,10 @@
 (defun get-table-class-rows (tbl class)
   (filter #'(lambda (row) (and (equalp (eg-class row) class) row)) (get-table-rows tbl)))
 
+;;Removes all rows from tbl.
+(defun delete-table-rows (tbl)
+  (setf (table-all tbl) nil))
+
 ;;Updates the uniques property of columni in tbl.
 (defun column-update-discrete-uniques (tbl columni)
   (if (not (table-column-numericp tbl columni))
@@ -145,6 +152,24 @@
                                                      :uniques nil))
     (setf (nth columni (table-columns tbl)) column-header)
     (column-update-discrete-uniques tbl columni)))
+
+;;Returns the centroid of tbl.
+(defun get-table-centroid (tbl)
+  (table-centroid tbl))
+
+;;Recomputes the table's centroid and updates the centroid property.
+(defun update-table-centroid (tbl)
+  (let ((new-centroid (eg-deep-copy (car (table-all tbl)))))
+    (mapcar #'(lambda (feature-list) 
+                (doitems (column-header columni (get-table-column-headers tbl))
+                  (if (column-header-orderedp column-header)
+                    (incf (nth columni (eg-features new-centroid)) (nth columni feature-list)))))
+            (get-table-feature-lists tbl))
+    (doitems (column-header columni (get-table-column-headers tbl))
+      (if (column-header-orderedp column-header)
+        (setf (nth columni (eg-features new-centroid)) 
+              (/ (nth columni (eg-features new-centroid)) (length (get-table-rows tbl))))))
+    (setf (table-centroid tbl) new-centroid)))
 
 (defun numeric-test-tbl ()
   (data :name 'test

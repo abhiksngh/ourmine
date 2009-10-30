@@ -97,6 +97,7 @@
                              FALSE is not a number) :PATIENCE 17)
    :ALL (#S(EG :FEATURES (SUNNY HOT HIGH TRUE YES) :CLASS YES)
          #S(EG :FEATURES (SUNNY HOT HIGH FALSE NO) :CLASS NO))
+   :CENTROID NIL
    :INDEXED NIL)
 "
 )))
