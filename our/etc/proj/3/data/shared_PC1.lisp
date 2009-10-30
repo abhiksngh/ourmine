@@ -1,9 +1,9 @@
 #|@relation shared_PC1
 
 @attribute loc               numeric
-@attribute v(g)              numeric
-@attribute ev(g)             numeric
-@attribute iv(g)             numeric
+@attribute vg              numeric
+@attribute evg             numeric
+@attribute ivg             numeric
 @attribute v                 numeric
 @attribute l                 numeric
 @attribute d                 numeric
