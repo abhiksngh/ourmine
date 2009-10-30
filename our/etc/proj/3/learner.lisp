@@ -119,27 +119,29 @@
 		          results))
     (values a b c d)))
 
-(defun statistics-output (stats)
-  (format t "prep, row-reducer, discretizer, cluster, fss, classify, class, a, b, c, d, acc, prec, pd, pf, f, g~%")
-  (dolist (stat stats)
-    (format t "~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~,1F, ~,1F, ~,1F, ~,1F, ~,1F, ~,1F~%" 
-      (string-downcase (format nil "~a" (function-name (nth 0 stat))))
-      (string-downcase (format nil "~a" (function-name (nth 1 stat))))
-      (string-downcase (format nil "~a" (function-name (nth 2 stat))))
-      (string-downcase (format nil "~a" (function-name (nth 3 stat))))
-      (string-downcase (format nil "~a" (function-name (nth 4 stat))))
-      (string-downcase (format nil "~a" (function-name (nth 5 stat))))
-      (string-downcase (format nil "~a" (nth 6 stat)))
-      (nth 7 stat)
-      (nth 8 stat)
-      (nth 9 stat)
-      (nth 10 stat)
-      (* 100 (nth 11 stat))
-      (* 100 (nth 12 stat))
-      (* 100 (nth 13 stat))
-      (* 100 (nth 14 stat))
-      (* 100 (nth 15 stat))
-      (* 100 (nth 16 stat)))))
+(defun statistics-output (stats &key (file-name nil))
+  (let ((str (or (not file-name) (open file-name :direction :output :if-exists :supersede))))
+    (format str "prep, row-reducer, discretizer, cluster, fss, classify, class, a, b, c, d, acc, prec, pd, pf, f, g~%")
+    (dolist (stat stats)
+      (format str "~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~,1F, ~,1F, ~,1F, ~,1F, ~,1F, ~,1F~%" 
+        (string-downcase (format nil "~a" (function-name (nth 0 stat))))
+        (string-downcase (format nil "~a" (function-name (nth 1 stat))))
+        (string-downcase (format nil "~a" (function-name (nth 2 stat))))
+        (string-downcase (format nil "~a" (function-name (nth 3 stat))))
+        (string-downcase (format nil "~a" (function-name (nth 4 stat))))
+        (string-downcase (format nil "~a" (function-name (nth 5 stat))))
+        (string-downcase (format nil "~a" (nth 6 stat)))
+        (nth 7 stat)
+        (nth 8 stat)
+        (nth 9 stat)
+        (nth 10 stat)
+        (* 100 (nth 11 stat))
+        (* 100 (nth 12 stat))
+        (* 100 (nth 13 stat))
+        (* 100 (nth 14 stat))
+        (* 100 (nth 15 stat))
+        (* 100 (nth 16 stat))))
+    (if file-name (close str))))
 
 (defun learner (train test &key (k 1)
                               (prep #'identity) ;Takes 1 table returns 1 table
@@ -227,7 +229,8 @@
                                   (fss #'identity)
                                   (classifier-train #'identity)
                               	  (classifier #'identity)
-                              	  (defect-class 'true))
+                              	  (defect-class 'true)
+                              	  (file-name nil))
   (let ((results nil))
     (dotimes (i 100)
       (multiple-value-bind (train test) (split-preprocessor tbl)
@@ -239,9 +242,38 @@
                                                   :fss fss 
                                                   :classifier-train classifier-train 
                                                   :classifier classifier)
-              results))))
-    (statistics-output (list (average-cross-val-results (filter #'(lambda (result) (and (equalp (nth 6 result) defect-class) result)) results))))))
+                              results))))
+    (statistics-output (filter #'(lambda (result) (and (equalp (nth 6 result) defect-class) result)) results) :file-name file-name)))
+
+(defun cross-validation2 (train test  &key (k 1)
+                                           (prep #'identity)
+                                           (row-reducer #'(lambda (train test) train))
+                                           (discretizer #'identity)
+                                           (clusterer #'default-clusterer)
+                                           (fss #'identity)
+                                           (classifier-train #'identity)
+                                      	   (classifier #'identity)
+                                      	   (defect-class 'true)
+                                      	   (file-name nil))
+  (let ((results nil))
+    (dotimes (i 100)
+      (multiple-value-bind (test-90 test-10) (split-preprocessor test)
+        (setf results (append (learner train test :k k 
+                                                  :prep prep 
+                                                  :row-reducer row-reducer
+                                                  :discretizer discretizer 
+                                                  :clusterer clusterer 
+                                                  :fss fss 
+                                                  :classifier-train classifier-train 
+                                                  :classifier classifier)
+                              results))))
+    (statistics-output (filter #'(lambda (result) (and (equalp (nth 6 result) defect-class) result)) results) :file-name file-name)))
 
 (defun cross-validation-demo ()
-  (cross-validation (ar3) :row-reducer #'burak-filter :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify))
+  (cross-validation (ar3) :row-reducer #'burak-filter :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify)
+  (cross-validation (ar3) :row-reducer #'burak-filter :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify :file-name "test.txt"))
+
+(defun cross-validation-demo2 ()
+  (cross-validation2 (ar3) (ar4) :row-reducer #'burak-filter :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify)
+  (cross-validation2 (ar3) (ar4) :row-reducer #'burak-filter :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify :file-name "test.txt"))
 

@@ -1,4 +1,4 @@
-;;Filter function from the ANSI Common Lisp.
+;;Filter function from ANSI Common Lisp.
 (defun filter (fn lst)
   (let ((acc nil))
     (dolist (x lst)
