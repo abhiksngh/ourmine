@@ -48,3 +48,8 @@
 		     (incf last inc)
 		     (setf result (append result (list last)))))))))
 
+(defun ranges-to-lists (ranges)
+  (let ((tmp))
+    (dotimes (i (length ranges) tmp)
+      (setf tmp (append tmp (list (list (nth i ranges) (nth (+ i 1) ranges)))))
+      (incf i))))
