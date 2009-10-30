@@ -9,3 +9,13 @@
                         (nth (- (/ (length tmp) 2) 1) tmp)))
         (setf median (+ (nth (/ (- (length tmp) 1) 2) tmp))))
     median))
+
+(defun median2 (lst)
+  (let ((tmp (copy-list lst))
+	(median 0))
+    (setf tmp (sort tmp #'<))
+    (if (evenp (length tmp))
+	(setf median (+ (nth (/ (length tmp) 2) tmp)
+			(nth (- (/ (length tmp) 2) 1) tmp)))
+	(setf median (+ (nth (/ (- (length tmp) 1) 2) tmp))))
+    median))
