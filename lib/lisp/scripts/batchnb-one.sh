@@ -2,9 +2,17 @@
 cd ..
 outpath=proj2/HyperPipes/OutputFiles
 plotdata=../proj2/HyperPipes/PlotData
+tmpdir=tmp
 file=`basename $1`	#remove directory
 file=${file%.lisp}	#remove .lisp
 echo "Running all HyperPipes options on $file dataset"
+
+for ((i = 1; i <= 10; i++))
+do
+gawk -f scripts/datablend.awk -v RandSeed=$RANDOM -v Filename=proj2/HyperPipes/Data/$1".lisp" > $tmpdir/blend$i-$1.lisp
+done
+
+
 sbcl --load scripts/batch.lisp --eval "(batch \"$file\")"
 echo "Running naive bayes on $file dataset"
 #sbcl --load scripts/nb-batch.lisp --eval "(nb-batch \"$file\")"
