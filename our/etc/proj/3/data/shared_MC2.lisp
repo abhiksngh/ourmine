@@ -1,9 +1,9 @@
 #|@relation shared_MC2
 
 @attribute loc               numeric
-@attribute vg              numeric
-@attribute evg             numeric
-@attribute ivg             numeric
+@attribute v(g)              numeric
+@attribute ev(g)             numeric
+@attribute iv(g)             numeric
 @attribute v                 numeric
 @attribute l                 numeric
 @attribute d                 numeric
@@ -25,7 +25,7 @@
 (defun shared_MC2 ()
   (data
    :name 'shared_MC2
-   :columns '(loc vg evg ivg v l d i e b t lOCode lOCcomment locCodeAndComment uniq_Op uniq_Opnd total_Opnd branchCount defects)
+   :columns '($loc $vg $evg $ivg $v $l $d $i $e $b $t $lOCode $lOCcomment $locCodeAndComment $uniq_Op $uniq_Opnd $total_Op $total_Opnd $branchCount defects)
    :egs
    '( 
 (39 53 612.99 0 4 16 33.73 18.17 20674.45 0.2 1 132 1 69 14 11 79 1148.58 7 false)

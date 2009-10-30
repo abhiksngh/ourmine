@@ -1,9 +1,9 @@
 #|@relation shared_KC3
 
 @attribute loc               numeric
-@attribute vg              numeric
-@attribute evg             numeric
-@attribute ivg             numeric
+@attribute v(g)              numeric
+@attribute ev(g)             numeric
+@attribute iv(g)             numeric
 @attribute v                 numeric
 @attribute l                 numeric
 @attribute d                 numeric
@@ -25,7 +25,7 @@
 (defun shared_KC3 ()
   (data
    :name 'shared_KC3
-   :columns '(loc vg evg ivg v l d i e b t lOCode lOCcomment locCodeAndComment uniq_Op uniq_Opnd total_Opnd branchCount defects)
+   :columns '($loc $vg $evg $ivg $v $l $d $i $e $b $t $lOCode $lOCcomment $locCodeAndComment $uniq_Op $uniq_Opnd $total_Op $total_Opnd $branchCount defects)
    :egs
    '( 
 (3 3 28.53 0 1 0 3 9.51 85.59 0.01 1 9 1 4 6 3 6 4.75 1 false)

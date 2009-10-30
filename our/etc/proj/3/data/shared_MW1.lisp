@@ -1,9 +1,9 @@
 #|@relation shared_MW1
 
 @attribute loc               numeric
-@attribute vg              numeric
-@attribute evg             numeric
-@attribute ivg             numeric
+@attribute v(g)              numeric
+@attribute ev(g)             numeric
+@attribute iv(g)             numeric
 @attribute v                 numeric
 @attribute l                 numeric
 @attribute d                 numeric
@@ -25,7 +25,7 @@
 (defun shared_MW1 ()
   (data
    :name 'shared_MW1
-   :columns '(loc vg evg ivg v l d i e b t lOCode lOCcomment locCodeAndComment uniq_Op uniq_Opnd total_Opnd branchCount defects)
+   :columns '($loc $vg $evg $ivg $v $l $d $i $e $b $t $lOCode $lOCcomment $locCodeAndComment $uniq_Op $uniq_Opnd $total_Op $total_Opnd $branchCount defects)
    :egs
    '( 
 (6 9 76.11 0 1 3 5.4 14.09 410.98 0.03 1 22 1 12 6 5 13 22.83 1 false)
