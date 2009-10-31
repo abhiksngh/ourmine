@@ -264,14 +264,14 @@
   )
 
 
-(defun demoHyperPipesNew(&key (dataFileName "primary-tumor") (Alpha 0) (countType 0) (meanType 0) (oldway 0) (useCentroid 0) (overfitDetect 0) (overfitRevert 0) (movePercent 0.5) (removeOutliers 0))
+(defun demoHyperPipesNew(&key (dataFileName "primary-tumor") (outputPath "tmp/") (Alpha 0) (countType 0) (meanType 0) (oldway 0) (useCentroid 0) (overfitDetect 0) (overfitRevert 0) (movePercent 0.5) (removeOutliers 0))
   (format t "*************Demoing HyperPipes**************~%")
   ;(load (concatenate `string "HyperPipes/Data/" dataFileName ".lisp"))
 
   (let* ((MyHyperPipes (list))
         (totalChecks 0)
         (totalRight 0)
-        (outputFileName (concatenate `string "proj2/HyperPipes/OutputFiles/outputFile-" dataFileName (format nil "~a" countType) (format nil "~a" meanType) (format nil "~a" useCentroid) "-" (format nil "~a" (round (* Alpha 100))) "-" (format nil "~a" oldway) "-" (format nil "~a" overfitDetect) "-" (format nil "~a" overfitRevert) "-" (format nil "~a" removeOutliers) ".txt"))
+        (outputFileName (concatenate `string outputPath "/outputFile-" dataFileName (format nil "~a" countType) (format nil "~a" meanType) (format nil "~a" useCentroid) "-" (format nil "~a" (round (* Alpha 100))) "-" (format nil "~a" oldway) "-" (format nil "~a" overfitDetect) "-" (format nil "~a" overfitRevert) "-" (format nil "~a" removeOutliers) ".txt"))
          
                                      
          
