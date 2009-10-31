@@ -21,6 +21,7 @@ scripts=$here/scripts
 
 tmpfolder=`date +"%H-%M-%S"`"-$1-"$RANDOM
 tmp=$here"/tmp/"$tmpfolder
+data=$tmp"/data"
 learner=$tmp"/learner"
 accstats=$tmp"/accuracy-stats"
 sizestats=$tmp"/size-stats"
@@ -31,6 +32,7 @@ if [ ! -d "$here/tmp" ]; then
 fi
 
 mkdir $tmp
+mkdir $data
 mkdir $learner
 mkdir $accstats
 mkdir $sizestats
@@ -67,6 +69,7 @@ sbcl --load $scripts/batch.lisp --eval "(batch \"blend$i-$file\" \"tmp/$tmpfolde
 done
 
 mv $tmp/*outputFile* $learner
+mv $tmp/*.lisp $data
 
 
 #------------stats----------------
@@ -87,10 +90,26 @@ tmpfilename=${afile%.txt}
 gawk -f $scripts/sizestats.awk -v Filename=$learner/$afile -v Classes=$2 > $sizestats/`basename $tmpfilename`-size-stats.txt
 done
 
-#-------
+#-------plot accuracy------------
 if [ $plotacc = "yes" ]; then
 mkdir $accplots
 gawk -f $scripts/make-acc-plot.awk -v Source=$accstats -v OutPath=$accplots -v NB=$includeNB -v Dataset=$1 > $accplots"/$1-accuracy.plot"
+gnuplot $accplots/$1-accuracy.plot
 fi
 
-gnuplot $accplots/$1-accuracy.plot
+#---------build boxplots---------
+
+for afile in $accstats/*
+do
+
+type=`echo $afile | sed 's/.*\([01][01][01]-[0-9]*-[01]-[01]-[01]-[01]\).*/\1/'`
+
+echo $type
+echo ${#type}
+
+if (( ${#type} > 20 )); then
+type=nb
+fi
+
+echo $type","`cat $afile | gawk 'END{print 100*$2","100*$3}'`>> $tmp/boxplot.txt
+done
