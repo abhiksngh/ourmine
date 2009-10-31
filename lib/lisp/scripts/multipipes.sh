@@ -1,5 +1,10 @@
 #!/usr/bin/bash
 
+if [ -z $2 ]; then
+echo "Usage: bash multipipes.sh dataset numclasses"
+exit
+fi
+
 #-------------prep--------------
 cd ..
 here=`pwd`
@@ -62,7 +67,8 @@ mv $tmp/outputFile* $learner
 
 #------------stats----------------
 
-for ((i = 1; i <= 10; i++))
+for afile in $learner/*
 do
-cat $learner/outputFile-blend$i-$1.txt | gawk -f $stats/
+echo "Statin' up"
+gawk -f $scripts/stats.awk -v Filename=$afile -v Classes=$2 > $stats/`basename $afile`-accuracy-stats.txt
 done

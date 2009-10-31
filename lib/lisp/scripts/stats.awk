@@ -1,6 +1,7 @@
 BEGIN {
 	Filename
-	Classes ? Classes : 22
+	RingSize ? RingSize : RingSize = 50
+	Classes ? Classes : Classes = 22
 	main()
 	cntr
 }
@@ -14,15 +15,28 @@ function main() {
 	while (getline < Filename) {
 		if ($0 ~ /^[0-1]./) {
 			if ($1 ~ "1") {
-				Hits++
+				ringBufferIns(1, Last10, RingSize)
 				Score+= 1 - ( ($2-1) / (Classes-1) )
 			}
+			else
+				ringBufferIns(0, Last10, RingSize)
 			Total++
-			Cntr++
-			if(Cntr >= int(Size/25)) {
+			if(Cntr >= int(Size/100)) {
 				Cntr = 0
-				print Total" "(Score / Total)" "(Score / Total)
+				Hits = 0
+				for (i = 1; i < RingSize + 1; i++)
+					Hits+= Last10[i]
+				
+				RunningAvg = Hits / RingSize
+
+				print Total" "RunningAvg" "(Score / Total)
 			}
+			Cntr++
+
 		}
 	}
+}
+
+function ringBufferIns(x,	buffer, size) {
+	buffer[buffer[0]=(buffer[0]%size)+1] = x
 }

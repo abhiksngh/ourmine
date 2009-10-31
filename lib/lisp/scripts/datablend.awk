@@ -1,5 +1,5 @@
 BEGIN {
-	if (RandSeed) print "Random seed used: "RandSeed; else print "No random seed presented"
+	RandSeed ? srand(RandSeed) : srand()
 }
 
 {
@@ -7,18 +7,18 @@ BEGIN {
 }
 
 END {
-	PicksLeft = LineNum
+	NumRows = LineNum
 
-	while (PicksLeft > 0) {
-		split("",RowsLeft,"")
-		RowsLeft[0] = PicksLeft
-
-		cntr = 0
-		for (key in File) {
-			RowsLeft[++cntr] = 1
-		}
-
+	for (i = 1; i <= NumRows * 10; i++) {
+		pick1 = int (rand() * NumRows + 1)
+		pick2 = int (rand() * NumRows + 1)
 		
+		tmp = File[pick1]
+		File[pick1] = File[pick2]
+		File[pick2] = tmp
+	}
 
+	for (i = 1; i <= NumRows; i++)
+		print File[i]
 
 }
