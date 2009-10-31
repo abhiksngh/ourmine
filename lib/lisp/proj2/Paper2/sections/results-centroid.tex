@@ -3,16 +3,18 @@ One method we implemented for classifying to a single class was
 a centroid assumption function we created. The idea behind this
 algorithm is that when a tie is formed we calculate the class 
 which is believed to be at the center of the returned classes. 
-This center class is determined by scoring each HyperPipe's 
-attribute overlap with other HyperPipes. For each HyperPipe we 
-sum the number of attributes in that HyperPipe whose min and max 
+This center class is determined by scoring each MultiPipe's 
+attribute overlap with other MultiPipes. For each MultiPipe we 
+sum the number of attributes in that MultiPipe whose min and max 
 overlap with another classes min and max. In other words, for a 
-single attribute in a HyperPipe the maximum score for that 
-attribute is the number of HyperPipes minus 1. The maximum score 
-for the HyperPipe as a whole is the number of attributes times 
-the number of hyperpipes minus 1. After calculating this sum for 
-each HyperPipe the class within HyperPipe with the highest score 
-is chosen as the classification. Pseudocode:
+single attribute in a MultiPipe the maximum score for that 
+attribute is the number of MultiPipes minus 1. The maximum score 
+for the MultiPipe as a whole is the number of attributes times 
+the number of MultiPipes minus 1. After calculating this sum for 
+each MultiPipe the class whose MultiPipe scores the highest 
+is chosen as the classification. The results of this addition can 
+be seen in Figure \ref{fig:segment}. The pseudocode for this 
+algorithm can be found in Program \ref{PseudocodeCentroid}.
 \begin{program}
 \begin{algorithmic}
 \Procedure {FindCentroid}{$HyperPipes$}
@@ -31,7 +33,7 @@ is chosen as the classification. Pseudocode:
 \EndFor
 \EndProcedure
 \end{algorithmic}
-\caption{HyperPipes FindCentroid Pseudo Code.}\label{PseudocodeCentroid}
+\caption{MultiPipes FindCentroid Pseudo Code.}\label{PseudocodeCentroid}
 \end{program}
-graph of centroid learning results
+
 

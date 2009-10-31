@@ -1,4 +1,4 @@
-While we believe the mutliple class result of HyperPipes is 
+While we believe the mutliple class result of MultiPipes is 
 an interesting discovery we understand the need for a complete 
 classification system. We have come up with two methods for
 attempting to classify the result of MultiPipes into a single 
@@ -11,8 +11,9 @@ we noted that an attribute range scores a 1 if it falls within
 the min and max for that attribute in a class. Our modification, 
 as stated above was to use a normalized calculation to determine 
 a value between 0 and 1 based on the attribute values distance 
-from the mean attribute value in that class. Two calculations 
-were discussed and they are as follows:
+from the mean attribute value in that class. The results from this
+ modification can be seen in Figure \ref{fig:segment}. Two 
+calculations were discussed and they are as follows:
 \begin{enumerate}
 \item Weighted Distance From Mean 1: In this calculation it was 
 decided that the distance from mean should be calculated as:
@@ -20,7 +21,7 @@ decided that the distance from mean should be calculated as:
   WghtDist=\frac{(Max-Min)-|(Mean-Val)|}{(Max-Min)}
 \end{equation}
 where Max, Min, and Mean are the max, min, and mean values for 
-the attribute in the HyperPipe for the class currenlty being 
+the attribute in the MultiPipe for the class currenlty being 
 scored and Val is the current attribute value in the row being 
 classified. 
 \item Weighted Distance From Mean 2: The calculation in this 
@@ -32,11 +33,8 @@ method is slightly different from the one above:
   WghtDist=\frac{(BigGap)-|(Mean-Val)|}{(BigGap)}
 \end{equation}
 where Max, Min, and Mean are the max, min, and mean values for 
-the attribute in the HyperPipe for the class currenlty being 
+the attribute in the MultiPipe for the class currenlty being 
 scored and Val is the current attribute value in the row being 
 classified.
 \end{enumerate}
 
-
-
-graph of weighted distance classification accuracy
