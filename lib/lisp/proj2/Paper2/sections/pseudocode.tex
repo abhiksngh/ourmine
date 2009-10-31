@@ -1,0 +1,69 @@
+%\begin{figure}
+\begin{program}
+%\footnotesize
+\begin{algorithmic}
+\Procedure {RunHyperPipes}{$Nothing$}
+\State $HyperPipes := array[]$
+\State $Guessed := 0$
+\State $GuessedCorrect := 0$
+\ForAll {Line in DataFile}
+\State $Guessed++$
+\State $GuessedCorrect \mbox{+=} Classify(MyHyperPipes,Line)$
+\State $HyperPipes := AddExperience(Line,HyperPipes)$
+\EndFor
+\State $Accuracy := GuessedCorrect/Guessed$
+\EndProcedure
+\end{algorithmic}
+\caption{HyperPipes Pseudo Code.}\label{[pro:RunHyperPipes}
+\end{program}
+%\end{figure}
+
+
+\begin{program}
+\begin{algorithmic}
+\Procedure {Classify}{$HyperPipes$,$Line$}
+\State{$BestScore := 0$}
+\State{$BestClass := []$}
+\ForAll{HPipe in HyperPipes}
+\State{$HPipeScore := 0$}
+\ForAll{Attr in Line}
+\If{$Attr <= HPipe.Attr.max\; \&\&\; Attr >= HPipe.Attr.min$}
+\State{$HPipeScore++$}
+\EndIf
+\EndFor
+\If{$HPipeScore >= BestScore$}
+\If{$HPipeScore := BestScore$}
+\State{$BestClass := BestClass + HPipe.class$}
+\Else
+\State{$BestClass := array(HPipe.class)$}
+\State{$BestScore := HPipeScore$}
+\EndIf
+\EndIf
+\EndFor
+\If{$BestClass\; contains\; Line.class$}
+\State \Return 1
+\EndIf
+\State \Return 0
+\EndProcedure
+\end{algorithmic}
+\caption{HyperPipes Classify Pseudo Code.}\label{pro:Classify}
+\end{program}
+
+\begin{program}
+\begin{algorithmic}
+\Procedure {AddExperience}{$HyperPipes$,$Line$}
+\State{$CurrentPipe := FindPipe(Line.class,HyperPipes)$}
+\If{$null\; CurrentPipe$}
+\State{$HyperPipes := HyperPipes + CreateHyperPipe(Line.class)$}
+\State{$CurrentPipe := FindPipe(Line.class,HyperPipes)$}
+\EndIf
+\ForAll{Attr in Line}
+\State{$CurrentPipe.max := max(CurrentPipe.max,Attr)$}
+\State{$CurrentPipe.min := min(CurrentPipe.min,Attr)$}
+\EndFor
+\EndProcedure
+\end{algorithmic}
+\caption{HyperPipes Classify Pseudo Code.}
+\label{pro:AddExperience}
+\end{program}
+
