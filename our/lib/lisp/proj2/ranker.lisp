@@ -1,13 +1,10 @@
 (defun extract-best-cols (attranks dataset n)
-  (let ((used)
-	(orig)
-	(keepcols)
-	(current 0)
-        (classindx (- (length (car dataset)) 1))
+  (let ((classindx (- (length (car dataset)) 1))
 	(out))
     (setf attranks (sort attranks #'> :key #'car))
-    (dotimes (i n out)
-      (setf out (append out (list (cdr (nth i attranks))))))))
+    (dotimes (i n)
+      (setf out (append out (list (cdr (nth i attranks))))))
+    (setf out (append out (list classindx)))))
    
 
 (defun prune-cols (colnums data)
@@ -30,11 +27,10 @@
 (defun infogain-table (table n)
   (multiple-value-bind (colnums insts)
       (rank-via-infogain (table-egs-to-lists table) n)
-    (let ((cols))
-      (setf colnums (remove-duplicates colnums))
+    (let ((cols)) 
       (dolist (col colnums)
         (setf cols (append cols (list (nth col (table-columns table))))))
-      (make-simple-table 'infogain-res-table cols  insts))))
+      (make-simple-table 'infogain-res-table cols insts))))
     
     
 
