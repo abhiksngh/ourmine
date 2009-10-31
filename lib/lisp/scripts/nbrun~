@@ -1,9 +1,0 @@
-#!/bin/bash/
-outpath=proj2/HyperPipes/OutputFiles
-plotdata=../proj2/HyperPipes/PlotData
-file=`basename $1`	#remove directory
-file=${file%.lisp}	#remove .lisp
-echo "Running all HyperPipes options on $file dataset"
-sbcl --load scripts/batch.lisp --eval "(batch \"$file\")"
-echo "Running naive bayes on $file dataset"
-sbcl --load scripts/nb-batch.lisp --eval "(nb-batch \"$file\")"

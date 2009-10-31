@@ -10,6 +10,7 @@ cd ..
 here=`pwd`
 
 includeNB="yes"
+plotacc="yes"
 
 
 file=`basename $1`	#remove directory
@@ -18,10 +19,12 @@ hypdata=$here/proj2/HyperPipes/Data
 nbdata=$here/proj2/HyperPipes/NBData
 scripts=$here/scripts
 
-tmpfolder=`date +"%m-%d-%H-%M-%S"`"-"$RANDOM
+tmpfolder=`date +"%H-%M-%S"`"-$1-"$RANDOM
 tmp=$here"/tmp/"$tmpfolder
 learner=$tmp"/learner"
-stats=$tmp"/stats"
+accstats=$tmp"/accuracy-stats"
+sizestats=$tmp"/size-stats"
+accplots=$tmp"/accuracy-plots"
 
 if [ ! -d "$here/tmp" ]; then
     mkdir $here/tmp
@@ -29,7 +32,8 @@ fi
 
 mkdir $tmp
 mkdir $learner
-mkdir $stats
+mkdir $accstats
+mkdir $sizestats
 mkdir $data
 
 #----------randomize data----------
@@ -62,13 +66,31 @@ do
 sbcl --load $scripts/batch.lisp --eval "(batch \"blend$i-$file\" \"tmp/$tmpfolder\")"
 done
 
-mv $tmp/outputFile* $learner
+mv $tmp/*outputFile* $learner
 
 
 #------------stats----------------
 
+##accuracy stats
 for afile in $learner/*
 do
-echo "Statin' up"
-gawk -f $scripts/stats.awk -v Filename=$afile -v Classes=$2 > $stats/`basename $afile`-accuracy-stats.txt
+echo "Statin' up accuracy in "$afile
+gawk -f $scripts/stats.awk -v Filename=$afile -v Classes=$2 > $accstats/`basename $afile`-accuracy-stats.txt
 done
+
+
+##set size stats
+for afile in `ls $learner | grep '000\{1\}.*0-0-0-0.txt'`
+do
+echo "Building set size statistics on "$afile
+tmpfilename=${afile%.txt}
+gawk -f $scripts/sizestats.awk -v Filename=$learner/$afile -v Classes=$2 > $sizestats/`basename $tmpfilename`-size-stats.txt
+done
+
+#-------
+if [ $plotacc = "yes" ]; then
+mkdir $accplots
+gawk -f $scripts/make-acc-plot.awk -v Source=$accstats -v OutPath=$accplots -v NB=$includeNB -v Dataset=$1 > $accplots"/$1-accuracy.plot"
+fi
+
+gnuplot $accplots/$1-accuracy.plot

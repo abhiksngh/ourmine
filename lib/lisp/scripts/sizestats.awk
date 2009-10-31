@@ -17,7 +17,7 @@ function main() {
 			SetSum += SetSize
 			RowNum++
 			Cntr++
-			if(Cntr >= int(Size/50)) {
+			if(Cntr >= int(Size/100)) {
 				Cntr = 0
 				print RowNum" "(SetSum / RowNum)" "SetSize
 			}
