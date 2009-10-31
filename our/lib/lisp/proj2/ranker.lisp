@@ -4,7 +4,8 @@
     (setf attranks (sort attranks #'> :key #'car))
     (dotimes (i n)
       (setf out (append out (list (cdr (nth i attranks))))))
-    (setf out (append out (list classindx)))))
+    (setf out (append out (list classindx)))
+    (setf out (sort out #'<))))
    
 
 (defun prune-cols (colnums data)
