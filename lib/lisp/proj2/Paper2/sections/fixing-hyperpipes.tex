@@ -1,4 +1,14 @@
-\subsubsection{Fixing Tied Classes}
+\subsection{Introducing MultiPipes}
+We saw incredible potential in HyperPipes if we could reign in
+the issues described above. One of the major advantages of HyperPipes
+is its ability to classify a single row very fast. The Pipes 
+condition can be stored and retrieved at a later time for 
+classification unlike some other learners whose classification 
+relies heavily on the actual contents of previous rows. Below we 
+describe how HyperPipes was transformed into MultiPipes.
+
+
+\subsection{Fixing Tied Classes}
 When it was discovered that HyperPipes tended to choose classes 
 towards the end of the classes list we investigated further to 
 find that many classes were tieing against other classes. We 
@@ -18,7 +28,7 @@ current class. If the current score is equal to the best score
 then append the current class to the list of best classes.
 
 
-\subsubsection{Fixing Over Fitting}
+\subsection{Fixing Over Fitting}
 As described previously Hyperpipes has an over fitting issue 
 when it learns too much. While we have no implemented these 
 potential fixes our possible solutions are described below:
@@ -39,7 +49,7 @@ potential fixes our possible solutions are described below:
 \end{enumerate}
 
 
-\subsubsection{Fixing Outliers}
+\subsection{Fixing Outliers}
 We have implemented some fixes to the problem of outliers. 
 However, there are many other outlier fixing strategies that have 
 not been implemented. Below is a list of our outlier fixing 
@@ -52,19 +62,25 @@ value falls within the range of that given by the HyperPipe for that
 Attribute. The Weighted Means changes the 1 to a number between 0 
 and 1 which represents the distance from the mean within the range. 
 Two versions of this are explained further in Section 5.
-\item Slowly Changing Ranges: This fix has not been implemented. 
-This fix involves setting up some way of expanding the ranges more 
-slowly for instance, if you encounter a value lower than the current 
-min instead of setting the min to the current value set the min 
-according to some calculation that accounts for the frequency of 
-numbers lower than the current min.
-\item Outlier Detection Algorithms: This fix has not been implemented. 
-There are numerous proven outlier detection algorithms which could be 
-used to attempt to detect outliers as we encounter them.
+\item Outlier Detection Algorithm: This fix has been implemented. 
+Every time HyperPipes attempts to add experience to its numerical bounds
+the algorithm calculates the z-score\cite{Larsen01} for the value attempting to be added. 
+If the Z-Score is greater than 1.96 then the value is not used to expand
+the ranges within the hyperpipe.
+\item Slowly Changing Ranges: This fix has been implemented. 
+The same fix we used in the outlier detection algorithm also allows for 
+slowly changing ranges. Its important to realize that the value being
+considered is added to the stastics for consideration in the z-score 
+calculation and its addition to the statistics is not reversed if the
+value is determined to be an outlier. This means that if the value 
+determined to be an outlier occurs multiple times it is likely that 
+it will eventually receive a z-score less than 1.96 and no longer be
+considered an outlier and will subsequently be added to the min and max
+for the hyperpipe.
 \end{enumerate}
 
 
-\subsubsection{Fixing Memory Management}
+\subsection{Fixing Memory Management}
 As explained above the old HyperPipes implementation needs information 
 on the entire dataset for intialization. We saw value in making 
 HyperPipes work on an ever changing stream of data. We implemented this 

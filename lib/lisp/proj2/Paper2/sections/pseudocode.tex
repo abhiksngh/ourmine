@@ -52,18 +52,26 @@
 \begin{program}
 \begin{algorithmic}
 \Procedure {AddExperience}{$HyperPipes$,$Line$}
-\State{$CurrentPipe := FindPipe(Line.class,HyperPipes)$}
-\If{$null\; CurrentPipe$}
+\State{$Pipe := FindPipe(Line.class,HyperPipes)$}
+\State{$AddThisRow := false$}
+\If{$null\; Pipe$}
 \State{$HyperPipes := HyperPipes + CreateHyperPipe(Line.class)$}
-\State{$CurrentPipe := FindPipe(Line.class,HyperPipes)$}
+\State{$Pipe := FindPipe(Line.class,HyperPipes)$}
 \EndIf
 \ForAll{Attr in Line}
-\State{$CurrentPipe.max := max(CurrentPipe.max,Attr)$}
-\State{$CurrentPipe.min := min(CurrentPipe.min,Attr)$}
+\State{$Pipe.Attr.Num++$}
+\State{$Pipe.Attr.Sum += Attr$}
+\State{$Pipe.Attr.SumSquares += Attr^2$}
+\State{$Pipe.Attr.Mean = Pipe.Attr.Sum/Pipe.Attr.Num$}
+\State{$Pipe.Attr.StandardDev = sqrt((Pipe.Attr.SumSquares/Pipe.Attr.Num)-Pipe.Attr.Mean^2)$}
+\If{$Pipe.Attr.StandardDev = 0\; ||\; (abs(Pipe.Attr.Mean-Attr)/Pipe.Attr.StandardDev) < 1.96\; ||\; Pipe.Attr.Num < 10$}
+\State{$Pipe.Attr.max := max(Pipe.Attr.max,Attr)$}
+\State{$Pipe.Attr.min := min(Pipe.Attr.min,Attr)$}
+\EndIf
 \EndFor
 \EndProcedure
 \end{algorithmic}
-\caption{HyperPipes Classify Pseudo Code.}
+\caption{HyperPipes Add Experience Pseudo Code.}
 \label{pro:AddExperience}
 \end{program}
 
