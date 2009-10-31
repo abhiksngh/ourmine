@@ -46,7 +46,11 @@ is detected:
 	an overfit is detected we dont lose all classification ability on that
 	pipe, we simply know less.
 \item Revert Pipe on Detection:
-	When this overfit action is enabled it will keep track
+	When this overfit action is enabled it will keep track of the previous
+	ten MultiPipes. When the supporting code requests that the MultiPipe
+	be checked for overfit if it is determined to not be overfit the 
+	pipe is logged. If the pipe is determined to be overfit it will revert 
+	the pipe to the previously logged MultiPipe
 	
 \end{enumerate}
 
