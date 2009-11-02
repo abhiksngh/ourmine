@@ -61,6 +61,7 @@
 (defun learner (train test &key (k 1)
                               (prep #'identity) ;Takes 1 table returns 1 table
                               (row-reducer #'default-row-reducer)
+                              (row-reducer2 #'default-row-reducer)
                               (discretizer #'identity) ;Takes 1 table returns 1 table
                               (clusterer #'default-clusterer) ;Takes k and 1 table returns a list of tables
                               (fss #'identity) ;Takes 1 table returns 1 table
@@ -74,6 +75,7 @@
     (setf train (funcall discretizer train))
     (setf test (funcall discretizer test))
     (setf train (funcall row-reducer train test))
+    (setf train (funcall row-reducer2 train test))
     (setf clusters (funcall clusterer train k))
 	(dolist (cluster clusters)
 		(setf cluster (funcall fss cluster))
@@ -106,6 +108,7 @@
 (defun learn (train test &key (k 1)
                               (prep #'identity)
                               (row-reducer #'default-row-reducer)
+                              (row-reducer2 #'default-row-reducer)
                               (discretizer #'identity)
                               (clusterer #'default-clusterer)
                               (fss #'identity)
@@ -114,6 +117,7 @@
   (statistics-output (learner train test :k k 
                                          :prep prep 
                                          :row-reducer row-reducer
+                                         :row-reducer2 row-reducer2
                                          :discretizer discretizer 
                                          :clusterer clusterer 
                                          :fss fss 
@@ -163,6 +167,7 @@
 (defun cross-validation2 (train test  &key (k 1)
                                            (prep #'identity)
                                            (row-reducer #'(lambda (train test) train))
+                                           (row-reducer2 #'(lambda (train test) train))
                                            (discretizer #'identity)
                                            (clusterer #'default-clusterer)
                                            (fss #'identity)
