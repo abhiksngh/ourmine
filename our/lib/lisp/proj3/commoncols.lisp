@@ -32,3 +32,7 @@
     newtables))
     
             
+(defun knn-to-table (instance train &optional (k 10))
+  (let* ((train-data (table-egs-to-lists train))
+         (neighbors (k-nearest instance train-data k)))
+    (make-simple-table (table-name train) (table-columns train) neighbors)))
