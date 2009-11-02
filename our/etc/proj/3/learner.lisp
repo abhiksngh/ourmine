@@ -173,7 +173,7 @@
   (let ((results nil))
     (dotimes (i 100)
       (multiple-value-bind (test-90 test-10) (split-preprocessor test)
-        (setf results (append (learner train test :k k 
+        (setf results (append (learner train test-10 :k k 
                                                   :prep prep 
                                                   :row-reducer row-reducer
                                                   :discretizer discretizer 
