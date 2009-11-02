@@ -175,12 +175,14 @@
                                       	   (classifier #'identity)
                                       	   (defect-class 'true)
                                       	   (file-name nil))
+  (setf train (funcall row-reducer train test))
+  (setf train (funcall row-reducer2 train))
   (let ((results nil))
     (dotimes (i 100)
       (multiple-value-bind (test-90 test-10) (split-preprocessor test)
         (setf results (append (learner train test-10 :k k 
                                                   :prep prep 
-                                                  :row-reducer row-reducer
+                                                  ;:row-reducer row-reducer
                                                   :discretizer discretizer 
                                                   :clusterer clusterer 
                                                   :fss fss 
@@ -194,6 +196,6 @@
   (cross-validation (shared_PC1) :row-reducer #'burak-filter :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify :file-name "test.txt"))
 
 (defun cross-validation-demo2 ()
-  (cross-validation2 (ar3) (ar4) :row-reducer #'burak-filter :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify)
-  (cross-validation2 (ar3) (ar4) :row-reducer #'burak-filter :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify :file-name "test.txt"))
+  (cross-validation2 (ar3) (ar4) :row-reducer #'burak-filter :row-reducer2 #'micro-sample-n25 :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify)
+  (cross-validation2 (ar3) (ar4) :row-reducer #'burak-filter :row-reducer2 #'micro-sample-n25 :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify :file-name "test.csv"))
 
