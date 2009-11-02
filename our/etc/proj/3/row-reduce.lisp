@@ -4,15 +4,14 @@
 ;;Takes a table structure and returns the symbol representing the minority class and 
 ;;the number of instances of the minority class.
 (defun find-minority-class (tbl)
-  (xindex tbl)
   (let ((minority-class nil)
         (minority-class-count most-positive-fixnum))
-    (maphash #'(lambda (k v)
-                (cond ((< v minority-class-count)
-                      (setf minority-class k)
-                      (setf minority-class-count v))))
-             (header-f (table-class-header tbl)))
-    (values (car minority-class) minority-class-count)))
+    (dolist (class (get-table-classes tbl))
+      (if (< (length (get-table-class-rows tbl class))
+             minority-class-count)
+        (setf minority-class class
+              minority-class-count (length (get-table-class-rows tbl class)))))
+    minority-class))
 
 (deftest find-minority-class-test ()
   (check
@@ -26,15 +25,16 @@
 ;;Returns a modified copy of the table structure.
 (defun sub-sample (train &optional test)
   (setf train (table-deep-copy train))
-  (multiple-value-bind (mclass mcount) (find-minority-class train)
-    (dolist (klass (remove mclass (klasses train)))
-      (do ((rows-removed 0)
-           (classi (table-class train)))
-          ((>= rows-removed (- (gethash (list klass klass) (header-f (table-class-header train))) mcount)))
-          (let ((randomi (random (length (table-all train)))))
-            (cond ((equalp klass (nth classi (eg-features (nth randomi (table-all train)))))
-                    (setf (table-all train) (delete (nth randomi (table-all train)) (table-all train)))
-                    (incf rows-removed))))))
+  (let* ((minority-class (find-minority-class train))
+         (n (length (get-table-class-rows train minority-class)))
+         (random-rows nil))
+    (dolist (class (get-table-classes train))
+      (let ((class-rows (get-table-class-rows train class)))
+        (dotimes (i n)
+          (let ((randomi (random (length class-rows))))
+            (push (nth randomi class-rows) random-rows)
+            (setf class-rows (remove (nth randomi class-rows) class-rows))))))
+      (setf (table-all train) random-rows)
     train))
 
 (deftest sub-sample-test ()
@@ -80,29 +80,34 @@
       (equalp (length (egs (super-burak-filter (ar4) (list (ar5))))) (length (egs (burak-filter (ar4) (ar5)))))
       (equalp (length (egs (super-burak-filter (ar4) (list (ar3) (ar5))))) 107))))
 
-;;Reduces the number of rows in tbl to n by randomly selecting n rows from tbl.
-(defun micro-sample (tbl &optional (n 50))
+;;Reduces the number of defect rows in tbl to n and reduces the number of
+;;non-defect rows to n.
+(defun micro-sample (tbl &optional (n 25) (defect-class 'true))
   (setf tbl (table-deep-copy tbl))
-  (if (<= (length (get-table-rows tbl)) n)
-    tbl
-    (let ((rows (get-table-rows tbl))
-          (random-rows nil)
-          (randomi 0))
-      (dotimes (i n)
-        (setf randomi (random (length rows)))
-        (push (nth randomi rows) random-rows)
-        (setf rows (remove (nth randomi rows) rows)))
-      (setf (table-all tbl) random-rows)
-      tbl)))
+  (let* ((defect-rows (get-table-class-rows tbl defect-class))
+         (non-defect-rows (set-difference (get-table-rows tbl) defect-rows))
+         (random-rows nil))
+    (setf n (min n (length defect-rows)))
+    (dotimes (i n)
+      (let ((randomi (random (length defect-rows))))
+        (push (nth randomi defect-rows) random-rows)
+        (setf defect-rows (remove (nth randomi defect-rows) defect-rows))))
+    (dotimes (i n)
+      (let ((randomi (random (length non-defect-rows))))
+        (push (nth randomi non-defect-rows) random-rows)
+        (setf non-defect-rows (remove (nth randomi non-defect-rows) non-defect-rows))))
+    (setf (table-all tbl) random-rows)
+    tbl))
 
 (deftest micro-sample-test ()
   (check
     (and
-      (equalp (length (table-all (micro-sample (ar4)))) 50)
-      (equalp (length (table-all (micro-sample (ar4) 100))) 100)
-      (equalp (length (table-all (micro-sample (ar4) 150))) (length (table-all (ar4)))))))
+      (equalp (length (table-all (micro-sample (ar4)))) 40)
+      (equalp (length (table-all (micro-sample (ar4) 15))) 30)
+      (equalp (length (table-all (micro-sample (ar4) 20))) 40)
+      (equalp (length (table-all (micro-sample (ar4) 25))) 40))))
 
-;;Reduces the number of rows in train to 50.
-(defun micro-sample-n50 (train &optional test)
+;;Reduces the number of rows in train to 25 defect rows and 25 non-defect rows.
+(defun micro-sample-n25 (train &optional test)
   (micro-sample train))
 
