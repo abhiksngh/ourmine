@@ -1,5 +1,5 @@
 (defun bsquare (tbl top &optional (bins 5))
-  (let ((score (score-tbl-bsquare tbl top bins)))
+  (let ((score (score-tbl-bsquare (xindex (utilscore tbl)) top bins)))
     (xindex (bsquare-table tbl score))))
 
 (defun score-tbl-bsquare (tbl top  &optional (bins 5))
