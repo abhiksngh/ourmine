@@ -1,3 +1,7 @@
+(defun bsquare (tbl top &optional (bins 5))
+  (let ((score (score-tbl-bsquare tbl top bins)))
+    (xindex (bsquare-table tbl score))))
+
 (defun score-tbl-bsquare (tbl top  &optional (bins 5))
   (let* ((len (- (length (table-columns tbl)) 2))
          (lst-scores))
@@ -37,11 +41,7 @@
          (freq-rest (+ 0.000001 (calc-freq rest attr min max)))
          (b (* freq-best (float (/ total-best total))))
          (r (* freq-rest (float (/ total-rest total)))))
-     ;(format t "~a ~a ~%" min max)
-     ;(format t "~a ~a ~%" freq-best freq-rest)
     (/ (* b b) (+ b r))))
-
-
 
 
 (defun calc-freq (tbl attr min max)
@@ -66,3 +66,25 @@
         (setf lst-ranges (append lst-ranges (list (cons (car lst) (car (cdr lst))))
                                 (make-cons-ranges (cdr (cdr lst))))))
     lst-ranges))
+
+
+(defun bsquare-table (table best-col-index)
+  (let* ((cols)
+         (best-cols (sort (copy-list best-col-index) #'<))
+         (columns (table-columns table)))
+    (dolist (indx best-cols)
+      (setf cols (append cols (list (nth indx columns)))))
+    (setf cols (append cols (list (nth (table-class table) columns))))
+    (make-simple-table (table-name table) cols (prune-cols-bsquare best-cols table))))
+
+(defun prune-cols-bsquare (colnums data)
+  (let ((pruned)
+        (cls (table-class data))
+        (inst (table-egs-to-lists data))
+	(tmp))
+    (dolist (row inst pruned)
+      (setf tmp '())
+      (dolist (col colnums)
+	(setf tmp (append tmp (list (nth col row)))))
+      (setf tmp (append tmp (list (nth cls row))))
+    (setf pruned (append pruned (list tmp))))))
