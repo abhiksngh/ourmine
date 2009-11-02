@@ -36,7 +36,7 @@
                         "proj2/discretize"
                         "proj2/discretize2"
                         "proj2/classify"
-                        "proj2/find-classes"
+                        "proj2/find-`classes"
                         ;"tests/data/primary-tumor"
                         ;"tests/data/vote"
                         ;"tests/data/mushroom"
