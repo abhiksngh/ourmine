@@ -12,4 +12,14 @@
         (if (equal want got)
             (incf score))))))
 
+(defun make-knn-data (tr te &optional (k 10))
+  (let ((result)
+        (train (table-egs-to-lists tr))
+        (test (table-egs-to-lists te))
+        (out))
+    (dolist (testinst test)
+      (setf result (append result (k-nearest testinst train k))))
+    (setf result (remove-duplicates result :test #'equal))
+    (xindex (setf out (make-simple-table 'knn-data (table-columns tr) result)))))
+
 
