@@ -12,8 +12,8 @@
 (load "modules/normalization")
 (load "modules/nchops")
 (load "modules/b-squared")
-(load "../../../lib/lisp/tests/data/quake")
-(load "../../../lib/lisp/tests/data/sick")
+(load "tests/data/quake")
+(load "tests/data/sick")
 (load "tests/graphs")
 
 (defun learn (&key (k 8) prep discretizer clusterer fss classify
