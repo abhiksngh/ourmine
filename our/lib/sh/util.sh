@@ -21,20 +21,29 @@ buildSetTable(){
 
     (echo
 	for da in `ls $dir`; do
-	        for db in `ls $dir`; do
+	    for db in `ls $dir`; do
 		    if [ "$da" = "$db" ]; then      
-			    break
+			break
 		    else
-			    echo -n "$da/$db,"
-			        union=`cat $db $da | grep "@attribute" | wc -l`
-				    intersect=`cat $db | grep "@attribute" > $Tmp/tmp1; 
-				        cat $da | grep "@attribute" > $Tmp/tmp2;
-					cat $Tmp/tmp1 $Tmp/tmp2 | sort | uniq -d | wc -l`       
-				        echo -n `div $intersect $union`
-					    echo " "
-					    fi
-		        done
-		done) | malign
+			echo -n "$da/$db,"
+			union=`cat $db $da | grep "@attribute" | 
+			grep -v "class" | wc -l`		       
+			intersect=`cat $db | grep "@attribute" | 
+			grep -v "class" > $Tmp/tmp1; 
+			cat $da | grep "@attribute" > $Tmp/tmp2;
+			cat $Tmp/tmp1 $Tmp/tmp2 | sort | uniq -d | wc -l`
+			simatts=`cat $Tmp/tmp1 $Tmp/tmp2 | 
+			sort | uniq -d | cut -d" " -f2,2`
+			result=`div $intersect $union`		       
+			echo -n "`mult $result 100.0` %"
+			echo " "
+			
+			for sim in $simatts; do
+			    echo "----> $sim"
+			done			    
+		    fi
+	    done
+	done) | malign
     
     cd $here
 }
