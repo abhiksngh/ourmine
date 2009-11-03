@@ -26,7 +26,7 @@
     (dolist (each (table-all tbl) tbl)
       (setf (eg-class each) (gethash (eg-class each) frequency-table)))))
 
-(defun b-squared (tbl &key (percentile .20) (threshold .80)
+(defun b-squared (tbl &key (percentile .20) (threshold .25)
                       (score (lambda (b r) (/ (* b b) (+ b r)))))
   (setf (table-all tbl)
         (progn (unless (numberp (eg-class (first (table-all tbl))))
