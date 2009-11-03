@@ -8,7 +8,7 @@
 
 (defun b-squared (tbl &key (percentile .20) (threshold .80)
                       (score (lambda (b r) (/ (* b b) (+ b r)))))
-  (multiple-value-bind (tbl-best tbl-rest) (bore tbl percentile)
+  (multiple-value-bind (tbl-best tbl-rest) (bore tbl :percentile percentile)
     (let ((acc-best 0)
           (acc-rest 0)
           (range-accs-best (make-hash-table))

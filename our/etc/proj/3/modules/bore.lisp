@@ -1,3 +1,7 @@
+(defun calcw (record norms)
+  (- 1 (/ (sqrt (apply #'+ (mapcar #'square (mapcar #'normalize norms record))))
+          (sqrt (length (norms))))))
+
 ;Evaluates the W cloumn
 (defun borew (cols)
   (let ((sumofsquares 0))

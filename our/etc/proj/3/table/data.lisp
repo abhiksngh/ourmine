@@ -2,20 +2,17 @@
 
 
 (defun data (&key name columns egs (klass -1) ranges)
-  (let* (tmp-egs
-	 (tbl
-          (make-table
-           :name name
-           :columns (columns-new
-                     columns
-                     (class-index klass (length columns)))
-           :ranges ranges)))
-    (setf (table-class tbl) 
-	  (class-index klass (table-width tbl)))
-    (dolist (eg egs)
-      (if (setf eg (datums eg tbl))
-	  (push eg tmp-egs)))
-    tbl))
+  (let ((egs-copy (copy-tree egs)))
+    (let* (tmp-egs (tbl (make-table
+                          :name name
+                          :columns (columns-new columns (class-index klass (length columns)))
+                          :ranges ranges)))
+      (setf (table-class tbl) 
+            (class-index klass (table-width tbl)))
+      (dolist (eg egs-copy)
+        (if (setf eg (datums eg tbl))
+          (push eg tmp-egs)))
+      tbl)))
 
 (defun datums (one tbl)
   ;(format t "~a~&" one)
