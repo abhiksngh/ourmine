@@ -176,10 +176,10 @@
                                       	   (defect-class 'true)
                                       	   (file-name nil))
   (setf train (funcall row-reducer train test))
-  (setf train (funcall row-reducer2 train))
+  (setf train (funcall row-reducer2 train test))
   (let ((results nil))
     (dotimes (i 100)
-      (multiple-value-bind (test-90 test-10) (split-preprocessor test)
+      (multiple-value-bind (test-90 test-10) (split-preprocessor25 test)
         (setf results (append (learner train test-10 :k k 
                                                   :prep prep 
                                                   ;:row-reducer row-reducer
