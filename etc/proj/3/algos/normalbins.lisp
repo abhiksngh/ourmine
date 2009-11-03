@@ -1,3 +1,11 @@
+(load "lib/loaddeps")
+(load "utils/utils")
+(load "d-data/mushroom")
+(load "d-data/boston-housing")
+
+(defparameter mushtable (mushroom))
+(defparameter housetable (boston-housing))
+
 ;;; Claimee: Drew
 
 ;;;  (EASY) Normal-chops
@@ -7,6 +15,12 @@
 ;;; 1. Compute the mean of a column.
 
 (defun column-mean (table column-num)
+  (let ((sum 0))
+    (dolist (row (table-all table))
+      (incf sum (nth column-num (eg-features row)))
+    )
+    (/ sum (length (table-all table)))
+  )
 )
 
 ;;; 2. Compute the standard deviation of a column.  StDev is measured as
