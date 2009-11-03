@@ -94,14 +94,14 @@
 ;used in Bore
 (defun sort-on(tbl n)
     (setf (table-all tbl) (sort (copy-list (table-all tbl)) #'>=
-	                            :key (lambda (x) (nth n (eg-features x)))))
+				:key (lambda (x) (nth n (eg-features x)))))
     tbl)
 
 ; Sort-on but with whatever sorting algorithm you want.
 (defun sort-on-gen (tbl n &key (comp #'>))
-  (let ((rtntable (table-clone tbl)))
-    (setf (table-all rtntable) (sort (table-all rtntable) comp :key #'(lambda (x) (nth n (eg-features x)))))
-  rtntable))
+  (setf (table-all tbl)
+	(sort (copy-list (table-all tbl)) comp :key #'(lambda (x) (nth n (eg-features x)))))
+  tbl)
 
 ;Populates an istance of normal with N columns data
 ;Used in Bore & Normal Chops
