@@ -105,11 +105,10 @@
 
 ;Populates an istance of normal with N columns data
 ;Used in Bore & Normal Chops
-(defun fill-normal (tbl n)
+(defun fill-normal (tbl n &key (key (lambda (record) (nth n (eg-features record)))))
   (let ((rtnnorm (make-normal)))
-    (dolist (record (table-all tbl))
-      (add rtnnorm (nth n (eg-features record))))
-    rtnnorm))
+    (dolist (record (table-all tbl) rtnnorm)
+      (add rtnnorm (funcall key record)))))
 
 ;Useful operator function
 ;used in Normal Chops
