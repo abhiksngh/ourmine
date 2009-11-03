@@ -1,4 +1,4 @@
-
+;write results to file
 (defun write-stats-2 (filename str)
   (let (st)
   (setf st (open (make-pathname :name filename) :direction :output
@@ -6,7 +6,7 @@
   (format st str)
   (close st)))
 
-
+;running the stimulation for n -- all datasets
 (defun test-all-no-subsample (&optional (times 10))
   (let* ((data-shared '(shared_pc1 shared_cm1 shared_kc1 shared_kc2 shared_kc3 shared_mc2 shared_mw1))
         (data-ar '(ar3 ar4 ar5))
@@ -19,7 +19,7 @@
     (write-stats-2  "shared-test-n-no-subsample.csv" (format nil "~a" results-shared))
     (write-stats-2  "ar-test-n-no-subsample.csv" (format nil "~a" results-ar))))
     
-
+;running the stimulation for n -- all n / each dataset
 (defun test-no-subsample (train &optional (times 10))
   (let* ((ns '(2 4 8 10 12))
          (results))
