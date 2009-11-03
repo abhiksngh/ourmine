@@ -6,11 +6,14 @@
 ;(format t "Loading files~a");
 (load "miner")
 (load "modules/bore")
+(load "modules/slowbore")
 (load "modules/oner")
 (load "modules/normchops")
-;(load "modules/genic2")
+(load "modules/normalization")
+(load "modules/nchops")
 (load "../../../lib/lisp/tests/data/quake")
 (load "../../../lib/lisp/tests/data/sick")
+(load "tests/graphs")
 
 (defun learn (&key (k 8) prep discretizer clusterer fss classify
 				   (train "train.lisp")

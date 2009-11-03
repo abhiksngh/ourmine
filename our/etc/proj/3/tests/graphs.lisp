@@ -1,0 +1,22 @@
+(defun pre-processor-graph (&key (n 2) (width 55) (old nil))
+  (let ((chart))
+    (when old
+      (push (make-chart-item :name "old bore" :value (time-it n (slowbore (quake)))) chart)) 
+    (push (make-chart-item :name "bore" :value (time-it n (bore (quake)))) chart)
+    (push (make-chart-item :name "normalize" :value (time-it n (normalization (quake)))) chart)
+    (format t "Pre-processors~%")
+    (show-bar-graph chart :width width)
+    (format t  "~%")))
+
+(defun discretizer-graph (&key (n 2) (width 55))
+  (let ((chart))
+    (push (make-chart-item :name "n-bins" :value (time-it n (n-bins (quake)))) chart)
+    (push (make-chart-item :name "n-chops" :value (time-it n (n-chops (quake)))) chart)
+    (push (make-chart-item :name "normal chops" :value (time-it n (normal-chops (quake)))) chart)
+    (format t "Discretizers~%")
+    (show-bar-graph chart :width width)
+    (format t  "~%")))
+    
+(defun show-all-graphs(&key (n 2) (width 55) (old nil))
+  (pre-processor-graph :n n :width width :old old)
+  (discretizer-graph :n n :width width))

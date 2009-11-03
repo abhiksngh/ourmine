@@ -131,5 +131,6 @@
       (when (typep column 'numeric)
         (setf normval (fill-normal tbl n))
         (dolist (record (table-all tbl))
-          (setf (eg-features record) (normalize normval (nth n (eg-features record))))))
+          (setf (nth n (eg-features record)) `(,(normalize normval (nth n (eg-features record)))))))
       (incf n))))
+
