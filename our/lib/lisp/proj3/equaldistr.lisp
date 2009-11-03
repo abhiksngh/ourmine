@@ -1,4 +1,4 @@
-(defun equaldistr2 (train)
+(defun equaldistr (train)
   (let* ((data (table-egs-to-lists train))
          (class-col (table-class train))
          (temp-inst)
@@ -22,6 +22,6 @@
                (setf data (remove temp-inst data :test #'equal))
                (incf count)
              until (= (length data) (* t-count 2)))))
-    data))
+    (make-simple-table (table-name train) (table-columns train) data)))
         
 
