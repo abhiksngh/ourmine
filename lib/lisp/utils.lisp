@@ -94,4 +94,3 @@
           (push (nth n node1) new-features))
       (incf n))
     (setf new-features (reverse new-features))))
-                    
