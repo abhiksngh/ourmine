@@ -1,16 +1,39 @@
+
+(defun write-stats-2 (filename str)
+  (let (st)
+  (setf st (open (make-pathname :name filename) :direction :output
+                            :if-exists :supersede))
+  (format st str)
+  (close st)))
+
+
 (defun test-all-no-subsample (&optional (times 10))
-  (let ((data '(shared_pc1 ar3 ar4 ar5 shared_cm1 shared_kc1 shared_kc2 shared_kc3 shared_mc2 shared_mw1)))
-    (dolist (dat data)       
-      (test-no-subsample (funcall dat)))))
+  (let* ((data-shared '(shared_pc1 shared_cm1 shared_kc1 shared_kc2 shared_kc3 shared_mc2 shared_mw1))
+        (data-ar '(ar3 ar4 ar5))
+        (results-shared)
+        (results-ar))
+    (dolist (shar data-shared)       
+      (setf results-shared (append results-shared (test-no-subsample (funcall shar) times))))
+    (dolist (ar data-ar)
+      (setf results-ar (append results-ar (test-no-subsample (xindex (funcall ar)) times))))
+    (write-stats-2  "shared-test-n-no-subsample.csv" (format nil "~a" results-shared))
+    (write-stats-2  "ar-test-n-no-subsample.csv" (format nil "~a" results-ar))))
+    
 
 (defun test-no-subsample (train &optional (times 10))
-  (let ((ns '(2 4 8 10 12)))
-    (dotimes (i times)
+  (let* ((ns '(2 4 8 10 12))
+         (results))
+    (dotimes (i times results)
       (dolist (n ns)
-        (infogain-nb train n)
-        (bsquare-nb train n)
-        (infogain-prism train n)
-        (bsquare-prism train n)))))
+        (let ((tmp))
+          (setf tmp (list 'infogain-nb 'infogain n 'None)) ;test infogain-nb
+          (setf results (append results (prepare-inst tmp (infogain-nb train n))))
+          (setf tmp (list 'bsquare-nb 'bsquare n 'None)) ;test bsquare-nb
+          (setf results (append results (prepare-inst tmp (bsquare-nb train n))))
+          (setf tmp (list 'infogain-prism 'infogain n 'None)) ;test infogain-prism
+          (setf results (append results (prepare-inst tmp (infogain-prism train n))))
+          (setf tmp (list 'bsquare-prism 'bsquare n 'None)) ;test bsquare-prism
+          (setf results (append results (prepare-inst tmp (bsquare-prism train n)))))))))
        
 
 
@@ -45,3 +68,9 @@
         (setf gotwants (append gotwants (list (append want got)))))) 
     (split (abcd-stats gotwants :verbose nil))))
 
+;utility function to print
+(defun prepare-inst (param abcd)
+  (let* ((true-lst (list (append param (car abcd))))
+        (false-lst (list (append param (car (cdr abcd)))))
+        (result))
+    (setf result (append true-lst false-lst))))

@@ -4,12 +4,13 @@
 
 (defun score-tbl-bsquare (tbl top  &optional (bins 5))
   (let* ((len (- (length (table-columns tbl)) 2))
-         (lst-scores))
+         (lst-scores)
+         (copy-for-sort))
     (dotimes (i len)
       (setf lst-scores (append lst-scores (list (list (score-all-bsquare tbl i bins) i)))))
-    (sort lst-scores #'> :key #'car)
-    (get-top-cols top lst-scores)))
-
+    (setf copy-for-sort (copy-list lst-scores))
+    (get-top-cols top (sort copy-for-sort #'> :key #'car))))
+  
 (defun get-top-cols (top lst)
   (let* ((top-cols))
     (dotimes (i top top-cols)
