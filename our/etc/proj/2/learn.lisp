@@ -18,28 +18,28 @@
 (defun masslearn ()
     (runlearnset nil "nv_norm_not_freq.dat" 
                  :rowReducer #'donothing1 
-                 :discretizer #'equal-freq-train-test)
+                 :discretizer #'equal-freq)
     (runlearnset nil "nv_norm_not_width.dat" 
                  :rowReducer #'donothing1 
-                 :discretizer #'equal-width-train-test)
+                 :discretizer #'equal-width)
     (runlearnset t "nv_norm_not_freq_bsq.dat" 
                  :rowReducer #'donothing1 
-                 :discretizer #'equal-freq-train-test)
+                 :discretizer #'equal-freq)
     (runlearnset t "nv_norm_not_width_bsq.dat" 
                  :rowReducer #'donothing1 
-                 :discretizer #'equal-width-train-test)
+                 :discretizer #'equal-width)
     (runlearnset nil "nv_norm_sub_freq.dat" 
                  :rowReducer #'sub-sample 
-                 :discretizer #'equal-freq-train-test)
+                 :discretizer #'equal-freq)
     (runlearnset nil "nv_norm_sub_width.dat" 
                  :rowReducer #'sub-sample 
-                 :discretizer #'equal-width-train-test)
+                 :discretizer #'equal-width)
     (runlearnset t "nv_norm_sub_freq_bsq.dat" 
                  :rowReducer #'sub-sample 
-                 :discretizer #'equal-freq-train-test)
+                 :discretizer #'equal-freq)
     (runlearnset t "nv_norm_sub_width_bsq.dat" 
                  :rowReducer #'sub-sample 
-                 :discretizer #'equal-width-train-test)
+                 :discretizer #'equal-width)
 ;    (runlearnset nil "nv_norm_bur_freq.dat"
 ;                 :rowReducer #'burak
 ;                 :discretizer #'equal-freq-train-test)
@@ -55,7 +55,7 @@
     (runlearnset nil "baseline.dat"
                  :norm #'donothing
                  :rowReducer #'donothing
-                 :discretizer #'donothing)
+                 :discretizer #'donothing1)
 
 )
 
@@ -63,7 +63,7 @@
                    &key (prep #'numval1)
                         (norm #'normalizedatatrainandtest)
                         (rowReducer   #'sub-sample)
-                        (discretizer  #'equal-width-train-test)
+                        (discretizer  #'equal-width)
                         (classify     #'nb))
     (let* ((setList (list #'shared-cm1 
                           #'shared-kc1 
@@ -77,20 +77,22 @@
            (stream (open filename :direction :output 
                                   :if-does-not-exist :create
                                   :if-exists :supersede))
-          (train) (test))
+          (train) (test) (var))
         (dolist (per-set setList)
             (format stream "~A~%" (parse-name per-set))
+            (setf var (funcall discretizer (funcall per-set)))
             (multiple-value-bind (trainList testList) 
                 (if bsq 
-                    (bins (b-squared(funcall per-set)))   ; b-squared col red
-                    (bins (funcall per-set))               ; no col reduction
+                    (bins (b-squared var))   ; b-squared col red
+                    (bins var)               ; no col reduction
 ;                    (nvalues 0.8 (b-squared(funcall per-set)))
   ;                  (nvalues 0.8 (funcall per-set))
                 )
-                (learn trainList testList stream :prep prep
+                (knn-learn trainList testList stream :prep prep
                                                  :norm norm
                                                  :rowReducer rowReducer 
-                                                 :discretizer discretizer)
+    ;                                             :discretizer discretizer
+                                                 )
                 (format stream "~%")
             )
         )
@@ -104,7 +106,7 @@
               &key (prep #'numval1)
                    (norm #'normalizedatatrainandtest)
                    (rowReducer   #'sub-sample)
-                   (discretizer  #'equal-width-train-test)
+   ;                (discretizer  #'equal-width-train-test)
                    (classify     #'nb))
     (when (not (listp trainList))
         (setf trainList (list trainList))
@@ -131,8 +133,8 @@
                 (setf trainSet (funcall rowReducer trainSet testSet))
 ;(format t "  after: ~A~%" (length (table-all (xindex trainSet))))
                     ; perform discretization on both data sets
-                (multiple-value-bind (trainSet testSet) 
-                    (funcall discretizer trainSet testSet)
+;                (multiple-value-bind (trainSet testSet) 
+ ;                   (funcall discretizer trainSet testSet)
 
                     ; perform classificiation on both data sets
                     (multiple-value-bind (trueClass falseClass) 
@@ -143,7 +145,7 @@
                         (printLine stream 'FALSE falseClass)
                     )
                 )
-            )
+  ;          )
         T)
     )
 )

@@ -1,7 +1,7 @@
 (defun b-squared (data)
     (let* ((scored-data (score-data data))
            (sorted-data (sort-table scored-data))
-           (disc-data (xindex (equal-width sorted-data)))
+           (disc-data (xindex sorted-data))
            (instance-count (negs data)))
         (multiple-value-bind (b r) (chop-data disc-data instance-count)
             (compute-scores disc-data b r)
@@ -63,7 +63,7 @@
 (defmethod numval3 ((header discrete) class-val)
     (declare (ignore header))
     (if (equal class-val 'TRUE)
-        10
+        6
         5
     )
 )
@@ -71,7 +71,7 @@
 
 (defun compute-scores (data b r)
     (let* ((attr-vals) ; unique attr values
-           (V .5) ; magic cut-off value for b
+           (V .25) ; magic cut-off value for b
            (trans-data) (attr-data) (class-data)
            (sorted-attr-data)
            (score-cutoff)
@@ -169,8 +169,8 @@
 
 (defun back-to-class(data)
   (dolist (per-data data data)
-    (if (equal (nth (1- (length per-data)) per-data) '10)
-        (setf (nth (1- (length per-data)) per-data) 'TRUE)
-        (setf (nth (1- (length per-data)) per-data)'FALSE))))
+    (if (equal (nth (1- (length per-data)) per-data) '5)
+        (setf (nth (1- (length per-data)) per-data) 'FALSE)
+        (setf (nth (1- (length per-data)) per-data)'TRUE))))
 
 

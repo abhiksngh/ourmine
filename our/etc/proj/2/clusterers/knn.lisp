@@ -8,7 +8,7 @@
           (eg-features (nth 1 (table-all (xindex (ar3)))))
           (eg-features (nth 1 (table-all (xindex train))))))))
 
-(defun doNothing (test train &rest func)
+(defun doNothing (test train)
   (values test train))
 
 (defun addLists (list1 list2)

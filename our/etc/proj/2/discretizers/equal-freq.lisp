@@ -47,7 +47,7 @@
                 (setf bin-num 0)
                 (setf bin-count 0)
         )
-        data 
+        (build-a-data (table-name data) (numeric-to-discrete(columns-header(table-columns data))) (features-as-a-list data))
     
 ; we need to determine a number of bins, nbins, divide the #cols by it
 ; that will give us how many in each bin, so starting at the first one
