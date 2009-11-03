@@ -49,7 +49,7 @@
           (unless (= classi i)
             (unless (unknownp feature)
               (let ((delta (if (numericp (nth i (columns-header (table-columns tbl))))
-                                (pdf (gethash class (header-f (nth i (table-columns tbl)))) feature)                                 
+                                (pdf (gethash class (header-f (nth i (table-columns tbl)))) feature)
                                (/ (+ (f tbl class i feature)
                                  (* m prior))
                               (+ (f tbl class) m)))))
