@@ -31,3 +31,7 @@
         )
     )
   )
+
+
+(defun reorient-data (data)
+  (reverse (transpose (data))))

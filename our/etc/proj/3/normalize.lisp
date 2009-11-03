@@ -61,7 +61,7 @@
                   (setf new-data (append new-data (list new-column))))
                 (setf new-data (append new-data (list one-column))))); if all data is the same
           (setf new-data (append new-data (list one-column)))); if column is discrete
-      (print new-data)
+;      (print new-data)
       )
           
     
@@ -88,7 +88,7 @@
                      :columns (columns-header (table-columns table))
                      :klass (table-class table)
                      :egs
-                     (transpose new-data)))
+                     (reverse (transpose new-data))))
     
     new-table
     )
