@@ -15,6 +15,13 @@
 (load "modules/nomograms")
 (load "tests/data/quake")
 (load "tests/data/sick")
+(load "tests/data/vehicle")
+(load "tests/data/bolts")
+(load "tests/data/cloud")
+(load "tests/data/autos")
+(load "tests/data/ionosphere")
+(load "tests/data/german_credit")
+(load "tests/data/meta")
 (load "tests/graphs")
 
 (defun learn (&key (k 8) prep discretizer clusterer fss classify
