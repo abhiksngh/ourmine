@@ -12,6 +12,7 @@
 (load "modules/normalization")
 (load "modules/nchops")
 (load "modules/b-squared")
+(load "modules/nomograms")
 (load "tests/data/quake")
 (load "tests/data/sick")
 (load "tests/graphs")
