@@ -20,9 +20,9 @@
   (/ (frequency-range ncol tbl) (length (table-all tbl))))
 
 (defun score-frequency-utility (tbl)
-  (let ((frequency-table (make-frequency-table nil tbl (lambda (ncol eg)
-                                                         (declare (ignore ncol))
-                                                         (eg-class eg)))))
+  (let ((frequency-table (make-frequency-table nil tbl :key (lambda (ncol eg)
+                                                              (declare (ignore ncol))
+                                                              (eg-class eg)))))
     (dolist (each (table-all tbl) tbl)
       (setf (eg-class each) (gethash (eg-class each) frequency-table)))))
 
@@ -31,7 +31,9 @@
   (setf (table-all tbl)
         (progn (unless (numberp (eg-class (first (table-all tbl))))
                  (score-frequency-utility tbl))
-               (sort (table-all tbl) #'> :key (lambda (eg) (eg-class eg)))))
+               (sort (table-all tbl) #'> :key (lambda (eg)
+                                                (let ((val (eg-class eg)))
+                                                  (if (null val) 0 val))))))
   (multiple-value-bind (tbl-best tbl-rest) (best-of tbl percentile)
     (let ((frequency-ranges))
       (doitems (column i (table-columns tbl))
@@ -40,7 +42,10 @@
                  (push (list freq-best freq-rest column) frequency-ranges)))
       (setf frequency-ranges (sort (copy-list frequency-ranges) #'>
                                    :key (lambda (x)
-                                          (funcall score (first x) (second x)))))
+                                          (if (or (= (second x) 0)
+                                                  (< (first x) (second x)))
+                                            0
+                                            (funcall score (first x) (second x))))))
       (mapcar #'last (subseq frequency-ranges
                             0 (floor (* threshold
                                         (length frequency-ranges))))))))
