@@ -6,7 +6,8 @@
 	(- 1 (/ (sqrt sumofsquares) (sqrt (length cols))))))
 
 ; Implements the BORE pre-processor.
-(defun bore (dataset &optional (columnnames (mapcar #'header-name (table-columns dataset))))
+(defun bore (dataset &key (percentile .20)
+                          (columnnames (mapcar #'header-name (table-columns dataset))))
   (let* ((normalvals)
 		 (datatable (table-clone dataset))
 		 (n 0)
@@ -32,4 +33,4 @@
 	  (dotimes (z y)
 		(setf fields (append fields `(,(nth (+ z n) (eg-features record))))))
 	  (setf (eg-features record) (append (eg-features record) `(,(borew fields)))))
-	(best-of (sort-on datatable (+ n y)))))
+	(best-of (sort-on datatable (+ n y)) percentile)))
