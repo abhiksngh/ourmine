@@ -199,7 +199,7 @@ If CC data, when filtered, can be used in order to predict defects, we are left 
 
 
 \section{The Experiment}
-The experiments conducted in this project primarily aim at building software defect prediction models given a number of datasets to train on and to determine which turn out to be better defect predictors. To be able to effectively mine the raw data to be used in our experimentation we had to run a number of preprocessing techniques on them. Specifically, our experiments involved applying different combinations of preprocessing algorithms on the datasets available to us and then reducing the datasize by applying feature subsect selections on them, particularly InfoGain. As a result, our experiments can be categorizd into 3 groups. The first group being deliberately omitting discretization of the data, clustering and applying Naive-Bayes learner on it. The second group involved discretizing the data, applying InfoGain on the dataset and then applying Naive-Bayes on it. And finally the third group involved feature subset selection via InfoGain, clustering the data and applying Naive-Bayes. It should be noted that for every experiment, a fresh set of data was used. That is, no altered dataset from one experiment was passed on as input to another. Each experiment produced fascinating results which will be discussed later in section 4.
+
 
 \subsection{Preparing the Data}
 We employed a number of preprocessing techniques to prepare the original data before applying our learner to it. These include:
@@ -220,6 +220,70 @@ Why are all these preprocessing techniques necessary and why is time wasted gene
 \subsection{Discretization techniques}
 Two discretization method were used for performing the experiments: Equal Interval Width (10 bins) and K-Means. Both methods fall under the unsupervized discretization methods class. Equal bin length is a global techinque which replaces each value by the identifier of the bin. The range of values is divided into k equally sized bins where k is a parameter supplied by the user. It makes no use of the instance class and is thus an unsupervized discretization method. Equal Bin Length is a global discretization  method since it produces a mesh over the entire n-dimensional instance space \cite {dough95}. The k-means on the other hand is a local discretization tool which groups the data into a number of clusters based on some similarity measure. Local discretization methods are applied to local regions of the data.K-Means is grouping the rows in k different clusters using the Eucledian distance as a measure of similarity between the instances. At the beginning the centroids (means) for each cluster are picked at random and then the instances are assigned to the group with the closest centroids to that particular instance. K-Means will stop iteration through the instance set when the centroids for all the clusters do not change anymore or when a stopping criteria is reached. In both cases of discretization the data is preprocessed by taking the log of each numeric value. Since these two method do not take into consideration class lables there might be some loss of classification information as a result of grouping instances that are stronly related but belong to different classes. 
 Since our main learning algorithm is Naive-Bayes, both discretization method greatly improve the performance of the learner. Naive-Bayes is used with both k-means clustering and equal interval width bins on each of the datasets.
+
+\subsection{Learners}
+\subsubsection{PRISM}
+One of the learners we used in our experiment was {\em PRISM}. Its algorithm was first introduced by Cendrowska and its aim is to induce molecular classification rules directly from the training set. 
+
+Prism uses the '{\em take the first rule that fires}' conflict resolution strategy when the resulting rules are applied to unseen data. Simply speaking, it identifies a rule that covers many instances in a given class, separates out the covered instances and continues with the remainder of the data.
+
+When working with the Prism learner, we first calculate the probability that class = i for each attribute / value pair. After that we select the pair with the largest probability and create a subset of the training set compromising all the instances with the selected attribute / value combination (for all classifications). We then repeat the previous steps for this subset until a subset is reached that contains only instances of class i. The induced rule is then the conjunction of all the attribute / value pairs selected. Finally, we remove all instances covered by this rule from the training set.
+
+
+The pseudo-code for the Prism algorithm can be outlined as follows:
+
+For each class C
+ Initialize E to the instance set
+ While E contains instances in class C
+    Create a rule R with an empty left-hand side that predicts class C
+    Until R is perfect (or there are no more attributes to use) do
+       For each attribute A not mentioned in R, and each value v,
+              Consider adding the condition A = v to the left-hand side of R
+              Select A and v to maximize the accuracy p/t
+               (break ties by choosing the condition with the largest p)
+       Add A = v to R
+    Remove the instances covered by R from E 
+
+Both the Turkish data and data from NASA comprised of True / False classes, and also had quite a number of attributes in common so we figured Prism was a good option to explore, especially when it comes to cross-project defect prediction. The effect of using Prism on our datasets is analysed and discussed in section [x].
+
+\subsubsection{B-SQUARED}
+In addition to InfoGain, we added one more feature subset selector to our pool of irrelevant-column-pruners to assist us better model our learners. The algorithm for B-squared is pretty simple:
+
+\begin{itemize}
+	\item Replace each class symbol with a utility score: True = 1, False = 0.
+    	\item Sort instances by that score and divide them using N=20\%-chops.
+    	\item Label all the rows in bin=1 (20\%) "best" and the remaining (80\%) "rest".
+    	\item Collect the frequencies of ranges in best/rest.
+    	\item Sort each range (r) by b^^2/(b+r) where
+          	\item\item b = freq(r in Best) / SizeOfBest?
+          	\item\item r = freq(r in Rest) / SizeOfRest?
+    	\item Sort each attribute by the median score of b2/(b+r).
+    	\item Reject attributes with less than X\% of the max. median score. 
+\end{itemize}
+
+Whenever b < r, we simply set b = 0.
+
+\subsection{Experiment 1: InfoGain and Learners}
+The experiments conducted in this project primarily aim at building software defect prediction models given a number of datasets to train on and to determine which turn out to be better defect predictors. To be able to effectively mine the raw data to be used in our experimentation we had to run a number of preprocessing techniques on them. Specifically, our experiments involved applying different combinations of preprocessing algorithms on the datasets available to us and then reducing the datasize by applying feature subsect selections on them, particularly InfoGain. As a result, our experiments can be categorizd into 3 groups. The first group being deliberately omitting discretization of the data, clustering and applying Naive-Bayes learner on it. The second group involved discretizing the data, applying InfoGain on the dataset and then applying Naive-Bayes on it. And finally the third group involved feature subset selection via InfoGain, clustering the data and applying Naive-Bayes. It should be noted that for every experiment, a fresh set of data was used. That is, no altered dataset from one experiment was passed on as input to another. Each experiment produced fascinating results which will be discussed later in section 4.
+
+\subsection{Experiment 2: InfoGain, B-Squared and Learners}
+Equipped with 2 features subset selectors: InfoGain and B-squared and 2 learners: NaiveBayes classifier and Prism, we decided to run a number of experiments based on different combinations of these tools. We came up with a total of x combinations in all:
+
+\begin{itemize}
+	\item InfoGain x NaiveBayes
+	\item B-Squared x NaiveBayes
+	\item InfoGain x Prism
+	\item B-Squared x Prism
+\end{itemize}
+
+For each of these combinations, we experimented on an increasing number of attributes ranging from 2 through 12. And finally for each of these combinations generated, we experimented by sub-sampling the datasets using K-nearest neighbor or doing without it; adding 2 more parameters to our combinations. A few of such combinations, for instance, would look like this:
+
+\begin{itemize}
+	\item - InfoGain x NaiveBayes x 2-attributes x 10-nearest-neighbors
+	\item - B-Squared x Prism x 8-attributes x 10-nearest-neighbors
+\end{itemize}
+
+Each of these unique combinations were run 10 times and after compiling the results, the median of each outcome was taken and accepted as the best combination. It is important to note that in each case, or combination for that matter, the number of nearest neighbors selected was set to 10 and remained constant.
 
 \section{Results}
 Naive-Bayes learner was applied on all data sets. Three different combinations of preprocesing techniques and feature subset selections were tested on different datasets:
@@ -351,7 +415,12 @@ Some researchers indicate that collecting data from case studies and subjecting 
 
 \section{Future Work}
 The experiments for this project were conducted using data obtained from NASA and SoftLab for this project simply because they are 2 complete different companies that operate and function in different ways. 
-The National Aeronautics and Space Administration (NASA) is an agency of the United States government that undertakes the nation's projects related to space exploration and SoftLab on the other hand is a research laboratory of computer engineering in Turkey that conducts research on cost and effort estimation, defect estimation/prevention, value based software engineering and software process development and typically writes software controllers for home appliances. It is worthy to note that these 2 companies mentioned have no ties with each other. 
+
+Analyzing the results of the experiements conducted, we are able to determine the number of attributes that matter the most, or in other words, are the most relevant with regards to defect prediction. However, at this stage, we are unable to determine exactly what these attributes are. Although this information can easily be fetched from our feature subset selectors, we weren't permitted by the constraint of time to explore that path.
+
+In future, similar attributes identified by both InfoGain and B-Squared majority of the time, if not always, can be singled out and used to rebuild the datasets to be used in future experiments when attempting to detect defects in cross-company data.
+
+Another experiment worth considering would involve reducing the size of the training set using both row pruners and column pruners concurrently. This would mean having combinations such as: InfoGain x B-Squared x Prism x 8-attributes x 10-nearest-neighbors. This is technically known as micro-sampling. Other methods for reducing the number of rows within the dataset include the Burak filter and super-Burak filter, and for reducing the columns: the Greedy Forward Select and Greedy Back Select; but their results will have to be compared to the results we have presented in this document to see how well they rank.
 
 We believe that for better results and much better success rates at predicting software defects, regression algorithms could be applied to the datasets to model the data with the least error. That is, apply the learners to the datasets a number of times and discard arguments to algorithms such as k-nearest neighbor and infogain that germinated less desirable results. Also, the learning algorithms used could be altered to analyze additional data instances added to the data already learned on and determine whether the new data would be benefitial to predicting defects or not. Furthermore, this work could be extended to exploit datasets that comprised of more than 2 classes (TRUE, FALSE) and with multiple class columns (at least 2). Also, for any cross-company software defect prediction to be done, datasets from 2 or more different sources but with with similar columns will be required. In the case of our study, the data from SoftLab contained more metrics than that from NASA. This rendered it difficult to build models by learning on the 2 datasets thus experiment on only within-company.
 
