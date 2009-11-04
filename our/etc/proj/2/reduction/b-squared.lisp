@@ -63,8 +63,8 @@
 (defmethod numval3 ((header discrete) class-val)
     (declare (ignore header))
     (if (equal class-val 'TRUE)
-        6
         5
+        6
     )
 )
 
