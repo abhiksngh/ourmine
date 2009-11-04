@@ -15,11 +15,14 @@
 ;;; 1. Compute the mean of a column.
 
 (defun column-mean (table column-num)
-  (let ((sum 0))
-    (dolist (row (table-all table))
-      (incf sum (nth column-num (eg-features row)))
+  (if (realp (nth column-num (eg-features (first (table-all table)))))
+    (let ((sum 0))
+      (dolist (row (table-all table))
+        (incf sum (nth column-num (eg-features row)))
+      )
+      (/ sum (length (table-all table)))
     )
-    (/ sum (length (table-all table)))
+    nil
   )
 )
 
@@ -28,6 +31,12 @@
 ;;;    equation is: stddev = sqrt(1/n * Summation((member - mean)^2))
 
 (defun column-stddev (table column-num)
+  (let ((sum-diffs 0))
+    (dolist (row (table-all table))
+
+    )
+    (sqrt (/ sum-diffs (length (table-all table))))
+  )
 )
 
 ;;; 3. Generate bin widths, return a list of staring and ending values
