@@ -375,7 +375,6 @@ winLossTie() {
 	                High=$high Confidence=$confidence $input | sort -t, -r -n -k 5,5 >> $tmp
 	fi
 	cat $tmp | malign
-	rm -rf $tmp
 }
 
 docsToSparff(){
