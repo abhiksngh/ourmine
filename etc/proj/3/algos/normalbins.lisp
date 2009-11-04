@@ -49,7 +49,7 @@
 ;;; 3. Generate bin widths, return a list of staring and ending values
 ;;;    in the format of ((-20 -10) (-10 0) (0 10)) and so forth.  When
 ;;;    doing binning, the lower value is inclusive, the upper value
-;;;    is not, so >= car and < cdar meets critera for binning.
+;;;    is not, so >= lower and < upper meets critera for binning.
 
 (defun column-binwidths (average stddev)
   (list
@@ -63,9 +63,39 @@
   )
 )
 
+(defun identify-bin (value bins)
+  (let ((decision nil))
+    (dotimes (i (length bins))
+      (let ((x (nth i bins)))
+        (if (and (>= value (first x)) (< value (second x)))
+          (setf decision i)
+        )
+      )
+    )
+    (if (null decision)
+      (if (> value (second (first (last bins))))
+        (setf decision (- (length bins) 1))
+        (setf decision 0)
+      )
+    )
+    (- decision 3)
+  )
+)
+
 ;;; 4. For each numeric column in the table, compute average, then
 ;;;    standard deviation, then compute bin ranges, then overwrite
 ;;;    column values with their new bin number.
 
 (defun normal-bins (table)
+  (dotimes (i (length (eg-features (first (table-all table)))) table)           ;;; For each column...
+    (if (realp (nth i (eg-features (first (table-all table)))))                 ;;; If it's numerical...
+      (dotimes (x (length (table-all table)))                                   ;;; For all rows...
+        
+      )
+    )
+  )
 )
+
+
+
+
