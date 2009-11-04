@@ -56,12 +56,10 @@
       (incf n)
       (unless (header-classp l)
 	(let
-	    ((store '())
+	    ((store 0)
 	     (tmphash (make-hash-table))
 	     (col-name (header-name l)))
 	   (dolist (thiscol (gethash col-name infostore))
 	     (mapcar #'(lambda (x) (push (second x) (gethash (first x) tmphash '()))) thiscol))
-	   (maphash #'(lambda (x y) (push (* (/ (sum y) instances) (entropy y)) store)) tmphash)
-	   (setf (gethash col-name gainstore) (- (table-info tbl) (sum store))))))))
-
-
+	   (maphash #'(lambda (x y) (incf store (* (/ (sum y) instances) (entropy y)))) tmphash)
+	   (setf (gethash col-name gainstore) (- (table-info tbl) store)))))))
