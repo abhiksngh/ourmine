@@ -1,11 +1,3 @@
-(load "lib/loaddeps")
-(load "utils/utils")
-(load "d-data/mushroom")
-(load "d-data/boston-housing")
-
-(defparameter mushtable (mushroom))
-(defparameter housetable (boston-housing))
-
 ;;; Claimee: Drew
 
 ;;;  (EASY) Normal-chops
@@ -87,7 +79,7 @@
 ;;;    column values with their new bin number.  Note, this function
 ;;;    is destructive.  Will happily exist along side discretes.
 
-(defun normal-bins (in-table)
+(defun normal-bins (table)
   (dotimes (i (length (eg-features (first (table-all table)))) table)
     (if (realp (nth i (eg-features (first (table-all table)))))
       (dotimes (j (length (table-all table)))

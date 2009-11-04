@@ -1,3 +1,11 @@
+(load "lib/loaddeps")
+(load "utils/utils")
+(load "d-data/mushroom")
+(load "d-data/boston-housing")
+
+(defparameter mushtable (mushroom))
+(defparameter housetable (boston-housing))
+
 ;;; Claimee: Drew
 
 ;;; For each class C 
@@ -11,5 +19,7 @@
 ;;;           (break ties by choosing the condition with the largest p) 
 ;;;       Add A = v to R 
 ;;;     Remove the instances covered by R from E 
+
+;;; 1.  Find a list of all the unique classes.
 
 
