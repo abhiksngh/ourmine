@@ -40,7 +40,7 @@
                         ;"tests/data/primary-tumor"
                         ;"tests/data/vote"
                         ;"tests/data/mushroom"
-                        ;"tests/data/audiology"
+                        "tests/data/audiology"
                         ;"tests/data/splice"
                         ;"tests/data/soybean"
                         ;"tests/data/contactlens"
