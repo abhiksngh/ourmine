@@ -40,6 +40,15 @@
   (remove (nth n in-list) in-list)
 )
 
+(defun unique-table-classes (table)
+  (let ((classes nil) (class-count (count-classes table)))
+    (dolist (x class-count)
+      (setf classes (append classes (list (first x))))
+    )
+    classes
+  )
+)
+
 (defun score-attribute (table subset attribute-num class)
   (let ((best-value nil) (best-score nil) (values (second (nth attribute-num (generate-attribute-value-pairs table)))))
     (dotimes (i (length values))
@@ -58,4 +67,15 @@
   )
 )
 
-
+(defun prism (table)
+  (let ((rules nil))
+    (dolist (class (unique-table-classes table))
+      (let ((rule nil) (rule-complete nil))
+        (loop until (not (nullp rule-complete)) do
+          
+        )
+      )
+    )
+    rules
+  )
+)
