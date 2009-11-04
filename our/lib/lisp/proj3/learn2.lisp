@@ -9,9 +9,9 @@
 ;running the stimulation for n -- all datasets
 (defun test-all-no-subsample (&optional (times 10))
   (let* ((data-shared '(shared_pc1 shared_cm1 shared_kc1 shared_kc2 shared_kc3 shared_mc2 shared_mw1))
-        (data-ar '(ar3 ar4 ar5))
-        (results-shared)
-        (results-ar))
+         (data-ar '(ar3 ar4 ar5))
+         (results-shared)
+         (results-ar))
     (dolist (shar data-shared)       
       (setf results-shared (append results-shared (test-no-subsample (funcall shar) times))))
     (dolist (ar data-ar)
@@ -21,7 +21,8 @@
     
 ;running the stimulation for n -- all n / each dataset
 (defun test-no-subsample (train &optional (times 10))
-  (let* ((ns '(2 4 8 10 12))
+  (let* ((preprocesses (xindex (equaldistr train)))
+         (ns '(2 4 8 10 12))
          (results))
     (dotimes (i times results)
       (dolist (n ns)
@@ -57,15 +58,23 @@
 ;;classfying a learner 
 (defun classify-learner (fun train)
  (let* ((class (table-class train))
-         (lst (split2bins train))
-         (train (xindex (car (cdr lst))))
-         (test (xindex (car lst)))
+         (lst (split2bin-tables train))
+         ;(train (xindex (car (cdr lst))))
+         ;(test (xindex (car lst)))
          (gotwants))
-    (dolist (test_inst (get-features (table-all test)))
-      (let* ((want (nth class test_inst))
-             (got (funcall fun test_inst train)))
-        (setf want (list want))
-        (setf gotwants (append gotwants (list (append want got)))))) 
+   (dotimes (i  (- (length lst) 1))
+     (let* ((test (xindex (nth i lst)))
+            (train-lst)
+            (tr))
+       (dotimes (j (- (length lst) 1))
+         (if (not (= j i))
+             (setf train-lst (append train-lst (list (nth j lst))))))
+       (setf tr (append-tables train-lst))
+     (dolist (test_inst (get-features (table-all test)))
+       (let* ((want (nth class test_inst))
+              (got (funcall fun test_inst tr)))
+         (setf want (list want))
+         (setf gotwants (append gotwants (list (append want got))))))))
     (split (abcd-stats gotwants :verbose nil))))
 
 ;utility function to print
@@ -74,3 +83,17 @@
         (false-lst (list (append param (car (cdr abcd)))))
         (result))
     (setf result (append true-lst false-lst))))
+
+(defun append-tables(lst)
+  (let* ((col (table-columns (car lst)))
+         (inst))
+    (dolist (l lst)
+      (setf inst (append inst (get-features (table-all l)))))
+    (xindex (make-simple-table 'train col inst))))
+      
+
+
+
+
+
+    
