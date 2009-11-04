@@ -16,25 +16,31 @@
       (setf results-shared (append results-shared (test-no-subsample (funcall shar) times))))
     (dolist (ar data-ar)
       (setf results-ar (append results-ar (test-no-subsample (xindex (funcall ar)) times))))
-    (write-stats-2  "shared-pc1-cm1-test-n-no-subsample.csv" (format nil "~a" results-shared))
-    (write-stats-2  "ar3-ar4-ar5-test-n-no-subsample.csv" (format nil "~a" results-ar))))
+    (write-stats-2  "shared-combined.csv" (format nil "~a" results-shared))
+    (write-stats-2  "ar-combined.csv" (format nil "~a" results-ar))))
     
 ;running the stimulation for n -- all n / each dataset
 (defun test-no-subsample (train &optional (times 10))
-  (let* ((preprocesses (xindex (equaldistr train)))
+  (let* ((preprocess)
          (ns '(2 4 8 10 12))
-         (results))
+         (results)
+         (ts)
+         (tr))
+    (multiple-value-bind (tst trn) (make-k-train-test train)
+      (setf ts tst)
+      (setf tr trn))
+    (setf preprocess (make-knn-data tr ts))
     (dotimes (i times results)
       (dolist (n ns)
         (let ((tmp))
           (setf tmp (list 'infogain-nb 'infogain n 'None)) ;test infogain-nb
-          (setf results (append results (prepare-inst tmp (infogain-nb train n))))
+          (setf results (append results (prepare-inst tmp (infogain-nb preprocess n))))
           (setf tmp (list 'bsquare-nb 'bsquare n 'None)) ;test bsquare-nb
-          (setf results (append results (prepare-inst tmp (bsquare-nb train n))))
+          (setf results (append results (prepare-inst tmp (bsquare-nb preprocess n))))
           (setf tmp (list 'infogain-prism 'infogain n 'None)) ;test infogain-prism
-          (setf results (append results (prepare-inst tmp (infogain-prism train n))))
+          (setf results (append results (prepare-inst tmp (infogain-prism preprocess n))))
           (setf tmp (list 'bsquare-prism 'bsquare n 'None)) ;test bsquare-prism
-          (setf results (append results (prepare-inst tmp (bsquare-prism train n)))))))))
+          (setf results (append results (prepare-inst tmp (bsquare-prism preprocess n)))))))))
        
 
 
@@ -92,7 +98,9 @@
     (xindex (make-simple-table 'train col inst))))
       
 
-
+(defun make-k-train-test (train)
+  (let* ((lst (split2bins train)))
+    (values (car lst) (car (cdr lst)))))
 
 
 
