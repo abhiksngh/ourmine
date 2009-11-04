@@ -20,6 +20,42 @@
 ;;;       Add A = v to R 
 ;;;     Remove the instances covered by R from E 
 
-;;; 1.  Find a list of all the unique classes.
+;;; (count-classes table)
+
+(defun generate-attribute-value-pairs (table)
+  (let ((col-names (table-columns table)) (unique-features (list-unique-features table)) (pairs nil))
+    (dotimes (i (length (table-columns table)))		;;; For each column.
+      (let ((values nil))
+        (dolist (element (nth i unique-features))
+          (setf values (append values (list (first element))))
+        )
+        (setf pairs (append pairs (list (list (discrete-name (nth i col-names)) (copy-list values)))))
+      )
+    )
+    pairs
+  )
+)
+
+(defun remove-nth (n in-list)
+  (remove (nth n in-list) in-list)
+)
+
+(defun score-attribute (table subset attribute-num class)
+  (let ((best-value nil) (best-score nil) (values (second (nth attribute-num (generate-attribute-value-pairs table)))))
+    (dotimes (i (length values))
+      (let ((passes 0))
+        (dolist (row subset)
+          (if (and (equalp class (eg-class row)) (equalp (nth attribute-num (eg-features row)) (nth i values)))
+            (incf passes)
+          )
+        )
+        (if (or (null best-score) (> (/ passes (length subset)) best-score))
+          (setf best-value (nth i values) best-score (float (/ passes (length subset))))
+        )
+      )
+    )
+    (list best-value best-score)
+  )
+)
 
 
