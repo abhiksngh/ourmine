@@ -3,6 +3,7 @@
 (load "normalize")
 (load "kmeans")
 (load "gac")
+(load "ucube")
 (load "cluster")
 (load "tests/data/weather2")
 (load "tests/data/vehicle")

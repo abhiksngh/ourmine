@@ -6,7 +6,6 @@
 
 (defstruct node
   data         ;the data in the node
-  parent       ;The parent of the node
   left-child   ;The left child of the node
   right-child  ;The right child of the node
   )

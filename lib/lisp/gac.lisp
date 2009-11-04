@@ -1,12 +1,31 @@
 (defun GAC (tbl)
   (let ((column-names nil)
         (node-list nil)
+        (temp-node-list nil)
         (done nil))
     (normalize tbl)
     (dolist (col (table-columns tbl))
       (push (header-name col) column-names))
     (setf column-names (reverse column-names))
     (dolist (row (table-all tbl))
-      (push (make-node :data (eg-features row) :parent nil :left-child nil :right-child nil) node-list))
-    (loop while (not done) do
-          
+      (push (make-node :data (eg-features row) :left-child nil :right-child nil) node-list))
+
+    
+    (push (create-new-node (car node-list) (GAC-closest-node (car node-list) (cdr node-list) column-names) column-names) temp-node-list)
+      ))
+
+
+(defun GAC-closest-node (node other-nodes column-names)
+  (let ((distance 1000000000000)
+        (best-node nil))
+    (dolist (current-node other-nodes best-node)
+      (when (< (euc-distance (node-data node) (node-data current-node) column-names) distance)
+        (setf distance (euc-distance (node-data node) (node-data current-node) column-names))
+        (setf best-node current-node)))))
+
+(defun create-new-node (left right column-names)
+  (let ((new-node (make-node)))
+    (setf (node-data new-node) (make-median (node-data left) (node-data right) column-names))
+    (setf (node-left-child new-node) (node-data left))
+    (setf (node-right-child new-node) (node-data right))
+    new-node))
