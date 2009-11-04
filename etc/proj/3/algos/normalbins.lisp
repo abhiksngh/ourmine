@@ -51,7 +51,16 @@
 ;;;    doing binning, the lower value is inclusive, the upper value
 ;;;    is not, so >= car and < cdar meets critera for binning.
 
-(defun column-binwidths (table column-num)
+(defun column-binwidths (average stddev)
+  (list
+    (list (- average (* stddev 4)) (- average (* stddev 3)))
+    (list (- average (* stddev 3)) (- average (* stddev 2)))
+    (list (- average (* stddev 2)) (- average stddev))
+    (list (- average stddev) (+ average stddev))
+    (list (+ average stddev) (+ average (* stddev 2)))
+    (list (+ average (* stddev 2)) (+ average (* stddev 3)))
+    (list (+ average (* stddev 3)) (+ average (* stddev 2)))
+  )
 )
 
 ;;; 4. For each numeric column in the table, compute average, then
