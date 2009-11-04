@@ -84,18 +84,21 @@
 
 ;;; 4. For each numeric column in the table, compute average, then
 ;;;    standard deviation, then compute bin ranges, then overwrite
-;;;    column values with their new bin number.
+;;;    column values with their new bin number.  Note, this function
+;;;    is destructive.  Will happily exist along side discretes.
 
-(defun normal-bins (table)
-  (dotimes (i (length (eg-features (first (table-all table)))) table)           ;;; For each column...
-    (if (realp (nth i (eg-features (first (table-all table)))))                 ;;; If it's numerical...
-      (dotimes (x (length (table-all table)))                                   ;;; For all rows...
-        
+(defun normal-bins (in-table)
+  (dotimes (i (length (eg-features (first (table-all table)))) table)
+    (if (realp (nth i (eg-features (first (table-all table)))))
+      (dotimes (j (length (table-all table)))
+        (let ((value (nth i (eg-features (nth j (table-all table))))))
+          (setf 
+            (nth i (eg-features (nth j (table-all table))))
+            (identify-bin value (column-binwidths (column-mean table i) (column-stddev table i)))
+          )
+        )
       )
     )
   )
 )
-
-
-
 
