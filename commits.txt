@@ -1,29 +1,29 @@
 
 === Cumulative Commits =============================================
 
-Thu Oct 15 15:05:20 EDT 2009
+Wed Nov  4 16:07:44 EST 2009
 "icepieces.log" , "jtaylor.unh.log" , kelcecil.log
 
-    60 ++----+------------+------------+------------+-----------+-----------++
-       |     +            +            +            +  C        +            +
+    80 ++----+------------+------------+------------+-----------+-----------++
+       |     +            +            +            +           +  C         +
+    70 ++                                                      CC CC        ++
+       |                                                      C              |
+       |                                                     CC              |
+    60 ++                                              C  CCC               ++
        |                                              C                      |
-    50 ++                                            C                      ++
-       |                                                                     |
-       |                                             C                       |
-       |                                                                     |
-    40 ++                                           C                       ++
-       |                                            C                        |
-       |                                          CC  BB                     |
-    30 ++                                         C  B                      ++
-       |                                         C                           |
-       |                                   C    C    B                       |
-    20 ++                              C            B                       ++
-       |                          C   CC                                     |
-       |                         AA   AA   A    AAAAAAAA                     |
-       |                        ACC        B    BBBBB "icepieces.log"   A    |
-    10 ++                       C                   "jtaylor.unh.log"   B   ++
-       |                       CA     BB               "kelcecil.log"   C    |
-       |     +            CC  CABBB    +            +           +            +
+    50 ++                                            C             B        ++
+       |                                                        B B          |
+       |                                             C         B             |
+    40 ++                                           C      BBBB             ++
+       |                                           CC  B  B                  |
+    30 ++                                         C  BB                     ++
+       |                                         CC                          |
+       |                                   C    C   BB                       |
+    20 ++                         C   CC                                    ++
+       |                         AA   AA   A    AAAAAA"icepieces.log"   A    |
+    10 ++                       ACC        B    BBBB"jtaylor.unh.log"   B   ++
+       |                       CA      B               "kelcecil.log"   C    |
+       |     +            CC  CABBB   B+            +           +            +
      0 ++----+----------A-AA--A--------+------------+-----------+-----------++
             260          280          300          320         340          360
 
