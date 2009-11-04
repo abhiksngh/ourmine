@@ -9,6 +9,9 @@
 (defun gimme-classes (tbl)
   (mapcar #'eg-class (table-all tbl)))
 
+(defun gimme-no-dupe-classes (tbl)
+  (remove-duplicates (gimme-classes tbl)))
+
 (defun count-uniques (table opener)
   (let ((item-count (make-hash-table)) (seen nil) (ranks nil))
     (dolist (x (table-all table))

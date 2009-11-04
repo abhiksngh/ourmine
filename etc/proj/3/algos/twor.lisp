@@ -234,16 +234,17 @@
 
 
 
-(dolist 
-	     (column (gen-prediction-rules w2))
-	   (let
-	       ((col-name (car column))
-		(col-attrs (cdr column)))
-	     (format t "~%~%Column: ~A~%" col-name)
-	     (dolist
-		 (attrs (hashlist col-attrs))
-	       (let
-		   ((attr-name (car attrs))
-		    (attr-hash (cdr attrs)))
-		 (format t "Attribute: ~A~%" attr-name)
-		 (print (first (sort (hashlist attr-hash) '> :key 'cdr)))))))
+;; (dolist 
+;; 	     (column (gen-prediction-rules w2))
+;; 	   (let
+;; 	       ((col-name (car column))
+;; 		(col-attrs (cdr column)))
+;; 	     (format t "~%~%Column: ~A~%" col-name)
+;; 	     (dolist
+;; 		 (attrs (hashlist col-attrs))
+;; 	       (let
+;; 		   ((attr-name (car attrs))
+;; 		    (attr-hash (cdr attrs)))
+;; 		 (format t "Attribute: ~A~%" attr-name)
+;; 		 (print (first (sort (hashlist attr-hash) '> :key 'cdr)))))))
+
