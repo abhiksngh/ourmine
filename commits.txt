@@ -1,29 +1,29 @@
 
 === Cumulative Commits =============================================
 
-Wed Oct 14 11:13:19 EDT 2009
+Wed Nov  4 11:10:36 EST 2009
 "rabituckman.log" , "tomi.prifti.log" , w.w.mensah.log
 
-    100 ++----+------------+-----------+------------+-----------+-----------++
-        |     +            +           +            + B         +            +
-     90 ++                                            B                     ++
+    140 ++----+------------+-----------+------------+-----------+-----------++
+        |     +            +           +            +           +            +
+        |                                                           B        |
+    120 ++                                                         B        ++
+        |                                                      BB B          |
+        |                                                 B  BB              |
+    100 ++                                            B  B                  ++
+        |                                             B                      |
         |                                            B                       |
-     80 ++                                                                  ++
-        |                                            B                       |
-     70 ++                                         BB                       ++
-        |                                          B                         |
-     60 ++                                       BB                         ++
-        |                                       B     C                      |
-     50 ++                                 BBB  B     C                     ++
-        |                                BBB         C                       |
-     40 ++                               B         CCCA                     ++
-        |                             BBB         CAAA                       |
-     30 ++                        B  B           C A                        ++
-        |                    BB  B              CAA                          |
-     20 ++                                CCCC   A  "rabituckman.log"   A   ++
-        |                   B     A  AAAAAAAAA  A   "tomi.prifti.log"   B    |
-     10 ++                 B AA  AA  CCC             "w.w.mensah.log"   C   ++
-        |     +           BAACC  CC    +            +           +            +
+     80 ++                                           B              C       ++
+        |                                          BB             CC         |
+     60 ++                                       BB           CCC C         ++
+        |                                       BB    C  CC  C               |
+        |                                 BBBB  B     C                      |
+     40 ++                               B          CC                      ++
+        |                            BBBB        CCAAAA  AA  AAAA AAA        |
+        |                    BB  BB               AA"rabituckman.log"   A    |
+     20 ++                                CCCC  CA  "tomi.prifti.log"   B   ++
+        |                   B     A  AAAAAAAAA  A    "w.w.mensah.log"   C    |
+        |     +           BAAAA  AC    +            +           +            +
       0 ++----+-----------AACC---------+------------+-----------+-----------++
              260          280         300          320         340          360
 
