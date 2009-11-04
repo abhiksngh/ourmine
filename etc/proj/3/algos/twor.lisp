@@ -217,7 +217,7 @@
 	    ((attribute-table (gethash attribute-value col-count-table)))
 	  (incf (gethash attribute-class attribute-table 0) (/ 1 appearances)))))))
 
- (defun hashlist (hash)
+(defun hashlist (hash)
   (let ((retlist '()))
     (maphash #'(lambda (x y) (push (cons x y) retlist)) hash)
     retlist))
