@@ -30,12 +30,19 @@
 ;;;    the average of the distances of each value from the mean.  Relevant
 ;;;    equation is: stddev = sqrt(1/n * Summation((member - mean)^2))
 
-(defun column-stddev (table column-num)
-  (let ((sum-diffs 0))
-    (dolist (row (table-all table))
+(defun square (x)
+  (* x x)
+)
 
+(defun column-stddev (table column-num)
+  (if (realp (nth column-num (eg-features (first (table-all table)))))
+    (let ((sum-diffs 0) (col-ave (column-mean table column-num)))
+      (dolist (row (table-all table))
+        (incf sum-diffs (square (- (nth column-num (eg-features row)) col-ave)))
+      )
+      (sqrt (/ sum-diffs (length (table-all table))))
     )
-    (sqrt (/ sum-diffs (length (table-all table))))
+    nil
   )
 )
 
