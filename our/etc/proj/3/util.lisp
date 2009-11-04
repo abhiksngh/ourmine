@@ -124,6 +124,10 @@
 (defun get-table-class-rows (tbl class)
   (filter #'(lambda (row) (and (equalp (eg-class row) class) row)) (get-table-rows tbl)))
 
+;;Returns the number of rows in table with a specific class.
+(defun get-table-class-frequency (tbl class)
+  (length (get-table-class-rows tbl class)))
+
 ;;Removes all rows from tbl.
 (defun delete-table-rows (tbl)
   (setf (table-all tbl) nil))

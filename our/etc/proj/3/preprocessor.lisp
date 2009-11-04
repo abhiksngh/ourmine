@@ -20,12 +20,12 @@
               (log (second (eg-features (first (egs (ar3))))))))))
 
 ;;Combines multiple table structures into one.
-(defun combine-preprocessor (tbl1 &rest tbls)
-  (setf tbl1 (table-deep-copy tbl1))
-  (dolist (tbl tbls)
-    (setf (table-all tbl1) (append (table-all tbl) (table-all tbl1))))
-  (table-update-discrete-uniques tbl1)
-  tbl1)
+(defun combine-preprocessor (&rest tbls)
+  (setf (car tbls) (table-deep-copy (car tbls)))
+  (dolist (tbl (cdr tbls))
+    (setf (table-all (car tbls)) (append (table-all tbl) (table-all (car tbls)))))
+  (table-update-discrete-uniques (car tbls))
+  (car tbls))
 
 (deftest combine-preprocessor-test ()
   (check
@@ -36,52 +36,33 @@
               (set-difference (union (table-all (ar3)) (table-all (ar4)) :test #'equalp)
                               (table-all (combine-preprocessor (ar3) (ar4))) :test #'equalp)))))
 
-;;Takes a table structure and returns two table structures, a train table with
-;;90% of the instances from the original table and a test table with 10% of the
-;;instances from the original table.  The two new tables have approximately the
-;;same frequency of each class as the original table.
-(defun split-preprocessor (tbl)
+;;Takes a table structure and splits it into n new table structures, each with
+;;1/n of the rows from the original table.  The frequency of each class in the each of 
+;;the new tables is approximately the same as in the original table.  
+(defun split-preprocessor (tbl &optional (n 10))
   (setf tbl (table-deep-copy tbl))
-  (let* ((train (table-deep-copy tbl))
-         (test (table-deep-copy tbl)))
-    (setf (table-all train) nil)
-    (setf (table-all test) nil)
+  (let ((class-rows-lst nil)
+        (bins nil))
     (dolist (class (get-table-classes tbl))
-      (let ((class-rows (get-table-class-rows tbl class)))
-        (do ((test-rows-count (ceiling (* (length class-rows) 0.25))))
-            ((= test-rows-count 0))
-          (let ((random-row (nth (random (length class-rows)) class-rows)))
-            (setf class-rows (delete random-row class-rows))
-            (push random-row (table-all test)))
-          (decf test-rows-count))
-      (setf (table-all train) (append class-rows (table-all train)))))
-    ;(table-update-discrete-uniques train)
-    ;(table-update-discrete-uniques test)
-    (values train test)))
-
-(defun split-preprocessor25 (tbl)
-  (setf tbl (table-deep-copy tbl))
-  (let* ((train (table-deep-copy tbl))
-         (test (table-deep-copy tbl)))
-    (setf (table-all train) nil)
-    (setf (table-all test) nil)
-    ;(dolist (class (get-table-classes tbl))
-      (let ((rows (get-table-rows tbl)))
-        (do ((test-rows-count (ceiling (* (length rows) 0.25))))
-            ((= test-rows-count 0))
-          (let ((random-row (nth (random (length rows)) rows)))
-            (setf rows (delete random-row rows))
-            (push random-row (table-all test)))
-          (decf test-rows-count))
-      (setf (table-all train) (append rows (table-all train))))
-	(values train test)))	
+      (push (get-table-class-rows tbl class) class-rows-lst))
+    (delete-table-rows tbl)
+    (setf n (min n (apply #'min (mapcar #'length class-rows-lst))))
+    (dotimes (i n)
+      (push (table-deep-copy tbl) bins))
+    (dolist (class-rows class-rows-lst)
+      (dotimes (i (length class-rows))
+        (let ((randomi (random (length class-rows))))
+          (push (nth randomi class-rows) (table-all (nth (mod i n) bins)))
+          (setf class-rows (remove (nth randomi class-rows) class-rows)))))
+    (dolist (bin bins)
+      (table-update-discrete-uniques bin))
+    bins))
 
 (deftest split-preprocessor-test ()
   (check
-    (multiple-value-bind (train test) (split-preprocessor (ar3))
-      (and
-        (equalp nil (set-difference (table-all (ar3)) (union (table-all train) (table-all test) :test #'equalp) :test #'equalp))
-        (equalp nil (intersection (table-all train) (table-all test) :test #'equalp))))))
+    (and
+      (equalp nil (set-difference (table-all (ar3)) (reduce #'union (mapcar #'table-all (split-preprocessor (ar3)))) :test #'equalp))
+      (equalp (length (table-all (ar3))) (apply #'+ (mapcar #'length (mapcar #'table-all (split-preprocessor (ar3)))))))))
 
 ;;Takes a table structure and returns a copy with each numeric column normalized between 0
 ;;and 1.
