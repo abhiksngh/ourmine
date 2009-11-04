@@ -1,0 +1,43 @@
+\begin{thebibliography}{1}
+
+\bibitem{zimmerman09}
+Cross-project defect prediction: A large scale experiment on data vs. domain
+  vs. process.
+
+\bibitem{dough95}
+J.~Dougherty, R.~Kohavi, and M.~Sahami.
+\newblock Supervised and unsupervised discretization of continuous features.
+\newblock {\em Morgan Kaufmann}, 1995.
+
+\bibitem{critique}
+N.~E. Fenton and M.~Neil.
+\newblock A critique of software defect prediction models.
+\newblock In {\em IEEE Transactions On Software Engineering}, pages 675--687,
+  October 1999.
+
+\bibitem{hallLWL}
+E.~Frank, M.~Hall, and B.~Pfahringer.
+\newblock Locally weighted naive bayes.
+\newblock In {\em Proceedings of the Conference on Uncertainty in Artificial
+  Intelligence}, pages 249--256. Morgan Kaufmann, 2003.
+
+\bibitem{gay09}
+G.~Gay, T.~Menzies, and B.~Cukic.
+\newblock How to build repeatable experiments.
+\newblock In {\em PROMISE '09: Proceedings of the 5th International Conference
+  on Predictor Models in Software Engineering}, pages 1--9, New York, NY, USA,
+  2009. ACM.
+
+\bibitem{missingdata}
+J.~F.~K. Marvin~L., Brown.
+\newblock Data mining and the impact of missing data.
+\newblock In {\em Industrial Management & Data Systms}, pages 611--621. MCB UP
+  Ltd, October 2003.
+
+\bibitem{turhan09}
+B.~Turhan, T.~Menzies, A.~Bener, and J.~Distefano.
+\newblock On the relative value of cross-company and within-company data for
+  defect prediction.
+\newblock {\em Empirical Software Engineering}, November 2009.
+
+\end{thebibliography}
