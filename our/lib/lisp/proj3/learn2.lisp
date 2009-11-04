@@ -12,9 +12,11 @@
          (data-ar '(ar3 ar4 ar5))
          (results-shared)
          (results-ar))
-    (dolist (shar data-shared)       
+    (dolist (shar data-shared)
+      (format t "~a~%" shar)
       (setf results-shared (append results-shared (test-no-subsample (funcall shar) times))))
     (dolist (ar data-ar)
+      (format t "~a~%" ar)
       (setf results-ar (append results-ar (test-no-subsample (xindex (funcall ar)) times))))
     (write-stats-2  "shared-combined.csv" (format nil "~a" results-shared))
     (write-stats-2  "ar-combined.csv" (format nil "~a" results-ar))))
@@ -33,13 +35,13 @@
     (dotimes (i times results)
       (dolist (n ns)
         (let ((tmp))
-          (setf tmp (list 'infogain-nb 'infogain n 'None)) ;test infogain-nb
+          (setf tmp (list 'infogain-nb 'infogain n 'Knn)) ;test infogain-nb
           (setf results (append results (prepare-inst tmp (infogain-nb preprocess n))))
-          (setf tmp (list 'bsquare-nb 'bsquare n 'None)) ;test bsquare-nb
+          (setf tmp (list 'bsquare-nb 'bsquare n 'Knn)) ;test bsquare-nb
           (setf results (append results (prepare-inst tmp (bsquare-nb preprocess n))))
-          (setf tmp (list 'infogain-prism 'infogain n 'None)) ;test infogain-prism
+          (setf tmp (list 'infogain-prism 'infogain n 'Knn)) ;test infogain-prism
           (setf results (append results (prepare-inst tmp (infogain-prism preprocess n))))
-          (setf tmp (list 'bsquare-prism 'bsquare n 'None)) ;test bsquare-prism
+          (setf tmp (list 'bsquare-prism 'bsquare n 'Knn)) ;test bsquare-prism
           (setf results (append results (prepare-inst tmp (bsquare-prism preprocess n)))))))))
        
 
