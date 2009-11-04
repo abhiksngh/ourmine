@@ -8,7 +8,7 @@
           (eg-features (nth 1 (table-all (xindex (ar3)))))
           (eg-features (nth 1 (table-all (xindex train))))))))
 
-(defun doNothing (test train)
+(defun doNothing (test train &rest func)
   (values test train))
 
 (defun addLists (list1 list2)
@@ -19,7 +19,7 @@
 (defun knn-learn(trainList testList &optional (stream t)
                   &key (prep #'numval1)
                        (norm #'normalizedatatrainandtest)
-                       (k    7)
+                       (k    20)
                        (rowReducer #'donothing)
                        (discretizer #'equal-width-train-test)
                        (classify  #'nb))

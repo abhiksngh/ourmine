@@ -83,12 +83,13 @@
             (setf var (funcall discretizer (funcall per-set)))
             (multiple-value-bind (trainList testList) 
                 (if bsq 
-                    (bins (b-squared var))   ; b-squared col red
-                    (bins var)               ; no col reduction
+                   (bins (b-squared var))   ; b-squared col red
+            ;         (bins (prune-columns var (list 3 13 18)))        
+            (bins var)               ; no col reduction
 ;                    (nvalues 0.8 (b-squared(funcall per-set)))
   ;                  (nvalues 0.8 (funcall per-set))
                 )
-                (knn-learn trainList testList stream :prep prep
+                (learn trainList testList stream :prep prep
                                                  :norm norm
                                                  :rowReducer rowReducer 
     ;                                             :discretizer discretizer
@@ -130,7 +131,7 @@
                 (funcall norm trainSet testSet)
 ;(format t "before: ~A" (length (table-all (xindex trainSet))))
                 ; perform row reduction on train set
-                (setf trainSet (funcall rowReducer trainSet testSet))
+                (setf trainSet (funcall rowReducer trainSet testSet 75))
 ;(format t "  after: ~A~%" (length (table-all (xindex trainSet))))
                     ; perform discretization on both data sets
 ;                (multiple-value-bind (trainSet testSet) 
