@@ -20,14 +20,20 @@
   (let ((sum   (normal-sum n)) 
 	(sumSq (normal-sumSq n))
 	(n     (normal-n n)))
+	  ;;Added call to max because sumsQ - sum^2 should return 0 for 
+	  ;;distributions that contain only one unique value, but it returns
+	  ;;some small negative value instead.
     (sqrt (max 0 (/ (- sumSq(/ (square sum) n)) (- n 1))))))
 
 (defmethod pdf ((n normal) x)
   (let ((mu     (mean n))
 	      (sigma  (stdev n)))
+	  ;;Added call to zerop, to avoid divide by zero for sigma = 0.
+	  ;;This happens with distributions that contain only one unique value.
 	  (if (not (zerop sigma))
       (* (/ (* (sqrt (* 2 pi)) sigma))
             (exp (* (- (/ (* 2 (square sigma)))) (square (- x mu)))))
+      ;;For sigma = 0, return 1 if x = the only value in n, 0 otherwise.
       (if (= mu x) 1 0))))
 
 (deftest test-normal ()
