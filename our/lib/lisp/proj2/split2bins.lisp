@@ -21,6 +21,30 @@
           (make-simple-table (table-name data) (table-columns data) (blowup-bins (cdr bucket))))))
                 
 
+
+
+(defun split2bin-tables (data &optional (bins 10))
+  (let* ((table-data (table-all data))
+         (egs (get-features table-data))
+         (n (length egs))
+         (temp-bin)
+         (bucket (create-bucket bins))
+         (bucket-tables '())
+         (count 0))
+    (dotimes (start n bucket)
+      (progn
+        (setf temp-bin (nth (random (- n 1)) egs))
+        (setf (nth count bucket) (cons temp-bin (nth count bucket)))
+        (remove temp-bin egs)
+        (if (= count (- bins 1))
+            (setf count 0)
+            (incf count))))
+    (dolist (bin-instances bucket bucket-tables)
+      (setf bucket-tables (append (list (make-simple-table (table-name data) (table-columns data) bin-instances)) bucket-tables)))))
+
+
+
+
 ; creates a bucket containing 'size' number of bins
 (defun create-bucket (size)
   (let* ((bucket))
