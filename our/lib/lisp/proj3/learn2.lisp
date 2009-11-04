@@ -16,8 +16,8 @@
       (setf results-shared (append results-shared (test-no-subsample (funcall shar) times))))
     (dolist (ar data-ar)
       (setf results-ar (append results-ar (test-no-subsample (xindex (funcall ar)) times))))
-    (write-stats-2  "shared-test-n-no-subsample.csv" (format nil "~a" results-shared))
-    (write-stats-2  "ar-test-n-no-subsample.csv" (format nil "~a" results-ar))))
+    (write-stats-2  "shared-pc1-cm1-test-n-no-subsample.csv" (format nil "~a" results-shared))
+    (write-stats-2  "ar3-ar4-ar5-test-n-no-subsample.csv" (format nil "~a" results-ar))))
     
 ;running the stimulation for n -- all n / each dataset
 (defun test-no-subsample (train &optional (times 10))
