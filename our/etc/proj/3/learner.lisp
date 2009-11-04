@@ -1,3 +1,33 @@
+(defun bayes-classify-numeric (one tbl &optional (m 2) (k 1))
+  (let* ((classes        (klasses tbl))
+         (nclasses       (nklasses tbl))
+         (n              (f        tbl))
+         (classi         (table-class tbl))
+         (like           most-negative-fixnum)
+         (classification (first classes)))
+    (dolist (class classes)
+      (let* ((prior (/ (+ (f tbl class) k)
+                       (+  n (* k nclasses))))
+             (tmp   (log prior)))
+        (doitems (feature i one)
+          (unless (= classi i)
+            (unless (unknownp feature)
+              (if (table-column-numericp tbl i)
+                (let ((delta (pdf (gethash class (header-f (nth i (table-columns tbl)))) feature)))
+                  (if (not (zerop delta))
+                    (incf tmp (log delta))))
+                (let ((delta (/ (+ (f tbl class i feature)
+                                   (* m prior))
+                                (+ (f tbl class) m))))
+                  (incf tmp (log delta)))))))
+        (when (> tmp like)
+          (setf like tmp
+                classification class) )))
+    classification))
+
+(defun nb-classify-numeric (instance train)
+  (bayes-classify-numeric instance train))
+
 ;;Training function for naive bayes.  Takes a table structure of training data and 
 ;;returns the same table structure with index data.
 (defun nb-train (train)
@@ -261,3 +291,6 @@
   (cross-val-cc (ar3) (ar4) :row-reducer #'burak-filter :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify)
   (cross-val-cc (ar3) (ar4) :row-reducer #'burak-filter :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify :file-name "test.csv"))
 
+(defun nb-numeric-demo ()
+  (cross-val-cc (numeric-preprocessor (ar3)) (numeric-preprocessor (ar4)) :classifier-train #'nb-train :classifier #'nb-classify-numeric)
+  (cross-val-cc (numeric-preprocessor (ar3)) (numeric-preprocessor (ar4)) :classifier-train #'nb-train :classifier #'nb-classify-numeric :file-name "test.csv"))
