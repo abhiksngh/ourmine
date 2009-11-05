@@ -46,29 +46,27 @@
 (defun learn (&key 	(k 	3)
 			(preprocessor	#'subsample)
 			(discretizer	#'binlogging)
-			(clusterer	#'genic)
+			(clusterer	#'k-means)
 			(fss		#'relief)
 			(classifier	#'naivebayes)
-			(train		#'boston-housing)
-			(test		#'boston-housing))
+			(train		#'weather-numerics)
+			(test		#'weather-numerics))
   (let 
       ((training (funcall train))
        (testing (funcall test))
        (clusters nil)
-       (cluster nil)
        (results nil))
     
     (format t "Running Tables through Preprocessor...")
     (setf training (funcall preprocessor training))
     (setf testing (funcall preprocessor testing))
     (format t " - Preprocessor Complete.~%")
-
+    
 
     (format t "Running Tables through Discretizer...")
     (setf training (funcall discretizer training))
     (setf testing (funcall discretizer testing))
     (format t " - Discretizer Complete.~%")
-    ;;(print training)
 
 
     (format t "Running Training Tables through Clusterer...")
@@ -78,8 +76,8 @@
 
     (if (not (listp clusters))
 	(setf clusters (list clusters)))
-    ;;(print clusters)
-
+   
+    (setf clusters (remove nil clusters))
 
     (format t "Pruning Cluster with FSS...")
     (dolist (cluster clusters)
@@ -90,9 +88,9 @@
     (cond
       ((equalp classifier #'naivebayes) 
         (setf results (dolist (cluster clusters)
-          (funcall classifier cluster testing))))
+          (format t "~:{~& ~6D ~8@A ~8@A~}" (funcall classifier cluster testing)))))
       ((equalp classifier #'2b) 
         (setf results (dolist (cluster clusters)
-          (funcall classifier cluster testing))))
-      ((equalp classifier #'twor) (fomat t "### TwoR not yet Complete. ###~%")))
-    (format t " - Classifier Complete.~%)))
+          (format t "~:{~& ~6D ~8@A ~8@A~}" (funcall classifier cluster testing)))))
+      ((equalp classifier #'twor) (format t "### TwoR not yet Complete. ###~%")))
+    (format t " - Classifier Complete.~%")))    
