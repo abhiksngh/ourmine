@@ -75,9 +75,14 @@
         (let ((current-nth 0))
           (dolist (distance-row distance-list)
             (if (member distance-row worst-list)
-                'worst;SET THE MAIN TABLE's CLASS IN THIS ROW TO WORST
-                'best);SET THE MAIN TABLE's CLASS IN THIS ROW TO BEST
-                (incf current-nth))))))
-  ;SET THE CLASS TO DISCRETE IF IT WAS NUMERIC
-  ;INDEX THE TALBE
-  )
+                (progn
+                  (setf (eg-class (nth current-nth (table-all tbl))) 'worst)
+                  (setf (nth (table-class tbl) (eg-features (nth current-nth (table-all tbl)))) 'worst))
+                (progn
+                  (setf (eg-class (nth current-nth (table-all tbl))) 'best)
+                  (setf (nth (table-class tbl) (eg-features (nth current-nth (table-all tbl)))) 'best)))
+            (incf current-nth))))))
+;  (if (header-name (nth (table-class tbl) (table-columns tbl)))
+;      (setf (header-name (nth (table-class tbl) (table-columns tbl))) 'CLASS)) 
+;  (xindex tbl))
+tbl)
