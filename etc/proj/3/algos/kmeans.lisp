@@ -64,7 +64,7 @@
         (setf clusters (remove (nth i clusters) clusters)))
 )))
 
-(defun k-means (table &key (num-clusters 3) (repititions 10))
+(defun k-means (table &optional (num-clusters 3) (repititions 10))
   (let ((clusters (new-random-k-means-centroids table num-clusters)) (assignments NIL) (fin NIL))
     (dotimes (i repititions)
        (setf assignments (classify-table clusters table))

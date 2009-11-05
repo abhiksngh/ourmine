@@ -6,5 +6,5 @@
 
 (format t " - Loading 2b~%") ;; Output for a pretty log
 
-(defun 2b (tbl)
-  (naivebayes (pair-table tbl) (pair-table tbl)))
+(defun 2b (train test)
+  (naivebayes (pair-table train) (pair-table test)))

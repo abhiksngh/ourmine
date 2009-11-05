@@ -144,7 +144,7 @@
   (fill weights 1)
 )
 
-(defun genic-clusters (table &optional (generation-size 10) (num-initial-centers 10) (num-result-centers 10))
+(defun genic-clusters (table &optional (num-initial-centers 10) (num-result-centers 10) (generation-size 10))
   (setf num-result-centers num-result-centers)
   (let ((generation nil) (centers nil) (centers-weight (make-list num-initial-centers)) (generations (ceiling (/ (length (table-all table)) generation-size))))
     ;;; (2) Setup random initial centers and fill out their weights.
@@ -178,7 +178,7 @@
 )
 
 ;;; (1) GENIC Parameters
-(defun genic (table &optional (generation-size 10) (num-initial-clusters 10) (num-final-clusters 10))
+(defun genic (table &optional  (num-initial-clusters 10) (num-final-clusters 10) (generation-size 10))
   (let* ((clusters (genic-clusters table generation-size num-initial-clusters num-final-clusters)) (clustered-tables (make-list (length clusters))))
     (loop for n from 0 to (- num-final-clusters 1) do
       (setf 

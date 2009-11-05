@@ -68,7 +68,7 @@
     (setf training (funcall discretizer training))
     (setf testing (funcall discretizer testing))
     (format t " - Discretizer Complete.~%")
-    (print training)
+    ;;(print training)
 
 
     (format t "Running Training Tables through Clusterer...")
@@ -86,7 +86,13 @@
       (setf cluster (funcall fss cluster)))
     (format t " - Pruning Complete.~%")
 
-    (format 
-
-
-;(learn)
+    (format t "Running Classifier...")
+    (cond
+      ((equalp classifier #'naivebayes) 
+        (setf results (dolist (cluster clusters)
+          (funcall classifier cluster testing))))
+      ((equalp classifier #'2b) 
+        (setf results (dolist (cluster clusters)
+          (funcall classifier cluster testing))))
+      ((equalp classifier #'twor) (fomat t "### TwoR not yet Complete. ###~%")))
+    (format t " - Classifier Complete.~%)))
