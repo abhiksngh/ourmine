@@ -1,37 +1,3 @@
-#|
-@relation ar5
-
-@attribute total_loc numeric
-@attribute blank_loc numeric
-@attribute comment_loc numeric
-@attribute code_and_comment_loc numeric
-@attribute executable_loc numeric
-@attribute unique_operands numeric
-@attribute unique_operators numeric
-@attribute total_operands numeric
-@attribute total_operators numeric
-@attribute halstead_vocabulary numeric
-@attribute halstead_length numeric
-@attribute halstead_volume numeric
-@attribute halstead_level numeric
-@attribute halstead_difficulty numeric
-@attribute halstead_effort numeric
-@attribute halstead_error numeric
-@attribute halstead_time numeric
-@attribute branch_count numeric
-@attribute decision_count numeric
-@attribute call_pairs numeric
-@attribute condition_count numeric
-@attribute multiple_condition_count numeric
-@attribute cyclomatic_complexity numeric
-@attribute cyclomatic_density numeric
-@attribute decision_density numeric
-@attribute design_complexity numeric
-@attribute design_density numeric
-@attribute normalized_cyclomatic_complexity numeric
-@attribute formal_parameters numeric
-@attribute defects {false true}
-|#
 
 (defun ar5com ()
   (data
