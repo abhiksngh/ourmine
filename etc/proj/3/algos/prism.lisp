@@ -49,6 +49,15 @@
   )
 )
 
+(defun generate-attribute-list (table)
+  (let ((attributes nil))
+    (dotimes (i (length (eg-features (first (table-all table)))))
+      (setf attributes (append attributes (list i)))
+    )
+    attributes
+  )
+)
+
 (defun score-attribute (table subset attribute-num class)
   (let ((best-value nil) (best-score nil) (values (second (nth attribute-num (generate-attribute-value-pairs table)))))
     (dotimes (i (length values))
@@ -78,17 +87,31 @@
   )
 )
 
+(defun purge-rule-matches (subset attribute-num attribute-val class)
+  (let ((new-subset nil))
+    (dotimes (i (length subset))
+      (if (not (and (equalp (nth attribute-num (eg-features (nth i subset))) attribute-val) (equalp (eg-class (nth i subset)) class)))
+        (setf new-subset (append new-subset (list (nth i subset))))
+      )
+    )
+    new-subset
+  )
+)
+
 (defun prism (table)
   (let ((rules nil))
-    (dolist (class (unique-table-classes table))	;;; Loop to make a rule for each class.
-      							;;; While rule-performance is not 100% and no attributes remain.
-							;;; Rank all remaining attributes, pick the top one, append it to the rule.
-							;;; Remove that attribute from the list.
-							;;; Write new rule-performance value.
+    (dolist (class (unique-table-classes table))
+      (let ((rule nil) (rule-score 0) (subset (copy-list (table-all table))) (attribute-list (generate-attribute-list table)))
+        (loop until (or (equalp rule-score 1) (null attribute-list)) do
+          (let ((fittest-attribute nil))
+
+          )
+          (remove-nth fittest-attribute attribute-list)
+        )
+        (setf rules (append rules (list (list rule))))
+      )
     )
     rules
   )
 )
 
-;;(dotimes (i (length (eg-features (first (table-all mushtable)))))
-;;	   (print (score-attribute mushtable (table-all mushtable) i 'P))
