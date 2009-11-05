@@ -71,7 +71,7 @@
   (let ((rules nil))
     (dolist (class (unique-table-classes table))
       (let ((rule nil) (rule-complete nil))
-        (loop until (not (nullp rule-complete)) do
+        (loop until (not (null rule-complete)) do
           
         )
       )
@@ -79,3 +79,6 @@
     rules
   )
 )
+
+(dotimes (i (length (eg-features (first (table-all mushtable)))))
+	   (print (score-attribute mushtable (table-all mushtable) i 'P))
