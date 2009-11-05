@@ -360,8 +360,9 @@ winLossTie() {
     	esac
 	done
 
-	title="#key,ties,win,loss,win-loss"
+	title="#key,ties,win,loss,win-loss"      
 	tmp=$Tmp/tmp
+	rm -rf $tmp
 
 	if [ "$test" = "mw" ]; then
 	    echo $title >> $tmp
