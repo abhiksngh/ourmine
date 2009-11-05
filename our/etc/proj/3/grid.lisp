@@ -6,6 +6,7 @@
 ;; (2) Calculate the block densities DBi
 
 ;; (3) Generate a sorted block sequence S = <B1'. B2', ... Bb'>
+;; sort by block density
 
 ;; (4) Mark all blocks 'not active' and 'not clustered'
 
@@ -58,12 +59,14 @@
 
     ;; (2) Calculate the block densities DBi
 
-    
+    ;;(setf block-den-lst (append block-den-lst (mapcar #'desity-block block-lst)))
 
-    
-    (setf new-data (append new-data (list class-lst)))
+    ;;
+   
     
     ;;Sort bins by density
+
+    ;;(setf DB-lst (append DB-lst (mapcar #'DB
     
 
     ;;find most dense bin (first or last depending on sort)
@@ -73,6 +76,9 @@
     
     ;;return table
 
+
+
+    (setf new-data (append new-data (list class-lst)))
     
     (setf new-table (data
                      :name (table-name table)
@@ -88,7 +94,7 @@
 
 
 (defun spatial-volume (block)
-  ;
+  ;the cartesian product of extents e of the block B in each dimension
   (let ((
          ))
 
@@ -96,4 +102,33 @@
   )
 
 (defun density-block (block)
-  ; (/ (p block) (spatical-volume block))
+the ration of the actual number of patterns pb contained in block B and the 
+                                        ; (/ (p block) (spatical-volume block))
+
+)
+
+;;is this sysnonimous with bin?
+(defstruct block-struct
+  block-id   ;;
+  context
+  )
+
+(defun build-grid (data)
+  (let (
+        (grid) ;;list of blocks
+        ;; bin size = 10 * #instances
+        )
+    ;;apply concept of nbins (10) all instances
+
+
+
+    ))
+
+;; The GRIDCLUS algorithm handles all pattern in a common block as ties. With a large number of
+;; pattern, these situation proved not to be a drawback. A large bucket size results in few blocks
+;; covering large areas of the value space. In contrary small bucket sizes (near 1) produce an
+;; artificially fine partitioned value space. This leads on the one hand to an increased computational
+;; amount and on the other hand doesn't reflect the actual pattern distribution. The best results were
+;; produced with bucketsizes of 3% to 5% of the data set size. Bucket sizes from 1% to 3% and
+;; from 5% to 10% produced equally good results but led to longer calculation times. Bucket sizes
+;; beyond this interval showed the above mentioned problems.

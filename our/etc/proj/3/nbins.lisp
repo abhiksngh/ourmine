@@ -2,9 +2,14 @@
 ;   (apply #'mapcar (cons #'list x)))
 
 
-(defstruct bin-member
+(defstruct bin-item
   bin
   value)
+
+(defstruct bin-struct
+  label
+  min
+  max)
 
 
 
@@ -112,7 +117,9 @@
 ;;  (0 600 2.533) (0 580 2.533) (0 620 2.533) (0 490 2.533) (0 610 3.533)
 ;;  (0 520 2.533) (0 680 3.533) (0 440 2.533) (1 600 2.533) (1 500 2.533)
 ;;  (0 540 2.533) (0 560 2.533) (0 520 2.533) (1 680 2.533) (0 550 2.533)
-;;  (0 590 2.533))
+;;  (0 590 2.53))
+
+;;I feel like everything but the class should have been discritized and we should know what bin everything is in
 
 (defun test-bin()
   (let (
@@ -132,19 +139,47 @@
   )
 
 
+(defun bin-item-to-item (item)
+  (bin-item value))
+
+
 ;;rewrite
-;; (defun nbins2 (n source-table)
-;;   (let ((new-data (transpose (get-data source-table)))
+(defun nbins2 (n source-table)
+   (let ((old-data (transpose (get-data source-table)))
 ;;         (label-lst)
 ;;         (lable-count 1)
 ;;         (new-table)
 ;;         (interval)
 ;;         (bin-index) ;so it works for n still
 ;;         (bin-lst)   ;list of bins
-        
+       )
+
+
+     ;;init bins
+
+     
 ;for each column
-;generate bins
-;find min and max for each bin
+       ;generate bins
+       ;find min and max for each bin
+
+
 ;determine which bin it belongs in
 ;append bin-lst (make-bin-item :bin whatever :value item)
 ;append bin-lst to new-data
+)
+
+(defun generate-bins (n)
+  ;;quick-index n
+  ;;for each index
+  ;;setf append make-bin-struct :label ndx
+
+  ;;maybe mapcar instead
+ )
+
+
+;returns a list 1 though max
+   (defun quick-index (max)
+     (let ((ret-dex))
+       (dotimes (x max)
+         (setf ret-dex (append ret-dex (list x))))))
+     
