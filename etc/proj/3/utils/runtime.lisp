@@ -1,3 +1,5 @@
+(print " - Loading Runtime Utils") ;; Output for a pretty log
+
 (defun runtime (runnable)
   (let ((start (get-internal-real-time)))
        (funcall runnable)

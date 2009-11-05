@@ -1,6 +1,7 @@
 ;; Infogain
 ;; Implemented as Feature Subset Selection
 
+(print " - Loading Infogain") ;; Output for a pretty log
 
 ;; Calculate the information of each column.
 ;; Drop a column if the information gain is less than "X%" of the maximum informaion gain.
@@ -70,7 +71,7 @@
 	     (col-name (header-name l)))
 	   (dolist (thiscol (gethash col-name infostore))
 	     (mapcar #'(lambda (x) (push (second x) (gethash (first x) tmphash '()))) thiscol))
-	   (maphash #'(lambda (x y) (incf store (* (/ (sum y) instances) (entropy y)))) tmphash)
+	   (maphash #'(lambda (x y) (incf store (* (/ (sum (first (list y x))) instances) (entropy y)))) tmphash)
 	   (setf (gethash col-name gainstore) (- (table-info tbl) store)))))))
 
 (defun make-percents (hash)
