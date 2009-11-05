@@ -1,4 +1,4 @@
-];;; Claimee: Tim
+;;; Claimee: Tim
 ;; Classifiers make decisions. 
 
 (format t " - Loading TwoR~%") ;; Output for a pretty log
