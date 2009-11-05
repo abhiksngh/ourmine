@@ -49,7 +49,9 @@ demo004worker(){
 		    
 		    for learner in $learners; do
 			$learner train.arff test.arff | gotwant > produced.dat
-			extractGoals goal "`basename $dat`,$run,$bin,$learner,$goal" `pwd`/produced.dat
+			for goal in $goals; do
+			    extractGoals $goal "`basename $dat`,$run,$bin,$learner,$goal" `pwd`/produced.dat
+			done
 		    done
 		done
 		blabln
