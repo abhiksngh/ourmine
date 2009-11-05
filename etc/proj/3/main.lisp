@@ -3,7 +3,8 @@
 ;; and defuns the learn function - which executes them based on function passing
 
 (print "Loading Utility Libraries...")
-(load "lib/loaddeps")
+(load "utils/suppression")
+(suppress-style-warnings (load "lib/loaddeps"))
 (load "utils/utils")
 (print "Complete.")
 
@@ -30,7 +31,7 @@
 
 (print "Loading Classifiers...")
 (load "algos/naivebayes")
-;;(load "algos/twor")
+(suppress-warnings (load "algos/twor"))
 (suppress-style-warnings (load "algos/2b"))
 ;;(load "algos/prism")
 (print "Complete.")
