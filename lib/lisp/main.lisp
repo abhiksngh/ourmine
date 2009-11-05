@@ -5,6 +5,8 @@
 (load "gac")
 (load "ucube")
 (load "cluster")
+(load "prism")
+(load "onerd")
 (load "tests/data/weather2")
 (load "tests/data/vehicle")
 (load "tests/data/additionalbolts")

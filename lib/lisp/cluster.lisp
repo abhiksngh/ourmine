@@ -9,3 +9,8 @@
   left-child   ;The left child of the node
   right-child  ;The right child of the node
   )
+
+(defstruct rule
+  class
+  rules
+  )
