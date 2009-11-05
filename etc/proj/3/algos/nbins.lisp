@@ -15,7 +15,11 @@
        (mins (find-testiest-numerics table #'min)))
 
     (dotimes (doer (length maxes))
-      (if (nth doer maxes)
-        (do-over-specific-feature table #'(lambda (x) (round (* n (/ (- x (nth doer mins)) (- (nth doer maxes) (nth doer mins)))))) doer))))
-  table
-)
+      (unless
+	  (discrete-p (nth doer (table-columns table)))
+      (let
+	  ((range (- (nth doer maxes) (nth doer mins))))
+	(unless
+	    (zerop range)
+	  (if (nth doer maxes)
+	      (do-over-specific-feature table #'(lambda (x) (round (* n (/ (- x (nth doer mins)) range)))) doer))))))) table)

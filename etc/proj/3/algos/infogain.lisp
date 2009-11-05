@@ -44,7 +44,7 @@
       ((n -1)
        (infostore (make-hash-table))
        (classes (gimme-no-dupe-classes tbl))
-       (instances (f tbl))
+       (instances (length (table-all tbl)))
        (gainstore (make-hash-table))
        (cols (table-columns tbl)))
     (dolist (l cols infostore)
