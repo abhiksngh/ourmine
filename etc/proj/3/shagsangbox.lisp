@@ -24,7 +24,8 @@
 
 ;; (dolist (l (mapcar #'(lambda (x) (infogain (funcall x))) daters))
 ;;   (format t "|------------------------------------|~%")
-;;   (printhash l))
+;;   (print l))
+  
 
 ;; (dolist (l (mapcar #'(lambda (x) (infogain (binlogging (funcall x)))) daters))
 ;;  (format t "|------------------------------------|~%")

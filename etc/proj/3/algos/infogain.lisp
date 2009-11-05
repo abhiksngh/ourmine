@@ -77,10 +77,24 @@
   (let*
       ((l (sorted-list-from-hash hash))
        (best (nth 1 (first l))))
-    (mapcar #'(lambda (pair) (let* ((col (first pair)) (info (second pair))) (list col (/ info best)))) l)))
+    (mapcar 
+     #'(lambda (pair) 
+	 (let* ((col (first pair)) 
+		(info (second pair))) 
+	   (list col (/ info best)))) 
+     l)))
 
 (defun top-X-percent (pct-list pct)
   (nreverse (member-if #'(lambda (x) (>= x pct)) (nreverse pct-list) :key 'second)))
+
+(defun except-i (lst i)
+  (let ((outlist '()))
+    (dotimes (n (length lst))
+      (cond
+	((not (= i n))
+	 (push (pop lst) outlist))
+	((pop lst))))
+    (reverse outlist)))
 
 (defun infogain (tbl &key (pct (/ 1 4)))
   (let*
@@ -96,6 +110,6 @@
 	     (this-header (nth posn all-hdrs)))
 	  (setf all-hdrs (delete this-header all-hdrs))
 	  (dolist (l (table-all tbl))
-	    (setf (eg-features l) (delete (nth posn (eg-features l)) (eg-features l)))))))
-    (setf (table-class tbl) (position theclass all-hdrs))) (xindex tbl))
+	    (setf (eg-features l) (except-i (eg-features l) posn))))))
+  (setf (table-class tbl) (position theclass all-hdrs))) tbl)
 
