@@ -179,6 +179,6 @@
   (let ((abc (copy-table original)))
     (setf (table-all abc) (list (nth n (table-all original)))) abc))
 
-(defmacro suppress (&body body)
-  `(handler-bind ((style-warning #'muffle-warning))
+(defmacro suppress-style-warnings (&body body)
+  `(handler-bind(s ((style-warning #'muffle-warning))
   ,@body))

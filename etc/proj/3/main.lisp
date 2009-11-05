@@ -31,7 +31,7 @@
 (print "Loading Classifiers...")
 (load "algos/naivebayes")
 ;;(load "algos/twor")
-(load "algos/2b")
+(suppress-style-warnings (load "algos/2b"))
 ;;(load "algos/prism")
 (print "Complete.")
 
