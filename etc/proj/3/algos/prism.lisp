@@ -2,11 +2,11 @@
 ;(load "utils/utils")
 ;(load "d-data/mushroom")
 ;(load "d-data/boston-housing")
-;(load "d-data/weather")
+(load "d-data/weather")
 
 ;(defparameter mushtable (mushroom))
 ;(defparameter housetable (boston-housing))
-;(defparameter weathertable (weather2))
+(defparameter weathertable (weather2))
 
 ;;; Claimee: Drew
 
