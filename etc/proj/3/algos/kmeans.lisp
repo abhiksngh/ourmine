@@ -2,7 +2,7 @@
 
 ;;; Claimee: Elijah
 
-(print " - Loading k-Means") ;; Output for a pretty log
+(format t " - Loading k-Means~%") ;; Output for a pretty log
 
 (defun deep-copy-clusters (clusters)
   (dolist (cluster clusters clusters)

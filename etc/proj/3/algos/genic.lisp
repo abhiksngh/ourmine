@@ -2,7 +2,7 @@
 
 ;;; Claimee: Drew
 
-(print " - Loading Genic") ;; Output for a pretty log
+(format t " - Loading Genic~%") ;; Output for a pretty log
 
 (defun new-random-center (table &optional (num-needed 1))
   (let ((newclusters nil) (new-center nil) (num-fields (- (length (table-all table)) 1)))

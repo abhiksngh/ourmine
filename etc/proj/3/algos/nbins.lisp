@@ -8,7 +8,7 @@
 
 ;;; Claimee: Elijah -- Completed
 
-(print " - Loading N-Bins") ;; Output for a pretty log
+(format t " - Loading N-Bins~%") ;; Output for a pretty log
 
 (defun nbins (table &optional (n 5))
   (let ((maxes (find-testiest-numerics table #'max)) 

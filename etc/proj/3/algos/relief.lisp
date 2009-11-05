@@ -2,7 +2,7 @@
 
 ;;; Run a trial of n comparisons and weight the importance of each column.
 
-(print " - Loading Relief") ;; Output for a pretty log
+(format t " - Loading Relief~%") ;; Output for a pretty log
 
 ;;; Find closest neighbor.  Find-same-class is for locating closest hit and closest miss.
 

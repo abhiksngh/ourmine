@@ -1,7 +1,7 @@
 ;; Infogain
 ;; Implemented as Feature Subset Selection
 
-(print " - Loading Infogain") ;; Output for a pretty log
+(format t " - Loading Infogain~%") ;; Output for a pretty log
 
 ;; Calculate the information of each column.
 ;; Drop a column if the information gain is less than "X%" of the maximum informaion gain.

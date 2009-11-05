@@ -1,7 +1,7 @@
 ;;; Claimee: Tim
 ;; Classifiers make decisions. 
 
-(print " - Loading TwoR") ;; Output for a pretty log
+(format t " - Loading TwoR~%") ;; Output for a pretty log
 
 (load "../../../lib/lisp/tricks/string.lisp")
 (load "../../../lib/lisp/table/xindex.lisp")

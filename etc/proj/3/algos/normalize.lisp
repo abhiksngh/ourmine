@@ -2,7 +2,7 @@
 ;; Normalize numerics from 0...1 
 ;;; Shaggy
 
-(print " - Loading Normalize") ;;; Logging for a pretty run.
+(format t " - Loading Normalize~%") ;;; Logging for a pretty run.
 
 (defun normal (in min max)
   "Normalize a number into the range 0...1"

@@ -1,4 +1,4 @@
-(print " - Loading Dr. Menzie's Dependency Libraries") ;; Output for a pretty log
+(format t " - Loading Dr. Menzie's Dependency Libraries~%") ;; Output for a pretty log
 
 (load "lib/lazy.lisp")
 (load "lib/caution.lisp")

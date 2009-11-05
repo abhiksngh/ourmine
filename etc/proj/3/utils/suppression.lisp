@@ -1,4 +1,4 @@
-(print " - Loading Suppression Utilities") ;; Output for a pretty log
+(format t " - Loading Warning Suppression Utilities~%") ;; Output for a pretty log
 
 (defmacro suppress-style-warnings (&body body)
   `(handler-bind ((style-warning #'muffle-warning))

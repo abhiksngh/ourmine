@@ -8,7 +8,7 @@
 
 ;;; Claimee: Elijah -- Completed
 
-(print " - Loading Bin-Logging") ;; Output for a pretty log
+(format t " - Loading Bin-Logging~%") ;; Output for a pretty log
 
 (defun binlogging (table)
   (let ((maxes (find-testiest-numerics table #'max)) 

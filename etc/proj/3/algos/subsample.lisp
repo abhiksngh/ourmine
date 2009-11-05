@@ -4,7 +4,7 @@
 
 ;;; Claimee: Drew - COMPLETED
 
-(print " - Loading Subsample") ;;; Logging for a pretty run.
+(format t " - Loading Subsample~%") ;;; Logging for a pretty run.
 
 (defun subsample (srctable)
   (let ((diffs (minority-diff srctable)) (table (copy-table srctable)))

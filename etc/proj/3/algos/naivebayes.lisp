@@ -2,7 +2,7 @@
 
 ;; Claimee: Elijah -- Completed
 
-(print " - Loading Naive-Bayes") ;; Output for a pretty log
+(format t " - Loading Naive-Bayes~%") ;; Output for a pretty log
 
 (defun freq-given-class-and-feature-number (learned fnum klass)
   (dolist (cklass learned)

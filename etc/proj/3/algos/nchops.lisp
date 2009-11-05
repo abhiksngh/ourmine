@@ -6,6 +6,8 @@
 
 ;;; 1. Compute the mean of a column.
 
+(format t " - Loading N-Chops~%") ;;; Logging for a pretty run.
+
 (defun column-mean (table column-num)
   (if (realp (nth column-num (eg-features (first (table-all table)))))
     (let ((sum 0))

@@ -1,4 +1,4 @@
-(print " - Loading Grp20 Utils") ;; Output for a pretty log
+(format t " - Loading Grp20 Utils~%") ;; Output for a pretty log
 
 (defun do-over-features (tbl func)
   (dolist (item (table-all tbl)) 
