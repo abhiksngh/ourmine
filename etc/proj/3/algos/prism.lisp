@@ -67,18 +67,28 @@
   )
 )
 
+(defun best-attribute (table subset attribute-nums class)
+  (let ((best-attribute nil) (best-attribute-score -1))
+    (dotimes (i (length attribute-nums))
+      (if (< best-attribute-score (second (score-attribute table subset (nth i attribute-nums) class)))
+        (setf best-attribute i best-attribute-score (second (score-attribute table subset (nth i attribute-nums) class)))
+      )
+    )
+    best-attribute
+  )
+)
+
 (defun prism (table)
   (let ((rules nil))
-    (dolist (class (unique-table-classes table))
-      (let ((rule nil) (rule-complete nil))
-        (loop until (not (null rule-complete)) do
-          
-        )
-      )
+    (dolist (class (unique-table-classes table))	;;; Loop to make a rule for each class.
+      							;;; While rule-performance is not 100% and no attributes remain.
+							;;; Rank all remaining attributes, pick the top one, append it to the rule.
+							;;; Remove that attribute from the list.
+							;;; Write new rule-performance value.
     )
     rules
   )
 )
 
-(dotimes (i (length (eg-features (first (table-all mushtable)))))
-	   (print (score-attribute mushtable (table-all mushtable) i 'P))
+;;(dotimes (i (length (eg-features (first (table-all mushtable)))))
+;;	   (print (score-attribute mushtable (table-all mushtable) i 'P))
