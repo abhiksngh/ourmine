@@ -94,3 +94,5 @@
   )
 )
 
+(defun n-chops (table)
+  (normal-bins table))
