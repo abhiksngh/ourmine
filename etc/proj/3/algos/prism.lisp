@@ -2,9 +2,11 @@
 (load "utils/utils")
 (load "d-data/mushroom")
 (load "d-data/boston-housing")
+(load "d-data/weather")
 
 (defparameter mushtable (mushroom))
 (defparameter housetable (boston-housing))
+(defparameter weathertable (weather2))
 
 ;;; Claimee: Drew
 
@@ -54,21 +56,24 @@
     (dotimes (i (length (eg-features (first (table-all table)))))
       (setf attributes (append attributes (list i)))
     )
-    attributes
+    (remove-nth (- (length attributes) 1) attributes)
   )
 )
 
 (defun score-attribute (table subset attribute-num class)
   (let ((best-value nil) (best-score nil) (values (second (nth attribute-num (generate-attribute-value-pairs table)))))
     (dotimes (i (length values))
-      (let ((passes 0))
+      (let ((passes 0) (fails 0))
         (dolist (row subset)
           (if (and (equalp class (eg-class row)) (equalp (nth attribute-num (eg-features row)) (nth i values)))
             (incf passes)
           )
+          (if (and (not (equalp class (eg-class row))) (equalp (nth attribute-num (eg-features row)) (nth i values)))
+            (incf fails)
+          )
         )
-        (if (or (null best-score) (> (/ passes (length subset)) best-score))
-          (setf best-value (nth i values) best-score (float (/ passes (length subset))))
+        (if (or (null best-score) (and (zerop fails) (> passes 0)) (> (/ passes (+ passes fails)) best-score))
+          (setf best-value (nth i values) best-score (/ passes (+ passes fails)))
         )
       )
     )
@@ -99,16 +104,27 @@
 )
 
 (defun prism (table)
-  (let ((rules nil))
+  (let ((rules nil) (temp-rule nil) (class-num -1))
     (dolist (class (unique-table-classes table))
-      (let ((rule nil) (rule-score 0) (subset (copy-list (table-all table))) (attribute-list (generate-attribute-list table)))
+      (incf class-num)
+      (setf temp-rule (list class))
+      (let ((rule-score 0) (subset (copy-list (table-all table))) (attribute-list (generate-attribute-list table)))
         (loop until (or (equalp rule-score 1) (null attribute-list)) do
-          (let ((fittest-attribute nil))
-
+          (let ((fittest-attribute nil) (attribute-value nil))
+            (setf 
+              fittest-attribute (best-attribute table subset attribute-list class)
+              rule-score (/
+                           (+ rule-score (second (score-attribute table subset (nth fittest-attribute attribute-list) class)))
+                           (second (nth class-num (count-classes table)))) 
+              attribute-value (first (score-attribute table subset (nth fittest-attribute attribute-list) class))
+              temp-rule (append temp-rule (list (list 
+                                                  (discrete-name (nth (nth fittest-attribute attribute-list) (table-columns table))) 
+                                                  attribute-value)))
+              attribute-list (remove-nth fittest-attribute attribute-list)
+            )
           )
-          (remove-nth fittest-attribute attribute-list)
         )
-        (setf rules (append rules (list (list rule))))
+        (setf rules (append rules (list temp-rule)))
       )
     )
     rules
