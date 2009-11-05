@@ -12,7 +12,7 @@ demo001() {
 
 # j48
 demo002() {
-    local train=$Data/discrete/iris.arff
+    local train=$Data/discrete/weather.arff
     j4810 $train
 }
 
@@ -44,7 +44,7 @@ demo004worker(){
 		for((bin=1;bin<=$bins;bin++)); do
 		    
 		    rm -rf test.lisp test.arff train.lisp train.arff
-		    makeTrainAndTest $dat $bin $bin 
+		    makeTrainAndTest $dat $bins $bin 
 		    goals=`cat $dat | getClasses --brief`
 		    
 		    for learner in $learners; do
