@@ -33,16 +33,18 @@
 (load "algos/naivebayes")
 (suppress-warnings (load "algos/twor"))
 (suppress-style-warnings (load "algos/2b"))
-;;(load "algos/prism")
+(load "algos/prism")
 (format t " - Complete.~%")
 
 (format t "Loading Data Sets...~%")
 (load "d-data/weathernumerics")
 (load "d-data/boston-housing")
 (load "d-data/mushroom")
+(load "d-data/weather")
+(load "d-data/additionalbolts")
 (format t " - Complete.~%")
 
-
+(format t "Loading Learner Functions...~%")
 (defun learn (&key 	(k 	3)
 			(preprocessor	#'subsample)
 			(discretizer	#'binlogging)
@@ -92,5 +94,36 @@
       ((equalp classifier #'2b) 
         (setf results (dolist (cluster clusters)
           (format t "~:{~& ~6D ~8@A ~8@A~}" (funcall classifier cluster testing)))))
+      ((equalp classifier #'prism) 
+        (setf results (dolist (cluster clusters)
+          (print (funcall classifier cluster)))))    
+
       ((equalp classifier #'twor) (format t "### TwoR not yet Complete. ###~%")))
     (format t " - Classifier Complete.~%")))    
+
+(defun learn-nb-weather-numerics () (learn))
+
+(defun learn-nb-mushroom () (learn :train #'mushroom :test #'mushroom))
+
+(defun learn-nb-boston-housing () (learn :train #'boston-housing :test #'boston-housing))
+
+(defun learn-prism-weather2 () (learn :classifier #'prism :test #'weather2 :train #'weather2))
+
+(defun learn-2b-weather-numerics () (learn :classifier #'2b))
+
+(defun learn-2b-mushroom () (learn :classifier #'2b :train #'mushroom :test #'mushroom))
+
+(defun learn-2b-boston-housing () (learn :classifier #'2b :train #'boston-housing :test #'boston-housing))
+
+(defun learn-prism-group1bolts () (learn :classifier #'prism :test #'group1bolts :train #'group1bolts))
+
+(format t " - Complete.~%~%~%")
+
+(format t "Established Trials:~%")
+(format t " Naive-bayes:~%")
+(format t "  (learn-nb-weather-numerics)~%  (learn-nb-mushroom)~%  (learn-nb-boston-housing)~%")
+(format t " Prism:~%")
+(format t "  (learn-prism-weather2)~%  (learn-prism-group1bolts)~%")
+(format t " 2b:~%")
+(format t "  (learn-2b-weather-numerics)~%  (learn-2b-mushroom)~%  (learn-2b-boston-housing)~%")
+
