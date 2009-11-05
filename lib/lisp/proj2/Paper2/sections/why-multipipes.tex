@@ -6,3 +6,8 @@ However, just as HyperPipes had it's niche in sparse data, MultiPipes has a nich
 \subsection{Disjunctive Naive-Bayes}
 Due to the success of turning HyperPipes into MultiPipes we thought we might be able to apply some of the same methods to Naive Bayes, specifically our Alpha measure described above. The idea being that we return any classes within a certain percentage of the highest scoring class. This method proved to be minimaly effective as the spread between the highest rated class and the next highest rated class tended to be very large meaning even a high alpha rarely caused the returned set to be larger than a single classification. 
 \subsection{Measuring Performance}
+Raw accuracy measures are meaningless when a learner returns disjunctions containing all possible classes. To counteract this we have devised a performance measure that penalizes a learner for returning large sets. For each test instance a score of zero is received if the disjunction fails to contain the class. If the learner returns a single classification and is correct, a score of one is awarded. If the learner guesses correctly but returns a disjuctions, the following formula is used:
+\begin{equation}
+Score = 1 - \frac{(ClassesReturned - 1)}{(TotalClasses - 1)}
+\end{equation}
+
