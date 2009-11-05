@@ -1,0 +1,7 @@
+(defun prism (tbl)
+  (let ((class-list '()))
+    (dolist (row (table-all tbl))
+      (if (not (member (nth (table-class tbl) (eg-features row)) class-list))
+          (push (nth (table-class tbl) (eg-features row)) class-list)))  
+    (dolist (class class-list)
+      'hey)))
