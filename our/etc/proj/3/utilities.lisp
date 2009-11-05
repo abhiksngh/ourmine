@@ -1,3 +1,7 @@
+(defmacro while (test &rest body)
+  (list* 'loop
+         (list 'unless test '(return nil))
+         body))
 
 
 (defun get-col (table n)
