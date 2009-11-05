@@ -280,7 +280,7 @@
         (delete-file outputFileName)
         )
     (with-open-file (outputFile outputFileName :direction :output :if-does-not-exist :create :if-exists :supersede)
-    (with-open-file (stream (concatenate `string "proj2/HyperPipes/Data/" dataFileName ".lisp"))
+    (with-open-file (stream (concatenate `string outputPath "/" dataFileName ".lisp"))
       (do ((line (read-line stream nil) (read-line stream nil))) ((null line))
         (let* ((attributeValues (eval (read-from-string line)))
                (tiedClasses (GetTiedClasses2 MyHyperPipes attributeValues Alpha countType meanType oldway))
