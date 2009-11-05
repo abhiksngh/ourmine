@@ -8,7 +8,7 @@
   (dolist (cluster clusters clusters)
      (setf cluster (make-eg :features (copy-list (eg-features cluster)) :class (eg-class cluster)))))
 
-(defun new-random-centroids (table &optional (num-needed 1))
+(defun new-random-k-means-centroids (table &optional (num-needed 1))
   (if (> num-needed (length (table-all table)))
       (setf num-needed (length (table-all table))))
   (let ((newclusters nil) (num-fields (length (table-all table))))
@@ -43,12 +43,38 @@
 ;;;  (let 
 
 (defun set-cluster-numeric-means (clusters table assignments)
-  (let ((counts NIL))
+  (let ((counts NIL) (temp NIL))
     (dotimes (i (length clusters) clusters)
+     (dotimes (j (length (table-columns table)))
+       (if (= i 0)
+         (setf temp (append temp (list 0)))
+         (setf (nth j temp) 0)))
+     (setf counts (append counts (list 0)))
       (dotimes (j (length (table-all table)))
         (if (= i (nth j assignments))
             (progn 
              (dotimes (k (length (eg-features (nth j (table-all table)))))
-              (if (numeric-p (nth k table-columns table))
-                  (setf (nth k (eg-features (nth i clusters))) (+ (nth k (eg-features (nth i clusters))) (nth k (eg-features (nth j (table-all table))))))))
-             (      
+               (if (numeric-p (nth k (table-columns table)))
+                (setf (nth k temp) (+ (nth k temp) (nth k (eg-features (nth j (table-all table))))))))
+             (incf (nth i counts)))))
+      (if (not (zerop (nth i counts)))
+        (dotimes (j (length (eg-features (nth i clusters))))
+          (if (numeric-p (nth j (table-columns table)))
+            (setf (nth j (eg-features (nth i clusters))) (/ (nth j temp) (nth i counts)))))
+        (setf clusters (remove (nth i clusters) clusters)))
+)))
+
+(defun k-means (table &key (num-clusters 3) (repititions 10))
+  (let ((clusters (new-random-k-means-centroids table num-clusters)) (assignments NIL) (fin NIL))
+    (dotimes (i repititions)
+       (setf assignments (classify-table clusters table))
+       (set-cluster-numeric-means clusters table assignments))
+    (dotimes (i (length clusters))
+      (setf fin (append fin (list NIL)))
+      (dotimes (j (length (table-all table)))
+        (if (= i (nth j assignments))
+          (if (null (nth i fin))
+            (setf (nth i fin) (create-a-single-line-table j table))
+            (setf (table-all (nth i fin)) (append (table-all (nth i fin)) (list (nth j (table-all table))))))))) fin))
+
+
