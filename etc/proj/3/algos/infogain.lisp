@@ -73,10 +73,20 @@
 	   (maphash #'(lambda (x y) (incf store (* (/ (sum y) instances) (entropy y)))) tmphash)
 	   (setf (gethash col-name gainstore) (- (table-info tbl) store)))))))
 
+(defun make-percents (hash)
+  (let*
+      ((l (sorted-list-from-hash hash))
+       (best (nth 1 (first l))))
+    (mapcar #'(lambda (pair) (let* ((col (first pair)) (info (second pair))) (list col (/ info best)))) l)))
+
+(defun top-X-percent (pct-list pct)
+  (nreverse (member-if #'(lambda (x) (>= x pct)) (nreverse pct-list) :key 'second)))
+
 (defun infogain (tbl &key (pct (/ 1 4)))
   (let*
       ((rem-col-names (mapcar 'first (top-X-percent (make-percents (preinfogain tbl)) pct)))
-       (all-hdrs (table-columns tbl)))
+       (all-hdrs (table-columns tbl))
+       (theclass (nth (table-class tbl) all-hdrs)))
     (dolist 
 	(aheader all-hdrs tbl)
       (unless
@@ -84,17 +94,8 @@
 	(let*
 	    ((posn (position aheader all-hdrs))
 	     (this-header (nth posn all-hdrs)))
-	  (setf all-hdrs (delete this-header all-hdrs)))))))
-;	  (mapcar #'(lambda(l) (setf (eg-features l) (delete (nth posn (eg-features l)) (eg-features l)))) (table-all tbl)))))))
+	  (setf all-hdrs (delete this-header all-hdrs))
+	  (dolist (l (table-all tbl))
+	    (setf (eg-features l) (delete (nth posn (eg-features l)) (eg-features l)))))))
+    (setf (table-class tbl) (position theclass all-hdrs))) (xindex tbl))
 
-
-(defun make-percents (hash)
-  (let*
-      ((l (sorted-list-from-hash hash))
-       (best (nth 1 (first l))))
-    (mapcar #'(lambda (pair) (let* ((col (first pair)) (info (second pair))) (list col (/ info best)))) l)))
-
-; (data :name (table-name ,tbl) :columns (gen-paired-col-headers ,tbl) :egs (gen-paired-feature-list ,tbl))
-
-(defun top-X-percent (pct-list pct)
-  (nreverse (member-if #'(lambda (x) (>= x pct)) (nreverse pct-list) :key 'second)))
