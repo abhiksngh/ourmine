@@ -15,7 +15,6 @@
 			"../../../../lib/lisp/table/data"
 			"../../../../lib/lisp/table/table"
 			"../../../../lib/lisp/table/xindex"
-			"../../../../lib/lisp/learn/nb"
 			"data/ar3"
 			"data/ar4"
 			"data/ar5"
@@ -52,6 +51,7 @@
 			"knn"
 			"discretize"
 			"preprocessor"
+			"classify"
   		"learner"
 			))
 

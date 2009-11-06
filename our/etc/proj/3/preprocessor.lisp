@@ -1,6 +1,6 @@
 ;;Takes a table structure and replaces all of the values in each numeric column
 ;;with log(value).  If the value is less than 0.0001, it is replaced with log(0.0001).
-;;Modifieds tbl.
+;;Modifies tbl.
 (defun numeric-preprocessor (tbl)
   (dolist (row (get-table-feature-lists tbl))
     (doitems (column-header columni (get-table-column-headers tbl))
@@ -34,8 +34,9 @@
                               (table-all (combine-preprocessor (ar3) (ar4))) :test #'equalp)))))
 
 ;;Takes a table structure and splits it into n new table structures, each with
-;;1/n of the rows from the original table.  The frequency of each class in the each of 
+;;1/n of the rows from the original table.  The frequency of each class in each of 
 ;;the new tables is approximately the same as in the original table.  
+;;Modifies tbl.
 (defun split-preprocessor (tbl &optional (n 10))
   (let ((class-rows-lst nil)
         (bins nil))
@@ -60,6 +61,7 @@
 
 ;;Takes a table structure and returns a copy with each numeric column normalized between 0
 ;;and 1.
+;;Modifies tbl.
 (defun normalize-preprocessor (tbl)
   (doitems (column-header columni (get-table-column-headers tbl))
     (if (column-header-numericp column-header)

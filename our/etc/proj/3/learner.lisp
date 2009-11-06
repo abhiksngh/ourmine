@@ -1,43 +1,3 @@
-(defun bayes-classify-numeric (one tbl &optional (m 2) (k 1))
-  (let* ((classes        (klasses tbl))
-         (nclasses       (nklasses tbl))
-         (n              (f        tbl))
-         (classi         (table-class tbl))
-         (like           most-negative-fixnum)
-         (classification (first classes)))
-    (dolist (class classes)
-      (let* ((prior (/ (+ (f tbl class) k)
-                       (+  n (* k nclasses))))
-             (tmp   (log prior)))
-        (doitems (feature i one)
-          (unless (= classi i)
-            (unless (unknownp feature)
-              (if (table-column-numericp tbl i)
-                (let ((delta (pdf (gethash class (header-f (nth i (table-columns tbl)))) feature)))
-                  (if (not (zerop delta))
-                    (incf tmp (log delta))))
-                (let ((delta (/ (+ (f tbl class i feature)
-                                   (* m prior))
-                                (+ (f tbl class) m))))
-                  (incf tmp (log delta)))))))
-        (when (> tmp like)
-          (setf like tmp
-                classification class) )))
-    classification))
-
-(defun nb-classify-numeric (instance train)
-  (bayes-classify-numeric instance train))
-
-;;Training function for naive bayes.  Takes a table structure of training data and 
-;;returns the same table structure with index data.
-(defun nb-train (train)
-	(xindex train))
-
-;;Takes an instance and a table structure containing training data and returns
-;;a symbol representing the predicted class of the instance.
-(defun nb-classify (instance train)
-	(bayes-classify instance train))
-
 ;;Takes a table structure of test data and a list of symbols representing the
 ;;predicted classes for each instance in the test data and returns 4 hash tables
 ;;indexed by class, containing the A, B, C, and D measures for each class.
@@ -64,43 +24,62 @@
 		          results))
     (values a b c d)))
 
+(defstruct statistics
+  prep row-reducer discretizer clusterer fss classifier
+  class
+  a b c d
+  acc prec
+  pd pf
+  f g)
+
+;;Returns a new initialized statistics structure.
+(defun make-stat (prep row-reducer discretizer clusterer fss classifier class a b c d acc prec pd pf f g)
+  (make-statistics :prep prep :row-reducer row-reducer :discretizer discretizer :clusterer clusterer :fss fss :classifier classifier :class class
+                   :a a :b b :c c :d d :acc acc :prec prec :pd pd :pf pf :f f :g g))
+
+;;Outputs the data in each statistics structure in stats.
+;;Writes to standard output unless a file-name is specified, in which case it
+;;creates the file if it doesn't exist and overwrites it if it does.
 (defun statistics-output (stats &key (file-name nil))
   (let ((str (or (not file-name) (open file-name :direction :output :if-exists :supersede))))
-    (format str "prep, row-reducer, discretizer, cluster, fss, classify, class, a, b, c, d, acc, prec, pd, pf, f, g~%")
+    (format str "prep, row-reducer, discretizer, clusterer, fss, classifier, class, a, b, c, d, acc, prec, pd, pf, f, g~%")
     (dolist (stat stats)
       (format str "~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~a, ~,1F, ~,1F, ~,1F, ~,1F, ~,1F, ~,1F~%" 
-        (string-downcase (format nil "~a" (function-name (nth 0 stat))))
-        (string-downcase (format nil "~a" (function-name (nth 1 stat))))
-        (string-downcase (format nil "~a" (function-name (nth 2 stat))))
-        (string-downcase (format nil "~a" (function-name (nth 3 stat))))
-        (string-downcase (format nil "~a" (function-name (nth 4 stat))))
-        (string-downcase (format nil "~a" (function-name (nth 5 stat))))
-        (string-downcase (format nil "~a" (nth 6 stat)))
-        (nth 7 stat)
-        (nth 8 stat)
-        (nth 9 stat)
-        (nth 10 stat)
-        (* 100 (nth 11 stat))
-        (* 100 (nth 12 stat))
-        (* 100 (nth 13 stat))
-        (* 100 (nth 14 stat))
-        (* 100 (nth 15 stat))
-        (* 100 (nth 16 stat))))
+        (string-downcase (format nil "~a" (function-name (statistics-prep stat))))
+        (string-downcase (format nil "~a" (function-name (statistics-row-reducer stat))))
+        (string-downcase (format nil "~a" (function-name (statistics-discretizer stat))))
+        (string-downcase (format nil "~a" (function-name (statistics-clusterer stat))))
+        (string-downcase (format nil "~a" (function-name (statistics-fss stat))))
+        (string-downcase (format nil "~a" (function-name (statistics-classifier stat))))
+        (string-downcase (format nil "~a" (statistics-class stat)))
+        (statistics-a stat)
+        (statistics-b stat)
+        (statistics-c stat)
+        (statistics-d stat)
+        (* 100 (statistics-acc stat))
+        (* 100 (statistics-prec stat))
+        (* 100 (statistics-pd stat))
+        (* 100 (statistics-pf stat))
+        (* 100 (statistics-f stat))
+        (* 100 (statistics-g stat))))
     (if file-name (close str))))
 
+;;Classifies each row in test using data in train.
+;;Returns a statistics structure for each class.
+;;Train and test should have updated metadata before being passed to learner.
+;;This shouldn't be a problem, since all tables should have updated metadata at
+;;time of creation.
 (defun learner (train test &key (k 1)
-                              (prep #'identity) ;Takes 1 table returns 1 table
-                              (row-reducer #'default-row-reducer)
-                              (discretizer #'identity) ;Takes 1 table returns 1 table
-                              (clusterer #'default-clusterer) ;Takes k and 1 table returns a list of tables
-                              (fss #'identity) ;Takes 1 table returns 1 table
-                              (classifier-train #'identity) ;Takes 1 table returns 1 table with training metadata
-                          	  (classifier #'identity)) ;Takes 1 test instance and table with training metadata and returns prediction
+                                (prep #'identity) ;Takes 1 table returns 1 table
+                                (row-reducer #'default-row-reducer)
+                                (discretizer #'identity) ;Takes 1 table returns 1 table
+                                (clusterer #'default-clusterer) ;Takes 1 table and k returns a list of tables
+                                (fss #'identity) ;Takes 1 table returns 1 table
+                                (classifier-train #'identity) ;Takes 1 table returns 1 table with training metadata
+                          	    (classifier #'identity)) ;Takes 1 test instance and table with training metadata and returns prediction
   (let ((clusters nil)
 		    (results nil)
 		    (statistics nil))
-		(table-update train)
-		(table-update test)
     (setf train (funcall prep train))
     (setf test (funcall prep test))
     (setf train (funcall discretizer train))
@@ -114,27 +93,28 @@
 		(push (funcall classifier (eg-features instance) (get-nearest-cluster instance clusters)) results))
 	(setf results (nreverse results))
 	(multiple-value-bind (ah bh ch dh) (p-metrics test results)
-		(dolist (klass (klasses train))
-			(let* ((a (if (gethash klass ah) (gethash klass ah) 0)) ;;tn
-				     (b (if (gethash klass bh) (gethash klass bh) 0)) ;;fn
-  				   (c (if (gethash klass ch) (gethash klass ch) 0)) ;;fp
-	  			   (d (if (gethash klass dh) (gethash klass dh) 0)) ;;tp
+		(dolist (class (get-table-classes train))
+			(let* ((a (if (gethash class ah) (gethash class ah) 0)) ;;tn
+				     (b (if (gethash class bh) (gethash class bh) 0)) ;;fn
+  				   (c (if (gethash class ch) (gethash class ch) 0)) ;;fp
+	  			   (d (if (gethash class dh) (gethash class dh) 0)) ;;tp
     			   (accuracy (/ (+ a d) (+ a b c d)))
 				     (precision (if (zerop (+ c d)) 0 (/ d (+ c d))))
 				     (pd (if (zerop (+ b d)) 0 (/ d (+ b d))))
 				     (pf (if (zerop (+ a c)) 0 (/ c (+ a c))))
 				     (f (if (zerop (+ precision pd)) 0 (/ (* 2 precision pd) (+ precision pd))))
   				   (g (if (zerop (+ pf pd)) 0 (/ (* 2 pf pd) (+ pf pd)))))
-  			(push (list prep row-reducer discretizer clusterer fss classifier klass a b c d accuracy precision pd pf f g) statistics)))
+  			(push (make-stat prep row-reducer discretizer clusterer fss classifier class a b c d accuracy precision pd pf f g) statistics)))
   	statistics)))
 
 (deftest learner-test ()
   (check
     (equalp
-      (mapcar #'(lambda (stat) (subseq stat 7)) (learner (ar3) (ar3) :discretizer #'10bins-eq-width :classifier-train #'nb-train :classifier #'nb-classify))
-      '((54 2 1 6 20/21 6/7 3/4 1/55 4/5 6/169)
-        (6 1 2 54 20/21 27/28 54/55 1/4 36/37 108/271)))))
+      (learner (ar3) (ar3) :discretizer #'10bins-eq-width :classifier-train #'nb-train :classifier #'nb-classify)
+      (list (make-stat #'identity #'default-row-reducer #'10bins-eq-width #'default-clusterer #'identity #'nb-classify 'true 54 2 1 6 20/21 6/7 3/4 1/55 4/5 6/169)
+            (make-stat #'identity #'default-row-reducer #'10bins-eq-width #'default-clusterer #'identity #'nb-classify 'false 6 1 2 54 20/21 27/28 54/55 1/4 36/37 108/271)))))
 
+;;Wrapper for learner function that outputs the results to standard output.
 (defun learn (train test &key (k 1)
                               (prep #'identity)
                               (row-reducer #'default-row-reducer)
@@ -153,10 +133,12 @@
                                          :classifier classifier)))
 
 (defun learn-demo ()
-  (learn (ar3) (ar3) :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify)
-  (learn (ar4) (ar4) :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify)
-  (learn (ar5) (ar5) :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify))
+  (learn (ar3) (ar3) :discretizer #'10bins-eq-freq :row-reducer #'burak-filter :classifier-train #'nb-train :classifier #'nb-classify)
+  (learn (ar4) (ar4) :discretizer #'10bins-eq-freq :row-reducer #'burak-filter :classifier-train #'nb-train :classifier #'nb-classify)
+  (learn (ar5) (ar5) :discretizer #'10bins-eq-freq :row-reducer #'burak-filter :classifier-train #'nb-train :classifier #'nb-classify))
 
+;;M by N cross validation that splits test into n bins and then classifies each
+;;bin using the data in train.  This is repeated M times.
 (defun cross-val-cc (train test &key (k 1)
                                      (prep #'identity)
                                      (row-reducer #'default-row-reducer)
@@ -173,19 +155,22 @@
   (funcall discretizer test)
   (let ((results nil))
     (dotimes (i m)
-      (let ((test-bins (split-preprocessor test n)))
+      (let ((test-bins (split-preprocessor (table-deep-copy test) n)))
         (dolist (test-bin test-bins)
-          (setf results (append (learner train test-bin :k k 
-                                                        :prep prep 
-                                                        :row-reducer row-reducer
-                                                        :discretizer discretizer 
-                                                        :clusterer clusterer 
-                                                        :fss fss 
-                                                        :classifier-train classifier-train 
-                                                        :classifier classifier)
-                                results)))))
-    (statistics-output (filter #'(lambda (result) (and (equalp (nth 6 result) defect-class) result)) results) :file-name file-name)))
+          (setf results (nconc (learner (table-deep-copy train) test-bin :k k 
+                                                                         :prep prep 
+                                                                         :row-reducer row-reducer
+                                                                         :discretizer discretizer 
+                                                                         :clusterer clusterer 
+                                                                         :fss fss 
+                                                                         :classifier-train classifier-train 
+                                                                         :classifier classifier)
+                               results)))))
+    (statistics-output (filter #'(lambda (result) (and (equalp (statistics-class result) defect-class) result)) results) :file-name file-name)))
 
+;;M by N cross validation that splits tbl into n bins and then classifies
+;;each bin using the data in table created by combining the other bins.
+;;This is repeated M times.
 (defun cross-val-wc (tbl &key (k 1)
                               (prep #'identity)
                               (row-reducer #'default-row-reducer)
@@ -201,27 +186,28 @@
   (funcall discretizer tbl)
   (let ((results nil))
     (dotimes (i m)
-      (let ((bins (split-preprocessor tbl n)))
+      (let ((bins (split-preprocessor (table-deep-copy tbl) n)))
         (dolist (bin bins)
-          (setf results (append (learner (apply #'combine-preprocessor (remove bin bins :test #'equalp)) bin  :k k 
-                                                                                                              :prep prep 
-                                                                                                              :row-reducer row-reducer
-                                                                                                              :discretizer discretizer 
-                                                                                                              :clusterer clusterer 
-                                                                                                              :fss fss 
-                                                                                                              :classifier-train classifier-train 
-                                                                                                              :classifier classifier)
+          (setf results (nconc (learner (apply #'combine-preprocessor (mapcar #'table-deep-copy (remove bin bins))) bin  :k k 
+                                                                                                                         :prep prep 
+                                                                                                                         :row-reducer row-reducer
+                                                                                                                         :discretizer discretizer 
+                                                                                                                         :clusterer clusterer 
+                                                                                                                         :fss fss 
+                                                                                                                         :classifier-train classifier-train 
+                                                                                                                         :classifier classifier)
                                 results)))))
-    (statistics-output (filter #'(lambda (result) (and (equalp (nth 6 result) defect-class) result)) results) :file-name file-name)))
+    (statistics-output (filter #'(lambda (result) (and (equalp (statistics-class result) defect-class) result)) results) :file-name file-name)))
 
 (defun cross-val-wc-demo ()
-  (cross-val-wc (shared_PC1) :row-reducer #'burak-filter :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify)
-  (cross-val-wc (shared_PC1) :row-reducer #'burak-filter :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify :file-name "test.txt"))
+  (cross-val-wc (ar4) :row-reducer #'sub-sample :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify)
+  (cross-val-wc (ar4) :row-reducer #'sub-sample :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify :file-name "test.txt"))
 
 (defun cross-val-cc-demo ()
   (cross-val-cc (ar3) (ar4) :row-reducer #'burak-filter :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify)
   (cross-val-cc (ar3) (ar4) :row-reducer #'burak-filter :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify :file-name "test.csv"))
 
 (defun nb-numeric-demo ()
-  (cross-val-cc (numeric-preprocessor (ar3)) (numeric-preprocessor (ar4)) :classifier-train #'nb-train :classifier #'nb-classify-numeric)
-  (cross-val-cc (numeric-preprocessor (ar3)) (numeric-preprocessor (ar4)) :classifier-train #'nb-train :classifier #'nb-classify-numeric :file-name "test.csv"))
+  (cross-val-cc (numeric-preprocessor (ar3)) (numeric-preprocessor (ar4)) :classifier-train #'nb-train :classifier #'nb-classify)
+  (cross-val-cc (numeric-preprocessor (ar3)) (numeric-preprocessor (ar4)) :classifier-train #'nb-train :classifier #'nb-classify :file-name "test.csv"))
+

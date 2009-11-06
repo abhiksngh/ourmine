@@ -79,7 +79,7 @@
   (check
     (and
       (equalp (length (egs (super-burak-filter (ar4) (list (ar5))))) (length (egs (burak-filter (ar4) (ar5)))))
-      (equalp (length (egs (super-burak-filter (ar4) (list (ar3) (ar5))))) 107))))
+      (equalp (length (egs (super-burak-filter (ar4) (list (ar5))))) 98))))
 
 ;;Reduces the number of rows in train to 25 defect rows and 25 non-defect rows.
 (defun micro-sample-n25 (train &optional test)

@@ -43,7 +43,7 @@
       new-eg)))
 
 ;;Returns a complete copy of a table structure and all of its members.
-;;If tbl was indexed, the copy will need to be re-indexed.
+;;The copy will have updated metadata.
 (defun table-deep-copy (tbl)
   (let ((new-tbl (make-table)))
     (setf (table-name new-tbl) (table-name tbl))
@@ -56,8 +56,10 @@
     (setf (table-all new-tbl) (nreverse (table-all new-tbl)))
     (setf (table-centroid new-tbl) (eg-deep-copy (table-centroid tbl)))
     (setf (table-indexed new-tbl) nil)
-    new-tbl))
+    (table-update new-tbl)))
 
+;;Returns a copy of tbl with no rows.
+;;The copy will be unindexed.
 (defun table-blank-copy (tbl)
   (let ((new-tbl (make-table)))
     (setf (table-name new-tbl) (table-name tbl))
@@ -193,6 +195,9 @@
 
 (defun get-table-instance-frequency (tbl class columni value)
   (f tbl class columni value))
+
+(defun get-table-class-distribution (tbl class columni)
+  (gethash class (header-f (nth columni (table-columns tbl)))))
 
 (defun get-table-size (tbl)
   (length (get-table-rows tbl)))

@@ -1,5 +1,5 @@
 ;;Returns the euclidean distance between the numeric values in row1 and row2 from 
-;;table structure tbl.  Ignores discrete columns.
+;;table structure tbl.  Treats ordered discrete values as if they were numeric.
 (defun euclid-distance (row1 row2 tbl)
   (sqrt (reduce #'+
                 (mapcar #'(lambda (v1 v2 column-header)
