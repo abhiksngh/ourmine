@@ -23,7 +23,8 @@
 	  ;;Added call to max because sumsQ - sum^2 should return 0 for 
 	  ;;distributions that contain only one unique value, but it returns
 	  ;;some small negative value instead.
-    (sqrt (max 0 (/ (- sumSq(/ (square sum) n)) (- n 1))))))
+	  ;;Added a second call to max for cases when there is only 1 sample.
+    (sqrt (max 0 (/ (- sumSq(/ (square sum) n)) (max 1 (- n 1)))))))
 
 (defmethod pdf ((n normal) x)
   (let ((mu     (mean n))
