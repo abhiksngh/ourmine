@@ -51,6 +51,7 @@
 			"knn"
 			"discretize"
 			"preprocessor"
+			"fss"
 			"classify"
   		"learner"
 			))

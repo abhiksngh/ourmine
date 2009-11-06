@@ -193,6 +193,9 @@
 (defun get-table-class-frequency (tbl class)
   (f tbl class))
 
+(defun get-table-value-frequency (tbl columni value)
+  (reduce #'+ (mapcar #'(lambda (class) (get-table-instance-frequency tbl class columni value)) (get-table-classes tbl))))
+
 (defun get-table-instance-frequency (tbl class columni value)
   (f tbl class columni value))
 
