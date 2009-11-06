@@ -1,5 +1,5 @@
 (defun KC2short ()
-  (table-update (table-deep-copy (data
+  (table-deep-copy (data
    :name 'KC2short
    :columns '($lOCcomment $uniq_Op $l $d $t $ivg defects)
    :egs
@@ -526,4 +526,4 @@
 (0 3 0.67 1.50 0.67 1 true)
 (0 3 0.67 1.50 0.97 1 true)
 (0 1 0.00 0.00 0.00 1 true)
-)))))
+))))

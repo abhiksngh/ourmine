@@ -1,5 +1,5 @@
 (defun PC1short ()
-  (table-update (table-deep-copy (data
+  (table-deep-copy (data
    :name 'PC1short
    :columns '($lOCcomment $uniq_Op $l $d $t $ivg defects)
    :egs
@@ -1113,4 +1113,4 @@
 (0 8 0.21 4.80 16.78 1 false)
 (0 22 0.04 22.92 780.59 5 false)
 (0 23 0.03 35.81 2657.46 6 false)
-)))))
+))))

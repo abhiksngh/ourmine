@@ -23,7 +23,7 @@
 |#
 
 (defun mw1com ()
-  (table-update (table-deep-copy (data
+  (table-deep-copy (data
    :name 'mw1com
    :columns '($loc $vg $ivg $v $l $d $e $b $t $lOCode $lOCcomment $locCodeAndComment $uniq_Op $uniq_Opnd $total_Op $total_Opnd $branchCount defects)
    :egs
@@ -431,4 +431,4 @@
 (7 12 0 2 3 9 1089.13 0.04 1 28 1 14 12 8 16 60.51 3 false)
 (10 25 0 2 2 4.17 1021.56 0.08 1 51 2 18 7 21 26 56.75 3 false)
 (16 22 0 2 3 3.24 706.95 0.07 1 49 2 24 5 17 27 39.28 3 false)
-)))))
+))))

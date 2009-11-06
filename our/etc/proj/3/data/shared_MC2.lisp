@@ -23,7 +23,7 @@
 |#
 
 (defun shared_MC2 ()
-  (table-update (table-deep-copy (data
+  (table-deep-copy (data
    :name 'shared_MC2
    :columns '($loc $vg $evg $ivg $v $l $d $i $e $b $t $lOCode $lOCcomment $locCodeAndComment $uniq_Op $uniq_Opnd $total_Op $total_Opnd $branchCount defects)
    :egs
@@ -189,4 +189,4 @@
 (28 65 771.79 0 11 0 34.53 22.35 26650.95 0.26 9 153 7 31 17 16 88 1480.61 21 false)
 (135 175 2564.44 15 32 12 51.79 49.52 132801.57 0.85 20 408 21 162 29 49 233 7377.86 58 true)
 (20 54 463.02 0 1 1 7.2 64.31 3333.77 0.15 1 109 1 33 4 15 55 185.21 1 false)
-)))))
+))))

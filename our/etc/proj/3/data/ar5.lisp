@@ -34,7 +34,7 @@
 |#
 
 (defun ar5 ()
-  (table-update (table-deep-copy (data
+  (table-deep-copy (data
    :name 'ar5
    :columns '($total_loc $blank_loc $comment_loc $code_and_comment_loc $executable_loc $unique_operands $unique_operators $total_operands $total_operators $halstead_vocabulary $halstead_length $halstead_volume $halstead_level $halstead_difficulty $halstead_effort $halstead_error $halstead_time $branch_count $decision_count $call_pairs $condition_count $multiple_condition_count $cyclomatic_complexity $cyclomatic_density $decision_density $design_complexity $design_density $normalized_cyclomatic_complexity $formal_parameters defects)
    :egs
@@ -75,4 +75,4 @@
      (112 23 7 3 82 35 23 226 305 58 531 2156 0.013467 74.2571 160098.4 0.71867 8894.3556 90 45 1 43 15 30 0.36585 1.0465 1 0.033333 0.26786 0 false)
      (110 29 11 3 70 48 23 135 182 71 317 1351 0.030918 32.3438 43696.4062 0.45033 2427.5781 54 27 1 26 7 21 0.3 1.0385 1 0.047619 0.19091 0 true)
      (49 14 7 3 28 23 16 53 74 39 127 465 0.054245 18.4348 8572.1739 0.155 476.2319 22 11 0 11 3 9 0.32143 1 0 0 0.18367 0 true)
-     )))))
+     ))))

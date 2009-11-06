@@ -1,5 +1,5 @@
 (defun CM1short ()
-  (table-update (table-deep-copy (data
+  (table-deep-copy (data
    :name 'CM1short
    :columns '($lOCcomment $uniq_Op $l $d $t $ivg defects)
    :egs
@@ -502,4 +502,4 @@
 (59 32 0.02 44.71 7838.01 10 true)
 (12 13 0.15 6.50 54.32 1 true)
 (7 20 0.06 16.09 504.35 5 true)
-)))))
+))))

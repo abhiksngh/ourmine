@@ -23,7 +23,7 @@
 |#
 
 (defun shared_KC3 ()
-  (table-update (table-deep-copy (data
+  (table-deep-copy (data
    :name 'shared_KC3
    :columns '($loc $vg $evg $ivg $v $l $d $i $e $b $t $lOCode $lOCcomment $locCodeAndComment $uniq_Op $uniq_Opnd $total_Op $total_Opnd $branchCount defects)
    :egs
@@ -486,4 +486,4 @@
 (36 77 1271.18 1 7 0 18.76 67.77 23842.81 0.42 1 217 6 44 19 39 140 1324.6 12 false)
 (4 11 112 0 1 0 4.28 26.18 479.11 0.04 1 28 1 6 7 9 17 26.62 1 false)
 (131 255 4607.96 3 26 11 42.03 109.63 193686.35 1.54 15 666 18 166 30 91 411 10760.35 43 false)
-)))))
+))))
