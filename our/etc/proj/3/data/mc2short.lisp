@@ -1,5 +1,5 @@
 (defun MC2short ()
-  (data
+  (table-update (table-deep-copy (data
    :name 'MC2short
    :columns '($lOCcomment $uniq_Op $l $d $t $ivg defects)
    :egs
@@ -165,4 +165,4 @@
 (7 17 0.00 34.53 9.00 0 false)
 (21 29 12.00 51.79 20.00 15 true)
 (1 4 1.00 7.20 1.00 0 false)
-)))
+)))))

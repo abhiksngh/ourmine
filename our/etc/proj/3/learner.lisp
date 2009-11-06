@@ -91,7 +91,6 @@
 (defun learner (train test &key (k 1)
                               (prep #'identity) ;Takes 1 table returns 1 table
                               (row-reducer #'default-row-reducer)
-                              (row-reducer2 #'default-row-reducer)
                               (discretizer #'identity) ;Takes 1 table returns 1 table
                               (clusterer #'default-clusterer) ;Takes k and 1 table returns a list of tables
                               (fss #'identity) ;Takes 1 table returns 1 table
@@ -100,12 +99,13 @@
   (let ((clusters nil)
 		    (results nil)
 		    (statistics nil))
+		(table-update train)
+		(table-update test)
     (setf train (funcall prep train))
     (setf test (funcall prep test))
     (setf train (funcall discretizer train))
     (setf test (funcall discretizer test))
     (setf train (funcall row-reducer train test))
-    (setf train (funcall row-reducer2 train test))
     (setf clusters (funcall clusterer train k))
 	(dolist (cluster clusters)
 		(setf cluster (funcall fss cluster))
@@ -138,7 +138,6 @@
 (defun learn (train test &key (k 1)
                               (prep #'identity)
                               (row-reducer #'default-row-reducer)
-                              (row-reducer2 #'default-row-reducer)
                               (discretizer #'identity)
                               (clusterer #'default-clusterer)
                               (fss #'identity)
@@ -147,7 +146,6 @@
   (statistics-output (learner train test :k k 
                                          :prep prep 
                                          :row-reducer row-reducer
-                                         :row-reducer2 row-reducer2
                                          :discretizer discretizer 
                                          :clusterer clusterer 
                                          :fss fss 
@@ -158,68 +156,6 @@
   (learn (ar3) (ar3) :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify)
   (learn (ar4) (ar4) :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify)
   (learn (ar5) (ar5) :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify))
-
-(defun average-cross-val-results (results)
-  (let ((avg-result nil))
-    (setf avg-result (car results))
-    (mapcar #'(lambda (result)
-              (doitems (column i (subseq result 7))
-                (incf (nth (+ i 7) avg-result) column)))
-            (cdr results))
-    (doitems (column i (subseq avg-result 7))
-      (setf (nth (+ i 7) avg-result) (/ column (length results))))
-    avg-result))
-
-(defun cross-validation (tbl &key (k 1)
-                                  (prep #'identity)
-                                  (row-reducer #'default-row-reducer)
-                                  (discretizer #'identity)
-                                  (clusterer #'default-clusterer)
-                                  (fss #'identity)
-                                  (classifier-train #'identity)
-                              	  (classifier #'identity)
-                              	  (defect-class 'true)
-                              	  (file-name nil))
-  (let ((results nil))
-    (dotimes (i 100)
-      (multiple-value-bind (train test) (split-preprocessor tbl)
-        (setf results (append (learner train test :k k 
-                                                  :prep prep 
-                                                  :row-reducer row-reducer
-                                                  :discretizer discretizer 
-                                                  :clusterer clusterer 
-                                                  :fss fss 
-                                                  :classifier-train classifier-train 
-                                                  :classifier classifier)
-                              results))))
-    (statistics-output (filter #'(lambda (result) (and (equalp (nth 6 result) defect-class) result)) results) :file-name file-name)))
-
-(defun cross-validation2 (train test  &key (k 1)
-                                           (prep #'identity)
-                                           (row-reducer #'(lambda (train test) train))
-                                           (row-reducer2 #'(lambda (train test) train))
-                                           (discretizer #'identity)
-                                           (clusterer #'default-clusterer)
-                                           (fss #'identity)
-                                           (classifier-train #'identity)
-                                      	   (classifier #'identity)
-                                      	   (defect-class 'true)
-                                      	   (file-name nil))
-  (setf train (funcall row-reducer train test))
-  (setf train (funcall row-reducer2 train test))
-  (let ((results nil))
-    (dotimes (i 100)
-      (multiple-value-bind (test-90 test-10) (split-preprocessor25 test)
-        (setf results (append (learner train test-10 :k k 
-                                                  :prep prep 
-                                                  ;:row-reducer row-reducer
-                                                  :discretizer discretizer 
-                                                  :clusterer clusterer 
-                                                  :fss fss 
-                                                  :classifier-train classifier-train 
-                                                  :classifier classifier)
-                              results))))
-    (statistics-output (filter #'(lambda (result) (and (equalp (nth 6 result) defect-class) result)) results) :file-name file-name)))
 
 (defun cross-val-cc (train test &key (k 1)
                                      (prep #'identity)
@@ -233,6 +169,8 @@
                                 	   (file-name nil)
                                 	   (m 10)
                                 	   (n 10))
+  (funcall discretizer train)
+  (funcall discretizer test)
   (let ((results nil))
     (dotimes (i m)
       (let ((test-bins (split-preprocessor test n)))
@@ -260,6 +198,7 @@
                         	    (file-name nil)
                         	    (m 10)
                         	    (n 10))
+  (funcall discretizer tbl)
   (let ((results nil))
     (dotimes (i m)
       (let ((bins (split-preprocessor tbl n)))
@@ -274,14 +213,6 @@
                                                                                                               :classifier classifier)
                                 results)))))
     (statistics-output (filter #'(lambda (result) (and (equalp (nth 6 result) defect-class) result)) results) :file-name file-name)))
-
-(defun cross-validation-demo ()
-  (cross-validation (shared_PC1) :row-reducer #'burak-filter :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify)
-  (cross-validation (shared_PC1) :row-reducer #'burak-filter :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify :file-name "test.txt"))
-
-(defun cross-validation-demo2 ()
-  (cross-validation2 (ar3) (ar4) :row-reducer #'burak-filter :row-reducer2 #'micro-sample-n25 :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify)
-  (cross-validation2 (ar3) (ar4) :row-reducer #'burak-filter :row-reducer2 #'micro-sample-n25 :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify :file-name "test.csv"))
 
 (defun cross-val-wc-demo ()
   (cross-val-wc (shared_PC1) :row-reducer #'burak-filter :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify)

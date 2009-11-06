@@ -23,7 +23,7 @@
 |#
 
 (defun kc2com ()
-  (data
+  (table-update (table-deep-copy (data
    :name 'kc2com
    :columns '($loc $vg $ivg $v $l $d $e $b $t $lOCode $lOCcomment $locCodeAndComment $uniq_Op $uniq_Opnd $total_Op $total_Opnd $branchCount defects)
    :egs
@@ -550,4 +550,4 @@
 (4 1 1 8 0.67 1.5 12 0 0.67 2 0 0 3 1 3 1 1 true)
 (4 1 1 11.61 0.67 1.5 17.41 0 0.97 2 0 0 3 2 3 2 1 true)
 (3 1 1 0 0 0 0 0 0 1 0 0 1 0 1 0 1 true)
-)))
+)))))

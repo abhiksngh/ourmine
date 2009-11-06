@@ -1,5 +1,5 @@
 (defun ar5short ()
-  (data
+  (table-update (table-deep-copy (data
    :name 'ar5short
    :columns '($comment_loc $unique_operators $halstead_level $halstead_difficulty $halstead_time  $design_complexity defects)
    :egs
@@ -41,4 +41,4 @@
 (7 23 0.01000 74.2600 8894.3600 1 false)
 (11 23 0.03000 32.3400 2427.5800 1 true)
 (7 16 0.05000 18.4300 476.2300 0 true)
-)))
+)))))

@@ -1,5 +1,5 @@
 (defun ar3com ()
-  (data
+  (table-update (table-deep-copy (data
    :name 'ar3com
    :columns '($loc $vg $ivg $v $l $d $e $b $t $lOCode $lOCcomment $locCodeAndComment $uniq_Op $uniq_Opnd $total_Op $total_Opnd $branchCount defects)
    :egs
@@ -68,4 +68,4 @@
 (148 18 0 1441 0.035714 28 40348 0.48033 2241.5556 102 5 0 16 42 208 147 48 false)
 (10 7 1 196 0.10476 9.5455 1870.9091 0.065333 103.9394 10 0 0 7 11 38 30 24 false)
 (333 40 23 3533 0.017677 56.5714 199866.8571 1.1777 11103.7143 186 53 9 18 56 469 352 114 true)
-     )))
+     )))))

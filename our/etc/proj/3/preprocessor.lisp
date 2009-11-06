@@ -1,15 +1,13 @@
 ;;Takes a table structure and replaces all of the values in each numeric column
 ;;with log(value).  If the value is less than 0.0001, it is replaced with log(0.0001).
-;;Returns a modified copy of the table structure.
+;;Modifieds tbl.
 (defun numeric-preprocessor (tbl)
-  (setf tbl (table-deep-copy tbl))
   (dolist (row (get-table-feature-lists tbl))
     (doitems (column-header columni (get-table-column-headers tbl))
       (if (and (column-header-numericp column-header)
-               (not (column-header-classp column-header))
-               (not (unknownp (nth columni row))))
+               (not (column-header-classp column-header)))
         (setf (nth columni row) (log (max 0.0001 (nth columni row)))))))
-  tbl)
+  (table-update tbl))
 
 (deftest numeric-preprocessor-test ()
   (check
@@ -20,12 +18,11 @@
               (log (second (eg-features (first (egs (ar3))))))))))
 
 ;;Combines multiple table structures into one.
+;;Modifies tables in tbls.
 (defun combine-preprocessor (&rest tbls)
-  (setf (car tbls) (table-deep-copy (car tbls)))
   (dolist (tbl (cdr tbls))
-    (setf (table-all (car tbls)) (append (table-all tbl) (table-all (car tbls)))))
-  (table-update-discrete-uniques (car tbls))
-  (car tbls))
+    (setf (table-all (car tbls)) (nconc (table-all tbl) (table-all (car tbls)))))
+  (table-update (car tbls)))
 
 (deftest combine-preprocessor-test ()
   (check
@@ -40,23 +37,20 @@
 ;;1/n of the rows from the original table.  The frequency of each class in the each of 
 ;;the new tables is approximately the same as in the original table.  
 (defun split-preprocessor (tbl &optional (n 10))
-  (setf tbl (table-deep-copy tbl))
   (let ((class-rows-lst nil)
         (bins nil))
-    (dolist (class (get-table-classes tbl))
-      (push (get-table-class-rows tbl class) class-rows-lst))
-    (delete-table-rows tbl)
-    (setf n (min n (apply #'min (mapcar #'length class-rows-lst))))
+    (setf n (min n (get-table-class-frequency tbl (get-defect-class tbl))))
     (dotimes (i n)
-      (push (table-deep-copy tbl) bins))
-    (dolist (class-rows class-rows-lst)
-      (dotimes (i (length class-rows))
-        (let ((randomi (random (length class-rows))))
-          (push (nth randomi class-rows) (table-all (nth (mod i n) bins)))
-          (setf class-rows (remove (nth randomi class-rows) class-rows)))))
-    (dolist (bin bins)
-      (table-update-discrete-uniques bin))
-    bins))
+      (push (table-blank-copy tbl) bins))
+    (dolist (class (get-table-classes tbl))
+      (let ((class-rows (get-table-class-rows tbl class))
+            (n-class-rows (get-table-class-frequency tbl class)))
+        (dotimes (i n-class-rows)
+          (let* ((randomi (random (- n-class-rows i)))
+                 (random-row (nth randomi class-rows)))
+            (push random-row (table-all (nth (mod i n) bins)))
+            (setf class-rows (remove random-row class-rows))))))
+    (mapc #'table-update bins)))
 
 (deftest split-preprocessor-test ()
   (check
@@ -67,14 +61,13 @@
 ;;Takes a table structure and returns a copy with each numeric column normalized between 0
 ;;and 1.
 (defun normalize-preprocessor (tbl)
-  (setf tbl (table-deep-copy tbl))
   (doitems (column-header columni (get-table-column-headers tbl))
     (if (column-header-numericp column-header)
       (let ((col-max (apply #'max (get-table-column tbl columni)))
             (col-min (apply #'min (get-table-column tbl columni))))
         (dolist (features (get-table-feature-lists tbl))
           (setf (nth columni features) (/ (- (nth columni features) col-min) (- col-max col-min)))))))
-  tbl)
+  (table-update tbl))
 
 (deftest normalize-preprocessor-test ()
   (check

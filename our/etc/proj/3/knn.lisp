@@ -19,7 +19,6 @@
 
 ;;Returns the k rows in tbl that are nearest to the instance row.
 (defun knn (instance tbl k)
-  (setf tbl (table-deep-copy tbl))
   (let ((neighbors nil)
         (distances nil))
     (dolist (row (get-table-rows tbl))

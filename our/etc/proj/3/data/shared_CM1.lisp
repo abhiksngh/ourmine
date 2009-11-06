@@ -23,7 +23,7 @@
 |#
 
 (defun shared_CM1 ()
-  (data
+  (table-update (table-deep-copy (data
    :name 'shared_CM1
    :columns '($loc $vg $evg $ivg $v $l $d $i $e $b $t $lOCode $lOCcomment $locCodeAndComment $uniq_Op $uniq_Opnd $total_Op $total_Opnd $branchCount defects)
    :egs
@@ -526,4 +526,4 @@
 (82 11 3 10 3155.83 0.02 44.71 70.59 141084.24 1.05 7838.01 9 59 0 32 68 285 190 21 true)
 (10 2 1 1 150.41 0.15 6.5 23.14 977.69 0.05 54.32 1 12 0 13 13 19 13 3 true)
 (28 6 5 5 564.33 0.06 16.09 35.08 9078.38 0.19 504.35 2 7 0 20 23 67 37 11 true)
-)))
+)))))

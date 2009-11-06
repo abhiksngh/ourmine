@@ -23,7 +23,7 @@
 |#
 
 (defun shared_PC1 ()
-  (data
+  (table-update (table-deep-copy (data
    :name 'shared_PC1
    :columns '($loc $vg $evg $ivg $v $l $d $i $e $b $t $lOCode $lOCcomment $locCodeAndComment $uniq_Op $uniq_Opnd $total_Op $total_Opnd $branchCount defects)
    :egs
@@ -1137,4 +1137,4 @@
 (5 3 3 1 62.91 0.21 4.8 13.11 301.96 0.02 16.78 5 0 0 8 5 11 6 5 false)
 (18 8 5 5 613.12 0.04 22.92 26.75 14050.56 0.2 780.59 18 0 0 22 24 61 50 15 false)
 (26 18 13 6 1335.62 0.03 35.81 37.29 47834.26 0.45 2657.46 26 0 0 23 35 119 109 35 false)
-)))
+)))))

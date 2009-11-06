@@ -1,5 +1,5 @@
 (defun ar4short ()
-  (data
+  (table-update (table-deep-copy (data
    :name 'ar4short
    :columns '($comment_loc $unique_operators $halstead_level $halstead_difficulty $halstead_time  $design_complexity defects)
    :egs
@@ -112,4 +112,4 @@
 (0 14 0.06000 16.6300 136.6900 0 false)
 (13 23 0.03000 39.1000 1429.3200 2 false)
 (0 6 0.28000 3.6000 8.0000 1 false)
-)))
+)))))
