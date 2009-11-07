@@ -1,7 +1,7 @@
 (defun utility (class)
   (if (equalp class 'true)
     0
-    0))
+    1))
 
 ;;Removes the column from tbl that corresponds to target-column-header.
 (defun remove-column (tbl target-column-header)
