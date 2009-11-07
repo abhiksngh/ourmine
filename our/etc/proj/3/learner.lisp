@@ -64,6 +64,15 @@
         (* 100 (statistics-g stat))))
     (if file-name (close str))))
 
+;;Removes the columns from instance that aren't in the train table.
+(defun remove-instance-columns (instance train test)
+  (setf instance (eg-deep-copy instance))
+  (doitems (column-header columni (get-table-column-headers test))
+    (if (not (find (header-name column-header) (get-table-column-headers train) :key #'header-name :test #'equalp))
+      (setf (nth columni (eg-features instance)) nil)))
+  (setf (eg-features instance) (delete nil (eg-features instance)))
+  instance)
+
 ;;Classifies each row in test using data in train.
 ;;Returns a statistics structure for each class.
 ;;Train and test should have updated metadata before being passed to learner.
@@ -90,7 +99,8 @@
 		(setf cluster (funcall fss cluster))
 		(setf cluster (funcall classifier-train cluster)))
 	(dolist (instance (table-all test))
-		(push (funcall classifier (eg-features instance) (get-nearest-cluster instance clusters)) results))
+	  (let ((nearest-cluster (get-nearest-cluster instance clusters)))
+		  (push (funcall classifier (eg-features (remove-instance-columns instance nearest-cluster test)) nearest-cluster) results)))
 	(setf results (nreverse results))
 	(multiple-value-bind (ah bh ch dh) (p-metrics test results)
 		(dolist (class (get-table-classes train))

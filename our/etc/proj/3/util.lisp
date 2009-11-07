@@ -184,10 +184,17 @@
               (/ (nth columni (eg-features new-centroid)) (length (get-table-rows tbl))))))
     (setf (table-centroid tbl) new-centroid)))
 
+(defun table-update-class-column (tbl)
+  (doitems (column-header columni (get-table-column-headers tbl))
+    (if (column-header-classp column-header)
+      (setf (table-class tbl) columni)))
+  tbl)
+
 (defun table-update (tbl)
   (table-update-discrete-uniques tbl)
   (table-update-index tbl)
   (table-update-centroid tbl)
+  (table-update-class-column tbl)
   tbl)
 
 (defun get-table-class-frequency (tbl class)

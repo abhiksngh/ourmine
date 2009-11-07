@@ -3,18 +3,31 @@
     0
     0))
 
-(defun utility1 (class)
-  (if (equalp class 'true)
-    1
-    0))
+;;Removes the column from tbl that corresponds to target-column-header.
+(defun remove-column (tbl target-column-header)
+  (doitems (column-header columni (get-table-column-headers tbl))
+    (if (eq column-header target-column-header)
+      (progn
+        (dolist (row (get-table-rows tbl))
+          (setf (nth columni (eg-features row)) nil))
+        (setf (table-columns tbl) (delete column-header (table-columns tbl))))))
+  (dolist (row (get-table-rows tbl))
+    (setf (eg-features row) (delete nil (eg-features row)))))
 
-(defun utility2 (class)
-  (if (equalp class 'true)
-    0
-    1))
+;;Removes the columns from tbl whose indexes are in remove-column-indexes.
+(defun remove-columns (tbl remove-column-indexes)
+  (dolist (index remove-column-indexes)
+    (remove-column tbl (get-table-column-header tbl index)))
+  (table-update tbl))
 
-(defun utilityr (class)
-  (nth (random 2) '(0 1)))
+;;Removes the columns from test that aren't in train.
+(defun remove-test-columns (train test)
+  (let ((remove-column-indexes nil))
+    (doitems (column-header columni (get-table-column-headers test))
+      (if (not (find (header-name column-header) (get-table-column-headers train) :test #'equalp :key #'header-name))
+        (push columni remove-column-indexes)))
+    (print remove-column-indexes)
+    (remove-columns test remove-column-indexes)))
 
 (defun get-b-squared-score (tbl best rest columni row)
   (let ((b (/ (get-table-value-frequency best columni (nth columni (eg-features row)))
@@ -25,12 +38,14 @@
       0
       (/ (square b) (+ b r)))))
 
-(defun b-squared (tbl &optional (utility #'utility))
-  (setf (table-all tbl) (sort (get-table-rows tbl) #'> :key #'(lambda (row) (funcall utility (eg-class row)))))
+(defun b-squared (tbl &optional (threshold 0.2))
+  (setf (table-all tbl) (sort (get-table-rows tbl) #'> :key #'(lambda (row) (utility (eg-class row)))))
   (let ((best (table-blank-copy tbl))
         (rest (table-blank-copy tbl))
         (rown (get-table-size tbl))
-        (column-scores nil))
+        (column-scores nil)
+        (min-score 0)
+        (remove-column-indexes nil))
     (doitems (row rowi (get-table-rows tbl))
       (if (< rowi (floor (* rown 0.2)))
         (push row (table-all best))
@@ -50,14 +65,9 @@
                                           (get-b-squared-score tbl best rest columni (nth (/ (get-table-size tbl) 2) (get-table-rows tbl))))
                                        2)))))
     (setf column-scores (nreverse column-scores))
-    (print "selected columns")
-    (doitems (score columni column-scores)
-      (if (> score 0)
-        (print (header-name (get-table-column-header tbl columni)))))))
-
-(defun b-squared-demo (&optional (tbl (shared_pc1)))
-  (b-squared (10bins-eq-freq tbl))
-  (b-squared (10bins-eq-freq tbl) #'utility1)
-  (b-squared (10bins-eq-freq tbl) #'utility2)
-  (b-squared (10bins-eq-freq tbl) #'utilityr))
+    (setf min-score (max 0.000001 (nth (floor (* (length column-scores) threshold)) (sort (copy-list column-scores) #'>))))
+    (doitems (score i column-scores)
+      (if (< score min-score)
+        (push i remove-column-indexes)))
+    (remove-columns tbl remove-column-indexes)))
 
