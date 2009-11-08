@@ -1,3 +1,10 @@
+(defun median (lst)
+  (if (oddp (length lst))
+    (nth (floor (/ (length lst) 2)) (sort (copy-list lst) #'<))
+    (/ (+ (nth (/ (length lst) 2) (sort (copy-list lst) #'<))
+          (nth (1- (/ (length lst) 2)) (sort (copy-list lst) #'<)))
+       2)))
+
 ;;Filter function from ANSI Common Lisp.
 (defun filter (fn lst)
   (let ((acc nil))
@@ -137,6 +144,9 @@
 ;;Returns a list of all rows in table with specified class.
 (defun get-table-class-rows (tbl class)
   (filter #'(lambda (row) (and (equalp (eg-class row) class) row)) (get-table-rows tbl)))
+
+(defun get-table-class-column (tbl columni class)
+  (mapcar #'(lambda (row) (nth columni (eg-features row))) (get-table-class-rows tbl class)))
 
 ;;Returns the number of rows in table with a specific class.
 (defun get-table-class-frequency (tbl class)

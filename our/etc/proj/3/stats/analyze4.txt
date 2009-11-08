@@ -1,0 +1,1217 @@
+AR3 AR4 AR5 
+$TOTAL_LOC
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE             3.0       31.0      285.0       62.8      62.81
+AR3        TRUE             18.0      244.0      670.0      271.3     216.57
+AR4        FALSE             6.0       47.0      530.0       61.8      69.27
+AR4        TRUE             27.0      151.5      907.0      190.9     189.82
+AR5        FALSE             5.0       29.0      151.0       45.1      41.79
+AR5        TRUE             49.0      142.5      477.0      183.5     129.87
+
+$BLANK_LOC
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE             0.0       10.0       78.0       17.3      18.17
+AR3        TRUE              4.0       70.0      116.0       65.8      42.50
+AR4        FALSE             0.0       18.0      235.0       25.7      32.36
+AR4        TRUE              9.0       58.0      395.0       78.3      84.45
+AR5        FALSE             0.0        7.0       38.0       10.8       9.83
+AR5        TRUE             14.0       40.5      104.0       44.0      27.37
+
+$COMMENT_LOC
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE             0.0        4.0       40.0        7.8      10.15
+AR3        TRUE              0.0       34.0      195.0       51.1      62.18
+AR4        FALSE             0.0        3.0       96.0        7.3      14.86
+AR4        TRUE              1.0       17.0      209.0       28.2      45.16
+AR5        FALSE             0.0        1.0       17.0        3.9       5.18
+AR5        TRUE              5.0       16.0       89.0       26.3      27.71
+
+$CODE_AND_COMMENT_LOC
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE             0.0        0.0        6.0        1.0       1.61
+AR3        TRUE              0.0        5.5       31.0        8.5       9.75
+AR4        FALSE             0.0        0.0       16.0        0.4       2.41
+AR4        TRUE              0.0        0.0        4.0        0.4       0.94
+AR5        FALSE             0.0        0.0        4.0        0.8       1.42
+AR5        TRUE              1.0        3.0        8.0        3.4       2.13
+
+$EXECUTABLE_LOC
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE             3.0       22.0      174.0       37.8      37.76
+AR3        TRUE             14.0      125.0      394.0      154.4     128.05
+AR4        FALSE             3.0       23.0      217.0       28.8      29.44
+AR4        TRUE             17.0       64.5      303.0       84.4      69.20
+AR5        FALSE             5.0       18.5      105.0       30.5      30.10
+AR5        TRUE             28.0       95.0      284.0      113.3      77.21
+
+$UNIQUE_OPERANDS
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE             4.0       22.0      125.0       30.5      23.80
+AR3        TRUE             20.0       88.0      142.0       84.0      47.62
+AR4        FALSE             4.0       18.0       68.0       20.3      12.89
+AR4        TRUE             14.0       41.5      112.0       45.8      27.98
+AR5        FALSE             5.0       18.0       64.0       24.0      15.38
+AR5        TRUE             23.0       70.5      150.0       73.8      36.68
+
+$UNIQUE_OPERATORS
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE             3.0       10.0       29.0       11.1       6.20
+AR3        TRUE              6.0       21.0       31.0       20.3       7.85
+AR4        FALSE             4.0       10.0       23.0       10.3       4.49
+AR4        TRUE              6.0       17.0       28.0       17.1       5.46
+AR5        FALSE             3.0        9.5       28.0       10.0       5.89
+AR5        TRUE             16.0       23.0       29.0       21.8       4.98
+
+$TOTAL_OPERANDS
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE             5.0       50.0      337.0       76.7      75.14
+AR3        TRUE             32.0      275.0      575.0      285.3     187.47
+AR4        FALSE             4.0       35.0      329.0       44.4      43.93
+AR4        TRUE             21.0      112.0      560.0      133.7     124.37
+AR5        FALSE             5.0       40.5      226.0       59.6      57.11
+AR5        TRUE             53.0      193.5      482.0      211.3     125.78
+
+$TOTAL_OPERATORS
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE             8.0       64.0      484.0      100.0     100.74
+AR3        TRUE             34.0      359.0      817.0      393.4     270.10
+AR4        FALSE             7.0       50.0      478.0       64.7      63.39
+AR4        TRUE             35.0      145.0      829.0      202.4     186.07
+AR5        FALSE             9.0       49.0      305.0       79.9      82.51
+AR5        TRUE             74.0      243.5      699.0      293.9     185.50
+
+$HALSTEAD_VOCABULARY
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE             8.0       34.0      148.0       41.6      28.56
+AR3        TRUE             26.0      113.0      169.0      104.3      53.61
+AR4        FALSE             8.0       29.0       75.0       30.5      15.29
+AR4        TRUE             28.0       55.5      132.0       62.9      29.83
+AR5        FALSE             8.0       28.0       92.0       33.9      19.85
+AR5        TRUE             39.0       91.5      179.0       95.5      39.81
+
+$HALSTEAD_LENGTH
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE            14.0      124.0      821.0      176.7     175.30
+AR3        TRUE             66.0      621.5     1392.0      678.6     457.09
+AR4        FALSE            11.0       84.0      807.0      109.0     106.88
+AR4        TRUE             56.0      257.5     1389.0      336.1     310.10
+AR5        FALSE            14.0       92.0      531.0      139.6     139.39
+AR5        TRUE            127.0      437.0     1181.0      505.1     310.99
+
+$HALSTEAD_VOLUME
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE            29.0      413.0     4102.0      715.0     817.26
+AR3        TRUE            215.0     3066.5     7140.0     3251.0    2323.75
+AR4        FALSE            22.0      277.0     3451.0      399.2     453.85
+AR4        TRUE            186.0     1079.0     6782.0     1466.9    1525.09
+AR5        FALSE            29.0      302.5     2156.0      532.2     605.08
+AR5        TRUE            465.0     2023.0     6126.0     2365.3    1676.92
+
+$HALSTEAD_LEVEL
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE            0.02        0.1        0.7        0.1       0.12
+AR3        TRUE             0.02       0.03        0.2        0.1       0.06
+AR4        FALSE            0.03        0.1        0.5        0.2       0.14
+AR4        TRUE             0.02       0.04        0.3        0.1       0.06
+AR5        FALSE            0.01        0.1        0.7        0.2       0.15
+AR5        TRUE             0.02       0.03        0.1       0.04       0.01
+
+$HALSTEAD_DIFFICULTY
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE             1.5       11.0       61.5       14.3      12.77
+AR3        TRUE              4.8       37.1       56.6       35.1      20.69
+AR4        FALSE             2.0        9.3       39.1       11.4       8.63
+AR4        TRUE              4.0       22.4       50.0       24.2      13.81
+AR5        FALSE             1.5        8.3       74.3       13.6      15.41
+AR5        TRUE             18.4       31.9       46.6       30.4       9.25
+
+$HALSTEAD_EFFORT
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE            43.5     4440.3   167866.3    18708.0   36984.19
+AR3        TRUE           1032.0   125249.7   390311.6   145890.5  134029.83
+AR4        FALSE            44.0     2493.0   113537.9     7097.7   14366.46
+AR4        TRUE            925.1    18090.7   339100.0    50364.0   78290.04
+AR5        FALSE            43.5     2062.5   160098.4    15269.0   34755.73
+AR5        TRUE           8572.2    57611.0   285430.8    82822.6   85934.34
+
+$HALSTEAD_ERROR
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE            0.01        0.1        1.4        0.2       0.27
+AR3        TRUE              0.1        1.0        2.4        1.1       0.77
+AR4        FALSE            0.01        0.1        1.2        0.1       0.15
+AR4        TRUE              0.1        0.4        2.3        0.5       0.51
+AR5        FALSE            0.01        0.1        0.7        0.2       0.20
+AR5        TRUE              0.2        0.7        2.0        0.8       0.56
+
+$HALSTEAD_TIME
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE             2.4      246.7     9325.9     1039.3    2054.68
+AR3        TRUE             57.3     6958.3    21684.0     8105.0    7446.10
+AR4        FALSE             2.4      138.5     6307.7      394.3     798.14
+AR4        TRUE             51.4     1005.0    18838.9     2798.0    4349.45
+AR5        FALSE             2.4      114.6     8894.4      848.3    1930.87
+AR5        TRUE            476.2     3200.6    15857.3     4601.3    4774.13
+
+$BRANCH_COUNT
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE             0.0        8.0      190.0       23.1      33.44
+AR3        TRUE              0.0      101.0      244.0      110.3      82.15
+AR4        FALSE             0.0        8.0      176.0       14.2      23.06
+AR4        TRUE              0.0       39.0      210.0       45.7      47.19
+AR5        FALSE             0.0        8.0       92.0       18.4      25.94
+AR5        TRUE             22.0       70.0      236.0       89.0      65.80
+
+$DECISION_COUNT
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE             0.0        4.0       95.0       11.5      16.72
+AR3        TRUE              0.0       50.5      122.0       55.1      41.07
+AR4        FALSE             0.0        4.0       88.0        7.1      11.53
+AR4        TRUE              0.0       19.5      105.0       22.9      23.60
+AR5        FALSE             0.0        4.0       46.0        9.2      12.97
+AR5        TRUE             11.0       35.0      118.0       44.5      32.90
+
+$CALL_PAIRS
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE             0.0        2.0      109.0        9.0      18.52
+AR3        TRUE              0.0        9.5       43.0       14.0      14.04
+AR4        FALSE             0.0        1.0       31.0        2.3       4.04
+AR4        TRUE              0.0        4.0       54.0        7.8      12.80
+AR5        FALSE             0.0        2.0       20.0        3.4       4.64
+AR5        TRUE              0.0        4.0       17.0        6.5       5.98
+
+$CONDITION_COUNT
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE             0.0        4.0       94.0       11.2      16.54
+AR3        TRUE              0.0       48.0      122.0       53.9      41.39
+AR4        FALSE             0.0        3.0       88.0        6.9      11.57
+AR4        TRUE              0.0       19.5      104.0       22.1      23.62
+AR5        FALSE             0.0        4.0       46.0        8.5      12.64
+AR5        TRUE             11.0       34.0      116.0       43.5      32.71
+
+$MULTIPLE_CONDITION_COUNT
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE             0.0        0.0       32.0        3.2       5.96
+AR3        TRUE              0.0       12.0       33.0       14.3      10.67
+AR4        FALSE             0.0        1.0       34.0        2.1       4.28
+AR4        TRUE              0.0        4.5       31.0        6.4       7.32
+AR5        FALSE             0.0        0.0       15.0        2.1       3.39
+AR5        TRUE              3.0        8.5       25.0       10.9       7.12
+
+$CYCLOMATIC_COMPLEXITY
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE             1.0        5.0       64.0        9.2      11.33
+AR3        TRUE              1.0       38.5       85.0       40.6      29.45
+AR4        FALSE             1.0        3.0       55.0        6.0       7.48
+AR4        TRUE              1.0       12.0       75.0       17.2      16.87
+AR5        FALSE             1.0        4.5       38.0        7.9       9.84
+AR5        TRUE              9.0       27.5       93.0       34.3      25.85
+
+$CYCLOMATIC_DENSITY
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE            0.02        0.2        1.3        0.3       0.21
+AR3        TRUE              0.1        0.3        0.4        0.3       0.11
+AR4        FALSE            0.04        0.2        0.4        0.2       0.08
+AR4        TRUE             0.02        0.2        0.3        0.2       0.06
+AR5        FALSE            0.04        0.2        0.7        0.2       0.14
+AR5        TRUE              0.2        0.3        0.4        0.3       0.06
+
+$DECISION_DENSITY
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE             0.0        1.0        2.0        0.7       0.58
+AR3        TRUE              0.0        1.0        1.2        0.9       0.37
+AR4        FALSE             0.0        1.0        2.0        0.8       0.51
+AR4        TRUE              0.0        1.0        2.3        1.1       0.39
+AR5        FALSE             0.0        1.0        2.5        0.8       0.70
+AR5        TRUE              1.0        1.0        1.1        1.0       0.05
+
+$DESIGN_COMPLEXITY
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE             0.0        2.0      109.0        9.0      18.52
+AR3        TRUE              0.0        9.5       43.0       14.0      14.04
+AR4        FALSE             0.0        1.0       31.0        2.3       4.04
+AR4        TRUE              0.0        4.0       54.0        7.8      12.80
+AR5        FALSE             0.0        2.0       20.0        3.4       4.64
+AR5        TRUE              0.0        4.0       17.0        6.5       5.98
+
+$DESIGN_DENSITY
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE             0.0        0.7       24.0        2.1       4.12
+AR3        TRUE              0.0        0.4        6.0        1.1       2.01
+AR4        FALSE             0.0        0.3        6.0        0.6       0.92
+AR4        TRUE              0.0        0.2        2.0        0.5       0.55
+AR5        FALSE             0.0        0.5       10.0        1.4       2.26
+AR5        TRUE              0.0        0.1        0.7        0.2       0.25
+
+$NORMALIZED_CYCLOMATIC_COMPLEXITY
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE            0.01        0.1        0.7        0.2       0.12
+AR3        TRUE              0.1        0.2        0.2        0.2       0.06
+AR4        FALSE            0.01        0.1        0.3        0.1       0.05
+AR4        TRUE             0.01        0.1        0.1        0.1       0.03
+AR5        FALSE            0.02        0.1        0.6        0.2       0.11
+AR5        TRUE              0.1        0.2        0.2        0.2       0.03
+
+$FORMAL_PARAMETERS
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3        FALSE             0.0        0.0        2.0        0.2       0.54
+AR3        TRUE              0.0        0.0        0.0        0.0       0.00
+AR4        FALSE             0.0        0.0        4.0        0.3       0.86
+AR4        TRUE              0.0        0.0        3.0        0.2       0.70
+AR5        FALSE             0.0        0.0        2.0        0.3       0.60
+AR5        TRUE              0.0        0.0        0.0        0.0       0.00
+
+
+AR3SHORT AR4SHORT AR5SHORT 
+$COMMENT_LOC
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3SHORT   FALSE             0.0        4.0       40.0        7.8      10.15
+AR3SHORT   TRUE              0.0       34.0      195.0       51.1      62.18
+AR4SHORT   FALSE             0.0        3.0       96.0        7.3      14.86
+AR4SHORT   TRUE              1.0       17.0      209.0       28.2      45.16
+AR5SHORT   FALSE             0.0        1.0       17.0        3.9       5.18
+AR5SHORT   TRUE              5.0       16.0       89.0       26.3      27.71
+
+$UNIQUE_OPERATORS
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3SHORT   FALSE             3.0       10.0       29.0       11.1       6.20
+AR3SHORT   TRUE              6.0       21.0       31.0       20.3       7.85
+AR4SHORT   FALSE             4.0       10.0       23.0       10.3       4.49
+AR4SHORT   TRUE              6.0       17.0       28.0       17.1       5.46
+AR5SHORT   FALSE             3.0        9.5       28.0       10.0       5.89
+AR5SHORT   TRUE             16.0       23.0       29.0       21.8       4.98
+
+$HALSTEAD_LEVEL
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3SHORT   FALSE            0.02        0.1        0.7        0.1       0.12
+AR3SHORT   TRUE             0.02       0.03        0.2        0.1       0.06
+AR4SHORT   FALSE            0.03        0.1        0.5        0.2       0.14
+AR4SHORT   TRUE             0.02       0.04        0.3        0.1       0.06
+AR5SHORT   FALSE            0.01        0.1        0.7        0.2       0.15
+AR5SHORT   TRUE             0.02       0.03        0.1       0.04       0.01
+
+$HALSTEAD_DIFFICULTY
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3SHORT   FALSE             1.5       11.0       61.5       14.3      12.77
+AR3SHORT   TRUE              4.8       37.1       56.6       35.1      20.69
+AR4SHORT   FALSE             2.0        9.3       39.1       11.4       8.63
+AR4SHORT   TRUE              4.0       22.4       50.0       24.2      13.81
+AR5SHORT   FALSE             1.5        8.3       74.3       13.6      15.41
+AR5SHORT   TRUE             18.4       31.9       46.6       30.4       9.25
+
+$HALSTEAD_TIME
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3SHORT   FALSE             2.4      246.7     9325.9     1039.3    2054.68
+AR3SHORT   TRUE             57.3     6958.3    21684.0     8105.0    7446.10
+AR4SHORT   FALSE             2.4      138.5     6307.7      394.3     798.14
+AR4SHORT   TRUE             51.4     1005.0    18838.9     2798.0    4349.45
+AR5SHORT   FALSE             2.4      114.6     8894.4      848.3    1930.87
+AR5SHORT   TRUE            476.2     3200.6    15857.3     4601.3    4774.13
+
+$DESIGN_COMPLEXITY
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3SHORT   FALSE             0.0        2.0      109.0        9.0      18.52
+AR3SHORT   TRUE              0.0        9.5       43.0       14.0      14.04
+AR4SHORT   FALSE             0.0        1.0       31.0        2.3       4.04
+AR4SHORT   TRUE              0.0        4.0       54.0        7.8      12.80
+AR5SHORT   FALSE             0.0        2.0       20.0        3.4       4.64
+AR5SHORT   TRUE              0.0        4.0       17.0        6.5       5.98
+
+
+SHARED_PC1 SHARED_CM1 SHARED_KC1 SHARED_KC2 SHARED_KC3 SHARED_MC2 SHARED_MW1 
+$LOC
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+SHARED_PC1 FALSE             0.0       12.0      253.0       20.8      24.91
+SHARED_PC1 TRUE              1.0       29.0      602.0       57.9      91.83
+SHARED_CM1 FALSE             1.1       15.0      423.0       26.2      37.64
+SHARED_CM1 TRUE              1.0       41.0      411.0       61.5      67.49
+SHARED_KC1 FALSE             1.0        6.0      283.0       15.9      23.48
+SHARED_KC1 TRUE              1.0       29.0      288.0       44.6      44.97
+SHARED_KC2 FALSE             1.0        8.0      241.0       20.8      28.47
+SHARED_KC2 TRUE              1.0       63.0     1275.0       99.3     147.48
+SHARED_KC3 FALSE             0.0        6.0      242.0       14.1      22.19
+SHARED_KC3 TRUE              3.0       27.0      214.0       44.6      43.67
+SHARED_MC2 FALSE             1.0       15.0      365.0       28.5      43.48
+SHARED_MC2 TRUE              3.0       31.5      306.0       58.1      70.57
+SHARED_MW1 FALSE             3.0       13.0      111.0       19.0      16.62
+SHARED_MW1 TRUE              9.0       43.0      112.0       40.6      25.89
+
+$VG
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+SHARED_PC1 FALSE             1.0        3.0       73.0        5.1       7.42
+SHARED_PC1 TRUE              1.0        5.0      136.0       10.7      19.84
+SHARED_CM1 FALSE             1.0        3.0       96.0        4.9       7.69
+SHARED_CM1 TRUE              1.0        5.0       73.0        9.6      12.21
+SHARED_KC1 FALSE             1.0        1.0       34.0        2.3       3.21
+SHARED_KC1 TRUE              1.0        4.0       45.0        5.5       5.79
+SHARED_KC2 FALSE             1.0        1.0       29.0        2.8       3.32
+SHARED_KC2 TRUE              1.0        7.0      180.0       13.0      21.60
+SHARED_KC3 FALSE             0.0       11.0      480.0       28.2      49.33
+SHARED_KC3 TRUE              3.0       51.0      556.0       94.1     105.09
+SHARED_MC2 FALSE             0.0       27.0      632.0       55.4      82.31
+SHARED_MC2 TRUE              6.0       58.0      615.0      115.7     136.57
+SHARED_MW1 FALSE             2.0       21.0      396.0       33.7      37.55
+SHARED_MW1 TRUE             14.0       74.0      226.0       71.4      46.20
+
+$EVG
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+SHARED_PC1 FALSE             1.0        1.0       70.0        2.6       4.10
+SHARED_PC1 TRUE              1.0        1.0      123.0        5.1      14.78
+SHARED_CM1 FALSE             1.0        1.0       27.0        2.4       3.39
+SHARED_CM1 TRUE              1.0        1.0       30.0        3.7       5.44
+SHARED_KC1 FALSE             1.0        1.0       26.0        1.5       1.83
+SHARED_KC1 TRUE              1.0        1.0       22.0        2.7       3.42
+SHARED_KC2 FALSE             1.0        1.0       18.0        1.4       1.44
+SHARED_KC2 TRUE              1.0        1.0      125.0        6.5      13.77
+SHARED_KC3 FALSE             0.0      118.5     9702.9      428.9     880.96
+SHARED_KC3 TRUE             24.0      761.0    10685.5     1609.9    2001.21
+SHARED_MC2 FALSE             0.0      307.2    10824.5      743.3    1309.83
+SHARED_MC2 TRUE             75.3      734.5    10319.4     1662.9    2247.89
+SHARED_MW1 FALSE            11.6      233.6     6182.3      417.5     560.37
+SHARED_MW1 TRUE            171.0     1009.0     3306.4      958.6     700.87
+
+$IVG
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+SHARED_PC1 FALSE             1.0        2.0       71.0        3.1       4.76
+SHARED_PC1 TRUE              1.0        3.0      123.0        6.9      16.61
+SHARED_CM1 FALSE             1.0        1.0       63.0        3.2       5.02
+SHARED_CM1 TRUE              1.0        4.0       41.0        6.9       7.83
+SHARED_KC1 FALSE             1.0        1.0       29.0        2.1       2.72
+SHARED_KC1 TRUE              1.0        3.0       45.0        4.9       5.18
+SHARED_KC2 FALSE             1.0        1.0       20.0        2.2       2.21
+SHARED_KC2 TRUE              1.0        6.0      143.0        9.2      16.14
+SHARED_KC3 FALSE             0.0        0.0        3.0       0.05       0.26
+SHARED_KC3 TRUE              0.0        0.0        9.0        0.7       1.58
+SHARED_MC2 FALSE             0.0        0.0       16.0        1.5       2.98
+SHARED_MC2 TRUE              0.0        0.0       19.0        3.0       5.69
+SHARED_MW1 FALSE             0.0        0.0       16.0        0.3       1.72
+SHARED_MW1 TRUE              0.0        0.0       13.0        0.5       2.34
+
+$V
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+SHARED_PC1 FALSE             0.0      249.5    15811.6      605.5    1097.96
+SHARED_PC1 TRUE              1.0      650.3    25942.7     1962.4    3889.99
+SHARED_CM1 FALSE             0.0      285.3    17124.3      784.9    1543.11
+SHARED_CM1 TRUE              1.0      971.3    12749.8     1956.7    2472.41
+SHARED_KC1 FALSE             0.0       31.7     7918.8      183.8     409.11
+SHARED_KC1 TRUE              0.0      372.2     5228.5      668.6     782.34
+SHARED_KC2 FALSE             0.0       49.8     4008.5      251.7     472.35
+SHARED_KC2 TRUE              0.0      879.0    33814.6     1733.6    3688.05
+SHARED_KC3 FALSE             1.0        1.0       36.0        3.0       3.90
+SHARED_KC3 TRUE              1.0        5.0       30.0        7.9       6.91
+SHARED_MC2 FALSE             1.0        3.0       35.0        5.1       6.48
+SHARED_MC2 TRUE              1.0        7.0       63.0       12.2      14.64
+SHARED_MW1 FALSE             1.0        3.0       28.0        4.2       4.28
+SHARED_MW1 TRUE              1.0        5.0       26.0        8.8       7.27
+
+$L
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+SHARED_PC1 FALSE             0.0        0.1        2.0        0.1       0.14
+SHARED_PC1 TRUE             0.01        0.1        1.0        0.1       0.17
+SHARED_CM1 FALSE             0.0        0.1        1.3        0.2       0.16
+SHARED_CM1 TRUE             0.01        0.1        1.0        0.1       0.14
+SHARED_KC1 FALSE             0.0        0.3        2.0        0.4       0.33
+SHARED_KC1 TRUE              0.0        0.1        1.3        0.1       0.18
+SHARED_KC2 FALSE             0.0        0.2        2.0        0.3       0.28
+SHARED_KC2 TRUE              0.0        0.1        1.0        0.1       0.15
+SHARED_KC3 FALSE             0.0        0.0       38.0        1.0       3.35
+SHARED_KC3 TRUE              0.0        1.0       12.0        2.8       3.50
+SHARED_MC2 FALSE             0.0        3.0       68.0        7.2      11.32
+SHARED_MC2 TRUE              0.0       10.5      123.0       21.6      27.96
+SHARED_MW1 FALSE             0.0        2.0       42.0        3.7       4.75
+SHARED_MW1 TRUE              0.0       11.0       33.0       10.8       9.29
+
+$D
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+SHARED_PC1 FALSE             0.0       11.1      270.7       15.0      16.09
+SHARED_PC1 TRUE              1.0       14.7      105.3       21.0      18.54
+SHARED_CM1 FALSE             0.0       10.6      125.8       15.0      14.88
+SHARED_CM1 TRUE              1.0       18.7       77.5       23.6      17.30
+SHARED_KC1 FALSE             0.0        3.0       53.8        5.5       6.45
+SHARED_KC1 TRUE              0.0       12.0       49.3       13.9      10.60
+SHARED_KC2 FALSE             0.0        3.8       54.6        7.0       7.44
+SHARED_KC2 TRUE              0.0       17.8      103.5       20.4      15.60
+SHARED_KC3 FALSE             0.0        6.2       48.9        9.0       8.43
+SHARED_KC3 TRUE              2.5       14.9       54.5       19.2      11.97
+SHARED_MC2 FALSE             0.0       12.0       87.1       17.0      14.93
+SHARED_MC2 TRUE              2.8       22.8      125.7       36.0      31.95
+SHARED_MW1 FALSE             1.5        7.2       47.5        9.5       7.55
+SHARED_MW1 TRUE              3.7       11.1       34.7       13.4       8.11
+
+$I
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+SHARED_PC1 FALSE             0.0       21.9      598.3       30.8      33.11
+SHARED_PC1 TRUE              1.0       43.9      272.6       60.6      50.53
+SHARED_CM1 FALSE             0.0       25.9      243.1       35.2      32.06
+SHARED_CM1 TRUE              1.0       46.8      293.7       68.4      59.70
+SHARED_KC1 FALSE             0.0       11.9      193.1       18.1      18.92
+SHARED_KC1 TRUE              0.0       34.3      165.4       38.5      26.15
+SHARED_KC2 FALSE             0.0       13.0      180.7       20.6      20.20
+SHARED_KC2 TRUE              0.0       49.7      415.1       58.2      48.77
+SHARED_KC3 FALSE             0.0       17.9      238.1       27.5      29.13
+SHARED_KC3 TRUE              9.6       55.5      195.9       66.3      45.05
+SHARED_MC2 FALSE             0.0       22.2      187.9       33.1      30.74
+SHARED_MC2 TRUE              8.4       31.2      107.4       38.6      26.04
+SHARED_MW1 FALSE             6.4       31.2      233.9       38.8      27.86
+SHARED_MW1 TRUE             20.1       70.3      175.1       71.5      34.67
+
+$E
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+SHARED_PC1 FALSE             0.0     3023.2  4279633.0    23340.3  146080.90
+SHARED_PC1 TRUE              1.0    10872.5  2730637.3   102303.6  359388.78
+SHARED_CM1 FALSE             0.0     3156.6  2153690.8    30555.4  133776.86
+SHARED_CM1 TRUE              1.0    16858.8   653537.1    74557.9  132525.03
+SHARED_KC1 FALSE             0.0       98.9   324803.5     3228.3   13400.88
+SHARED_KC1 TRUE              0.0     4516.3   234743.5    16258.1   29073.55
+SHARED_KC2 FALSE             0.0      161.3   218955.0     4820.0   15555.37
+SHARED_KC2 TRUE              0.0    14842.5  2147483.8    71767.5  241910.23
+SHARED_KC3 FALSE             0.0      779.8   395438.8     9870.2   31680.04
+SHARED_KC3 TRUE             60.0    10683.7   582830.4    50962.4   99929.80
+SHARED_MC2 FALSE             0.0     3819.7   623450.4    25843.4   73413.57
+SHARED_MC2 TRUE            483.5    20442.3   991629.6   115152.9  222331.08
+SHARED_MW1 FALSE            17.4     1739.2   194481.8     7203.3   17968.30
+SHARED_MW1 TRUE            950.0    10151.3   114633.4    17369.3   22868.40
+
+$B
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+SHARED_PC1 FALSE             0.0        0.1        5.3        0.2       0.37
+SHARED_PC1 TRUE             0.01        0.2        8.6        0.7       1.30
+SHARED_CM1 FALSE             0.0        0.1        5.7        0.3       0.52
+SHARED_CM1 TRUE             0.03        0.3        4.3        0.7       0.82
+SHARED_KC1 FALSE             0.0       0.01        2.6        0.1       0.14
+SHARED_KC1 TRUE              0.0        0.1        1.7        0.2       0.26
+SHARED_KC2 FALSE             0.0       0.02        1.3        0.1       0.17
+SHARED_KC2 TRUE              0.0        0.3       11.3        0.6       1.23
+SHARED_KC3 FALSE             0.0       0.04        3.2        0.1       0.29
+SHARED_KC3 TRUE             0.01        0.3        3.6        0.5       0.67
+SHARED_MC2 FALSE             0.0        0.1        3.6        0.2       0.44
+SHARED_MC2 TRUE             0.03        0.2        3.4        0.6       0.75
+SHARED_MW1 FALSE             0.0        0.1        2.1        0.1       0.19
+SHARED_MW1 TRUE              0.1        0.3        1.1        0.3       0.23
+
+$T
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+SHARED_PC1 FALSE             0.0      168.0   237757.4     1296.7    8115.60
+SHARED_PC1 TRUE              1.0      604.0   151702.1     5683.5   19966.04
+SHARED_CM1 FALSE             0.0      175.4   119649.5     1697.5    7432.05
+SHARED_CM1 TRUE              1.0      936.6    36307.6     4142.1    7362.49
+SHARED_KC1 FALSE             0.0        5.5    18044.6      179.4     744.49
+SHARED_KC1 TRUE              0.0      250.9    13041.3      903.2    1615.19
+SHARED_KC2 FALSE             0.0        9.0    12164.2      267.8     864.19
+SHARED_KC2 TRUE              0.0      824.6   153047.0     4302.4   16268.88
+SHARED_KC3 FALSE             1.0        1.0       20.0        1.6       1.87
+SHARED_KC3 TRUE              1.0        1.0       15.0        3.1       3.54
+SHARED_MC2 FALSE             1.0        1.0       26.0        2.2       3.42
+SHARED_MC2 TRUE              1.0        2.0       39.0        6.8       9.95
+SHARED_MW1 FALSE             1.0        1.0       23.0        1.8       2.46
+SHARED_MW1 TRUE              1.0        1.0       13.0        3.4       3.85
+
+$LOCODE
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+SHARED_PC1 FALSE             0.0       12.0      218.0       20.1      23.61
+SHARED_PC1 TRUE              1.0       28.0      600.0       54.1      88.20
+SHARED_CM1 FALSE             0.0        1.0       80.0        3.6       8.57
+SHARED_CM1 TRUE              0.0        3.0       45.0        5.4       7.83
+SHARED_KC1 FALSE             0.0        3.0      251.0       11.0      19.47
+SHARED_KC1 TRUE              0.0       21.0      262.0       33.8      35.68
+SHARED_KC2 FALSE             0.0        5.0      161.0       15.2      22.83
+SHARED_KC2 TRUE              1.0       49.0     1107.0       76.5     123.91
+SHARED_KC3 FALSE             1.0       30.0     1287.0       76.9     130.25
+SHARED_KC3 TRUE              8.0      145.0     1413.0      255.0     273.21
+SHARED_MC2 FALSE             1.0       67.0     1369.0      129.6     183.29
+SHARED_MC2 TRUE             21.0      140.0     1479.0      275.5     331.78
+SHARED_MW1 FALSE             5.0       50.0      889.0       77.2      84.69
+SHARED_MW1 TRUE             39.0      170.0      483.0      159.7     100.66
+
+$LOCCOMMENT
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+SHARED_PC1 FALSE             0.0        0.0      159.0        3.9       8.96
+SHARED_PC1 TRUE              0.0        6.0       73.0       14.9      20.26
+SHARED_CM1 FALSE             0.0        3.0      191.0        9.7      18.75
+SHARED_CM1 TRUE              0.0       19.0      339.0       35.8      54.75
+SHARED_KC1 FALSE             0.0        0.0       21.0        0.6       2.04
+SHARED_KC1 TRUE              0.0        0.0       44.0        2.6       5.96
+SHARED_KC2 FALSE             0.0        0.0       43.0        1.0       3.38
+SHARED_KC2 TRUE              0.0        2.0       44.0        5.9       9.47
+SHARED_KC3 FALSE             1.0        1.0       34.0        2.6       3.35
+SHARED_KC3 TRUE              1.0        4.0       23.0        6.7       5.74
+SHARED_MC2 FALSE             1.0        1.0       18.0        2.0       2.43
+SHARED_MC2 TRUE              1.0        2.0       21.0        4.2       4.52
+SHARED_MW1 FALSE             1.0        2.0       23.0        3.0       3.27
+SHARED_MW1 TRUE              1.0        5.0       26.0        6.8       5.86
+
+$LOCCODEANDCOMMENT
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+SHARED_PC1 FALSE             0.0        0.0       42.0        0.7       2.69
+SHARED_PC1 TRUE              0.0        1.0       48.0        3.8       7.49
+SHARED_CM1 FALSE             0.0        0.0        2.0       0.00       0.09
+SHARED_CM1 TRUE              0.0        0.0        1.0       0.02       0.14
+SHARED_KC1 FALSE             0.0        0.0       12.0        0.1       0.72
+SHARED_KC1 TRUE              0.0        0.0        7.0        0.1       0.63
+SHARED_KC2 FALSE             0.0        0.0        4.0        0.1       0.42
+SHARED_KC2 TRUE              0.0        0.0       11.0        0.9       2.03
+SHARED_KC3 FALSE             1.0        8.0      310.0       18.1      28.32
+SHARED_KC3 TRUE              4.0       32.0      246.0       56.1      52.05
+SHARED_MC2 FALSE             3.0       26.0      367.0       44.2      55.59
+SHARED_MC2 TRUE              5.0       59.5      474.0       98.6     114.55
+SHARED_MW1 FALSE             4.0       20.5      171.0       28.1      23.68
+SHARED_MW1 TRUE             11.0       69.0      168.0       63.6      40.12
+
+$UNIQ_OP
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+SHARED_PC1 FALSE             1.0       12.0       66.0       12.9       7.46
+SHARED_PC1 TRUE              1.0       18.0       99.0       19.2      13.51
+SHARED_CM1 FALSE             1.0       13.0       72.0       14.4       9.19
+SHARED_CM1 TRUE              1.0       20.0       52.0       22.4      10.52
+SHARED_KC1 FALSE             0.0        5.0       28.0        6.7       4.98
+SHARED_KC1 TRUE              0.0       12.0       37.0       12.8       6.74
+SHARED_KC2 FALSE             1.0        6.0       28.0        7.6       5.18
+SHARED_KC2 TRUE              1.0       16.0       47.0       15.4       6.73
+SHARED_KC3 FALSE             1.0        8.0       30.0        9.9       5.84
+SHARED_KC3 TRUE              5.0       16.0       31.0       16.8       5.86
+SHARED_MC2 FALSE             1.0       11.0       37.0       12.1       6.58
+SHARED_MC2 TRUE              3.0       18.0       32.0       17.4       7.41
+SHARED_MW1 FALSE             3.0       10.0       44.0       11.0       6.26
+SHARED_MW1 TRUE              4.0       14.0       36.0       15.0       7.54
+
+$UNIQ_OPND
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+SHARED_PC1 FALSE             0.0       12.0      152.0       18.6      20.03
+SHARED_PC1 TRUE              1.0       30.0      538.0       51.0      76.66
+SHARED_CM1 FALSE             0.0       13.0      251.0       22.5      29.43
+SHARED_CM1 TRUE              1.0       35.0      314.0       52.3      54.95
+SHARED_KC1 FALSE             0.0        4.0      120.0        7.5       9.95
+SHARED_KC1 TRUE              0.0       16.5       84.0       20.6      16.67
+SHARED_KC2 FALSE             0.0        5.0       91.0        9.1      11.02
+SHARED_KC2 TRUE              0.0       27.0      325.0       35.2      37.09
+SHARED_KC3 FALSE             0.0        8.0      159.0       13.4      18.08
+SHARED_KC3 TRUE              3.0       25.0      158.0       38.1      31.53
+SHARED_MC2 FALSE             0.0       11.0      203.0       19.3      25.28
+SHARED_MC2 TRUE              3.0       20.0       96.0       26.9      22.22
+SHARED_MW1 FALSE             2.0       14.0      107.0       19.0      15.35
+SHARED_MW1 TRUE             11.0       41.0       88.0       39.7      20.80
+
+$TOTAL_OP
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+SHARED_PC1 FALSE             1.0       31.0     1281.0       59.7      88.83
+SHARED_PC1 TRUE              1.0       66.0     1641.0      157.9     256.44
+SHARED_CM1 FALSE             1.0       38.0     1261.0       78.9     124.37
+SHARED_CM1 TRUE              1.0       95.0      932.0      175.7     188.33
+SHARED_KC1 FALSE             0.0        7.0      678.0       23.3      41.92
+SHARED_KC1 TRUE              0.0       47.5      509.0       73.3      75.07
+SHARED_KC2 FALSE             1.0        9.0      381.0       29.7      46.55
+SHARED_KC2 TRUE              1.0      106.0     2469.0      165.8     277.81
+SHARED_KC3 FALSE             1.0       20.0      807.0       48.7      81.06
+SHARED_KC3 TRUE              5.0       91.0      857.0      160.8     168.66
+SHARED_MC2 FALSE             1.0       38.0      737.0       74.1     101.86
+SHARED_MC2 TRUE             13.0       79.0      864.0      159.8     196.64
+SHARED_MW1 FALSE             3.0       28.0      493.0       43.5      47.53
+SHARED_MW1 TRUE             22.0       99.0      257.0       88.3      54.82
+
+$TOTAL_OPND
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+SHARED_PC1 FALSE             0.0       23.0      853.0       45.8      71.68
+SHARED_PC1 TRUE              1.0       56.0     1144.0      119.5     183.81
+SHARED_CM1 FALSE             0.0       23.0      814.0       49.5      80.30
+SHARED_CM1 TRUE              1.0       64.0      568.0      111.3     120.90
+SHARED_KC1 FALSE             0.0        4.0      428.0       13.8      25.65
+SHARED_KC1 TRUE              0.0       30.0      285.0       46.0      46.77
+SHARED_KC2 FALSE             0.0        7.0      238.0       18.7      29.80
+SHARED_KC2 TRUE              0.0       67.0     1513.0      108.0     174.08
+SHARED_KC3 FALSE             0.0       43.3    21968.8      548.3    1760.00
+SHARED_KC3 TRUE              3.3      593.5    32379.5     2831.2    5551.65
+SHARED_MC2 FALSE             0.0      212.2    34636.1     1435.7    4078.53
+SHARED_MC2 TRUE             26.9     1135.7    55090.5     6397.4   12351.73
+SHARED_MW1 FALSE             1.0       96.6    10804.5      400.2     998.24
+SHARED_MW1 TRUE             52.8      564.0     6368.5      965.0    1270.47
+
+$BRANCHCOUNT
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+SHARED_PC1 FALSE             1.0        5.0      143.0        8.9      14.14
+SHARED_PC1 TRUE              1.0        9.0      236.0       18.7      34.45
+SHARED_CM1 FALSE             1.0        4.0      162.0        8.5      13.73
+SHARED_CM1 TRUE              1.0        9.0      141.0       17.1      22.91
+SHARED_KC1 FALSE             1.0        1.0       67.0        3.7       6.40
+SHARED_KC1 TRUE              1.0        7.0       89.0       10.1      11.60
+SHARED_KC2 FALSE             1.0        1.0       57.0        4.7       6.77
+SHARED_KC2 TRUE              1.0       13.0      361.0       24.5      43.30
+SHARED_KC3 FALSE             1.0        1.0       59.0        4.6       7.06
+SHARED_KC3 TRUE              1.0        7.0       51.0       13.2      12.46
+SHARED_MC2 FALSE             1.0        5.0       69.0        8.8      11.73
+SHARED_MC2 TRUE              1.0       12.0      125.0       22.9      29.09
+SHARED_MW1 FALSE             1.0        5.0       45.0        6.6       7.30
+SHARED_MW1 TRUE              1.0        9.0       50.0       15.7      13.40
+
+
+PC1SHORT CM1SHORT KC1SHORT KC2SHORT KC3SHORT MC2SHORT MW1SHORT 
+$LOCCOMMENT
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+PC1SHORT   FALSE             0.0        0.0      159.0        3.9       8.96
+PC1SHORT   TRUE              0.0        6.0       73.0       14.9      20.26
+CM1SHORT   FALSE             0.0        3.0      191.0        9.7      18.75
+CM1SHORT   TRUE              0.0       19.0      339.0       35.8      54.75
+KC1SHORT   FALSE             0.0        0.0       21.0        0.6       2.04
+KC1SHORT   TRUE              0.0        0.0       44.0        2.6       5.96
+KC2SHORT   FALSE             0.0        0.0       43.0        1.0       3.38
+KC2SHORT   TRUE              0.0        2.0       44.0        5.9       9.47
+KC3SHORT   FALSE             1.0        1.0       34.0        2.6       3.35
+KC3SHORT   TRUE              1.0        4.0       23.0        6.7       5.74
+MC2SHORT   FALSE             1.0        1.0       18.0        2.0       2.43
+MC2SHORT   TRUE              1.0        2.0       21.0        4.2       4.52
+MW1SHORT   FALSE             1.0        2.0       23.0        3.0       3.27
+MW1SHORT   TRUE              1.0        5.0       26.0        6.8       5.86
+
+$UNIQ_OP
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+PC1SHORT   FALSE             1.0       12.0       66.0       12.9       7.46
+PC1SHORT   TRUE              1.0       18.0       99.0       19.2      13.51
+CM1SHORT   FALSE             1.0       13.0       72.0       14.4       9.19
+CM1SHORT   TRUE              1.0       20.0       52.0       22.4      10.52
+KC1SHORT   FALSE             0.0        5.0       28.0        6.7       4.98
+KC1SHORT   TRUE              0.0       12.0       37.0       12.8       6.74
+KC2SHORT   FALSE             1.0        6.0       28.0        7.6       5.18
+KC2SHORT   TRUE              1.0       16.0       47.0       15.4       6.73
+KC3SHORT   FALSE             1.0        8.0       30.0        9.9       5.84
+KC3SHORT   TRUE              5.0       16.0       31.0       16.8       5.86
+MC2SHORT   FALSE             1.0       11.0       37.0       12.1       6.58
+MC2SHORT   TRUE              3.0       18.0       32.0       17.4       7.41
+MW1SHORT   FALSE             3.0       10.0       44.0       11.0       6.26
+MW1SHORT   TRUE              4.0       14.0       36.0       15.0       7.54
+
+$L
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+PC1SHORT   FALSE             0.0        0.1        2.0        0.1       0.14
+PC1SHORT   TRUE             0.01        0.1        1.0        0.1       0.17
+CM1SHORT   FALSE             0.0        0.1        1.3        0.2       0.16
+CM1SHORT   TRUE             0.01        0.1        1.0        0.1       0.14
+KC1SHORT   FALSE             0.0        0.3        2.0        0.4       0.33
+KC1SHORT   TRUE              0.0        0.1        1.3        0.1       0.18
+KC2SHORT   FALSE             0.0        0.2        2.0        0.3       0.28
+KC2SHORT   TRUE              0.0        0.1        1.0        0.1       0.15
+KC3SHORT   FALSE             0.0        0.0       38.0        1.0       3.35
+KC3SHORT   TRUE              0.0        1.0       12.0        2.8       3.50
+MC2SHORT   FALSE             0.0        3.0       68.0        7.2      11.32
+MC2SHORT   TRUE              0.0       10.5      123.0       21.6      27.96
+MW1SHORT   FALSE             0.0        2.0       42.0        3.7       4.75
+MW1SHORT   TRUE              0.0       11.0       33.0       10.8       9.29
+
+$D
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+PC1SHORT   FALSE             0.0       11.1      270.7       15.0      16.09
+PC1SHORT   TRUE              1.0       14.7      105.3       21.0      18.54
+CM1SHORT   FALSE             0.0       10.6      125.8       15.0      14.88
+CM1SHORT   TRUE              1.0       18.7       77.5       23.6      17.30
+KC1SHORT   FALSE             0.0        3.0       53.8        5.5       6.45
+KC1SHORT   TRUE              0.0       12.0       49.3       13.9      10.60
+KC2SHORT   FALSE             0.0        3.8       54.6        7.0       7.44
+KC2SHORT   TRUE              0.0       17.8      103.5       20.4      15.60
+KC3SHORT   FALSE             0.0        6.2       48.9        9.0       8.43
+KC3SHORT   TRUE              2.5       14.9       54.5       19.2      11.97
+MC2SHORT   FALSE             0.0       12.0       87.1       17.0      14.93
+MC2SHORT   TRUE              2.8       22.8      125.7       36.0      31.95
+MW1SHORT   FALSE             1.5        7.2       47.5        9.5       7.55
+MW1SHORT   TRUE              3.7       11.1       34.7       13.4       8.11
+
+$T
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+PC1SHORT   FALSE             0.0      168.0   237757.4     1296.7    8115.60
+PC1SHORT   TRUE              1.0      604.0   151702.1     5683.5   19966.04
+CM1SHORT   FALSE             0.0      175.4   119649.5     1697.5    7432.05
+CM1SHORT   TRUE              1.0      936.6    36307.6     4142.1    7362.49
+KC1SHORT   FALSE             0.0        5.5    18044.6      179.4     744.49
+KC1SHORT   TRUE              0.0      250.9    13041.3      903.2    1615.19
+KC2SHORT   FALSE             0.0        9.0    12164.2      267.8     864.19
+KC2SHORT   TRUE              0.0      824.6   153047.0     4302.4   16268.88
+KC3SHORT   FALSE             1.0        1.0       20.0        1.6       1.87
+KC3SHORT   TRUE              1.0        1.0       15.0        3.1       3.54
+MC2SHORT   FALSE             1.0        1.0       26.0        2.2       3.42
+MC2SHORT   TRUE              1.0        2.0       39.0        6.8       9.95
+MW1SHORT   FALSE             1.0        1.0       23.0        1.8       2.46
+MW1SHORT   TRUE              1.0        1.0       13.0        3.4       3.85
+
+$IVG
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+PC1SHORT   FALSE             1.0        2.0       71.0        3.1       4.76
+PC1SHORT   TRUE              1.0        3.0      123.0        6.9      16.61
+CM1SHORT   FALSE             1.0        1.0       63.0        3.2       5.02
+CM1SHORT   TRUE              1.0        4.0       41.0        6.9       7.83
+KC1SHORT   FALSE             1.0        1.0       29.0        2.1       2.72
+KC1SHORT   TRUE              1.0        3.0       45.0        4.9       5.18
+KC2SHORT   FALSE             1.0        1.0       20.0        2.2       2.21
+KC2SHORT   TRUE              1.0        6.0      143.0        9.2      16.14
+KC3SHORT   FALSE             0.0        0.0        3.0       0.05       0.26
+KC3SHORT   TRUE              0.0        0.0        9.0        0.7       1.58
+MC2SHORT   FALSE             0.0        0.0       16.0        1.5       2.98
+MC2SHORT   TRUE              0.0        0.0       19.0        3.0       5.69
+MW1SHORT   FALSE             0.0        0.0       16.0        0.3       1.72
+MW1SHORT   TRUE              0.0        0.0       13.0        0.5       2.34
+
+
+AR3COM AR4COM AR5COM PC1COM CM1COM KC1COM KC2COM KC3COM MC2COM MW1COM 
+$LOC
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3COM     FALSE             3.0       31.0      285.0       62.8      62.81
+AR3COM     TRUE             18.0      244.0      670.0      271.3     216.57
+AR4COM     FALSE             6.0       47.0      530.0       61.8      69.27
+AR4COM     TRUE             27.0      151.5      907.0      190.9     189.82
+AR5COM     FALSE             5.0       29.0      151.0       45.1      41.79
+AR5COM     TRUE             49.0      142.5      477.0      183.5     129.87
+PC1COM     FALSE             0.0       12.0      253.0       20.8      24.91
+PC1COM     TRUE              1.0       29.0      602.0       57.9      91.83
+CM1COM     FALSE             1.1       15.0      423.0       26.2      37.64
+CM1COM     TRUE              1.0       41.0      411.0       61.5      67.49
+KC1COM     FALSE             1.0        6.0      283.0       15.9      23.48
+KC1COM     TRUE              1.0       29.0      288.0       44.6      44.97
+KC2COM     FALSE             1.0        8.0      241.0       20.8      28.47
+KC2COM     TRUE              1.0       63.0     1275.0       99.3     147.48
+KC3COM     FALSE             0.0        6.0      242.0       14.1      22.19
+KC3COM     TRUE              3.0       27.0      214.0       44.6      43.67
+MC2COM     FALSE             1.0       15.0      365.0       28.5      43.48
+MC2COM     TRUE              3.0       31.5      306.0       58.1      70.57
+MW1COM     FALSE             3.0       13.0      111.0       19.0      16.62
+MW1COM     TRUE              9.0       43.0      112.0       40.6      25.89
+
+$VG
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3COM     FALSE             1.0        5.0       64.0        9.2      11.33
+AR3COM     TRUE              1.0       38.5       85.0       40.6      29.45
+AR4COM     FALSE             1.0        3.0       55.0        6.0       7.48
+AR4COM     TRUE              1.0       12.0       75.0       17.2      16.87
+AR5COM     FALSE             1.0        4.5       38.0        7.9       9.84
+AR5COM     TRUE              9.0       27.5       93.0       34.3      25.85
+PC1COM     FALSE             1.0        3.0       73.0        5.1       7.42
+PC1COM     TRUE              1.0        5.0      136.0       10.7      19.84
+CM1COM     FALSE             1.0        3.0       96.0        4.9       7.69
+CM1COM     TRUE              1.0        5.0       73.0        9.6      12.21
+KC1COM     FALSE             1.0        1.0       34.0        2.3       3.21
+KC1COM     TRUE              1.0        4.0       45.0        5.5       5.79
+KC2COM     FALSE             1.0        1.0       29.0        2.8       3.32
+KC2COM     TRUE              1.0        7.0      180.0       13.0      21.60
+KC3COM     FALSE             0.0       11.0      480.0       28.2      49.33
+KC3COM     TRUE              3.0       51.0      556.0       94.1     105.09
+MC2COM     FALSE             0.0       27.0      632.0       55.4      82.31
+MC2COM     TRUE              6.0       58.0      615.0      115.7     136.57
+MW1COM     FALSE             2.0       21.0      396.0       33.7      37.55
+MW1COM     TRUE             14.0       74.0      226.0       71.4      46.20
+
+$IVG
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3COM     FALSE             0.0        2.0      109.0        9.0      18.52
+AR3COM     TRUE              0.0        9.5       43.0       14.0      14.04
+AR4COM     FALSE             0.0        1.0       31.0        2.3       4.04
+AR4COM     TRUE              0.0        4.0       54.0        7.8      12.80
+AR5COM     FALSE             0.0        2.0       20.0        3.4       4.64
+AR5COM     TRUE              0.0        4.0       17.0        6.5       5.98
+PC1COM     FALSE             1.0        2.0       71.0        3.1       4.76
+PC1COM     TRUE              1.0        3.0      123.0        6.9      16.61
+CM1COM     FALSE             1.0        1.0       63.0        3.2       5.02
+CM1COM     TRUE              1.0        4.0       41.0        6.9       7.83
+KC1COM     FALSE             1.0        1.0       29.0        2.1       2.72
+KC1COM     TRUE              1.0        3.0       45.0        4.9       5.18
+KC2COM     FALSE             1.0        1.0       20.0        2.2       2.21
+KC2COM     TRUE              1.0        6.0      143.0        9.2      16.14
+KC3COM     FALSE             0.0        0.0        3.0       0.05       0.26
+KC3COM     TRUE              0.0        0.0        9.0        0.7       1.58
+MC2COM     FALSE             0.0        0.0       16.0        1.5       2.98
+MC2COM     TRUE              0.0        0.0       19.0        3.0       5.69
+MW1COM     FALSE             0.0        0.0       16.0        0.3       1.72
+MW1COM     TRUE              0.0        0.0       13.0        0.5       2.34
+
+$V
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3COM     FALSE            29.0      413.0     4102.0      715.0     817.26
+AR3COM     TRUE            215.0     3066.5     7140.0     3251.0    2323.75
+AR4COM     FALSE            22.0      277.0     3451.0      399.2     453.85
+AR4COM     TRUE            186.0     1079.0     6782.0     1466.9    1525.09
+AR5COM     FALSE            29.0      302.5     2156.0      532.2     605.08
+AR5COM     TRUE            465.0     2023.0     6126.0     2365.3    1676.92
+PC1COM     FALSE             0.0      249.5    15811.6      605.5    1097.96
+PC1COM     TRUE              1.0      650.3    25942.7     1962.4    3889.99
+CM1COM     FALSE             0.0      285.3    17124.3      784.9    1543.11
+CM1COM     TRUE              1.0      971.3    12749.8     1956.7    2472.41
+KC1COM     FALSE             0.0       31.7     7918.8      183.8     409.11
+KC1COM     TRUE              0.0      372.2     5228.5      668.6     782.34
+KC2COM     FALSE             0.0       49.8     4008.5      251.7     472.35
+KC2COM     TRUE              0.0      879.0    33814.6     1733.6    3688.05
+KC3COM     FALSE             1.0        1.0       36.0        3.0       3.90
+KC3COM     TRUE              1.0        5.0       30.0        7.9       6.91
+MC2COM     FALSE             1.0        3.0       35.0        5.1       6.48
+MC2COM     TRUE              1.0        7.0       63.0       12.2      14.64
+MW1COM     FALSE             1.0        3.0       28.0        4.2       4.28
+MW1COM     TRUE              1.0        5.0       26.0        8.8       7.27
+
+$L
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3COM     FALSE            0.02        0.1        0.7        0.1       0.12
+AR3COM     TRUE             0.02       0.03        0.2        0.1       0.06
+AR4COM     FALSE            0.03        0.1        0.5        0.2       0.14
+AR4COM     TRUE             0.02       0.04        0.3        0.1       0.06
+AR5COM     FALSE            0.01        0.1        0.7        0.2       0.15
+AR5COM     TRUE             0.02       0.03        0.1       0.04       0.01
+PC1COM     FALSE             0.0        0.1        2.0        0.1       0.14
+PC1COM     TRUE             0.01        0.1        1.0        0.1       0.17
+CM1COM     FALSE             0.0        0.1        1.3        0.2       0.16
+CM1COM     TRUE             0.01        0.1        1.0        0.1       0.14
+KC1COM     FALSE             0.0        0.3        2.0        0.4       0.33
+KC1COM     TRUE              0.0        0.1        1.3        0.1       0.18
+KC2COM     FALSE             0.0        0.2        2.0        0.3       0.28
+KC2COM     TRUE              0.0        0.1        1.0        0.1       0.15
+KC3COM     FALSE             0.0        0.0       38.0        1.0       3.35
+KC3COM     TRUE              0.0        1.0       12.0        2.8       3.50
+MC2COM     FALSE             0.0        3.0       68.0        7.2      11.32
+MC2COM     TRUE              0.0       10.5      123.0       21.6      27.96
+MW1COM     FALSE             0.0        2.0       42.0        3.7       4.75
+MW1COM     TRUE              0.0       11.0       33.0       10.8       9.29
+
+$D
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3COM     FALSE             1.5       11.0       61.5       14.3      12.77
+AR3COM     TRUE              4.8       37.1       56.6       35.1      20.69
+AR4COM     FALSE             2.0        9.3       39.1       11.4       8.63
+AR4COM     TRUE              4.0       22.4       50.0       24.2      13.81
+AR5COM     FALSE             1.5        8.3       74.3       13.6      15.41
+AR5COM     TRUE             18.4       31.9       46.6       30.4       9.25
+PC1COM     FALSE             0.0       11.1      270.7       15.0      16.09
+PC1COM     TRUE              1.0       14.7      105.3       21.0      18.54
+CM1COM     FALSE             0.0       10.6      125.8       15.0      14.88
+CM1COM     TRUE              1.0       18.7       77.5       23.6      17.30
+KC1COM     FALSE             0.0        3.0       53.8        5.5       6.45
+KC1COM     TRUE              0.0       12.0       49.3       13.9      10.60
+KC2COM     FALSE             0.0        3.8       54.6        7.0       7.44
+KC2COM     TRUE              0.0       17.8      103.5       20.4      15.60
+KC3COM     FALSE             0.0        6.2       48.9        9.0       8.43
+KC3COM     TRUE              2.5       14.9       54.5       19.2      11.97
+MC2COM     FALSE             0.0       12.0       87.1       17.0      14.93
+MC2COM     TRUE              2.8       22.8      125.7       36.0      31.95
+MW1COM     FALSE             1.5        7.2       47.5        9.5       7.55
+MW1COM     TRUE              3.7       11.1       34.7       13.4       8.11
+
+$E
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3COM     FALSE            43.5     4440.3   167866.3    18708.0   36984.19
+AR3COM     TRUE           1032.0   125249.7   390311.6   145890.5  134029.83
+AR4COM     FALSE            44.0     2493.0   113537.9     7097.7   14366.46
+AR4COM     TRUE            925.1    18090.7   339100.0    50364.0   78290.04
+AR5COM     FALSE            43.5     2062.5   160098.4    15269.0   34755.73
+AR5COM     TRUE           8572.2    57611.0   285430.8    82822.6   85934.34
+PC1COM     FALSE             0.0     3023.2  4279633.0    23340.3  146080.90
+PC1COM     TRUE              1.0    10872.5  2730637.3   102303.6  359388.78
+CM1COM     FALSE             0.0     3156.6  2153690.8    30555.4  133776.86
+CM1COM     TRUE              1.0    16858.8   653537.1    74557.9  132525.03
+KC1COM     FALSE             0.0       98.9   324803.5     3228.3   13400.88
+KC1COM     TRUE              0.0     4516.3   234743.5    16258.1   29073.55
+KC2COM     FALSE             0.0      161.3   218955.0     4820.0   15555.37
+KC2COM     TRUE              0.0    14842.5  2147483.8    71767.5  241910.23
+KC3COM     FALSE             0.0      779.8   395438.8     9870.2   31680.04
+KC3COM     TRUE             60.0    10683.7   582830.4    50962.4   99929.80
+MC2COM     FALSE             0.0     3819.7   623450.4    25843.4   73413.57
+MC2COM     TRUE            483.5    20442.3   991629.6   115152.9  222331.08
+MW1COM     FALSE            17.4     1739.2   194481.8     7203.3   17968.30
+MW1COM     TRUE            950.0    10151.3   114633.4    17369.3   22868.40
+
+$B
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3COM     FALSE            0.01        0.1        1.4        0.2       0.27
+AR3COM     TRUE              0.1        1.0        2.4        1.1       0.77
+AR4COM     FALSE            0.01        0.1        1.2        0.1       0.15
+AR4COM     TRUE              0.1        0.4        2.3        0.5       0.51
+AR5COM     FALSE            0.01        0.1        0.7        0.2       0.20
+AR5COM     TRUE              0.2        0.7        2.0        0.8       0.56
+PC1COM     FALSE             0.0        0.1        5.3        0.2       0.37
+PC1COM     TRUE             0.01        0.2        8.6        0.7       1.30
+CM1COM     FALSE             0.0        0.1        5.7        0.3       0.52
+CM1COM     TRUE             0.03        0.3        4.3        0.7       0.82
+KC1COM     FALSE             0.0       0.01        2.6        0.1       0.14
+KC1COM     TRUE              0.0        0.1        1.7        0.2       0.26
+KC2COM     FALSE             0.0       0.02        1.3        0.1       0.17
+KC2COM     TRUE              0.0        0.3       11.3        0.6       1.23
+KC3COM     FALSE             0.0       0.04        3.2        0.1       0.29
+KC3COM     TRUE             0.01        0.3        3.6        0.5       0.67
+MC2COM     FALSE             0.0        0.1        3.6        0.2       0.44
+MC2COM     TRUE             0.03        0.2        3.4        0.6       0.75
+MW1COM     FALSE             0.0        0.1        2.1        0.1       0.19
+MW1COM     TRUE              0.1        0.3        1.1        0.3       0.23
+
+$T
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3COM     FALSE             2.4      246.7     9325.9     1039.3    2054.68
+AR3COM     TRUE             57.3     6958.3    21684.0     8105.0    7446.10
+AR4COM     FALSE             2.4      138.5     6307.7      394.3     798.14
+AR4COM     TRUE             51.4     1005.0    18838.9     2798.0    4349.45
+AR5COM     FALSE             2.4      114.6     8894.4      848.3    1930.87
+AR5COM     TRUE            476.2     3200.6    15857.3     4601.3    4774.13
+PC1COM     FALSE             0.0      168.0   237757.4     1296.7    8115.60
+PC1COM     TRUE              1.0      604.0   151702.1     5683.5   19966.04
+CM1COM     FALSE             0.0      175.4   119649.5     1697.5    7432.05
+CM1COM     TRUE              1.0      936.6    36307.6     4142.1    7362.49
+KC1COM     FALSE             0.0        5.5    18044.6      179.4     744.49
+KC1COM     TRUE              0.0      250.9    13041.3      903.2    1615.19
+KC2COM     FALSE             0.0        9.0    12164.2      267.8     864.19
+KC2COM     TRUE              0.0      824.6   153047.0     4302.4   16268.88
+KC3COM     FALSE             1.0        1.0       20.0        1.6       1.87
+KC3COM     TRUE              1.0        1.0       15.0        3.1       3.54
+MC2COM     FALSE             1.0        1.0       26.0        2.2       3.42
+MC2COM     TRUE              1.0        2.0       39.0        6.8       9.95
+MW1COM     FALSE             1.0        1.0       23.0        1.8       2.46
+MW1COM     TRUE              1.0        1.0       13.0        3.4       3.85
+
+$LOCODE
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3COM     FALSE             3.0       22.0      174.0       37.8      37.76
+AR3COM     TRUE             14.0      125.0      394.0      154.4     128.05
+AR4COM     FALSE             3.0       23.0      217.0       28.8      29.44
+AR4COM     TRUE             17.0       64.5      303.0       84.4      69.20
+AR5COM     FALSE             5.0       18.5      105.0       30.5      30.10
+AR5COM     TRUE             28.0       95.0      284.0      113.3      77.21
+PC1COM     FALSE             0.0       12.0      218.0       20.1      23.61
+PC1COM     TRUE              1.0       28.0      600.0       54.1      88.20
+CM1COM     FALSE             0.0        1.0       80.0        3.6       8.57
+CM1COM     TRUE              0.0        3.0       45.0        5.4       7.83
+KC1COM     FALSE             0.0        3.0      251.0       11.0      19.47
+KC1COM     TRUE              0.0       21.0      262.0       33.8      35.68
+KC2COM     FALSE             0.0        5.0      161.0       15.2      22.83
+KC2COM     TRUE              1.0       49.0     1107.0       76.5     123.91
+KC3COM     FALSE             1.0       30.0     1287.0       76.9     130.25
+KC3COM     TRUE              8.0      145.0     1413.0      255.0     273.21
+MC2COM     FALSE             1.0       67.0     1369.0      129.6     183.29
+MC2COM     TRUE             21.0      140.0     1479.0      275.5     331.78
+MW1COM     FALSE             5.0       50.0      889.0       77.2      84.69
+MW1COM     TRUE             39.0      170.0      483.0      159.7     100.66
+
+$LOCCOMMENT
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3COM     FALSE             0.0        4.0       40.0        7.8      10.15
+AR3COM     TRUE              0.0       34.0      195.0       51.1      62.18
+AR4COM     FALSE             0.0        3.0       96.0        7.3      14.86
+AR4COM     TRUE              1.0       17.0      209.0       28.2      45.16
+AR5COM     FALSE             0.0        1.0       17.0        3.9       5.18
+AR5COM     TRUE              5.0       16.0       89.0       26.3      27.71
+PC1COM     FALSE             0.0        0.0      159.0        3.9       8.96
+PC1COM     TRUE              0.0        6.0       73.0       14.9      20.26
+CM1COM     FALSE             0.0        3.0      191.0        9.7      18.75
+CM1COM     TRUE              0.0       19.0      339.0       35.8      54.75
+KC1COM     FALSE             0.0        0.0       21.0        0.6       2.04
+KC1COM     TRUE              0.0        0.0       44.0        2.6       5.96
+KC2COM     FALSE             0.0        0.0       43.0        1.0       3.38
+KC2COM     TRUE              0.0        2.0       44.0        5.9       9.47
+KC3COM     FALSE             1.0        1.0       34.0        2.6       3.35
+KC3COM     TRUE              1.0        4.0       23.0        6.7       5.74
+MC2COM     FALSE             1.0        1.0       18.0        2.0       2.43
+MC2COM     TRUE              1.0        2.0       21.0        4.2       4.52
+MW1COM     FALSE             1.0        2.0       23.0        3.0       3.27
+MW1COM     TRUE              1.0        5.0       26.0        6.8       5.86
+
+$LOCCODEANDCOMMENT
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3COM     FALSE             0.0        0.0        6.0        1.0       1.61
+AR3COM     TRUE              0.0        5.5       31.0        8.5       9.75
+AR4COM     FALSE             0.0        0.0       16.0        0.4       2.41
+AR4COM     TRUE              0.0        0.0        4.0        0.4       0.94
+AR5COM     FALSE             0.0        0.0        4.0        0.8       1.42
+AR5COM     TRUE              1.0        3.0        8.0        3.4       2.13
+PC1COM     FALSE             0.0        0.0       42.0        0.7       2.69
+PC1COM     TRUE              0.0        1.0       48.0        3.8       7.49
+CM1COM     FALSE             0.0        0.0        2.0       0.00       0.09
+CM1COM     TRUE              0.0        0.0        1.0       0.02       0.14
+KC1COM     FALSE             0.0        0.0       12.0        0.1       0.72
+KC1COM     TRUE              0.0        0.0        7.0        0.1       0.63
+KC2COM     FALSE             0.0        0.0        4.0        0.1       0.42
+KC2COM     TRUE              0.0        0.0       11.0        0.9       2.03
+KC3COM     FALSE             1.0        8.0      310.0       18.1      28.32
+KC3COM     TRUE              4.0       32.0      246.0       56.1      52.05
+MC2COM     FALSE             3.0       26.0      367.0       44.2      55.59
+MC2COM     TRUE              5.0       59.5      474.0       98.6     114.55
+MW1COM     FALSE             4.0       20.5      171.0       28.1      23.68
+MW1COM     TRUE             11.0       69.0      168.0       63.6      40.12
+
+$UNIQ_OP
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3COM     FALSE             3.0       10.0       29.0       11.1       6.20
+AR3COM     TRUE              6.0       21.0       31.0       20.3       7.85
+AR4COM     FALSE             4.0       10.0       23.0       10.3       4.49
+AR4COM     TRUE              6.0       17.0       28.0       17.1       5.46
+AR5COM     FALSE             3.0        9.5       28.0       10.0       5.89
+AR5COM     TRUE             16.0       23.0       29.0       21.8       4.98
+PC1COM     FALSE             1.0       12.0       66.0       12.9       7.46
+PC1COM     TRUE              1.0       18.0       99.0       19.2      13.51
+CM1COM     FALSE             1.0       13.0       72.0       14.4       9.19
+CM1COM     TRUE              1.0       20.0       52.0       22.4      10.52
+KC1COM     FALSE             0.0        5.0       28.0        6.7       4.98
+KC1COM     TRUE              0.0       12.0       37.0       12.8       6.74
+KC2COM     FALSE             1.0        6.0       28.0        7.6       5.18
+KC2COM     TRUE              1.0       16.0       47.0       15.4       6.73
+KC3COM     FALSE             1.0        8.0       30.0        9.9       5.84
+KC3COM     TRUE              5.0       16.0       31.0       16.8       5.86
+MC2COM     FALSE             1.0       11.0       37.0       12.1       6.58
+MC2COM     TRUE              3.0       18.0       32.0       17.4       7.41
+MW1COM     FALSE             3.0       10.0       44.0       11.0       6.26
+MW1COM     TRUE              4.0       14.0       36.0       15.0       7.54
+
+$UNIQ_OPND
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3COM     FALSE             4.0       22.0      125.0       30.5      23.80
+AR3COM     TRUE             20.0       88.0      142.0       84.0      47.62
+AR4COM     FALSE             4.0       18.0       68.0       20.3      12.89
+AR4COM     TRUE             14.0       41.5      112.0       45.8      27.98
+AR5COM     FALSE             5.0       18.0       64.0       24.0      15.38
+AR5COM     TRUE             23.0       70.5      150.0       73.8      36.68
+PC1COM     FALSE             0.0       12.0      152.0       18.6      20.03
+PC1COM     TRUE              1.0       30.0      538.0       51.0      76.66
+CM1COM     FALSE             0.0       13.0      251.0       22.5      29.43
+CM1COM     TRUE              1.0       35.0      314.0       52.3      54.95
+KC1COM     FALSE             0.0        4.0      120.0        7.5       9.95
+KC1COM     TRUE              0.0       16.5       84.0       20.6      16.67
+KC2COM     FALSE             0.0        5.0       91.0        9.1      11.02
+KC2COM     TRUE              0.0       27.0      325.0       35.2      37.09
+KC3COM     FALSE             0.0        8.0      159.0       13.4      18.08
+KC3COM     TRUE              3.0       25.0      158.0       38.1      31.53
+MC2COM     FALSE             0.0       11.0      203.0       19.3      25.28
+MC2COM     TRUE              3.0       20.0       96.0       26.9      22.22
+MW1COM     FALSE             2.0       14.0      107.0       19.0      15.35
+MW1COM     TRUE             11.0       41.0       88.0       39.7      20.80
+
+$TOTAL_OP
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3COM     FALSE             8.0       64.0      484.0      100.0     100.74
+AR3COM     TRUE             34.0      359.0      817.0      393.4     270.10
+AR4COM     FALSE             7.0       50.0      478.0       64.7      63.39
+AR4COM     TRUE             35.0      145.0      829.0      202.4     186.07
+AR5COM     FALSE             9.0       49.0      305.0       79.9      82.51
+AR5COM     TRUE             74.0      243.5      699.0      293.9     185.50
+PC1COM     FALSE             1.0       31.0     1281.0       59.7      88.83
+PC1COM     TRUE              1.0       66.0     1641.0      157.9     256.44
+CM1COM     FALSE             1.0       38.0     1261.0       78.9     124.37
+CM1COM     TRUE              1.0       95.0      932.0      175.7     188.33
+KC1COM     FALSE             0.0        7.0      678.0       23.3      41.92
+KC1COM     TRUE              0.0       47.5      509.0       73.3      75.07
+KC2COM     FALSE             1.0        9.0      381.0       29.7      46.55
+KC2COM     TRUE              1.0      106.0     2469.0      165.8     277.81
+KC3COM     FALSE             1.0       20.0      807.0       48.7      81.06
+KC3COM     TRUE              5.0       91.0      857.0      160.8     168.66
+MC2COM     FALSE             1.0       38.0      737.0       74.1     101.86
+MC2COM     TRUE             13.0       79.0      864.0      159.8     196.64
+MW1COM     FALSE             3.0       28.0      493.0       43.5      47.53
+MW1COM     TRUE             22.0       99.0      257.0       88.3      54.82
+
+$TOTAL_OPND
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3COM     FALSE             5.0       50.0      337.0       76.7      75.14
+AR3COM     TRUE             32.0      275.0      575.0      285.3     187.47
+AR4COM     FALSE             4.0       35.0      329.0       44.4      43.93
+AR4COM     TRUE             21.0      112.0      560.0      133.7     124.37
+AR5COM     FALSE             5.0       40.5      226.0       59.6      57.11
+AR5COM     TRUE             53.0      193.5      482.0      211.3     125.78
+PC1COM     FALSE             0.0       23.0      853.0       45.8      71.68
+PC1COM     TRUE              1.0       56.0     1144.0      119.5     183.81
+CM1COM     FALSE             0.0       23.0      814.0       49.5      80.30
+CM1COM     TRUE              1.0       64.0      568.0      111.3     120.90
+KC1COM     FALSE             0.0        4.0      428.0       13.8      25.65
+KC1COM     TRUE              0.0       30.0      285.0       46.0      46.77
+KC2COM     FALSE             0.0        7.0      238.0       18.7      29.80
+KC2COM     TRUE              0.0       67.0     1513.0      108.0     174.08
+KC3COM     FALSE             0.0       43.3    21968.8      548.3    1760.00
+KC3COM     TRUE              3.3      593.5    32379.5     2831.2    5551.65
+MC2COM     FALSE             0.0      212.2    34636.1     1435.7    4078.53
+MC2COM     TRUE             26.9     1135.7    55090.5     6397.4   12351.73
+MW1COM     FALSE             1.0       96.6    10804.5      400.2     998.24
+MW1COM     TRUE             52.8      564.0     6368.5      965.0    1270.47
+
+$BRANCHCOUNT
+DATA SET   CLASS      MIN        MEDIAN     MAX        MEAN       STDEV     
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+AR3COM     FALSE             0.0        8.0      190.0       23.1      33.44
+AR3COM     TRUE              0.0      101.0      244.0      110.3      82.15
+AR4COM     FALSE             0.0        8.0      176.0       14.2      23.06
+AR4COM     TRUE              0.0       39.0      210.0       45.7      47.19
+AR5COM     FALSE             0.0        8.0       92.0       18.4      25.94
+AR5COM     TRUE             22.0       70.0      236.0       89.0      65.80
+PC1COM     FALSE             1.0        5.0      143.0        8.9      14.14
+PC1COM     TRUE              1.0        9.0      236.0       18.7      34.45
+CM1COM     FALSE             1.0        4.0      162.0        8.5      13.73
+CM1COM     TRUE              1.0        9.0      141.0       17.1      22.91
+KC1COM     FALSE             1.0        1.0       67.0        3.7       6.40
+KC1COM     TRUE              1.0        7.0       89.0       10.1      11.60
+KC2COM     FALSE             1.0        1.0       57.0        4.7       6.77
+KC2COM     TRUE              1.0       13.0      361.0       24.5      43.30
+KC3COM     FALSE             1.0        1.0       59.0        4.6       7.06
+KC3COM     TRUE              1.0        7.0       51.0       13.2      12.46
+MC2COM     FALSE             1.0        5.0       69.0        8.8      11.73
+MC2COM     TRUE              1.0       12.0      125.0       22.9      29.09
+MW1COM     FALSE             1.0        5.0       45.0        6.6       7.30
+MW1COM     TRUE              1.0        9.0       50.0       15.7      13.40
+
