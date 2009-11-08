@@ -1,294 +1,201 @@
-AR3
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-2/2           63/63      100.0%
+TRAIN      TEST       ROW COUNT ROW PERCENT
+---------- ---------- --------- -----------
+AR3        AR4            63/63      100.0%
+AR3        AR5            63/63      100.0%
+AR4        AR3          107/107      100.0%
+AR4        AR5           98/107       91.6%
+AR5        AR3            36/36      100.0%
+AR5        AR4            36/36      100.0%
 
-AR4
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-1/2           9/107        8.4%
-2/2          98/107       91.6%
+TRAIN      TEST       ROW COUNT ROW PERCENT
+---------- ---------- --------- -----------
+AR3SHORT   AR4SHORT       63/63      100.0%
+AR3SHORT   AR5SHORT       63/63      100.0%
+AR4SHORT   AR3SHORT     104/107       97.2%
+AR4SHORT   AR5SHORT      95/107       88.8%
+AR5SHORT   AR3SHORT       36/36      100.0%
+AR5SHORT   AR4SHORT       36/36      100.0%
 
-AR5
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-2/2           36/36      100.0%
+TRAIN      TEST       ROW COUNT ROW PERCENT
+---------- ---------- --------- -----------
+SHARED_PC1 SHARED_CM1 1022/1109       92.2%
+SHARED_PC1 SHARED_KC1 1058/1109       95.4%
+SHARED_PC1 SHARED_KC2  983/1109       88.6%
+SHARED_PC1 SHARED_KC3  674/1109       60.8%
+SHARED_PC1 SHARED_MC2  572/1109       51.6%
+SHARED_PC1 SHARED_MW1  655/1109       59.1%
+SHARED_CM1 SHARED_PC1   496/498       99.6%
+SHARED_CM1 SHARED_KC1   494/498       99.2%
+SHARED_CM1 SHARED_KC2   496/498       99.6%
+SHARED_CM1 SHARED_KC3   455/498       91.4%
+SHARED_CM1 SHARED_MC2   417/498       83.7%
+SHARED_CM1 SHARED_MW1   441/498       88.6%
+SHARED_KC1 SHARED_PC1 1346/2109       63.8%
+SHARED_KC1 SHARED_CM1 1203/2109       57.0%
+SHARED_KC1 SHARED_KC2 1215/2109       57.6%
+SHARED_KC1 SHARED_KC3  692/2109       32.8%
+SHARED_KC1 SHARED_MC2  528/2109       25.0%
+SHARED_KC1 SHARED_MW1  691/2109       32.8%
+SHARED_KC2 SHARED_PC1   419/522       80.3%
+SHARED_KC2 SHARED_CM1   420/522       80.5%
+SHARED_KC2 SHARED_KC1   448/522       85.8%
+SHARED_KC2 SHARED_KC3   365/522       69.9%
+SHARED_KC2 SHARED_MC2   332/522       63.6%
+SHARED_KC2 SHARED_MW1   353/522       67.6%
+SHARED_KC3 SHARED_PC1   370/458       80.8%
+SHARED_KC3 SHARED_CM1   358/458       78.2%
+SHARED_KC3 SHARED_KC1   387/458       84.5%
+SHARED_KC3 SHARED_KC2   381/458       83.2%
+SHARED_KC3 SHARED_MC2   344/458       75.1%
+SHARED_KC3 SHARED_MW1   373/458       81.4%
+SHARED_MC2 SHARED_PC1   159/161       98.8%
+SHARED_MC2 SHARED_CM1   158/161       98.1%
+SHARED_MC2 SHARED_KC1   155/161       96.3%
+SHARED_MC2 SHARED_KC2   159/161       98.8%
+SHARED_MC2 SHARED_KC3   161/161      100.0%
+SHARED_MC2 SHARED_MW1   153/161       95.0%
+SHARED_MW1 SHARED_PC1   318/403       78.9%
+SHARED_MW1 SHARED_CM1   315/403       78.2%
+SHARED_MW1 SHARED_KC1   320/403       79.4%
+SHARED_MW1 SHARED_KC2   308/403       76.4%
+SHARED_MW1 SHARED_KC3   369/403       91.6%
+SHARED_MW1 SHARED_MC2   351/403       87.1%
 
-AR3SHORT
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-2/2           63/63      100.0%
+TRAIN      TEST       ROW COUNT ROW PERCENT
+---------- ---------- --------- -----------
+PC1SHORT   CM1SHORT   1015/1109       91.5%
+PC1SHORT   KC1SHORT   1030/1109       92.9%
+PC1SHORT   KC2SHORT    930/1109       83.9%
+PC1SHORT   KC3SHORT     90/1109        8.1%
+PC1SHORT   MC2SHORT    111/1109       10.0%
+PC1SHORT   MW1SHORT     98/1109        8.8%
+CM1SHORT   PC1SHORT     497/498       99.8%
+CM1SHORT   KC1SHORT     486/498       97.6%
+CM1SHORT   KC2SHORT     474/498       95.2%
+CM1SHORT   KC3SHORT      72/498       14.5%
+CM1SHORT   MC2SHORT      94/498       18.9%
+CM1SHORT   MW1SHORT      72/498       14.5%
+KC1SHORT   PC1SHORT   1321/2109       62.6%
+KC1SHORT   CM1SHORT   1166/2109       55.3%
+KC1SHORT   KC2SHORT   1139/2109       54.0%
+KC1SHORT   KC3SHORT     98/2109        4.6%
+KC1SHORT   MC2SHORT    124/2109        5.9%
+KC1SHORT   MW1SHORT    124/2109        5.9%
+KC2SHORT   PC1SHORT     419/522       80.3%
+KC2SHORT   CM1SHORT     415/522       79.5%
+KC2SHORT   KC1SHORT     426/522       81.6%
+KC2SHORT   KC3SHORT      77/522       14.8%
+KC2SHORT   MC2SHORT      99/522       19.0%
+KC2SHORT   MW1SHORT      77/522       14.8%
+KC3SHORT   PC1SHORT     141/458       30.8%
+KC3SHORT   CM1SHORT     128/458       27.9%
+KC3SHORT   KC1SHORT     154/458       33.6%
+KC3SHORT   KC2SHORT     132/458       28.8%
+KC3SHORT   MC2SHORT     273/458       59.6%
+KC3SHORT   MW1SHORT     364/458       79.5%
+MC2SHORT   PC1SHORT      60/161       37.3%
+MC2SHORT   CM1SHORT      55/161       34.2%
+MC2SHORT   KC1SHORT      59/161       36.6%
+MC2SHORT   KC2SHORT      57/161       35.4%
+MC2SHORT   KC3SHORT     128/161       79.5%
+MC2SHORT   MW1SHORT     144/161       89.4%
+MW1SHORT   PC1SHORT     100/403       24.8%
+MW1SHORT   CM1SHORT      97/403       24.1%
+MW1SHORT   KC1SHORT     112/403       27.8%
+MW1SHORT   KC2SHORT      97/403       24.1%
+MW1SHORT   KC3SHORT     303/403       75.2%
+MW1SHORT   MC2SHORT     297/403       73.7%
 
-AR4SHORT
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-0/2           3/107        2.8%
-1/2           9/107        8.4%
-2/2          95/107       88.8%
-
-AR5SHORT
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-2/2           36/36      100.0%
-
-SHARED_PC1
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-0/6         25/1109        2.3%
-1/6          8/1109        0.7%
-2/6         57/1109        5.1%
-3/6        294/1109       26.5%
-4/6         76/1109        6.9%
-5/6        238/1109       21.5%
-6/6        411/1109       37.1%
-
-SHARED_CM1
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-1/6           3/498        0.6%
-2/6           6/498        1.2%
-3/6          22/498        4.4%
-4/6          25/498        5.0%
-5/6          60/498       12.0%
-6/6         382/498       76.7%
-
-SHARED_KC1
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-0/6        632/2109       30.0%
-1/6        294/2109       13.9%
-2/6        198/2109        9.4%
-3/6        275/2109       13.0%
-4/6        113/2109        5.4%
-5/6        218/2109       10.3%
-6/6        379/2109       18.0%
-
-SHARED_KC2
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-0/6         103/522       19.7%
-1/6          10/522        1.9%
-2/6          35/522        6.7%
-3/6          20/522        3.8%
-4/6           8/522        1.5%
-5/6          29/522        5.6%
-6/6         317/522       60.7%
-
-SHARED_KC3
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-0/6          41/458        9.0%
-1/6          21/458        4.6%
-2/6          40/458        8.7%
-3/6           8/458        1.7%
-4/6          36/458        7.9%
-5/6          25/458        5.5%
-6/6         287/458       62.7%
-
-SHARED_MC2
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-0/6           7/161        4.3%
-1/6           1/161        0.6%
-2/6           2/161        1.2%
-4/6           1/161        0.6%
-6/6         150/161       93.2%
-
-SHARED_MW1
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-0/6          15/403        3.7%
-1/6          43/403       10.7%
-2/6          31/403        7.7%
-3/6           3/403        0.7%
-4/6           3/403        0.7%
-5/6          18/403        4.5%
-6/6         290/403       72.0%
-
-PC1SHORT
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-0/6         41/1109        3.7%
-1/6         26/1109        2.3%
-2/6        135/1109       12.2%
-3/6        792/1109       71.4%
-4/6         26/1109        2.3%
-5/6         36/1109        3.2%
-6/6         53/1109        4.8%
-
-CM1SHORT
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-0/6           5/498        1.0%
-1/6          13/498        2.6%
-2/6         356/498       71.5%
-3/6          40/498        8.0%
-4/6          13/498        2.6%
-5/6          10/498        2.0%
-6/6          61/498       12.2%
-
-KC1SHORT
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-0/6        833/2109       39.5%
-1/6        903/2109       42.8%
-2/6        144/2109        6.8%
-3/6        133/2109        6.3%
-4/6         38/2109        1.8%
-5/6         26/2109        1.2%
-6/6         32/2109        1.5%
-
-KC2SHORT
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-0/6         347/522       66.5%
-1/6          17/522        3.3%
-2/6          23/522        4.4%
-3/6          48/522        9.2%
-4/6          14/522        2.7%
-5/6          10/522        1.9%
-6/6          63/522       12.1%
-
-KC3SHORT
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-0/6          81/458       17.7%
-1/6          67/458       14.6%
-2/6         180/458       39.3%
-3/6          14/458        3.1%
-4/6          20/458        4.4%
-5/6          43/458        9.4%
-6/6          53/458       11.6%
-
-MC2SHORT
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-0/6          15/161        9.3%
-1/6          19/161       11.8%
-2/6          83/161       51.6%
-3/6           4/161        2.5%
-4/6           5/161        3.1%
-5/6           3/161        1.9%
-6/6          32/161       19.9%
-
-MW1SHORT
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-0/6          30/403        7.4%
-1/6          94/403       23.3%
-2/6         180/403       44.7%
-3/6          12/403        3.0%
-4/6          22/403        5.5%
-5/6          21/403        5.2%
-6/6          44/403       10.9%
-
-AR3COM
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-8/9            1/63        1.6%
-9/9           62/63       98.4%
-
-AR4COM
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-6/9           1/107        0.9%
-8/9           9/107        8.4%
-9/9          97/107       90.7%
-
-AR5COM
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-9/9           36/36      100.0%
-
-PC1COM
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-0/9         23/1109        2.1%
-1/9          3/1109        0.3%
-2/9         21/1109        1.9%
-3/9         63/1109        5.7%
-4/9        151/1109       13.6%
-5/9        219/1109       19.7%
-6/9        224/1109       20.2%
-7/9        217/1109       19.6%
-8/9        142/1109       12.8%
-9/9         46/1109        4.1%
-
-CM1COM
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-1/9           2/498        0.4%
-2/9           1/498        0.2%
-3/9           5/498        1.0%
-4/9          17/498        3.4%
-5/9          30/498        6.0%
-6/9          46/498        9.2%
-7/9         105/498       21.1%
-8/9         155/498       31.1%
-9/9         137/498       27.5%
-
-KC1COM
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-0/9        605/2109       28.7%
-1/9        226/2109       10.7%
-2/9        153/2109        7.3%
-3/9        208/2109        9.9%
-4/9        193/2109        9.2%
-5/9        182/2109        8.6%
-6/9        182/2109        8.6%
-7/9        172/2109        8.2%
-8/9        129/2109        6.1%
-9/9         59/2109        2.8%
-
-KC2COM
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-0/9          96/522       18.4%
-1/9          13/522        2.5%
-2/9          29/522        5.6%
-3/9           3/522        0.6%
-4/9          14/522        2.7%
-5/9          26/522        5.0%
-6/9          28/522        5.4%
-7/9          62/522       11.9%
-8/9         112/522       21.5%
-9/9         139/522       26.6%
-
-KC3COM
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-0/9          32/458        7.0%
-1/9          19/458        4.1%
-2/9          11/458        2.4%
-3/9           3/458        0.7%
-4/9          10/458        2.2%
-5/9          15/458        3.3%
-6/9          40/458        8.7%
-7/9          60/458       13.1%
-8/9         118/458       25.8%
-9/9         150/458       32.8%
-
-MC2COM
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-0/9           4/161        2.5%
-1/9           2/161        1.2%
-2/9           1/161        0.6%
-4/9           1/161        0.6%
-7/9           8/161        5.0%
-8/9          23/161       14.3%
-9/9         122/161       75.8%
-
-MW1COM
-FREQUENCY ROW COUNT ROW PERCENT
---------- --------- -----------
-1/9           2/403        0.5%
-2/9           1/403        0.2%
-4/9           2/403        0.5%
-5/9           9/403        2.2%
-6/9          30/403        7.4%
-7/9          83/403       20.6%
-8/9         141/403       35.0%
-9/9         135/403       33.5%
+TRAIN      TEST       ROW COUNT ROW PERCENT
+---------- ---------- --------- -----------
+AR3COM     AR4COM         63/63      100.0%
+AR3COM     AR5COM         63/63      100.0%
+AR3COM     PC1COM         63/63      100.0%
+AR3COM     CM1COM         63/63      100.0%
+AR3COM     KC1COM         63/63      100.0%
+AR3COM     KC2COM         63/63      100.0%
+AR3COM     KC3COM         63/63      100.0%
+AR3COM     MC2COM         63/63      100.0%
+AR3COM     MW1COM         62/63       98.4%
+AR4COM     AR3COM       107/107      100.0%
+AR4COM     AR5COM        98/107       91.6%
+AR4COM     PC1COM       107/107      100.0%
+AR4COM     CM1COM       107/107      100.0%
+AR4COM     KC1COM       107/107      100.0%
+AR4COM     KC2COM       107/107      100.0%
+AR4COM     KC3COM       106/107       99.1%
+AR4COM     MC2COM       106/107       99.1%
+AR4COM     MW1COM       106/107       99.1%
+AR5COM     AR3COM         36/36      100.0%
+AR5COM     AR4COM         36/36      100.0%
+AR5COM     PC1COM         36/36      100.0%
+AR5COM     CM1COM         36/36      100.0%
+AR5COM     KC1COM         36/36      100.0%
+AR5COM     KC2COM         36/36      100.0%
+AR5COM     KC3COM         36/36      100.0%
+AR5COM     MC2COM         36/36      100.0%
+AR5COM     MW1COM         36/36      100.0%
+PC1COM     AR3COM      495/1109       44.6%
+PC1COM     AR4COM      644/1109       58.1%
+PC1COM     AR5COM      262/1109       23.6%
+PC1COM     CM1COM     1027/1109       92.6%
+PC1COM     KC1COM     1058/1109       95.4%
+PC1COM     KC2COM      983/1109       88.6%
+PC1COM     KC3COM      673/1109       60.7%
+PC1COM     MC2COM      571/1109       51.5%
+PC1COM     MW1COM      641/1109       57.8%
+CM1COM     AR3COM       349/498       70.1%
+CM1COM     AR4COM       395/498       79.3%
+CM1COM     AR5COM       209/498       42.0%
+CM1COM     PC1COM       497/498       99.8%
+CM1COM     KC1COM       494/498       99.2%
+CM1COM     KC2COM       496/498       99.6%
+CM1COM     KC3COM       454/498       91.2%
+CM1COM     MC2COM       418/498       83.9%
+CM1COM     MW1COM       438/498       88.0%
+KC1COM     AR3COM      461/2109       21.9%
+KC1COM     AR4COM      678/2109       32.1%
+KC1COM     AR5COM      273/2109       12.9%
+KC1COM     PC1COM     1342/2109       63.6%
+KC1COM     CM1COM     1203/2109       57.0%
+KC1COM     KC2COM     1219/2109       57.8%
+KC1COM     KC3COM      682/2109       32.3%
+KC1COM     MC2COM      526/2109       24.9%
+KC1COM     MW1COM      671/2109       31.8%
+KC2COM     AR3COM       278/522       53.3%
+KC2COM     AR4COM       345/522       66.1%
+KC2COM     AR5COM       175/522       33.5%
+KC2COM     PC1COM       420/522       80.5%
+KC2COM     CM1COM       422/522       80.8%
+KC2COM     KC1COM       448/522       85.8%
+KC2COM     KC3COM       365/522       69.9%
+KC2COM     MC2COM       332/522       63.6%
+KC2COM     MW1COM       350/522       67.0%
+KC3COM     AR3COM       274/458       59.8%
+KC3COM     AR4COM       349/458       76.2%
+KC3COM     AR5COM       185/458       40.4%
+KC3COM     PC1COM       417/458       91.0%
+KC3COM     CM1COM       408/458       89.1%
+KC3COM     KC1COM       417/458       91.0%
+KC3COM     KC2COM       418/458       91.3%
+KC3COM     MC2COM       352/458       76.9%
+KC3COM     MW1COM       380/458       83.0%
+MC2COM     AR3COM       150/161       93.2%
+MC2COM     AR4COM       157/161       97.5%
+MC2COM     AR5COM       124/161       77.0%
+MC2COM     PC1COM       161/161      100.0%
+MC2COM     CM1COM       161/161      100.0%
+MC2COM     KC1COM       157/161       97.5%
+MC2COM     KC2COM       161/161      100.0%
+MC2COM     KC3COM       161/161      100.0%
+MC2COM     MW1COM       153/161       95.0%
+MW1COM     AR3COM       282/403       70.0%
+MW1COM     AR4COM       355/403       88.1%
+MW1COM     AR5COM       183/403       45.4%
+MW1COM     PC1COM       399/403       99.0%
+MW1COM     CM1COM       396/403       98.3%
+MW1COM     KC1COM       400/403       99.3%
+MW1COM     KC2COM       392/403       97.3%
+MW1COM     KC3COM       400/403       99.3%
+MW1COM     MC2COM       357/403       88.6%
 
