@@ -1,5 +1,5 @@
 ;;Row reducer that doesn't reduce any rows.
-(defun default-row-reducer (train test)
+(defun all-rows (train test)
   train)
 
 ;;Reduces the number of defect and non-defect rows in tbl to n.
@@ -99,9 +99,8 @@
 
 (defun analyze1 ()
   (let ((collections (list (list (ar3) (ar4) (ar5))
-                           (list (ar3short) (ar4short) (ar5short))
                            (list (shared_pc1) (shared_cm1) (shared_kc1) (shared_kc2) (shared_kc3) (shared_mc2) (shared_mw1))
-                           (list (pc1short) (cm1short) (kc1short) (kc2short) (kc3short) (mc2short) (mw1short))
+                           (list (ar3short) (ar4short) (ar5short) (pc1short) (cm1short) (kc1short) (kc2short) (kc3short) (mc2short) (mw1short))
                            (list (ar3com) (ar4com) (ar5com) (pc1com) (cm1com) (kc1com) (kc2com) (kc3com) (mc2com) (mw1com)))))
     (dolist (collection collections)
       (dolist (train collection)

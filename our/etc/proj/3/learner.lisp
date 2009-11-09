@@ -80,7 +80,7 @@
 ;;time of creation.
 (defun learner (train test &key (k 1)
                                 (prep #'identity) ;Takes 1 table returns 1 table
-                                (row-reducer #'default-row-reducer)
+                                (row-reducer #'all-rows)
                                 (discretizer #'identity) ;Takes 1 table returns 1 table
                                 (clusterer #'default-clusterer) ;Takes 1 table and k returns a list of tables
                                 (fss #'identity) ;Takes 1 table returns 1 table
@@ -121,13 +121,13 @@
   (check
     (equalp
       (learner (ar3) (ar3) :discretizer #'10bins-eq-width :classifier-train #'nb-train :classifier #'nb-classify)
-      (list (make-stat #'identity #'default-row-reducer #'10bins-eq-width #'default-clusterer #'identity #'nb-classify 'true 54 2 1 6 20/21 6/7 3/4 1/55 4/5 6/169)
-            (make-stat #'identity #'default-row-reducer #'10bins-eq-width #'default-clusterer #'identity #'nb-classify 'false 6 1 2 54 20/21 27/28 54/55 1/4 36/37 108/271)))))
+      (list (make-stat #'identity #'all-rows #'10bins-eq-width #'default-clusterer #'identity #'nb-classify 'true 54 2 1 6 20/21 6/7 3/4 1/55 4/5 6/169)
+            (make-stat #'identity #'all-rows #'10bins-eq-width #'default-clusterer #'identity #'nb-classify 'false 6 1 2 54 20/21 27/28 54/55 1/4 36/37 108/271)))))
 
 ;;Wrapper for learner function that outputs the results to standard output.
 (defun learn (train test &key (k 1)
                               (prep #'identity)
-                              (row-reducer #'default-row-reducer)
+                              (row-reducer #'all-rows)
                               (discretizer #'identity)
                               (clusterer #'default-clusterer)
                               (fss #'identity)
@@ -151,7 +151,7 @@
 ;;bin using the data in train.  This is repeated M times.
 (defun cross-val-cc (train test &key (k 1)
                                      (prep #'identity)
-                                     (row-reducer #'default-row-reducer)
+                                     (row-reducer #'all-rows)
                                      (discretizer #'identity)
                                      (clusterer #'default-clusterer)
                                      (fss #'identity)
@@ -183,7 +183,7 @@
 ;;This is repeated M times.
 (defun cross-val-wc (tbl &key (k 1)
                               (prep #'identity)
-                              (row-reducer #'default-row-reducer)
+                              (row-reducer #'all-rows)
                               (discretizer #'identity)
                               (clusterer #'default-clusterer)
                               (fss #'identity)
