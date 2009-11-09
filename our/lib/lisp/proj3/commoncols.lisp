@@ -20,8 +20,8 @@
 
 
 (defun get-common-cols (ar shared)
-  (let* ((ar-cols '(0 9 12 11 10 14 16 2 3 6 5 8 7 17))
-         (shared-cols '(0 1 2 4 5 6 8 10 12 13 15 16 17 18))
+  (let* ((ar-cols '(4 22 23 25 11 12 13 14 15 16 0 2 3 6 5 8 7 17));'(0 9 12 11 10 14 16 2 3 6 5 8 7 17))
+         (shared-cols '(0 1 2 3 4 5 6 8 9 10 11 12 13 14 15 16 17 18)) ;'(0 1 2 4 5 6 8 10 12 13 15 16 17 18))
          (ar-cols (append ar-cols (list (table-class ar))))
          (shared-cols (append shared-cols (list (table-class shared))))
          (data1 (keep-cols ar ar-cols))
