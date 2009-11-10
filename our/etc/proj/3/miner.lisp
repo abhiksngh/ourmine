@@ -19,6 +19,7 @@
 			"learn/nb"
                         "utilities"
                         "normalize"
+                        "nbins"
                         ;"n-chops"
                         ;"b-squared
                         ;"grid"
