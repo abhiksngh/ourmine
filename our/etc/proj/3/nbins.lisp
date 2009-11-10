@@ -74,7 +74,7 @@
 
 
 (defun 10bins (source-table)
-  (nbins 10 source-table))
+  (nbins2 10 source-table))
 
 
 ;; :ALL (#S(EG :FEATURES (17 2 30 1.5 0 10 19.46 12.97) :CLASS 12.97)
@@ -139,47 +139,211 @@
   )
 
 
-(defun bin-item-to-item (item)
-  (bin-item value))
+;(defun bin-item-to-item (item)
+;  (bin-item value))
 
 
 ;;rewrite
 (defun nbins2 (n source-table)
-   (let ((old-data (transpose (get-data source-table)))
+   (let* ((old-data (transpose (get-data source-table)))
 ;;         (label-lst)
 ;;         (lable-count 1)
-;;         (new-table)
+         (old-table (copy-table source-table))
+         (new-table (copy-table old-table))
+         (new-data )
 ;;         (interval)
-;;         (bin-index) ;so it works for n still
-;;         (bin-lst)   ;list of bins
-       )
+         (bin-index) ;so it works for n still
+         (bin-lst)   ;list of bins
+         (bin-size)
+         (bin-set-min)
+         (bin-set-max)
+         
+         (binned-column)
+         (fixed-binned-column)
+         (found-bin)
+         (col-min)
+         (col-max)
 
-
-     ;;init bins
+         (column-names)
+         (current-header)
+         (new-table-columns)
+         (eg-list)
+         
+         
+         )
 
      
+     ;;init bins
+     (setf bin-index (quick-index n))
+     (setf bin-lst (init-bins n))
+     
 ;for each column
-       ;generate bins
-       ;find min and max for each bin
+     (dolist (column old-data)
+       (setf binned-column NIL)
+       (if (not (is-column-discrete column))
+           (progn
+             (print "found numeric column")
+             
+           ;find min and max for each bin
+             (setf fixed-binned-column NIL)
+             (setf col-min (min-list column))
+             (setf col-max (max-list column))
+             (setf bin-size (round (/ (- col-max col-min) n)))
+
+             (print "Set min max and bin size")
+             
+             (setf bin-set-min col-min)
+             (setf bin-set-max (+ n col-min))
+
+             ;set min and max for bins
+             (print "Setting min and max for each bin")
+             (dolist (current-bin bin-lst)
+               (print (bin-struct-label current-bin))
+               (setf (bin-struct-min current-bin) bin-set-min)
+               (setf (bin-struct-max current-bin) bin-set-max)
+
+               (incf bin-set-min (+ 1 n))
+               (incf bin-set-max (+ 1 n))
+               )
+
+             (print "bins set")
+
+             (print bin-lst)
+             
+             
+             (dolist (item column)
+             ;determine which bin each-item belongs in
+               (print "Finding a bin for:")
+               (print item)
+               (dolist (current-bin bin-lst)
+                 (print current-bin)
+                 (print (and (<= (bin-struct-min current-bin) item) (>= (bin-struct-max current-bin) item)))
+                 (if (and (<= (bin-struct-min current-bin) item) (>= (bin-struct-max current-bin) item))
+                     (setf found-bin current-bin)))
+               (print "Found bin:")
+               (print found-bin)
+               ;(setf col-max (highest column))
+               (print col-max)
+               ;(setf col-min (lowest column))
+               (print col-min)
+
+               (if (eql col-max col-min)
+                   (incf col-max))
+               
+ (setf binned-column (append binned-column (list (make-bin-item
+                                                  :bin (bin-struct-label found-bin)
+                                                  :value  (round (* n (/ (- item col-min) (- col-max col-min)))))
+                                                 )
+                             )
+       )
+               )
+             
+            ;append bin-lst to new-data
+             (print "binned column: ")
+             (print binned-column)
+
+             (print "bin to ( )")
+;             (dolist (this-bin 
+             (setf fixed-binned-column (append fixed-binned-column (mapcar #'bin-to-list binned-column)))
+             (print fixed-binned-column)
+
+             
+
+             (print "appending to new-data")
+             (setf new-data (append new-data (list fixed-binned-column)))
+             )
+           (progn
+             (setf new-data column)
+             )
+           )
+       )
+
+       (print "building new table")
+       ;(print new-data)
+
+       (print "fixing columns")
+       (setf column-names (columns-header (table-columns old-table)))
+       (setf new-table-columns (table-columns old-table))
+             
+       (dotimes (i (+ 1 (table-class old-table)))
+         (setf current-header (nth i (table-columns old-table)))
+         (print current-header)
+         
+         (if (numeric-p current-header)
+             (progn
+               (print "found a numeric column")
+               (setf (nth i new-table-columns) (make-discrete
+                                                :name (numeric-name current-header)
+                                                :classp (numeric-classp current-header)))
+               (print "Sucessful change?")
+               (print (discrete-p (nth i new-table-columns)))
+               )
+             )             
+         )
+       
+       
+       (print (first (table-columns old-table)))
+       
+       (setf (table-columns old-table) new-table-columns)
+
+       (print "printing all columns")
+       (dotimes (n (length (table-columns old-table)))
+         (print (nth n (table-columns old-table))))
+
+       (print (first (reverse (transpose new-data))))
+
+    
+       
+       (print "buiding new-table")
+    ;;    (setf new-table (data
+;;                         :name (table-name old-table)
+;;                         :columns (table-columns old-table)
+;;                         :klass (table-class source-table)
+;;                         :egs
+;;                         (reverse (transpose new-data))))
+
+;       (setf (table-column new-table) (table-column old-table))
+
+       (dolist (this-eg (reverse (transpose new-data)))
+         (setf eg-list (append eg-list (list (make-eg :features this-eg :class (last this-eg))))))
+       
+       (setf (table-all new-table) (reverse eg-list))
+      
+             
+
+       new-table
+       )                     
+     )
+
+;; (defun generate-bins (n)
+;;   ;;quick-index n
+;;   ;;for each index
+;;   ;;setf append make-bin-struct :label ndx
+
+;;   ;;maybe mapcar instead
+;;   )
 
 
-;determine which bin it belongs in
-;append bin-lst (make-bin-item :bin whatever :value item)
-;append bin-lst to new-data
-)
+(defun init-bins (n)
+  (let (
+        (needed-bins (quick-index n))
+        (bin-lst)
+        )
+    (print "In init bins")
 
-(defun generate-bins (n)
-  ;;quick-index n
-  ;;for each index
-  ;;setf append make-bin-struct :label ndx
+    (dolist (ndx needed-bins)
+      (setf bin-lst (append bin-lst (list (make-bin-struct :label (format NIL "BIN-~A"  ndx))))))
+    
+    bin-lst)
+  )
 
-  ;;maybe mapcar instead
- )
-
+(defun bin-to-list (bin-item)
+  (list  (bin-item-bin bin-item) (bin-item-value bin-item)))
 
 ;returns a list 1 though max
    (defun quick-index (max)
      (let ((ret-dex))
        (dotimes (x max)
-         (setf ret-dex (append ret-dex (list x))))))
+         (setf ret-dex (append ret-dex (list (+ 1 x)))))
+       ret-dex))
      

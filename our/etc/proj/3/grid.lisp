@@ -102,7 +102,7 @@
   )
 
 (defun density-block (block)
-the ration of the actual number of patterns pb contained in block B and the 
+  ;the ratio of the actual number of patterns pb contained in block B and the 
                                         ; (/ (p block) (spatical-volume block))
 
 )
@@ -110,7 +110,7 @@ the ration of the actual number of patterns pb contained in block B and the
 ;;is this sysnonimous with bin?
 (defstruct block-struct
   block-id   ;;
-  context
+  contents
   )
 
 (defun build-grid (data)

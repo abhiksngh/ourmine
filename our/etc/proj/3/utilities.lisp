@@ -39,3 +39,16 @@
 
 (defun reorient-data (data)
   (reverse (transpose (data))))
+
+(defun max-list (lst)
+  (let ((current-max (first lst)))
+    (dolist (item lst)
+      (setf current-max (max current-max item)))
+    current-max))
+
+(defun min-list (lst)
+  (let ((current-min (first lst)
+          ))
+    (dolist (item lst)
+      (setf current-min (min current-min item)))
+    current-min))
