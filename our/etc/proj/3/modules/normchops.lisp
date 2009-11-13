@@ -8,8 +8,7 @@
                  (+ mean (* (directional-integer i) stddev)))
     (add (aref bins (+ base i))
          (nth column (eg-features record)))
-    (setf (nth column (eg-features record))
-          (format nil "bin ~a" i))
+    (setf (nth column (eg-features record)) i)
     (return-from chop-it-up t))
   nil)
 

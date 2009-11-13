@@ -24,6 +24,8 @@
 (load "tests/data/meta")
 (load "tests/graphs")
 
+(defstruct rule column value prediction)
+
 (defun learn (&key (k 8) prep discretizer clusterer fss classify
 				   (train "train.lisp")
 				   (test "test.lisp")

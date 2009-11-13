@@ -11,7 +11,7 @@
 ;used in Normal Chops
 (defun init-bins (bins n)
   (dotimes (i n)
-     (setf (aref bins i) (make-bin :name (format nil "bin ~a" (- i 3))))))
+     (setf (aref bins i) (make-bin :name (- i 3)))))
 
 ;Builds a list of bins
 ;used in Normal Chops
