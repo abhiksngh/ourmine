@@ -35,4 +35,4 @@
 		(clustered-table (funcall clusterer preptrain k))
 		(features (funcall fss clustered-table))
 		(classification (funcall classify discrete-table features)))
-  (values preptest classification)))
+  (values classification preptest)))
