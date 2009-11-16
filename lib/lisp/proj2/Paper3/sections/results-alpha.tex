@@ -1,0 +1,23 @@
+During testing it was determined that MultiPipes could easily be used 
+as a reliable narrower. We found that on some datasets we were 
+able to acheive a very high reliability. That is, our resulting output 
+set contained the actual class more than 90\% of the time. However, we
+found that on some other datasets the reliability was quite less. 
+When searching for a solution we realized we needed a way to expand 
+the returned dataset. This would increase the chance that the desired 
+class is included in the returned set. The reason to expand the 
+returned set is so we can improve the reliability to say with greater
+confidence that the returned set is complete and accurate. Our next 
+step is to train the learner as to which alpha value it should use. 
+We would specify a goal reliability and expand the alpha slowly until 
+that reliability is reached. In the Classify function (Program \ref{pro:Classify}) above you will 
+notice that we add anything to the BestClass list that has a score 
+equal to the best score found. Each score is a fraction and the best 
+possible score is 1. When you apply an Alpha of .1 it basically 
+states that if the the current score is greater than the current best 
+score minus .1 append it to the list. This requires one run through the 
+list of MultiPipes to find the best score. It then calculates the score 
+to beat as \begin{math}ScoreToBeat = BestScore - Alpha\end{math}. On its second run through the 
+MutliPipes any MultiPipe with a score greater than or equal to the 
+\begin{math}ScoreToBeat\end{math} is included in the resulting set. 
+

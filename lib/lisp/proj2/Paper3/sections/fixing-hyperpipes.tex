@@ -1,0 +1,87 @@
+\subsection{Introducing MultiPipes}
+We saw incredible potential in HyperPipes if we could reign in
+the issues described above. One of the major advantages of HyperPipes
+is its ability to classify a single row very fast. The Pipes 
+condition can be stored and retrieved at a later time for 
+classification unlike some other learners whose classification 
+relies heavily on the actual contents of previous rows. Below we 
+describe how HyperPipes was transformed into MultiPipes.
+
+\subsection{Fixing the issues}
+\subsubsection{Tied Classes}
+When it was discovered that HyperPipes tended to choose classes 
+towards the end of the classes list we investigated further to 
+find that many classes were tieing against other classes. We 
+then decided that this was unacceptable. Overwriting a class 
+with another class of the same score puts a large emphasis on 
+the order in which you score the classes. For this issue we 
+decided to temporarily throw away the idea of classification 
+and modified the code to return any classes who tied. This 
+simple modification proved to us that this issue alone was a 
+major factor in HyperPipes demise when put up against other 
+classifiers. To recap, HyperPipes states that if 
+the current score is equal to or greater than the best score 
+set the best class to the current class. MultiPipes states that if the score is greater than the 
+best score set the best class to an array containing only the 
+current class. If the current score is equal to the best score 
+then append the current class to the list of best classes.
+
+
+\subsubsection{Over Fitting}
+As described previously Hyperpipes has an over fitting issue 
+when it learns too much. All of the algorithms below are triggered 
+based on the percentage of times the class is returned but it is 
+found not to be the actual class. Two modifiable attributes, detectAfter
+and triggerWhen, indicate to the system how often to check for 
+overfit and at what percentage we assume we have hit an overfit. 
+Below we describe the different actions we take when an overfit
+is detected:
+\begin{enumerate}
+\item Reset and Relearn: 
+	When this overfit action is enabled it will keep track of the 
+	last 100 rows encountered for each class. If an overfit is detected 
+	the numerical bounds for that class are reset to nothing(start over).
+	However, it then looks at the oldest 50 rows in the 100 row history 
+	and relearns those into the pipe before continuing. Therefore when
+	an overfit is detected we dont lose all classification ability on that
+	pipe, we simply know less.
+\item Revert Pipe on Detection:
+	When this overfit action is enabled it will keep track of the previous
+	ten MultiPipes. When the supporting code requests that the MultiPipe
+	be checked for overfit if it is determined to not be overfit the 
+	pipe is logged. If the pipe is determined to be overfit it will revert 
+	the pipe to the previously logged MultiPipe.
+	
+\end{enumerate}
+
+
+\subsubsection{Outliers}
+We have implemented some fixes to the problem of outliers. 
+However, there are many other outlier fixing strategies that have 
+not been implemented. Below is a list of our outlier fixing 
+strategies and thier implemtation status:
+\begin{enumerate}
+\item Weighted Means: What this fix 
+does is it changes the scoring mechanism. In the pseudocode for 
+Classify (Program \ref{pro:Classify}) you will notice that it returns 1 if the current attribute 
+value falls within the range of that given by the MultiPipe for that 
+Attribute. The Weighted Means changes the 1 to a number between 0 
+and 1 which represents the distance from the mean within the range. 
+Two versions of this are explained further in Section 5.
+\item Outlier Detection Algorithm: 
+Every time MultiPipes attempts to add experience to its numerical bounds
+the algorithm calculates the z-score\cite{Larsen01} for the value attempting to be added. 
+If the Z-Score is greater than 1.96 then the value is not used to expand
+the ranges within the hyperpipe.
+\item Slowly Changing Ranges: 
+The same fix we used in the outlier detection algorithm also allows for 
+slowly changing ranges. Its important to realize that the value being
+considered is added to the statistics for consideration in the z-score 
+calculation and its addition to the statistics is not reversed if the
+value is determined to be an outlier. This means that if the value 
+determined to be an outlier occurs multiple times it is likely that 
+it will eventually receive a z-score less than 1.96 and no longer be
+considered an outlier and will subsequently be added to the min and max
+for the hyperpipe.
+\end{enumerate}
+
