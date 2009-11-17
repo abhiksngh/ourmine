@@ -272,6 +272,7 @@
         (totalChecks 0)
         (totalRight 0)
         (outputFileName (concatenate `string outputPath "/outputFile-" dataFileName (format nil "~a" countType) (format nil "~a" meanType) (format nil "~a" useCentroid) "-" (format nil "~a" (round (* Alpha 100))) "-" (format nil "~a" oldway) "-" (format nil "~a" overfitDetect) "-" (format nil "~a" overfitRevert) "-" (format nil "~a" removeOutliers) ".txt"))
+         (columnWeight nil)
          
                                      
          
@@ -287,6 +288,11 @@
                (tiedClasses (TrimTiedClasses tiedClasses MyHyperPipes useCentroid))
                (successOrFailure (find (nth (- (length attributeValues) 1) attributeValues) tiedClasses))
                )
+          (if (null columnWeight)
+              (dotimes (i (- (length attributeValues) 1))
+                (setf columnWeight (append columnWeight (list 0)))
+                )
+              )
           
 ;          (format t "~%Expected Result: ~a Actual Result: ~a" (nth (- (length attributeValues) 1) attributeValues) tiedClasses)
 ;          (format t "~%Success?: ~a~%" successOrFailure)
@@ -298,6 +304,7 @@
               (write-line (remove #\newline (format nil "~a ~a ~s ~a" 0 (length tiedClasses) tiedClasses (last attributeValues))) outputFile)
 ;              (format t "~a ~a ~a~%" 0 (length tiedClasses) tiedClasses)
               (progn
+                (incrementColumnWeights MyHyperPipes columnWeight attributeValues (car (last attributeValues)))
                 (incf totalRight)
 ;                (format t "Verified Success")
                 ;(write-line (format nil "~a ~a ~a ~a" 1 (length tiedClasses) tiedClasses (last attributeValues)) outputFile)
@@ -333,6 +340,7 @@
     ;(print (float (/ totalRight totalChecks)))
     ;(print Alpha)
     ;MyHyperPipes
+    (print columnWeight)
     (float (/ totalRight totalChecks))
     
     )
@@ -577,3 +585,25 @@
         )
       )
   )
+
+
+(defun incrementColumnWeights (HyperPipes columnWeight attributeValues class)
+  (let ((pipe (FindPipe HyperPipes class)))
+    (dotimes (current (- (length attributeValues) 1) pipe)
+      (let ((currentBound (nth current (HyperPipe-numericBounds pipe)))
+            (currentExperience (nth current attributeValues)))
+        (if (or
+             (and (not (equal currentExperience '?))
+                  (not (numberp currentExperience))
+                  (member currentExperience (NumericBound-nonNumeric currentBound)))
+             (and (numberp currentExperience)
+                 (>= currentExperience (NumericBound-min currentBound))
+                 (<= currentExperience (NumericBound-max currentBound))))
+            (incf (nth current columnWeight))
+            )
+        )
+      )
+    )
+  )
+
+
