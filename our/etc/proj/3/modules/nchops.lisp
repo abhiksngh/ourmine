@@ -13,7 +13,8 @@
 	    (when (>= bincount binsize)
 	      (incf binname)
 	      (setf bincount 0))
-	    (setf (nth colnum (eg-features record)) binname))) ; MP: Dumb bin-naming.
+	    (setf (nth colnum (eg-features record)) binname) ; MP: Dumb bin-naming.
+	    (setf (eg-class record) (nth (table-class tbl) (eg-features record)))))
 	(setf (nth colnum (table-columns tbl)) (discrete-column column)))
       (incf colnum))))
 
