@@ -13,7 +13,7 @@
     )
 )
 
-; splits a data-set into 10 bins, and preserves class distribution in
+; splits a data-set into nbins, and preserves class distribution in
 ; bins.  Then builds a test-set from 10% of the data, and train-set from
 ; the remaining 90%
 (defun bins (data)

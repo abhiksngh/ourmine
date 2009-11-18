@@ -15,49 +15,6 @@
     )
 )
 
-(defun masslearn ()
-    (runlearnset nil "nv_norm_not_freq.dat" 
-                 :rowReducer #'donothing1 
-                 :discretizer #'equal-freq)
-    (runlearnset nil "nv_norm_not_width.dat" 
-                 :rowReducer #'donothing1 
-                 :discretizer #'equal-width)
-    (runlearnset t "nv_norm_not_freq_bsq.dat" 
-                 :rowReducer #'donothing1 
-                 :discretizer #'equal-freq)
-    (runlearnset t "nv_norm_not_width_bsq.dat" 
-                 :rowReducer #'donothing1 
-                 :discretizer #'equal-width)
-    (runlearnset nil "nv_norm_sub_freq.dat" 
-                 :rowReducer #'sub-sample 
-                 :discretizer #'equal-freq)
-    (runlearnset nil "nv_norm_sub_width.dat" 
-                 :rowReducer #'sub-sample 
-                 :discretizer #'equal-width)
-    (runlearnset t "nv_norm_sub_freq_bsq.dat" 
-                 :rowReducer #'sub-sample 
-                 :discretizer #'equal-freq)
-    (runlearnset t "nv_norm_sub_width_bsq.dat" 
-                 :rowReducer #'sub-sample 
-                 :discretizer #'equal-width)
-;    (runlearnset nil "nv_norm_bur_freq.dat"
-;                 :rowReducer #'burak
-;                 :discretizer #'equal-freq-train-test)
-;    (runlearnset nil "nv_norm_bur_width.dat"
-;                 :rowReducer #'burak
-;                 :discretizer #'equal-width-train-test)
-;    (runlearnset t "nv_norm_bur_freq_bsq.dat"
-;                 :rowReducer #'burak
-;                 :discretizer #'equal-freq-train-test)
-;    (runlearnset t "nv_norm_bur_width_bsq.dat"
-;                 :rowReducer #'burak
-;                 :discretizer #'equal-width-train-test)
-    (runlearnset nil "baseline.dat"
-                 :norm #'donothing
-                 :rowReducer #'donothing
-                 :discretizer #'donothing1)
-
-)
 
 (defun runLearnSet(&optional (bsq nil) (filename "output.dat")
                    &key (prep #'numval1)
@@ -72,82 +29,121 @@
                           #'shared-mw1 
                           #'shared-mc2 
                           #'shared-pc1 
-                          #'ar3 #'ar4 
-                          #'ar5))
+;                          #'ar3 
+;                          #'ar4 
+;                          #'ar5
+))
            (stream (open filename :direction :output 
                                   :if-does-not-exist :create
                                   :if-exists :supersede))
-          (train) (test) (var))
+           (slice-count 0)
+           (var)
+           (tslice) (fslice) ; true/false scores for each slice
+           (pdslice) (pfslice) ; pd/pf scores for each slice
+           (tsofar) (fsofar) ; true/false scores for running train set
+           (pdsofar) (pfsofar) ; pd/pf scores for running train set
+           (train-so-far))   ; running train set (builds as it goes)
+
+    ; for each data set (10 total)
         (dolist (per-set setList)
-            (format stream "~A~%" (parse-name per-set))
-            (setf var (funcall discretizer (funcall per-set)))
-            (multiple-value-bind (trainList testList) 
-                (if bsq 
-                   (bins (b-squared var))   ; b-squared col red
-            ;         (bins (prune-columns var (list 3 13 18)))        
-            (bins var)               ; no col reduction
-;                    (nvalues 0.8 (b-squared(funcall per-set)))
-  ;                  (nvalues 0.8 (funcall per-set))
+
+        ; ** need to do column pruning depending on if it is nasa/softlab **
+        (format t "~%~A:~%" (table-name (funcall per-set)))
+
+        ; run this experiment with 5 different randomizations
+            (loop for k from 1 to 3
+                do
+                (format t "~A.." k)
+                (setf var 
+                    (build-a-data (format nil "~A_rand_~A" (table-name (funcall per-set)) k) 
+                        (columns-header (table-columns (funcall per-set)))
+                        (shuffle (features-as-a-list (funcall per-set)))))
+                (format stream "~A~%" (table-name var))
+            
+                ; split each randomization into 5 bins (80/20 train test)
+                (multiple-value-bind (trainlist testlist) (bins var)
+                    (when (not train-so-far)
+                        (setf train-so-far (first trainlist))
+                    )
+ 
+                    ; for each of the 5 bins of this randomization
+                    (doitems (per-train i trainlist) 
+
+                        ; get perf scores for this slice
+                        (multiple-value-bind (ts fs) 
+                            (learn per-train (nth i testlist))
+                            (setf tslice ts fslice fs)
+                        )
+
+                        ; get perf scores for train set so far
+                        (multiple-value-bind (ts fs) 
+                            (learn train-so-far (nth i testlist))
+                            (setf tsofar ts fsofar fs))
+
+                        ;** 'better' and 'worse' should probably be based on some % threshold
+                        ; if scores are equal, don't change 'so-far', just move to next slice
+                        ; if the slice is worse, ignore it, move to next slice
+
+                        ; if slice is better than 'so-far' add the slice's train to total
+                        (setf pdslice (float(pd (first tsofar)
+                                                (second tsofar)
+                                                (third tsofar)
+                                                (fourth tsofar))))
+                        (setf pfslice (float(pf (first tsofar)
+                                                (second tsofar)
+                                                (third tsofar)
+                                                (fourth tsofar))))
+                        (setf pdsofar (float(pd (first tsofar)
+                                                (second tsofar)
+                                                (third tsofar)
+                                                (fourth tsofar))))
+                        (setf pfsofar (float(pd (first tsofar)
+                                                (second tsofar)
+                                                (third tsofar)
+                                                (fourth tsofar))))
+ 
+                        (when (> (- pdslice pfslice) (- pdsofar pfsofar))
+                            (setf train-so-far (combine-sets train-so-far per-train))
+                        )
+
+                        ; prints the pd/pf stats for the 'so-far' train set
+                        (format stream "~A: TRUE~Tpd: ~A~Tpf: ~A~Tsize: ~A~%" slice-count 
+                                pdsofar pfsofar (length (features-as-a-list train-so-far)))
+                        (incf slice-count)
+                    )    
                 )
-                (learn trainList testList stream :prep prep
-                                                 :norm norm
-                                                 :rowReducer rowReducer 
-    ;                                             :discretizer discretizer
-                                                 )
-                (format stream "~%")
             )
         )
         (close stream)
     )
 )
 
-(defun learn (trainList
-              testList
-              stream
+(defun combine-sets (base new)
+    (build-a-data (table-name base) (columns-header (table-columns base)) 
+                  (append (features-as-a-list base) (features-as-a-list new)))
+)
+
+(defun learn (trainset
+              testset
               &key (prep #'numval1)
                    (norm #'normalizedatatrainandtest)
-                   (rowReducer   #'sub-sample)
-   ;                (discretizer  #'equal-width-train-test)
+                   (rowReducer   #'donothing)
+                   (discretizer  #'equal-width-train-test)
                    (classify     #'nb))
-    (when (not (listp trainList))
-        (setf trainList (list trainList))
-    )
-    (when (not (listp testList))
-        (setf testList (list testList))
-    )
+    ; normalize both train and test data sets
+    (multiple-value-bind (trainSet testSet) 
+        (funcall norm trainSet testSet)
 
-    (doitems (per-data-train i trainList) 
-        (let* ((trainSet (if (tablep per-data-train)
-                             per-data-train
-                             (funcall per-data-train)))
-               (testSet (if (tablep (nth i testList))
-                            (nth i testList)
-                            (funcall (nth i testList))))
-               (trainSet (funcall prep trainSet))
-               (testSet (funcall prep testSet)))
+        ; perform row reduction on train set
+        ; (setf trainSet (funcall rowReducer trainSet testSet 75))
 
-            ; normalize both train and test data sets
-            (multiple-value-bind (trainSet testSet) 
-                (funcall norm trainSet testSet)
-;(format t "before: ~A" (length (table-all (xindex trainSet))))
-                ; perform row reduction on train set
-                (setf trainSet (funcall rowReducer trainSet testSet 75))
-;(format t "  after: ~A~%" (length (table-all (xindex trainSet))))
-                    ; perform discretization on both data sets
-;                (multiple-value-bind (trainSet testSet) 
- ;                   (funcall discretizer trainSet testSet)
+        ; perform classificiation on both data sets
+        (multiple-value-bind (trueClass falseClass) 
+            (funcall classify trainSet testSet)
 
-                    ; perform classificiation on both data sets
-                    (multiple-value-bind (trueClass falseClass) 
-                        (funcall classify trainSet testSet)
-
-                        ; print metrics
-                        (printLine stream 'TRUE trueClass)
-                        (printLine stream 'FALSE falseClass)
-                    )
-                )
-  ;          )
-        T)
+            ; return metrics
+            (values trueClass falseClass)
+         )
     )
 )
 
