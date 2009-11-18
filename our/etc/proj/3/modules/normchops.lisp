@@ -1,6 +1,13 @@
-(defun discrete-column (col)
-   (make-discrete :name (header-name col) :classp (header-classp col)
-                  :ignorep (header-ignorep col)))
+(flet ((column-index (col tbl)
+		 (- (length (table-columns tbl))
+			(length (member col (table-columns tbl))))))
+  (defun discrete-column (col tbl)
+	(let ((discrete-col (make-discrete :name (header-name col)
+									   :classp (header-classp col)
+									   :ignorep (header-ignorep col)))
+		  (pos (column-index col tbl)))
+		(dolist (eg (table-all tbl) discrete-col)
+		  (datum discrete-col (nth pos (eg-features eg)) nil)))))
 
 (defun chop-it-up (record bins i column mean stddev &key (base 3))
   (when (funcall (directional-compare i)
@@ -35,7 +42,7 @@
           (chopscan record bins n m std))
         (push (build-bin-list bins) (table-ranges tbl))
         (init-bins bins 7))
-      (setf (nth n(table-columns tbl))(discrete-column column))
+      (setf (nth n (table-columns tbl)) (discrete-column column tbl))
       (incf n))
                  
       
