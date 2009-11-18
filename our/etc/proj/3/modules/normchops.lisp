@@ -39,13 +39,10 @@
         (setf std (stdev normval))
         (setf m (mean normval))
         (dolist (record (table-all tbl))
-          (chopscan record bins n m std))
-        (push (build-bin-list bins) (table-ranges tbl))
-        (init-bins bins 7))
+          (chopscan record bins n m std)
+		  (setf (eg-class record) (nth (table-class tbl) (eg-features record)))))
       (setf (nth n (table-columns tbl)) (discrete-column column tbl))
       (incf n))
-                 
-      
       (setf (table-ranges tbl) (reverse (table-ranges tbl)))
       tbl))
 
