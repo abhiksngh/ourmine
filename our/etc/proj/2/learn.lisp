@@ -1,21 +1,3 @@
-(defun runLearnSetNoBins(&optional (stream t))
-    (let* ((setList (list #'shared-cm1 #'shared-kc1 #'shared-kc2 #'shared-kc3 #'shared-mw1 #'shared-mc2 #'shared-pc1)))
-        (dolist (per-set setList)
-            (format stream "~A~%" (parse-name per-set))
-            (dolist (percent (list 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95))
-                (format stream "Train: ~a%, Test: ~a%~%" 
-                    (round (* 100 percent)) 
-                    (round (* 100 (- 1.0 percent)))
-                )
-                (multiple-value-bind (train test) (nvalues percent (funcall per-set))
-                (learn train test))
-                (format stream "~%")
-            )
-        )
-    )
-)
-
-
 (defun runLearnSet(&optional (bsq nil) (filename "output.dat")
                    &key (prep #'numval1)
                         (norm #'normalizedatatrainandtest)
@@ -84,7 +66,6 @@
                         ; if scores are equal, don't change 'so-far', just move to next slice
                         ; if the slice is worse, ignore it, move to next slice
 
-                        ; if slice is better than 'so-far' add the slice's train to total
                         (setf pdslice (float(pd (first tsofar)
                                                 (second tsofar)
                                                 (third tsofar)
@@ -101,7 +82,8 @@
                                                 (second tsofar)
                                                 (third tsofar)
                                                 (fourth tsofar))))
- 
+
+                        ; if slice is better than 'so-far' add the slice's train to total 
                         (when (> (- pdslice pfslice) (- pdsofar pfsofar))
                             (setf train-so-far (combine-sets train-so-far per-train))
                         )
@@ -128,7 +110,7 @@
               &key (prep #'numval1)
                    (norm #'normalizedatatrainandtest)
                    (rowReducer   #'donothing)
-                   (discretizer  #'equal-width-train-test)
+                   (discretizer  #'equal-freq-train-test)
                    (classify     #'nb))
     ; normalize both train and test data sets
     (multiple-value-bind (trainSet testSet) 
@@ -146,48 +128,6 @@
          )
     )
 )
-
-(defun printHeaderLine (stream prep norm rowReducer discretizer classifier)
-    (format stream "prep: ~A~%normalizer: ~A~%rowReducer: ~A~%discretizer: ~A~%classifier: ~A~%" 
-        (parse-name prep)
-        (parse-name norm)
-        (parse-name rowReducer)
-        (parse-name discretizer)
-        (parse-name classifier))
-
-)
-
-(defun printLine(stream class resultsList)
-    (format stream "~a,~T~a,~T~a,~T~a,~T~a,~T~a,~T~a,~T~a,~T~a,~T~a,~T~a~%"   
-                  class 
-                  (first resultsList) 
-                  (second resultsList) 
-                  (third resultsList) 
-                  (fourth resultsList)
-                   (float (acc (first resultsList)
-                        (second resultsList)
-                        (third resultsList)
-                        (fourth resultsList)))
-                   (float (prec (first resultsList)
-                         (second resultsList)
-                         (third resultsList)
-                         (fourth resultsList)))
-                   (float(pd (first resultsList)
-                       (second resultsList)
-                       (third resultsList)
-                       (fourth resultsList)))
-                   (float(pf (first resultsList)
-                       (second resultsList)
-                       (third resultsList)
-                       (fourth resultsList)))
-                   (float(f-calc (first resultsList)
-                      (second resultsList)
-                      (third resultsList)
-                      (fourth resultsList)))
-                   (float(g (first resultsList)
-                      (second resultsList)
-                      (third resultsList)
-                      (fourth resultsList)))))
 
 (defun prec(a b c d)
   (/
