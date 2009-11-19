@@ -1,9 +1,8 @@
 (defun max-w (w)
   (let (max (* -1 most-positive-single-float))
-    (dolist (ele w)
+    (dolist (ele w max)
       (if (> ele max)
-          (setf max ele)))
-    max))
+          (setf max ele)))))
     
 (defun prob-surviv (index w)
   (let ((sum 0))
@@ -19,10 +18,10 @@
       (incf n))
     rtnlist))
 
-(defun new-center (tbl m)
-  (pop (gen-centroids tbl m)))
+(defun new-center (tbl)
+  (pop (gen-centroids tbl 1)))
 
-(defun gen-centroids (tbl m &optional(factor .01))
+(defun gen-centroids (tbl m &optional(factor 1.0))
   (let ((alist (sample-population (normalize-table tbl) m factor))
         (rtnlist))  
     (dotimes (n m rtnlist)
@@ -82,38 +81,7 @@
             (append (eg-features record) (format nil "~a" (min-distance rtnlist)))))
   ))         
           
-(defun genic2(tbl k n &optional(multi 2))
-  (let* ((m (* multi k))
-         (w (make-array m :initial-element 1))
-         (c (gen-centroids tbl m))
-         index
-         (pruned nil)
-         (count 0))
 
-    (dolist (record (table-all tbl))
-      (incf count)
-      (setf index (min-distance record c))
-      (setf (nth index c) (move-center (nth index c) (aref w index) (eg-features record)))
-      (incf (aref w index))
-
-      (when (=(mod count n) 0)
-        (dolist (i w)
-          (when (< (aref w i) (* .5 (max-w w)))
-            (remove (nth i c))
-            (setf pruned t)
-            (remove (aref w i))))
-        (when (not pruned)
-            (setf k (* 1.5 k))
-            (setf m (* k m)))
-        (setf pruned nil))
-      )
-    (while (< rtnlist k)
-      (setf rtnlist (cons rtnlist (nth (next-best-w w) c))))
-    (setf (table-columns tbl) (append (table-columns tbl) `(,(make-discrete :name 'clusters)))) 
-    (dolist (record (table-all tbl) tbl)
-      (setf (eg-features record)
-            (append (eg-features record) (format nil "~a" (min-distance rtnlist)))))
-  ))
 
     
       

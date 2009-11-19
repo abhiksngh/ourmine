@@ -8,8 +8,8 @@
 (defun distance (p q)
   (sqrt (reduce #'+ (mapcar (lambda (x y) (* (- x y) (- x y))) p q))))
 
-(defun sample-population (tbl m &optional (factor .01))
-  (any (subseq (table-all tbl) 0 (max m (floor (* (length (table-all tbl)) factor))) m)))
+(defun sample-population (tbl m &optional (factor .1))
+  (any (subseq (table-all tbl) 0 (max m (floor (* (length (table-all tbl)) factor)))) m))
 
 ; COMPRESSION
 ; From P. Graham (P. #37)
