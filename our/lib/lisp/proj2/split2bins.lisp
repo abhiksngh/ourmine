@@ -40,7 +40,7 @@
             (setf count 0)
             (incf count))))
     (dolist (bin-instances bucket bucket-tables)
-      (setf bucket-tables (append (list (make-simple-table (table-name data) (table-columns data) bin-instances)) bucket-tables)))))
+      (setf bucket-tables (append (list (xindex (make-simple-table (table-name data) (table-columns data) bin-instances))) bucket-tables)))))
 
 
 
