@@ -154,7 +154,7 @@
          (cluster-nr 1))
     (dolist (obj cls)
       (setf cluster-tables (append cluster-tables
-                                   (list (data :name cluster-nr :columns (get-col-names (table-columns train)) :egs obj))))
+                                   (list (xindex (discretize (data :name cluster-nr :columns (get-col-names (table-columns train)) :egs obj))))))
       (setf cluster-nr (incf cluster-nr)))
     (del-empty-clusters cluster-tables)))
 

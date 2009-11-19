@@ -21,10 +21,22 @@
   (let* ((lst-out)
 	 (indexes (merge-data)))
   (dolist (l shared-lst lst-out)
-    (setf lst-out (append lst-out (list (discretize (xindex  (make-bsquare-table l indexes)))))))))
+    (setf lst-out (append lst-out (list (xindex  (make-bsquare-table l indexes))))))))
 
 (defun make-bsquare-table (tbl indexes)
   (bsquare-table tbl indexes))
 
-	 
+(defun randomize (lst &optional (b 5))
+  (let* ((all-tbl))
+    (dolist (l lst all-tbl)
+      (setf all-tbl (append all-tbl (split2bin-tables l b))))))
+
+
+(defun k-means-all-tables (lst &optional (k 2))
+  (let ((all-tables))
+    (dolist (tbl lst all-tables)
+      (let ((lst-clusters (k-means tbl k))) 
+       (setf all-tables  (append all-tables (list (car (sort lst-clusters #'> :key #'length)))))))
+       (make-cluster-tables all-tables (car lst))))
+
 	 
