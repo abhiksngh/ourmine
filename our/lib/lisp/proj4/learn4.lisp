@@ -49,4 +49,19 @@
 (defun set-data ()
   (setf prepared-data (build-datas '(2 4 6 8 10))))
 
-
+(defun build-new-bp (bp atable current-rules)
+  (let* ((x 0))
+    (setf current-rules (get-rules-for-true current-rules))
+    (if (not (score-rules (car bp) current-rules))
+	(let* ((table-lst (list atable (cadr bp)))
+	       (newtable (append-tables table-lst))
+	       (newbp (list (get-rules-for-true (prism newtable)) newtable)))
+	  (if (not (score-rules (car newbp) current-rules))
+	      (return-from build-new-bp (list (get-rules-for-true current-rules) atable))
+	      (return-from build-new-bp newbp)))
+	(return-from build-new-bp bp))))
+	
+		   
+	      
+	  
+    
