@@ -209,6 +209,12 @@
              (success (eql got want)))
         (format stream "~a ~a ~a~%"  got want (if (eql got want) "   " "<--"))))))
 
+(defun get-rules-for-true (tbl)
+  (let ((rules (make-rules-all-classes tbl)))
+    (if (equal (car (nth 0 rules)) 'True)
+      (cdr (nth 0 rules))
+      (cdr (nth 1 rules)))))
+
 (defun make-data-lenses ()
   (data
    :name   'weather
