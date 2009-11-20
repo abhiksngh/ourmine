@@ -200,20 +200,22 @@
   t nil)))
 
 
-(defun prism-self-test (train test &key (stream t))
+(defun prism-classify-final (train test)
   (xindex train)
-  (let ((rules (make-rules-all-classes train))) 
-    (dolist (one (table-all test))
+  (let ((rules (get-rules-for-true train))
+	(acc 0)
+	(max (length (table-all test))))
+    (dolist (one (table-all test) (/ acc max))
       (let* ((got     (classify-prism (eg-features one) rules train))
              (want    (eg-class one))
              (success (eql got want)))
-        (format stream "~a ~a ~a~%"  got want (if (eql got want) "   " "<--"))))))
+	(incf acc (if success 1.0 0.0))))))
 
 (defun get-rules-for-true (tbl)
   (let ((rules (make-rules-all-classes tbl)))
     (if (equal (car (nth 0 rules)) 'True)
-      (cdr (nth 0 rules))
-      (cdr (nth 1 rules)))))
+      (list (nth 0 rules))
+      (list (nth 1 rules)))))
 
 (defun make-data-lenses ()
   (data
