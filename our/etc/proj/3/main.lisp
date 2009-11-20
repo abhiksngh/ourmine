@@ -13,6 +13,7 @@
 (load "modules/nchops")
 (load "modules/b-squared")
 (load "modules/nomograms")
+(load "modules/genic2")
 (load "modules/2b.lisp")
 (load "tests/data/quake")
 (load "tests/data/sick")
