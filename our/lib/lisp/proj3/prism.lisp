@@ -200,13 +200,11 @@
   t nil)))
 
 
-(defun prism-classify-final (train test)
-  (xindex train)
-  (let ((rules (get-rules-for-true train))
-	(acc 0)
+(defun prism-classify-final (rules test)
+  (let ((acc 0)
 	(max (length (table-all test))))
     (dolist (one (table-all test) (/ acc max))
-      (let* ((got     (classify-prism (eg-features one) rules train))
+      (let* ((got     (classify-prism (eg-features one) rules test))
              (want    (eg-class one))
              (success (eql got want)))
 	(incf acc (if success 1.0 0.0))))))
@@ -214,8 +212,8 @@
 (defun get-rules-for-true (tbl)
   (let ((rules (make-rules-all-classes tbl)))
     (if (equal (car (nth 0 rules)) 'True)
-      (list (nth 0 rules))
-      (list (nth 1 rules)))))
+	(list (car rules))
+	(list (car (cdr rules))))))
 
 (defun make-data-lenses ()
   (data
