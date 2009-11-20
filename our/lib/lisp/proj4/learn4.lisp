@@ -1,10 +1,3 @@
-(defparameter shared-lst (list (xindex (remove-falses (shared_pc1))) (xindex (remove-falses (shared_kc1)))
-			       (xindex (remove-falses (shared_kc2))) (xindex (remove-falses (shared_kc3)))
-			       (xindex (remove-falses (shared_cm1))) (xindex (remove-falses (shared_mw1)))
-			       (xindex (remove-falses  (shared_mc2)))))
-(defparameter prepared-data '())
-
-
 (defun remove-falses(train)
   (let* ((data (table-egs-to-lists train))
          (temp)
@@ -14,6 +7,12 @@
       (setf temp (nth n data))
       (if (eq (nth class-col temp) 'true)
           (setf truths (append (list temp) truths))))))
+
+(defparameter shared-lst (list (xindex (remove-falses (shared_pc1))) (xindex (remove-falses (shared_kc1)))
+			       (xindex (remove-falses (shared_kc2))) (xindex (remove-falses (shared_kc3)))
+			       (xindex (remove-falses (shared_cm1))) (xindex (remove-falses (shared_mw1)))
+			       (xindex (remove-falses  (shared_mc2)))))
+(defparameter prepared-data '())
 
 
 (defun merge-data (&optional (nr-attributes 5))
