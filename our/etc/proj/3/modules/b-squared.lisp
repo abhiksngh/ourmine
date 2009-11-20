@@ -46,6 +46,8 @@
                                                   (< (first x) (second x)))
                                             0
                                             (funcall score (first x) (second x))))))
-      (mapcar #'last (subseq frequency-ranges
-                            0 (floor (* threshold
-                                        (length frequency-ranges))))))))
+      (mapcar (lambda (x)
+                (first (last x)))
+              (subseq frequency-ranges
+                      0 (floor (* threshold
+                                  (length frequency-ranges))))))))
