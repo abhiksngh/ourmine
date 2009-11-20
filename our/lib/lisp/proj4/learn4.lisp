@@ -100,7 +100,7 @@
     (dotimes (i iterations)
       (dolist (train-tbl train)
 	;(format t "~a ~a ~a ~a ~a ~%" "Data set " acc ": Back pocket rules: Itr " i (car bp))
-	(pincf acc)
+	(incf acc)
 	(if (= (length bp) 0)
 	    (setf bp (list (get-rules-for-true train-tbl) train-tbl))	    
 	    (setf bp (build-new-bp bp train-tbl (get-rules-for-true train-tbl) test)))))
