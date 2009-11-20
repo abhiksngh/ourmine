@@ -123,3 +123,6 @@
 (defun directional-integer (i)
   (directional-magic i (1+ i) i (1- i)))
 
+(defmethod coin-flip ((data1 discrete) (data2 discrete))
+  (if (= 0 (my-random-int 2)) data1 data2))
+
