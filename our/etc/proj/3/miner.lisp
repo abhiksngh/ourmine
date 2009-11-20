@@ -19,6 +19,7 @@
 			"learn/nb"
 			"utils/utillib"
 			"utils/charts"
+            "utils/tossout"
 			))
 
 (defparameter *menzies*

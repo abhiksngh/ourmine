@@ -144,4 +144,7 @@
 
 (defun column-index (col tbl)
   (- (length (table-columns tbl))
-	 (length (member col (table-columns tbl)))))
+	 (length (member col (table-columns tbl) :test #'column=))))
+
+(defun column= (col1 col2)
+  (string= (header-name col1) (header-name col2)))
