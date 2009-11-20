@@ -95,6 +95,7 @@
     best))
 
 
+#|
 (defun oner-classify (item rule)
   
 
@@ -112,3 +113,4 @@
 	(format stream "~a ~a ~a~%" got want
 		(round (* 100 (/ acc max)))
 		(if success "   " "<--"))))))
+|#
