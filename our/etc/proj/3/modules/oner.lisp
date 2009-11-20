@@ -94,32 +94,21 @@
 	(clrhash ht)))
     best))
 
-#|
+
 (defun oner-classify (item rule)
-  (
+  
 
 (defun oner (train test &key (stream t))
   "I'm stealing from Menzies...sorta."
   (let* ((acc o)
 	 (max (length (table-all test)))
-	 (rule (oner-guts train))
-	 (colindex (indexof (bestrule-column rule) (table-columns test))))
+	 (rules (oner-guts train))
+	 (colindex (indexof (rules-column rules) (table-columns test))))
     (dolist (record (table-all test))
-      (let* ((got 
-	     (want (eg-class record))
-	     (success (eql got want)))
-
-
-  (let* ((acc 0)
-	(all  (table-all test))
-	(max  (length all)))
-    (dolist (one all (/ acc max))
-      (let* ((got     (oner-guts test)))
-	     (want    (eg-class one))
+      (let* ((got     (oner-classify (nth colindex record) (rules-rules rules)))
+	     (want    (eg-class record))
 	     (success (eql got want)))
 	(incf acc (if success 1.0 0.0))
-	(format stream "~a ~a ~a ~a~%"  got want  
+	(format stream "~a ~a ~a~%" got want
 		(round (* 100 (/ acc max)))
 		(if success "   " "<--"))))))
-|#
-
