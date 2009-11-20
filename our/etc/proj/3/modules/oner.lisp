@@ -1,3 +1,25 @@
+(defun add-rule (ht attribute class)
+  (let ((outer (gethash attribute ht))
+	inner)
+    (when (null outer)
+      (setf outer (setf (gethash attribute ht) (make-hash-table))))
+    (setf inner (gethash class outer))
+    (when (null inner)
+      (setf inner (setf (gethash class outer) 0)))
+    (setf inner (incf (gethash class outer)))))
+
 (defun oner (table &optional features)
-  (dolist (column (if (null features) (table-columns table) features))
-	(null column)))
+  (let ((rows (length (table-all table)))
+	colindex
+	best)
+    ; This could be more efficient of indexof is replaced (I think - check later).
+    (dolist (column (if (null features) (table-columns table) features))
+      (setf colindex (indexof column (table-columns table)))
+      ; MP: I think this might be a good size, but I'm open to suggests (or leaving it default).
+      (let ((ht (make-hash-table :size (/ rows 2))))
+	(dolist (record (table-all table))
+	  (add-rule ht (nth colindex (eg-features record)) (eg-class record)))
+	(maphash #'(lambda (key val)
+		     (format t "~A = ~A~%" key val)) ht)
+	(format t "~A~%" ht))
+      (return-from oner))))

@@ -103,7 +103,7 @@
       (list (first (nth x lst)) rle))))
 
 ; We can probably condense some loops (and speed things up).
-(defun oner (dataset &optional (columns (table-columns dataset)))
+(defun slowoner (dataset &optional (columns (table-columns dataset)))
   (let ((datatable (copy-table dataset))
 	(colindex nil)
 	(best-rules))
