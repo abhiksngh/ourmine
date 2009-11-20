@@ -4,6 +4,18 @@
 			       (xindex (shared_mc2))))
 (defparameter prepared-data '())
 
+
+(defun remove-falses(train)
+  (let* ((data (table-egs-to-lists train))
+         (temp)
+         (truths '())
+         (class-col (table-class train)))
+    (dotimes (n (length data) (make-simple-table (table-name train) (table-columns train) truths))
+      (setf temp (nth n data))
+      (if (eq (nth class-col temp) 'true)
+          (setf truths (append (list temp) truths))))))
+
+
 (defun merge-data (&optional (nr-attributes 5))
   (let* ((sh_pc1 (xindex (shared_pc1)))
 	 (sh_kc1 (xindex (shared_kc1)))
