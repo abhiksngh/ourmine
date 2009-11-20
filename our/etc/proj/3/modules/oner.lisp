@@ -33,17 +33,91 @@
 	      hash)
   best)
 
-(defun oner (table &optional features)
+(defun best-rules (hash)
+  (let ((ht (make-hash-table))
+	(rulesetcount 0))
+    (maphash #' (lambda (attval classht)
+		  (let ((best (list 0 nil nil)))
+		    (maphash #' (lambda (classval count)
+				  (when (> count (first best))
+				    (setf best (list count classval)))
+				  best)
+				classht)
+		    (add-rule ht attval (second best))
+		    (setf (gethash (second best) (gethash attval ht)) (first best))
+		    (incf rulesetcount (first best))))
+      hash)
+	(values rulesetcount ht)))
+		    
+
+(defstruct rules
+  column
+  rules
+  count
+)
+
+(defun oner-rules (table &optional features)
+  (let ((ruleset (make-rules :column nil :rules nil :count 0)))
+    (dolist (column (if (null features) (table-columns table) features) ruleset)
+      (when (null (header-classp column))
+	(let ((counter 0)
+	      (colindex (indexof column (table-columns table)))
+	      (ht (make-hash-table :size (/ (length (table-all table))))))
+	  (dolist (record (table-all table))
+	    (add-rule ht (nth colindex (eg-features record)) (eg-class record)))
+	  (setf counter (best-rules ht))
+	  (when (> counter (rules-count ruleset))
+	    (setf ruleset (make-rules :column column :rules ht :count counter))))))))
+	  
+
+
+(defun oner-guts (table &optional features)
   (let ((ht (make-hash-table :size (/ (length (table-all table)) 3)))
+        ; MP: I think this might be a good size, but I'm open to suggests (or leaving it default).
 	colindex
-	(best (make-bestrule :column nil :attval nil :classval nil :count 0)))
-    ; This could be more efficient if indexof is replaced (I think - check later).
+	colcount
+	(best (make-bestrule :column nil :attval nil :classval nil :count 0))
+);	(rules (make-rules :column nil :rules nil :count 0)))
     (dolist (column (if (null features) (table-columns table) features))
       (when (null (header-classp column))
+	(setf colcount 0)
+;	(setf (rules-column rules) column)
+        ; This could be more efficient if indexof is replaced (I think - check later).
 	(setf colindex (indexof column (table-columns table)))
-        ; MP: I think this might be a good size, but I'm open to suggests (or leaving it default).
 	(dolist (record (table-all table))
 	  (add-rule ht (nth colindex (eg-features record)) (eg-class record)))
 	(setf best (best-rule ht best column))
-	(format t "BEST: ~A~%" best)
-	(clrhash ht)))))
+	(rule-print ht)
+;	(format t "BEST: ~A~%" best)
+	(clrhash ht)))
+    best))
+
+#|
+(defun oner-classify (item rule)
+  (
+
+(defun oner (train test &key (stream t))
+  "I'm stealing from Menzies...sorta."
+  (let* ((acc o)
+	 (max (length (table-all test)))
+	 (rule (oner-guts train))
+	 (colindex (indexof (bestrule-column rule) (table-columns test))))
+    (dolist (record (table-all test))
+      (let* ((got 
+	     (want (eg-class record))
+	     (success (eql got want)))
+
+
+  (let* ((acc 0)
+	(all  (table-all test))
+	(max  (length all)))
+    (dolist (one all (/ acc max))
+      (let* ((got     (oner-guts test)))
+	     (want    (eg-class one))
+	     (success (eql got want)))
+	(incf acc (if success 1.0 0.0))
+	(format stream "~a ~a ~a ~a~%"  got want  
+		(round (* 100 (/ acc max)))
+		(if success "   " "<--"))))))
+|#
+
