@@ -62,12 +62,14 @@
       (when (null (header-classp column))
 	(let ((counter 0)
 	      (colindex (indexof column (table-columns table)))
-	      (ht (make-hash-table :size (/ (length (table-all table))))))
+	      (ht (make-hash-table :size (/ (length (table-all table)) 3))))
 	  (dolist (record (table-all table))
 	    (add-rule ht (nth colindex (eg-features record)) (eg-class record)))
 	  (setf counter (best-rules ht))
 	  (when (> counter (rules-count ruleset))
-	    (setf ruleset (make-rules :column column :rules ht :count counter))))))))
+	    (setf ruleset (make-rules :column column :rules ht :count counter))))))
+;    (rule-print (rules-rules ruleset))
+    ruleset))
 	  
 
 
