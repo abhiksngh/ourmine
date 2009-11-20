@@ -26,22 +26,6 @@
 
 (defun new-center (tbl)
    (elt (gen-centroids tbl 2)0))
-
-(defun eg-distance (p q)
-  (setf p (eg-to-list p))
-  (setf q (eg-to-list q))
-  (distance p q))
-
-(defun eg-to-list (p)
-  (let ((rtnlist)
-        (count 0))
-    (dolist (ele p rtnlist)
-      (if (numberp ele)
-          (setf rtnlist (append (list ele) rtnlist)) 
-          (progn  
-            (if (equalp ele (nth count p))
-                (setf rtnlist (append rtnlist 0))
-                (setf rtnlist (append rtnlist 1))))))))
       
 (defun closest-cluster (record c &key (distance nil))
   (let ((min most-positive-single-float)
