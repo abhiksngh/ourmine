@@ -123,7 +123,6 @@
 (defun directional-integer (i)
   (directional-magic i (1+ i) i (1- i)))
 
-<<<<<<< .mine
 (defun eg-to-list (p)
   (let ((rtnlist)
         (count 0))
@@ -139,8 +138,7 @@
   (setf p (eg-to-list p))
   (setf q (eg-to-list q))
   (distance p q))
-=======
+
 (defun coin-flip (data1 data2)
   (if (= 0 (my-random-int 2)) data1 data2))
 
->>>>>>> .r1991
