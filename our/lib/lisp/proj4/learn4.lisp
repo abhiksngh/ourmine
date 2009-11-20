@@ -2,6 +2,7 @@
 			       (xindex (shared_kc2)) (xindex (shared_kc3))
 			       (xindex (shared_cm1)) (xindex (shared_mw1))
 			       (xindex (shared_mc2))))
+(defparameter prepared-data '())
 
 (defun merge-data (&optional (nr-attributes 5))
   (let* ((sh_pc1 (xindex (shared_pc1)))
@@ -37,5 +38,15 @@
        (setf all-tables  (append all-tables (list (car (sort lst-clusters #'> :key #'length)))))))
        (make-cluster-tables all-tables (car lst))))
 
-(defun build-datas (&optional (k 2) (bins 5) (num-attrs 5))
-  (k-means-all-tables (randomize (prepare-datasets-bsquare num-attrs) bins) k))
+(defun build-datas (&optional (ks) (bins 5) (num-attrs 5))
+  (let* ((all-tables))
+    (dolist (k ks all-tables)
+      (setf all-tables (append all-tables 
+			       (k-means-all-tables 
+				(randomize 
+				 (prepare-datasets-bsquare num-attrs) bins) k))))))
+
+(defun set-data ()
+  (setf prepared-data (build-datas '(2 4 6 8 10))))
+
+
