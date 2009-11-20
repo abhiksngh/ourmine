@@ -5,7 +5,7 @@
     (when old
       (push (make-chart-item :name "old bore" :value (time-it n (slowbore (table-clone tbl)))) chart)) 
     (push (make-chart-item :name "bore" :value (time-it n (bore (table-clone tbl)))) chart)
-    (push (make-chart-item :name "normalize" :value (time-it n (normalization (table-clone tbl)))) chart)
+    (push (make-chart-item :name "normalize" :value (time-it n (normalize-table (table-clone tbl)))) chart)
     (format t "Pre-processors~%")
     (show-bar-graph chart :width width)
     (format t  "~%")))
