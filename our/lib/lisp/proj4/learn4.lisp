@@ -1,3 +1,4 @@
+
 (defun remove-falses(train)
   (let* ((data (table-egs-to-lists train))
          (temp)
@@ -58,7 +59,7 @@
 				 (prepare-datasets-bsquare num-attrs) bins) k))))))
 
 (defun set-data ()
-  (setf prepared-data (build-datas '(2 4 6))))
+  (setf prepared-data (build-datas '(5))))
 
 (defun build-new-bp (bp atable current-rules test)
   ;(format t "car of bp is: ~a ~%" (car bp)) 
@@ -71,28 +72,36 @@
 	      (return-from build-new-bp newbp)))
 	(return-from build-new-bp bp)))
 	
-		   
+	
+	   
 (defun score-rules (bpr r1 test)
   ;(format t "~A~%" bpr)
-  (let* ((score-Bpr (prism-classify-final (list bpr) test))
-	 (score-r1  (prism-classify-final (list r1) test)))
-    (if (= score-Bpr score-r1) 
-	nil
+  (let* ((score-Bpr (prism-classify-final bpr test))
+	 (score-r1  (prism-classify-final r1 test)))
+    ;(if (= score-Bpr score-r1) (format t "~a ~a ~%" "Equal scores" score-Bpr)
+    ;	(if (< score-Bpr score-r1 ) (format t "~a ~a ~%" "R set is better" score-r1)
+    ;	    (format t "~a ~a ~% " "Back pocket is better" score-Bpr)))
+    (if (= score-Bpr score-r1)  
+	 nil
       (if (< score-Bpr score-r1) 
 	  nil
              t))))
 	  
-(defun run-all-exp (&optional (iterations 1))
-    (let* ((all (traintest-pdata))
-	   (train (car (cdr all)))
-	   (test (car all)))
-      (run-exp train test iterations)))
-    
-(defun run-exp (train test iterations)
+(defun run-all-exp (&optional (top-iterations 1) (bottom-iterations 1))
   (let ((bp))
+    (dotimes (i top-iterations (car bp))
+      (let* ((all (traintest-pdata))
+	     (train (car (cdr all)))
+	     (test (car all)))
+	(setf bp (run-exp train test bottom-iterations bp))))))
+    
+(defun run-exp (train test iterations &optional (bp))
+  (let ((acc 0))
     (dotimes (i iterations)
       (dolist (train-tbl train)
+	;(format t "~a ~a ~a ~a ~a ~%" "Data set " acc ": Back pocket rules: Itr " i (car bp))
+	(incf acc)
 	(if (= (length bp) 0)
-	    (setf bp (get-rules-for-true train-tbl))	    
+	    (setf bp (list (get-rules-for-true train-tbl) train-tbl))	    
 	    (setf bp (build-new-bp bp train-tbl (get-rules-for-true train-tbl) test)))))
     bp))
