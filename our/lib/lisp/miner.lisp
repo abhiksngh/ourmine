@@ -75,6 +75,7 @@
                         "proj3/learn2"
                         "proj3/equaldistr"
 			"proj4/learn4"
+                        "proj4/split"
                         ;"proj3/mlh2/entropy"
                         ;"proj3/mlh2/classify-id3"
                         ;"proj3/mlh2/id3"
