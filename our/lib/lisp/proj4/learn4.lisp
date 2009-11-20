@@ -16,9 +16,9 @@
    (score-tbl-bsquare all-tbl nr-attributes)))
 
 
-(defun prepare-datasets-bsquare ()
+(defun prepare-datasets-bsquare (&optional (num-attrs))
   (let* ((lst-out)
-	 (indexes (merge-data)))
+	 (indexes (merge-data num-attrs)))
   (dolist (l shared-lst lst-out)
     (setf lst-out (append lst-out (list (xindex  (make-bsquare-table l indexes))))))))
 
@@ -37,6 +37,5 @@
        (setf all-tables  (append all-tables (list (car (sort lst-clusters #'> :key #'length)))))))
        (make-cluster-tables all-tables (car lst))))
 
-
-	 
-(k-means-all-tables (randomize (prepare-datasets-bsquare)))
+(defun build-datas (&optional (k 2) (bins 5) (num-attrs 5))
+  (k-means-all-tables (randomize (prepare-datasets-bsquare num-attrs) bins) k))
