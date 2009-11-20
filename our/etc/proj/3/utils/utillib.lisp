@@ -142,3 +142,6 @@
 (defun coin-flip (data1 data2)
   (if (= 0 (my-random-int 2)) data1 data2))
 
+(defun column-index (col tbl)
+  (- (length (table-columns tbl))
+	 (length (member col (table-columns tbl)))))
