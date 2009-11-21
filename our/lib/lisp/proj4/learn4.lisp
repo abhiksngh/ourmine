@@ -105,3 +105,68 @@
 	    (setf bp (list (get-rules-for-true train-tbl) train-tbl))	    
 	    (setf bp (build-new-bp bp train-tbl (get-rules-for-true train-tbl) test)))))
     bp))
+
+
+
+
+
+;;;---------------------------------
+
+(setf shared-rules '(
+		     ((TRUE ((4 0)) ((1 0)))) 
+		     ((TRUE ((4 0)) ((1 0)) ((1 1)))) 
+		     ((TRUE ((4 0)) ((1 0)) ((1 2)) ((2 2)) ((0 9)) ((0 0)))) 
+		     ((TRUE ((1 0)) ((0 0)) ((1 1)) ((0 4)) ((0 2)))) 
+		     ((TRUE ((4 0)) ((1 0)))) 
+		     ((TRUE ((0 7)) ((4 0)) ((0 4)) ((0 9)))) 
+		     ((TRUE ((4 0)) ((4 8)) ((0 0)) ((0 4)) ((0 8)))) 
+		     ((TRUE ((4 0)) ((0 0)))) 
+		     ((TRUE ((4 0)) ((1 1)) ((1 0)))) 
+		     ((TRUE ((4 0)) ((1 0)) ((1 1)))) 
+		     ((TRUE ((4 0)) ((4 8)))) 
+		     ((TRUE ((1 0)) ((4 0)))) 
+		     ((TRUE ((4 0)) ((1 0)) ((0 1))))
+		     ((TRUE ((4 0)) ((1 0)) ((0 0)))) 
+		     ((TRUE ((4 0)) ((1 0)) ((1 1)))) 
+		     ((TRUE ((2 0)) ((0 4)) ((0 6)) ((0 0)) ((0 8)) ((0 7))))
+		     ((TRUE ((4 0)) ((0 1)) ((1 0)) ((0 0))))
+		     ((TRUE ((4 0)) ((1 0)) ((1 2)) ((0 1)) ((0 8))))
+		     ((TRUE ((1 0)) ((4 0)) ((0 4)))) 
+		     ((TRUE ((4 0)) ((4 1)) ((0 8))))
+		     ))
+
+ 
+(defun rank-rules (rawrules)
+  (let* ((extracted (extract-rule-vals rawrules))
+	(uniques (get-uniques extracted)))
+    (dolist (uniq uniques)
+      (format t "Item: ~A, Rank: ~A~%" uniq (item-count extracted uniq)))))
+    
+    
+
+  	   
+(defun get-uniques (lst)
+  (let ((uniques))
+    (dolist (item lst)
+      (if (not (contains uniques item))
+	  (setf uniques (append uniques (list item)))))
+    uniques))
+
+(defun extract-rule-vals (rules)
+  (let ((lst))
+    (dolist (rule rules)
+      (dotimes (i (- (length (car rule)) 1))
+	(incf i)
+	(setf lst (append lst (nth i (car rule))))))
+    lst))
+	   
+(defun item-count (lst item)
+  (let ((ndx 0)
+	(found 0))
+    (dolist (l lst)
+      (if (equal l item)
+	  (incf found))
+      (incf ndx))
+    found))
+
+	  
