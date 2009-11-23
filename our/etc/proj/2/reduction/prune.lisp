@@ -16,7 +16,7 @@
          
         (setf tbl (transpose pruned-tbl))
 
-        (data :name 'pruned-set
+        (data :name (table-name data)
               :columns pruned-cols
               :egs tbl
         )

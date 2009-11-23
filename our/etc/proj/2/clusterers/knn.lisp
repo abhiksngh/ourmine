@@ -18,10 +18,10 @@
 
 (defun knn-learn(trainList testList &optional (stream t)
                   &key (prep #'numval1)
-                       (norm #'normalizedatatrainandtest)
-                       (k    20)
+                       (norm #'donothing)
+                       (k    7)
                        (rowReducer #'donothing)
-                       (discretizer #'equal-width-train-test)
+                       (discretizer #'donothing)
                        (classify  #'nb))
   (when (not (listp trainList))
     (setf trainList (list trainList)))

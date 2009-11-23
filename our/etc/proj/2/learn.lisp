@@ -1,6 +1,43 @@
+(defun generateSlices(setList &optional (stream nil))
+  (let ((trainSlices)
+        (testSlices))
+    (dolist (per-set setList)
+      (let* ((currentData (if (or (search "shared" (string per-set))
+                                   (search "combined" (string per-set)))
+                               (prune-columns (funcall per-set) (list 0 18 13 12 1 3 11 6 8 9 5 10 4 0 17 16 15 14))
+                               (prune-columns (funcall per-set) (list 1 17 3 2 22 25 4 13 14 15 12 16 11 0 7 8 5 6)))))
+        (format t "~%A:~%" (table-name currentData))
+
+        (loop for k from 1 to 5
+             do
+             (format t "~A.." k)
+             (setf currentData
+                  (build-a-data (format nil "Set: ~A Round: ~A" (table-name currentData) k)
+                                (columns-header (table-columns currentData))
+                                (shuffle (features-as-a-list currentData))))
+                  (format stream "~A~%" (table-name currentData))
+
+                  (multiple-value-bind (trainlist testlist) (bins currentData)
+                    (doitems (per-train num trainlist)
+                      (setf trainSlices (append trainSlices per-train))
+                      (setf testSlices (append testSlices (nth num testlist))))))))
+    (values (randomizeSlices trainSlices testSlices))))
+
+(defun randomizeSlices(trainSlices testSlices)
+  (let* ((randomizedList (make-list (length trainSlices)))
+         (returnTrainSlices (make-list (length trainSlices)))
+         (returnTestSlices (make-list (length testSlices))))
+    (setf randomizedList (shuffle (doitems (per-num n randomizedList randomizedList)
+               (setf (nth n randomizedList) n))))
+    (doitems (num number randomizedList)
+      (setf (nth number returnTrainSlices) (nth num trainSlices))
+      (setf (nth number returnTestslices) (nth num testSlices)))
+    (values returnTrainSlices returnTestSlices)))          
+             
+             
 (defun runLearnSet(&optional (bsq nil) (filename "output.dat")
                    &key (prep #'numval1)
-                        (norm #'normalizedatatrainandtest)
+                        (norm #'normalizedata)
                         (rowReducer   #'sub-sample)
                         (discretizer  #'equal-width)
                         (classify     #'nb))
@@ -11,9 +48,9 @@
                           #'shared-mw1 
                           #'shared-mc2 
                           #'shared-pc1 
-;                          #'ar3 
-;                          #'ar4 
-;                          #'ar5
+                          #'ar3 
+                          #'ar4 
+                          #'ar5
 ))
            (stream (open filename :direction :output 
                                   :if-does-not-exist :create
@@ -25,80 +62,50 @@
            (tsofar) (fsofar) ; true/false scores for running train set
            (pdsofar) (pfsofar) ; pd/pf scores for running train set
            (train-so-far))   ; running train set (builds as it goes)
+      
+      (multiple-value-bind (trainSliceList testSliceList) (generateSlices setList stream)
+        (setf train-so-far (features-as-a-list (first trainSliceList)))
+        (doitems (per-train i trainSliceList)
 
-    ; for each data set (10 total)
-        (dolist (per-set setList)
+           ; get perf scores for this slice
+          (multiple-value-bind (ts fs)
+              (learn per-train (nth i testSliceList))
+              (setf tslice ts fslice fs))
+          
+          ; get perf scores for train set so far
+          (multiple-value-bind (ts fs)
+              (learn train-so-far (nth i testSliceList))
+            (setf tsofar ts fsofar fs))
 
-        ; ** need to do column pruning depending on if it is nasa/softlab **
-        (format t "~%~A:~%" (table-name (funcall per-set)))
+          ;** 'better' and 'worse' should probably be based on some % threshold
+          ; if scores are equal, don't change 'so-far', just move to next slice
+          ; if the slice is worse, ignore it, move to next slice
+          (setf pdslice (float(pd (first tsofar)
+                                  (second tsofar)
+                                  (third tsofar)
+                                  (fourth tsofar))))
+          (setf pfslice (float(pf (first tsofar)
+                                  (second tsofar)
+                                  (third tsofar)
+                                  (fourth tsofar))))
+          (setf pdsofar (float(pd (first tsofar)
+                                  (second tsofar)
+                                  (third tsofar)
+                                  (fourth tsofar))))
+          (setf pfsofar (float(pd (first tsofar)
+                                  (second tsofar)
+                                  (third tsofar)
+                                  (fourth tsofar))))
 
-        ; run this experiment with 5 different randomizations
-            (loop for k from 1 to 3
-                do
-                (format t "~A.." k)
-                (setf var 
-                    (build-a-data (format nil "~A_rand_~A" (table-name (funcall per-set)) k) 
-                        (columns-header (table-columns (funcall per-set)))
-                        (shuffle (features-as-a-list (funcall per-set)))))
-                (format stream "~A~%" (table-name var))
-            
-                ; split each randomization into 5 bins (80/20 train test)
-                (multiple-value-bind (trainlist testlist) (bins var)
-                    (when (not train-so-far)
-                        (setf train-so-far (first trainlist))
-                    )
- 
-                    ; for each of the 5 bins of this randomization
-                    (doitems (per-train i trainlist) 
+          ; if slice is better than 'so-far' add the slice's train to total 
+          (when (> (- pdslice pfslice) (- pdsofar pfsofar))
+            (setf train-so-far (combine-sets train-so-far per-train)))
 
-                        ; get perf scores for this slice
-                        (multiple-value-bind (ts fs) 
-                            (learn per-train (nth i testlist))
-                            (setf tslice ts fslice fs)
-                        )
-
-                        ; get perf scores for train set so far
-                        (multiple-value-bind (ts fs) 
-                            (learn train-so-far (nth i testlist))
-                            (setf tsofar ts fsofar fs))
-
-                        ;** 'better' and 'worse' should probably be based on some % threshold
-                        ; if scores are equal, don't change 'so-far', just move to next slice
-                        ; if the slice is worse, ignore it, move to next slice
-
-                        (setf pdslice (float(pd (first tsofar)
-                                                (second tsofar)
-                                                (third tsofar)
-                                                (fourth tsofar))))
-                        (setf pfslice (float(pf (first tsofar)
-                                                (second tsofar)
-                                                (third tsofar)
-                                                (fourth tsofar))))
-                        (setf pdsofar (float(pd (first tsofar)
-                                                (second tsofar)
-                                                (third tsofar)
-                                                (fourth tsofar))))
-                        (setf pfsofar (float(pd (first tsofar)
-                                                (second tsofar)
-                                                (third tsofar)
-                                                (fourth tsofar))))
-
-                        ; if slice is better than 'so-far' add the slice's train to total 
-                        (when (> (- pdslice pfslice) (- pdsofar pfsofar))
-                            (setf train-so-far (combine-sets train-so-far per-train))
-                        )
-
-                        ; prints the pd/pf stats for the 'so-far' train set
-                        (format stream "~A: TRUE~Tpd: ~A~Tpf: ~A~Tsize: ~A~%" slice-count 
-                                pdsofar pfsofar (length (features-as-a-list train-so-far)))
-                        (incf slice-count)
-                    )    
-                )
-            )
-        )
-        (close stream)
-    )
-)
+          ; prints the pd/pf stats for the 'so-far' train set
+          (format stream "~A: TRUE~Tpd: ~A~Tpf: ~A~Tsize: ~A~%" slice-count
+                  pdsofar pfsofar (length (features-as-a-list train-so-far)))))
+          
+        (close stream)))
 
 (defun combine-sets (base new)
     (build-a-data (table-name base) (columns-header (table-columns base)) 
@@ -107,10 +114,10 @@
 
 (defun learn (trainset
               testset
-              &key (prep #'numval1)
-                   (norm #'normalizedatatrainandtest)
+              &key (prep #'donothing)
+                   (norm #'donothing)
                    (rowReducer   #'donothing)
-                   (discretizer  #'equal-freq-train-test)
+                   (discretizer  #'donothing)
                    (classify     #'nb))
     ; normalize both train and test data sets
     (multiple-value-bind (trainSet testSet) 
