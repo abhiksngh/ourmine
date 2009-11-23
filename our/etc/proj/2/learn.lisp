@@ -1,13 +1,13 @@
-(defun generateSlices(setList &optional (stream nil))
+(defun generateSlices(setList prep norm discretizer &optional (stream nil))
   (let ((trainSlices)
         (testSlices))
     (dolist (per-set setList)
-      (let* ((currentData (if (or (not (eql (search "SHARED" (parse-name per-set)) 0))
+      (let* ((currentData (funcall discretizer (funcall norm (funcall prep (if (or (not (eql (search "SHARED" (parse-name per-set)) 0))
                                   (not (eql (search "COMBINED" (parse-name per-set)) 0)))
                                (prune-columns (funcall per-set) (list 0 18 13 12 1 3 11 6 8 9 5 10 4 0 17 16 15 14))
-                               (prune-columns (funcall per-set) (list 1 17 3 2 22 25 4 13 14 15 12 16 11 0 7 8 5 6)))))
-      
-
+                               (prune-columns (funcall per-set) (list 1 17 3 2 22 25 4 13 14 15 12 16 11 0 7 8 5 6))))))))
+        
+     
         (loop for k from 1 to 5
              do
              (multiple-value-bind (trainlist testlist) (bins (build-a-data (format nil "Set: ~A Round: ~A" (table-name currentData) k)
@@ -34,7 +34,6 @@
 (defun runLearnSet(&optional (bsq nil) (filename "output.dat")
                    &key (prep #'numval1)
                         (norm #'normalizedata)
-                        (rowReducer   #'sub-sample)
                         (discretizer  #'equal-width)
                         (classify     #'nb))
     (let* ((setList (list #'shared-cm1 
@@ -59,7 +58,7 @@
            (pdsofar) (pfsofar) ; pd/pf scores for running train set
            (train-so-far))   ; running train set (builds as it goes)
       
-      (multiple-value-bind (trainSliceList testSliceList) (generateSlices setList stream)
+      (multiple-value-bind (trainSliceList testSliceList) (generateSlices setList prep norm discretizer stream)
         (setf train-so-far (first trainSliceList))
         (doitems (per-train i trainSliceList)
           (format t "Revolution Numer: ~A~%" i)
@@ -77,19 +76,19 @@
           ;** 'better' and 'worse' should probably be based on some % threshold
           ; if scores are equal, don't change 'so-far', just move to next slice
           ; if the slice is worse, ignore it, move to next slice
-          (setf pdslice (float(pd (first tsofar)
-                                  (second tsofar)
-                                  (third tsofar)
-                                  (fourth tsofar))))
-          (setf pfslice (float(pf (first tsofar)
-                                  (second tsofar)
-                                  (third tsofar)
-                                  (fourth tsofar))))
+          (setf pdslice (float(pd (first tslice)
+                                  (second tslice)
+                                  (third tslice)
+                                  (fourth tslice))))
+          (setf pfslice (float(pf (first tslice)
+                                  (second tslice)
+                                  (third tslice)
+                                  (fourth tslice))))
           (setf pdsofar (float(pd (first tsofar)
                                   (second tsofar)
                                   (third tsofar)
                                   (fourth tsofar))))
-          (setf pfsofar (float(pd (first tsofar)
+          (setf pfsofar (float(pf (first tsofar)
                                   (second tsofar)
                                   (third tsofar)
                                   (fourth tsofar))))
@@ -97,12 +96,12 @@
           ; if slice is better than 'so-far' add the slice's train to total 
           (when (> (- pdslice pfslice) (- pdsofar pfsofar))
             (format t "relearning ~%")
-            (setf train-so-far (combine-sets train-so-far per-train)))
+            (setf train-so-far (combine-sets train-so-far (burak per-train train-so-far))))
 
           ; prints the pd/pf stats for the 'so-far' train set
           (format stream "~A: TRUE~Tpd: ~A~Tpf: ~A~Tsize: ~A~%" slice-count
-                  pdsofar pfsofar (length (features-as-a-list train-so-far)))))
-          
+                  pdsofar pfsofar (length (features-as-a-list train-so-far)))
+          (incf slice-count)))
         (close stream)))
 
 (defun combine-sets (base new)
