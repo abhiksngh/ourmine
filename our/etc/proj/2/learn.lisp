@@ -2,36 +2,32 @@
   (let ((trainSlices)
         (testSlices))
     (dolist (per-set setList)
-      (let* ((currentData (if (or (search "shared" (string per-set))
-                                   (search "combined" (string per-set)))
+      (let* ((currentData (if (or (not (eql (search "SHARED" (parse-name per-set)) 0))
+                                  (not (eql (search "COMBINED" (parse-name per-set)) 0)))
                                (prune-columns (funcall per-set) (list 0 18 13 12 1 3 11 6 8 9 5 10 4 0 17 16 15 14))
                                (prune-columns (funcall per-set) (list 1 17 3 2 22 25 4 13 14 15 12 16 11 0 7 8 5 6)))))
-        (format t "~%A:~%" (table-name currentData))
+      
 
         (loop for k from 1 to 5
              do
-             (format t "~A.." k)
-             (setf currentData
-                  (build-a-data (format nil "Set: ~A Round: ~A" (table-name currentData) k)
-                                (columns-header (table-columns currentData))
-                                (shuffle (features-as-a-list currentData))))
-                  (format stream "~A~%" (table-name currentData))
-
-                  (multiple-value-bind (trainlist testlist) (bins currentData)
-                    (doitems (per-train num trainlist)
-                      (setf trainSlices (append trainSlices per-train))
-                      (setf testSlices (append testSlices (nth num testlist))))))))
-    (values (randomizeSlices trainSlices testSlices))))
+             (multiple-value-bind (trainlist testlist) (bins (build-a-data (format nil "Set: ~A Round: ~A" (table-name currentData) k)
+                                                                                (columns-header (table-columns currentData))
+                                                                                (shuffle (features-as-a-list currentData))))
+               (doitems (per-train num trainlist)
+                 (push per-train trainSlices)
+                 (push (nth num testlist) testSlices))))))
+    (multiple-value-bind (returnTrain returnTest) (randomizeSlices trainSlices testSlices)
+      (values returnTrain returnTest))))
 
 (defun randomizeSlices(trainSlices testSlices)
-  (let* ((randomizedList (make-list (length trainSlices)))
+    (let* ((randomizedList (make-list (length trainSlices)))
          (returnTrainSlices (make-list (length trainSlices)))
          (returnTestSlices (make-list (length testSlices))))
     (setf randomizedList (shuffle (doitems (per-num n randomizedList randomizedList)
                (setf (nth n randomizedList) n))))
     (doitems (num number randomizedList)
       (setf (nth number returnTrainSlices) (nth num trainSlices))
-      (setf (nth number returnTestslices) (nth num testSlices)))
+      (setf (nth number returnTestSlices) (nth num testSlices)))
     (values returnTrainSlices returnTestSlices)))          
              
              
@@ -64,8 +60,9 @@
            (train-so-far))   ; running train set (builds as it goes)
       
       (multiple-value-bind (trainSliceList testSliceList) (generateSlices setList stream)
-        (setf train-so-far (features-as-a-list (first trainSliceList)))
+        (setf train-so-far (first trainSliceList))
         (doitems (per-train i trainSliceList)
+          (format t "Revolution Numer: ~A~%" i)
 
            ; get perf scores for this slice
           (multiple-value-bind (ts fs)
@@ -99,6 +96,7 @@
 
           ; if slice is better than 'so-far' add the slice's train to total 
           (when (> (- pdslice pfslice) (- pdsofar pfsofar))
+            (format t "relearning ~%")
             (setf train-so-far (combine-sets train-so-far per-train)))
 
           ; prints the pd/pf stats for the 'so-far' train set
