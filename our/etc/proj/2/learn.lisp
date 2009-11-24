@@ -53,15 +53,17 @@
            (slice-count 0)
            (var)
            (tslice) (fslice) ; true/false scores for each slice
-           (pdslice) (pfslice) ; pd/pf scores for each slice
+           (tpdslice) (tpfslice) ; pd/pf scores for each slice
+           (fpdslice) (fpdslice)
            (tsofar) (fsofar) ; true/false scores for running train set
-           (pdsofar) (pfsofar) ; pd/pf scores for running train set
+           (tpdsofar) (tpfsofar) ; pd/pf scores for running train set
+           (fpdsofar) (fpfsofar)
            (train-so-far))   ; running train set (builds as it goes)
       
       (multiple-value-bind (trainSliceList testSliceList) (generateSlices setList prep norm discretizer stream)
         (setf train-so-far (first trainSliceList))
         (doitems (per-train i trainSliceList)
-          (format t "Revolution Numer: ~A~%" i)
+          (format t "Revolution Number: ~A~%" i)
 
            ; get perf scores for this slice
           (multiple-value-bind (ts fs)
@@ -76,31 +78,50 @@
           ;** 'better' and 'worse' should probably be based on some % threshold
           ; if scores are equal, don't change 'so-far', just move to next slice
           ; if the slice is worse, ignore it, move to next slice
-          (setf pdslice (float(pd (first tslice)
+          (setf tpdslice (float(pd (first tslice)
                                   (second tslice)
                                   (third tslice)
                                   (fourth tslice))))
-          (setf pfslice (float(pf (first tslice)
+          (setf tpfslice (float(pf (first tslice)
                                   (second tslice)
                                   (third tslice)
                                   (fourth tslice))))
-          (setf pdsofar (float(pd (first tsofar)
+          (setf tpdsofar (float(pd (first tsofar)
                                   (second tsofar)
                                   (third tsofar)
                                   (fourth tsofar))))
-          (setf pfsofar (float(pf (first tsofar)
+          (setf tpfsofar (float(pf (first tsofar)
                                   (second tsofar)
                                   (third tsofar)
                                   (fourth tsofar))))
+          (setf fpdslice (float (pd (first fslice)
+                                    (second fslice)
+                                    (third fslice)
+                                    (fourth fslice))))
+          (setf fpdslice (float (pf (first fslice)
+                                    (second fslice)
+                                    (third fslice)
+                                    (fourth fslice))))
+          (setf fpdsofar (float (pd (first fsofar)
+                                    (second fsofar)
+                                    (third fsofar)
+                                    (fourth fsofar))))
+          (setf fpfsofar (float (pf (first fsofar)
+                                    (second fsofar)
+                                    (third fsofar)
+                                    (fourth fsofar))))
 
           ; if slice is better than 'so-far' add the slice's train to total 
-          (when (> (balance pdslice pfslice) (balance pdsofar pfsofar))
+          (when (> (balance tpdslice tpfslice) (balance tpdsofar tpfsofar))
             (format t "relearning ~%")
-            (setf train-so-far (combine-sets train-so-far (burak per-train train-so-far))))
+            (setf train-so-far (combine-sets train-so-far (burak per-train (nth i testSliceList)))))
 
           ; prints the pd/pf stats for the 'so-far' train set
           (format stream "~A: TRUE~Tpd: ~A~Tpf: ~A~Tsize: ~A~%" slice-count
-                  pdsofar pfsofar (length (features-as-a-list train-so-far)))
+                  tpdsofar tpfsofar (length (features-as-a-list train-so-far)))
+          (format stream "~A: FALSE~Tpd: ~A~Tpf: ~A~Tsize: ~A~%" slice-count
+                  fpdsofar fpfsofar (length (features-as-a-list train-so-far)))
+          
           (incf slice-count)))
         (close stream)))
 
