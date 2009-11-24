@@ -60,14 +60,14 @@
 
 (defun get-train (bins-list bin-num)
     (let* ((len (length (nth bin-num bins-list)))
-           (test-size (ceiling (* len .8))))
+           (test-size (ceiling (* len .1))))
         (subseq (nth bin-num bins-list) 0 (- test-size 1))
     )    
 )
 
 (defun get-test (bins-list bin-num)
     (let* ((len (length (nth bin-num bins-list)))
-           (test-size (ceiling (* len .8))))
+           (test-size (ceiling (* len .1))))
         (subseq (nth bin-num bins-list) (- test-size 1))
     )
 )
