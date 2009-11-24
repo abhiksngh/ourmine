@@ -94,7 +94,7 @@
                                   (fourth tsofar))))
 
           ; if slice is better than 'so-far' add the slice's train to total 
-          (when (> (- pdslice pfslice) (- pdsofar pfsofar))
+          (when (> (balance pdslice pfslice) (balance pdsofar pfsofar))
             (format t "relearning ~%")
             (setf train-so-far (combine-sets train-so-far (burak per-train train-so-far))))
 
@@ -103,6 +103,20 @@
                   pdsofar pfsofar (length (features-as-a-list train-so-far)))
           (incf slice-count)))
         (close stream)))
+
+(defun balance(pd pf)
+  (- 1 (/
+    (sqrt
+         (+
+          (square
+           (-
+            0
+            pf))
+          (square
+           (-
+            1
+            pd))))
+        (sqrt 2))))
 
 (defun combine-sets (base new)
     (build-a-data (table-name base) (columns-header (table-columns base)) 
