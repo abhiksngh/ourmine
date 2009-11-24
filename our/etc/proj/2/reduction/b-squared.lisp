@@ -141,8 +141,9 @@
         )
 
         ; prune off columns, tack classes back on
-        (setf attr-data 
-                      (append (subseq sorted-attr-data 0 keep-cols-i) 
+        (setf attr-data
+                                   ; keep-cols-i is 3 
+                      (append (subseq sorted-attr-data 0 3) 
                               (list class-data)))
 
         ; flip that shit
