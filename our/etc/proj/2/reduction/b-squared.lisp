@@ -1,5 +1,11 @@
-(defun b-squared (data)
-    (let* ((scored-data (score-data data))
+(defun b-squared (data) 
+    (let* ((true-cols  (b2 data 10 5))
+           (false-cols (b2 data 5 10)))
+           (prune-columns data (remove-duplicates (append true-cols false-cols))))
+          
+)
+(defun b2 (data true-score false-score)
+    (let* ((scored-data (score-data data true-score false-score))
            (sorted-data (sort-table scored-data))
            (disc-data (xindex sorted-data))
            (instance-count (negs data)))
@@ -33,14 +39,14 @@
     )
 )
 
-(defun score-data (data) 
+(defun score-data (data true-score false-score) 
     (let* ((header (table-columns data))
            (all-instances (table-all data))
            (classi (table-class data))
            eg-set)
 
         (dolist (per-instance all-instances)
-            (push (score-class per-instance header classi) eg-set)
+            (push (score-class per-instance header classi true-score false-score) eg-set)
         )
         (data :name 'class-set
           :columns (columns-header (table-columns data))
@@ -48,45 +54,44 @@
         )
     )
 )
-(defun score-class (per-instance header classi)
+(defun score-class (per-instance header classi true-score false-score)
     (let ((all-features (copy-list (eg-features per-instance))))
-        (setf (nth classi all-features) (numval3 (nth classi header) (nth classi all-features)))
+        (setf (nth classi all-features) (numval4 (nth classi header) (nth classi all-features) true-score false-score))
         all-features
     )
 )
 
-(defmethod numval3 ((header numeric) class-val)
+(defmethod numval4 ((header numeric) class-val true-score false-score)
     (declare (ignore header))
     5
 )
 
-(defmethod numval3 ((header discrete) class-val)
+(defmethod numval4 ((header discrete) class-val true-score false-score)
     (declare (ignore header))
     (if (equal class-val 'TRUE)
-        5
-        6
+        true-score
+        false-score
     )
 )
 
 
 (defun compute-scores (data b r)
     (let* ((attr-vals) ; unique attr values
-           (V .25) ; magic cut-off value for b
+           (V .15) ; magic cut-off value for b
            (trans-data) (attr-data) (class-data)
            (sorted-attr-data)
-           (score-cutoff)
-           (keep-cols-i 0)
+           (keep-cols (list ))
            (col-names)
-           (min-score) (max-score) (cutoff-score)
            (n-cols (length (table-columns data)))
            (scores (list )) ; value scores for each attr value
            (median-scores (list )) ; median scores for each attr
            (b-set (xindex b)) ; best set of data
            (r-set (xindex r)) ; rest set of data
-           (b-size(negs b-set)) (r-size (negs r-set)))
+           (b-size(negs b-set)) (r-size (negs r-set))
+           (col-nums (list )))
 
         ;for every attribute we have a number of possible values
-        (loop for i from 0 to (- (length (table-columns data)) 1)
+        (loop for i from 0 to (- (length (table-columns data)) 2)
           do
             (setf attr-vals (discrete-uniques (nth i (table-columns data))))
             (setf scores (list ))
@@ -112,56 +117,25 @@
             ; compute the median score for all attr vals
             (setf median-scores (append median-scores (list (median scores))))
         )
+        (setf median-scores (append median-scores (list 0.0))) ; no score for class
 
-        ;Sort each attribute by the median score
+        ; build a table of scores & col nums
+        (loop for i from 0 to (length median-scores)
+            do
+                (setf col-nums (append col-nums (list i)))
+        )
         (setf trans-data (transpose 
-                         (append (features-as-a-list data) 
-                                 (list (table-columns data)) 
-                                 (list median-scores))))
-        (setf attr-data (subseq trans-data 0 (- n-cols 1))) ; just attr
-
-        ; preserve class data, don't consider in col reduction
-        (setf class-data (nth (- n-cols 1) trans-data)) 
+                         (append (list col-nums) (list median-scores))))
 
         ; sort the data by median score
-        (setf sorted-attr-data (sort attr-data #'string-greaterp
+        (setf sorted-attr-data (sort trans-data #'string-greaterp
                     :key (lambda (k) (format nil "~A" (last k)))))
 
-        ; calculate the cut-off score, top 40% of range is kept
-        (setf median-scores (nth (negs data) (transpose sorted-attr-data)))
-        (setf max-score (nth 0 median-scores))
-        (setf min-score (nth (- n-cols 2) median-scores))
-        (setf score-cutoff (* (- max-score min-score) 0.6))
-
-        ; gets the index of the last column we're keeping
-        (dolist (score median-scores)
-            (when (>= score score-cutoff)
-                (incf keep-cols-i)
-            )
-        )
-
-        ; prune off columns, tack classes back on
-        (setf attr-data
-                                   ; keep-cols-i is 3 
-                      (append (subseq sorted-attr-data 0 3) 
-                              (list class-data)))
-
         ; flip that shit
-        (setf trans-data (transpose attr-data))
+        (setf trans-data (transpose sorted-attr-data))
 
         ; extract the remaining col headers
-        (setf col-names (nth (- (negs data) 1) trans-data))
-
-        ; extract the data
-        (setf data (subseq trans-data 0 (- (negs data) 1)))
-
-        (setf data (back-to-class data))
-
-        ; build a pruned data table
-        (data :name 'col-reduced
-          :columns (columns-header col-names)
-          :egs data
-        )
+        (setf keep-cols (sort (subseq (nth 0 trans-data) 0 3) #'<))
     )
 )
 
