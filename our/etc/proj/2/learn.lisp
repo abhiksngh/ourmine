@@ -2,10 +2,15 @@
   (let ((trainSlices)
         (testSlices))
     (dolist (per-set setList)
-      (let* ((currentData (funcall discretizer (funcall norm (funcall prep (if (or (not (eql (search "SHARED" (parse-name per-set)) 0))
+      (let* ((soft-labFullList (list 0 18 13 12 1 3 11 6 8 9 5 10 4 0 17 16 15 14))
+             (nasaFullList (list 1 17 3 2 22 25 4 13 14 15 12 16 11 0 7 8 5 6))
+             (soft-labReducedList (list 0 0 3))
+             (nasaReducedList (list 0 18 13))
+             (currentData (funcall discretizer (funcall norm (funcall prep (if (or (not (eql (search "SHARED" (parse-name per-set)) 0))
                                   (not (eql (search "COMBINED" (parse-name per-set)) 0)))
                                (prune-columns (funcall per-set) (list 0 18 13 12 1 3 11 6 8 9 5 10 4 0 17 16 15 14))
                                (prune-columns (funcall per-set) (list 1 17 3 2 22 25 4 13 14 15 12 16 11 0 7 8 5 6))))))))
+        (print currentData)
         
      
         (loop for k from 1 to 5
@@ -39,9 +44,9 @@
     (let* ((setList (list #'shared-cm1 
                           #'shared-kc1 
                           #'shared-kc2 
-                          #'shared-kc3  
-                          #'shared-mw1 
-                          #'shared-mc2 
+                          ;#'shared-kc3  
+                          ;#'shared-mw1 
+                          ;#'shared-mc2 
                           #'shared-pc1 
                           #'ar3 
                           #'ar4 
@@ -54,7 +59,7 @@
            (var)
            (tslice) (fslice) ; true/false scores for each slice
            (tpdslice) (tpfslice) ; pd/pf scores for each slice
-           (fpdslice) (fpdslice)
+           (fpdslice) (fpfslice)
            (tsofar) (fsofar) ; true/false scores for running train set
            (tpdsofar) (tpfsofar) ; pd/pf scores for running train set
            (fpdsofar) (fpfsofar)
@@ -98,7 +103,7 @@
                                     (second fslice)
                                     (third fslice)
                                     (fourth fslice))))
-          (setf fpdslice (float (pf (first fslice)
+          (setf fpfslice (float (pf (first fslice)
                                     (second fslice)
                                     (third fslice)
                                     (fourth fslice))))
@@ -112,18 +117,19 @@
                                     (fourth fsofar))))
 
           ; if slice is better than 'so-far' add the slice's train to total 
-          (when (> (balance tpdslice tpfslice) (balance tpdsofar tpfsofar))
+          (when (> (- (balance tpdslice tpfslice) .15) (balance tpdsofar tpfsofar))
             (format t "relearning ~%")
             (setf train-so-far (combine-sets train-so-far (burak per-train (nth i testSliceList)))))
 
           ; prints the pd/pf stats for the 'so-far' train set
-          (format stream "~A: TRUE~Tpd: ~A~Tpf: ~A~Tsize: ~A~%" slice-count
-                  tpdsofar tpfsofar (length (features-as-a-list train-so-far)))
-          (format stream "~A: FALSE~Tpd: ~A~Tpf: ~A~Tsize: ~A~%" slice-count
-                  fpdsofar fpfsofar (length (features-as-a-list train-so-far)))
+          (format stream "~A: TRUE~Tpd: ~A~Tpf: ~A~Tsize: ~A ~TBALANCE SO FAR: ~A ~TBALANCE PER TRAIN: ~A~%" slice-count
+                  tpdsofar tpfsofar (length (features-as-a-list train-so-far)) (balance tpdsofar tpfsofar) (balance tpdslice tpfslice))
+          (format stream "~A: FALSE~Tpd: ~A~Tpf: ~A~Tsize: ~A ~TBALANCE SO FAR: ~A ~TBALANCE PER TRAIN ~A~%" slice-count
+                  fpdsofar fpfsofar (length (features-as-a-list train-so-far)) (balance fpdsofar fpfsofar) (balance fpdslice fpfslice))
           
-          (incf slice-count)))
-        (close stream)))
+          (incf slice-count))
+        (print (columns-header (table-columns (b-squared train-so-far))))
+        (close stream))))
 
 (defun balance(pd pf)
   (- 1 (/
