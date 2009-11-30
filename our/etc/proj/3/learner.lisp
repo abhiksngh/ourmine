@@ -103,7 +103,7 @@
 		  (push (funcall classifier (eg-features (remove-instance-columns instance nearest-cluster test)) nearest-cluster) results)))
 	(setf results (nreverse results))
 	(multiple-value-bind (ah bh ch dh) (p-metrics test results)
-		(dolist (class (get-table-classes train))
+		(dolist (class (list 'true 'false))
 			(let* ((a (if (gethash class ah) (gethash class ah) 0)) ;;tn
 				     (b (if (gethash class bh) (gethash class bh) 0)) ;;fn
   				   (c (if (gethash class ch) (gethash class ch) 0)) ;;fp
