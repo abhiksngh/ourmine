@@ -198,14 +198,14 @@
     (dotimes (i m)
       (let ((bins (split-preprocessor (table-deep-copy tbl) n)))
         (dolist (bin bins)
-          (setf results (nconc (learner (apply #'combine-preprocessor (mapcar #'table-deep-copy (remove bin bins))) bin  :k k 
-                                                                                                                         :prep prep 
-                                                                                                                         :row-reducer row-reducer
-                                                                                                                         :discretizer discretizer 
-                                                                                                                         :clusterer clusterer 
-                                                                                                                         :fss fss 
-                                                                                                                         :classifier-train classifier-train 
-                                                                                                                         :classifier classifier)
+          (setf results (nconc (learner (apply #'combine-preprocessor (mapcar #'table-deep-copy (remove bin bins))) bin :k k 
+                                                                                                                        :prep prep 
+                                                                                                                        :row-reducer row-reducer
+                                                                                                                        :discretizer discretizer 
+                                                                                                                        :clusterer clusterer 
+                                                                                                                        :fss fss 
+                                                                                                                        :classifier-train classifier-train 
+                                                                                                                        :classifier classifier)
                                 results)))))
     (statistics-output (filter #'(lambda (result) (and (equalp (statistics-class result) defect-class) result)) results) :file-name file-name)))
 
@@ -221,3 +221,45 @@
   (cross-val-cc (numeric-preprocessor (ar3)) (numeric-preprocessor (ar4)) :classifier-train #'nb-train :classifier #'nb-classify)
   (cross-val-cc (numeric-preprocessor (ar3)) (numeric-preprocessor (ar4)) :classifier-train #'nb-train :classifier #'nb-classify :file-name "test.csv"))
 
+(defun stable-theory (tbls &key (k 1)
+                                (prep #'identity)
+                                (row-reducer #'all-rows)
+                                (discretizer #'identity)
+                                (clusterer #'default-clusterer)
+                                (fss #'identity)
+                                (classifier-train #'identity)
+                                (classifier #'identity)
+                                (defect-class 'true)
+                                (file-name nil)
+                                (n 10))
+  (let ((test-tbls nil)
+        (train nil)
+        (results nil)
+        (prev-pd most-positive-fixnum))
+    (dolist (tbl tbls)
+      (setf test-tbls (nconc test-tbls (split-preprocessor tbl n))))
+    (setf train (car test-tbls))
+    (setf test-tbls (cdr test-tbls))
+    (dolist (test (shuffle test-tbls))
+      (let ((new-pd 0)
+            (result nil))
+        (setf result (learner train test :k k 
+                                         :prep prep 
+                                         :row-reducer row-reducer
+                                         :discretizer discretizer 
+                                         :clusterer clusterer 
+                                         :fss fss 
+                                         :classifier-train classifier-train 
+                                         :classifier classifier))
+        (setf results (nconc result results))
+        (dolist (stats result)
+          (if (equalp (statistics-class stats) defect-class)
+            (setf new-pd (statistics-pd stats))))
+        (if (< new-pd prev-pd)
+          (setf train (combine-preprocessor train test)))
+        (setf prev-pd new-pd)))
+    (setf results (nreverse results))
+    (statistics-output (filter #'(lambda (result) (and (equalp (statistics-class result) defect-class) result)) results) :file-name file-name)))
+
+(defun stable-theory-demo ()
+  (stable-theory (list (ar3) (ar4) (ar5)) :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify))
