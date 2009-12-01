@@ -83,10 +83,9 @@
 	 (max (length (table-all test)))
 	 (rules (oner-rules train))
 	 ; ERROR: I thought table-columns was returning a list of column names...need to fix.
-	 (colindex (indexof (rules-column rules) (table-columns test))))
-    (format t "TEST: ~A~%" colindex)
-    (dolist (record (table-all test))
-      (let* ((got     (oner-classify (nth colindex record) (rules-rules rules)))
+	 (colindex (indexof (rules-column rules) (columns-header (table-columns test)))))
+    (dolist (record (table-all test) (/ acc max))
+      (let* ((got     (oner-classify (nth colindex (eg-features record)) (rules-rules rules)))
 	     (want    (eg-class record))
 	     (success (eql got want)))
 	(incf acc (if success 1.0 0.0))
