@@ -66,8 +66,8 @@
 	    (add-rule ht (nth colindex (eg-features record)) (eg-class record)))
 	  (setf counter (best-rules ht))
 	  (when (> counter (rules-count ruleset))
-	    (setf ruleset (make-rules :column column :rules ht :count counter))))))
-;    (rule-print (rules-rules ruleset))
+	    (setf ruleset (make-rules :column (header-name column) :rules ht :count counter))))))
+    ;(rule-print (rules-rules ruleset)) ; DEBUG PRINT
     ruleset))
 
 (defun oner-classify (item rule)
@@ -82,7 +82,9 @@
   (let* ((acc 0)
 	 (max (length (table-all test)))
 	 (rules (oner-rules train))
+	 ; ERROR: I thought table-columns was returning a list of column names...need to fix.
 	 (colindex (indexof (rules-column rules) (table-columns test))))
+    (format t "TEST: ~A~%" colindex)
     (dolist (record (table-all test))
       (let* ((got     (oner-classify (nth colindex record) (rules-rules rules)))
 	     (want    (eg-class record))
@@ -91,4 +93,3 @@
 	(format stream "~a ~a ~a ~a~%" got want
 		(round (* 100 (/ acc max)))
 		(if success "   " "<--"))))))
-
