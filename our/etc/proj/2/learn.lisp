@@ -2,14 +2,14 @@
   (let ((trainSlices)
         (testSlices))
     (dolist (per-set setList)
-      (let* ((soft-labFullList (list 0 18 13 12 1 3 11 6 8 9 5 10 4 0 17 16 15 14))
-             (nasaFullList (list 1 17 3 2 22 25 4 13 14 15 12 16 11 0 7 8 5 6))
-             (soft-labReducedList (list 0 0 3))
+      (let* ((nasaFullList (list 0 18 13 12 1 3 11 6 8 9 5 10 4 0 17 16 15 14))
+             (soft-labFullList (list 1 17 3 2 22 25 4 13 14 15 12 16 11 0 7 8 5 6))
+             (soft-labReducedList (list 1 17 3))
              (nasaReducedList (list 0 18 13))
-             (currentData (funcall discretizer (funcall norm (funcall prep (if (or (not (eql (search "SHARED" (parse-name per-set)) 0))
-                                  (not (eql (search "COMBINED" (parse-name per-set)) 0)))
-                               (prune-columns (funcall per-set) (list 0 18 13 12 1 3 11 6 8 9 5 10 4 0 17 16 15 14))
-                               (prune-columns (funcall per-set) (list 1 17 3 2 22 25 4 13 14 15 12 16 11 0 7 8 5 6))))))))
+             (currentData (funcall discretizer (funcall norm (funcall prep (if (or (eql (search "SHARED" (parse-name per-set)) 0)
+                                  (eql (search "COMBINED" (parse-name per-set)) 0))
+                               (prune-columns (funcall per-set) nasaReducedList)
+                               (prune-columns (funcall per-set) soft-labReducedList)))))))
         (print currentData)
         
      
@@ -117,9 +117,9 @@
                                     (fourth fsofar))))
 
           ; if slice is better than 'so-far' add the slice's train to total 
-          (when (> (- (balance tpdslice tpfslice) .15) (balance tpdsofar tpfsofar))
+          (when (> (- (balance tpdslice tpfslice) .05) (balance tpdsofar tpfsofar))
             (format t "relearning ~%")
-            (setf train-so-far (combine-sets train-so-far (burak per-train (nth i testSliceList)))))
+            (setf train-so-far (combine-sets train-so-far per-train)))
 
           ; prints the pd/pf stats for the 'so-far' train set
           (format stream "~A: TRUE~Tpd: ~A~Tpf: ~A~Tsize: ~A ~TBALANCE SO FAR: ~A ~TBALANCE PER TRAIN: ~A~%" slice-count
