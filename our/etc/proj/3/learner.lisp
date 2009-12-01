@@ -237,20 +237,20 @@
         (results nil)
         (prev-pd most-positive-fixnum))
     (dolist (tbl tbls)
-      (setf test-tbls (nconc test-tbls (split-preprocessor tbl n))))
+      (setf tbl (funcall prep tbl))
+      (setf tbl (funcall discretizer tbl))
+      (setf test-tbls (nconc test-tbls (split-preprocessor tbl (max 1 (/ (get-table-class-frequency tbl defect-class) n))))))
     (setf train (car test-tbls))
     (setf test-tbls (cdr test-tbls))
     (dolist (test (shuffle test-tbls))
       (let ((new-pd 0)
             (result nil))
-        (setf result (learner train test :k k 
-                                         :prep prep 
-                                         :row-reducer row-reducer
-                                         :discretizer discretizer 
-                                         :clusterer clusterer 
-                                         :fss fss 
-                                         :classifier-train classifier-train 
-                                         :classifier classifier))
+        (setf result (learner (table-deep-copy train) (table-deep-copy test) :k k 
+                                                                             :row-reducer row-reducer
+                                                                             :clusterer clusterer 
+                                                                             :fss fss 
+                                                                             :classifier-train classifier-train 
+                                                                             :classifier classifier))
         (setf results (nconc result results))
         (dolist (stats result)
           (if (equalp (statistics-class stats) defect-class)
