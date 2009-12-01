@@ -2,15 +2,14 @@
   (let ((trainSlices)
         (testSlices))
     (dolist (per-set setList)
-      (let* ((nasaFullList (list 0 18 13 12 1 3 11 6 8 9 5 10 4 0 17 16 15 14))
-             (soft-labFullList (list 1 17 3 2 22 25 4 13 14 15 12 16 11 0 7 8 5 6))
-             (soft-labReducedList (list 1 17 3))
-             (nasaReducedList (list 0 18 13))
-             (currentData (funcall discretizer (funcall norm (funcall prep (if (or (eql (search "SHARED" (parse-name per-set)) 0)
-                                  (eql (search "COMBINED" (parse-name per-set)) 0))
-                               (prune-columns (funcall per-set) nasaReducedList)
-                               (prune-columns (funcall per-set) soft-labReducedList)))))))
-        (print currentData)
+    (let* ((soft-labFullList (list 0 18 13 12 1 3 11 6 8 9 5 10 4 0 17 16 15 14))
+        (nasaFullList (list 1 17 3 2 22 25 4 13 14 15 12 16 11 0 7 8 5 6))
+        (soft-labReducedList (list 0 0 3))
+        (nasaReducedList (list 0 18 13))
+        (currentData (funcall discretizer (funcall norm (funcall prep (if (or (not (eql (search "SHARED" (parse-name per-set)) 0))
+                                  (not (eql (search "COMBINED" (parse-name per-set)) 0)))
+                               (prune-columns (funcall per-set) (list 0 18 13 12 1 3 11 6 8 9 5 10 4 0 17 16 15 14))
+                               (prune-columns (funcall per-set) (list 1 17 3 2 22 25 4 13 14 15 12 16 11 0 7 8 5 6))))))))
         
      
         (loop for k from 1 to 5
@@ -44,9 +43,9 @@
     (let* ((setList (list #'shared-cm1 
                           #'shared-kc1 
                           #'shared-kc2 
-                          ;#'shared-kc3  
-                          ;#'shared-mw1 
-                          ;#'shared-mc2 
+                     ;     #'shared-kc3  
+                     ;     #'shared-mw1 
+                     ;     #'shared-mc2 
                           #'shared-pc1 
                           #'ar3 
                           #'ar4 
@@ -63,12 +62,13 @@
            (tsofar) (fsofar) ; true/false scores for running train set
            (tpdsofar) (tpfsofar) ; pd/pf scores for running train set
            (fpdsofar) (fpfsofar)
+           (taccslice) (tprecslice) (faccslice) (fprecslice) (taccsofar) (tprecsofar) (faccsofar) (fprecsofar)
+           (tfslice) (tgslice) (ffslice) (fgslice) (tfsofar) (tgsofar) (ffsofar) (fgsofar)
            (train-so-far))   ; running train set (builds as it goes)
       
       (multiple-value-bind (trainSliceList testSliceList) (generateSlices setList prep norm discretizer stream)
         (setf train-so-far (first trainSliceList))
         (doitems (per-train i trainSliceList)
-          (format t "Revolution Number: ~A~%" i)
 
            ; get perf scores for this slice
           (multiple-value-bind (ts fs)
@@ -115,21 +115,96 @@
                                     (second fsofar)
                                     (third fsofar)
                                     (fourth fsofar))))
+          (setf taccslice (float(acc (first tslice)
+                                    (second tslice)
+                                    (third tslice)
+                                    (fourth tslice))))
+          (setf tprecslice (float(prec (first tslice)
+                                  (second tslice)
+                                  (third tslice)
+                                  (fourth tslice))))
+          (setf taccsofar (float(acc (first tsofar)
+                                  (second tsofar)
+                                  (third tsofar)
+                                  (fourth tsofar))))
+          (setf tprecsofar (float(prec (first tsofar)
+                                  (second tsofar)
+                                  (third tsofar)
+                                  (fourth tsofar))))
+          (setf faccslice (float (acc (first fslice)
+                                    (second fslice)
+                                    (third fslice)
+                                    (fourth fslice))))
+          (setf fprecslice (float (prec (first fslice)
+                                    (second fslice)
+                                    (third fslice)
+                                    (fourth fslice))))
+          (setf faccsofar (float (acc (first fsofar)
+                                    (second fsofar)
+                                    (third fsofar)
+                                    (fourth fsofar))))
+          (setf fprecsofar (float (prec (first fsofar)
+                                    (second fsofar)
+                                    (third fsofar)
+                                    (fourth fsofar))))
+          (setf tfslice (float(f-calc (first tslice)
+                                    (second tslice)
+                                    (third tslice)
+                                    (fourth tslice))))
+          (setf tgslice (float(g (first tslice)
+                                  (second tslice)
+                                  (third tslice)
+                                  (fourth tslice))))
+          (setf tfsofar (float(f-calc (first tsofar)
+                                  (second tsofar)
+                                  (third tsofar)
+                                  (fourth tsofar))))
+          (setf tgsofar (float(g (first tsofar)
+                                  (second tsofar)
+                                  (third tsofar)
+                                  (fourth tsofar))))
+          (setf ffslice (float (f-calc (first fslice)
+                                    (second fslice)
+                                    (third fslice)
+                                    (fourth fslice))))
+          (setf fgslice (float (g (first fslice)
+                                    (second fslice)
+                                    (third fslice)
+                                    (fourth fslice))))
+          (setf ffsofar (float (f-calc (first fsofar)
+                                    (second fsofar)
+                                    (third fsofar)
+                                    (fourth fsofar))))
+          (setf fgsofar (float (g (first fsofar)
+                                    (second fsofar)
+                                    (third fsofar)
+                                    (fourth fsofar))))
 
           ; if slice is better than 'so-far' add the slice's train to total 
-          (when (> (- (balance tpdslice tpfslice) .05) (balance tpdsofar tpfsofar))
+          (when (> (- (balance tpdslice tpfslice) .15) (balance tpdsofar tpfsofar))
             (format t "relearning ~%")
-            (setf train-so-far (combine-sets train-so-far per-train)))
+            (setf train-so-far (combine-sets train-so-far (burak per-train (nth i testSliceList)))))
 
           ; prints the pd/pf stats for the 'so-far' train set
-          (format stream "~A: TRUE~Tpd: ~A~Tpf: ~A~Tsize: ~A ~TBALANCE SO FAR: ~A ~TBALANCE PER TRAIN: ~A~%" slice-count
-                  tpdsofar tpfsofar (length (features-as-a-list train-so-far)) (balance tpdsofar tpfsofar) (balance tpdslice tpfslice))
-          (format stream "~A: FALSE~Tpd: ~A~Tpf: ~A~Tsize: ~A ~TBALANCE SO FAR: ~A ~TBALANCE PER TRAIN ~A~%" slice-count
-                  fpdsofar fpfsofar (length (features-as-a-list train-so-far)) (balance fpdsofar fpfsofar) (balance fpdslice fpfslice))
-          
-          (incf slice-count))
-        (print (columns-header (table-columns (b-squared train-so-far))))
-        (close stream))))
+          (format stream "normalize, equalwidth, naivebayes,slice,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A~%" "TRUE"
+              (first tslice) (second tslice) (third tslice) (fourth tslice) 
+               taccslice tprecslice tpdslice tpfslice tfslice tgslice (balance tpdslice tpfslice)
+          )
+          (format stream "normalize, equalwidth, naivebayes,slice,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A~%" "FALSE"
+              (first fslice) (second fslice) (third fslice) (fourth fslice)
+               faccslice fprecslice fpdslice fpfslice ffslice fgslice (balance fpdslice fpfslice)
+          )
+          (format stream "normalize, equalwidth, naivebayes,sofar,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A~%" "TRUE"
+              (first tsofar) (second tsofar) (third tsofar) (fourth tsofar)
+               taccsofar tprecsofar tpdsofar tpfsofar tfsofar tgsofar (balance tpdsofar tpfsofar)
+          )
+          (format stream "normalize, equalwidth, naivebayes,sofar,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A~%" "FALSE"
+              (first fsofar) (second fsofar) (third fsofar) (fourth fsofar)
+               faccsofar fprecsofar fpdsofar fpfsofar ffsofar fgsofar (balance fpdsofar fpfsofar)
+          )
+ 
+          (incf slice-count)))
+        (close stream)))
 
 (defun balance(pd pf)
   (- 1 (/
