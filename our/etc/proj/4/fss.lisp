@@ -1,0 +1,73 @@
+(defun utility (class)
+  (if (equalp class 'true)
+    0
+    1))
+
+;;Removes the column from tbl that corresponds to target-column-header.
+(defun remove-column (tbl target-column-header)
+  (doitems (column-header columni (get-table-column-headers tbl))
+    (if (eq column-header target-column-header)
+      (progn
+        (dolist (row (get-table-rows tbl))
+          (setf (nth columni (eg-features row)) nil))
+        (setf (table-columns tbl) (delete column-header (table-columns tbl))))))
+  (dolist (row (get-table-rows tbl))
+    (setf (eg-features row) (delete nil (eg-features row)))))
+
+;;Removes the columns from tbl whose indexes are in remove-column-indexes.
+(defun remove-columns (tbl remove-column-indexes)
+  (dolist (index remove-column-indexes)
+    (remove-column tbl (get-table-column-header tbl index)))
+  (table-update tbl))
+
+;;Removes the columns from test that aren't in train.
+(defun remove-test-columns (train test)
+  (let ((remove-column-indexes nil))
+    (doitems (column-header columni (get-table-column-headers test))
+      (if (not (find (header-name column-header) (get-table-column-headers train) :test #'equalp :key #'header-name))
+        (push columni remove-column-indexes)))
+    (print remove-column-indexes)
+    (remove-columns test remove-column-indexes)))
+
+(defun get-b-squared-score (tbl best rest columni row)
+  (let ((b (/ (get-table-value-frequency best columni (nth columni (eg-features row)))
+              (get-table-size best)))
+        (r (/ (get-table-value-frequency rest columni (nth columni (eg-features row)))
+              (get-table-size rest))))
+    (if (< b r)
+      0
+      (/ (square b) (+ b r)))))
+
+(defun b-squared (tbl &optional (threshold 0.2))
+  (setf (table-all tbl) (sort (get-table-rows tbl) #'> :key #'(lambda (row) (utility (eg-class row)))))
+  (let ((best (table-blank-copy tbl))
+        (rest (table-blank-copy tbl))
+        (rown (get-table-size tbl))
+        (column-scores nil)
+        (min-score 0)
+        (remove-column-indexes nil))
+    (doitems (row rowi (get-table-rows tbl))
+      (if (< rowi (floor (* rown 0.2)))
+        (push row (table-all best))
+        (push row (table-all rest))))
+    (table-update best)
+    (table-update rest)
+    (doitems (column-header columni (get-table-column-headers tbl))
+      (push 0 column-scores)
+      (unless (column-header-classp column-header)
+        (setf (table-all tbl) 
+              (sort (get-table-rows tbl) 
+                    #'< 
+                    :key #'(lambda (row) (get-b-squared-score tbl best rest columni row))))
+        (if (oddp (get-table-size tbl))
+          (setf (car column-scores) (get-b-squared-score tbl best rest columni (nth (floor (/ (get-table-size tbl) 2)) (get-table-rows tbl))))
+          (setf (car column-scores) (/ (+ (get-b-squared-score tbl best rest columni (nth (1- (/ (get-table-size tbl) 2)) (get-table-rows tbl)))
+                                          (get-b-squared-score tbl best rest columni (nth (/ (get-table-size tbl) 2) (get-table-rows tbl))))
+                                       2)))))
+    (setf column-scores (nreverse column-scores))
+    (setf min-score (max 0.000001 (nth (floor (* (length column-scores) threshold)) (sort (copy-list column-scores) #'>))))
+    (doitems (score i column-scores)
+      (if (< score min-score)
+        (push i remove-column-indexes)))
+    (remove-columns tbl remove-column-indexes)))
+
