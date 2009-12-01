@@ -113,7 +113,7 @@
 				     (pd (if (zerop (+ b d)) 0 (/ d (+ b d))))
 				     (pf (if (zerop (+ a c)) 0 (/ c (+ a c))))
 				     (f (if (zerop (+ precision pd)) 0 (/ (* 2 precision pd) (+ precision pd))))
-  				   (g (if (zerop (+ pf pd)) 0 (/ (* 2 pf pd) (+ pf pd)))))
+  				   (g (if (zerop (+ pf pd)) 0 (/ (* 2 (- 1 pf) pd) (+ (- 1 pf) pd)))))
   			(push (make-stat prep row-reducer discretizer clusterer fss classifier class a b c d accuracy precision pd pf f g) statistics)))
   	statistics)))
 
