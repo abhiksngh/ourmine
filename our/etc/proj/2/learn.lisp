@@ -6,10 +6,10 @@
         (nasaFullList (list 1 17 3 2 22 25 4 13 14 15 12 16 11 0 7 8 5 6))
         (soft-labReducedList (list 0 0 3))
         (nasaReducedList (list 0 18 13))
-        (currentData (funcall discretizer (funcall norm (funcall prep (if (or (not (eql (search "SHARED" (parse-name per-set)) 0))
-                                  (not (eql (search "COMBINED" (parse-name per-set)) 0)))
-                               (prune-columns (funcall per-set) (list 0 18 13 12 1 3 11 6 8 9 5 10 4 0 17 16 15 14))
-                               (prune-columns (funcall per-set) (list 1 17 3 2 22 25 4 13 14 15 12 16 11 0 7 8 5 6))))))))
+        (currentData (funcall discretizer (funcall norm (funcall prep (if (or (eql (search "SHARED" (parse-name per-set)) 0)
+                                  (eql (search "COMBINED" (parse-name per-set)) 0))
+                               (prune-columns (funcall per-set) nasaFullList)
+                               (prune-columns (funcall per-set) soft-labFullList)))))))
         
      
         (loop for k from 1 to 5
