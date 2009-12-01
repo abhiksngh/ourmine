@@ -188,19 +188,19 @@
           ; prints the pd/pf stats for the 'so-far' train set
           (format stream "normalize, equalwidth, naivebayes,slice,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A~%" "TRUE"
               (first tslice) (second tslice) (third tslice) (fourth tslice) 
-               taccslice tprecslice tpdslice tpfslice tfslice tgslice (balance tpdslice tpfslice)
+               taccslice tprecslice tpdslice tpfslice tfslice tgslice (* (balance tpdslice tpfslice) 100)
           )
           (format stream "normalize, equalwidth, naivebayes,slice,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A~%" "FALSE"
               (first fslice) (second fslice) (third fslice) (fourth fslice)
-               faccslice fprecslice fpdslice fpfslice ffslice fgslice (balance fpdslice fpfslice)
+               faccslice fprecslice fpdslice fpfslice ffslice fgslice (* (balance fpdslice fpfslice))
           )
           (format stream "normalize, equalwidth, naivebayes,sofar,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A~%" "TRUE"
               (first tsofar) (second tsofar) (third tsofar) (fourth tsofar)
-               taccsofar tprecsofar tpdsofar tpfsofar tfsofar tgsofar (balance tpdsofar tpfsofar)
+               taccsofar tprecsofar tpdsofar tpfsofar tfsofar tgsofar (* (balance tpdsofar tpfsofar))
           )
           (format stream "normalize, equalwidth, naivebayes,sofar,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A~%" "FALSE"
               (first fsofar) (second fsofar) (third fsofar) (fourth fsofar)
-               faccsofar fprecsofar fpdsofar fpfsofar ffsofar fgsofar (balance fpdsofar fpfsofar)
+               faccsofar fprecsofar fpdsofar fpfsofar ffsofar fgsofar (* (balance fpdsofar fpfsofar))
           )
  
           (incf slice-count)))
