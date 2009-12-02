@@ -10,8 +10,6 @@
                                   (not (eql (search "COMBINED" (parse-name per-set)) 0)))
                                (prune-columns (funcall per-set) soft-labFullList)
                                (prune-columns (funcall per-set) nasaFullList)))))))
-        (print currentData)
-     
         (loop for k from 1 to 5
              do
              (multiple-value-bind (trainlist testlist) (bins (build-a-data (format nil "Set: ~A Round: ~A" (table-name currentData) k)
@@ -64,10 +62,13 @@
            (fpdsofar) (fpfsofar)
            (taccslice) (tprecslice) (faccslice) (fprecslice) (taccsofar) (tprecsofar) (faccsofar) (fprecsofar)
            (tfslice) (tgslice) (ffslice) (fgslice) (tfsofar) (tgsofar) (ffsofar) (fgsofar)
+           (perTrainBalHistory) (TrainSoFarBalHistory) ;history lists
+           (winLossTieList (make-list 4 :initial-element 0))
            (train-so-far))   ; running train set (builds as it goes)
       
       (multiple-value-bind (trainSliceList testSliceList) (generateSlices setList prep norm discretizer stream)
         (setf train-so-far (first trainSliceList))
+
         (doitems (per-train i trainSliceList)
 
            ; get perf scores for this slice
@@ -180,10 +181,20 @@
                                     (third fsofar)
                                     (fourth fsofar))))
 
+          (setf perTrainBalHistory (append perTrainBalHistory (list (balance tpdslice tpfslice))))
+          (setf TrainSoFarBalHistory (append TrainSoFarBalHistory (list (balance tpdsofar tpfsofar))))
+
+          (if (equal (wilcoxon TrainSoFarBalHistory perTrainBalHistory 0.10) 0)
+              (incf (nth 2 winLossTieList))
+              (if (> (wilcoxon TrainSoFarBalHistory perTrainBalHistory 0.10) 0)
+                  (incf (nth 0 winLossTieList))
+                  (incf (nth 1 winLossTieList))))
+
           ; if slice is better than 'so-far' add the slice's train to total 
-          (when (> (- (balance tpdslice tpfslice) .05) (balance tpdsofar tpfsofar))
+          ;(when (> (- (balance tpdslice tpfslice) .05) (balance tpdsofar tpfsofar))
+          (when (< (wilcoxon TrainSoFarBalHistory perTrainBalHistory 0.10) 0)
             (format t "relearning ~%")
-            (setf train-so-far (combine-sets train-so-far (burak per-train (nth i testSliceList)))))
+            (setf train-so-far (combine-sets train-so-far per-train)))
 
           ; prints the pd/pf stats for the 'so-far' train set
           (format stream "normalize, equalwidth, naivebayes,slice,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A~%" "TRUE"
@@ -203,7 +214,8 @@
                faccsofar fprecsofar fpdsofar fpfsofar ffsofar fgsofar (* (balance fpdsofar fpfsofar) 100)
           )
  
-          (incf slice-count)))
+          (incf slice-count))
+        (print winLossTieList))
         (close stream)))
 
 (defun balance(pd pf)

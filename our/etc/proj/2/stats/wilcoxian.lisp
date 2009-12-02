@@ -2,28 +2,29 @@
   (let* ((diff (make-list (length pop1)))
          (absDiff (make-list (length pop1)))
          (n 0))
-    (doitems (onePop i pop1)
-      (incf n)
-      (setf (nth i diff) (- onePop (nth i pop2)))
-      (setf (nth i absDiff) (abs (nth i diff))))
-    (let ((ranks (rank absDiff))
-           (w0 0)
-           (w 0))
-      (doitems (oneAbsDiff i absDiff)
-        (setf w0 (gethash (nth i absDiff) ranks))
-        (setf w
-              (+ w
-                 (if (< (nth i diff) 0)
-                     (* -1 w0)
-                     w0))))
-      (let* ((sigma-value (sigma n))
-             (z-value (z w sigma-value)))
-        (print z-value)
-        (if (and
-             (>= z-value 0)
-             (<= z-value (z-critical level)))
-            NIL
-            T)))))
+    (if (equal pop1 pop2)
+        0)
+        (doitems (onePop i pop1)
+          (incf n)
+          (setf (nth i diff) (- onePop (nth i pop2)))
+          (setf (nth i absDiff) (abs (nth i diff))))
+        (let ((ranks (rank absDiff))
+              (w0 0)
+              (w 0))
+          (doitems (oneAbsDiff i absDiff)
+            (setf w0 (gethash (nth i absDiff) ranks))
+            (setf w
+                  (+ w
+                     (if (< (nth i diff) 0)
+                         (* -1 w0)
+                         w0))))
+          (let* ((sigma-value (sigma n))
+                 (z-value (z w sigma-value)))
+            (if (and
+                 (>= z-value 0)
+                 (<= z-value (z-critical level)))
+                0
+                w)))))
 
 (deftest test-wilcoxon()
   (check (equal
