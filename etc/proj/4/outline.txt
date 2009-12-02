@@ -1,0 +1,48 @@
+Pre-Processors:
+  A: Normalize
+  B: Sub-Sample
+  
+Discretizers:
+  A: N-Bins
+  B: Bin-Logging
+  C: N-Chops
+  D: OneR
+
+Clusterers:
+  A: GENIC
+  B: GENIC2
+  C: K-Means
+
+Feature Subset Selection:
+  A: Relief
+  B: InfoGain
+  
+Classifiers:
+  A: NaiveBayes
+  B: 2B
+  C: TwoR
+
+=== Total Possible Runs ===
+  2 * 4 * 3 * 2 * 3 = 144
+
+=== Win/Loss/Tie Tables ===
+  Compute averages for each run through the data.
+  Compare each learner to each other for the same dataset.
+    NaiveBayes is usually the benchmark.
+    If a learner is 1.0 or more stddev faster, it gets a win, the one compared to it gets a loss.
+      Otherwise, it's a tie.  Mark a tie for both.
+  Make a table with this data:
+    Each column is a FSS or Classifier, one table for each.
+    Each row's header is the data table used.
+    Each cell value is the average computational time.
+
+=== Quartiles ===
+    Make quartile charts with this data:
+    Box and wisker chart.
+    See: http://edubuzz.org/blogs/nbhs3x1/files/2007/01/boxplot-2.JPG
+
+=== Poster/Presentations ===
+  Presentation will be roughly 15 minutes.
+  Describe each one of our functions.
+  Describe the performance of our functions.
+  Describe the spread of our functions (quartiles).
