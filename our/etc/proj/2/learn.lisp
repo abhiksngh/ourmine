@@ -184,15 +184,15 @@
           (setf perTrainBalHistory (append perTrainBalHistory (list (balance tpdslice tpfslice))))
           (setf TrainSoFarBalHistory (append TrainSoFarBalHistory (list (balance tpdsofar tpfsofar))))
 
-          (if (equal (wilcoxon TrainSoFarBalHistory perTrainBalHistory 0.10) 0)
+          (if (equal (wilcoxon TrainSoFarBalHistory perTrainBalHistory 0.05) 0)
               (incf (nth 2 winLossTieList))
-              (if (> (wilcoxon TrainSoFarBalHistory perTrainBalHistory 0.10) 0)
+              (if (> (wilcoxon TrainSoFarBalHistory perTrainBalHistory 0.05) 0)
                   (incf (nth 0 winLossTieList))
                   (incf (nth 1 winLossTieList))))
 
           ; if slice is better than 'so-far' add the slice's train to total 
-          ;(when (> (- (balance tpdslice tpfslice) .05) (balance tpdsofar tpfsofar))
-          (when (< (wilcoxon TrainSoFarBalHistory perTrainBalHistory 0.10) 0)
+          (when (> (- (balance tpdslice tpfslice) .05) (balance tpdsofar tpfsofar))
+          ;(when (< (wilcoxon TrainSoFarBalHistory perTrainBalHistory 0.05) 0)
             (format t "relearning ~%")
             (setf train-so-far (combine-sets train-so-far per-train)))
 
