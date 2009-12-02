@@ -8,7 +8,6 @@
            (least most-positive-fixnum) 
            (class-count 0)
            (prev (last (eg-features (nth 0 (table-all (xindex sorted-data)))))))
-
             ; find the class that occurs least frequently and record its count
             (doitems (per-instance i all-instances)
                 (setf curr (last (eg-features (nth i (table-all sorted-data)))))
@@ -25,7 +24,6 @@
 
            (when micro
                (setf least (max least micro)))
-          
         ; copy no more than "least" of each class to a new table
         (doitems (per-instance i all-instances)
             (setf curr (last (eg-features (nth i (table-all sorted-data)))))
