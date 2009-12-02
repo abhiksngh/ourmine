@@ -40,6 +40,7 @@
                         "preprocessors/numericvalue"
                         "clusterers/knn"
                         "classifiers/nb"
+                        "stats/wilcoxian"
                         ))
 
 (defun make1 (files)

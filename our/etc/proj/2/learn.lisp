@@ -181,7 +181,7 @@
                                     (fourth fsofar))))
 
           ; if slice is better than 'so-far' add the slice's train to total 
-          (when (> (- (balance tpdslice tpfslice) .15) (balance tpdsofar tpfsofar))
+          (when (> (- (balance tpdslice tpfslice) .05) (balance tpdsofar tpfsofar))
             (format t "relearning ~%")
             (setf train-so-far (combine-sets train-so-far (burak per-train (nth i testSliceList)))))
 

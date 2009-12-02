@@ -114,9 +114,9 @@
          )
     (doitems (per-instance i xtest returnData)
       (let* ((nearest-neighbors (k-nearest-per-instance per-instance xtrain))
-             (nearest-neighbors (if (< (length nearest-neighbors) 20)
+             (nearest-neighbors (if (< (length nearest-neighbors) 5)
                                     nearest-neighbors
-                                    (subseq nearest-neighbors 0 20))))
+                                    (subseq nearest-neighbors 0 5))))
         (doitems (per-neighbor j nearest-neighbors)
           (let* ((neighbor (eg-features (nth (first per-neighbor) (table-all xtrain)))))
             (if (null (member neighbor tmp))
