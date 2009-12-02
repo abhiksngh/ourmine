@@ -319,10 +319,10 @@
   (/
    (*
     2
-    (pf a b c d)
+    (- 1 (pf a b c d))
     (pd a b c d))
    (+
-    (pf a b c d)
+    (- 1 (pf a b c d))
     (pd a b c d)))))
 
 
