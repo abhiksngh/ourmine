@@ -52,6 +52,9 @@
            (stream (open filename :direction :output 
                                   :if-does-not-exist :create
                                   :if-exists :supersede))
+           (expandedWLTStream (open "WLTStream.dat" :direction :output 
+                                  :if-does-not-exist :create
+                                  :if-exists :supersede))
            (slice-count 0)
            (var)
            (tslice) (fslice) ; true/false scores for each slice
@@ -64,9 +67,12 @@
            (tfslice) (tgslice) (ffslice) (fgslice) (tfsofar) (tgsofar) (ffsofar) (fgsofar)
            (perTrainBalHistory) (TrainSoFarBalHistory) ;history lists
            (winLossTieList (make-list 4 :initial-element 0))
+           (expandedWLTList)
+           (lastTimeLearned)
            (train-so-far))   ; running train set (builds as it goes)
       
       (multiple-value-bind (trainSliceList testSliceList) (generateSlices setList prep norm discretizer stream)
+        (setf expandedWLTList (make-list (length trainSliceList)))
         (setf train-so-far (first trainSliceList))
 
         (doitems (per-train i trainSliceList)
@@ -185,15 +191,22 @@
           (setf TrainSoFarBalHistory (append TrainSoFarBalHistory (list (balance tpdsofar tpfsofar))))
 
           (if (equal (wilcoxon TrainSoFarBalHistory perTrainBalHistory 0.05) 0)
-              (incf (nth 2 winLossTieList))
+              (progn
+                (incf (nth 2 winLossTieList))
+                (setf (nth i expandedWLTList) 0))
               (if (> (wilcoxon TrainSoFarBalHistory perTrainBalHistory 0.05) 0)
-                  (incf (nth 0 winLossTieList))
-                  (incf (nth 1 winLossTieList))))
+                  (progn
+                    (incf (nth 0 winLossTieList))
+                    (setf (nth i expandedWLTList) 1))
+                  (progn
+                    (incf (nth 1 winLossTieList))
+                    (setf (nth i expandedWLTList) -1))))
 
           ; if slice is better than 'so-far' add the slice's train to total 
-          (when (> (- (balance tpdslice tpfslice) .05) (balance tpdsofar tpfsofar))
-          ;(when (< (wilcoxon TrainSoFarBalHistory perTrainBalHistory 0.05) 0)
+          ;(when (> (- (balance tpdslice tpfslice) .05) (balance tpdsofar tpfsofar))
+          (when (< (wilcoxon TrainSoFarBalHistory perTrainBalHistory 0.05) 0)
             (format t "relearning ~%")
+            (setf lastTimeLearned i)
             (setf train-so-far (combine-sets train-so-far per-train)))
 
           ; prints the pd/pf stats for the 'so-far' train set
@@ -215,8 +228,18 @@
           )
  
           (incf slice-count))
-        (print winLossTieList))
-        (close stream)))
+        (writeWinLossTie expandedWLTList expandedWLTStream)
+        (format t "LastTimeLearned: ~A~%" lastTimeLearned))
+        (close stream)
+        (close expandedWLTStream)))
+
+(defun writeWinLossTie(list stream)
+  (if (null (cdr list))
+      (format stream "~A~%" (car list))
+      (progn
+        (format stream "~A," (car list))
+        (writeWinLossTie (cdr list) stream))))
+         
 
 (defun balance(pd pf)
   (- 1 (/
