@@ -190,11 +190,11 @@
           (setf perTrainBalHistory (append perTrainBalHistory (list (balance tpdslice tpfslice))))
           (setf TrainSoFarBalHistory (append TrainSoFarBalHistory (list (balance tpdsofar tpfsofar))))
 
-          (if (equal (wilcoxon TrainSoFarBalHistory perTrainBalHistory 0.05) 0)
+          (if (equal (wilcoxon TrainSoFarBalHistory perTrainBalHistory 0.10) 0)
               (progn
                 (incf (nth 2 winLossTieList))
                 (setf (nth i expandedWLTList) 0))
-              (if (> (wilcoxon TrainSoFarBalHistory perTrainBalHistory 0.05) 0)
+              (if (> (wilcoxon TrainSoFarBalHistory perTrainBalHistory 0.10) 0)
                   (progn
                     (incf (nth 0 winLossTieList))
                     (setf (nth i expandedWLTList) 1))
@@ -204,7 +204,7 @@
 
           ; if slice is better than 'so-far' add the slice's train to total 
           ;(when (> (- (balance tpdslice tpfslice) .05) (balance tpdsofar tpfsofar))
-          (when (< (wilcoxon TrainSoFarBalHistory perTrainBalHistory 0.05) 0)
+          (when (<= (wilcoxon TrainSoFarBalHistory perTrainBalHistory 0.10) 0)
             (format t "relearning ~%")
             (setf lastTimeLearned i)
             (setf train-so-far (combine-sets train-so-far per-train)))
@@ -212,19 +212,19 @@
           ; prints the pd/pf stats for the 'so-far' train set
           (format stream "normalize, equalwidth, naivebayes,slice,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A~%" "TRUE"
               (first tslice) (second tslice) (third tslice) (fourth tslice) 
-               taccslice tprecslice tpdslice tpfslice tfslice tgslice (* (balance tpdslice tpfslice) 100)
+               taccslice tprecslice (* tpdslice 100) (* tpfslice 100) (* 100 tfslice) (* tgslice 100) (* (balance tpdslice tpfslice) 100)
           )
           (format stream "normalize, equalwidth, naivebayes,slice,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A~%" "FALSE"
               (first fslice) (second fslice) (third fslice) (fourth fslice)
-               faccslice fprecslice fpdslice fpfslice ffslice fgslice (* (balance fpdslice fpfslice) 100)
+               faccslice fprecslice (* fpdslice 100) (* fpfslice 100) (* ffslice 100) (* fgslice 100) (* (balance fpdslice fpfslice) 100)
           )
           (format stream "normalize, equalwidth, naivebayes,sofar,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A~%" "TRUE"
               (first tsofar) (second tsofar) (third tsofar) (fourth tsofar)
-               taccsofar tprecsofar tpdsofar tpfsofar tfsofar tgsofar (* (balance tpdsofar tpfsofar) 100)
+               taccsofar tprecsofar (* tpdsofar 100) (*  tpfsofar 100) (* tfsofar 100) (* tgsofar 100) (* (balance tpdsofar tpfsofar) 100)
           )
           (format stream "normalize, equalwidth, naivebayes,sofar,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A~%" "FALSE"
               (first fsofar) (second fsofar) (third fsofar) (fourth fsofar)
-               faccsofar fprecsofar fpdsofar fpfsofar ffsofar fgsofar (* (balance fpdsofar fpfsofar) 100)
+               faccsofar fprecsofar (* fpdsofar 100) (* fpfsofar 100) ffsofar fgsofar (* (balance fpdsofar fpfsofar) 100)
           )
  
           (incf slice-count))
