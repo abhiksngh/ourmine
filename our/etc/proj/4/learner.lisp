@@ -249,8 +249,8 @@
             (cv-results nil)
             (result nil))
         (dotimes (i m)
-          (dolist (test-bin (split-preprocessor test n))
-            (setf cv-results (nconc (learner train test-bin :k k 
+          (dolist (test-bin (split-preprocessor (table-deep-copy test) n))
+            (setf cv-results (nconc (learner (table-deep-copy train) test-bin :k k 
                                                             :row-reducer row-reducer
                                                             :clusterer clusterer 
                                                             :fss fss 
