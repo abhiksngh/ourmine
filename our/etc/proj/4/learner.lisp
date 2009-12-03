@@ -1,4 +1,4 @@
-;;Takes a table structure of test data and a list of symbols representing the
+;;takes a table structure of test data and a list of symbols representing the
 ;;predicted classes for each instance in the test data and returns 4 hash tables
 ;;indexed by class, containing the A, B, C, and D measures for each class.
 (defun p-metrics (test results)
@@ -235,13 +235,13 @@
   (let ((test-tbls nil)
         (train nil)
         (results nil)
-        (prev-pd most-positive-fixnum))
+        (prev-g most-positive-fixnum))
     (dolist (tbl tbls)
       (setf test-tbls (nconc test-tbls (split-preprocessor tbl n))))
     (setf train (car test-tbls))
     (setf test-tbls (cdr test-tbls))
     (dolist (test (shuffle test-tbls))
-      (let ((new-pd 0)
+      (let ((new-g 0)
             (result nil))
         (setf result (learner train test :k k 
                                          :prep prep 
@@ -254,10 +254,10 @@
         (setf results (nconc result results))
         (dolist (stats result)
           (if (equalp (statistics-class stats) defect-class)
-            (setf new-pd (statistics-pd stats))))
-        (if (< new-pd prev-pd)
+            (setf new-g (statistics-g stats))))
+        (if (< (- new-g 5)  prev-g)
           (setf train (combine-preprocessor train test)))
-        (setf prev-pd new-pd)))
+        (setf prev-g new-g)))
     (setf results (nreverse results))
     (statistics-output (filter #'(lambda (result) (and (equalp (statistics-class result) defect-class) result)) results) :file-name file-name)))
 
