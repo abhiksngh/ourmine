@@ -231,33 +231,40 @@
                                 (classifier #'identity)
                                 (defect-class 'true)
                                 (file-name nil)
-                                (n 10))
+                                (min-defect-rows 25)
+                                (m 5)
+                                (n 5))
   (let ((test-tbls nil)
         (train nil)
         (results nil)
         (prev-g most-positive-fixnum))
     (dolist (tbl tbls)
-      (setf test-tbls (nconc test-tbls (split-preprocessor tbl n))))
+      (setf tbl (funcall prep tbl))
+      (setf tbl (funcall discretizer tbl))
+      (setf test-tbls (nconc test-tbls (split-preprocessor tbl (max 1 (/ (get-table-class-frequency tbl defect-class) min-defect-rows))))))
     (setf train (car test-tbls))
     (setf test-tbls (cdr test-tbls))
     (dolist (test (shuffle test-tbls))
       (let ((new-g 0)
+            (cv-results nil)
             (result nil))
-        (setf result (learner train test :k k 
-                                         :prep prep 
-                                         :row-reducer row-reducer
-                                         :discretizer discretizer 
-                                         :clusterer clusterer 
-                                         :fss fss 
-                                         :classifier-train classifier-train 
-                                         :classifier classifier))
-        (setf results (nconc result results))
-        (dolist (stats result)
-          (if (equalp (statistics-class stats) defect-class)
-            (setf new-g (statistics-g stats))))
+        (dotimes (i m)
+          (dolist (test-bin (split-preprocessor test n))
+            (setf cv-results (nconc (learner train test-bin :k k 
+                                                            :row-reducer row-reducer
+                                                            :clusterer clusterer 
+                                                            :fss fss 
+                                                            :classifier-train classifier-train 
+                                                            :classifier classifier)
+                                    cv-results))))
+        (setf cv-results (filter #'(lambda (result) (and (equalp (statistics-class result) defect-class) result)) cv-results))
+        (setf cv-results (sort cv-results #'< :key #'statistics-g))
+        (setf result (nth (floor (/ (length cv-results) 2)) cv-results))
+        (setf new-g (statistics-g result))
         (if (< (- new-g 5)  prev-g)
           (setf train (combine-preprocessor train test)))
-        (setf prev-g new-g)))
+        (setf prev-g new-g)
+        (push result results)))
     (setf results (nreverse results))
     (statistics-output (filter #'(lambda (result) (and (equalp (statistics-class result) defect-class) result)) results) :file-name file-name)))
 
