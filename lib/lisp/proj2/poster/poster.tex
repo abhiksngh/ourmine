@@ -1,0 +1,217 @@
+\documentclass[10pt]{scrartcl}
+\usepackage{tritricks}
+%%
+%
+% This is a poster template with latex macros and using
+% the University of Florida Logo.  For further information
+% on making postscript, resizeing, and printing the poster file
+% please see web site
+% http://www.phys.ufl.edu/~pjh/posters/poster_howto.html
+%
+% N.B. This format is cribbed from one obtained from the University
+% of Karlsruhe, so some macro names and parameters are in German
+% Here is a short glossary:
+% Breite: width
+% Hoehe: height
+% Spalte: column
+% Kasten: box
+%
+% All style files necessary are part of standard TeTeX distribution
+% On the UF unix cluster you should not need to import these files
+% specially, as they will be automatically located.  If you
+% run on a local PC however, you will need to locate these files.
+% At UF try /usr/local/TeTeX...
+%
+% P. Hirschfeld 2/11/00
+%
+% The recommended procedure is to first generate a ``Special Format" size poster
+% file, which is relatively easy to manipulate and view.  It can be
+% resized later to A0 (900 x 1100 mm) full poster size, or A4 or Letter size
+% as desired (see web site).  Note the large format printers currently
+% in use at UF's OIR have max width of about 90cm or 3 ft., but the paper
+% comes in rolls so the length is variable.  See below the specifications
+% for width and height of various formats.  Default in the template is
+% ``Special Format",  with 4 columns.
+%%
+%%
+%% Choose your poster size:
+%% For printing you will later RESIZE your poster by a factor
+%%        2*sqrt(2) = 2.828    (for A0)
+%%        2         = 2.00     (for A1)
+%%
+%%
+\def\breite{450mm}     % Special Format.
+\def\hoehe{319.2mm}      % Scaled by 2.82 this gives 110cm x 90cm
+\def\anzspalten{4}
+%%
+%%\def\breite{420mm}     % A3 LANDSCAPE
+%%\def\hoehe{297mm}
+%%\def\anzspalten{4}
+%%
+%% \def\breite{297mm}     % A3 PORTRAIT
+%% \def\hoehe{420mm}
+%% \def\anzspalten{3}
+%%
+%% \def\breite{210mm}     % A4 PORTRAIT
+%% \def\hoehe{297mm}
+%% \def\anzspalten{2}
+%%
+%%
+%% Procedure:
+%%   Generate poster.dvi with latex
+%%   Check with Ghostview
+%%   Make a .ps-file with ``dvips -o poster.ps poster''
+%%   Scale it with poster_resize poster.ps S
+%%   where S is scale factor
+%%     for Special Format->A0 S= 2.828 (= 2^(3/2)))
+%%     for Special Format->A1 S= 2 (= 2^(2/2)))
+%%
+%% Sizes (European:)
+%%   A3: 29.73 X 42.04 cm
+%%   A1: 59.5 X 84.1 cm
+%%   A0: 84.1 X 118.9 cm
+%%   N.B. The recommended procedure is ``Special Format x 2.82"
+%%   which gives 90cm x 110cm (not quite A0 dimensions).
+%%
+%% --------------------------------------------------------------------------
+%%
+%% Load the necessary packages
+%%
+\usepackage{palatino}
+\usepackage[latin1]{inputenc}
+\usepackage{epsf}
+\usepackage{graphicx,psfrag,color,pstcol,pst-grad}
+\usepackage{amsmath,amssymb}
+\usepackage{latexsym}
+\usepackage{calc}
+\usepackage{multicol}
+\usepackage{ifthen}
+%%
+%% Define the required numbers, lengths and boxes
+%%
+\newsavebox{\dummybox}
+\newsavebox{\spalten}
+%\input psfig.sty
+
+%%
+%%
+\newlength{\bgwidth}\newlength{\bgheight}
+\setlength\bgheight{\hoehe} \addtolength\bgheight{-1mm}
+\setlength\bgwidth{\breite} \addtolength\bgwidth{-1mm}
+
+\newlength{\kastenwidth}
+
+%% Set paper format
+\setlength\paperheight{\hoehe}
+\setlength\paperwidth{\breite}
+\special{papersize=\breite,\hoehe}
+
+\topmargin -1in
+\marginparsep0mm
+\marginparwidth0mm
+\headheight0mm
+\headsep0mm
+
+
+%% Minimal Margins to Make Correct Bounding Box
+\setlength{\oddsidemargin}{-2.44cm}
+\addtolength{\topmargin}{-3mm}
+\textwidth\paperwidth
+\textheight\paperheight
+
+%%
+%%
+\parindent0cm
+\parskip1.5ex plus0.5ex minus 0.5ex
+\pagestyle{empty}
+
+
+
+
+\definecolor{recoilcolor}{rgb}{1,0,0}
+\definecolor{occolor}{rgb}{0,1,0}
+\definecolor{pink}{rgb}{0,1,1}
+
+
+
+
+
+\def\UberStil{\normalfont\sffamily\bfseries\large}
+\def\UnterStil{\normalfont\sffamily\small}
+\def\LabelStil{\normalfont\sffamily\tiny}
+\def\LegStil{\normalfont\sffamily\tiny}
+
+%%
+%% Define some commands
+%%
+\definecolor{JG}{rgb}{0.1,0.9,0.3}
+
+\newenvironment{kasten}{%
+  \begin{lrbox}{\dummybox}%
+    \begin{minipage}{0.96\linewidth}}%
+    {\end{minipage}%
+  \end{lrbox}%
+  \raisebox{-\depth}{\psshadowbox[framesep=1em]{\usebox{\dummybox}}}\\[0.5em]}
+\newenvironment{spalte}{%
+  \setlength\kastenwidth{1.2\textwidth}
+  \divide\kastenwidth by \anzspalten
+  \begin{minipage}[t]{\kastenwidth}}{\end{minipage}\hfill}
+
+\renewcommand{\emph}[1]{{\color{red}\textbf{#1}}}
+
+
+\def\op#1{\hat{#1}}
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%               Background                     %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+{\newrgbcolor{gradbegin}{0.5 0.5 1}%
+  \newrgbcolor{gradend}{1 1 1}%{1 1 0.5}%
+  \psframe[fillstyle=gradient,gradend=gradend,%
+  gradbegin=gradbegin,gradmidpoint=0.1](\bgwidth,-\bgheight)}
+\vfill
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                     Header                   %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hfill
+\psshadowbox{\makebox[0.95\textwidth]{%
+
+	\input{header}
+  
+\hfill}}\hfill\mbox{}\\[1.cm]
+%\vspace*{1.3cm}
+\begin{lrbox}{\spalten}
+  \parbox[t][\textheight]{1.3\textwidth}{%
+    \vspace*{0.2cm}
+    \hfill
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                 first column                 %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \begin{spalte}   
+		\input{col1}    
+    \end{spalte} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%               second column                  %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \begin{spalte}   
+		\input{col2} 
+    \end{spalte} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%               third column                   %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \begin{spalte}
+		\input{col3}
+    \end{spalte}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%               fourth column                  %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \begin{spalte}
+		\input{col4}
+    \end{spalte}
+    }
+    \end{lrbox}
+\resizebox*{0.98\textwidth}{!}{%
+  \usebox{\spalten}}\hfill\mbox{}\vfill
+\end{document}
+
+

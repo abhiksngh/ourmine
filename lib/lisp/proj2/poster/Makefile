@@ -1,0 +1,39 @@
+Src=poster
+
+
+all : ready dirs dvi bib  tex tex done view
+
+ready :
+	touch $(Src).tex
+
+one : dirs dvi done 
+
+done :
+	@printf "\n\n\n==============================================\n"
+	@printf       "see output in $(HOME)/tmp/$(Src).pdf\n"
+	@printf       "==============================================\n\n\n"
+	@printf "\n\nWarnings (may be none):\n\n"
+	grep arning $(HOME)/tmp/${Src}.log
+
+dirs : 
+	- [ ! -d $(HOME)/tmp ] && mkdir $(HOME)/tmp
+
+tex : $(HOME)/tmp/$(Src).pdf 
+
+dvi : $(HOME)/tmp/$(Src).dvi 
+
+$(HOME)/tmp/$(Src).dvi : $(Src).tex
+	- latex -output-directory=$(HOME)/tmp $(Src)
+
+$(HOME)/tmp/$(Src).ps: $(HOME)/tmp/$(Src).dvi
+	dvips -o $@ $<
+
+$(HOME)/tmp/$(Src).pdf : $(HOME)/tmp/$(Src).ps
+	pstopdf $<
+
+view : $(HOME)/tmp/$(Src).ps
+	evince $<
+
+bib : 
+	- bibtex $(HOME)/tmp/$(Src)
+

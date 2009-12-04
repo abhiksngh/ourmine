@@ -1,0 +1,37 @@
+\begin{kasten}
+    \section*{ \hspace{0.1cm} {\color{red} \underline{SIMULATOR SCORING}}}
+    \large{
+      POM2 defines three different $cost/value$ curves of the completed requirements when scoring the project:
+      \begin{smallenum}
+      \item Optimal Frontier(OF): The completed requirements are ordered by their final $cost/value$ in the optimal descending order.
+      \item Pessimistic Frontier(PF): The completed requirements are ordered by their final $cost/value$ in ascending order.
+      \item Actual Curve(AC): The completed requirements are ordered by the order they were completed in the simulator.
+      \end{smallenum}
+
+      The score is then defined as the area between the \textit{OF} and \textit{PF} (\eq{score}).
+      
+      \begin{minipage}{5.35cm}
+        \includegraphics[width=5.35cm]{fakechart.eps}
+      \end{minipage}
+      \begin{minipage}{7.65cm}
+        \begin{equation}\label{eq:score}
+          \mathtt{score} = \frac{\int AC - \int PF}{\int OF - \int PF}
+        \end{equation}
+        By using the area between the OF and PF curve, the project configuration bears no impact on the final score. Thus leaving just the impact of the model inputs and prioritization policy.
+      \end{minipage}
+    }
+\end{kasten}
+
+\begin{kasten}
+    \section*{ \hspace{0.1cm} {\color{red} \underline{MODEL INPUTS}}}
+    \large{
+    \include{modelinputs}
+    }
+\end{kasten}
+
+\begin{kasten}
+    \section*{ \hspace{0.1cm} {\color{red} \underline{RESULTS}}}
+    \tiny
+    \include{big-ass-chart}
+    \vspace{-.5em}
+\end{kasten}

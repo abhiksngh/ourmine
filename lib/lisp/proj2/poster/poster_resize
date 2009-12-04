@@ -1,0 +1,162 @@
+#!/bin/bash
+
+#
+
+## Poster_resize - resize a postscript file.
+##
+##-------------------------------------------------------------
+##  adapted to bash by Fabricio Ferrari, based on poster_resize 
+##  original version  v1.0 (see below) from  Peter Hirschfeld at
+##              http://www.phys.ufl.edu/~pjh
+##--------------------------------------------------------------
+
+#   Making and printing a poster using latex poster macros
+
+# These are instructions for preparing and printing a large-format poster
+# appropriate for conference presentation. Click here <houstonposter.ps>
+# to get a postscript file containing a full poster example. View it in
+# ghostview with "seascape" orientation & 0.25 magnification (in the PC
+# version (GSView) you may have to use the "User Defined" options in Media
+# menu; set width to 900 and height to 1200).
+
+
+#       1. Making the poster file
+
+#     * Download template latex source file UFposter.tex, blank figure ps
+#       file blank.ps, and UF logo ps file LetterShape.eps
+#       <http://www.pr.ufl.edu/images/dtpshapu.zip>
+
+#     * You may wish to preview this file to get a sense of how it looks.
+#       To do this:
+
+#       latex UFposter.tex
+#       dvips -o UFposter.ps UFposter
+#       gv UFposter.ps
+
+#       In Ghostview (gv), choose "Seascape" from the orientation menu and
+#       0.25 magnification from magnification menu to view the full page.
+#       On a PC (GSView) try "User Defined" option in Media menu with
+#       width=900, height=1200. If you want to view the text in the
+#       poster, you may need a larger magnification.
+
+#     * Edit the file with your favorite text editor. Enter your text &
+#       encapsulated postscript figures, using the macros used in the
+#       template. Follow the steps above to create a ps file for viewing
+#       as you add & make corrections. Free advice: latex and preview
+#       often while coding.
+
+#     * Sizing. You will note in header to UFposter.tex source that
+#       various sizes are possible. These are defined in terms of
+#       Hoehe(Height) und Breite (Width). (macros are originally from
+#       someone in Germany & were cribbed from U. Karlsruhe by P.
+#       Hirschfeld) The recommended procedure is to first generate a
+#       "Special Format" size poster file, which is relatively easy to
+#       manipulate and view. It can be resized later to A0 (90 x 110 cm)
+#       full poster size, or A4 or Letter size as desired (see below).
+#       Note the large format printers currently in use at UF's OIR have
+#       max width of about 90cm or 3 ft., but the paper comes in rolls so
+#       the length is variable. See below the specifications for width and
+#       height of various formats. Default in the template is "Special
+#       Format", 32 x 39cm with 4 columns. This is the format of the
+#       template currently.
+
+#       Once you have edited your latex file and have a nice "Special
+#       Format" size poster, you need to resize file to a size suitable
+#       for printing. Recommended size: A0 (roughly 110cm by 90cm). To do
+#       this,
+
+#          1. Download the postscript resizing script poster_resize.
+#          2. Choose your scale factor S. To make recommended size poster
+#             (A0), choose S=2.82. To get roughly letter-size poster which
+#             will print onto a single letter-size sheet, choose S=.67.
+#          3. Type
+
+#             | poster_resize UFposter.ps S |
+
+#             where UFposter.ps is your postscript file, and S is the
+#             scale factor. This should produce a new file names
+#             UFposter.resize.ps in which the bounding boxes are changed,
+#             etc. You can rename it so that you can remember the size,
+#             e.g. UFposterA0.ps. Check UFposterA0 one last time before
+#             printing!
+
+#   ------------------------------------------------------------------------
+#       pjh@phys.ufl.edu
+#
+#
+#       Last modified 2/13/00 
+
+
+PSRESIZE=/usr/bin/psresize   # Path to psresize
+
+echo ""
+echo "poster_resize v1.1 (v1.0 modified by FF 2004)"
+
+# Remove ending ".ps" if $1 is not empty
+FILE=
+if [ -n "$1" ] 
+then 
+  FILE=`basename $1 .ps`
+fi 
+
+INFILE=${FILE}.ps
+OUTFILE=${FILE}.resize.ps
+TMPFILE=/tmp/ps-resize.$$.ps
+
+# Test existence of the PS File
+if [ ! -r "${INFILE}" ]
+then  ### DVI-File not found
+  if [ -z "$1" ] 
+    then  echo "error: no input file specified"
+    else  echo "error: file "${INFILE}" not found"
+  fi
+  echo "usage: poster_resize_UF <ps-file> [<scale-factor>]"
+  exit
+fi
+echo "Input file: ${INFILE}"
+
+# Is a Scale specified?
+if [ -n "$2" ]
+then 
+  SCALE=$2
+  echo "Specified scale-factor is: ${SCALE}"
+else
+  SCALE=2.828
+  echo "No scale-factor specified. Using default value (ie. A3->A0): ${SCALE}"
+fi
+
+# Do the job
+TEMP=`grep '%%BoundingBox: ' ${FILE}.ps`
+read -r DUMMY X0 Y0 X1 Y1 <<EOF
+`grep '%%BoundingBox: ' ${FILE}.ps`
+EOF
+
+ 
+echo "Old Bounding Box: ${X0} ${Y0} ${X1} ${Y1}"
+
+read -r DX0 DY0 X2 Y2 X3 Y3 DX2 DY2<<LULU
+`dc <<EOF | awk '{printf $0 " "}' 
+  $X1 $X0 - p
+  $Y1 $Y0 - p
+  $SCALE $X0 * p
+  $SCALE $Y0 * p
+  $SCALE $X1 * p
+  $SCALE $Y1 * p
+  $X1 $X0 - $SCALE * p
+  $Y1 $Y0 - $SCALE * p
+EOF
+`
+LULU
+
+
+echo "New Bounding Box: ${X2} ${Y2} ${X3} ${Y3}"
+$PSRESIZE  -W${DX0} -H${DY0} -w${DX2} -h${DY2} ${INFILE} \
+  ${TMPFILE}
+cat ${TMPFILE} | \
+  sed "s+%!PS-Adobe.*+%!PS-Adobe-2.0 EPSF-2.0+1" | \
+  sed "s+%%BoundingBox:.*+%%BoundingBox: ${X2} ${Y2} ${X3} ${Y3}+1" \
+  > ${OUTFILE}
+rm -f ${TMPFILE}
+echo "Job done. Created: ${OUTFILE}"
+
+echo ""

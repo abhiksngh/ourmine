@@ -1,0 +1,50 @@
+\usepackage{url}
+\usepackage{wrapfig}
+\newcommand{\be}{\begin{enumerate}}
+\newcommand{\ee}{\end{enumerate}}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+
+\newenvironment{verysmallitem}
+ {\setlength{\topsep}{0pt}
+  \setlength{\partopsep}{0pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+  \begin{itemize}
+   \setlength{\leftmargin}{.1in}
+  \setlength{\parsep}{0pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{0pt}}
+ {\end{itemize}}
+\newenvironment{smallitem}
+ {\setlength{\topsep}{0pt}
+  \setlength{\partopsep}{0pt}
+  \setlength{\parskip}{0pt}
+  \begin{itemize}
+   \setlength{\leftmargin}{.2in}
+  \setlength{\parsep}{0pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{0pt}}
+ {\end{itemize}}
+\newenvironment{smallenum}
+ {\setlength{\topsep}{0pt}
+  \setlength{\partopsep}{0pt}
+  \setlength{\parskip}{0pt}
+  \begin{enumerate}
+  \setlength{\leftmargin}{.2in}
+  \setlength{\parsep}{0pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{0pt}}
+ {\end{enumerate}}
+
+
+\newcommand{\tion}[1]{\S\ref{tion:#1}}
+\newcommand{\eq}[1]{Eq.~\ref{eq:#1}}
+\newcommand{\fig}[1]{Figure~\ref{fig:#1}}
+
+\newcommand{\sq}[2]{
+  \definecolor{thiscol}{gray}{.#2}
+  \ifthenelse{#2<50}
+    {\color{white}}
+    {\color{black}}
+  \colorbox{thiscol}{\makebox[2em]{\vspace{-2em}#1}}}
