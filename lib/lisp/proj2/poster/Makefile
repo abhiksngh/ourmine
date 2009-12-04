@@ -25,11 +25,11 @@ dvi : $(HOME)/tmp/$(Src).dvi
 $(HOME)/tmp/$(Src).dvi : $(Src).tex
 	- latex -output-directory=$(HOME)/tmp $(Src)
 
-$(HOME)/tmp/$(Src).ps: $(HOME)/tmp/$(Src).dvi
-	dvips -o $@ $<
+#$(HOME)/tmp/$(Src).ps: $(HOME)/tmp/$(Src).dvi
+#	dvips -o $@ $<
 
-$(HOME)/tmp/$(Src).pdf : $(HOME)/tmp/$(Src).ps
-	pstopdf $<
+$(HOME)/tmp/$(Src).pdf : $(HOME)/tmp/$(Src).dvi
+	dvipdf $<
 
 view : $(HOME)/tmp/$(Src).ps
 	evince $<
