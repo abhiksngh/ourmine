@@ -30,7 +30,6 @@
                         "table/table"
                         "table/xindex"
                         "./learn"
-                       ; "./crossval"
                         "reduction/b-squared"
                         "preprocessors/sub-sample"
                         "discretizers/discretizers"

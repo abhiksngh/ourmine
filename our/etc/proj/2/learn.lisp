@@ -70,7 +70,10 @@
            (expandedWLTList)
            (lastTimeLearned)
            (train-so-far))   ; running train set (builds as it goes)
-      
+     
+          (format stream "normalized,~tdiscretizer,~Tlearner,~Tslice/sofar,~Tclass,~Ta,~Tb,~Tc,~Td,~Tacc,~Tprec,~Tpd,~Tpf,~Tf,~Tg,~Tbal~%")
+
+ 
       (multiple-value-bind (trainSliceList testSliceList) (generateSlices setList prep norm discretizer stream)
         (setf expandedWLTList (make-list (length trainSliceList)))
         (setf train-so-far (first trainSliceList))
@@ -210,19 +213,19 @@
             (setf train-so-far (combine-sets train-so-far per-train)))
 
           ; prints the pd/pf stats for the 'so-far' train set
-          (format stream "normalize, equalwidth, naivebayes,slice,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A~%" "TRUE"
+          (format stream "normalize,~Tequalwidth,~Tnaivebayes,~Tslice,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A~%" "TRUE"
               (first tslice) (second tslice) (third tslice) (fourth tslice) 
                taccslice tprecslice (* tpdslice 100) (* tpfslice 100) (* 100 tfslice) (* tgslice 100) (* (balance tpdslice tpfslice) 100)
           )
-          (format stream "normalize, equalwidth, naivebayes,slice,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A~%" "FALSE"
+          (format stream "normalize,~Tequalwidth,~Tnaivebayes,~Tslice,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A~%" "FALSE"
               (first fslice) (second fslice) (third fslice) (fourth fslice)
                faccslice fprecslice (* fpdslice 100) (* fpfslice 100) (* ffslice 100) (* fgslice 100) (* (balance fpdslice fpfslice) 100)
           )
-          (format stream "normalize, equalwidth, naivebayes,sofar,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A~%" "TRUE"
+          (format stream "normalize,~Tequalwidth,~Tnaivebayes,~Tsofar,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A~%" "TRUE"
               (first tsofar) (second tsofar) (third tsofar) (fourth tsofar)
                taccsofar tprecsofar (* tpdsofar 100) (*  tpfsofar 100) (* tfsofar 100) (* tgsofar 100) (* (balance tpdsofar tpfsofar) 100)
           )
-          (format stream "normalize, equalwidth, naivebayes,sofar,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A,~A~%" "FALSE"
+          (format stream "normalize,~Tequalwidth,~Tnaivebayes,~Tsofar,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A,~T~A~%" "FALSE"
               (first fsofar) (second fsofar) (third fsofar) (fourth fsofar)
                faccsofar fprecsofar (* fpdsofar 100) (* fpfsofar 100) ffsofar fgsofar (* (balance fpdsofar fpfsofar) 100)
           )
@@ -264,7 +267,7 @@
               testset
               &key (prep #'donothing)
                    (norm #'donothing)
-                   (rowReducer   #'donothing)
+                   (rowReducer   #'sub-sample)
                    (discretizer  #'donothing)
                    (classify     #'nb))
     ; normalize both train and test data sets
@@ -272,7 +275,7 @@
         (funcall norm trainSet testSet)
 
         ; perform row reduction on train set
-        ; (setf trainSet (funcall rowReducer trainSet testSet 75))
+         (setf trainSet (funcall rowReducer trainSet testSet))
 
         ; perform classificiation on both data sets
         (multiple-value-bind (trueClass falseClass) 

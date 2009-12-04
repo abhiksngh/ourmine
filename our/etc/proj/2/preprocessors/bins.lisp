@@ -20,7 +20,7 @@
     (let* ((n-instances (negs data))
            (test-set)  
            (train-set)
-           (nbins 5)
+           (nbins 3)
 
            ; sort the instances of the table by class value
            (classes (table-all (sort-table data))) 
@@ -58,14 +58,14 @@
     )
 )
 
-(defun get-train (bins-list bin-num)
+(defun get-test (bins-list bin-num)
     (let* ((len (length (nth bin-num bins-list)))
            (test-size (ceiling (* len .1))))
         (subseq (nth bin-num bins-list) 0 (- test-size 1))
     )    
 )
 
-(defun get-test (bins-list bin-num)
+(defun get-train (bins-list bin-num)
     (let* ((len (length (nth bin-num bins-list)))
            (test-size (ceiling (* len .1))))
         (subseq (nth bin-num bins-list) (- test-size 1))
@@ -75,7 +75,7 @@
 
 (defun bin-list (filled-bins max-per)
     (let* ((per-bin 0) (eg-set) (bins-list))
-        (loop for bin-num from 0 to 4
+        (loop for bin-num from 0 to 2
           do
             (loop for i from 1 to max-per
                 do
@@ -119,15 +119,15 @@
                   :egs (get-train bins-list 2)
             )
 
-            (data :name (format nil "~A_~A" (table-name data-set) "bin3-train")
-                  :columns (columns-header (table-columns data-set))
-                  :egs (get-train bins-list 3)
-            )
+;            (data :name (format nil "~A_~A" (table-name data-set) "bin3-train")
+;                  :columns (columns-header (table-columns data-set))
+;                  :egs (get-train bins-list 3)
+;            )
 
-            (data :name (format nil "~A_~A" (table-name data-set) "bin4-train")
-                  :columns (columns-header (table-columns data-set))
-                  :egs (get-train bins-list 4)
-            )
+;            (data :name (format nil "~A_~A" (table-name data-set) "bin4-train")
+;                  :columns (columns-header (table-columns data-set))
+;                  :egs (get-train bins-list 4)
+;            )
 
 ;            (data :name (format nil "~A_~A" (table-name data-set) "bin5-train")
 ;                  :columns (columns-header (table-columns data-set))
@@ -170,15 +170,15 @@
                   :egs (get-test bins-list 2)
             )
 
-            (data :name (format nil "~A_~A" (table-name data-set) "bin3-test")
-                  :columns (columns-header (table-columns data-set))
-                  :egs (get-test bins-list 3)
-            )
+;            (data :name (format nil "~A_~A" (table-name data-set) "bin3-test")
+;                  :columns (columns-header (table-columns data-set))
+;                  :egs (get-test bins-list 3)
+;            )
 
-            (data :name (format nil "~A_~A" (table-name data-set) "bin4-test")
-                  :columns (columns-header (table-columns data-set))
-                  :egs (get-test bins-list 4)
-            )
+;            (data :name (format nil "~A_~A" (table-name data-set) "bin4-test")
+;                  :columns (columns-header (table-columns data-set))
+;                  :egs (get-test bins-list 4)
+;            )
 
 ;            (data :name (format nil "~A_~A" (table-name data-set) "bin5-test")
 ;                  :columns (columns-header (table-columns data-set))

@@ -1,8 +1,7 @@
 (defun b-squared (data) 
-    (let* ((true-cols  (b2 data 10 5))
-           (false-cols (b2 data 5 10)))
-           (prune-columns data (remove-duplicates (append true-cols false-cols))))
-          
+    (multiple-value-bind (true-cols true-ranges) (b2 data 10 5)
+        (prune-table data true-cols true-ranges)
+    ) 
 )
 (defun b2 (data true-score false-score)
     (let* ((scored-data (score-data data true-score false-score))
@@ -81,6 +80,8 @@
            (trans-data) (attr-data) (class-data)
            (sorted-attr-data)
            (keep-cols (list ))
+           (score-range)
+           (keep-range)
            (col-names)
            (n-cols (length (table-columns data)))
            (scores (list )) ; value scores for each attr value
@@ -116,6 +117,9 @@
             )
             ; compute the median score for all attr vals
             (setf median-scores (append median-scores (list (median scores))))
+
+            ; get top ranges
+            (setf keep-range (append keep-range (list (list (nth (max-index scores) attr-vals)))))
         )
         (setf median-scores (append median-scores (list 0.0))) ; no score for class
 
@@ -136,6 +140,19 @@
 
         ; extract the remaining col headers
         (setf keep-cols (sort (subseq (nth 0 trans-data) 0 3) #'<))
+        (values keep-cols keep-range)        
+    )
+)
+
+(defun max-index (scores)
+    (let* ((high 0) (index 0))
+        (doitems (score i scores)
+            (when (> score high)
+                (setf high score)
+                (setf index i)
+            )
+        )
+        index
     )
 )
 
