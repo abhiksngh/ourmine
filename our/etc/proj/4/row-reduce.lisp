@@ -87,15 +87,15 @@
 
 ;;Reduces the number of rows in train to 50 defect rows and 50 non-defect rows.
 (defun micro-sample-n50 (train &optional test)
-  (micro-sample train))
+  (micro-sample train 50))
 
 ;;Reduces the number of rows in train to 100 defect rows and 100 non-defect rows.
 (defun micro-sample-n100 (train &optional test)
-  (micro-sample train))
+  (micro-sample train 100))
 
 ;;Reduces the number of rows in train to 200 defect rows and 200 non-defect rows.
-(defun micro-sample-n200 (train &optional test)
-  (micro-sample train))
+(defun micro-sample-n150 (train &optional test)
+  (micro-sample train 150))
 
 (defun analyze1 ()
   (let ((collections (list (list (ar3) (ar4) (ar5))

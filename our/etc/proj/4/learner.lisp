@@ -261,7 +261,7 @@
         (setf cv-results (sort cv-results #'< :key #'statistics-g))
         (setf result (nth (floor (/ (length cv-results) 2)) cv-results))
         (setf new-g (statistics-g result))
-        (if (< (- new-g 5)  prev-g)
+        (if (< (- new-g 0.05)  prev-g)
           (setf train (combine-preprocessor train test)))
         (setf prev-g new-g)
         (push result results)))
@@ -269,4 +269,5 @@
     (statistics-output (filter #'(lambda (result) (and (equalp (statistics-class result) defect-class) result)) results) :file-name file-name)))
 
 (defun stable-theory-demo ()
-  (stable-theory (list (ar3) (ar4) (ar5)) :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify))
+	(stable-theory (list (ar3com)(ar4com)(ar5com)(pc1com)(kc1com)(kc2com)(cm1com)) :prep #'numeric-preprocessor :discretizer #'10bins-eq-freq :classifier-train #'nb-train :classifier #'nb-classify))
+
