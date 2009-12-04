@@ -241,7 +241,7 @@
     (dolist (tbl tbls)
       (setf tbl (funcall prep tbl))
       (setf tbl (funcall discretizer tbl))
-      (setf test-tbls (nconc test-tbls (split-preprocessor tbl (max 1 (/ (get-table-class-frequency tbl defect-class) min-defect-rows))))))
+      (setf test-tbls (nconc test-tbls (split-preprocessor tbl (max 1 (floor (/ (get-table-class-frequency tbl defect-class) min-defect-rows)))))))
     (setf train (car test-tbls))
     (setf test-tbls (cdr test-tbls))
     (dolist (test (shuffle test-tbls))
