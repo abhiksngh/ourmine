@@ -26,7 +26,7 @@
 	 (sh_mw1 (xindex (shared_mw1)))
 	 (sh_mc2 (xindex (shared_mc2)))
 	 (lst (list sh_pc1 sh_kc1 sh_kc2 sh_kc3 sh_cm1 sh_mw1 sh_mc2))
-	 (all-tbl (xindex (remove-falses (append-tables lst)))))
+	 (all-tbl (xindex (append-tables lst))))
    (score-tbl-bsquare all-tbl nr-attributes)))
 
 
@@ -67,9 +67,9 @@
     (if (not (score-rules (car bp) current-rules test))
 	(let* ((table-lst (list atable (cadr bp)))
 	       (newtable (append-tables table-lst))
-	       (newbp (list (get-rules-for-true newtable) newtable)))
+	       (newbp (list (make-rules-all-classes newtable) newtable)))
 	  (if (not (score-rules (car newbp) current-rules test))
-	      (return-from build-new-bp (list (get-rules-for-true atable) atable)) 
+	      (return-from build-new-bp (list (make-rules-all-classes atable) atable)) 
 	      (return-from build-new-bp newbp)))
 	(return-from build-new-bp bp)))
 	
@@ -103,8 +103,8 @@
 	;(format t "~a ~a ~a ~a ~a ~%" "Data set " acc ": Back pocket rules: Itr " i (car bp))
 	(incf acc)
 	(if (= (length bp) 0)
-	    (setf bp (list (get-rules-for-true train-tbl) train-tbl))	    
-	    (setf bp (build-new-bp bp train-tbl (get-rules-for-true train-tbl) test)))))
+	    (setf bp (list (make-rules-all-classes train-tbl) train-tbl))	    
+	    (setf bp (build-new-bp bp train-tbl (make-rules-all-classes train-tbl) test)))))
     bp))
 
 
