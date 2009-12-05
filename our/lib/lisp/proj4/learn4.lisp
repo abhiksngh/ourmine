@@ -9,10 +9,11 @@
       (if (eq (nth class-col temp) 'true)
           (setf truths (append (list temp) truths))))))
 
-(defparameter shared-lst (list (xindex (remove-falses (shared_pc1))) (xindex (remove-falses (shared_kc1)))
-			       (xindex (remove-falses (shared_kc2))) (xindex (remove-falses (shared_kc3)))
-			       (xindex (remove-falses (shared_cm1))) (xindex (remove-falses (shared_mw1)))
-			       (xindex (remove-falses  (shared_mc2)))))
+(defparameter shared-lst (list (xindex (shared_pc1)) (xindex (shared_kc1))
+			       (xindex (shared_kc2)) (xindex (shared_kc3))
+			       (xindex (shared_cm1)) (xindex (shared_mw1))
+			       (xindex (shared_mc2))))
+
 (defparameter prepared-data '())
 
 
