@@ -2,6 +2,19 @@
 \usepackage{tritricks}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+\usepackage{colortbl}
+
+\newcommand{\boxplot}[5]{
+\begin{picture}(100, 7)
+\put(#1, 2){\line(0, 1){4}}
+\put(#1, 4){\line(1, 0){#2}}
+\put(#3, 4){\circle*{3}}
+\put(#3, 4){\line(1, 0){#4}}
+\put(#5, 2){\line(0, 1){4}}
+\put(50, 3){\line(0, 1){4}}
+\end{picture}
+}
+\usepackage{float}
 %%
 %
 % This is a poster template with latex macros and using
@@ -88,6 +101,7 @@
 \usepackage{calc}
 \usepackage{multicol}
 \usepackage{ifthen}
+\usepackage{verbatim}
 
 %%
 %% Define the required numbers, lengths and boxes

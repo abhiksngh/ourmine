@@ -1,36 +1,37 @@
 \begin{kasten}
-  \section*{ \hspace{0.1cm} {\color{red} \underline{MULTIPIPES PSEUDOCODE}}}
+ \section*{ \hspace{0.1cm} {\color{red} \underline{MULTIPIPES PSEUDOCODE}}}
   \large{
-   \begin{algorithmic}
-\Procedure {RunHyperPipes}{$Nothing$}
-\State $HyperPipes := array[]$
-\State $Guessed := 0$
-\State $GuessedCorrect := 0$
-\ForAll {Line in DataFile}
-\State $Guessed++$
-\State $GuessedCorrect \mbox{+=} Classify(MyHyperPipes,Line)$
-\State $HyperPipes := AddExperience(Line,HyperPipes)$
-\EndFor
-\State $Accuracy := GuessedCorrect/Guessed$
-\EndProcedure
-\end{algorithmic}
 
-\vspace{3 mm}
+%   \begin{algorithmic}
+%\Procedure {RunHyperPipes}{$Nothing$}
+%\State $HyperPipes := array[]$
+%\State $Guessed := 0$
+%\State $GuessedCorrect := 0$
+%\ForAll {Line in DataFile}
+%\State $Guessed++$
+%\State $GuessedCorrect \mbox{+=} Classify(MyHyperPipes,Line)$
+%\State $HyperPipes := AddExperience(Line,HyperPipes)$
+%\EndFor
+%\State $Accuracy := GuessedCorrect/Guessed$
+%\EndProcedure
+%\end{algorithmic}
+
+%\vspace{3 mm}
 
 \begin{algorithmic}
-\Procedure {AddExperience}{$HyperPipes$,$Line$}
-\State{$Pipe := FindPipe(Line.class,HyperPipes)$}
+\Procedure {AddExperience}{$MultiPipes$,$Line$}
+\State{$Pipe := FindPipe(Line.class,MultiPipes)$}
 \If{$null\; Pipe$}
-\State{$HyperPipes := HyperPipes + CreateHyperPipe(Line.class)$}
-\State{$Pipe := FindPipe(Line.class,HyperPipes)$}
+\State{$MultiPipes := MultiPipes + CreateMultiPipe(Line.class)$}
+\State{$Pipe := FindPipe(Line.class,MultiPipes)$}
 \EndIf
 \ForAll{Attr in Line}
 \State{$Pipe.Attr.Num++$}
 \State{$Pipe.Attr.Sum += Attr$}
 \State{$Pipe.Attr.SumSquares += Attr^2$}
 \State{$Pipe.Attr.Mean := Pipe.Attr.Sum/Pipe.Attr.Num$}
-\State{$Temp := (Pipe.Attr.SumSquares/Pipe.Attr.Num)-Pipe.Attr.Mean^2$}
-\State{$Pipe.Attr.StandardDev := sqrt(Temp)$}
+\State{$T := Pipe.Attr.SumSquares/Pipe.Attr.Num$}
+\State{$Pipe.Attr.StandardDev := sqrt(T-Pipe.Attr.Mean^2)$}
 \If{$Pipe.Attr.StandardDev = 0\; ||\; (abs(Pipe.Attr.Mean-Attr)/Pipe.Attr.StandardDev) < 1.96\; ||\; Pipe.Attr.Num < 10$}
 \State{$Pipe.Attr.max := max(Pipe.Attr.max,Attr)$}
 \State{$Pipe.Attr.min := min(Pipe.Attr.min,Attr)$}
@@ -42,22 +43,20 @@
 \vspace{3 mm}
 
 \begin{algorithmic}
-\Procedure {Classify}{$HyperPipes$,$Line$}
-\State{$BestScore := 0$}
-\State{$BestClass := []$}
-\ForAll{HPipe in HyperPipes}
-\State{$HPipeScore := 0$}
+\Procedure {Classify}{$MultiPipes$,$Line$}
+\ForAll{MPipe in MultiPipes}
+\State{$MPipeScore := 0$}
 \ForAll{Attr in Line}
-\If{$Attr <= HPipe.Attr.max\; \&\&\; Attr >= HPipe.Attr.min$}
-\State{$HPipeScore++$}
+\If{$Attr <= MPipe.Attr.max\; \&\&\; Attr >= MPipe.Attr.min$}
+\State{$MPipeScore++$}
 \EndIf
 \EndFor
-\If{$HPipeScore >= BestScore$}
-\If{$HPipeScore := BestScore$}
-\State{$BestClass := BestClass + HPipe.class$}
+\If{$MPipeScore >= BestScore$}
+\If{$MPipeScore := BestScore$}
+\State{$BestClass := BestClass + MPipe.class$}
 \Else
-\State{$BestClass := array(HPipe.class)$}
-\State{$BestScore := HPipeScore$}
+\State{$BestClass := array(MPipe.class)$}
+\State{$BestScore := MPipeScore$}
 \EndIf
 \EndIf
 \EndFor
@@ -67,5 +66,33 @@
 \State \Return 0
 \EndProcedure
 \end{algorithmic}
+  }
+\end{kasten}
+
+\begin{kasten}
+ \section*{ \hspace{0.1cm} {\color{red} \underline{ISSUES WITH HYPERPIPES}}}
+  \large{
+
+      1. Tied Classes
+\vspace{3 mm}
+
+The original HyperPipes implementation only kept track of the most recently seen class with a score 
+equal to or greater than the largest score seen to that point. This means
+that when running HyperPipes if multiple classes tied in score the class
+tested last would be blindly chosen. We found that this anomoly caused our 
+HyperPipes implementation to prefer the last classes discovered once it 
+learns many rows.
+
+\vspace{3 mm}
+2. Susceptible to Over Fitting
+
+\vspace{3 mm}
+As more and more rows are added as experience to a HyperPipe 
+its min and max values will slowly approach the min and max of the attribute 
+alone regardless of class. This causes HyperPipes guessing ability to 
+completely fall apart. That is, as each of the HyperPipes expand their min and 
+max attribute values they start to become so similar to eachother that they all 
+begin to acheive common scores.
+
   }
 \end{kasten}

@@ -1,50 +1,90 @@
 \begin{kasten}
-    \section*{ \hspace{0.1cm} {\color{red} \underline{ISSUES WITH HYPERPIPES}}}
+    \section*{ \hspace{0.1cm} {\color{red} \underline{ISSUES WITH HYPERPIPES cont.}}}
     \large{
-      \section{Tied Classes}
-During development of the original HyperPipes. implementation it was noted 
-that the code only kept track of the most recently seen class with a score 
-equal to or greater than the largest score seen to that point. This means
-that when running HyperPipes if multiple classes tied in score the class
-tested last would be blindly chosen. We found that this anomoly caused our 
-HyperPipes implementation to prefer the last classes discovered once it 
-learns many rows.
-\section{Susceptible to Over Fitting}
-HyperPipes has the ability to have very low overhead costs in terms of 
-memory. However, this benefit is overshadowed by HyperPipes susceptibility 
-to overfitting. As more and more rows are added as experience to a HyperPipe 
-its min and max values with slowly approach the min and max of the attribute 
-alone regardless of class. This causes HyperPipes guessing ability to 
-completely fall apart. As the min and max values for the attributes in every
-HyperPipe expand the scores become very high and the likelyhood of 
-encountering the issue in the previous sub-section becomes greater. That is, 
-as each of the HyperPipes expand their min and max attribute values start to 
-become so similar to eachother that they all begin to acheive common scores.
-\section{Outliers Ruin Scoring}
-As shown in the AddExperience function (Program \ref{pro:AddExperience}) a HyperPipe contains a set 
-of bounds for each attribute. These bounds indicate the min and a max value 
-ever seen for this attribute for this class. This becomes a problem when an 
-outlier for that attribute occurs. Imagine after 10,000 rows your min is 23 
+
+3. Outliers Ruin Scoring
+
+\vspace{3 mm}
+Imagine after 10,000 rows your min is 23 
 and your max is 45. You encounter a new row where this attributes value is 
 431. This causes your new max value to be 431. This can be a major pitfall 
 if this is the only time a number this large is encountered for this class. 
  You have now expanded this HyperPipe to a max so large that this attribute 
-loses its ability to classify (It always matched on this attribute for this 
-class).
+loses its ability to classify.
 
     }
 \end{kasten}
 
 \begin{kasten}
-    \section*{ \hspace{0.1cm} {\color{red} \underline{MODEL INPUTS}}}
+    \section*{ \hspace{0.1cm} {\color{red} \underline{FIXING THE ISSUES}}}
     \large{
-    \include{modelinputs}
+
+      1. Tied Classes
+\vspace{3 mm}
+
+Overwriting a class with another class of the same score puts a large emphasis on 
+the order in which you score the classes. For this issue we 
+decided to temporarily throw away the idea of classification 
+and modified the code to return any classes who tied. This 
+simple modification proved to us that this issue alone was a 
+major factor in HyperPipes demise when put up against other 
+classifiers. 
+
+\vspace{3 mm}
+      2. Over Fitting
+\vspace{3 mm}
+
+All of the algorithms below are triggered 
+based on the percentage of times the class is returned but it is 
+found not to be the actual class. Two modifiable attributes, detectAfter
+and triggerWhen, indicate to the system how often to check for 
+overfit and at what percentage we assume we have hit an overfit. 
+Below we describe the different actions we take when an overfit
+is detected:
+\begin{enumerate}
+\item Reset and Relearn: 
+	When this overfit action is enabled it will keep track of the 
+	last 100 rows encountered for each class. If an overfit is detected 
+	the numerical bounds for that class are reset to nothing(start over).
+	However, it then looks at the oldest 50 rows in the 100 row history 
+	and relearns those into the pipe before continuing. Therefore when
+	an overfit is detected we dont lose all classification ability on that
+	pipe, we simply know less.
+\item Revert Pipe on Detection:
+	When the supporting code requests that the MultiPipe
+	be checked for overfit if it is determined to not be overfit the 
+	pipe is logged. If the pipe is determined to be overfit it will revert 
+	the pipe to the previously logged MultiPipe.
+	
+\end{enumerate}
+
+\vspace{3 mm}
+      3. Outliers
+\vspace{3 mm}
+
+Below is a list of our outlier fixing 
+strategies:
+\begin{enumerate}
+\item Weighted Means: What this fix 
+does is it changes the scoring mechanism. In the pseudocode for 
+Classify you will notice that it returns 1 if the current attribute 
+value falls within the range of that given by the MultiPipe for that 
+Attribute. The Weighted Means changes the 1 to a number between 0 
+and 1 which represents the distance from the mean within the range. 
+\item Outlier Detection Algorithm: 
+Every time MultiPipes attempts to add experience to its numerical bounds
+the algorithm calculates the z-score [2] for the value attempting to be added. 
+If the Z-Score is greater than 1.96 then the value is not used to expand
+the ranges within the hyperpipe.
+\item Slowly Changing Ranges: 
+The same fix we used in the outlier detection algorithm also allows for 
+slowly changing ranges. Its important to realize that the value being
+considered is added to the statistics for consideration in the z-score 
+calculation and its addition to the statistics is not reversed if the
+value is determined to be an outlier. This means that if the value 
+determined to be an outlier occurs multiple times it is likely that 
+it will eventually receive a z-score less than 1.96.
+\end{enumerate}
     }
 \end{kasten}
 
-\begin{kasten}
-    \section*{ \hspace{0.1cm} {\color{red} \underline{RESULTS}}}
-    \tiny
-    \include{big-ass-chart}
-    \vspace{-.5em}
-\end{kasten}
