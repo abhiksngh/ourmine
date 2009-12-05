@@ -77,8 +77,8 @@
 	   
 (defun score-rules (bpr r1 test)
   ;(format t "~A~%" bpr)
-  (let* ((score-Bpr (prism-classify-final bpr test))
-	 (score-r1  (prism-classify-final r1 test)))
+  (let* ((score-Bpr (evaluate-matrix test bpr 'pd))
+	 (score-r1  (evaluate-matrix test r1 'pd)))
     ;(if (= score-Bpr score-r1) (format t "~a ~a ~%" "Equal scores" score-Bpr)
     ;	(if (< score-Bpr score-r1 ) (format t "~a ~a ~%" "R set is better" score-r1)
     ;	    (format t "~a ~a ~% " "Back pocket is better" score-Bpr)))

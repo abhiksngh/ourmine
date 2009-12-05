@@ -209,6 +209,37 @@
              (success (eql got want)))
 	(incf acc (if success 1.0 0.0))))))
 
+(defun make-matrix (test rules)
+  (let* ((a 0)
+	 (b 0)
+	 (c 0)
+	 (d 0))
+    (dolist (one (table-all test))
+      (let* ((got (classify-prism (eg-features one) rules test))
+	     (want (eg-class one)))
+	(if (and (eql got 'False) (eql want 'False))
+	    (incf a)
+	    (if (and (eql got 'True) (eql want 'False))
+		(incf c)
+		(if (and (eql got 'False) (eql want 'True))
+		    (incf b)
+		    (if (and (eql got 'True) (eql want 'True))
+			(incf d)))))))
+	(values a b c d)))
+
+(defun evaluate-matrix (test rules &optional str)
+  (let* ((ret 0))
+    (multiple-value-bind (a b c d) (make-matrix test rules)
+      (if (eql str 'pd)
+	  (setf ret (/ d (+ b d)))
+	  (if (eql str 'pf)
+	      (setf ret (/ c (+ a c))))))
+    (float ret)))
+	   
+		
+	    
+ 
+
 (defun get-rules-for-true (tbl)
   (let ((rules (make-rules-all-classes tbl)))
     (if (equal (car (nth 0 rules)) 'True)
