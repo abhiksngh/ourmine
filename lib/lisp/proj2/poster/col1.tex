@@ -7,44 +7,24 @@
 \end{kasten}
 
 \begin{kasten}
-  \section*{ \hspace{0.1cm} {\color{red} \underline{HyperPipes}}}
+  \section*{ \hspace{0.1cm} {\color{red} \underline{HYPERPIPES}}}
 \large{
-HyperPipes is a learner originally designed by Witten [3] and implemented by Eisenstein et al [1] for extremely large, sparse datasets. Rather than maintain a large working memory of statistics on each row of data, HyperPipes maintains a small data structure for each class that merely "remembers" whether a particular attribute has been encountered before. For numerics, a range of maximum and minimum values encountered is kept. When classifying, original HyperPipes classifies a row based on which class most "contains" the current attributes. For numeric attributes, a new instance is "contained" if it falls within the maximum and minimum values see so far.
+HyperPipes is a learner originally designed by Witten [3] and implemented by Eisenstein et al [1] for extremely large, sparse datasets. Rather than maintain a large working memory of statistics on each row of data, HyperPipes maintains a small data structure for each class that merely "remembers" whether a particular attribute has been encountered before. For numerics, a range of maximum and minimum values encountered is kept. When classifying, original HyperPipes classifies a row based on which class most "contains" the current attributes. For numeric attributes, a new instance is "contained" if it falls within the maximum and minimum values seen so far.
+
 \vspace{3 mm}
-%\begin{program}
-%\footnotesize
-\begin{algorithmic}
-\Procedure {RunHyperPipes}{$Nothing$}
-\State $HyperPipes := array[]$
-\State $Guessed := 0$
-\State $GuessedCorrect := 0$
-\ForAll {Line in DataFile}
-\State $Guessed++$
-\State $GuessedCorrect \mbox{+=} Classify(MyHyperPipes,Line)$
-\State $HyperPipes := AddExperience(Line,HyperPipes)$
-\EndFor
-\State $Accuracy := GuessedCorrect/Guessed$
-\EndProcedure
-\end{algorithmic}
-%\end{program}
+
+Hyperpipes works well for sparse datsets, as your working memory need only contain one HyperPipe for each possible class, and each pipe must maintain only the unique symbols encountered so far along with two numeric bounds for each column. The result is a fast, dumb, scalable learner.
+
+\vspace{3 mm}
+
+One caveat remains in the HyperPipes algorithm. For large, sparse datasets there are enough unique columns to promote a wide variance in which HyperPipe best "contains" a class. However, for more traditional datasets with fewer columns HyperPipes' accuracy breaks down. By nature HyperPipes is strongly succeptible to outlier data, as the frequency of an encountered attribute is ignored an extremely high or low numeric will stretch the bounds for that attribute.
+
 }
 \end{kasten}
 
 \begin{kasten}
-    \section*{ \hspace{0.1cm} {\color{red} \underline{PRIORITIZATION POLICIES}}}
+    \section*{ \hspace{0.1cm} {\color{red} \underline{MULTIPIPES}}}
     \large{
-A prioritization policy determines how many requirements are initially known and
-how the plan is modified when new requirements arrive.
-
-\vspace{3 mm}
-POM 2 explores two prioritization policies:
-\begin{smallenum}
-\item Plan Based (PB) : A non-agile development method
-  where requirements are sorted once at the start of development
-  using the original \(\frac{value}{cost}\) numbers assumed at the start 
-  of the project.
-\item Agile2 (AG2) : A development method where requirements are sorted every iteration on  policies sort requirements (every iteration) on \(\frac{value}{cost}\). 
-\end{smallenum}
-\vspace{-0.2em}
+MultiPipes was spawned from HyperPipes in an attempt to fix the issues with HyperPipes which are later described. The most notable change was the conversion of HyperPipes to a class "narrower" as opposed to a classifier. This means we anticipate that MultiPipes will return a list of potential classes rather than a single class. The pseudocode for MultiPipes is shown in the next section. In addition we were able to implement an alpha value which allows us to increase or decrease the returned set size. This allows the user to decide between high accuracy with a larger returned set size or lower accuracy with a smaller returned set size.
 }
 \end{kasten}

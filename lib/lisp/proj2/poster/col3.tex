@@ -1,24 +1,37 @@
 \begin{kasten}
-    \section*{ \hspace{0.1cm} {\color{red} \underline{SIMULATOR SCORING}}}
+    \section*{ \hspace{0.1cm} {\color{red} \underline{ISSUES WITH HYPERPIPES}}}
     \large{
-      POM2 defines three different $cost/value$ curves of the completed requirements when scoring the project:
-      \begin{smallenum}
-      \item Optimal Frontier(OF): The completed requirements are ordered by their final $cost/value$ in the optimal descending order.
-      \item Pessimistic Frontier(PF): The completed requirements are ordered by their final $cost/value$ in ascending order.
-      \item Actual Curve(AC): The completed requirements are ordered by the order they were completed in the simulator.
-      \end{smallenum}
+      \section{Tied Classes}
+During development of the original HyperPipes. implementation it was noted 
+that the code only kept track of the most recently seen class with a score 
+equal to or greater than the largest score seen to that point. This means
+that when running HyperPipes if multiple classes tied in score the class
+tested last would be blindly chosen. We found that this anomoly caused our 
+HyperPipes implementation to prefer the last classes discovered once it 
+learns many rows.
+\section{Susceptible to Over Fitting}
+HyperPipes has the ability to have very low overhead costs in terms of 
+memory. However, this benefit is overshadowed by HyperPipes susceptibility 
+to overfitting. As more and more rows are added as experience to a HyperPipe 
+its min and max values with slowly approach the min and max of the attribute 
+alone regardless of class. This causes HyperPipes guessing ability to 
+completely fall apart. As the min and max values for the attributes in every
+HyperPipe expand the scores become very high and the likelyhood of 
+encountering the issue in the previous sub-section becomes greater. That is, 
+as each of the HyperPipes expand their min and max attribute values start to 
+become so similar to eachother that they all begin to acheive common scores.
+\section{Outliers Ruin Scoring}
+As shown in the AddExperience function (Program \ref{pro:AddExperience}) a HyperPipe contains a set 
+of bounds for each attribute. These bounds indicate the min and a max value 
+ever seen for this attribute for this class. This becomes a problem when an 
+outlier for that attribute occurs. Imagine after 10,000 rows your min is 23 
+and your max is 45. You encounter a new row where this attributes value is 
+431. This causes your new max value to be 431. This can be a major pitfall 
+if this is the only time a number this large is encountered for this class. 
+ You have now expanded this HyperPipe to a max so large that this attribute 
+loses its ability to classify (It always matched on this attribute for this 
+class).
 
-      The score is then defined as the area between the \textit{OF} and \textit{PF} (\eq{score}).
-      
-      \begin{minipage}{5.35cm}
-        \includegraphics[width=5.35cm]{fakechart.eps}
-      \end{minipage}
-      \begin{minipage}{7.65cm}
-        \begin{equation}\label{eq:score}
-          \mathtt{score} = \frac{\int AC - \int PF}{\int OF - \int PF}
-        \end{equation}
-        By using the area between the OF and PF curve, the project configuration bears no impact on the final score. Thus leaving just the impact of the model inputs and prioritization policy.
-      \end{minipage}
     }
 \end{kasten}
 

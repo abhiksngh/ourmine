@@ -1,57 +1,71 @@
 \begin{kasten}
-  \section*{ \hspace{0.1cm} {\color{red} \underline{DEFINING THE MODEL}}}
+  \section*{ \hspace{0.1cm} {\color{red} \underline{MULTIPIPES PSEUDOCODE}}}
   \large{
-    \begin{minipage}{4cm}
-      POM2 implements four of the five scales identified by Boehm and Turner that distinguish agile from traditional
-      plan-based projects: 
-      \begin{smallitem}
-      \item Criticality
-      \item Dynamism
-      \item Culture
-      \item Size
-      \end{smallitem}
-      \vspace{3 mm}
-      Boehm and Turner measure criticality in terms of losses due
-    \end{minipage}
-    \begin{minipage}{9cm}
-      \includegraphics[width=9cm]{star.eps}
-    \end{minipage}
- to defects, it ranges from ``none'' (best for agile development) 
-      to     ``loss of many lives'' (must be carefully planned, suited for plan-based approach).  In POM2 X\% of the requirements
-    are affected by criticality, where \begin{math} X = 2...10 \end{math}. Each requirement in a team's tree is adjusted 
-    using the equation: \begin{equation} cost' = cost * X^{criticality} \end{equation}
+   \begin{algorithmic}
+\Procedure {RunHyperPipes}{$Nothing$}
+\State $HyperPipes := array[]$
+\State $Guessed := 0$
+\State $GuessedCorrect := 0$
+\ForAll {Line in DataFile}
+\State $Guessed++$
+\State $GuessedCorrect \mbox{+=} Classify(MyHyperPipes,Line)$
+\State $HyperPipes := AddExperience(Line,HyperPipes)$
+\EndFor
+\State $Accuracy := GuessedCorrect/Guessed$
+\EndProcedure
+\end{algorithmic}
 
-    \vspace{3 mm}
-    Dynamism measures how frequently new requirements are created and their values change.  Boehm and Turner measure dynamism 
-    in terms of percent of requirements changed each month, and has the range 50\% (best for agile) to 1 (best for plan-based).
-    In POM2 we implement this as follows:
-    \begin{smallitem}
-    \item Initially only 30\% to 70\% of the requirements in the project tree are ``visible''.
-    \item After each iteration we make visible \begin{math} new = Poisson(\lambda) \end{math} more requirements.
-    \item Dynamism also affects the value of already visible requirements.  The value is adjusted using the equation:
-      \begin{equation} value' += maxValue * N(0,\sigma) \end{equation}
-    \item After setting \begin{math}\sigma\end{math} , we set \begin{math}\lambda\end{math} to 10\% of \begin{math}\sigma\end{math}.
-    \end{smallitem}
+\vspace{3 mm}
 
-    Culture, according to Boehm and Turner is measured in terms of the percent of the staff thriving on chaos, ranging from
-    10\% (best for plan-based) to 90\% (best for agile).  In POM2 culture is handled through an accepted value associated with 
-    each requirement.  The calculation for the accepted value is: \begin{equation} value + (value N(0,\sigma)*culture) \end{equation}
-    
-    \vspace{3 mm}
-    Size is measured in terms of the number of personnel and has a range of 3 (best for agile), 10, 30, 100, 300 (best for plan-based).
-    In POM2 this size is picked randomly and dictates the number of requirements in the project:
-    \begin{equation} \mathtt{\mbox{\textit{number of requirements}}} = size * 2.5 \end{equation}
-    
-    \vspace{3 mm}
-    The one scale we did not implement was personnel.  Boehm and Turner describe personnel using the Cockburn mixtures model of Alpha, Beta and Gamma programmers:
-    \begin{smallitem}
-    \item Alpha: Most productive/flexible programmers.
-    \item Beta: Able to perform discretionary method steps.
-    \item Gamma: Unable/unwilling to follow shared methods.
-    \end{smallitem}
-    By the conventions of the Boehm and Turner personnel scale, lower personnel values indicate more alpha programmers.
-    Combining the COCOMO effort multipliers and the Cockburn mixtures model, the net effect is nearly zero.  For that reason,
-    POM2 ignores personnel and will address it in future work.
-    \vspace{1em}
+\begin{algorithmic}
+\Procedure {AddExperience}{$HyperPipes$,$Line$}
+\State{$Pipe := FindPipe(Line.class,HyperPipes)$}
+\If{$null\; Pipe$}
+\State{$HyperPipes := HyperPipes + CreateHyperPipe(Line.class)$}
+\State{$Pipe := FindPipe(Line.class,HyperPipes)$}
+\EndIf
+\ForAll{Attr in Line}
+\State{$Pipe.Attr.Num++$}
+\State{$Pipe.Attr.Sum += Attr$}
+\State{$Pipe.Attr.SumSquares += Attr^2$}
+\State{$Pipe.Attr.Mean := Pipe.Attr.Sum/Pipe.Attr.Num$}
+\State{$Temp := (Pipe.Attr.SumSquares/Pipe.Attr.Num)-Pipe.Attr.Mean^2$}
+\State{$Pipe.Attr.StandardDev := sqrt(Temp)$}
+\If{$Pipe.Attr.StandardDev = 0\; ||\; (abs(Pipe.Attr.Mean-Attr)/Pipe.Attr.StandardDev) < 1.96\; ||\; Pipe.Attr.Num < 10$}
+\State{$Pipe.Attr.max := max(Pipe.Attr.max,Attr)$}
+\State{$Pipe.Attr.min := min(Pipe.Attr.min,Attr)$}
+\EndIf
+\EndFor
+\EndProcedure
+\end{algorithmic}
+
+\vspace{3 mm}
+
+\begin{algorithmic}
+\Procedure {Classify}{$HyperPipes$,$Line$}
+\State{$BestScore := 0$}
+\State{$BestClass := []$}
+\ForAll{HPipe in HyperPipes}
+\State{$HPipeScore := 0$}
+\ForAll{Attr in Line}
+\If{$Attr <= HPipe.Attr.max\; \&\&\; Attr >= HPipe.Attr.min$}
+\State{$HPipeScore++$}
+\EndIf
+\EndFor
+\If{$HPipeScore >= BestScore$}
+\If{$HPipeScore := BestScore$}
+\State{$BestClass := BestClass + HPipe.class$}
+\Else
+\State{$BestClass := array(HPipe.class)$}
+\State{$BestScore := HPipeScore$}
+\EndIf
+\EndIf
+\EndFor
+\If{$BestClass\; contains\; Line.class$}
+\State \Return 1
+\EndIf
+\State \Return 0
+\EndProcedure
+\end{algorithmic}
   }
 \end{kasten}
