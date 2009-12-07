@@ -1,20 +1,20 @@
 BEGIN{
 	NumRuns = 10
 
-	files[++NumFiles] = "anneal.txt"
-	files[++NumFiles] = "audiology.txt"
-	files[++NumFiles] = "breast-cancer.txt"
-	files[++NumFiles] = "hypothyroid.txt"
-	files[++NumFiles] = "ionosphere.txt"
-	files[++NumFiles] = "kr-vs-kp.txt"
-	files[++NumFiles] = "mushroom.txt"
-	files[++NumFiles] = "primary-tumor.txt"
-	files[++NumFiles] = "segment.txt"
-	files[++NumFiles] = "sick.txt"
-	files[++NumFiles] = "sonar.txt"
-	files[++NumFiles] = "soybean.txt"
-	files[++NumFiles] = "splice.txt"
-	files[++NumFiles] = "vehicle.txt"
+	files[++NumFiles] = "anneal-size.txt"
+	files[++NumFiles] = "audiology-size.txt"
+	files[++NumFiles] = "breast-cancer-size.txt"
+	files[++NumFiles] = "hypothyroid-size.txt"
+	files[++NumFiles] = "ionosphere-size.txt"
+	files[++NumFiles] = "kr-vs-kp-size.txt"
+	files[++NumFiles] = "mushroom-size.txt"
+	files[++NumFiles] = "primary-tumor-size.txt"
+	files[++NumFiles] = "segment-size.txt"
+	files[++NumFiles] = "sick-size.txt"
+	files[++NumFiles] = "sonar-size.txt"
+	files[++NumFiles] = "soybean-size.txt"
+	files[++NumFiles] = "splice-size.txt"
+	files[++NumFiles] = "vehicle-size.txt"
 
 	rosetta["nb"] = "NaiveBayes"
 	rosetta["000-0-0-0-0-0"] = "MultiPipes"
@@ -42,7 +42,7 @@ function read(filename, arr) {
 		if(!rosetta[$1])
 			"No translation for "$1
 		else
-			arr[++Line] = rosetta[$1]","$2
+			arr[++Line] = rosetta[$1]","$2","filename
 	}
 }
 
