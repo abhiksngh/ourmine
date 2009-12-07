@@ -172,11 +172,27 @@
                     (setf true-seen (cons attr true-seen))
                     (setf attr-rank (count-occurrence attr rules 'TRUE))
                     (setf true-ranks (acons attr attr-rank true-ranks))))))))
-    (setf false-ranks (sort false-ranks #'(lambda (x y) (> (cdr x) (cdr y)))))
-    (setf true-ranks (sort true-ranks #'(lambda (x y) (> (cdr x) (cdr y)))))
-    (format t "false ranks:~%~a ~%~%true ranks:~%~a~%" false-ranks true-ranks)))
+;    (format t "false ranks:~%~a ~%~%true ranks:~%~a~%" false-ranks true-ranks)
+    (top-rules true-ranks false-ranks)))
 
-
+(defun top-rules (true-ranks false-ranks)
+  (let* ((true-ranks (sort true-ranks #'(lambda (x y) (> (cdr x) (cdr y)))))
+         (false-ranks (sort false-ranks #'(lambda (x y) (> (cdr x) (cdr Y)))))
+         (top-true)
+         (top-false)
+         (curr))
+    (format t "FALSE~%")
+    (dotimes (n (ceiling (sqrt (length true-ranks))))
+      (setf curr (nth n true-ranks))
+      (format t "~a : ~a~%" (car curr) (cdr curr))
+      (setf top-true (append top-true (list (car curr)))))
+    (format t "TRUE~%")
+    (dotimes (n (ceiling (sqrt (length false-ranks))))
+      (setf curr (nth n false-ranks))
+      (format t "~a : ~a~%" (car curr) (cdr curr))      
+      (setf top-false (append top-false (list (car curr)))))
+    (list (list 'FALSE top-false) (list 'TRUE top-true))))
+  
    
 
 (defun count-occurrence (elt all-rules class)
