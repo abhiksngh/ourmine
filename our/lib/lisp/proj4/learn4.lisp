@@ -110,32 +110,6 @@
 
 
 
-
-;;;---------------------------------
-
-(setf shared-rules '(
-		     ((TRUE ((4 0)) ((1 0)))) 
-		     ((TRUE ((4 0)) ((1 0)) ((1 1)))) 
-		     ((TRUE ((4 0)) ((1 0)) ((1 2)) ((2 2)) ((0 9)) ((0 0)))) 
-		     ((TRUE ((1 0)) ((0 0)) ((1 1)) ((0 4)) ((0 2)))) 
-		     ((TRUE ((4 0)) ((1 0)))) 
-		     ((TRUE ((0 7)) ((4 0)) ((0 4)) ((0 9)))) 
-		     ((TRUE ((4 0)) ((4 8)) ((0 0)) ((0 4)) ((0 8)))) 
-		     ((TRUE ((4 0)) ((0 0)))) 
-		     ((TRUE ((4 0)) ((1 1)) ((1 0)))) 
-		     ((TRUE ((4 0)) ((1 0)) ((1 1)))) 
-		     ((TRUE ((4 0)) ((4 8)))) 
-		     ((TRUE ((1 0)) ((4 0)))) 
-		     ((TRUE ((4 0)) ((1 0)) ((0 1))))
-		     ((TRUE ((4 0)) ((1 0)) ((0 0)))) 
-		     ((TRUE ((4 0)) ((1 0)) ((1 1)))) 
-		     ((TRUE ((2 0)) ((0 4)) ((0 6)) ((0 0)) ((0 8)) ((0 7))))
-		     ((TRUE ((4 0)) ((0 1)) ((1 0)) ((0 0))))
-		     ((TRUE ((4 0)) ((1 0)) ((1 2)) ((0 1)) ((0 8))))
-		     ((TRUE ((1 0)) ((4 0)) ((0 4)))) 
-		     ((TRUE ((4 0)) ((4 1)) ((0 8))))
-		     ))
-
 (setf real-rules '(((FALSE ((0 6)) ((2 0)) ((2 6)) ((1 5)) ((3 7)))
                     (TRUE ((0 8)) ((1 3)) ((1 2)) ((4 1) (0 1)) ((4 1) (1 1)) ((2 7) (0 2))
                      ((4 1) (2 5))))
@@ -175,23 +149,30 @@
 ;    (format t "false ranks:~%~a ~%~%true ranks:~%~a~%" false-ranks true-ranks)
     (top-rules true-ranks false-ranks)))
 
+
+
+(defun get-top-rule (ranks)
+  (let* ((ranks (sort ranks #'(lambda (x y) (> (cdr x) (cdr y)))))
+         (top)
+         (curr)
+         (median (cdr (nth (floor (/ (length ranks) 2)) ranks)))
+         (prev))
+;    (format t "median: ~a~%" median)
+    (dotimes (n (length ranks) top)
+      (setf curr (nth n ranks))
+;      (format t "~a : ~a~%" (car curr) (cdr curr))      
+      (if (null prev)
+          (progn
+            (setf prev (cdr curr))
+            (setf top (append top (list (car curr)))))
+          (if (or (not (eq (cdr curr) prev)) (> (cdr curr) median))
+              (progn
+                (setf prev (cdr curr))
+                (setf top (append top (list (car curr))))))))))
+
+
 (defun top-rules (true-ranks false-ranks)
-  (let* ((true-ranks (sort true-ranks #'(lambda (x y) (> (cdr x) (cdr y)))))
-         (false-ranks (sort false-ranks #'(lambda (x y) (> (cdr x) (cdr Y)))))
-         (top-true)
-         (top-false)
-         (curr))
-    (format t "FALSE~%")
-    (dotimes (n (ceiling (sqrt (length true-ranks))))
-      (setf curr (nth n true-ranks))
-      (format t "~a : ~a~%" (car curr) (cdr curr))
-      (setf top-true (append top-true (list (car curr)))))
-    (format t "TRUE~%")
-    (dotimes (n (ceiling (sqrt (length false-ranks))))
-      (setf curr (nth n false-ranks))
-      (format t "~a : ~a~%" (car curr) (cdr curr))      
-      (setf top-false (append top-false (list (car curr)))))
-    (list (list 'FALSE top-false) (list 'TRUE top-true))))
+    (list (list 'FALSE (get-top-rule false-ranks)) (list 'TRUE (get-top-rule true-ranks))))
   
    
 
@@ -204,8 +185,7 @@
         (if (eql current class)
             (dolist (attr (cdr rules))
               (if (equal attr elt)
-                  (progn
-                    (incf count)))))))))
+                    (incf count))))))))
 
 
 
