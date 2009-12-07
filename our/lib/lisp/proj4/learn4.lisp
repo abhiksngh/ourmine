@@ -136,7 +136,70 @@
 		     ((TRUE ((4 0)) ((4 1)) ((0 8))))
 		     ))
 
- 
+(setf real-rules '(((FALSE ((0 6)) ((2 0)) ((2 6)) ((1 5)) ((3 7)))
+                    (TRUE ((0 8)) ((1 3)) ((1 2)) ((4 1) (0 1)) ((4 1) (1 1)) ((2 7) (0 2))
+                     ((4 1) (2 5))))
+                   ((FALSE ((2 5)) ((0 4)) ((1 7)) ((1 6)) ((0 2) (1 4)) ((0 2) (1 3)))
+                    (TRUE ((0 5)) ((1 0)) ((1 2))))
+                   ((FALSE ((2 8)) ((0 5)) ((0 6)) ((0 8)) ((3 3)))
+                    (TRUE ((0 2)) ((1 5)) ((3 0)) ((0 1) (1 2))))
+                   ((TRUE ((4 5)) ((4 8)) ((4 2)) ((1 1) (2 0)))
+                    (FALSE ((4 3)) ((4 7)) ((4 0)) ((4 1) (1 0))))
+                   ((TRUE ((1 3))) (FALSE ((0 2)) ((0 6)) ((2 1)) ((1 0))))
+                   ))
+
+
+(defun rank-rules-classes (rules)
+  (let* ((true-seen)
+         (false-seen)
+         (true-ranks)
+         (false-ranks)
+         (current)
+         (attr-rank))
+    (dolist (ruleset rules)
+      (dolist (a-rule ruleset)
+        (setf current a-rule)
+        (format t "current: ~a~%" current)
+        (format t "eql: ~a~%" (cdr current))
+        (if (eql (car current) 'FALSE)
+            (dolist (attr (cdr current))
+              (format t "[ FALSE RULE ]~%")
+              (if (null (position attr false-seen :test #'equal))
+                  (progn
+                    (setf false-seen (cons attr false-seen))
+                    (setf attr-rank (count-occurrence attr rules 'FALSE))
+                    (setf false-ranks (acons attr attr-rank false-ranks)))))
+            (dolist (attr (cdr current))
+              (format t "[ TRUE RULE ]~a~%" attr)
+              (if (null (position attr true-seen :test #'equal))
+                  (progn
+                    (setf true-seen (cons attr true-seen))
+                    (setf attr-rank (count-occurrence attr rules 'TRUE))
+                    (setf true-ranks (acons attr attr-rank true-ranks))))))))
+    (setf false-ranks (sort false-ranks #'(lambda (x y) (> (cdr x) (cdr y)))))
+    (setf true-ranks (sort true-ranks #'(lambda (x y) (> (cdr x) (cdr y)))))
+    (format t "false ranks:~%~a ~%~%true ranks:~%~a~%" false-ranks true-ranks)))
+
+
+   
+
+(defun count-occurrence (elt all-rules class)
+  (let* ((count 0)
+         (current))
+    (dolist (ruleset all-rules count)
+      (dolist (rules ruleset)
+        (setf current (car rules))
+        (format t "~%matching class: ~a - ~a~%~%" current class)
+        (if (eql current class)
+            (dolist (attr (cdr rules))
+              (format t "checking if ~a = ~a~%" attr elt)
+              (if (equal attr elt)
+                  (progn
+                    (incf count)
+                    (format t "~%>>> match found!! count for ~a = ~a~%" attr count)))))))))
+
+
+
 (defun rank-rules (rawrules)
   (let* ((extracted (extract-rule-vals rawrules))
 	(uniques (get-uniques extracted)))
