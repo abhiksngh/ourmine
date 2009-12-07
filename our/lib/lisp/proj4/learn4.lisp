@@ -128,11 +128,9 @@
          (false-seen)
          (true-ranks)
          (false-ranks)
-         (current)
          (attr-rank))
     (dolist (ruleset rules)
-      (dolist (a-rule ruleset)
-        (setf current a-rule)
+      (dolist (current ruleset)
         (if (eql (car current) 'FALSE)
             (dolist (attr (cdr current))
               (if (null (position attr false-seen :test #'equal))
@@ -147,7 +145,7 @@
                     (setf attr-rank (count-occurrence attr rules 'TRUE))
                     (setf true-ranks (acons attr attr-rank true-ranks))))))))
 ;    (format t "false ranks:~%~a ~%~%true ranks:~%~a~%" false-ranks true-ranks)
-    (top-rules true-ranks false-ranks)))
+    (list (list 'FALSE (get-top-rule false-ranks)) (list 'TRUE (get-top-rule true-ranks)))))
 
 
 
@@ -157,7 +155,6 @@
          (curr)
          (median (cdr (nth (floor (/ (length ranks) 2)) ranks)))
          (prev))
-;    (format t "median: ~a~%" median)
     (dotimes (n (length ranks) top)
       (setf curr (nth n ranks))
 ;      (format t "~a : ~a~%" (car curr) (cdr curr))      
@@ -170,10 +167,6 @@
                 (setf prev (cdr curr))
                 (setf top (append top (list (car curr))))))))))
 
-
-(defun top-rules (true-ranks false-ranks)
-    (list (list 'FALSE (get-top-rule false-ranks)) (list 'TRUE (get-top-rule true-ranks))))
-  
    
 
 (defun count-occurrence (elt all-rules class)
