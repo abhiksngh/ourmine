@@ -159,18 +159,14 @@
     (dolist (ruleset rules)
       (dolist (a-rule ruleset)
         (setf current a-rule)
-        (format t "current: ~a~%" current)
-        (format t "eql: ~a~%" (cdr current))
         (if (eql (car current) 'FALSE)
             (dolist (attr (cdr current))
-              (format t "[ FALSE RULE ]~%")
               (if (null (position attr false-seen :test #'equal))
                   (progn
                     (setf false-seen (cons attr false-seen))
                     (setf attr-rank (count-occurrence attr rules 'FALSE))
                     (setf false-ranks (acons attr attr-rank false-ranks)))))
             (dolist (attr (cdr current))
-              (format t "[ TRUE RULE ]~a~%" attr)
               (if (null (position attr true-seen :test #'equal))
                   (progn
                     (setf true-seen (cons attr true-seen))
@@ -189,14 +185,11 @@
     (dolist (ruleset all-rules count)
       (dolist (rules ruleset)
         (setf current (car rules))
-        (format t "~%matching class: ~a - ~a~%~%" current class)
         (if (eql current class)
             (dolist (attr (cdr rules))
-              (format t "checking if ~a = ~a~%" attr elt)
               (if (equal attr elt)
                   (progn
-                    (incf count)
-                    (format t "~%>>> match found!! count for ~a = ~a~%" attr count)))))))))
+                    (incf count)))))))))
 
 
 
