@@ -13,7 +13,7 @@ pdf:
 finished:
 	@printf "\n\n-.,_,.-=^=-.,_,.-=^=-.,_,.-=^=-.,_,.-=^=-.,_,.-=^=\n"
 	@printf "Output pdf at: $(Out)\n\n"
-	evince $(Out)
+	evince $(Out) &
 
 clean:
 	rm -f *.dvi *.log *.aux *.pdf
