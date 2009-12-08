@@ -66,65 +66,18 @@ Rank & Treatment  & 50\% \\
 \end{kasten}
 
 \begin{kasten}
-    \section*{ \hspace{0.1cm} {\color{red} \underline{WHAT WE FOUND}}}
-     \large{
+    \section*{ \hspace{0.1cm} {\color{red} \underline{CONCLUSIONS}}}
+    \normalsize{
+Lamentably, on many-class (approx. 20) datasets Multipipes does not perform significantly better than Naive Bayes when scored using our performance measure to penalize overclassification. Even worse, when tested on datasets with between two and twenty-four classes Multipipes does significantly worse.
 
-	}
-\begin{comment}
-    \vspace{-0.5em}
-    \large{
-      \begin{minipage}{4.5cm}
-          \begin{center}
-            {\small{
-            Low dynamism: $\sigma=0, \lambda=0$
-            
-            \includegraphics[width=4.5cm]{fr-v-sc-msvl.eps}
-            
-            Medium dynamism: $\sigma=0.15, \lambda=0.015$
-            
-            \includegraphics[width=4.5cm]{fr-v-sc-msmi.eps}
-            
-            High dynamism: $\sigma=2, \lambda=0.2$
-            
-            \includegraphics[width=4.5cm]{fr-v-sc-msvh.eps}
-            }}
-          \end{center}
-      \end{minipage}
-      \begin{minipage}{8.5cm}
-        We ran KEYS 1000 times for each combination of {very low, medium, very high} dynamism and {plan-based, agile 2} prioritization policy. The findings are summarized in \S{RESULTS}. Several majority case effects deserve note:
-        \vspace{-0.8em}
-        \begin{verysmallitem}
-        \item Criticality Modifier: Never chosen in more than $1\%$ of the cases.
-        \item Initial Known$/$Inter-Dependency: Never chosen in $>50\%$ of the runs.
-        \item Team Size: Never $<5$ team members.
-        \item For Agile 2:
-          \vspace{-0.7em}
-          \begin{verysmallitem}
-          \item Size: The smallest size was chosen in $72\%-100\%$ of the runs.
-          \item Culture: The upper bins were chosen in $72\%-80\%$ of the runs where dynamism was a factor.
-          \item Team Size: Should be 5 - 17 for medium and very high dynamism.
-          \end{verysmallitem}
-        \end{verysmallitem}
+\vspace{3 mm}
 
-\vspace{-0.8em}
-The 1000 runs of KEYS shows that many
-results are very similar (e.g. all the Agile 2
-          results offer nearly the same pattern). 
-KEYS shows that there are two major divisions of 
-its 10-dimensional space: very high criticality 
-and very small team size. We ran 10,000 
-simulations in the union of these two divisions
-      \end{minipage}
+Also, Multipipes tends to over-classify despite our efforts to reign in overfitting. On average Multipipes returns two-thirds of the possible classes, the average number of classes for a dataset being seven. While there are potential benefits from reducing the space of possible classes, the accuracy of our disjunctions is only slightly better than Naive Bayes'. Increasing the "reach" of our disjunctions using alpha values improves this accuracy to over 99\%, but at that point Multipipes is typically returning every single possible class.
+
+\vspace{3 mm}
+
+In conclusion, while there are potential uses in the case of very-many class systems, there appear to exist intrinsic drawbacks to Multipipes' abilities as a classifier.
     }
-
- (shown above). The median score of Agile 
-2 is shows stability under changing dynamism, while 
-the median score of Plan-Based falls  as dynamism increases. We see that the median score of Agile 2 is equal to or greater than the median score of Plan-Based development.
-
-    \vspace{3mm}
-    We conclude that in the general case, Agile 2 out performs Plan-Based development. Only rarely does Plan-Based out perform Agile 2.
-    \vspace{-0.1em}
-\end{comment}
 \end{kasten}
 
 \begin{kasten}
