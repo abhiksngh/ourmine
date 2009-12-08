@@ -17,6 +17,9 @@
 			       (xindex (shared_cm1)) (xindex (shared_mw1))
 			       (xindex (shared_mc2))))
 
+
+(defparameter turkish-lst (list (xindex (ar3)) (xindex (ar4)) (xindex (ar5))))
+
 (defparameter prepared-data '())
 
 
@@ -36,8 +39,11 @@
 (defun prepare-datasets-bsquare (&optional (num-attrs))
   (let* ((lst-out)
 	 (indexes (merge-data num-attrs)))
-  (dolist (l shared-lst lst-out)
-    (setf lst-out (append lst-out (list (xindex  (make-bsquare-table l indexes))))))))
+  (dolist (l shared-lst)
+    (setf lst-out (append lst-out (list (xindex (make-bsquare-table l indexes))))))
+  (dolist (l turkish-lst lst-out)
+    (setf lst-out (append lst-out (list (xindex (make-bsquare-table l indexes))))))))
+
 
 (defun make-bsquare-table (tbl indexes)
   (bsquare-table tbl indexes))
