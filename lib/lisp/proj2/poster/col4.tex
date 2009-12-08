@@ -1,7 +1,16 @@
 \begin{kasten}
     \section*{ \hspace{0.1cm} {\color{red} \underline{RESULTS}}}
     \large{
+In order to directly compare single classification and multiple classification algorithms we developed an appropriate scoring mechanism that penalizes for larger return sets. The algorithm used for the boxplots is:
+
+\begin{equation}
+Score = 1 - \frac{(ClassesReturned - 1)}{(TotalClasses - 1)}
+\end{equation}
+
+
+
 \begin{figure}[H]
+\begin{center}
 \renewcommand{\baselinestretch}{0.5}
 \noindent
 {\scriptsize
@@ -27,11 +36,12 @@ Rank & Treatment  & 50\% & \% Ret \\
 
 \end{tabular}
 }
-
+\end{center}
 \end{figure}
 
 
 \begin{figure}[H]
+\begin{center}
 \renewcommand{\baselinestretch}{0.5}
 \noindent
 {\scriptsize
@@ -57,8 +67,9 @@ Rank & Treatment  & 50\% \\
 
 \end{tabular}
 }
-
+\end{center}
 \end{figure}
+
 
 
     }
@@ -67,7 +78,7 @@ Rank & Treatment  & 50\% \\
 
 \begin{kasten}
     \section*{ \hspace{0.1cm} {\color{red} \underline{CONCLUSIONS}}}
-    \normalsize{
+    \large{
 Lamentably, on many-class (approx. 20) datasets Multipipes does not perform significantly better than Naive Bayes when scored using our performance measure to penalize overclassification. Even worse, when tested on datasets with between two and twenty-four classes Multipipes does significantly worse.
 
 \vspace{3 mm}
