@@ -1,3 +1,6 @@
+(defparameter  iter 0)
+(defparameter seen-ones 0)
+(defparameter iter-seen-pair '())
 
 (defun remove-falses(train)
   (let* ((data (table-egs-to-lists train))
@@ -69,8 +72,10 @@
 	       (newtable (append-tables table-lst))
 	       (newbp (list (make-rules-all-classes newtable) newtable)))
 	  (if (not (score-rules (car newbp) current-rules test))
-	      (return-from build-new-bp (list (make-rules-all-classes atable) atable)) 
-	      (return-from build-new-bp newbp)))
+	      (progn 
+		(incf seen-ones)
+		(return-from build-new-bp (list (make-rules-all-classes atable) atable)))
+		(return-from build-new-bp newbp)))
 	(return-from build-new-bp bp)))
 	
 	
@@ -89,6 +94,9 @@
              t))))
 	  
 (defun run-all-exp (&optional (top-iterations 1) (bottom-iterations 1))
+  (setf iter-seen-pair '())
+  (setf iter 0)
+  (setf seen-ones 0)
   (let ((bp))
     (dotimes (i top-iterations (car bp))
       (let* ((all (traintest-pdata))
@@ -103,8 +111,13 @@
 	;(format t "~a ~a ~a ~a ~a ~%" "Data set " acc ": Back pocket rules: Itr " i (car bp))
 	(incf acc)
 	(if (= (length bp) 0)
-	    (setf bp (list (make-rules-all-classes train-tbl) train-tbl))	    
-	    (setf bp (build-new-bp bp train-tbl (make-rules-all-classes train-tbl) test)))))
+	    (progn
+	      (incf iter)
+	      (setf bp (list (make-rules-all-classes train-tbl) train-tbl)))
+	    (progn
+	        (incf iter)
+		(setf bp (build-new-bp bp train-tbl (make-rules-all-classes train-tbl) test))))
+	(setf iter-seen-pair (append iter-seen-pair (list (list iter seen-ones))))))
     bp))
 
 
