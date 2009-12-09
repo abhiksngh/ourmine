@@ -4,6 +4,7 @@
 	(max  (length all))
         (trueClass (make-list 4 :initial-element 0))
         (falseClass (make-list 4 :initial-element 0)))
+    ;(print "Starting nb")
     (dolist (one all (/ acc max))
       (let* ((got     (bayes-classify (eg-features one) (xindex train)))
 	     (want    (eg-class one))
@@ -22,6 +23,7 @@
                 (progn
                   (incf (third falseClass))
                   (incf (second trueClass)))))))
+    ;(print "ending nb")
     (values trueClass falseClass)))
                          
 	
@@ -45,17 +47,25 @@
       (let* ((prior (/ (+ (f tbl class) k)
                        (+  n (* k nclasses))))
              (tmp   (log prior)))
+        ;(print prior)
+        ;(print tmp)
         (doitems (feature i one)
           (unless (= classi i)
             (unless (unknownp feature)
               (let ((delta (if (numericp (nth i (columns-header (table-columns tbl))))
-                                (pdf (gethash class (header-f (nth i (table-columns tbl)))) feature)
+                               (pdf (gethash class (header-f (nth i (table-columns tbl)))) feature)
                                (/ (+ (f tbl class i feature)
-                                 (* m prior))
-                              (+ (f tbl class) m)))))
-                (incf tmp (log (if (= delta 0)
-                                   1
-                                   delta)))))))
+                                     (* m prior))
+                                  (+ (f tbl class) m)))))
+               ; (print "testinf for complex")
+                (if (complexp delta)
+                    (setf delta (log 0.000001)))
+               ; (print "incrementing tmp")
+                (incf tmp (log (if (< delta 0.000001)
+                                   0.000001
+                                   delta
+                                   )
+                               ))))))
         (when (> tmp like)
           (setf like tmp
                 classification class))))

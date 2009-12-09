@@ -15,7 +15,9 @@
 
 (defmethod numval2 ((header numeric) feature)
   (declare (ignore header))
-  (log (max feature 0.00001) 10))
+  (log (if (< feature 0.000001)
+           0.000001
+           feature)))
 
 (defmethod numval2 ((header discrete) feature)
     (declare (ignore header))

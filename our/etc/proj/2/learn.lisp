@@ -16,7 +16,11 @@
                                                                                 (columns-header (table-columns currentData))
                                                                                 (shuffle (features-as-a-list currentData))))
                (doitems (per-train num trainlist)
+                 (if (null (table-all per-train))
+                     (print "per-train is null off the trainlist"))
                  (push per-train trainSlices)
+                 (if (null (table-all (nth num testlist)))
+                     (print "per-test is null off the testlist"))
                  (push (nth num testlist) testSlices))))))
     (multiple-value-bind (returnTrain returnTest) (randomizeSlices trainSlices testSlices)
       (values returnTrain returnTest))))
@@ -38,16 +42,16 @@
                         (norm #'normalizedata)
                         (discretizer  #'equal-width)
                         (classify     #'nb))
-    (let* ((setList (list #'shared-cm1 
-                          #'shared-kc1 
-                          #'shared-kc2 
+    (let* ((setList (list ;#'shared-cm1 
+                     ;    #'shared-kc1 
+                     ;     #'shared-kc2 
                      ;     #'shared-kc3  
                      ;     #'shared-mw1 
-                     ;     #'shared-mc2 
-                          #'shared-pc1 
-                          #'ar3 
-                          #'ar4 
-                          #'ar5
+                         #'shared-mc2 
+                     ;    #'shared-pc1 
+                     ;    #'ar3 
+                     ;    #'ar4 
+                     ;    #'ar5
 ))
            (stream (open filename :direction :output 
                                   :if-does-not-exist :create
@@ -63,6 +67,8 @@
            (tsofar) (fsofar) ; true/false scores for running train set
            (tpdsofar) (tpfsofar) ; pd/pf scores for running train set
            (fpdsofar) (fpfsofar)
+           (tpdaverage 0) (tpfaverage 0)
+           (tpdsofaraverage 0) (tpfsofaraverage 0)
            (taccslice) (tprecslice) (faccslice) (fprecslice) (taccsofar) (tprecsofar) (faccsofar) (fprecsofar)
            (tfslice) (tgslice) (ffslice) (fgslice) (tfsofar) (tgsofar) (ffsofar) (fgsofar)
            (perTrainBalHistory) (TrainSoFarBalHistory) ;history lists
@@ -71,7 +77,7 @@
            (lastTimeLearned)
            (train-so-far))   ; running train set (builds as it goes)
      
-          (format stream "normalized,~tdiscretizer,~Tlearner,~Tslice/sofar,~Tclass,~Ta,~Tb,~Tc,~Td,~Tacc,~Tprec,~Tpd,~Tpf,~Tf,~Tg,~Tbal~%")
+         ; (format stream "#normalized,~tdiscretizer,~Tlearner,~Tslice/sofar,~Tclass,~Ta,~Tb,~Tc,~Td,~Tacc,~Tprec,~Tpd,~Tpf,~Tf,~Tg,~Tbal~%")
 
  
       (multiple-value-bind (trainSliceList testSliceList) (generateSlices setList prep norm discretizer stream)
@@ -79,7 +85,8 @@
         (setf train-so-far (first trainSliceList))
 
         (doitems (per-train i trainSliceList)
-
+          (if (null (table-all per-train))
+              (print "per-train is null off the slice list"))
            ; get perf scores for this slice
           (multiple-value-bind (ts fs)
               (learn per-train (nth i testSliceList))
@@ -113,6 +120,10 @@
                                     (second fslice)
                                     (third fslice)
                                     (fourth fslice))))
+          (setf tpdaverage (+ tpdaverage tpdslice))
+          (setf tpfaverage (+ tpfaverage tpfslice))
+          (setf tpdsofaraverage (+ tpdsofaraverage tpdsofar))
+          (setf tpfsofaraverage (+ tpfsofaraverage tpfsofar))
           (setf fpfslice (float (pf (first fslice)
                                     (second fslice)
                                     (third fslice)
@@ -209,6 +220,7 @@
           ;(when (> (- (balance tpdslice tpfslice) .05) (balance tpdsofar tpfsofar))
           (when (<= (wilcoxon TrainSoFarBalHistory perTrainBalHistory 0.10) 0)
             (format t "relearning ~%")
+            (setf tpdsofaraverage 0 tpfsofaraverage 0)
             (setf lastTimeLearned i)
             (setf train-so-far (combine-sets train-so-far per-train)))
 
@@ -230,9 +242,17 @@
                faccsofar fprecsofar (* fpdsofar 100) (* fpfsofar 100) ffsofar fgsofar (* (balance fpdsofar fpfsofar) 100)
           )
  
-          (incf slice-count))
+        (incf slice-count))
         (writeWinLossTie expandedWLTList expandedWLTStream)
         (format t "LastTimeLearned: ~A~%" lastTimeLearned))
+        (setf tpdaverage (/ tpdaverage slice-count))
+        (setf tpfaverage (/ tpfaverage slice-count))
+        (setf tpdsofaraverage (/ tpdsofaraverage (- slice-count lastTimeLearned)))
+        (setf tpfsofaraverage (/ tpfsofaraverage (- slice-count lastTimeLearned)))
+        (format t "True pd average: ~A~%" tpdaverage)
+        (format t "True pf average: ~A~%" tpfaverage)
+        (format t "True pd so far average: ~A~%" tpdsofaraverage)
+        (format t "True pf so far average: ~A~%" tpfsofaraverage)
         (close stream)
         (close expandedWLTStream)))
 
@@ -273,6 +293,9 @@
     ; normalize both train and test data sets
     (multiple-value-bind (trainSet testSet) 
         (funcall norm trainSet testSet)
+
+      (if (null (table-all trainSet))
+          (print "Found a null set"))
 
         ; perform row reduction on train set
          (setf trainSet (funcall rowReducer trainSet testSet))

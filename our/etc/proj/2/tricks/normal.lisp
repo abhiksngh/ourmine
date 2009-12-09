@@ -35,13 +35,17 @@
 
 (defmethod pdf ((n normal) x)
   (let ((mu     (if (= (mean n) 0)
-                    0.001
+                    0.000001
                     (mean n)))
 	(sigma  (if (= (stdev n) 0)
-                    0.001
+                    0.000001
                     (stdev n))))
     (* (/ (* (sqrt (* 2 pi)) sigma))
-       (exp (* (- (/ (* 2 (square sigma)))) (square (- x mu)))))))
+       (exp
+        (if (= mu sigma)
+            0.001
+            (* (- (/ (* 2 (square sigma)))) (square (- x mu))))
+            ))))
 
 (deftest test-normal ()
   (let ((n (make-normal)))
