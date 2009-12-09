@@ -107,6 +107,8 @@
   (setf seen-ones 0)
   (let ((bp))
     (dotimes (i top-iterations (car bp))
+      (if (eq (mod i 100) 0)
+          (format t "~a~%" i))
       (let* ((all (traintest-pdata))
 	     (train (car (cdr all)))
 	     (test (car all)))
