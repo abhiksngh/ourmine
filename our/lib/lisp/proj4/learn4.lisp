@@ -131,75 +131,8 @@
 
 
 
-(setf real-rules '(((FALSE ((0 6)) ((2 0)) ((2 6)) ((1 5)) ((3 7)))
-                    (TRUE ((0 8)) ((1 3)) ((1 2)) ((4 1) (0 1)) ((4 1) (1 1)) ((2 7) (0 2))
-                     ((4 1) (2 5))))
-                   ((FALSE ((2 5)) ((0 4)) ((1 7)) ((1 6)) ((0 2) (1 4)) ((0 2) (1 3)))
-                    (TRUE ((0 5)) ((1 0)) ((1 2))))
-                   ((FALSE ((2 8)) ((0 5)) ((0 6)) ((0 8)) ((3 3)))
-                    (TRUE ((0 2)) ((1 5)) ((3 0)) ((0 1) (1 2))))
-                   ((TRUE ((4 5)) ((4 8)) ((4 2)) ((1 1) (2 0)))
-                    (FALSE ((4 3)) ((4 7)) ((4 0)) ((4 1) (1 0))))
-                   ((TRUE ((1 3))) (FALSE ((0 2)) ((0 6)) ((2 1)) ((1 0))))
-                   ))
 
 
-(defun rank-rules-classes (rules)
-  (let* ((true-seen)
-         (false-seen)
-         (true-ranks)
-         (false-ranks)
-         (attr-rank))
-    (dolist (ruleset rules)
-      (dolist (current ruleset)
-        (if (eql (car current) 'FALSE)
-            (dolist (attr (cdr current))
-              (if (null (position attr false-seen :test #'equal))
-                  (progn
-                    (setf false-seen (cons attr false-seen))
-                    (setf attr-rank (count-occurrence attr rules 'FALSE))
-                    (setf false-ranks (acons attr attr-rank false-ranks)))))
-            (dolist (attr (cdr current))
-              (if (null (position attr true-seen :test #'equal))
-                  (progn
-                    (setf true-seen (cons attr true-seen))
-                    (setf attr-rank (count-occurrence attr rules 'TRUE))
-                    (setf true-ranks (acons attr attr-rank true-ranks))))))))
-;    (format t "false ranks:~%~a ~%~%true ranks:~%~a~%" false-ranks true-ranks)
-    (list (list 'FALSE (get-top-rule false-ranks)) (list 'TRUE (get-top-rule true-ranks)))))
-
-
-
-(defun get-top-rule (ranks)
-  (let* ((ranks (sort ranks #'(lambda (x y) (> (cdr x) (cdr y)))))
-         (top)
-         (curr)
-         (median (cdr (nth (floor (/ (length ranks) 2)) ranks)))
-         (prev))
-    (dotimes (n (length ranks) top)
-      (setf curr (nth n ranks))
-;      (format t "~a : ~a~%" (car curr) (cdr curr))      
-      (if (null prev)
-          (progn
-            (setf prev (cdr curr))
-            (setf top (append top (list (car curr)))))
-          (if (or (not (eq (cdr curr) prev)) (> (cdr curr) median))
-              (progn
-                (setf prev (cdr curr))
-                (setf top (append top (list (car curr))))))))))
-
-   
-
-(defun count-occurrence (elt all-rules class)
-  (let* ((count 0)
-         (current))
-    (dolist (ruleset all-rules count)
-      (dolist (rules ruleset)
-        (setf current (car rules))
-        (if (eql current class)
-            (dolist (attr (cdr rules))
-              (if (equal attr elt)
-                    (incf count))))))))
 
 
 
