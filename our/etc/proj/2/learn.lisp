@@ -42,13 +42,13 @@
                         (norm #'normalizedata)
                         (discretizer  #'equal-width)
                         (classify     #'nb))
-    (let* ((setList (list ;#'shared-cm1 
-                     ;    #'shared-kc1 
+    (let* ((setList (list #'shared-cm1 
+                         #'shared-kc1 
                      ;     #'shared-kc2 
                      ;     #'shared-kc3  
                      ;     #'shared-mw1 
                          #'shared-mc2 
-                     ;    #'shared-pc1 
+                         #'shared-pc1 
                      ;    #'ar3 
                      ;    #'ar4 
                      ;    #'ar5
