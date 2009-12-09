@@ -130,7 +130,11 @@
 
 
 
-
+(defun write-stats (filename str)
+  (setf st (open (make-pathname :name filename) :direction :output
+		  :if-exists :supersede))
+  (format st str)
+  (close st))
 
 
 
