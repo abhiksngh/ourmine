@@ -12,28 +12,30 @@
       (if (eq (nth class-col temp) 'true)
           (setf truths (append (list temp) truths))))))
 
-(defparameter shared-lst (list (xindex (shared_pc1)) (xindex (shared_kc1))
-			       (xindex (shared_kc2)) (xindex (shared_kc3))
-			       (xindex (shared_cm1)) (xindex (shared_mw1))
-			       (xindex (shared_mc2))))
+(defparameter shared-lst (list (xindex (common-shared (shared_pc1))) (xindex (common-shared (shared_kc1)))
+			       (xindex (common-shared (shared_kc2))) (xindex (common-shared (shared_kc3)))
+			       (xindex (common-shared (shared_cm1))) (xindex (common-shared (shared_mw1)))
+			       (xindex (common-shared (shared_mc2)))))
 
 
-(defparameter turkish-lst (list (xindex (ar3)) (xindex (ar4)) (xindex (ar5))))
+(defparameter turkish-lst (list (xindex (common-turkish (ar3))) (xindex (common-turkish (ar4))) (xindex (common-turkish (ar5)))))
 
 (defparameter prepared-data '())
 
 
 (defun merge-data (&optional (nr-attributes 5))
-  (let* ((sh_pc1 (xindex (shared_pc1)))
-	 (sh_kc1 (xindex (shared_kc1)))
-	 (sh_kc2 (xindex (shared_kc2)))
-	 (sh_kc3 (xindex (shared_kc3)))
-	 (sh_cm1 (xindex (shared_cm1)))
-	 (sh_mw1 (xindex (shared_mw1)))
-	 (sh_mc2 (xindex (shared_mc2)))
-	 (lst (list sh_pc1 sh_kc1 sh_kc2 sh_kc3 sh_cm1 sh_mw1 sh_mc2))
-	 (all-tbl (xindex (append-tables lst))))
-   (score-tbl-bsquare all-tbl nr-attributes)))
+  
+  
+         ;(let* ((sh_pc1 (xindex (shared_pc1)))
+	; (sh_kc1 (xindex (shared_kc1)))
+	 ;(sh_kc2 (xindex (shared_kc2)))
+	 ;(sh_kc3 (xindex (shared_kc3)))
+	 ;(sh_cm1 (xindex (shared_cm1)))
+	 ;(sh_mw1 (xindex (shared_mw1)))
+	 ;(sh_mc2 (xindex (shared_mc2)))
+	 ;(lst (list sh_pc1 sh_kc1 sh_kc2 sh_kc3 sh_cm1 sh_mw1 sh_mc2))
+	(let* ((all-tbl (xindex (append-tables shared-lst))))
+               (score-tbl-bsquare all-tbl nr-attributes)))
 
 
 (defun prepare-datasets-bsquare (&optional (num-attrs))
