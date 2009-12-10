@@ -7,8 +7,13 @@
 ;;; Find closest neighbor.  Find-same-class is for locating closest hit and closest miss.
 
 (defun closest-member (table row-number find-same-class)
+
+  (if (not (eg-p (nth row-number (table-all table))))
+
+  (random (+ (length (table-all table)) 1))
+
   (let ((target-class (eg-class (nth row-number (table-all table)))))
-    (loop for i from 1 to (- (length (table-all table)) 2) do
+    (loop for i from 1 to (- (length (table-all table)) 1) do
       (let ((left (nth (unnegitify (- row-number i)) (table-all table))) (right (nth (unoverbound (+ row-number i) table) (table-all table))))
         (if (and (not (null (eg-class left))) (equalp (eg-class left) target-class))
           (if find-same-class 
@@ -30,11 +35,18 @@
     )
     row-number
   )
+
+  )
 )
 
 ;;; Find difference metric.
 
 (defun relief-diff (column-num target neighbor &optional (divisor-n 1))
+
+  (if (null target)
+
+  0
+
   (let ((score 0) (target-feature (nth column-num (eg-features target))) (neighbor-feature (nth column-num (eg-features neighbor))))
     (if (and (realp target-feature) (realp neighbor-feature))
       (let ((top (abs (- target-feature neighbor-feature))) (bottom (+ target-feature neighbor-feature)))
@@ -48,6 +60,8 @@
     )
     (/ score divisor-n)
   )
+
+  )
 )
 
 ;;; Run loop n times, return list of weights.
@@ -56,14 +70,25 @@
   (if (null iterations)
     (setf iterations 250)
   )
-  (let ((column-weights (make-list (length (eg-features (first (table-all table)))) :initial-element 0)))
-    (loop for i from 0 to iterations do
-      (let* ((record-num (random (- (length (table-all table)) 1))) (hit (closest-member table record-num t)) (miss (closest-member table record-num nil)))
-        (loop for j from 0 to (- (length column-weights) 1) do
-          (let 
-              ((round-score-hit (relief-diff j (nth record-num (table-all table)) (nth hit (table-all table)) iterations)) 
-               (round-score-miss (relief-diff j (nth record-num (table-all table)) (nth miss (table-all table)) iterations)))
-            (setf (nth j column-weights) (- (+ (nth j column-weights) round-score-miss) round-score-hit))
+  (let ((column-weights (make-list (length (table-columns table)) :initial-element 0)))
+    (loop for i from 0 to (- iterations 1) do
+      (if (<= (length (table-all table)) 0)
+        (let* ((record-num 0) (hit (closest-member table record-num t)) (miss (closest-member table record-num nil)))
+          (loop for j from 0 to (- (length column-weights) 1) do
+            (let 
+                ((round-score-hit (relief-diff j (nth record-num (table-all table)) (nth hit (table-all table)) iterations)) 
+                 (round-score-miss (relief-diff j (nth record-num (table-all table)) (nth miss (table-all table)) iterations)))
+              (setf (nth j column-weights) (- (+ (nth j column-weights) round-score-miss) round-score-hit))
+            )
+          )
+        )
+        (let* ((record-num (+ (random (+ (length (table-all table)) 1)) 1)  ) (hit (closest-member table record-num t)) (miss (closest-member table record-num nil)))
+          (loop for j from 0 to (- (length column-weights) 2) do
+            (let 
+                ((round-score-hit (relief-diff j (nth record-num (table-all table)) (nth hit (table-all table)) iterations)) 
+                 (round-score-miss (relief-diff j (nth record-num (table-all table)) (nth miss (table-all table)) iterations)))
+              (setf (nth j column-weights) (- (+ (nth j column-weights) round-score-miss) round-score-hit))
+            )
           )
         )
       )

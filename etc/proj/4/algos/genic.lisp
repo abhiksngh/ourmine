@@ -30,10 +30,14 @@
 )
 
 (defun closest-center (centers new-point)
+  (if (null new-point)
+    
+  0
+
   (let ((distances (make-list (length centers) :initial-element 0)))
     (dotimes (i (length centers))
       (dotimes (j (length (eg-features new-point)))
-        (if (numericp (nth j (eg-features new-point)))
+        (if (and (symbolp (nth j (eg-features new-point))) (numericp (nth j (eg-features new-point))))
           (setf 
             (nth i distances) 
             (+ 
@@ -56,13 +60,19 @@
       shortest-pos
     )
   )
+
+  )
 )
 
 (defun move-center (existing-center new-point weight)
+  (if (null new-point)
+
+  existing-center
+
   (let ((existing-features (copy-list (eg-features existing-center))) (new-features (eg-features new-point)))
     (dotimes (i (length existing-features))
       (let ((col-val-old (nth i existing-features)) (col-val-new (nth i new-features)))
-        (if (numericp col-val-old)
+        (if (and (symbolp col-val-old) (numericp col-val-old))
           (setf
             (nth i existing-features)
             (/ (+ (* weight col-val-old) col-val-new) (+ weight 1))
@@ -74,6 +84,8 @@
       )
     )
     (make-eg :features existing-features :class (eg-class existing-center))
+  )
+
   )
 )
 
