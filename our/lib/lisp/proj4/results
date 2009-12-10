@@ -1,2 +1,4 @@
-NB,train-shared,TRUE,60,2,110,34,.94,.65,.24,.77,.54
-NB,train-turkish,TRUE,4568,670,5,15,.02,.001,.75,.002,.31
+NB,train-shared,TRUE,60,2,110,34,94,.65,.24,.77,.54
+NB,train-turkish,TRUE,4568,670,5,15,2,.001,.75,.002,.31
+PRISM,train-shared,X,X,X,X,X,12,0,X,X
+PRISM,train-turkish,X,X,X,X,X,40,6.3,X,X
