@@ -1,0 +1,119 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{graphicx}
+\usepackage{wrapfig,url}
+\newcounter{over}
+\newcounter{max}
+\newcommand{\fred}[2]{\setcounter{over}{#2}\addtocounter{over}{#1}}
+\newcommand{\boxplot}[5]{%
+\scalebox{0.5}{\textcolor{white}{\setcounter{max}{#4}\addtocounter{max}{#5}\fred{#4}{-#2}}%
+\begin{picture}(100,10)%
+\put(0,0){\line(0,1){8}}%
+\put(100,0){\line(0,1){8}}%
+%\put(#1,4){\circle*{1}}%
+%\put(\themax,4){\circle*{1}}%
+\put(#2,4){\line(1,0){\theover}}%
+\put(#3,4){\circle*{8}}%
+%\put(#4,4){\line(1,0){#5}}%
+\put(50,0){\line(0,1){8}}%
+\end{picture}}
+} 
+\usepackage{eso-pic}
+\usepackage{color}
+\usepackage{type1cm}
+%\makeatletter
+%  \AddToShipoutPicture{%
+%    \setlength{\@tempdimb}{.5\paperwidth}%
+%    \setlength{\@tempdimc}{.5\paperheight}%
+%    \setlength{\unitlength}{1pt}%
+%      \makebox(600,900){\rotatebox{45}{\textcolor[gray]{0.80}{\fontsize{5cm}{5cm}\selectfont{Draft v5}}}}}
+%\makeatother
+
+\newenvironment{smallitem}
+ {\setlength{\topsep}{0pt}
+                     \setlength{\partopsep}{0pt}
+  \setlength{\parskip}{0pt}
+  \begin{itemize}
+   \setlength{\leftmargin}{.2in}
+  \setlength{\parsep}{0pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{0pt}}
+ {\end{itemize}}
+\newenvironment{smallenum}
+ {\setlength{\topsep}{0pt}
+  \setlength{\partopsep}{0pt}
+  \setlength{\parskip}{0pt}
+  \begin{enumerate}
+  \setlength{\leftmargin}{.2in}
+  \setlength{\parsep}{0pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\itemsep}{0pt}}
+ {\end{enumerate}}
+
+ \newcommand{\bd}{\begin{description}}
+\newcommand{\ed}{\end{description}}
+ \newcommand{\bi}{\begin{smallitem}}
+\newcommand{\ei}{\end{smallitem}}
+ \newcommand{\be}{\begin{smallenum}}
+\newcommand{\ee}{\end{smallenum}}
+\newcommand{\fig}[1]{Figure~\ref{fig:#1}}
+\newcommand{\eq}[1]{Equation~\ref{eq:#1}}
+\newcommand{\tion}[1]{\S\ref{sec:#1}}
+
+%\usepackage{times}
+\usepackage{alltt}
+\usepackage{url}
+% IEEE Computer Society needs nocompress option
+% requires cite.sty v4.0 or later (November 2003)
+\usepackage{cite}
+% normal IEEE
+ % \usepackage{cite}
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+\pdfpagewidth=8.5in
+\pdfpageheight=11in
+\begin{document}
+\begin{figure}[h]
+\small
+\begin{center}
+\begin{tabular}{l@{~}|l@{~}|r@{~}r@{~}@{~}r@{~}|c}
+%\multicolumn{2}{c}{~}&\multicolumn{5}{c}{quartiles}\\\cline{3-5}
+%&min& & median & &max\\\cline{3-5}
+\multicolumn{2}{c}{~}&\multicolumn{3}{c}{pd}&2nd quartile\\
+\multicolumn{2}{c}{~}&\multicolumn{3}{c}{percentiles}&median,\\\cline{3-5}
+Rank&Treatment& 25\%& 50\% & 75\%&3rd quartile\\\hline
+1&NB & 12& 35& 58&  \boxplot{0.0}{12.0}{35.0}{58.0}{10.0}  \\
+1&PRISM & 0& 14& 28&  \boxplot{0.0}{0.0}{14.0}{28.0}{0.0}  \\\hline
+\multicolumn{5}{c}{~}&~~~~~0~~~~~~~~50~~~~100
+\end{tabular}
+\end{center}
+\caption{Probability of Detection (PD) results,
+sorted by median values.
+}\label{fig:pds}
+\end{figure} 
+
+
+\begin{figure}[h]
+\small
+\begin{center}
+\begin{tabular}{l@{~}|l@{~}|r@{~}r@{~}@{~}r@{~}|c}
+%\multicolumn{2}{c}{~}&\multicolumn{5}{c}{quartiles}\\\cline{3-5}
+%&min& & median & &max\\\cline{3-5}
+\multicolumn{2}{c}{~}&\multicolumn{3}{c}{pf}&2nd quartile\\
+\multicolumn{2}{c}{~}&\multicolumn{3}{c}{percentiles}&median,\\\cline{3-5}
+Rank&Treatment& 25\%& 50\% & 75\%&3rd quartile\\\hline
+1&NB & 1& 10& 18&  \boxplot{0.0}{1.0}{10.0}{18.0}{0.2}  \\
+1&PRISM & 0& 1.2& 4.3&  \boxplot{0.0}{0.0}{1.2}{4.3}{0.0}  \\\hline
+\multicolumn{5}{c}{~}&~~~~~0~~~~~~~~50~~~~100
+\end{tabular}
+\end{center}
+\caption{Probability of False Alarm (PF) results,
+sorted by median values.
+}\label{fig:pds}
+\end{figure} 
+
+
+
+\end{document}
