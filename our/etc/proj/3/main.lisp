@@ -23,6 +23,7 @@
 (load "tests/data/autos")
 (load "tests/data/ionosphere")
 (load "tests/data/german_credit")
+(load "tests/data/servo")
 (load "tests/data/meta")
 (load "tests/graphs")
 
