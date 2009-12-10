@@ -69,26 +69,15 @@
 
 
 ;;classfying a learner 
-(defun classify-learner (fun train)
+(defun classify-learner (fun train test)
  (let* ((class (table-class train))
-         (lst (split2bin-tables train))
-         ;(train (xindex (car (cdr lst))))
-         ;(test (xindex (car lst)))
          (gotwants))
-   (dotimes (i  (- (length lst) 1))
-     (let* ((test (xindex (nth i lst)))
-            (train-lst)
-            (tr))
-       (dotimes (j (- (length lst) 1))
-         (if (not (= j i))
-             (setf train-lst (append train-lst (list (nth j lst))))))
-       (setf tr (append-tables train-lst))
-     (dolist (test_inst (get-features (table-all test)))
-       (let* ((want (nth class test_inst))
-              (got (funcall fun test_inst tr)))
-         (setf want (list want))
-         (setf gotwants (append gotwants (list (append want got))))))))
-    (split (abcd-stats gotwants :verbose nil))))
+   (dolist (test_inst (get-features (table-all test)))
+     (let* ((want (nth class test_inst))
+	    (got (funcall fun test_inst train)))
+       (setf want (list want))
+       (setf gotwants (append gotwants (list (append want got))))))
+       (split (abcd-stats gotwants :verbose nil))))
 
 ;utility function to print
 (defun prepare-inst (param abcd)

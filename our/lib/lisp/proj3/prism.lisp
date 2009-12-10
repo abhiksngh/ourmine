@@ -233,7 +233,9 @@
       (if (eql str 'pd)
 	  (setf ret (/ d (+ b d)))
 	  (if (eql str 'pf)
-	      (setf ret (/ c (+ a c))))))
+	      (setf ret (/ c (+ a c)))
+	      (if (eql str 'acc)
+		  (setf ret (/ (+ a b) (+ a b c d)))))))
     (float ret)))
 	   
 		
