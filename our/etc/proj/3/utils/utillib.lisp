@@ -134,10 +134,15 @@
                 (setf rtnlist (append rtnlist 0))
                 (setf rtnlist (append rtnlist 1))))))))
 
+;(defun eg-distance (p q)
+  ;(setf p (eg-to-list p))
+  ;(setf q (eg-to-list q))
+  ;(distance p q))
+
 (defun eg-distance (p q)
-  (setf p (eg-to-list p))
-  (setf q (eg-to-list q))
-  (distance p q))
+  (let ((point1 (if (listp p) p (eg-features p)))
+        (point2 (if (listp q) q (eg-features q))))
+    (distance point1 point2)))
 
 (defun coin-flip (data1 data2)
   (if (= 0 (my-random-int 2)) data1 data2))
