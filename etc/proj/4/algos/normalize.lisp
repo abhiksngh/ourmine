@@ -6,7 +6,7 @@
 
 (defun normal (in min max)
   "Normalize a number into the range 0...1"
-  (/ (- in min) (- max min)))
+  (/ (- in min) (- max min -0.00000000001)))
 
 (defmacro nth-eg (n this-eg)
   "Returns the nth column in an eg's features"
