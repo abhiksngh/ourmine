@@ -38,10 +38,10 @@
 (defun prepare-datasets-bsquare (&optional (num-attrs))
   (let* ((lst-out)
 	 (indexes (merge-data num-attrs)))
-  (dolist (l shared-lst)
-    (setf lst-out (append lst-out (list (xindex (make-bsquare-table l indexes))))))
-  (dolist (l turkish-lst lst-out)
+  (dolist (l shared-lst lst-out)
     (setf lst-out (append lst-out (list (xindex (make-bsquare-table l indexes))))))))
+  ;(dolist (l turkish-lst lst-out)
+  ;  (setf lst-out (append lst-out (list (xindex (make-bsquare-table l indexes))))))))
 
 
 (defun make-bsquare-table (tbl indexes)
@@ -104,6 +104,7 @@
   (setf seen-ones 0)
   (let ((bp))
     (dotimes (i top-iterations (car bp))
+      (print iter)
       (if (eq (mod i 100) 0)
           (format t "~a~%" i))
       (let* ((all (traintest-pdata))
