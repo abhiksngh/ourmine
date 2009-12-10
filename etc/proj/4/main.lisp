@@ -31,8 +31,8 @@
 
 (format t "Loading Classifiers...~%")
 (load "algos/naivebayes")
-(suppress-warnings (load "algos/twor"))
-(suppress-style-warnings (load "algos/2b"))
+(load "algos/twor")
+(load "algos/2b")
 (load "algos/prism")
 (format t " - Complete.~%")
 
