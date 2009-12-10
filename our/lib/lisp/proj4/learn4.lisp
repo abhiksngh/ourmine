@@ -19,6 +19,16 @@
 			       (xindex (common-turkish (ar4))) (xindex (common-turkish (ar5)))))
 
 
+(defparameter lst-share (list (xindex (common-shared (shared_pc1))) (xindex (common-shared (shared_kc1)))
+			       (xindex (common-shared (shared_kc2))) (xindex (common-shared (shared_kc3)))
+			       (xindex (common-shared (shared_cm1))) (xindex (common-shared (shared_mw1)))
+			       (xindex (common-shared (shared_mc2)))))
+
+(defparameter lst-turkish (list (xindex (common-turkish (ar3))) (xindex (common-turkish (ar4))) (xindex (common-turkish (ar5)))))
+
+
+
+
 (defparameter prepared-data '())
 
 
