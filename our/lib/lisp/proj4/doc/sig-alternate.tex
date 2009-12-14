@@ -1,239 +1,288 @@
-% This is "sig-alternate.tex" V1.9 April 2009
-% This file should be compiled with V2.4 of "sig-alternate.cls" April 2009 
-% 
-% This example file demonstrates the use of the 'sig-alternate.cls' 
-% V2.4 LaTeX2e document class file. It is for those submitting 
-% articles to ACM Conference Proceedings WHO DO NOT WISH TO 
-% STRICTLY ADHERE TO THE SIGS (PUBS-BOARD-ENDORSED) STYLE. 
-% The 'sig-alternate.cls' file will produce a similar-looking, 
-% albeit, 'tighter' paper resulting in, invariably, fewer pages. 
-% 
-% ---------------------------------------------------------------------------------------------------------------- 
-% This .tex file (and associated .cls V2.4) produces: 
-%       1) The Permission Statement 
-%       2) The Conference (location) Info information 
-%       3) The Copyright Line with ACM data 
-%       4) NO page numbers 
-% 
-% as against the acm_proc_article-sp.cls file which 
-% DOES NOT produce 1) thru' 3) above. 
-% 
-% Using 'sig-alternate.cls' you have control, however, from within 
-% the source .tex file, over both the CopyrightYear 
-% (defaulted to 200X) and the ACM Copyright Data 
-% (defaulted to X-XXXXX-XX-X/XX/XX). 
-% e.g. 
-% \CopyrightYear{2007} will cause 2007 to appear in the copyright line. 
-% \crdata{0-12345-67-8/90/12} will cause 0-12345-67-8/90/12 to appear in the copyright line. 
-%                     
-% --------------------------------------------------------------------------------------------------------------- 
-% This .tex source is an example which *does* use 
-% the .bib file (from which the .bbl file % is produced). 
-% REMEMBER HOWEVER: After having produced the .bbl file, 
-% and prior to final submission, you *NEED* to 'insert' 
-% your .bbl file into your source .tex file so as to provide 
-% ONE 'self-contained' source file. 
-% 
-% ================= IF YOU HAVE QUESTIONS ======================= 
-% Questions regarding the SIGS styles, SIGS policies and 
-% procedures, Conferences etc. should be sent to 
-% Adrienne Griscti (griscti@acm.org) 
-% 
-% Technical questions _only_ to 
-% Gerald Murray (murray@hq.acm.org) 
-% =============================================================== 
-% 
-% For tracking purposes - this is V1.9 - April 2009 
- 
-\documentclass{sig-alternate} 
- 
-\begin{document} 
-% 
-% --- Author Metadata here --- 
-%\conferenceinfo{WOODSTOCK}{'97 El Paso, Texas USA} 
-%\CopyrightYear{2007} % Allows default copyright year (200X) to be over-ridden - IF NEED BE. 
-%\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE. 
-% --- End of Author Metadata --- 
- 
-\title{General Theories of Software Defect Prediction: A Preliminary Report} 
-%\subtitle{[Extended Abstract] 
-\titlenote{A full version of this paper is available as 
-\textit{Author's Guide to Preparing ACM SIG Proceedings Using 
-\LaTeX$2_\epsilon$\ and BibTeX} at 
-\texttt{www.acm.org/eaddress.htm}}} 
-% 
-% You need the command \numberofauthors to handle the 'placement 
-% and alignment' of the authors beneath the title. 
-% 
-% For aesthetic reasons, we recommend 'three authors at a time' 
-% i.e. three 'name/affiliation blocks' be placed beneath the title. 
-% 
-% NOTE: You are NOT restricted in how many 'rows' of 
-% "name/affiliations" may appear. We just ask that you restrict 
-% the number of 'columns' to three. 
-% 
-% Because of the available 'opening page real-estate' 
-% we ask you to refrain from putting more than six authors 
-% (two rows with three columns) beneath the article title. 
-% More than six makes the first-page appear very cluttered indeed. 
-% 
-% Use the \alignauthor commands to handle the names 
-% and affiliations for an 'aesthetic maximum' of six authors. 
-% Add names, affiliations, addresses for 
-% the seventh etc. author(s) as the argument for the 
-% \additionalauthors command. 
-% These 'additional authors' will be output/set for you 
-% without further effort on your part as the last section in 
-% the body of your article BEFORE References or any Appendices. 
- 
-\numberofauthors{3} %  in this sample file, there are a *total* 
-% of EIGHT authors. SIX appear on the 'first-page' (for formatting 
-% reasons) and the remaining two appear in the \additionalauthors section. 
-% 
-\author{ 
-% You can go ahead and credit any number of authors here, 
-% e.g. one 'row of three' or two rows (consisting of one row of three 
-% and a second row of one, two or three). 
-% 
-% The command \alignauthor (no curly braces needed) should 
-% precede each author name, affiliation/snail-mail address and 
-  % e-mail address. Additionally, tag each line of 
-% affiliation/address with \affaddr, and tag the 
-% e-mail address with \email. 
-% 
-% 1st. author 
-\alignauthor 
-William Mensah\\ 
-       \affaddr{WVU, Morgantown, WV}\\ 
-       \email{wmensah@csee.wvu.edu} 
-% 2nd. author 
-\alignauthor 
-Adam Nelson\\ 
-       \affaddr{WVU, Morgantown, WV}\\ 
-       \email{anelson8@csee.wvu.edu} 
-% 3rd. author 
-\alignauthor  
-Tomi Prifti\\ 
-       \affaddr{WVU, Morgantown, WV}\\ 
-       \email{tprifi@csee.wvu.edu} 
-%\and  % use '\and' if you need 'another row' of author names 
-% 4th. author 
-%\alignauthor Lawrence P. Leipuner\\ 
-%       \affaddr{Brookhaven Laboratories}\\ 
-%       \affaddr{Brookhaven National Lab}\\ 
-%       \affaddr{P.O. Box 5000}\\ 
-%       \email{lleipuner@researchlabs.org} 
-% 5th. author 
-%\alignauthor Sean Fogarty\\ 
-%       \affaddr{NASA Ames Research Center}\\ 
-%       \affaddr{Moffett Field}\\ 
-%       \affaddr{California 94035}\\ 
-%       \email{fogartys@amesres.org} 
-% 6th. author 
-%\alignauthor Charles Palmer\\ 
-%       \affaddr{Palmer Research Laboratories}\\ 
-%       \affaddr{8600 Datapoint Drive}\\ 
-%       \affaddr{San Antonio, Texas 78229}\\ 
-%       \email{cpalmer@prl.com} 
-} 
-% There's nothing stopping you putting the seventh, eighth, etc. 
-% author on the opening page (as the 'third row') but we ask, 
-% for aesthetic reasons that you place these 'additional authors' 
-% in the \additional authors block, viz. 
-%\additionalauthors{Additional authors: John Smith (The Th{\o}rv{\"a}ld Group, 
-%email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat 
-%(The Kumquat Consortium, email: {\texttt{jpkumquat@consortium.net}}).} 
-\date{December 14 2009} 
-% Just remember to make sure that the TOTAL number of authors 
-% is the number that will appear on the first page PLUS the 
-% number that will appear in the \additionalauthors section. 
- 
-\maketitle 
-\begin{abstract} 
+% This is "sig-alternate.tex" V1.9 April 2009
+% This file should be compiled with V2.4 of "sig-alternate.cls" April 2009
+%
+% This example file demonstrates the use of the 'sig-alternate.cls'
+% V2.4 LaTeX2e document class file. It is for those submitting
+% articles to ACM Conference Proceedings WHO DO NOT WISH TO
+% STRICTLY ADHERE TO THE SIGS (PUBS-BOARD-ENDORSED) STYLE.
+% The 'sig-alternate.cls' file will produce a similar-looking,
+% albeit, 'tighter' paper resulting in, invariably, fewer pages.
+%
+% ----------------------------------------------------------------------------------------------------------------
+% This .tex file (and associated .cls V2.4) produces:
+% 1) The Permission Statement
+% 2) The Conference (location) Info information
+% 3) The Copyright Line with ACM data
+% 4) NO page numbers
+%
+% as against the acm_proc_article-sp.cls file which
+% DOES NOT produce 1) thru' 3) above.
+%
+% Using 'sig-alternate.cls' you have control, however, from within
+% the source .tex file, over both the CopyrightYear
+% (defaulted to 200X) and the ACM Copyright Data
+% (defaulted to X-XXXXX-XX-X/XX/XX).
+% e.g.
+% \CopyrightYear{2007} will cause 2007 to appear in the copyright line.
+% \crdata{0-12345-67-8/90/12} will cause 0-12345-67-8/90/12 to appear in the copyright line.
+%
+% ---------------------------------------------------------------------------------------------------------------
+% This .tex source is an example which *does* use
+% the .bib file (from which the .bbl file % is produced).
+% REMEMBER HOWEVER: After having produced the .bbl file,
+% and prior to final submission, you *NEED* to 'insert'
+% your .bbl file into your source .tex file so as to provide
+% ONE 'self-contained' source file.
+%
+% ================= IF YOU HAVE QUESTIONS =======================
+% Questions regarding the SIGS styles, SIGS policies and
+% procedures, Conferences etc. should be sent to
+% Adrienne Griscti (griscti@acm.org)
+%
+% Technical questions _only_ to
+% Gerald Murray (murray@hq.acm.org)
+% ===============================================================
+%
+% For tracking purposes - this is V1.9 - April 2009
 
-%Three different preprocessing approaches are tested on a number of datasets.   
-\end{abstract} 
- 
-% A category with the (minimum) three required fields 
-\category{H.4}{Information Systems Applications}{Miscellaneous} 
-%A category including the fourth, optional field follows... 
-\category{D.2.8}{Software Engineering}{Metrics}[complexity measures, performance measures] 
- 
- 
-\section{Introduction}  
-By predicting defects in software systems {\em before} the deployment of that software,  
-it is possible to gauge not only the probable quality upon delivery, but also the maintenance effort.  
-Software defect prediction builds models using available company data that can then be applied in order  
-to predict these software faults. But in order to employ these models, a company must have  
-a data repository where information regarding defects from past projects are stored.  
-However, according to Turhan, et. al. \cite{turhan09}, few companies are applying this practice.  
-Turhan, et. al. claims (and we agree), that this is most likely due to a lack of local data repositories. 
-When this is the case, companies must use non-local data in order to build defect predictors. Thus,  
-it is not only important to determine how well cross-company data can be used when local data is unavailable,  
-but also to find the presence or absence of a general theory of software defect prediction. In other words,  
-in determining the existence of an empirically-derived correlation between varying defect data sets,  
-a statement can be made in regards to not only the stability of current defect prediction, but also the  
-underlying similarities of cross-company software projects. On the other hand,  
-if no correlation is found to exist, instability of those current predictors may suggest that further research  
-should be conducted in order to provide incite into the variance between projects.  
- 
-%In this paper, we provide introduce recent experiments conducted by the authors of this paper in order to produce  
-%a general hypothesis in regards to the stability or instability of current software defect prediction theories that can be used in further analyses.    
- 
-\section{Background} 
- 
-The ability of an organization being able to use cross-company (CC) data  
-when within-company (WC) data is not available in order to build  
-defect predictors would be advantageous. However, it remains unclear  
-if this practice can yield beneficial results.   
-	 
-Turhan et al. conducted three experiments to rule in favor of CC data obtained from other sites, or WC data gathered locally. The conclusions of those experiments show that CC data, when applied using {\em relevancy filtering} via a k-nearest neighbor scheme. The idea behind the k-NN filter is simple; by building a training set that is homogeneous with the testing set, it is assumed that a bias in the model will be introduced. The filter works as follows: for each instance in the test set, the k nearest neighbors in the training set are chosen. Then, duplicates are removed and the remaining instances are used as the new training set. This relevancy filtering can lead to defect predictors almost as effective as WC data. Thus, as stated by Gay et. al. \cite{gay09}, ``...while local data is the preferred option, it is feasible to use imported data provided that it is selected by a relevancy filter.'' 
- 
-Gat et. al. confirmed Turhan et. al.'s results, but instead of implementing a nearest neighbor filter, a locally weighted scheme was used to filter the data via \cite{hallLWL}. This experiment was of significance due to the fact that Gay et. al.'s results showed not only that CC data can be used when local data is not available, but also that publicly available data such as the PROMISE \footnote{http://promisedata.org/} data. 
- 
-On the other hand, \cite{zimmerman09} shows that CC data cannot be used to build accurate defect predictors. For example, in one experiment conducted by Zimmerman et. al., Firefox and Internet Explorer were used due to their domain relationship (browsers) in order to determine how well one could predict for the other. It was found that while Firefox could predict for Internet Explorer at a precision of 76.47\%, Firefox could {\em not} predict for Internet Explorer approaching the same precision (4.12\%). However, this experiment did not utilize any form of relevancy filtering, so it is unknown how the two data sets would react to predicting for one another under these circumstances.  
- 
-If CC data, when filtered, can be used in order to predict defects, we are left to assume that this is due to the fact that the data sets share some innate similarities of their metrics. But if it is found conclusively that CC data cannot most generally build good defect predictors, we are to conclude that other measures must be taken in either the collection of the WC data, or for more research in the further filtering of CC data. 
- 
+\documentclass{sig-alternate}
+
+\begin{document}
+%
+% --- Author Metadata here ---
+%\conferenceinfo{WOODSTOCK}{'97 El Paso, Texas USA}
+%\CopyrightYear{2007} % Allows default copyright year (200X) to be over-ridden - IF NEED BE.
+%\crdata{0-12345-67-8/90/01} % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
+% --- End of Author Metadata ---
+
+\title{General Theories of Software Defect Prediction: A Preliminary Report}
+%\subtitle{[Extended Abstract]
+%\titlenote{A full version of this paper is available as
+%\text{Author's Guide to Preparing ACM SIG Proceedings Using
+%\LaTeX$2_\epsilon$\ and BibTeX} at
+%\text{www.acm.org/eaddress.htm}}}
+%
+% You need the command \numberofauthors to handle the 'placement
+% and alignment' of the authors beneath the title.
+%
+% For aesthetic reasons, we recommend 'three authors at a time'
+% i.e. three 'name/affiliation blocks' be placed beneath the title.
+%
+% NOTE: You are NOT restricted in how many 'rows' of
+% "name/affiliations" may appear. We just ask that you restrict
+% the number of 'columns' to three.
+%
+% Because of the available 'opening page real-estate'
+% we ask you to refrain from putting more than six authors
+% (two rows with three columns) beneath the article title.
+% More than six makes the first-page appear very cluttered indeed.
+%
+% Use the \alignauthor commands to handle the names
+% and affiliations for an 'aesthetic maximum' of six authors.
+% Add names, affiliations, addresses for
+% the seventh etc. author(s) as the argument for the
+% \additionalauthors command.
+% These 'additional authors' will be output/set for you
+% without further effort on your part as the last section in
+% the body of your article BEFORE References or any Appendices.
+
+\numberofauthors{3} % in this sample file, there are a *total*
+% of EIGHT authors. SIX appear on the 'first-page' (for formatting
+% reasons) and the remaining two appear in the \additionalauthors section.
+%
+\author{
+% You can go ahead and credit any number of authors here,
+% e.g. one 'row of three' or two rows (consisting of one row of three
+% and a second row of one, two or three).
+%
+% The command \alignauthor (no curly braces needed) should
+% precede each author name, affiliation/snail-mail address and
+% e-mail address. Additionally, tag each line of
+% affiliation/address with \affaddr, and tag the
+% e-mail address with \email.
+%
+% 1st. author
+\alignauthor
+William Mensah\\
+\affaddr{WVU, Morgantown, WV}\\
+\email{wmensah@mix.wvu.edu}
+% 2nd. author
+\alignauthor
+Adam Nelson\\
+\affaddr{WVU, Morgantown, WV}\\
+\email{anelson8@mix.wvu.edu}
+% 3rd. author
+\alignauthor
+Tomi Prifti\\
+\affaddr{WVU, Morgantown, WV}\\
+\email{tomi_prifti@gmail.com}
+%\and % use '\and' if you need 'another row' of author names
+% 4th. author
+%\alignauthor Lawrence P. Leipuner\\
+% \affaddr{Brookhaven Laboratories}\\
+% \affaddr{Brookhaven National Lab}\\
+% \affaddr{P.O. Box 5000}\\
+% \email{lleipuner@researchlabs.org}
+% 5th. author
+%\alignauthor Sean Fogarty\\
+% \affaddr{NASA Ames Research Center}\\
+% \affaddr{Moffett Field}\\
+% \affaddr{California 94035}\\
+% \email{fogartys@amesres.org}
+% 6th. author
+%\alignauthor Charles Palmer\\
+% \affaddr{Palmer Research Laboratories}\\
+% \affaddr{8600 Datapoint Drive}\\
+% \affaddr{San Antonio, Texas 78229}\\
+% \email{cpalmer@prl.com}
+}
+% There's nothing stopping you putting the seventh, eighth, etc.
+% author on the opening page (as the 'third row') but we ask,
+% for aesthetic reasons that you place these 'additional authors'
+% in the \additional authors block, viz.
+%\additionalauthors{Additional authors: John Smith (The Th{\o}rv{\"a}ld Group,
+%email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
+%(The Kumquat Consortium, email: {\texttt{jpkumquat@consortium.net}}).}
+\date{December 14 2009}
+% Just remember to make sure that the TOTAL number of authors
+% is the number that will appear on the first page PLUS the
+% number that will appear in the \additionalauthors section.
+
+%\maketitle
+\begin{abstract}
+
+%Three different preprocessing approaches are tested on a number of datasets.
+\end{abstract}
+
+% A category with the (minimum) three required fields
+\category{H.4}{Information Systems Applications}{Miscellaneous}
+%A category including the fourth, optional field follows...
+\category{D.2.8}{Software Engineering}{Metrics}[complexity measures, performance measures]
+
+\section{Introduction}
+By predicting defects in software systems {\em before} the deployment of that software,
+it is possible to gauge not only the probable quality upon delivery, but also the maintenance effort.
+Software defect prediction builds models using available company data that can then be applied in order
+to predict these software faults. But in order to employ these models, a company must have
+a data repository where information regarding defects from past projects are stored.
+However, according to Turhan, et. al. \cite{turhan09}, few companies are applying this practice.
+Turhan, et. al. claims (and we agree), that this is most likely due to a lack of local data repositories.
+When this is the case, companies must use non-local data in order to build defect predictors. Thus,
+it is not only important to determine how well cross-company data can be used when local data is unavailable,
+but also to find the presence or absence of a general theory of software defect prediction. In other words,
+in determining the existence of an empirically-derived correlation between varying defect data sets,
+a statement can be made in regards to not only the stability of current defect prediction, but also the
+underlying similarities of cross-company software projects. On the other hand,
+if no correlation is found to exist, instability of those current predictors may suggest that further research
+should be conducted in order to provide incite into the variance between projects.
+
+%In this paper, we provide introduce recent experiments conducted by the authors of this paper in order to produce
+%a general hypothesis in regards to the stability or instability of current software defect prediction theories that can be used in further analyses.
+
+\section{Background}
+
+The ability of an organization being able to use cross-company (CC) data
+when within-company (WC) data is not available in order to build
+defect predictors would be advantageous. However, it remains unclear
+if this practice can yield beneficial results.
+
+Turhan et al. conducted three experiments to rule in favor of CC data obtained from other sites, or WC data gathered locally. The conclusions of those experiments show that CC data, when applied using {\em relevancy filtering} via a k-nearest neighbor scheme. The idea behind the k-NN filter is simple; by building a training set that is homogeneous with the testing set, it is assumed that a bias in the model will be introduced. The filter works as follows: for each instance in the test set, the k nearest neighbors in the training set are chosen. Then, duplicates are removed and the remaining instances are used as the new training set. This relevancy filtering can lead to defect predictors almost as effective as WC data. Thus, as stated by Gay et. al. \cite{gay09}, ``...while local data is the preferred option, it is feasible to use imported data provided that it is selected by a relevancy filter.''
+
+Gat et. al. confirmed Turhan et. al.'s results, but instead of implementing a nearest neighbor filter, a locally weighted scheme was used to filter the data via \cite{hallLWL}. This experiment was of significance due to the fact that Gay et. al.'s results showed not only that CC data can be used when local data is not available, but also that publicly available data such as the PROMISE \footnote{http://promisedata.org/} data.
+
+On the other hand, \cite{zimmerman09} shows that CC data cannot be used to build accurate defect predictors. For example, in one experiment conducted by Zimmerman et. al., Firefox and Internet Explorer were used due to their domain relationship (browsers) in order to determine how well one could predict for the other. It was found that while Firefox could predict for Internet Explorer at a precision of 76.47\%, Firefox could {\em not} predict for Internet Explorer approaching the same precision (4.12\%). However, this experiment did not utilize any form of relevancy filtering, so it is unknown how the two data sets would react to predicting for one another under these circumstances.
+
+If CC data, when filtered, can be used in order to predict defects, we are left to assume that this is due to the fact that the data sets share some innate similarities of their metrics. But if it is found conclusively that CC data cannot most generally build good defect predictors, we are to conclude that other measures must be taken in either the collection of the WC data, or for more research in the further filtering of CC data.
+
 
 \section{Finding Generality}
-[ This section describes what generality is and how we went about finding it ]
- 
+In an ideal situation a company would have large amount of data from a software project that can be used to build models that can predict defects for
+future releases of the software. In practice however training data from within company is not available in most of the cases. Using data from other projects or other companies is the only option to build prediction models. An ideal model will be able to predict software defect of a project even if trained on data obtained outside the company. Zimmerman et. al in their paper
+try to asess the extent that cross-project data can be used to predict defects and what kind of software systems are good for cross-predictors. Their results
+show that simply using projects in the same domain does not work to build accurate prediction models. In our work we are trying to find generality
+between cross data projects following a different approach based on prism rule learner.
 
 \section{The Experiment}
- 
- 
-\subsection{Preparing the Data} 
-We employed a number of preprocessing techniques to prepare the original data before applying our learner to it. These include: 
- 
-\begin{itemize} 
-\item{Logging} 
-\\Replacing all number values N with log(N) when N > 0.0001 or with 0.0001 if otherwise. 
-\item{Discretization} 
-\\Splitting each data set randomly into {\em 10} bins (by default) 
-\item{Feature Subset Selection} 
-\\Sample bias via {\em B-Square} whereby each column in the data set is ranked by some criteria and the top n columns are maintained and used for the experiment because they are more likely to have a stronger influence on the results. 
-\end{itemize} 
+
+
+\subsection{Preparing the Data}
+The data we are using for to test our is extracted from two very different companies: NASA and SoftLab (a turkish software company). The data sets are shown below.
+\\NASA Datasets
+\begin{itemize}
+\item{ KC1. Storage Management for ground data }
+\item{PC1. Flight Software for each orbiting satellite}
+\item{KC2 Storage management for ground data}
+\item{CM1} Spacecraft Instrument
+\\Turkish Datasets
+\item {AR4} embedded controller for dish washer
+\item{AR3} Embedded controller for washing machine
+\item{AR5} Embedded controller for refrigerator
+\end{itemize}
+We employed a number of preprocessing techniques to prepare the original data before applying our learner to it. These include:
+
+\begin{itemize}
+\item{Discretization}
+\\Splitting each data set randomly into {\em 10} bins (by default)
+\item{Feature Subset Selection}
+\\Sample bias via {\em B-Square} whereby each column in the data set is ranked by some criteria and the top n columns are maintained and used for the experiment because they are more likely to have a stronger influence on the results.
+\end{itemize}
 Why are all these preprocessing techniques necessary? Why not use the data in its raw form? When it comes to data mining, real world data is considered by most software engineers as {\em dirty}. This is because the data could be incomplete in that it could be missing some attributes or attribute values or it could simply consist of only aggregated values. Moreover, the data could be inconsistent, and could also contain errors and outliers. Preprocessing transforms the data into a format that will be more easily and effectively processed.
- 
- 
-\subsubsection{Discretization techniques} 
-Two discretization method were used for performing the experiments: Equal Interval Width (10 bins) and K-Means. Both methods fall under the unsupervized discretization methods class. Equal bin length is a global techinque which replaces each value by the identifier of the bin. The range of values is divided into k equally sized bins where k is a parameter manually supplied for the purpose of our experiment. It makes no use of the instance class and is thus an unsupervized discretization method. Equal Bin Length is a global discretization  method since it produces a mesh over the entire n-dimensional instance space \cite {dough95}. The k-means on the other hand is a local discretization tool which groups the data into a number of clusters based on some similarity measure. Local discretization methods are applied to local regions of the data.K-Means is grouping the rows in k different clusters using the Eucledian distance as a measure of similarity between the instances. At the beginning the centroids (means) for each cluster are picked at random and then the instances are assigned to the group with the closest centroids to that particular instance. K-Means will stop iteration through the instance set when the centroids for all the clusters do not change anymore or when a stopping criteria is reached. In both cases of discretization the data is preprocessed by taking the log of each numeric value. Since these two method do not take into consideration class lables there might be some loss of classification information as a result of grouping instances that are stronly related but belong to different classes. 
+
+
+\subsubsection{Discretization technique}
+We discretized the data using Equal Interval Width (10 bins). This method falls under the unsupervised discretization methods class. Equal bin length is a global techinque which replaces each value by the identifier of the bin. The range of values is divided into k equally sized bins where k is a parameter manually supplied for the purpose of our experiment. For each attribute the maximum and the minimum are recorded and the range is divided into 10 equal bins. Equal in frequency is easy and straightforward to implement however does not guarantee that the instances falling in each bin will be of the same frequency. It makes no use of the instance class and is thus an unsupervized discretization method. Equal Bin Length is a global discretization method since it produces a mesh over the entire n-dimensional instance space. Other discretization techniques such as Equal Frequency Bin or Feyyad Irani could be used as a discretization technique. Research on the field shows that discretization increases the accuracy of the learner however there is no significant increase in performance in using a specific discretizer over the other \cite {dough95}.
 
 \subsubsection{Merging Cross-Company Data}
-[ This section describes why we chose to merge the data rather than use them as individual datasets]
 
+In order to create a large, unified data set from which attributes could be selected, the data sets used in this experiment were merged. The intuition behind this was that if final rules generated from the experiment were to reflect upon the similarities (generalities) in cross-company data, those rules should thus be constructed from portions of a larger, unified pool of data. The results from the experiment should, in theory, provide the ability to predict accurately the defects in cross-company data if a general theory of software defect prediction in fact exists.
 
-\subsubsection{Feature Subset Selection}
-[ This section describes why we chose B-Square for FSS as opposed to InfoGain as used in prior experiments ]
+The merged data used in the experiment, as seen above, resulted in 5000 instances, on which attribute selection, row pruning and rule generation was used.
+
+\subsubsection{Feature Subset Selection via B-Square}
+
+B-Square served as the sole feature subset selection (FSS) method employed to assist us in modelling the data based on not only the most important attributes, but also to decrease the overall runtimes of experimentation using the data. The pseudocode for B-Square is outlined as follows:
+
+\begin{centering}
+\begin{verbatim}
+Replace each class symbol with a utility score: True = 1, False = 0.
+Sort instances by that score and divide them using N=20\%-chops.
+Label all the rows in bin=1 (20\%) "best" and the remaining (80\%) "rest".
+Collect the frequencies of ranges in best/rest.
+
+Sort each range (r) by by b^2/(b+r) where
+b = freq(r in Best) / SizeOfBest
+r = freq(r in Rest) / SizeOfRest
+
+Sort each attribute by the median score of b2/(b+r)
+Reject attributes with less than X% of the maximum median score
+\end{verbatim}
+\end{centering}
+
+The top five attributes were selected using B-Square from the merged data set, and then this data set was reconstructed using only those attributes. This decreased the columns of the data significantly, allowing more lengthy experiments to be conducted.
 
 \subsubsection{Slice Generation}
-[ This seciton describes the randomization procedure used and how the slices were split up into train and test sets ]
 
+The reconstructed, attribute-reduced data was then randomly placed into 50 bins by iteratively filling each bin with randomly selected instances from the entire data set. Each bin was designated as a "slice" in our experiment.
 
+\subsubsection{Row Pruning via K-means}
+
+In order to remove potential outliers from the data, each slice was clustered using a naive K-means clustering algorithm. K-means clustering groups similar instances together iteratively by finding a cluster's center of mass. K-means works as follows:
+
+\begin{centering}
+\begin{enumerate}
+\item{Select initial {\em K} centroids at random;}
+\item{Assign each incoming point to its nearest centroid;}
+\item{Adjusts each cluster's centroid to the mean of each cluster;}
+\item{Repeat steps 2 and 3 until the centroids in all clusters stop moving by a noteworthy amount}
+\end{enumerate}
+\end{centering}
+
+Twelve clusters were generated from each slice, and the largest cluster
+
+\subsubsection{Scoring }
 \subsection{Learners}
 \subsubsection{PRISM}
-One of the learners we used in our experiment was {\em PRISM}. Its algorithm was first introduced by Cendrowska and its aim is to induce molecular classification rules directly from the training set. 
+One of the learners we used in our experiment was {\em PRISM}. Its algorithm was first introduced by Cendrowska and its aim is to induce molecular classification rules directly from the training set.
 
 Prism uses the '{\em take the first rule that fires}' conflict resolution strategy when the resulting rules are applied to unseen data. Simply speaking, it identifies a rule that covers many instances in a given class, separates out the covered instances and continues with the remainder of the data.
 
@@ -243,107 +292,83 @@ When working with the Prism learner, we first calculate the probability that cla
 The pseudo-code for the Prism algorithm can be outlined as follows:
 
 For each class C
- Initialize E to the instance set
- While E contains instances in class C
-    Create a rule R with an empty left-hand side that predicts class C
-    Until R is perfect (or there are no more attributes to use) do
-       For each attribute A not mentioned in R, and each value v,
-              Consider adding the condition A = v to the left-hand side of R
-              Select A and v to maximize the accuracy p/t
-               (break ties by choosing the condition with the largest p)
-       Add A = v to R
-    Remove the instances covered by R from E 
+Initialize E to the instance set
+While E contains instances in class C
+Create a rule R with an empty left-hand side that predicts class C
+Until R is perfect (or there are no more attributes to use) do
+For each attribute A not mentioned in R, and each value v,
+Consider adding the condition A = v to the left-hand side of R
+Select A and v to maximize the accuracy p/t
+(break ties by choosing the condition with the largest p)
+Add A = v to R
+Remove the instances covered by R from E
 
 Both the Turkish data and data from NASA comprised of True / False classes, and also had quite a number of attributes in common so we figured Prism was a good option to explore, especially when it comes to cross-project defect prediction. The effect of using Prism on our datasets is analysed and discussed in our {\em Results} section.
 
-\subsubsection{B-SQUARE}
-B-Square served as the sole irrelevant-column-pruner employed to assist us better model our learners while focusing on the most important attributes from the datasets. The pseudocode for B-Square is outlined as follows:
 
-\begin{algorithmic}
-\STATE Replace each class symbol with a utility score: True = 1, False = 0.
-
-\STATE Sort instances by that score and divide them using N=20\%-chops.
-
-\STATE Label all the rows in bin=1 (20\%) "best" and the remaining (80\%) "rest".
-
-\STATE Collect the frequencies of ranges in best/rest.
-
-\STATE Sort each range (r) by by  b^^2/(b+r) where
-
-       \: \STATE b = freq(r in Best) / SizeOfBest.
-
-       \: \STATE r = freq(r in Rest) / SizeOfRest.
-
-\STATE Sort each attribute by the median score of b2/(b+r)
-
-\STATE Reject attributes with less than X\% of the maximum median score.
-\end{algorithmic}
-
-
-Whenever b < r, we simply set b = 0.
-
-\subsection{Experiment 1: Naive Bayes} 
-[ The bayesian experiement ]
+\subsection{Experiment 1: Naive Bayes}
+The Bayes classifier is a simple statistical-based learning scheme. For this experiment, it was used as a secondary learner, in order to compare its results to that of Prism, our primary learner. In order to apply Naive Bayes to the test set created from 10% of the slices generated as discussed in {\em section 4.1.4}, we had to train the model on 90% of the slices.
 
 
 \subsection{Experiment 2: Prism}
-[ The prismisian experiment :) ]
+The Prism learner, described in section 4.2.1, was modeled by training on the training set and applying the ruleset generated to the test set. In general, the experiment with Prism involved combining all the datasets into one gigantic datasets consisting of over 5700 instances which were later randomized into 50 slices. For each slice, K-means was applied and the cluster with the most number of instances was selected to be used in place of the slice since its much smaller and contains more relevant data as determined by the K-means algorithm. After K-means had been run on all 50 slices, 10% of the clusters obtained were allocated to be used as testing and the remaining 90% for training the learner.
 
- 
-\section{Results} 
+Once preparation of the data had been completed, our experiment entailed iterating through each set of data in the
+
+\section{Results}
 [ Left table outline in here for reference ]
- 
-\begin{table}[h] 
-\centering 
-\caption{Top Features selected by InfoGain and B-Squared} 
-\begin{tabular}{|c|c|c|} \hline 
-Feat.&Attribute (Shared)&Attributes (Turkish)\\\hline 
-1& LOCOMMENT & EXECUTABLE LOC\\ \hline 
-2& EV & UNIQUE-OPERATORS\\ \hline 
-3& V & TOTAL-OPERANDS\\ \hline 
-4& D & TOTAL-OPERATORS\\ \hline 
-5& I & HALSTEAD-LENGTH\\ \hline 
-6& E & HALSTEAD-VOLUME\\ \hline 
-7& B & HALSTEAD-DIFFICULTY\\ \hline 
-8& T & HALSTEAD-ERROR\\ \hline 
-9& LOCODE & BRANCH-COUNT\\ \hline 
-10& UNQ-OPND & DECISION-COUNT\\ \hline 
-11& TOTAL-OP & CONDITION-COUNT\\ \hline 
-12& TOTAL-OPND & CYCLOMATIC-COMPLEXITY\\ \hline 
- 
-\hline\end{tabular} 
-\end{table} 
- 
- 
-\section{Related Work} 
-This project is inspired by the Cross-project Defect Prediction work conducted by Thomas Zimmerman et. al. who claimed that software defect prediction works well whenever there is sufficient data to train any models and that in the case where data is insufficient, cross-project defect prediction suffices\cite{zimmerman09}. In their experiment, they ran 622 cross-project predictions for 12 real-world applications including Microsoft's Internet Explorer and Mozilla Foundation's Firefox web browser, and their results indicated that simply using models from projects in the same domain or with the same process does not lead to accurate predictions. With respect to the experiments they conducted, they learned that Firefox could predict defects in Internet Explorer but not vice versa and they succumbed to the conclusion that this is so because Firefox has more files than Internet Explorer has binaries and that the probability of a software with more data is more likely to predict defects in software with relatively less amount of data or modules.  
- 
-Their study led to conclusions that some attributes were less significant than others which is somewhat obvious but also lead to questions such as why defect-prediction is not transivitve. As in, with regards to the experiments they conducted, File system predicted defects in Printing and Printing predicted Clustering but File system did not predict Clustering. 
- 
-%\newpage 
-\section{Conclusions} 
- 
- 
-\section{Future Work} 
+
+\begin{table}[h]
+\centering
+\caption{Top Features selected by InfoGain and B-Squared}
+\begin{tabular}{|c|c|c|} \hline
+Feat.&Attribute (Shared)&Attributes (Turkish)\\\hline
+1& LOCOMMENT & EXECUTABLE LOC\\ \hline
+2& EV & UNIQUE-OPERATORS\\ \hline
+3& V & TOTAL-OPERANDS\\ \hline
+4& D & TOTAL-OPERATORS\\ \hline
+5& I & HALSTEAD-LENGTH\\ \hline
+6& E & HALSTEAD-VOLUME\\ \hline
+7& B & HALSTEAD-DIFFICULTY\\ \hline
+8& T & HALSTEAD-ERROR\\ \hline
+9& LOCODE & BRANCH-COUNT\\ \hline
+10& UNQ-OPND & DECISION-COUNT\\ \hline
+11& TOTAL-OP & CONDITION-COUNT\\ \hline
+12& TOTAL-OPND & CYCLOMATIC-COMPLEXITY\\ \hline
+
+\hline\end{tabular}
+\end{table}
+
+
+\section{Related Work}
+This project is inspired by the Cross-project Defect Prediction work conducted by Thomas Zimmerman et. al. who claimed that software defect prediction works well whenever there is sufficient data to train any models and that in the case where data is insufficient, cross-project defect prediction suffices\cite{zimmerman09}. In their experiment, they ran 622 cross-project predictions for 12 real-world applications including Microsoft's Internet Explorer and Mozilla Foundation's Firefox web browser, and their results indicated that simply using models from projects in the same domain or with the same process does not lead to accurate predictions. With respect to the experiments they conducted, they learned that Firefox could predict defects in Internet Explorer but not vice versa and they succumbed to the conclusion that this is so because Firefox has more files than Internet Explorer has binaries and that the probability of a software with more data is more likely to predict defects in software with relatively less amount of data or modules.
+
+Their study led to conclusions that some attributes were less significant than others which is somewhat obvious but also lead to questions such as why defect-prediction is not transivitve. As in, with regards to the experiments they conducted, File system predicted defects in Printing and Printing predicted Clustering but File system did not predict Clustering.
+
+%\newpage
+\section{Conclusions}
+
+
+\section{Future Work}
 [ Finding Generality by splitting each slice into train and test sets as opposed to setting aside 10\% of the number of slices as the test set and training on the remainder ]
 [ Microsampling - pruning both rows and columns and not just the columns - Menzies' mapping curiousity can be answered here ]
 
 \section{Acknowledgments}
- 
-% 
-% The following two commands are all you need in the 
-% initial runs of your .tex file to 
-% produce the bibliography for the citations in your paper. 
-\bibliographystyle{abbrv} 
-\bibliography{refs}  % sigproc.bib is the name of the Bibliography in this case 
-% You must have a proper ".bib" file 
-%  and remember to run: 
-% latex bibtex latex latex 
-% to resolve all references 
-% 
-% ACM needs 'a single self-contained file'! 
-% 
-%APPENDICES are optional 
-%\balancecolumns 
- 
-\end{document}                
+
+%
+% The following two commands are all you need in the
+% initial runs of your .tex file to
+% produce the bibliography for the citations in your paper.
+\bibliographystyle{abbrv}
+\bibliography{refs} % sigproc.bib is the name of the Bibliography in this case
+% You must have a proper ".bib" file
+% and remember to run:
+% latex bibtex latex latex
+% to resolve all references
+%
+% ACM needs 'a single self-contained file'!
+%
+%APPENDICES are optional
+%\balancecolumns
+
+\end{document}   
