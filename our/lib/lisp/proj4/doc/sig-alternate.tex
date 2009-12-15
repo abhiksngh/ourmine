@@ -294,19 +294,22 @@ When working with the Prism learner, we first calculate the probability that cla
 
 
 The pseudo-code for the Prism algorithm can be outlined as follows:
-
+\begin{verbatim}
 For each class C
 Initialize E to the instance set
 While E contains instances in class C
-Create a rule R with an empty left-hand side that predicts class C
-Until R is perfect (or there are no more attributes to use) do
-For each attribute A not mentioned in R, and each value v,
-Consider adding the condition A = v to the left-hand side of R
+  Create a rule R with an empty left-hand
+  side that predicts class C
+  Until R is perfect 
+  (or there are no more attributes to use) do
+For each attribute A not mentioned in R, 
+and each value v,
+  Consider adding the condition A = v 
+  to the left-hand side of R
 Select A and v to maximize the accuracy p/t
-(break ties by choosing the condition with the largest p)
 Add A = v to R
 Remove the instances covered by R from E
-
+\end{verbatim}
 Both the Turkish data and data from NASA comprised of True / False classes, and also had quite a number of attributes in common so we figured Prism was a good option to explore, especially when it comes to cross-project defect prediction. The effect of using Prism on our datasets is analysed and discussed in our {\em Results} section.
 
 
