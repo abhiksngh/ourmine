@@ -1,1 +1,6 @@
-We've demonstrated the potential for large improvements in accuracy in exchange for a narrowing of potential classes. We've also presented a possible means for single-classification with HyperPipes that performs better than the original algorithm but not as well as Naive Bayes in the currently explored datasets. However, further analysis is needed to better ascertain what improvements can be had when MultiPipes is run on data with a larger space of classes or columns. Also, there is much to be done involving the combination of numeric and discrete attributes and whether better outlier detection can be achieved.
+Lamentably, on many-class (approx. 20) datasets Multipipes does not perform significantly better than Naive Bayes when scored using our performance measure to penalize overclassification. Even worse, when tested on datasets with between two and twenty-four classes Multipipes does significantly worse.
+
+%\vspace{3
+
+Also, Multipipes tends to over-classify despite our efforts to reign in overfitting. On average Multipipes returns two-thirds of the possible classes, the average number of classes for a dataset being seven. While there are potential benefits from reducing the space of possible classes, the accuracy of our disjunctions is only slightly better than Naive Bayes'. Increasing the "reach" of our disjunctions using alpha values improves this accuracy to over 99\%, but at that point Multipipes is typically returning every single possible class.
+
