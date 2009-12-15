@@ -246,24 +246,17 @@ The merged data used in the experiment, as seen above, resulted in 5000 instance
 
 B-Square served as the sole feature subset selection (FSS) method employed to assist us in modelling the data based on not only the most important attributes, but also to decrease the overall runtimes of experimentation using the data. The pseudocode for B-Square is outlined as follows:
 
-\begin{centering}
-\begin{verbatim}
-Replace each class symbol with a 
-utility score: True = 1, False = 0.
-Sort instances by that score and 
-divide them using N=20\%-chops.
-Label all the rows in bin=1 (20\%) 
-"best" and the remaining (80\%) "rest".
-Collect the frequencies of ranges in best/rest.
-
-Sort each range (r) by by b^2/(b+r) where
-b = freq(r in Best) / SizeOfBest
-r = freq(r in Rest) / SizeOfRest
-
-Sort each attribute by the median score of b2/(b+r)
-Reject attributes with less than X% of the maximum median score
-\end{verbatim}
-\end{centering}
+\begin{itemize}
+	\item Replace each class symbol with a utility score: True = 1, False = 0.
+    	\item Sort instances by that score and divide them using N=20\%-chops.
+    	\item Label all the rows in bin=1 (20\%) "best" and the remaining (80\%) "rest".
+    	\item Collect the frequencies of ranges in best/rest.
+    	\item Sort each range (r) by b^^2/(b+r) where
+          	\item\item b = freq(r in Best) / SizeOfBest?
+          	\item\item r = freq(r in Rest) / SizeOfRest?
+    	\item Sort each attribute by the median score of b2/(b+r).
+    	\item Reject attributes with less than X\% of the max. median score. 
+\end{itemize}
 
 The top five attributes were selected using B-Square from the merged data set, and then this data set was reconstructed using only those attributes. This decreased the columns of the data significantly, allowing more lengthy experiments to be conducted.
 
@@ -316,14 +309,50 @@ Remove the instances covered by R from E
 Both the Turkish data and data from NASA comprised of True / False classes, and also had quite a number of attributes in common so we figured Prism was a good option to explore, especially when it comes to cross-project defect prediction. The effect of using Prism on our datasets is analysed and discussed in our {\em Results} section.
 
 
-\subsection{Experiment 1: Naive Bayes}
-The Bayes classifier is a simple statistical-based learning scheme. For this experiment, it was used as a secondary learner, in order to compare its results to that of Prism, our primary learner. In order to apply Naive Bayes to the test set created from 10% of the slices generated as discussed in {\em section 4.1.4}, we had to train the model on 90% of the slices.
+\subsection{Experiment 1: Prism}
 
+The Prism learner, described in section 4.2.1, was modeled by training on the training set and applying the ruleset generated to the test set. In general, the experiment with Prism involved combining all the datasets into one gigantic datasets consisting of over 5700 instances which were later randomized into 50 slices. For each slice, K-means was applied and the cluster with the most number of instances was selected to be used in place of the slice sinceits much smaller and contains more relevant data as determined by the K-means algorithm. After K-means had been run on all 50 slices, 10% of the clusters obtained were allocated to be used as testing and the remaining 90% for training the learner.
 
-\subsection{Experiment 2: Prism}
-The Prism learner, described in section 4.2.1, was modeled by training on the training set and applying the ruleset generated to the test set. In general, the experiment with Prism involved combining all the datasets into one gigantic datasets consisting of over 5700 instances which were later randomized into 50 slices. For each slice, K-means was applied and the cluster with the most number of instances was selected to be used in place of the slice since its much smaller and contains more relevant data as determined by the K-means algorithm. After K-means had been run on all 50 slices, 10% of the clusters obtained were allocated to be used as testing and the remaining 90% for training the learner.
+Once preparation of the data had been completed, our experiment entailed iterating through each dataset in the training set and generating new rules, applying those rules to the test set and comparing the results of the probability of defect (pd) to that of the Rulest when applied to the test set as well. The pseudocode describing the algorithm is outlined as follows
 
-Once preparation of the data had been completed, our experiment entailed iterating through each set of data in the
+\begin{verbatim}
+
+for each slice s do
+
+if Better (ruleset, s)
+
+continue
+
+else
+
+ruleset = Rebuild (s, ruleset)
+
+if !Better (s, ruleset) then
+
+ruleset = s
+
+end if
+
+end for
+
+procedure Better (s, ruleset)
+
+if pd(ruleset) > pd(s)
+
+return true
+
+return false
+
+\end{verbatim}
+
+With reference the algorithm, whenever the pd of the Ruleset is better than that of the current slice, iteration proceeds to the next slice; otherwise, a new Ruleset is generated by rebuilding or simply merging the two datasets. Once this is done, the current slice is given another chance to obtain apd better than that of the Ruleset. If this turns out to be the case, data from the Ruleset is replaced with that of the slice and the iteration is carried on. This is done because the slice's data is much smaller than theRuleset's and is deemed a better defect predictor.
+
+The operation described above was repeated 500 times and each time, besides the first iteration, the Ruleset from the previous iteration was maintained. While this time-expensive operation was carried out, changes in the Ruleset was tracked. A best case scenario is where theRulset never changes throughout all 500 runs and a worst case scenario is where the Ruleset changes everytime. The former would result in a consistent horizontal line when graphed whereas the latter would result in a straight diagonal line. The results of our experiment is discussed in the next section.
+
+\subsection{Experiment 2: Naive Bayes}
+
+The Bayes classifier is a simple statistical-based learning scheme. For this experiment, it was used as a secondary learner, in order to compare its results to that of Prism, our primary learner. Before the experiment could be conducted, the data had to be preprocessed as described in section 4.1 and the train and test sets were derived using the same approach described in the previous section for Prism. However, in this experiment, the generation of rules was omitted. Naive Bayes simply trained on the training set obtained after applying K-means on the slices and then tested on.
+
 
 \section{Results}
 [ Left table outline in here for reference ]
