@@ -246,17 +246,19 @@ The merged data used in the experiment, as seen above, resulted in 5000 instance
 
 B-Square served as the sole feature subset selection (FSS) method employed to assist us in modelling the data based on not only the most important attributes, but also to decrease the overall runtimes of experimentation using the data. The pseudocode for B-Square is outlined as follows:
 
-\begin{itemize}
-	\item Replace each class symbol with a utility score: True = 1, False = 0.
-    	\item Sort instances by that score and divide them using N=20\%-chops.
-    	\item Label all the rows in bin=1 (20\%) "best" and the remaining (80\%) "rest".
-    	\item Collect the frequencies of ranges in best/rest.
-    	\item Sort each range (r) by b^^2/(b+r) where
-          	\item\item b = freq(r in Best) / SizeOfBest?
-          	\item\item r = freq(r in Rest) / SizeOfRest?
-    	\item Sort each attribute by the median score of b2/(b+r).
-    	\item Reject attributes with less than X\% of the max. median score. 
-\end{itemize}
+\begin{centering}
+\begin{enumerate}
+\item Replace each class symbol with a utility score: True = 1, False = 0.
+\item Sort instances by that score and divide them using N=20\%-chops.
+\item Label all the rows in bin=1 (20\%) "best" and the remaining (80\%) "rest".
+\item Collect the frequencies of ranges in best/rest.
+\item Sort each range (r) by b^^2/(b+r) where
+\item b = freq(r in Best) / SizeOfBest
+\item r = freq(r in Rest) / SizeOfRest
+\item Sort each attribute by the median score of b2/(b+r).
+\item Reject attributes with less than X\% of the max. median score. 
+\end{enumerate}
+\end{centering}
 
 The top five attributes were selected using B-Square from the merged data set, and then this data set was reconstructed using only those attributes. This decreased the columns of the data significantly, allowing more lengthy experiments to be conducted.
 
@@ -279,7 +281,6 @@ In order to remove potential outliers from the data, each slice was clustered us
 
 Twelve clusters were generated from each slice, and the largest cluster
 
-\subsubsection{Scoring }
 \subsection{Learners}
 \subsubsection{PRISM}
 One of the learners we used in our experiment was {\em PRISM}. Its algorithm was first introduced by Cendrowska and its aim is to induce molecular classification rules directly from the training set.
@@ -306,6 +307,7 @@ Select A and v to maximize the accuracy p/t
 Add A = v to R
 Remove the instances covered by R from E
 \end{verbatim}
+
 Both the Turkish data and data from NASA comprised of True / False classes, and also had quite a number of attributes in common so we figured Prism was a good option to explore, especially when it comes to cross-project defect prediction. The effect of using Prism on our datasets is analysed and discussed in our {\em Results} section.
 
 
@@ -315,32 +317,21 @@ The Prism learner, described in section 4.2.1, was modeled by training on the tr
 
 Once preparation of the data had been completed, our experiment entailed iterating through each dataset in the training set and generating new rules, applying those rules to the test set and comparing the results of the probability of defect (pd) to that of the Rulest when applied to the test set as well. The pseudocode describing the algorithm is outlined as follows
 
+
 \begin{verbatim}
-
 for each slice s do
-
 if Better (ruleset, s)
-
-continue
-
+  continue
 else
-
-ruleset = Rebuild (s, ruleset)
-
-if !Better (s, ruleset) then
-
-ruleset = s
-
-end if
-
+  ruleset = Rebuild (s, ruleset)
+  if !Better (s, ruleset) then
+    ruleset = s
+    end if
 end for
 
 procedure Better (s, ruleset)
-
 if pd(ruleset) > pd(s)
-
-return true
-
+    return true
 return false
 
 \end{verbatim}
@@ -355,28 +346,14 @@ The Bayes classifier is a simple statistical-based learning scheme. For this exp
 
 
 \section{Results}
-[ Left table outline in here for reference ]
+The cumulative graph above shows the number of times that Ruleset loses when compared to a new set of rules as we iterate through the training set. The graph shows clearly that our learner is {\em not} converging to an optimal set of rules that willalways win when compared to new set of rules.
 
-\begin{table}[h]
-\centering
-\caption{Top Features selected by InfoGain and B-Squared}
-\begin{tabular}{|c|c|c|} \hline
-Feat.&Attribute (Shared)&Attributes (Turkish)\\\hline
-1& LOCOMMENT & EXECUTABLE LOC\\ \hline
-2& EV & UNIQUE-OPERATORS\\ \hline
-3& V & TOTAL-OPERANDS\\ \hline
-4& D & TOTAL-OPERATORS\\ \hline
-5& I & HALSTEAD-LENGTH\\ \hline
-6& E & HALSTEAD-VOLUME\\ \hline
-7& B & HALSTEAD-DIFFICULTY\\ \hline
-8& T & HALSTEAD-ERROR\\ \hline
-9& LOCODE & BRANCH-COUNT\\ \hline
-10& UNQ-OPND & DECISION-COUNT\\ \hline
-11& TOTAL-OP & CONDITION-COUNT\\ \hline
-12& TOTAL-OPND & CYCLOMATIC-COMPLEXITY\\ \hline
+The following PD and PF values represent results obtained by training on data set A, and attempting to predict on data set B. It can be shown that neither learner performs well predicting cross company defects.
 
-\hline\end{tabular}
-\end{table}
+\includegraphics[width=243px, height=149px]{pd.png}
+\includegraphics[width=90mm, height=60mm]{iter.png}
+
+\caption{Comparison vs. Changes to Final Ruleset}
 
 
 \section{Related Work}
@@ -396,10 +373,10 @@ cross-company defect prediction. On the other hand existing research in the fiel
 at generality in cross-company data. This highlights the importance of requiring confirmation in our experimental results.  
 
 \section{Future Work}
-[ Finding Generality by splitting each slice into train and test sets as opposed to setting aside 10\% of the number of slices as the test set and training on the remainder ]
-[ Microsampling - pruning both rows and columns and not just the columns - Menzies' mapping curiousity can be answered here ]
+An alternate approach worth exploring that could shed some light on this experiment is to split up each slice into train and test sets after clustering rather than taking the largest cluster. This method allows for the realization of generality in the case where the learner is able to predict defects for each test fairly well provided some treshhold has been given. Futhermore, unless pressed for time, more runs could be conducted, say 1000 with hopes of finding a converging graph. Moreover, different preprocessing techniques such as microsampling and other learners besides Naive Bayes and Prism could be exploitedto achieve results that could be compared to that of our experiment. 
 
 \section{Acknowledgments}
+We will like to thank Dr. Menzies, Associate Professor (Computer Science & Electrical Engineering) at West Virginia University, for his assistance in the acquisition of the datasets used for the experiment described in the context of this paper and enlightening us with the tools and techniques that were used. 
 
 %
 % The following two commands are all you need in the
