@@ -3,7 +3,7 @@
 \noindent
 {\scriptsize
 \begin{tabular}{c r  @{} c c }
-\multicolumn{4}{c}{Weighted Performance (Multiple Datasets)} \\\hline
+\multicolumn{4}{c}{Weighted Performance (16 Datasets)} \\\hline
 
 Rank & Treatment  & 50\% & \% Ret \\
 \hline
@@ -24,7 +24,38 @@ Rank & Treatment  & 50\% & \% Ret \\
 
 \end{tabular}
 }
-\caption{Performance of treatments weighted by size of set returned}
+\caption{10-way cross validation of treatments weighted by size of set returned}
 \label{fig:performance}
 \end{figure}
 
+\begin{figure}[!t]
+\begin{center}
+\renewcommand{\baselinestretch}{0.5}
+\noindent
+{\scriptsize
+\begin{tabular}{c r  @{} c }
+\multicolumn{3}{c}{Weighted Performance (Many Class Datasets)} \\\hline
+
+Rank & Treatment  & 50\% \\
+\hline
+
+1 & WeightedMeans1 & \boxplot{53.7}{16.3}{70.0}{18.9}{88.9} \\
+1 & WeightedMeans0 & \boxplot{53.7}{16.3}{70.0}{18.9}{88.9}\\
+1 & MultiPipes & \boxplot{53.7}{16.3}{70.0}{18.9}{88.9}\\
+1 & RemoveOutliers & \boxplot{53.7}{16.1}{69.8}{19.1}{88.9} \\
+1 & OverfitRevert & \boxplot{53.7}{16.1}{69.8}{19.1}{88.9} \\
+2 & NaiveBayes & \boxplot{42.1}{23.2}{65.3}{18.4}{83.7} \\
+3 & HyperPipes & \boxplot{21.1}{38}{59.1}{16.2}{75.3} \\
+3 & Centroid & \boxplot{23.4}{34.4}{57.8}{16.4}{74.2} \\
+4 & 5\%Alpha & \boxplot{33.8}{20.6}{54.4}{14.7}{69.1} \\
+5 & 25\%Alpha & \boxplot{22.7}{11.1}{33.8}{24.1}{57.9} \\
+6 & 50\%Alpha & \boxplot{18.2}{4.4}{22.6}{3.2}{25.8} \\
+
+
+
+\end{tabular}
+}
+\end{center}
+\caption{10-way cross validation of treatments on many-class (~20) datasets weighted by size of set returned}
+\label{fig:manyclass}
+\end{figure}
