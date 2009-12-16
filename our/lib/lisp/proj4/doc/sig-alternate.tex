@@ -313,7 +313,7 @@ Both the Turkish data and data from NASA comprised of True / False classes, and 
 
 \subsection{Experiment 1: Prism}
 
-The Prism learner, described in section 4.2.1, was modeled by training on the training set and applying the ruleset generated to the test set. In general, the experiment with Prism involved combining all the datasets into one gigantic datasets consisting of over 5700 instances which were later randomized into 50 slices. For each slice, K-means was applied and the cluster with the most number of instances was selected to be used in place of the slice sinceits much smaller and contains more relevant data as determined by the K-means algorithm. After K-means had been run on all 50 slices, 10% of the clusters obtained were allocated to be used as testing and the remaining 90% for training the learner.
+The Prism learner, described in section 4.2.1, was modeled by training on the training set and applying the ruleset generated to the test set. In general, the experiment with Prism involved combining all the datasets into one gigantic datasets consisting of over 5700 instances which were later randomized into 50 slices. For each slice, K-means was applied and the cluster with the most number of instances was selected to be used in place of the slice sinceits much smaller and contains more relevant data as determined by the K-means algorithm. After K-means had been run on all 50 slices, 10\% of the clusters obtained were allocated to be used as testing and the remaining 90\% for training the learner.
 
 Once preparation of the data had been completed, our experiment entailed iterating through each dataset in the training set and generating new rules, applying those rules to the test set and comparing the results of the probability of defect (pd) to that of the Rulest when applied to the test set as well. The pseudocode describing the algorithm is outlined as follows
 
@@ -345,6 +345,7 @@ The operation described above was repeated 500 times and each time, besides the 
 The Bayes classifier is a simple statistical-based learning scheme. For this experiment, it was used as a secondary learner, in order to compare its results to that of Prism, our primary learner. Before the experiment could be conducted, the data had to be preprocessed as described in section 4.1 and the train and test sets were derived using the same approach described in the previous section for Prism. However, in this experiment, the generation of rules was omitted. Naive Bayes simply trained on the training set obtained after applying K-means on the slices and then tested on.
 
 
+
 \section{Results}
 The following PD and PF values represent results obtained by training on data set A, and attempting to predict on data set B. It can be shown that neither learner performs well predicting cross company defects.
 
@@ -353,6 +354,10 @@ The following PD and PF values represent results obtained by training on data se
 Also, the cumulative graph below shows the number of times that Ruleset loses when compared to a new set of rules as we iterate through the training set. The graph shows clearly that our learner is {\em not} converging to an optimal set of rules that willalways win when compared to new set of rules.
 
 \includegraphics[width=243, height=170]{iter.png}
+
+The diagram below illustrates the sequence of events undertaken by the alogorithm used in training the learner as described in section 4.3. In the diagram, BP represents the backpocket rules, otherwise referred to as the Ruleset and S is the current slice whose PD, after aplying Prism, is to be compared to that of the Ruleset during each iteration.
+
+\includegraphics[width=243, height=190]{flowchart.png}
 
 %\caption{Comparison vs. Changes to Final Ruleset}
 
