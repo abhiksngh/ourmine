@@ -355,7 +355,7 @@ Also, the cumulative graph below shows the number of times that Ruleset loses wh
 
 \includegraphics[width=243, height=170]{iter.png}
 
-The diagram below illustrates the sequence of events undertaken by the alogorithm used in training the learner as described in section 4.3. In the diagram, BP represents the backpocket rules, otherwise referred to as the Ruleset and S is the current slice whose PD, after aplying Prism, is to be compared to that of the Ruleset during each iteration.
+The diagram below illustrates the sequence of events undertaken by the alogorithm used in training the learner as described in section 4.3. In the diagram, BP represents the backpocket rules, otherwise referred to as the Ruleset and S is the current slice whose PD, after aplying Prism, is to be compared to that of the Ruleset during each iteration. {\em Better} represents the procedure that accepts a Ruleset and a Slice and determines if the Ruleset's defect prediction probability is better than that of the Slice and returns a boolean value as the result. {\em Rebuild} represents the procedure that rebuilds the Ruleset by merging its data with data from the Slice passed to it.
 
 \includegraphics[width=243, height=190]{flowchart.png}
 
