@@ -347,17 +347,29 @@ The Bayes classifier is a simple statistical-based learning scheme. For this exp
 
 
 \section{Results}
-The following PD and PF values represent results obtained by training on data set A, and attempting to predict on data set B. It can be shown that neither learner performs well predicting cross company defects.
+PD and PF values in Figure 1 represent results obtained by training on data set A, and attempting to predict on data set B. It can be shown that neither learner performs well predicting cross company defects.
 
+\begin{figure}
 \includegraphics[width=243, height=149]{pd.png}
+\label{fig:pds}
+\caption{Ranked by a Mann-Whitney test at 95\% confidence, PD and PF values of prediction based on the ruleset obtained from the PRISM experiment are compared 
+to those obtained from Naive bayes cross-project prediction. Notice that while Naive Bayes ranks higher for PDs, surprisingly PRISM's PF values are more desirable.}
+\end{figure}
 
-Also, the cumulative graph below shows the number of times that Ruleset loses when compared to a new set of rules as we iterate through the training set. The graph shows clearly that our learner is {\em not} converging to an optimal set of rules that willalways win when compared to new set of rules.
+Also, the cumulative graph in Figure 2 shows the number of times that Ruleset loses when compared to a new set of rules as we iterate through the training set. The graph shows clearly that our learner is {\em not} converging to an optimal set of rules that willalways win when compared to new set of rules.
 
+\begin{figure}
 \includegraphics[width=243, height=170]{iter.png}
+\label{fig:iters}
+\caption{The almost linear line represents the lack of convergence of the experiment's ruleset, hinting at the rulesets inability to describe the entire data. }
+\end{figure}
 
-The diagram below illustrates the sequence of events undertaken by the alogorithm used in training the learner as described in section 4.3. In the diagram, BP represents the backpocket rules, otherwise referred to as the Ruleset and S is the current slice whose PD, after aplying Prism, is to be compared to that of the Ruleset during each iteration. {\em Better} represents the procedure that accepts a Ruleset and a Slice and determines if the Ruleset's defect prediction probability is better than that of the Slice and returns a boolean value as the result. {\em Rebuild} represents the procedure that rebuilds the Ruleset by merging its data with data from the Slice passed to it.
+The diagram in Figure 3 illustrates the sequence of events undertaken by the alogorithm used in training the learner as described in section 4.3. In the diagram, BP represents the backpocket rules, otherwise referred to as the Ruleset and S is the current slice whose PD, after aplying Prism, is to be compared to that of the Ruleset during each iteration. {\em Better} represents the procedure that accepts a Ruleset and a Slice and determines if the Ruleset's defect prediction probability is better than that of the Slice and returns a boolean value as the result. {\em Rebuild} represents the procedure that rebuilds the Ruleset by merging its data with data from the Slice passed to it.
 
+\begin{figure}
 \includegraphics[width=243, height=190]{flowchart.png}
+\caption{An illustration of the process of the experiment using the incrementally generated/pruned rulest we denote as the ``back pocket'', or $bp$}
+\end{figure}
 
 %\caption{Comparison vs. Changes to Final Ruleset}
 
