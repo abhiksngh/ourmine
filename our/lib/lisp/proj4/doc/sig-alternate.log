@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2009.9.16)  16 DEC 2009 17:30
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2009.9.16)  16 DEC 2009 18:45
 entering extended mode
  %&-line parsing enabled.
 **sig-alternate.tex
@@ -229,70 +229,72 @@ Overfull \hbox (1.26794pt too wide) in paragraph at lines 164--165
 
 [2
 
-] [3] [4] <pd.png, id=27, 444.66125pt x 310.15875pt>
+]
+Overfull \hbox (6.87186pt too wide) in paragraph at lines 210--211
+\T1/aer/m/n/9 er-ally in-volved ba-sic pre-pro-cess-ing tech-niques, mod-el-ing
+ learn-
+ []
+
+[3] [4] <pd.png, id=27, 444.66125pt x 310.15875pt>
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    \relax 
-l.352 ...degraphics[width=243, height=149]{pd.png}
+l.353 ...degraphics[width=243, height=149]{pd.png}
                                                   
 ? 
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    \relax 
-l.352 ...degraphics[width=243, height=149]{pd.png}
+l.353 ...degraphics[width=243, height=149]{pd.png}
                                                   
 ? 
 File: pd.png Graphic file (type png)
 <use pd.png>
-Overfull \hbox (11.9971pt too wide) in paragraph at lines 352--353
-[][] 
+Overfull \hbox (2.9971pt too wide) in paragraph at lines 353--356
+[][]
  []
 
 <iter.png, id=28, 547.04375pt x 396.48125pt>
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    \relax 
-l.356 ...graphics[width=243, height=170]{iter.png}
+l.362 ...graphics[width=243, height=170]{iter.png}
                                                   
 ? 
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    \relax 
-l.356 ...graphics[width=243, height=170]{iter.png}
+l.362 ...graphics[width=243, height=170]{iter.png}
                                                   
 ? 
 File: iter.png Graphic file (type png)
 <use iter.png>
-Overfull \hbox (12.00381pt too wide) in paragraph at lines 356--357
-[][] 
+Overfull \hbox (3.00381pt too wide) in paragraph at lines 362--364
+[][]
  []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
 
 <flowchart.png, id=29, 584.1825pt x 467.7475pt>
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    \relax 
-l.360 ...ics[width=243, height=190]{flowchart.png}
+l.370 ...ics[width=243, height=190]{flowchart.png}
                                                   
 ? 
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    \relax 
-l.360 ...ics[width=243, height=190]{flowchart.png}
+l.370 ...ics[width=243, height=190]{flowchart.png}
                                                   
 ? 
 File: flowchart.png Graphic file (type png)
 <use flowchart.png>
-Overfull \hbox (12.0017pt too wide) in paragraph at lines 360--361
+Overfull \hbox (3.0017pt too wide) in paragraph at lines 370--371
 [][] 
  []
 
-[5 <./pd.png (PNG copy)> <./iter.png (PNG copy)> <./flowchart.png (PNG copy)>]
+[5 <./pd.png (PNG copy)> <./iter.png (PNG copy)>]
 ! Misplaced alignment tab character &.
-l.385 ..., Associate Professor (Computer Science &
+l.397 ..., Associate Professor (Computer Science &
                                                    Electrical Engineering) a...
 
 ? 
@@ -302,29 +304,30 @@ l.34 \newblock In {\em Industrial Management &
                                                Data Systms}, pages 611--621....
 
 ? 
-) [6] (./sig-alternate.aux) ) 
+) [6 <./flowchart.png (PNG copy)>] (./sig-alternate.aux) ) 
 Here is how much of TeX's memory you used:
- 1922 strings out of 94834
- 21202 string characters out of 1179181
+ 1925 strings out of 94834
+ 21228 string characters out of 1179181
  76163 words of memory out of 1500000
- 5063 multiletter control sequences out of 10000+50000
+ 5066 multiletter control sequences out of 10000+50000
  55641 words of font info for 77 fonts, out of 1200000 for 2000
  212 hyphenation exceptions out of 8191
  39i,10n,26p,1190b,252s stack positions out of 5000i,500n,6000p,200000b,5000s
-{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.
-enc}</usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmbx9.pfb></usr/share/texm
-f-texlive/fonts/type1/bluesky/cm/cmmi6.pfb></usr/share/texmf-texlive/fonts/type
-1/bluesky/cm/cmr6.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmr9.pfb
-></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmsy9.pfb></usr/share/texmf-t
-exlive/fonts/type1/bluesky/cm/cmti7.pfb></usr/share/texmf-texlive/fonts/type1/b
-luesky/cm/cmti9.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmtt9.pfb>
-</usr/share/texmf-texlive/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texmf
--texlive/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-texlive/fonts/ty
-pe1/urw/times/utmb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmr8a
-.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmri8a.pfb>
-Output written on sig-alternate.pdf (6 pages, 228775 bytes).
+{/usr/share/texmf-tex
+live/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texlive/fonts/type1/bluesky/
+cm/cmbx9.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmmi6.pfb></usr/s
+hare/texmf-texlive/fonts/type1/bluesky/cm/cmmi9.pfb></usr/share/texmf-texlive/f
+onts/type1/bluesky/cm/cmr6.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm
+/cmr9.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmsy9.pfb></usr/shar
+e/texmf-texlive/fonts/type1/bluesky/cm/cmti7.pfb></usr/share/texmf-texlive/font
+s/type1/bluesky/cm/cmti9.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/c
+mtt9.pfb></usr/share/texmf-texlive/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/sh
+are/texmf-texlive/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-texlive
+/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/tim
+es/utmr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmri8a.pfb>
+Output written on sig-alternate.pdf (6 pages, 238473 bytes).
 PDF statistics:
- 77 PDF objects out of 1000 (max. 8388607)
+ 81 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 131072)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

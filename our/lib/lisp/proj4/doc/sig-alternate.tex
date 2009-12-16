@@ -207,7 +207,7 @@ show that simply using projects in the same domain does not work to build accura
 between cross data projects following a different approach based on prism rule learner.
 
 \section{The Experiment}
-
+The primary purpose of our study was to find generality within cross-company datasets along the lines of post-release software defect prediction. The experiment conducted generally involved basic preprocessing techniques, modeling learners by training on data from one company and testing on another and then, finally,  analyzing the results obtained in order to conclude on the existence or probability of any form of generality. The subsequent sections below elaborate the steps taken in our experiment, the learners used, and the results achieved.
 
 \subsection{Preparing the Data}
 The data we are using for to test our is extracted from two very different companies: NASA and SoftLab (a turkish software company). The data sets are shown below.
@@ -342,7 +342,7 @@ The operation described above was repeated 500 times and each time, besides the 
 
 \subsection{Experiment 2: Naive Bayes}
 
-The Bayes classifier is a simple statistical-based learning scheme. For this experiment, it was used as a secondary learner, in order to compare its results to that of Prism, our primary learner. Before the experiment could be conducted, the data had to be preprocessed as described in section 4.1 and the train and test sets were derived using the same approach described in the previous section for Prism. However, in this experiment, the generation of rules was omitted. Naive Bayes simply trained on the training set obtained after applying K-means on the slices and then tested on.
+The Bayes classifier is a simple statistical-based learning scheme. For this experiment, it was used as a secondary learner, in order to compare its results to that of Prism, our primary learner. Before the experiment could be conducted, the data had to be preprocessed as described in section 4.1 and the train and test sets were derived using the same approach described in the previous section (4.2) for Prism. In this experiment, however, the generation of rules was omitted. Naive Bayes simply trained on the training set obtained after applying K-means on the slices and then tested on. The classifier performs by combining frequency counts for different ranges of attributes within the current dataset in question. If the attribute has not been seen before, the some of those frequency counts will drop.
 
 
 
@@ -356,7 +356,7 @@ PD and PF values in Figure 1 represent results obtained by training on data set 
 to those obtained from Naive bayes cross-project prediction. Notice that while Naive Bayes ranks higher for PDs, surprisingly PRISM's PF values are more desirable.}
 \end{figure}
 
-Also, the cumulative graph in Figure 2 shows the number of times that Ruleset loses when compared to a new set of rules as we iterate through the training set. The graph shows clearly that our learner is {\em not} converging to an optimal set of rules that willalways win when compared to new set of rules.
+Also, the cumulative graph in Figure 2 shows the number of times that Ruleset loses when compared to a new set of rules as we iterate through the training set. The graph shows clearly that our learner is {\em not} converging to an optimal set of rules that willalways win when compared to new set of rules. The best results achieved by Prism occurs approximately between 85000 and 95000 comparisons, which is roughly 8.3\% of the total comparisons made - a result absolutely far from desireable.
 
 \begin{figure}
 \includegraphics[width=243, height=170]{iter.png}
