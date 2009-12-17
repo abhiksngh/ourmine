@@ -1,34 +1,36 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2009.9.16)  16 DEC 2009 18:45
+This is pdfeTeX, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=pdflatex 2009.1.28)  16 DEC 2009 21:59
 entering extended mode
- %&-line parsing enabled.
 **sig-alternate.tex
 (./sig-alternate.tex
-LaTeX2e <2005/12/01>
-Babel <v3.8h> and hyphenation patterns for english, usenglishmax, dumylang, noh
-yphenation, ukrainian, russian, bulgarian, loaded.
-(./sig-alternate.cls (/usr/share/texmf-texlive/tex/latex/graphics/epsfig.sty
+LaTeX2e <2003/12/01>
+Babel <v3.8d> and hyphenation patterns for american, french, german, ngerman, b
+ahasa, basque, bulgarian, catalan, croatian, czech, danish, dutch, esperanto, e
+stonian, finnish, greek, icelandic, irish, italian, latin, magyar, norsk, polis
+h, portuges, romanian, russian, serbian, slovak, slovene, spanish, swedish, tur
+kish, ukrainian, nohyphenation, loaded.
+(./sig-alternate.cls (/sw/share/texmf-dist/tex/latex/graphics/epsfig.sty
 Package: epsfig 1999/02/16 v1.7a (e)psfig emulation (SPQR)
 
-(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
+(/sw/share/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
+(/sw/share/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 )
-(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
-Package: graphics 2006/02/20 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+(/sw/share/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2001/07/07 v1.0n Standard LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
+(/sw/share/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-(/etc/texmf/tex/latex/config/graphics.cfg
-File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+(/sw/share/texmf-dist/tex/latex/graphics/graphics.cfg
+File: graphics.cfg 2005/02/03 v1.3 graphics configuration of teTeX/TeXLive
 )
-Package graphics Info: Driver file: pdftex.def on input line 90.
+Package graphics Info: Driver file: pdftex.def on input line 80.
 
-(/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
-File: pdftex.def 2007/01/08 v0.04d Graphics/color for pdfTeX
+(/sw/share/texmf-dist/tex/latex/graphics/pdftex.def
+File: pdftex.def 2002/06/19 v0.03k graphics/color for pdftex
 \Gread@gobject=\count79
 ))
 \Gin@req@height=\dimen102
@@ -37,10 +39,10 @@ File: pdftex.def 2007/01/08 v0.04d Graphics/color for pdfTeX
 \epsfxsize=\dimen104
 \epsfysize=\dimen105
 )
-(/usr/share/texmf-texlive/tex/latex/amsfonts/amssymb.sty
+(/sw/share/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2002/01/22 v2.2d
 
-(/usr/share/texmf-texlive/tex/latex/amsfonts/amsfonts.sty
+(/sw/share/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2001/10/25 v2.2f
 \@emptytoks=\toks15
 \symAMSa=\mathgroup4
@@ -48,24 +50,24 @@ Package: amsfonts 2001/10/25 v2.2f
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 132.
 ))
-(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
+(/sw/share/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2000/07/18 v2.13 AMS math features
 \@mathmargin=\skip41
 
 For additional information on amsmath, use the `?' option.
-(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
+(/sw/share/texmf-dist/tex/latex/amsmath/amstext.sty
 Package: amstext 2000/06/29 v2.01
 
-(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty
+(/sw/share/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks16
 \ex@=\dimen106
 ))
-(/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty
+(/sw/share/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen107
 )
-(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty
+(/sw/share/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count80
@@ -136,7 +138,7 @@ Questions on the style, SIGS policies, etc. to Adrienne Griscti griscti@acm.org
 \titleboxnoteflag=\count100
 Document Class: sig-alternate 2009/04/22 - V2.4 - based on acmproc.cls V1.3 <No
 v. 30 '99>
-(/usr/share/texmf-texlive/tex/latex/base/latexsym.sty
+(/sw/share/texmf-dist/tex/latex/base/latexsym.sty
 Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
 \symlasy=\mathgroup6
 LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
@@ -168,16 +170,16 @@ LaTeX Info: Redefining \cite on input line 1211.
 \acmcopyr=\toks33
 \boilerplate=\toks34
 \copyrightetc=\toks35
-(/usr/share/texmf-texlive/tex/latex/base/fontenc.sty
-Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+(/sw/share/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2004/02/22 v1.99f Standard LaTeX package
 
-(/usr/share/texmf-texlive/tex/latex/base/t1enc.def
-File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
+(/sw/share/texmf-dist/tex/latex/base/t1enc.def
+File: t1enc.def 2004/02/22 v1.99f Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
 )
 LaTeX Font Info:    Try loading font information for T1+aer on input line 100.
 
-(/usr/share/texmf-texlive/tex/latex/ae/t1aer.fd
+(/sw/share/texmf-dist/tex/latex/ae/t1aer.fd
 File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
 ))) (./sig-alternate.aux)
 \openout1 = `sig-alternate.aux'.
@@ -194,107 +196,146 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 50.
 LaTeX Font Info:    ... okay on input line 50.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 50.
 LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Try loading font information for U+msa on input line 60.
 
-(/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
+(/sw/share/texmf-dist/tex/context/base/supp-pdf.tex
+(/sw/share/texmf-dist/tex/context/base/supp-mis.tex
+loading : Context Support Macros / Miscellaneous (2004.10.26)
+\protectiondepth=\count109
+\scratchcounter=\count110
+\scratchtoks=\toks36
+\scratchdimen=\dimen123
+\scratchskip=\skip44
+\scratchmuskip=\muskip11
+\scratchbox=\box30
+\scratchread=\read1
+\scratchwrite=\write3
+\zeropoint=\dimen124
+\onepoint=\dimen125
+\onebasepoint=\dimen126
+\minusone=\count111
+\thousandpoint=\dimen127
+\onerealpoint=\dimen128
+\emptytoks=\toks37
+\nextbox=\box31
+\nextdepth=\dimen129
+\everyline=\toks38
+\!!counta=\count112
+\!!countb=\count113
+\recursecounter=\count114
+)
+loading : Context Support Macros / PDF (2004.03.26)
+\nofMPsegments=\count115
+\nofMParguments=\count116
+\MPscratchCnt=\count117
+\MPscratchDim=\dimen130
+\MPnumerator=\count118
+\everyMPtoPDFconversion=\toks39
+)
+LaTeX Font Info:    Try loading font information for U+msa on input line 60.
+ (/sw/share/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2002/01/19 v2.2g AMS font definitions
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 60.
 
-(/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
+(/sw/share/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2002/01/19 v2.2g AMS font definitions
 )
 LaTeX Font Info:    Try loading font information for U+lasy on input line 60.
 
-(/usr/share/texmf-texlive/tex/latex/base/ulasy.fd
+(/sw/share/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 ) [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+{/sw/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
 Overfull \hbox (0.71481pt too wide) in paragraph at lines 151--151
  []\eaddfnt wmensah@csee.wvu.edu| 
  []
 
-LaTeX Font Info:    Try loading font information for T1+aett on input line 156.
+LaTeX Font Info:    Try loading font information for T1+aett on input line 153.
 
-(/usr/share/texmf-texlive/tex/latex/ae/t1aett.fd
+(/sw/share/texmf-dist/tex/latex/ae/t1aett.fd
 File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
 )
-Overfull \hbox (1.26794pt too wide) in paragraph at lines 164--165
+Overfull \hbox (1.26794pt too wide) in paragraph at lines 161--162
 \T1/aer/m/n/9 H.4 [\T1/aer/bx/n/9 Information Sys-tems Ap-pli-ca-tions\T1/aer/m
 /n/9 ]: Mis-cel-la-neous;
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 164--179
+
  []
 
 [2
 
 ]
-Overfull \hbox (6.87186pt too wide) in paragraph at lines 210--211
+Overfull \hbox (6.87186pt too wide) in paragraph at lines 207--208
 \T1/aer/m/n/9 er-ally in-volved ba-sic pre-pro-cess-ing tech-niques, mod-el-ing
  learn-
  []
 
-[3] [4] <pd.png, id=27, 444.66125pt x 310.15875pt>
+[3] [4] <pd.png, id=53, 444.66125pt x 310.15875pt>
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    \relax 
-l.353 ...degraphics[width=243, height=149]{pd.png}
+l.350 ...degraphics[width=243, height=149]{pd.png}
                                                   
 ? 
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    \relax 
-l.353 ...degraphics[width=243, height=149]{pd.png}
+l.350 ...degraphics[width=243, height=149]{pd.png}
                                                   
 ? 
 File: pd.png Graphic file (type png)
 <use pd.png>
-Overfull \hbox (2.9971pt too wide) in paragraph at lines 353--356
+Overfull \hbox (2.9971pt too wide) in paragraph at lines 350--353
 [][]
  []
 
-<iter.png, id=28, 547.04375pt x 396.48125pt>
+<iter.png, id=54, 547.04375pt x 396.48125pt>
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    \relax 
-l.362 ...graphics[width=243, height=170]{iter.png}
+l.359 ...graphics[width=243, height=170]{iter.png}
                                                   
 ? 
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    \relax 
-l.362 ...graphics[width=243, height=170]{iter.png}
+l.359 ...graphics[width=243, height=170]{iter.png}
                                                   
 ? 
 File: iter.png Graphic file (type png)
 <use iter.png>
-Overfull \hbox (3.00381pt too wide) in paragraph at lines 362--364
+Overfull \hbox (3.00381pt too wide) in paragraph at lines 359--361
 [][]
  []
 
-<flowchart.png, id=29, 584.1825pt x 467.7475pt>
+<flowchart.png, id=55, 584.1825pt x 467.7475pt>
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    \relax 
-l.370 ...ics[width=243, height=190]{flowchart.png}
+l.367 ...ics[width=243, height=190]{flowchart.png}
                                                   
 ? 
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    \relax 
-l.370 ...ics[width=243, height=190]{flowchart.png}
+l.367 ...ics[width=243, height=190]{flowchart.png}
                                                   
 ? 
 File: flowchart.png Graphic file (type png)
 <use flowchart.png>
-Overfull \hbox (3.0017pt too wide) in paragraph at lines 370--371
+Overfull \hbox (3.0017pt too wide) in paragraph at lines 367--368
 [][] 
  []
 
-[5 <./pd.png (PNG copy)> <./iter.png (PNG copy)>]
+[5 <./pd.png> <./iter.png>]
 ! Misplaced alignment tab character &.
-l.397 ..., Associate Professor (Computer Science &
+l.394 ..., Associate Professor (Computer Science &
                                                    Electrical Engineering) a...
 
 ? 
@@ -304,30 +345,29 @@ l.34 \newblock In {\em Industrial Management &
                                                Data Systms}, pages 611--621....
 
 ? 
-) [6 <./flowchart.png (PNG copy)>] (./sig-alternate.aux) ) 
+) [6 <./flowchart.png>] (./sig-alternate.aux) ) 
 Here is how much of TeX's memory you used:
- 1925 strings out of 94834
- 21228 string characters out of 1179181
- 76163 words of memory out of 1500000
- 5066 multiletter control sequences out of 10000+50000
+ 2238 strings out of 94500
+ 24964 string characters out of 1176114
+ 78108 words of memory out of 1500000
+ 5360 multiletter control sequences out of 10000+50000
  55641 words of font info for 77 fonts, out of 1200000 for 2000
- 212 hyphenation exceptions out of 8191
+ 580 hyphenation exceptions out of 8191
  39i,10n,26p,1190b,252s stack positions out of 5000i,500n,6000p,200000b,5000s
-{/usr/share/texmf-tex
-live/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texlive/fonts/type1/bluesky/
-cm/cmbx9.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmmi6.pfb></usr/s
-hare/texmf-texlive/fonts/type1/bluesky/cm/cmmi9.pfb></usr/share/texmf-texlive/f
-onts/type1/bluesky/cm/cmr6.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm
-/cmr9.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/cmsy9.pfb></usr/shar
-e/texmf-texlive/fonts/type1/bluesky/cm/cmti7.pfb></usr/share/texmf-texlive/font
-s/type1/bluesky/cm/cmti9.pfb></usr/share/texmf-texlive/fonts/type1/bluesky/cm/c
-mtt9.pfb></usr/share/texmf-texlive/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/sh
-are/texmf-texlive/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-texlive
-/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/tim
-es/utmr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmri8a.pfb>
-Output written on sig-alternate.pdf (6 pages, 238473 bytes).
 PDF statistics:
- 81 PDF objects out of 1000 (max. 8388607)
- 0 named destinations out of 1000 (max. 131072)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
-
+ 64 PDF objects out of 65536
+ 0 named destinations out of 20000
+ 16 words of extra memory for PDF output out of 65536
+</sw/share/texmf-dist/fonts/type
+1/bluesky/cm/cmmi9.pfb>{/sw/share/texmf-dist/fonts/enc/dvips/psnfss/8r.enc}</sw
+/share/texmf-dist/fonts/type1/urw/times/utmri8a.pfb></sw/share/texmf-dist/fonts
+/type1/bluesky/cm/cmr6.pfb></sw/share/texmf-dist/fonts/type1/urw/times/utmr8a.p
+fb></sw/share/texmf-dist/fonts/type1/bluesky/cm/cmtt9.pfb></sw/share/texmf-dist
+/fonts/type1/bluesky/cm/cmmi6.pfb></sw/share/texmf-dist/fonts/type1/bluesky/cm/
+cmti7.pfb></sw/share/texmf-dist/fonts/type1/bluesky/cm/cmti9.pfb></sw/share/tex
+mf-dist/fonts/type1/bluesky/cm/cmbx9.pfb></sw/share/texmf-dist/fonts/type1/blue
+sky/cm/cmr9.pfb></sw/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></sw/sha
+re/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></sw/share/texmf-dist/fonts/t
+ype1/urw/helvetic/uhvb8a.pfb></sw/share/texmf-dist/fonts/type1/bluesky/cm/cmsy9
+.pfb>
+Output written on sig-alternate.pdf (6 pages, 222476 bytes).
