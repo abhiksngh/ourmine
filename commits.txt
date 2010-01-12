@@ -1,29 +1,29 @@
 
 === Cumulative Commits =============================================
 
-Thu Oct 15 14:10:13 EDT 2009
+Tue Jan 12 16:15:37 EST 2010
 "LonnieBowe.log" , "taronti.log" , zackhutzell.log
 
-    25 ++----+------------+------------+------------+-----------+-----------++
+    60 ++----+------------+------------+------------+-----------+-----------++
        |     +            +            +            +           +            +
        |                                                                     |
-       |                                               B                     |
-    20 ++                                             CC                    ++
+    50 ++                                                              B    ++
        |                                                                     |
-       |                                             CB                      |
-       |                                            AAAA                     |
-    15 ++                                  A      AA B                      ++
-       |                          A                 B                        |
-       |                          A               BBB                        |
-       |                                                                     |
-    10 ++                                         BC                        ++
-       |                          B        B      C                          |
-       |                                   C                                 |
-       |                          C        C                                 |
-     5 ++                      BBBB                  "LonnieBowe.log"   A   ++
-       |                        CA                      "taronti.log"   B    |
-       |                 A A  AAA                   "zackhutzell.log"   C    |
-       |     +          AB+B           +            +           +            +
-     0 ++----+------------+------------+------------+-----------+-----------++
+       |                                                              BC     |
+       |                                                            BB       |
+    40 ++                                                           C       ++
+       |                                                           B         |
+       |                                                        C BB         |
+    30 ++                                                     C   B         ++
+       |                                                        B            |
+       |                                                  CC  B              |
+    20 ++                                             CB  BB  B             ++
+       |                                             CB           AAAAAA     |
+       |                          A        A      AAAAAA  AA  A A A          |
+       |                          A               BBB"LonnieBowe.log"   A    |
+    10 ++                         B        B      BC    "taronti.log"   B   ++
+       |                       BBBB        C        "zackhutzell.log"   C    |
+       |     +           A+A  AAAA     +            +           +            +
+     0 ++----+----------AB+B-----------+------------+-----------+-----------++
             260          280          300          320         340          360
 
