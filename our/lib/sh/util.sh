@@ -48,6 +48,11 @@ buildSetTable(){
     cd $here
 }
 
+replaceMissingValues(){
+    local arff=$1
+    $Weka weka.filters.unsupervised.attribute.ReplaceMissingValues -i $arff
+}
+
 makeQuartiles(){
     local csv=$1
     local key=$2
