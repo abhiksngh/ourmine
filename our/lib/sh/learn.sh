@@ -1,3 +1,10 @@
+bore(){
+	cat $1 | gawk -f $Awk/br.awk -v Goal=$2
+}
+linearRegression(){
+	local learner=weka.classifiers.functions.LinearRegression 
+	$Weka $learner -S 0 -R $3 -p 0 -t $1 -T $2
+}
 bnet(){
         local learner=weka.classifiers.bayes.BayesNet
 	$Weka $learner -p 0 -t $1 -T $2 -D \

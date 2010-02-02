@@ -25,6 +25,7 @@ Reducers="java -Xmx1024M -jar $Java/Reduce.jar "
 # define and load files
 
 Files="	
+		$Sh/effort.sh
 		$Sh/util.sh 
 		$Sh/preprocess.sh 
 		$Sh/learn.sh 
