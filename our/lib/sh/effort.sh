@@ -4,7 +4,7 @@ exp1(){
 	local repeats=20			#Repeats for each learning cycle when determining weights
 	local clusters=10			#Number of clusters to divide data into
 	local atts="1-24"			#Setting for the clusterer, number of attributes in data set
-	local weights="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"		#Initial weight vector
+	local weights="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"		#Initial weight vector, make sure it num weights = num clusters
 	local mode=2 				#1=MMRE, 2=Pred(30)	
 
 	#Generate clusters
@@ -23,9 +23,68 @@ exp1(){
 		calcScores results.csv $mode weightdata.csv $r > weightdatatemp.csv
 		mv weightdatatemp.csv weightdata.csv
 	done
-	cat weightdata.csv
+	classifyForBORE weightdata.csv $clusters $mode > weightdataClass.csv
+	bore weightdataClass.csv "^best$" | tail -1 | getBest
 	
 }
+
+#Replaces performance score (last category) with best or rest in preperation for bore learner
+#Input is dataset,number of non-score attributes,scoring mode (1=minimize, 2=maximize)
+
+classifyForBORE(){
+awk -v Data=$1 -v Atts=$2 -v Mode=$3 'BEGIN{
+	scores[0]=0;
+	data[0]=0;
+
+	while(getline d < Data){
+		line="";
+		split(d,cols,",");
+		for(i=1;i<=Atts;i++){
+			line=line cols[i] ",";
+		}
+		data[++data[0]]=line;
+		scores[++scores[0]]=cols[Atts+1];
+	}
+	close(Data);
+
+	best=.2*scores[0];
+	for(i=1;i<=scores[0];i++)	classes[i]="rest";
+
+	for(i=1;i<=best;i++){
+		max=0;
+		min=100;
+		maxpos=0;
+		for(j=1;j<=scores[0];j++){
+			if(Mode==1){
+				if((scores[j]<min)&&(classes[j]!~ "best")){
+					min=scores[i];
+					maxpos=j;
+				}
+			}else if(Mode==2){
+				if((scores[j]>max)&&(classes[j]!~ "best")){
+					max=scores[j];
+					maxpos=j;
+				}
+			}
+		}
+		classes[maxpos]="best";
+	}
+
+	for(i=1;i<=Atts;i++){
+		header=header i",";
+	}
+	header=header"class";
+	print header;
+
+	for(i=1;i<=scores[0];i++){
+		print data[i] classes[i];
+	}
+}'
+}
+
+
+#Calculates MMRE/Pred(30)
+#Inputs are results file, scoring mode, output file name, which repeat this is
 
 calcScores(){
 awk -v Results=$1 -v Mode=$2 -v Outfile=$3 -v Run=$4 'BEGIN{
@@ -76,6 +135,8 @@ awk -v Results=$1 -v Mode=$2 -v Outfile=$3 -v Run=$4 'BEGIN{
 }'
 }
 
+#Builds oversampled data set
+#Inputs: 
 buildOverSet(){
 awk -v D=$1 -v C=$2 -v K=$3 -v W=$4 -v O=$5 -v seed=$RANDOM 'BEGIN{
 	cluster[0]=0;

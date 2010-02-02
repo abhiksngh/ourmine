@@ -3,7 +3,7 @@
 BEGIN {	
   FS      = "," ;
   SUBSEP  = "=";
-  Goal	  = "^recurrence-events$"; 
+  Goal	  = "^best$"; 
   Beam    = 20;
   OFMT    = "%.8g";
   srand(Seed ? Seed : 1);
