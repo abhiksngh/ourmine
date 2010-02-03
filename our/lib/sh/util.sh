@@ -153,6 +153,43 @@ malign() {
 	' 
 }
 
+#Normalizes a column of data 0-1
+normalize(){
+awk '
+	BEGIN{data[0]=0;}
+	{data[++data[0]]=$1}
+	END{
+		min=1000000000;
+		max=-1000000000;
+		for(i=1;i<=data[0];i++){
+			if(data[i]<min)
+				min=data[i];
+			if(data[i]>max)
+				max=data[i];
+		}
+		for(i=1;i<=data[0];i++){
+			print (data[i]-min)/(max-min);
+		}
+	}
+' -
+}
+
+#Quick, single-column median. Only prints the median without any surrounding text or data. 
+median(){
+awk '
+	BEGIN{data[0]=0;}
+	{data[++data[0]]=$1}
+	END{ asort(data);
+		if(data[0]%2)	
+			print data[int(data[0]/2)];
+		else{
+			low=data[int(data[0]/2)];
+			high=data[int(data[0]/2)+1];
+			print (low+high)/2;
+		}
+' -
+}
+
 medians()    { 
 	local start="2"
     while [ `echo $1 | grep "-"` ]; do
@@ -197,7 +234,7 @@ medians()    {
 }
 
 gotwant()    {  gawk '
-	BEGIN   {Unlog  = 0; 
+	BEGIN   {Unlog  = 1; 
 			 OFS    = ","       
  			 Ee     = 848456353 / 312129649;
             }

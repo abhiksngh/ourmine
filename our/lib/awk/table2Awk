@@ -1,0 +1,43 @@
+#!/usr/bin/gawk -f 
+BEGIN{ 
+	IGNORECASE = 1; 
+	FS = OFS   = ",";
+	Comments   = "#.*";
+	Table      = "Table";
+}
+
+{ sub(Comments,"") } 
+
+/^[ \t]*$/ { next }       
+
+{ for(I=1;I<=NF;I++) $I=trim($I) }
+
+sub(/^[ \t]*=/,"",$1) { 
+	TableName=$1;
+	for(I=1;I<NF;I++) Name[I]=$(I+1);
+	next 
+}
+
+{ for(I=1;I<NF;I++) if ($(I+1))  A[TableName,$1,Name[I]]=$(I+1) }
+
+END {
+	print "BEGIN {";  saya("\t" Table, A,1,0,";"); print "}"
+}
+
+function trim(s) {
+	sub(/^[ \t]*/,"",s); sub(/[ \t]*$/,"",s); return s 
+}
+
+function saya(s,a,q1,q2,eol,    i,j,n,tmp,str) {
+	q1= q1 ? "\"" : "";
+	q2= q2 ? "\"" : "";
+	for(i in a) {
+		str="";
+		n=split(i,tmp,SUBSEP);
+		str = q1 tmp[1] q1;
+		for(j=2;j<=n;j++) 
+			str = str "," q1 tmp[j] q1;
+		print s "[" str "] = " q2 a[i] q2 eol | "sort";
+	};
+	close("sort");
+}

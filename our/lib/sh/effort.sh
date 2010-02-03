@@ -1,46 +1,131 @@
 exp1(){
-	local d="$Data/effest/nasa93.arff"	#data set
+	local d="$Data/effest/nasa93Precise.arff"	#data set
 	local bins=10				#Number of bins to divide data into, for cross-val or train/test splitting
-	local repeats=20			#Repeats for each learning cycle when determining weights
+	local repeats1=100			#Repeats for each learning cycle when determining weights
+	local repeats2=10			#For 10x10 crossval
 	local clusters=10			#Number of clusters to divide data into
 	local atts="1-24"			#Setting for the clusterer, number of attributes in data set
 	local weights="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"		#Initial weight vector, make sure it num weights = num clusters
-	local mode=2 				#1=MMRE, 2=Pred(30)	
+	local mode=$1				#1=MMRE, 2=Pred(30)	
+	local save=$Tmp				#Where to save reports
 
-	#Generate clusters
+	echo "Generating clusters"
 	cd $Tmp
 	kmeansOut $d $clusters $atts > clusters.txt
 
-	#Train weights
-
-	[ -f weightdata.csv ] && rm weightdata.csv 
-	for((r=1;r<=$repeats;r++)); do
-		buildOverSet $d clusters.txt $clusters $weights weightdata.csv > overset.arff
-		makeTrainAndTest overset.arff $bins 10
-		cat train.arff | logArff 0.00001 > trainL.arff
-		cat test.arff | logArff 0.00001 > testL.arff
-		linearRegression trainL.arff testL.arff 1.0E-8 | gotwant > results.csv
-		calcScores results.csv $mode weightdata.csv $r > weightdatatemp.csv
-		mv weightdatatemp.csv weightdata.csv
+	echo ""
+	echo "Training weights"
+	for((k=1;k<=$clusters;k++)); do
+		[ -f weightdata.csv ] && rm weightdata.csv 
+		for((r=1;r<=$repeats1;r++)); do
+			buildOverSet $d clusters.txt $clusters $weights weightdata.csv > overset.arff
+			rm test.lisp test.arff train.lisp train.arff
+			makeTrainAndTest overset.arff $bins 10
+			cat train.arff | logArff 0.00001 > trainL.arff
+			cat test.arff | logArff 0.00001 > testL.arff
+			linearRegression trainL.arff testL.arff 1.0E-8 | gotwant > results.csv
+			calcScoresWeights results.csv $mode weightdata.csv $r > weightdatatemp.csv
+			mv weightdatatemp.csv weightdata.csv
+		done
+		classifyForBORE weightdata.csv $clusters $weights $mode > weightdataClass.csv
+		weights=`bore weightdataClass.csv "^best$" | tail -1 | getBest $weights $clusters`
+		echo $weights
 	done
-	classifyForBORE weightdata.csv $clusters $mode > weightdataClass.csv
-	bore weightdataClass.csv "^best$" | tail -1 | getBest
+
+	echo ""
+	echo "10x10 cross-val: Oversampled"
+	[ -f $save/oversampled_$mode.csv ] && mv oversampled_$mode.csv old_oversampled_$mode.csv
+	buildOverSet $d clusters.txt $clusters $weights weightdata.csv > oversetFinal.arff
+	for((run=1;run<=$repeats2;run++)); do
+		for((bin=1;bin<=$bins;bin++)); do
+			rm test.lisp test.arff train.lisp train.arff
+			makeTrainAndTest oversetFinal.arff $bins $bin
+			cat train.arff | logArff 0.00001 > trainL.arff
+			cat test.arff | logArff 0.00001 > testL.arff
+			linearRegression trainL.arff testL.arff 1.0E-8 | gotwant > results.csv		
+			calcScores results.csv $mode >> $save/oversampled_$mode.csv
+		done
+	done
+	echo "Median Score:"
+	cat $save/oversampled_$mode.csv | median
+	if [ $mode = 1 ]
+	then
+		cat $save/oversampled_$mode.csv | normalize | awk 'BEGIN{} {print $1*100}' - | quartile
+	else
+		cat $save/oversampled_$mode.csv | awk 'BEGIN{} {print $1*100}' - | quartile
+	fi
+
+	echo ""
+	echo "10x10 cross-val: Original"
+	[ -f $save/original_$mode.csv ] && mv original_$mode.csv original_$mode_old.csv
+	for((run=1;run<=$repeats2;run++)); do
+		for((bin=1;bin<=$bins;bin++)); do
+			rm test.lisp test.arff train.lisp train.arff
+			makeTrainAndTest $d $bins $bin
+			cat train.arff | logArff 0.00001 > trainL.arff
+			cat test.arff | logArff 0.00001 > testL.arff
+			linearRegression trainL.arff testL.arff 1.0E-8 | gotwant > results.csv		
+			calcScores results.csv $mode >> $save/original_$mode.csv
+		done
+	done
+	echo "Median Score:"
+	cat $save/original_$mode.csv | median
+	if [ $mode = 1 ]
+	then
+		cat $save/original_$mode.csv | normalize | awk 'BEGIN{} {print $1*100}' - | quartile
+	else
+		cat $save/original_$mode.csv | awk 'BEGIN{} {print $1*100}' - | quartile
+	fi
+
+}
+
+exp2(){
+	local mode=$1
+	local repeats=$2
 	
+	for((run=1;run<=$repeats;run++)); do
+		exp1 $mode
+	done
+}
+
+#Generates new weight vector, fixing one additional weight
+getBest(){
+awk -v Weight=$1 -v K=$2 '
+	BEGIN{OFS=" ";}
+	{pos=$3;
+	val=substr(pos,3,length(pos));
+	if(substr(val,1,1) ~ "=")	val=substr(val,2,length(val));
+	pos=substr(pos,1,2);
+	if(substr(pos,2,2) ~ "=")	pos=substr(pos,1,1);
+	split(Weight,weights,",");
+	for(i=1;i<=K;i++){
+		if(i==pos)	out=out val","
+		else		out=out weights[i]","
+	}
+	out=substr(out,1,length(out)-1);
+	print out;
+	}' -
+}
+
+arffWithNums(){
+	./cocNums --numbers $1.config $2;
 }
 
 #Replaces performance score (last category) with best or rest in preperation for bore learner
-#Input is dataset,number of non-score attributes,scoring mode (1=minimize, 2=maximize)
+#Input is dataset,number of non-score attributes,vector of weights, and scoring mode (1=minimize, 2=maximize)
 
 classifyForBORE(){
-awk -v Data=$1 -v Atts=$2 -v Mode=$3 'BEGIN{
+awk -v Data=$1 -v Atts=$2 -v Weight=$3 -v Mode=$4 'BEGIN{
 	scores[0]=0;
 	data[0]=0;
 
+	split(Weight,weights,",");
 	while(getline d < Data){
 		line="";
 		split(d,cols,",");
 		for(i=1;i<=Atts;i++){
-			line=line cols[i] ",";
+			if(weights[i]==-1)
+				line=line cols[i] ",";
 		}
 		data[++data[0]]=line;
 		scores[++scores[0]]=cols[Atts+1];
@@ -71,7 +156,8 @@ awk -v Data=$1 -v Atts=$2 -v Mode=$3 'BEGIN{
 	}
 
 	for(i=1;i<=Atts;i++){
-		header=header i",";
+		if(weights[i]==-1)
+			header=header i",";
 	}
 	header=header"class";
 	print header;
@@ -84,9 +170,52 @@ awk -v Data=$1 -v Atts=$2 -v Mode=$3 'BEGIN{
 
 
 #Calculates MMRE/Pred(30)
-#Inputs are results file, scoring mode, output file name, which repeat this is
 
 calcScores(){
+awk -v Results=$1 -v Mode=$2 'BEGIN{
+	pred[0]=0;
+	act[0]=0;
+
+	#Read in the data
+	while(getline r < Results){
+		split(r,nums,",");
+		pred[++pred[0]]=nums[1];
+		act[++act[0]]=nums[2];
+	}
+	close(Results);
+	
+	if(Mode==1){
+		mre[0]=0;
+		sum=0;
+		for(i=1;i<=act[0];i++){
+			top=act[i]-pred[i];
+			bot=act[i];
+			if(top < 0)	top=-top;
+			if(bot < 0)	bot=-bot; 
+			mre[++mre[0]]=top/bot;
+			sum=sum+mre[mre[0]];
+		}
+		score=sum/act[0];
+	} else if(Mode==2){
+		within=0;
+		for(i=1;i<=act[0];i++){
+			threshold1=0.7*act[i];
+			threshold2=1.3*act[i];
+			if((pred[i]>=threshold1)&&(pred[i]<=threshold2)){
+				within++;
+			}
+		}
+		score=within/act[0];
+	}
+
+	print score;
+}'
+}
+
+#Calculates MMRE/Pred(30)
+#Inputs are results file, scoring mode, output file name, which repeat this is
+
+calcScoresWeights(){
 awk -v Results=$1 -v Mode=$2 -v Outfile=$3 -v Run=$4 'BEGIN{
 	pred[0]=0;
 	act[0]=0;
@@ -136,7 +265,8 @@ awk -v Results=$1 -v Mode=$2 -v Outfile=$3 -v Run=$4 'BEGIN{
 }
 
 #Builds oversampled data set
-#Inputs: 
+#Inputs: Initial data et, cluster information file, number of clusters, weight vector, output file
+ 
 buildOverSet(){
 awk -v D=$1 -v C=$2 -v K=$3 -v W=$4 -v O=$5 -v seed=$RANDOM 'BEGIN{
 	cluster[0]=0;
