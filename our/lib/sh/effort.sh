@@ -1,5 +1,5 @@
 exp1(){
-	local d="$Data/effest/nasa93PreciseCocOnly.arff"	#data set
+	local d="$Data/effest/cocomonasaPrecise.arff"	#data set
 	local bins=10				#Number of bins to divide data into, for cross-val or train/test splitting
 	local repeats1=100			#Repeats for each learning cycle when determining weights
 	local repeats2=10			#For 10x10 crossval
@@ -7,7 +7,7 @@ exp1(){
 	local atts="1-17"			#Setting for the clusterer, number of attributes in data set
 	local weights="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"		#Initial weight vector, make sure it num weights = num clusters
 	local mode=$1				#1=MMRE, 2=Pred(30), 3=MedMRE	
-	local save=$Tmp				#Where to save reports
+	local save="/home/greg/svns/wisp/var/greg/china/data/"				#Where to save reports
 
 	echo "Generating clusters"
 	cd $Tmp
@@ -44,6 +44,7 @@ exp1(){
 			cat test.arff | logArff 0.00001 > testL.arff
 			linearRegression trainL.arff testL.arff 1.0E-8 | gotwant > results.csv		
 			calcScores results.csv $mode >> $save/oversampled_$mode.csv
+			calcScores results.csv 4 >> $save/oversampled_mres.csv
 		done
 	done
 	echo "Median Score:"
@@ -65,6 +66,8 @@ exp1(){
 			cat test.arff | logArff 0.00001 > testL.arff
 			linearRegression trainL.arff testL.arff 1.0E-8 | gotwant > results.csv		
 			calcScores results.csv $mode >> $save/original_$mode.csv
+			calcScores results.csv 4 >> $save/original_mres.csv
+
 		done
 	done
 	echo "Median Score:"
@@ -81,7 +84,7 @@ exp1(){
 
 exp2(){
 	local mode=$1
-	local repeats="1 2 3 4 5 6 7 8 9"
+	local repeats="1 2 3 4 5 6 7 8 9 10"
 	
 	for r in $repeats; do
 		exp1 $mode
@@ -170,7 +173,7 @@ awk -v Data=$1 -v Atts=$2 -v Weight=$3 -v Mode=$4 'BEGIN{
 
 
 #Calculates MMRE/Pred(30)/MedMRE
-
+#Mode 4 just spits out a list of MREs
 calcScores(){
 awk -v Results=$1 -v Mode=$2 'BEGIN{
 	pred[0]=0;
@@ -224,8 +227,18 @@ awk -v Results=$1 -v Mode=$2 'BEGIN{
 			high=mre[int(count/2)+1];
 			score=(low+high)/2;
 		}
+	} else if(Mode==4){
+		for(i=1;i<=act[0];i++){
+			top=act[i]-pred[i];
+			bot=act[i];
+			if(top<0)	top=top*-1;
+			if(bot<0)	bot=bot*-1;
+			print (top/bot);
+		}
 	}
-	print score;
+	
+	if(Mode!=4)
+		print score;
 }'
 }
 
