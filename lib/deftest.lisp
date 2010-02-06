@@ -1,27 +1,29 @@
-(let 
-    (_tests (_pass 0) (_fail 0))
+(defparameter *tests* nil)
+(defparameter *pass* 0)
+(defparameter *fail* 0)
  
-  (defmacro deftest ((name params)  &body body)
-    `(progn  (or (member ,name _tests) 
-		 (push   ,name _tests))
-	     (defun ,name ,params 
-	       (format t "~a~%" ,name)
-	       ,@body)))
+ (defmacro deftest (name params  &body body)
+   `(progn  (or (member ',name *tests*) 
+		(push   ',name *tests*))
+	    (defun ,name ,params 
+	      (format t "~a~%" ',name)
+	      ,@body)))
  
-  (defmacro test (&rest _forms)
-    (let ((out (gensym)) (form (gensym)))
-      ` (dolist (,form ',_forms ,out)
-	  (if (setf ,out (eval ,form))
-	      (incf _pass)
-	      (format t "failure #~a...: ~a~%" 
-		      (incf _fail) ,form)))))
- 
-  (defun tests ()
-    (setf _fail 0)
-    (dolist (one (reverse _tests))
+(defmacro test (&rest forms)
+  (let ((form (gensym)) (out (gensym)))
+    `(let (,out)
+       (dolist (,form ',forms ,out)
+	 (if (setf ,out (eval ,form))
+	     (incf *pass*)
+	     (format t "failure #~a...: ~a~%" 
+		     (incf *fail*) ,form))))))
+
+(defun tests ()
+  (when *tests*
+    (setf *fail* 0)
+    (dolist (one (reverse *tests*))
       (funcall one))
-    (if _tests
-        (format t "~%PASSES: ~a (~a %)~%FAILS : ~a~%"
-		_pass (* 100 (/ _pass (+ _pass _fail)))
-		_fail)))
-)
+    (format t "~%PASSES: ~a (~a %)~%FAILS : ~a~%"
+	    *pass* (* 100 (/ *pass* (+ *pass* *fail*)))
+	    *fail*)))
+

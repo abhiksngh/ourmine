@@ -12,10 +12,10 @@
 (defun stream->list (str &optional 
                      (line (read-line str nil)))
   (when line
-    (cons (string->list line)
+    (cons (reverse (string->list line))
 	  (stream->list str))))
 
 (defun string->list (line)
   (read-from-string
-   (concatenate 'string "(" (reverse line) ")")))
+   (concatenate 'string "(" line ")")))
 
