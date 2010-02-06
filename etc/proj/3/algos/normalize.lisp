@@ -35,7 +35,7 @@
   (let
       ((col -1))
     (dolist
-	(l (table-columns tbl))
+	(l (table-columns tbl) tbl)
       (incf col)
       (if (numeric-p l)
 	  (let
