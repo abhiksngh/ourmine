@@ -1,4 +1,0 @@
-name:j4810
-args:<data (arff)>
-eg:j4810 weather.arff
-desc:Uses a j48 decision tree learner on the input data
