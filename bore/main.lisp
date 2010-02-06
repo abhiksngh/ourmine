@@ -1,13 +1,13 @@
 ;;;; ourmine lite
 ;;; bore (best or rest)
 
+(load "../loads.lisp")
 
 (defun make ()
-	(load "../loads.lisp")
-	(loads	
-   		"structs"
-   		"worker"
-   		"tests"
-  ))
+  (make-lib)
+  (loads	
+   "structs"
+   "worker"
+   ))
 
 (make)

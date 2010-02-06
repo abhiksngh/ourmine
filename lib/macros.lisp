@@ -6,9 +6,12 @@
   `(progn (maphash #'(lambda (,key ,value) ,@body) ,hash)
           ,end))
 
-(defun showh (h)
-  (dohash (key value h h)
-    (format t "~a = ~a~%" key value)))
+(defun showh (h &optional (str t))
+  (let (all)
+    (dohash (key value h h)
+      (push (cons key value) all))
+    (dolist (one (sort all #'lt :key #'first) t)
+      (print one str))))
 
-(defmacro more (key hash &optional (n 1))
-  `(incf (gethash ,key ,hash ,n)))
+(defmacro more (key hash &optional (default 0))
+  `(incf (gethash ,key ,hash ,default)))

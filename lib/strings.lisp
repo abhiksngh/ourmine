@@ -5,3 +5,8 @@
 	      (remove-if #'white  s)))
     (string= (whiteout (format nil "~(~a~)" x))
 	     (whiteout (format nil "~(~a~)" y)))))
+
+(defun lt (x y)
+  (if (string< (format nil "~a" x) (format nil "~a" y))
+      t
+      nil))

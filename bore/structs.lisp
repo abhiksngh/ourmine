@@ -1,4 +1,6 @@
 (defstruct (data (:print-function data-print)) 
+  labels
+  (missing '?)
   rows 
   (h       (make-hash-table :test 'equal))
   (classes (make-hash-table))

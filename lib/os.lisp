@@ -5,17 +5,53 @@
 	((eql line 'eof))
       (format t "~A~%" line))))
 
-(defun file->lists (f)
+(defun file->lists (f &optional (filter #'identity))
   (with-open-file (str f) 
-    (stream->list  str)))
+    (stream->list  str filter)))
 
-(defun stream->list (str &optional 
+(defun stream->list (str filter &optional 
                      (line (read-line str nil)))
   (when line
-    (cons (reverse (string->list line))
-	  (stream->list str))))
+    (cons (funcall filter (string->list line))
+	  (stream->list str filter))))
 
 (defun string->list (line)
   (read-from-string
    (concatenate 'string "(" line ")")))
 
+(deftest files2list ()
+  (test 
+   (equal
+    (file->lists "../data/weather-nominal.dat")
+    '((OUTLOOK TEMP HUMIDITY WINDY PLAY) 
+      (SUNNY HOT HIGH FALSE NO)
+      (SUNNY HOT HIGH TRUE NO) 
+      (OVERCAST HOT HIGH FALSE YES)
+      (RAINY MILD HIGH FALSE YES) 
+      (RAINY COOL NORMAL FALSE YES)
+      (RAINY COOL NORMAL TRUE NO) 
+      (OVERCAST COOL NORMAL TRUE YES)
+      (SUNNY MILD HIGH FALSE NO) 
+      (SUNNY COOL NORMAL FALSE YES)
+      (RAINY MILD NORMAL FALSE YES) 
+      (SUNNY MILD NORMAL TRUE YES)
+      (OVERCAST MILD HIGH TRUE YES) 
+      (OVERCAST HOT NORMAL FALSE YES)
+      (RAINY MILD HIGH TRUE NO)))
+   (equal
+    (file->lists "../data/weather-nominal.dat" #'reverse)
+    '((PLAY WINDY HUMIDITY TEMP OUTLOOK) 
+      (NO FALSE HIGH HOT SUNNY)
+      (NO TRUE HIGH HOT SUNNY) 
+      (YES FALSE HIGH HOT OVERCAST)
+      (YES FALSE HIGH MILD RAINY) 
+      (YES FALSE NORMAL COOL RAINY)
+      (NO TRUE NORMAL COOL RAINY) 
+      (YES TRUE NORMAL COOL OVERCAST)
+      (NO FALSE HIGH MILD SUNNY) 
+      (YES FALSE NORMAL COOL SUNNY)
+      (YES FALSE NORMAL MILD RAINY) 
+      (YES TRUE NORMAL MILD SUNNY)
+      (YES TRUE HIGH MILD OVERCAST) 
+      (YES FALSE NORMAL HOT OVERCAST)
+      (NO TRUE HIGH MILD RAINY)))))
