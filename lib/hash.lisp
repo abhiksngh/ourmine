@@ -1,0 +1,12 @@
+(defun showh (h &key (prefix "H") (str t))
+  (let (all)
+    (dohash (key value h h)
+      (push (cons key value) all))
+    (format str "~%")
+    (dolist (one (sort all #'lt :key #'first) t)
+      (format str "~a: ~a ~%" prefix one))))
+
+(defun hash->keys (h)
+  (let (out)
+    (dohash (k v h out)
+      (push k out))))

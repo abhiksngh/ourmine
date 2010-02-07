@@ -2,7 +2,7 @@
   labels
   (missing '?)
   rows 
-  (h       (make-hash-table :test 'equal))
+  (counts  (make-hash-table :test 'equal))
   (classes (make-hash-table))
 )
 

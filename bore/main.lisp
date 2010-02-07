@@ -1,7 +1,7 @@
 ;;;; ourmine lite
 ;;; bore (best or rest)
 
-(load "../loads.lisp")
+(load "../lib/main.lisp")
 
 (defun make ()
   (make-lib)

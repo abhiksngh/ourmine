@@ -11,4 +11,5 @@
    "../lib/os"
    "../lib/macros"
    "../lib/strings"
+   "../lib/hash"
    ))
