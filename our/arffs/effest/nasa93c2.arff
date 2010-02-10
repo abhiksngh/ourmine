@@ -1,0 +1,88 @@
+
+@relation cocomonasa_2
+
+% Unique id
+@attribute recordnumber real
+			     % NOT continguous since the records shown
+			     % below are a subset of another NASA
+			     % database.
+
+%project name
+@attribute projectname {de,erb,gal,X,hst,slp,spl,Y}  
+
+%cagetory of application
+@attribute cat2 {Avionics, application_ground, avionicsmonitoring, batchdataprocessing, communications, datacapture, launchprocessing, missionplanning, monitor_control, operatingsystem, realdataprocessing, science, simulation, utility}
+
+% flight or ground system?
+@attribute forg {f,g}
+
+%which nasa center?
+@attribute center {1,2,3,4,5,6}
+
+%year of development
+@attribute year real
+
+%development mode
+@attribute mode {embedded,organic,semidetached}
+
+%cocomo attributes: described above in section 4
+@attribute rely real
+@attribute data real
+@attribute cplx real
+@attribute time real
+@attribute stor real
+@attribute virt real
+@attribute turn real
+@attribute acap real
+@attribute aexp real
+@attribute pcap real
+@attribute vexp real
+@attribute lexp real
+@attribute modp real
+@attribute tool real
+@attribute sced real
+
+%equivalent physical 1000 lines of source code
+@attribute equivphyskloc real
+
+%development effort in months (one month =152 hours and includes development and management hours)
+@attribute act_effort real
+
+@data
+1,de,avionicsmonitoring,g,2,1979,semidetached,1.15,0.94,1.15,1,1,0.87,0.87,1,1,1,1,0.95,0.91,1,1.08,25.9,117.6
+2,de,avionicsmonitoring,g,2,1979,semidetached,1.15,0.94,1.15,1,1,0.87,0.87,1,1,1,1,0.95,0.91,1,1.08,24.6,117.6
+3,de,avionicsmonitoring,g,2,1979,semidetached,1.15,0.94,1.15,1,1,0.87,0.87,1,1,1,1,0.95,0.91,1,1.08,7.7,31.2
+4,de,avionicsmonitoring,g,2,1979,semidetached,1.15,0.94,1.15,1,1,0.87,0.87,1,1,1,1,0.95,0.91,1,1.08,8.2,36
+5,de,avionicsmonitoring,g,2,1979,semidetached,1.15,0.94,1.15,1,1,0.87,0.87,1,1,1,1,0.95,0.91,1,1.08,9.7,25.2
+6,de,avionicsmonitoring,g,2,1979,semidetached,1.15,0.94,1.15,1,1,0.87,0.87,1,1,1,1,0.95,0.91,1,1.08,2.2,8.4
+7,de,avionicsmonitoring,g,2,1979,semidetached,1.15,0.94,1.15,1,1,0.87,0.87,1,1,1,1,0.95,0.91,1,1.08,3.5,10.8
+8,erb,avionicsmonitoring,g,2,1982,semidetached,1.15,0.94,1.15,1,1,0.87,0.87,1,1,1,1,0.95,0.91,1,1.08,66.6,352.8
+21,X,avionicsmonitoring,g,2,1985,semidetached,1.15,0.94,1.15,1,1,0.87,0.87,1,1,1,1,0.95,0.91,1,1.08,19.7,60
+22,X,avionicsmonitoring,g,2,1985,semidetached,1.15,0.94,1.15,1,1,0.87,0.87,1,1,1,1,0.95,0.91,1,1.08,66.6,300
+23,X,simulation,g,2,1985,semidetached,1.15,0.94,1.15,1,1,0.87,0.87,1,1,1,1,0.95,0.91,1,1.08,29.5,120
+24,X,monitor_control,g,2,1986,semidetached,1.15,1,1,1.11,1,1,1,1,0.91,0.86,1,1,1,1,1,15,90
+25,X,monitor_control,g,2,1986,semidetached,1.15,1,1.15,1,1,1,1,1,0.91,0.86,1,1,1,1,1,38,210
+26,X,monitor_control,g,2,1986,semidetached,1,1,1,1,1,1,1,1,0.91,0.86,1,1,1,1,1,10,48
+27,X,realdataprocessing,g,2,1982,semidetached,1,1.16,1.15,1.3,1.21,0.87,1.07,0.71,0.91,1,1.1,0.95,0.82,0.83,1.08,15.4,70
+28,X,realdataprocessing,g,2,1982,semidetached,1,1.16,1.15,1.3,1.21,0.87,1.07,0.71,0.91,1,1.1,0.95,0.82,0.83,1.08,48.5,239
+29,X,realdataprocessing,g,2,1982,semidetached,1,1.16,1.15,1.3,1.21,0.87,1.07,0.71,0.91,1,1.1,0.95,0.82,0.83,1.08,16.3,82
+30,X,communications,g,2,1982,semidetached,1,1.16,1.15,1.3,1.21,0.87,1.07,0.71,0.91,1,1.1,0.95,0.82,0.83,1.08,12.8,62
+31,X,batchdataprocessing,g,2,1982,semidetached,1,1.16,1.15,1.3,1.21,0.87,1.07,0.71,0.91,1,1.1,0.95,0.82,0.83,1.08,32.6,170
+32,X,datacapture,g,2,1982,semidetached,1,1.16,1.15,1.3,1.21,0.87,1.07,0.71,0.91,1,1.1,0.95,0.82,0.83,1.08,35.5,192
+33,X,missionplanning,g,2,1985,semidetached,1.15,0.94,1.15,1,1,0.87,0.87,1,1,1,1,0.95,0.91,1,1.08,5.5,18
+34,X,avionicsmonitoring,g,2,1987,semidetached,1.15,0.94,1.15,1,1,0.87,0.87,1,1,1,1,0.95,0.91,1,1.08,10.4,50
+35,X,avionicsmonitoring,g,2,1987,semidetached,1.15,0.94,1.15,1,1,0.87,0.87,1,1,1,1,0.95,0.91,1,1.08,14,60
+36,X,monitor_control,g,2,1986,semidetached,1.15,1,1.15,1,1,1,1,1,1,1,1,1,1,1,1,6.5,42
+37,X,monitor_control,g,2,1986,semidetached,1,1,1.15,1,1,1,1,1,1,1,1,1,1,1,1,13,60
+38,X,monitor_control,g,2,1986,semidetached,1,1,1.15,1,1,1,1,1,1,0.86,1,0.95,0.91,0.91,1,90,444
+39,X,monitor_control,g,2,1986,semidetached,1,1,1.15,1,1,1,1,1,1,1,1,1,1,1,1,8,42
+40,X,monitor_control,g,2,1986,semidetached,1,1,1.15,1.11,1,1,1,1,1,1,1,1,1,1,1,16,114
+41,hst,datacapture,g,2,1980,semidetached,1,1.08,1.15,1.3,1.06,0.87,1.07,0.86,1,0.86,1.1,0.95,0.91,1,1.08,177.9,1248
+56,spl,datacapture,g,2,1979,semidetached,1.4,1.08,1.15,1.3,1.21,1,1,0.71,0.82,0.7,1,0.95,0.91,0.91,1.08,227,1181
+57,spl,batchdataprocessing,g,2,1977,semidetached,1,1.08,1.3,1,1,0.87,1,0.86,1,0.7,1.1,1,0.91,1,1.08,70,278
+58,de,avionicsmonitoring,g,2,1979,semidetached,1.15,0.94,1.15,1,1,0.87,0.87,1,1,1,1,0.95,0.91,1,1.08,0.9,8.4
+81,hst,Avionics,f,2,1980,embedded,1.15,1.16,1.3,1.66,1.56,1.15,1.07,1,1,1,1.1,1.07,1,1,1.04,32,1350
+82,hst,Avionics,f,2,1980,embedded,1.15,1.08,1.15,1.3,1.56,1.15,1.07,0.86,0.91,0.86,0.9,0.95,0.91,1,1,53,480
+99,X,Avionics,f,2,1983,embedded,1.15,1,1.3,1.3,1.21,1.15,1.07,1,1,1,1.1,1.07,1,1,1.04,16.3,480
+100,X,Avionics,f,2,1983,embedded,1.15,1,1.3,1.3,1.21,1.15,1.07,1,1,1,1.1,1.07,1,1,1.04,6.2,12
+101,X,science,f,2,1983,embedded,1.15,1,1.3,1.3,1.21,1.15,1.07,1,1,1,1.1,1.07,1,1,1.04,3,38

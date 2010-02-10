@@ -1,0 +1,81 @@
+@relation cocomonasa_2
+
+% Unique id
+@attribute recordnumber real
+			     % NOT continguous since the records shown
+			     % below are a subset of another NASA
+			     % database.
+
+%project name
+@attribute projectname {de,erb,gal,X,hst,slp,spl,Y}  
+
+%cagetory of application
+@attribute cat2 {Avionics, application_ground, avionicsmonitoring, batchdataprocessing, communications, datacapture, launchprocessing, missionplanning, monitor_control, operatingsystem, realdataprocessing, science, simulation, utility}
+
+% flight or ground system?
+@attribute forg {f,g}
+
+%which nasa center?
+@attribute center {1,2,3,4,5,6}
+
+%year of development
+@attribute year real
+
+%development mode
+@attribute mode {embedded,organic,semidetached}
+
+%cocomo attributes: described above in section 4
+@attribute rely real
+@attribute data real
+@attribute cplx real
+@attribute time real
+@attribute stor real
+@attribute virt real
+@attribute turn real
+@attribute acap real
+@attribute aexp real
+@attribute pcap real
+@attribute vexp real
+@attribute lexp real
+@attribute modp real
+@attribute tool real
+@attribute sced real
+
+%equivalent physical 1000 lines of source code
+@attribute equivphyskloc real
+
+%development effort in months (one month =152 hours and includes development and management hours)
+@attribute act_effort real
+
+% Section 8. Missing attributes: none
+
+% Section 9: Distribution of class values
+%
+%  #  development months
+%  == ==================
+%  46    0 - 499
+%  28  500 - 999
+%   7 1000 - 1499
+%   3 1500 - 1999
+%   3 2000 - 2499
+%   3 2500 - 2999
+%   0 3000 - 3999
+%   1 4000 - 4499
+%   1 4500 - 4999
+%   0 5000 - 7999 
+%   1 8000
+
+@data
+9,gal,missionplanning,g,1,1980,semidetached,1.15,0.94,1.15,1.66,1.56,0.87,1.07,0.86,0.91,0.86,1,0.95,0.91,0.91,1,7.5,72
+10,gal,missionplanning,g,1,1980,semidetached,1,0.94,1.15,1,1,0.87,0.87,0.86,0.82,0.7,1,0.95,1,1,1,20,72
+11,gal,missionplanning,g,1,1984,semidetached,1,0.94,1.15,1,1,0.87,0.87,0.86,0.82,0.86,1,0.95,1,1,1,6,24
+12,gal,missionplanning,g,1,1980,semidetached,1,0.94,1.15,1,1,0.87,0.87,0.86,0.82,0.7,1,0.95,1,1,1,100,360
+13,gal,missionplanning,g,1,1985,semidetached,1,0.94,1.15,1,1,0.87,0.87,0.86,0.82,1,1,1.07,1,1,1,11.3,36
+14,gal,missionplanning,g,1,1980,semidetached,1,0.94,1.15,1,1,1.15,0.87,0.86,0.91,0.86,1.1,1.14,1,1,1,100,215
+15,gal,missionplanning,g,1,1983,semidetached,1,0.94,1.15,1,1,0.87,0.87,0.86,0.82,0.86,1,0.95,1,1,1,20,48
+16,gal,missionplanning,g,1,1982,semidetached,1,0.94,1.15,1,1,0.87,0.87,0.86,1,1,1,1.14,1,1,1,100,360
+17,gal,missionplanning,g,1,1980,semidetached,1,0.94,1.15,1,1.56,0.87,0.87,0.86,0.82,0.7,1,0.95,1,1,1,150,324
+18,gal,missionplanning,g,1,1984,semidetached,1,0.94,1.15,1,1,0.87,0.87,0.86,0.91,0.86,1,0.95,1,1,1,31.5,60
+19,gal,missionplanning,g,1,1983,semidetached,1,0.94,1.15,1,1,0.87,0.87,0.86,0.82,0.86,1,0.95,1,1,1,15,48
+20,gal,missionplanning,g,1,1984,semidetached,1,0.94,1.15,1,1.56,0.87,0.87,0.86,0.91,1,1,0.95,1,1,1,32.5,60
+

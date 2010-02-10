@@ -1,17 +1,18 @@
 exp1(){
-	local d="$Data/effest/cocomonasaPrecise.arff"	#data set
+	local d="$Data/effest/nasa93Precise.arff"	#data set
 	local bins=10				#Number of bins to divide data into, for cross-val or train/test splitting
 	local repeats1=100			#Repeats for each learning cycle when determining weights
 	local repeats2=10			#For 10x10 crossval
-	local clusters=10			#Number of clusters to divide data into
-	local atts="1-17"			#Setting for the clusterer, number of attributes in data set
-	local weights="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"		#Initial weight vector, make sure it num weights = num clusters
+	local clusters=6			#Number of clusters to divide data into
+	local atts="1-24" #"1-17"			#Setting for the clusterer, number of attributes in data set
+	local weights="-1,-1,-1,-1,-1,-1"		#Initial weight vector, make sure it num weights = num clusters
 	local mode=$1				#1=MMRE, 2=Pred(30), 3=MedMRE	
 	local save="/home/greg/svns/wisp/var/greg/china/data/"				#Where to save reports
 
 	echo "Generating clusters"
 	cd $Tmp
 	kmeansOut $d $clusters $atts > clusters.txt
+	#cp clustersFixed.txt clusters.txt
 
 	echo ""
 	echo "Training weights"
@@ -22,6 +23,8 @@ exp1(){
 			rm test.lisp test.arff train.lisp train.arff
 			makeTrainAndTest overset.arff $bins 10
 			cat train.arff | logArff 0.00001 > trainL.arff
+			rm test.lisp test.arff train.lisp train.arff
+			makeTrainAndTest $d $bins 10
 			cat test.arff | logArff 0.00001 > testL.arff
 			linearRegression trainL.arff testL.arff 1.0E-8 | gotwant > results.csv
 			calcScoresWeights results.csv $mode weightdata.csv $r > weightdatatemp.csv
@@ -34,13 +37,15 @@ exp1(){
 
 	echo ""
 	echo "10x10 cross-val: Oversampled"
-	[ -f $save/oversampled_$mode.csv ] && mv oversampled_$mode.csv old_oversampled_$mode.csv
+	[ -f $save/oversampled_$mode.csv ] && mv $save/oversampled_$mode.csv $save/old_oversampled_$mode.csv
 	buildOverSet $d clusters.txt $clusters $weights weightdata.csv > oversetFinal.arff
 	for((run=1;run<=$repeats2;run++)); do
 		for((bin=1;bin<=$bins;bin++)); do
 			rm test.lisp test.arff train.lisp train.arff
 			makeTrainAndTest oversetFinal.arff $bins $bin
 			cat train.arff | logArff 0.00001 > trainL.arff
+			rm test.lisp test.arff train.lisp train.arff
+			makeTrainAndTest $d $bins $bin
 			cat test.arff | logArff 0.00001 > testL.arff
 			linearRegression trainL.arff testL.arff 1.0E-8 | gotwant > results.csv		
 			calcScores results.csv $mode >> $save/oversampled_$mode.csv
@@ -57,7 +62,7 @@ exp1(){
 
 	echo ""
 	echo "10x10 cross-val: Original"
-	[ -f $save/original_$mode.csv ] && mv original_$mode.csv original_$mode_old.csv
+	[ -f $save/original_$mode.csv ] && mv $save/original_$mode.csv $save/original_$mode_old.csv
 	for((run=1;run<=$repeats2;run++)); do
 		for((bin=1;bin<=$bins;bin++)); do
 			rm test.lisp test.arff train.lisp train.arff
@@ -84,11 +89,124 @@ exp1(){
 
 exp2(){
 	local mode=$1
-	local repeats="1 2 3 4 5 6 7 8 9 10"
+	local repeats="1 2 3 4 5 6 7 8 9"
 	
 	for r in $repeats; do
 		exp1 $mode
 	done
+}
+
+exp3(){
+	local d="$Data/effest/nasa93Precise.arff"	#data set
+	local bins=3				#Number of bins to divide data into, for cross-val or train/test splitting
+	local repeats1=100			#Repeats for each learning cycle when determining weights
+	local repeats2=10			#For 10x10 crossval
+	local clusters=4			#Number of clusters to divide data into
+	local atts="1-24" 			#Setting for the clusterer, number of attributes in data set
+	local weights="-1,-1,-1,-1"		#Initial weight vector, make sure it num weights = num clusters
+	local mode=$1				#1=MMRE, 2=Pred(30), 3=MedMRE	
+	local save=$Tmp				#Where to save reports
+
+	echo "Generating clusters"
+	cd $Tmp
+	cp n93clustersFixed12345.txt clusters.txt
+
+	echo ""
+	echo "Training weights"
+	for((k=1;k<=$clusters;k++)); do
+		[ -f weightdata.csv ] && rm weightdata.csv 
+		for((r=1;r<=$repeats1;r++)); do
+			buildOverSet $Data/effest/nasa93c12345.arff clusters.txt $clusters $weights weightdata.csv > overset.arff
+			rm test.lisp test.arff train.lisp train.arff
+			makeTrainAndTest overset.arff $bins 3
+			cat train.arff | logArff 0.00001 > trainL.arff
+			rm test.lisp test.arff train.lisp train.arff
+			makeTrainAndTest $Data/effest/nasa93c6.arff $bins 3
+			cat test.arff | logArff 0.00001 > testL.arff
+			linearRegression trainL.arff testL.arff 1.0E-8 | gotwant > results.csv
+			calcScoresWeights results.csv $mode weightdata.csv $r > weightdatatemp.csv
+			mv weightdatatemp.csv weightdata.csv
+		done
+		classifyForBORE weightdata.csv $clusters $weights $mode > weightdataClass.csv
+		weights=`bore weightdataClass.csv "^best$" | tail -1 | getBest $weights $clusters`
+		echo $weights
+	done
+
+	echo ""
+	echo "10x3 cross-val: cross/filtered"
+	[ -f $save/oversampled_$mode.csv ] && mv $save/oversampled_$mode.csv $save/old_oversampled_$mode.csv
+	buildOverSet $Data/effest/nasa93c12345.arff clusters.txt $clusters $weights weightdata.csv > oversetFinal.arff
+	for((run=1;run<=$repeats2;run++)); do
+		for((bin=1;bin<=$bins;bin++)); do
+			rm test.lisp test.arff train.lisp train.arff
+			makeTrainAndTest oversetFinal.arff $bins $bin
+			cat train.arff | logArff 0.00001 > trainL.arff
+			rm test.lisp test.arff train.lisp train.arff
+			makeTrainAndTest $Data/effest/nasa93c6.arff $bins $bin
+			cat test.arff | logArff 0.00001 > testL.arff
+			linearRegression trainL.arff testL.arff 1.0E-8 | gotwant > results.csv		
+			calcScores results.csv $mode >> $save/oversampled_$mode.csv
+			#calcScores results.csv 4 >> $save/oversampled_mres.csv
+		done
+	done
+	echo "Median Score:"
+	cat $save/oversampled_$mode.csv | median
+	if [ $mode = 1 ] || [ $mode = 3 ]; then
+		cat $save/oversampled_$mode.csv | normalize | awk 'BEGIN{} {print $1*100}' - | quartile
+	else
+		cat $save/oversampled_$mode.csv | awk 'BEGIN{} {print $1*100}' - | quartile
+	fi
+
+
+	echo ""
+	echo "10x3 cross-val: cross/unfiltered"
+	[ -f $save/unfiltered_$mode.csv ] && mv $save/unfiltered_$mode.csv $save/old_unfiltered_$mode.csv
+	for((run=1;run<=$repeats2;run++)); do
+		for((bin=1;bin<=$bins;bin++)); do
+			rm test.lisp test.arff train.lisp train.arff
+			makeTrainAndTest $Data/effest/nasa93c12345.arff $bins $bin
+			cat train.arff | logArff 0.00001 > trainL.arff
+			rm test.lisp test.arff train.lisp train.arff
+			makeTrainAndTest $Data/effest/nasa93c6.arff $bins $bin
+			cat test.arff | logArff 0.00001 > testL.arff
+			linearRegression trainL.arff testL.arff 1.0E-8 | gotwant > results.csv		
+			calcScores results.csv $mode >> $save/unfiltered_$mode.csv
+			#calcScores results.csv 4 >> $save/unfiltered_mres.csv
+		done
+	done
+	echo "Median Score:"
+	cat $save/unfiltered_$mode.csv | median
+	if [ $mode = 1 ] || [ $mode = 3 ]; then
+		cat $save/unfiltered_$mode.csv | normalize | awk 'BEGIN{} {print $1*100}' - | quartile
+	else
+		cat $save/unfiltered_$mode.csv | awk 'BEGIN{} {print $1*100}' - | quartile
+	fi
+
+	echo ""
+	echo "10x3 cross-val: Original"
+	[ -f $save/original_$mode.csv ] && mv $save/original_$mode.csv $save/original_$mode_old.csv
+	for((run=1;run<=$repeats2;run++)); do
+		for((bin=1;bin<=$bins;bin++)); do
+			rm test.lisp test.arff train.lisp train.arff
+			makeTrainAndTest $Data/effest/nasa93c6.arff $bins $bin
+			cat train.arff | logArff 0.00001 > trainL.arff
+			cat test.arff | logArff 0.00001 > testL.arff
+			linearRegression trainL.arff testL.arff 1.0E-8 | gotwant > results.csv		
+			calcScores results.csv $mode >> $save/original_$mode.csv
+			#calcScores results.csv 4 >> $save/original_mres.csv
+
+		done
+	done
+	echo "Median Score:"
+	cat $save/original_$mode.csv | median
+	if [ $mode = 1 ] || [ $mode = 3 ]; then
+		cat $save/original_$mode.csv | normalize | awk 'BEGIN{} {print $1*100}' - | quartile
+	else
+		cat $save/original_$mode.csv | awk 'BEGIN{} {print $1*100}' - | quartile
+	fi
+
+	echo $d",oversampled,"`cat $save/oversampled_$mode.csv | median`
+	echo $d",original,"`cat $save/original_$mode.csv | median`
 }
 
 #Generates new weight vector, fixing one additional weight

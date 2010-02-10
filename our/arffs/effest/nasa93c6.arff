@@ -1,0 +1,55 @@
+
+@relation cocomonasa_2
+
+% Unique id
+@attribute recordnumber real
+			     % NOT continguous since the records shown
+			     % below are a subset of another NASA
+			     % database.
+
+%project name
+@attribute projectname {de,erb,gal,X,hst,slp,spl,Y}  
+
+%cagetory of application
+@attribute cat2 {Avionics, application_ground, avionicsmonitoring, batchdataprocessing, communications, datacapture, launchprocessing, missionplanning, monitor_control, operatingsystem, realdataprocessing, science, simulation, utility}
+
+% flight or ground system?
+@attribute forg {f,g}
+
+%which nasa center?
+@attribute center {1,2,3,4,5,6}
+
+%year of development
+@attribute year real
+
+%development mode
+@attribute mode {embedded,organic,semidetached}
+
+%cocomo attributes: described above in section 4
+@attribute rely real
+@attribute data real
+@attribute cplx real
+@attribute time real
+@attribute stor real
+@attribute virt real
+@attribute turn real
+@attribute acap real
+@attribute aexp real
+@attribute pcap real
+@attribute vexp real
+@attribute lexp real
+@attribute modp real
+@attribute tool real
+@attribute sced real
+
+%equivalent physical 1000 lines of source code
+@attribute equivphyskloc real
+
+%development effort in months (one month =152 hours and includes development and management hours)
+@attribute act_effort real
+
+@data
+42,slp,launchprocessing,g,6,1975,semidetached,1.15,0.94,1.15,1,1,0.87,0.87,1,1,0.86,1,1,0.91,1.24,1,302,2400
+59,slp,operatingsystem,g,6,1974,semidetached,1.4,0.94,1.65,1.66,1.21,0.87,0.87,0.86,0.82,0.86,1.21,0.95,1.24,1.24,1.04,980,4560
+60,slp,operatingsystem,g,6,1975,embedded,1,0.94,1.15,1,1,0.87,0.87,0.71,1,0.7,0.9,0.95,1,1.1,1,350,720
+
