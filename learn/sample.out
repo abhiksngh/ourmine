@@ -1,0 +1,68 @@
+; ../data/weather-nominal.lisp
+
+    outlook  temp        humidity windy play
+    sunny    hot         high     FALSE no
+    sunny    hot         high     TRUE  no
+    overcast hot         high     FALSE yes
+    rainy    mild        high     FALSE yes
+    rainy    cool        normal   FALSE yes
+    rainy    cool        normal   TRUE  no
+    overcast cool        normal   TRUE  yes
+    sunny    mild        high     FALSE no
+    sunny    cool        normal   FALSE yes
+    rainy    mild        normal   FALSE yes
+    sunny    mild        normal   TRUE  yes
+    overcast mild        high     TRUE  yes
+    overcast hot         normal   FALSE yes
+    rainy    mild        high     TRUE  no
+
+; SLIME 2008-02-23
+CL-USER> (load "main")
+; ../lib/deftest
+; ../lib/os
+; ../lib/macros
+; ../lib/strings
+; ../lib/hash
+; structs
+; worker
+T
+CL-USER> (showh (data-counts (file->data 
+	                "../data/weather-nominal.dat")))
+
+H: ((NO 0 FALSE) . 2) 
+H: ((NO 0 TRUE) . 3) 
+H: ((NO 1 HIGH) . 4) 
+H: ((NO 1 NORMAL) . 1) 
+H: ((NO 2 COOL) . 1) 
+H: ((NO 2 HOT) . 2) 
+H: ((NO 2 MILD) . 2) 
+H: ((NO 3 RAINY) . 2) 
+H: ((NO 3 SUNNY) . 3) 
+H: ((YES 0 FALSE) . 6) 
+H: ((YES 0 TRUE) . 3) 
+H: ((YES 1 HIGH) . 3) 
+H: ((YES 1 NORMAL) . 6) 
+H: ((YES 2 COOL) . 3) 
+H: ((YES 2 HOT) . 2) 
+H: ((YES 2 MILD) . 4) 
+H: ((YES 3 OVERCAST) . 4) 
+H: ((YES 3 RAINY) . 3) 
+H: ((YES 3 SUNNY) . 2) 
+T
+CL-USER> (bore "../data/weather-nominal.dat")
+
+
+------
+YES
+
+((100 HUMIDITY NORMAL) (85 WINDY FALSE) (74 OUTLOOK OVERCAST)
+ (43 TEMP MILD) (33 TEMP COOL) (23 OUTLOOK RAINY) (16 WINDY TRUE)
+ (11 HUMIDITY HIGH) (5 TEMP HOT) (0 OUTLOOK SUNNY)) 
+
+------
+NO
+
+((100 HUMIDITY HIGH) (77 OUTLOOK SUNNY) (63 WINDY TRUE) (40 TEMP HOT)
+ (31 OUTLOOK RAINY) (24 TEMP MILD) (17 WINDY FALSE) (5 TEMP COOL)
+ (0 HUMIDITY NORMAL)) NIL
+CL-USER> 

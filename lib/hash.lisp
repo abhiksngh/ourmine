@@ -6,6 +6,13 @@
     (dolist (one (sort all #'lt :key #'first) t)
       (format str "~a: ~a ~%" prefix one))))
 
+(defmacro defcache (name (key) &body body)
+  `(let ((cache (make-hash-table :test #'equal)))
+     (defun ,name (,key)
+       (or (gethash ,key cache)
+	   (setf (gethash ,key cache) 
+		 (progn ,@body))))))
+
 (defun hash->keys (h)
   (let (out)
     (dohash (k v h out)
