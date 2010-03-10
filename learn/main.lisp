@@ -7,7 +7,8 @@
   (make-lib)
   (loads	
    "structs"
-   "worker"
+   "reader"
+   "bore"
    ))
 
 (make)

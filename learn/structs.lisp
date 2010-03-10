@@ -3,7 +3,7 @@
   (missing '?)
   rows 
   (counts  (make-hash-table :test 'equal))
-  (classes (make-hash-table))
+  classes
 )
 
 (defun data-print (d s k)
@@ -11,3 +11,5 @@
   (format s "#S~a" 
           `(data  classes ,(data-classes d))))
 
+
+(defstruct row   cells class)
