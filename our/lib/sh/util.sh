@@ -25,6 +25,9 @@ superSample(){
     local numNonTargetInstances=`cat $cleaned | grep $nonTargetClass | wc -l`
 
     rm -rf $outFile
+    
+    #add attributes to the new file
+    cat $file | grep @ > $outFile
 
     for((i=1;i<=$numNonTargetInstances;i++)); do
 	
@@ -59,6 +62,9 @@ subSample(){
     local numTargetInstances=`cat $cleaned | grep $targetClass | wc -l`
 
     rm -rf $outFile
+     
+    #add attributes to the new file
+    cat $file | grep @ > $outFile
 
     for((i=1;i<=$numTargetInstances;i++)); do
 	
