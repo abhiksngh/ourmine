@@ -19,6 +19,7 @@ superSample(){
     local outFile=~/tmp/super
     
     local cleaned=~/tmp/cleaned
+    local targetFile=~/tmp/targetFile
     cat $file | grep -v @ | grep -v % > $cleaned
 
     local numNonTargetInstances=`cat $cleaned | grep $nonTargetClass | wc -l`
