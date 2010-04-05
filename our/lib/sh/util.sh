@@ -60,7 +60,7 @@ subSample(){
 	
     done
     
-    #now add back the non target modules    
+    #now add back the target modules    
     cat $cleaned | grep $targetClass >> $outFile
     
     cat $outFile
