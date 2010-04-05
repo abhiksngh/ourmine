@@ -27,9 +27,14 @@ superSample(){
 
     for((i=1;i<=$numNonTargetInstances;i++)); do
 	
-	cat $cleaned | grep $targetClass | 
-	awk -v Seed=$RANDOM --source 'BEGIN{srand(Seed); num=int(rand() * 10) + 1}; NR==num' >> $outFile
-	
+	#defective
+	cat $cleaned | grep $targetClass > $targetFile
+	defnum=`cat $targetFile | wc -l`
+
+	#pick random value within range of the file size
+	randline=$(($RANDOM % $defnum))
+	sed -n $randline"p" $targetFile >> $outFile
+
     done
     
     #now add back the non target modules    
@@ -47,6 +52,7 @@ subSample(){
     local outFile=~/tmp/sub
     
     local cleaned=~/tmp/cleaned
+    local nonTargetFile=~/tmp/nonTargetFile
     cat $file | grep -v @ | grep -v % > $cleaned
 
     local numTargetInstances=`cat $cleaned | grep $targetClass | wc -l`
@@ -55,8 +61,13 @@ subSample(){
 
     for((i=1;i<=$numTargetInstances;i++)); do
 	
-	cat $cleaned | grep $nonTargetClass | 
-	awk -v Seed=$RANDOM --source 'BEGIN{srand(Seed); num=int(rand() * 10) + 1}; NR==num' >> $outFile
+	#nondefective
+	cat $cleaned | grep $nonTargetClass > $nonTargetFile
+	nondefnum=`cat $nonTargetFile | wc -l`
+
+	#pick random value within range of the file size
+	randline=$(($RANDOM % $nondefnum))
+	sed -n $randline"p" $nonTargetFile >> $outFile   
 	
     done
     
@@ -75,28 +86,40 @@ microSample(){
 
     local outFile=~/tmp/sub    
     local cleaned=~/tmp/cleaned
+    local targetFile=~/tmp/targetFile
+    local nonTargetFile=~/tmp/nonTargetFile
 
     cat $file | grep -v @ | grep -v % > $cleaned
 
 
     rm -rf $outFile
 
+    #add attributes to the new file
+    cat $file | grep @ > $outFile
+
+    
     for((i=1;i<=$numTargetInstances;i++)); do
 	
         #defective
-	cat $cleaned | grep $targetClass | 
-	awk -v Seed=$RANDOM --source 'BEGIN{srand(Seed); num=int(rand() * 10) + 1}; NR==num' >> $outFile
-	    
+	cat $cleaned | grep $targetClass > $targetFile
+	defnum=`cat $targetFile | wc -l`
+
+	#pick random value within range of the file size
+	randline=$(($RANDOM % $defnum))
+	sed -n $randline"p" $targetFile >> $outFile
+
 	#nondefective
-	cat $cleaned | grep $nonTargetClass |
-	awk -v Seed=$RANDOM --source 'BEGIN{srand(Seed); num=int(rand() * 10) + 1}; NR==num' >> $outFile
-	
+	cat $cleaned | grep $nonTargetClass > $nonTargetFile
+	nondefnum=`cat $nonTargetFile | wc -l`
+
+	#pick random value within range of the file size
+	randline=$(($RANDOM % $nondefnum))
+	sed -n $randline"p" $nonTargetFile >> $outFile      
     done
     
     cat $outFile
 
 }
-
 
 buildSetTable(){
     local dir=$1
