@@ -67,6 +67,36 @@ subSample(){
 
 }
 
+microSample(){
+    local file=$1
+    local targetClass=$2
+    local nonTargetClass=$3
+    local numTargetInstances=$4
+
+    local outFile=~/tmp/sub    
+    local cleaned=~/tmp/cleaned
+
+    cat $file | grep -v @ | grep -v % > $cleaned
+
+
+    rm -rf $outFile
+
+    for((i=1;i<=$numTargetInstances;i++)); do
+	
+        #defective
+	cat $cleaned | grep $targetClass | 
+	awk -v Seed=$RANDOM --source 'BEGIN{srand(Seed); num=int(rand() * 10) + 1}; NR==num' >> $outFile
+	    
+	#nondefective
+	cat $cleaned | grep $nonTargetClass |
+	awk -v Seed=$RANDOM --source 'BEGIN{srand(Seed); num=int(rand() * 10) + 1}; NR==num' >> $outFile
+	
+    done
+    
+    cat $outFile
+
+}
+
 
 buildSetTable(){
     local dir=$1
