@@ -11,6 +11,63 @@ show() {
    	fi
 }
 
+superSample(){
+
+    local file=$1
+    local targetClass=$2
+    local nonTargetClass=$3
+    local outFile=~/tmp/super
+    
+    local cleaned=~/tmp/cleaned
+    cat $file | grep -v @ | grep -v % > $cleaned
+
+    local numNonTargetInstances=`cat $cleaned | grep $nonTargetClass | wc -l`
+
+    rm -rf $outFile
+
+    for((i=1;i<=$numNonTargetInstances;i++)); do
+	
+	cat $cleaned | grep $targetClass | 
+	awk -v Seed=$RANDOM --source 'BEGIN{srand(Seed); num=int(rand() * 10) + 1}; NR==num' >> $outFile
+	
+    done
+    
+    #now add back the non target modules    
+    cat $cleaned | grep $nonTargetClass >> $outFile
+    
+    cat $outFile
+
+}
+
+subSample(){
+
+    local file=$1
+    local targetClass=$2
+    local nonTargetClass=$3
+    local outFile=~/tmp/sub
+    
+    local cleaned=~/tmp/cleaned
+    cat $file | grep -v @ | grep -v % > $cleaned
+
+    local numTargetInstances=`cat $cleaned | grep $targetClass | wc -l`
+
+    rm -rf $outFile
+
+    for((i=1;i<=$numTargetInstances;i++)); do
+	
+	cat $cleaned | grep $nonTargetClass | 
+	awk -v Seed=$RANDOM --source 'BEGIN{srand(Seed); num=int(rand() * 10) + 1}; NR==num' >> $outFile
+	
+    done
+    
+    #now add back the non target modules    
+    cat $cleaned | grep $targetClass >> $outFile
+    
+    cat $outFile
+
+}
+
+
 buildSetTable(){
     local dir=$1
     local intersect
