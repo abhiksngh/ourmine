@@ -11,6 +11,30 @@ show() {
    	fi
 }
 
+selectRandomInstances(){
+    local file=$1
+    local numInstances=$2
+    local outFile=~/tmp/random
+    local cleaned=~/tmp/cleaned
+
+    cat $file | grep -v @ | grep -v % > $cleaned
+
+    rm -rf $outFile
+
+    #add attributes to the new file
+    cat $file | grep @ > $outFile
+
+    for((i=1;i<=$numInstances;i++)); do
+
+	max=`cat $cleaned | wc -l`
+	randline=$(($RANDOM % $max))
+	sed -n $randline"p" $cleaned >> $outFile
+	
+    done
+
+    cat $outFile
+}
+
 superSample(){
 
     local file=$1
