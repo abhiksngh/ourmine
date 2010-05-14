@@ -17,7 +17,7 @@ selectRandomInstances(){
     local outFile=~/tmp/random
     local cleaned=~/tmp/cleaned
 
-    cat $file | grep -v @ | grep -v % > $cleaned
+    cat $file | grep -v @ | grep -v % | grep -v "^$" > $cleaned
 
     rm -rf $outFile
 
@@ -52,15 +52,14 @@ superSample(){
     
     #add attributes to the new file
     cat $file | grep @ > $outFile
+   	cat $cleaned | grep $targetClass > $targetFile
+   	defnum=`cat $targetFile | wc -l`
+
 
     for((i=1;i<=$numNonTargetInstances;i++)); do
-	
-	#defective
-	cat $cleaned | grep $targetClass > $targetFile
-	defnum=`cat $targetFile | wc -l`
 
 	#pick random value within range of the file size
-	randline=$(($RANDOM % $defnum))
+	randline=$(($RANDOM % $defnum + 1))
 	sed -n $randline"p" $targetFile >> $outFile
 
     done
@@ -89,15 +88,13 @@ subSample(){
      
     #add attributes to the new file
     cat $file | grep @ > $outFile
-
-    for((i=1;i<=$numTargetInstances;i++)); do
-	
-	#nondefective
-	cat $cleaned | grep $nonTargetClass > $nonTargetFile
+    cat $cleaned | grep $nonTargetClass > $nonTargetFile
 	nondefnum=`cat $nonTargetFile | wc -l`
 
+    for((i=1;i<=$numTargetInstances;i++)); do
+		
 	#pick random value within range of the file size
-	randline=$(($RANDOM % $nondefnum))
+	randline=$(($RANDOM % $nondefnum + 1))
 	sed -n $randline"p" $nonTargetFile >> $outFile   
 	
     done
