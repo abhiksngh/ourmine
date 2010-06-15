@@ -1,1 +1,0 @@
-pgawk --dump-variables -f ranked.awk --source 'BEGIN {mwuTests()}'
