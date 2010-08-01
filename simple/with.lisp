@@ -1,9 +1,3 @@
-;;;; boot
-(defun make () 
-  (handler-bind 
-      ((style-warning #'muffle-warning))
-    (load "with.lisp")))
-
 ;;;; macros
 (defmacro o (&rest l) 
   (let ((last (gensym))) 
