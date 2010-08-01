@@ -1,13 +1,10 @@
 ;;;; config
-(defmacro ssh (&body body)
-  `(handler-bind ((style-warning #'muffle-warning)) ,@body))
+(defmacro quietly (fn l)
+  `(handler-bind 
+       ((style-warning #'muffle-warning)) 
+     (mapcar ,fn ,l)))
 
-(defun make0 (&rest l)
-  (ssh (dolist (x l nil) 
-	 (format t "~&;;;; loading ~a ~%" x) 
-	 (load x))))
-
-(defun make () 
-  (make0 "with.lisp"))
+(defun make0 (x) (format t "~&; [~a] ~%" x) (load x))
+(defun make  ()  (quietly #'make0 '("with.lisp")))
 
 (make)
