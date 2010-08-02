@@ -5,9 +5,10 @@
 ; leave one-out
 
 (defun randomize ()
-  (dolist (row (wrows))
-    (jiggle-the-sortkey row))
-  (sort-rows))
+  (when (thetable)
+    (dolist (row (therows))
+      (jiggle-the-sortkey row))
+    (sort-rows)))
 
 (defun jiggle-the-sortkey (row)
   "for stuff with numeric classes, the sortkey must be selected
@@ -17,10 +18,21 @@
 	(+ (randf 0.49)
 	   (round (row-sortkey row)))))
 
-;(defun traintest (source bin &optional (bins 10))
- ; (let ((start bin))
-  ;  (doitems (row pos (wrows)
-
+; clone the table
+; all the trains go into the table
+; start from a certain offset
+(defun traintest (&optional (bins 4))
+  (let ((start bins) (tmp bins) train test)
+    (doitems (row pos (therows))
+       (if (> pos start)
+	   (cond  ((zerop (decf tmp)) (setf tmp bins)
+                                      (push row test))
+		  (t                  (push row train)))
+	   (if (eql pos bins)
+	       (push row test)
+	       (push row train))))
+    (values train test)))	      
+	   
 (defun clone-table (tbl)
   (make-table :name (table-name tbl)
 	      :cols (mapcar #'clone-col (table-cols tbl))))
