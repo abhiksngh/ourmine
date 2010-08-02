@@ -11,13 +11,13 @@
 
 ;;;; main
 ;;; reader
-(defun data (&optional f reader)
+(defun data (&optional f)
   (reset-seed)
   (w0) 
-  (if reader 
-      (setf (wme-! *w*) reader))
-  (load (or f (wfile))) 
+  (load (or f (thefile))) 
   (funcall (wme-ready *w*))
+  (funcall (wme-run *w*))
+  (funcall (wme-report *w*))
 )
 
 (defmacro deftable (name &rest cols)
@@ -31,111 +31,112 @@
       (make-sym :name col :goalp (goalp col))))
 
 (defun sort-rows () 
-  (setf (wrows) (sort (wrows) #'< :key #'row-sortkey)))
+  (setf (therows) (sort (therows) #'< :key #'row-sortkey)))
 
 (defun defklass (class)
-  (unless (member class (wklasses) :key #'klass-name)
-    (setf (wklasses)
-	  (appendl (wklasses) (make-klass :name class)))))
+  (let ((k (first (member class (theklasses) :key #'klass-name))))
+    (unless k
+      (setf (theklasses)
+	    (appendl (theklasses) (setf k (make-klass :name class)))))
+    k))
 
 (defun defrow (l &aux (class (car (goals-in-list l))))
-  (defklass class)
+  (incf (klass-n (defklass class)))
   (push (make-row :cells   l 
 		  :class   class
-		  :utility (funcall (wu) class)
-		  :sortkey  (+ (randf 0.5) 
-			       (position class (wklasses) 
+		  :utility (funcall (theu) class)
+		  :sortkey  (+ (randf 0.49) 
+			       (position class (theklasses) 
 					 :key #'klass-name)))
-	(wrows)))
+	(therows)))
 
-(defun goals-in-list (l)   (mapcan #'1goal-in-list l (wcols)))
+(defun goals-in-list (l)   (mapcan #'1goal-in-list l (thecols)))
 (defun 1goal-in-list (x c) (and (col-goalp c) (knownp x) (list x)))   
-
 
 ;;;; testss
 
-(deftest !data () 
+(deftest !data ()
   (data) 
-  (test (wtable)
-" #S(TABLE
+  (test (thetable)
+"#S(TABLE
                      :NAME WEATHER
                      :ROWS (#S(ROW
                                :CELLS (SUNNY MILD HIGH FALSE NO)
                                :CLASS NO
                                :UTILITY 0
-                               :SORTKEY 0.263794998761171d0)
+                               :SORTKEY 0.2585191038174379d0)
                             #S(ROW
                                :CELLS (RAINY COOL NORMAL TRUE NO)
                                :CLASS NO
                                :UTILITY 0
-                               :SORTKEY 0.2808336484156706d0)
+                               :SORTKEY 0.27521698080383394d0)
                             #S(ROW
                                :CELLS (RAINY MILD HIGH TRUE NO)
                                :CLASS NO
                                :UTILITY 0
-                               :SORTKEY 0.4147286442642699d0)
+                               :SORTKEY 0.40643407928930564d0)
                             #S(ROW
                                :CELLS (SUNNY HOT HIGH TRUE NO)
                                :CLASS NO
                                :UTILITY 0
-                               :SORTKEY 0.45606366123820824d0)
+                               :SORTKEY 0.44694239671216807d0)
                             #S(ROW
                                :CELLS (SUNNY HOT HIGH FALSE NO)
                                :CLASS NO
                                :UTILITY 0
-                               :SORTKEY 0.4608172823026857d0)
+                               :SORTKEY 0.45160094544602414d0)
                             #S(ROW
                                :CELLS (OVERCAST MILD HIGH TRUE YES)
                                :CLASS YES
                                :UTILITY 0
-                               :SORTKEY 1.0419332417854728d0)
+                               :SORTKEY 1.0410945777495766d0)
                             #S(ROW
                                :CELLS (OVERCAST HOT HIGH FALSE YES)
                                :CLASS YES
                                :UTILITY 0
-                               :SORTKEY 1.0619544305661481d0)
+                               :SORTKEY 1.0607153431365122d0)
                             #S(ROW
                                :CELLS (SUNNY COOL NORMAL FALSE YES)
                                :CLASS YES
                                :UTILITY 0
-                               :SORTKEY 1.1025441790011452d0)
+                               :SORTKEY 1.1004932973769972d0)
                             #S(ROW
                                :CELLS (RAINY COOL NORMAL FALSE YES)
                                :CLASS YES
                                :UTILITY 0
-                               :SORTKEY 1.200825895974797d0)
+                               :SORTKEY 1.1968093818857513d0)
                             #S(ROW
                                :CELLS (RAINY MILD HIGH FALSE YES)
                                :CLASS YES
                                :UTILITY 0
-                               :SORTKEY 1.2681145252511439d0)
+                               :SORTKEY 1.2627522398599997d0)
                             #S(ROW
                                :CELLS (OVERCAST HOT NORMAL FALSE YES)
                                :CLASS YES
                                :UTILITY 0
-                               :SORTKEY 1.2719946884419744d0)
+                               :SORTKEY 1.266554799861022d0)
                             #S(ROW
                                :CELLS (RAINY MILD NORMAL FALSE YES)
                                :CLASS YES
                                :UTILITY 0
-                               :SORTKEY 1.4600164722465054d0)
+                               :SORTKEY 1.4508161515756934d0)
                             #S(ROW
                                :CELLS (OVERCAST COOL NORMAL TRUE YES)
                                :CLASS YES
                                :UTILITY 0
-                               :SORTKEY 1.4711289221752104d0)
+                               :SORTKEY 1.4617063527177772d0)
                             #S(ROW
                                :CELLS (SUNNY MILD NORMAL TRUE YES)
                                :CLASS YES
                                :UTILITY 0
-                               :SORTKEY 1.4968490470186104d0))
-                     :KLASSES (#S(KLASS :NAME NO :N 0 :A 0 :B 0 :C 0 :D 0)
+                               :SORTKEY 1.4869120755548817d0))
+                     :KLASSES (#S(KLASS :NAME NO :N 5 :A 0 :B 0 :C 0 :D 0)
                                #S(KLASS
                                   :NAME YES
-                                  :N 0
+                                  :N 9
                                   :A 0
                                   :B 0
-                                  :C 0
+                                  :C 0 
                                   :D 0))
                      :COLS (#S(SYM
                                :NAME FORECAST
