@@ -18,6 +18,7 @@
 (make nil
       "deftest.lisp"
       "lib.lisp"
+      "bestof.lisp"
       "macros.lisp"
       "structs.lisp"
       "random.lisp"
