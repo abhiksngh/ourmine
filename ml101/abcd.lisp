@@ -19,21 +19,13 @@
 	(setf (gethash name results)
 	      (make-result :target name))))))
     
-(defun results-add (klasses results got want)
-  (dolist (goal1 klasses)
-    (with-slot (a b c d) (gethash goal1 results)
-      (dolist (goal2 klasses)
-	(if (eql goal1 goal2) 
-	  (if (eql want got)
-	      (incf a)
-	      
-      (let ((it (if (eql klass2 klass1)   
-	  
-
-	  
-	  (if (eql got want)
-	      (incf (result-d (gethash klass2 results)))
-	      (incf (result-b (gethash klass2 results))))
-	  (if (eql got want)
-	      (incf (result-c (gethash klass2 results)))
-		(incf (result-a (gethash klass2 results))))))))
+(defun results-add (results actual predicted)
+  (dohash (target result results results)
+    (with-slots (a b c d) result
+      (if (eql actual target)
+	  (if (eql predicted actual)
+	      (incf d)
+	      (incf b))
+	  (if (eql predicted target)
+	      (incf c)
+	      (incf  a))))))
