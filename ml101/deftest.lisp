@@ -8,9 +8,10 @@
       (fail 0))
   (defun test (want got)
     (labels  
-	((white    (c)   (member c '(#\Space #\Tab #\Newline
+	((white    (c)   (member c '(#\# #\\ #\Space #\Tab #\Newline
 				     #\Linefeed #\Return #\Page) :test #'char=))
-	 (whiteout (s)   (remove-if #'white s))
+	 (whiteout (s)   ;(print (remove-if #'white s))
+		         (remove-if #'white s))
 	 (samep    (x y) (string= (whiteout (format nil "~(~a~)" x))
 				  (whiteout (format nil "~(~a~)" y)))))
       (cond ((samep want got) (incf pass))

@@ -6,7 +6,7 @@
 
 (defun bestof (l > key result max out)
   (if (null l)
-      (values max out)
+      (values out max)
       (let* ((head (first l))
 	     (max1 (funcall key head)))
 	(if (funcall > max1 max)

@@ -18,6 +18,7 @@
 (make nil
       "deftest.lisp"
       "lib.lisp"
+      "hash.lisp"
       "bestof.lisp"
       "macros.lisp"
       "structs.lisp"
@@ -25,4 +26,5 @@
       "profile.lisp"
       "data.lisp"
       "experiment.lisp"
+      "abcd.lisp"
       "zeror.lisp")

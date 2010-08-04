@@ -10,8 +10,8 @@
 (defmacro theklasses (&optional tbl) `(table-klasses (or ,tbl (wme-table *w*))))
 
 ;;;; structs
-(defstruct results  target (a 0) (b 0) (c 0) (d 0) acc pf prec pd f acc details)
-(defstruct table name rows klasses cols)
+(defstruct result  target (a 0) (b 0) (c 0) (d 0) acc pf prec pd f details)
+(defstruct table name rows klasses cols results)
 (defstruct row   cells class utility sortkey)
 (defstruct col   name goalp)
 (defstruct klass name (n 0))
@@ -33,3 +33,13 @@
 ;;;; globals
 (defparameter *w* nil)
 (defun w0 () (setf *w* (make-wme)))
+
+
+;;; utils
+
+(defun klass.majority (tbl)
+  "return the symbol of the largest class"
+  (maxof (table-klasses tbl) :key #'klass-n :result #'klass-name))
+
+(defun klass.all (tbl &aux out)
+  (mapcar #'klass-name (table-klasses tbl)))
