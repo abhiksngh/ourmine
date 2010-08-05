@@ -135,4 +135,5 @@
           #S(SYM :NAME TEMP :GOALP NIL :COUNTS {hash of 0 items})
           #S(SYM :NAME HUMIDTY :GOALP NIL :COUNTS {hash of 0 items})
           #S(SYM :NAME WINDY :GOALP NIL :COUNTS {hash of 0 items})
-          #S(SYM :NAME !PLAY :GOALP #\! :COUNTS {hash of 0 items})))"))
+          #S(SYM :NAME !PLAY :GOALP #\! :COUNTS {hash of 0 items}))
+   :RESULTS NIL)"))

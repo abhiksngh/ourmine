@@ -6,7 +6,7 @@
        ,last))) 
 
 (defmacro oprim (x)  
-  `(progn (format t "[~a]=[~a] " (quote ,x) ,x) ,x)) 
+  `(progn (format t "~&[~a]=[~a] " (quote ,x) ,x) ,x)) 
 
 (defmacro doitems ((one n list &optional out) &body body )
   `(let ((,n -1))

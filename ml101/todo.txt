@@ -1,0 +1,20 @@
+different experiments
+
+20*67% sub-sample
+incremental
+
+different learners: bore
+
+fss: (hint, modify nb)
+  b^2/(b+r)
+  nomograms
+
+profile
+
+
+classify
+add gaussian to bayes
+
+anomaly detection
+- how many instances are deleted by rmoving everything within 90,80,70,...10% of the lowest 
+  log(likelihood)
