@@ -19,7 +19,7 @@
 			      (format t "~&; fail : expected ~a~%" want)))
       got))
   (defun tests ()
-    (labels ((run (x) (format t "~&; ~a~%" x) (funcall x)))
+    (labels ((run (x) (format t "~&;testing  ~a~%" x) (funcall x)))
       (when *tests*
 	(setf fail 0 pass 0)
 	(mapcar #'run (reverse *tests*))

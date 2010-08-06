@@ -8,9 +8,10 @@
 (defmacro oprim (x)  
   `(progn (format t "~&[~a]=[~a] " (quote ,x) ,x) ,x)) 
 
-(defmacro doitems ((one n list &optional out) &body body )
+(Defmacro doitems ((one n list &optional out) &body body )
   `(let ((,n -1))
      (dolist (,one ,list ,out)
        (incf ,n)
        ,@body)))
 
+ 

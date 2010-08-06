@@ -12,12 +12,12 @@
             f    (/ (* 2 prec pd) (+ zip prec pd)))
       result)))
 
-(defun klasses->results (tbl)
+(defun klasses->results (tbl &optional note)
   (let ((results (make-hash-table)))
     (dolist (klass (theklasses tbl) results)
       (let ((name (klass-name klass)))
 	(setf (gethash name results)
-	      (make-result :target name))))))
+	      (make-result :target name :details note))))))
     
 (defun results-add (results actual predicted)
   (dohash (target result results results)

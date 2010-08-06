@@ -1,12 +1,11 @@
 
-(defun zeror (&key f (bins 3) debug )
-  (let (tbl majority results klasses)
+(defun zeror-rig (debug )
+  (let (tbl majority results)
     (labels ((preprocess (tbl0)
 	       (setf tbl (clone-table tbl0)))
 	     (ready ()
-	       (setf klasses  (klass.all tbl)
-		     majority (klass.majority tbl)
-		     results  (klasses->results tbl)))
+	       (setf majority (klass.majority tbl)
+		     results  (klasses->results tbl 'zeror)))
 	     (train (row i)
 	       (declare (ignore i))
 	       (defrow (row-cells row) tbl))
@@ -20,91 +19,92 @@
 	       (if debug
 		   (terpri debug))
 	       (results-report results)))
-      (data f)
-      (traintest 0
-		 :bins       bins
-		 :preprocess #'preprocess
-		 :train      #'train
-		 :ready      #'ready
-		 :tester     #'classify
-		 :reporter   #'reporter))))
+    (make-rig
+       :preprocess #'preprocess
+       :train      #'train
+       :ready      #'ready
+       :tester     #'classify
+       :reporter   #'reporter))))
+
+(defun zeror (&key f (bins 3) debug (xval t))
+  (let (out (learner (zeror-rig debug)))
+    (data f)
+    (if xval
+	(dotimes (bin bins)
+	  (push  (traintest bin :bins   bins :rigs learner) out))
+	(push (traintest 0 :bins bins :rigs learner) out))
+    out))
 
 (deftest !zeror1 ()
+  (reset-seed)
+  (data)
   (test
-   (with-output-to-string (s) 
-     (showh (zeror :debug s) :stream s))
- "(PREDICTION= YES FOR (SUNNY MILD HIGH FALSE NO)) 
-  (PREDICTION= YES FOR (RAINY COOL NORMAL TRUE NO)) 
-  (PREDICTION= YES FOR (RAINY MILD NORMAL FALSE YES)) 
-  (PREDICTION= YES FOR (OVERCAST HOT NORMAL FALSE YES)) 
-  (PREDICTION= YES FOR (OVERCAST MILD HIGH TRUE YES)) 
-  NO = #S(RESULT
+   (with-output-to-string (s)
+     (mapc #'(lambda (rl) (showh (first rl) :stream s))
+	   (zeror :bins 2 :debug s)))
+   "
+(PREDICTION= YES FOR (SUNNY HOT HIGH TRUE NO)) 
+(PREDICTION= YES FOR (SUNNY MILD HIGH FALSE NO)) 
+(PREDICTION= YES FOR (RAINY COOL NORMAL TRUE NO)) 
+(PREDICTION= YES FOR (SUNNY MILD NORMAL TRUE YES)) 
+(PREDICTION= YES FOR (SUNNY COOL NORMAL FALSE YES)) 
+(PREDICTION= YES FOR (OVERCAST HOT HIGH FALSE YES)) 
+(PREDICTION= YES FOR (OVERCAST MILD HIGH TRUE YES)) 
+
+(PREDICTION= YES FOR (RAINY MILD HIGH TRUE NO)) 
+(PREDICTION= YES FOR (SUNNY HOT HIGH FALSE NO)) 
+(PREDICTION= YES FOR (OVERCAST HOT NORMAL FALSE YES)) 
+(PREDICTION= YES FOR (RAINY MILD NORMAL FALSE YES)) 
+(PREDICTION= YES FOR (OVERCAST COOL NORMAL TRUE YES)) 
+(PREDICTION= YES FOR (RAINY COOL NORMAL FALSE YES)) 
+(PREDICTION= YES FOR (RAINY MILD HIGH FALSE YES)) 
+NO = #S(RESULT
         :TARGET NO
-        :A 3
+        :A 5
         :B 2
         :C 0
         :D 0
-        :ACC 0.6
+        :ACC 0.71428573
         :PF 0.0
         :PREC 0.0
         :PD 0.0
         :F 0.0
         :DETAILS NIL)
-  YES = #S(RESULT
+YES = #S(RESULT
          :TARGET YES
          :A 0
          :B 0
          :C 2
-         :D 3
-         :ACC 0.6
+         :D 5
+         :ACC 0.71428573
          :PF 1.0
-         :PREC 0.6
+         :PREC 0.71428573
          :PD 1.0
-         :F 0.75
-         :DETAILS NIL)"))
-
-(deftest !zeror2 ()
-  (test
-   (with-output-to-string (s) 
-     (showh (zeror :f "weather3.lisp" :debug s) :stream s))
-  "(PREDICTION= YES FOR (SUNNY MILD HIGH FALSE SAD)) 
-   (PREDICTION= YES FOR (RAINY COOL NORMAL TRUE SAD)) 
-   (PREDICTION= YES FOR (RAINY COOL NORMAL FALSE NEUTRAL)) 
-   (PREDICTION= YES FOR (OVERCAST HOT NORMAL FALSE YES)) 
-   (PREDICTION= YES FOR (RAINY MILD NORMAL FALSE YES)) 
-   NEUTRAL = #S(RESULT
-             :TARGET NEUTRAL
-             :A 4
-             :B 1
-             :C 0
-             :D 0
-             :ACC 0.8
-             :PF 0.0
-             :PREC 0.0
-             :PD 0.0
-             :F 0.0
-             :DETAILS NIL)
-   SAD = #S(RESULT
-         :TARGET SAD
-         :A 3
-         :B 2
-         :C 0
-         :D 0
-         :ACC 0.6
-         :PF 0.0
-         :PREC 0.0
-         :PD 0.0
-         :F 0.0
+         :F 0.8333334
          :DETAILS NIL)
-   YES = #S(RESULT
+NO = #S(RESULT
+        :TARGET NO
+        :A 4
+        :B 3
+        :C 0
+        :D 0
+        :ACC 0.5714286
+        :PF 0.0
+        :PREC 0.0
+        :PD 0.0
+        :F 0.0
+        :DETAILS NIL)
+YES = #S(RESULT
          :TARGET YES
          :A 0
          :B 0
          :C 3
-         :D 2
-         :ACC 0.4
+         :D 4
+         :ACC 0.5714286
          :PF 1.0
-         :PREC 0.4
+         :PREC 0.5714286
          :PD 1.0
-         :F 0.5714286
-         :DETAILS NIL)"))
+         :F 0.72727275
+         :DETAILS NIL)
+"))
+ 

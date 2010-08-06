@@ -35,6 +35,12 @@
   (report           #'noop)
   table            
 )
+(defstruct rig
+  (preprocess #'noop)
+  (train #'noop)
+  (ready #'noop)
+  (tester #'noop)
+  (reporter #'noop))
 
 ;;;; globals
 (defparameter *w* nil)
