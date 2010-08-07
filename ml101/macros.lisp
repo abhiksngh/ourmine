@@ -1,3 +1,6 @@
+(defmacro oo (&rest l)
+  `(progn (terpri) (o ,@l)))
+
 (defmacro o (&rest l) 
   (let ((last (gensym))) 
     `(let (,last) 
