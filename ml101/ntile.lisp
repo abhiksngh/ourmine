@@ -1,4 +1,4 @@
-(defstruct bins breaks  positions key median)
+(defstruct percentile label  breaks  positions key median)
 
 (defun list-of-hashes->bins (lists > &key (width 50) (stretch 1) value details)
   (let ((min most-positive-fixnum)
