@@ -17,4 +17,9 @@
        (incf ,n)
        ,@body)))
 
- 
+
+(defmacro do12 ((one two list &optional out) &body body)
+  `(let ((,one (car ,list)))
+     (dolist (,two (cdr ,list) ,out)
+       ,@body
+       (setf ,one ,two))))

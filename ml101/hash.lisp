@@ -4,6 +4,14 @@
 		   ,hash)
           ,end))
 
+(defmacro dovalues ((value hash &optional end) &body body)
+  (let ((key (gensym)))
+    `(progn (maphash #'(lambda (,key ,value)
+			 (declare (ignore ,key))
+			 ,@body)
+		     ,hash)
+	    ,end)))
+
 (defmethod print-object ((h hash-table) str)
   (format str "{hash of ~a items}" (hash-table-count h)))
 

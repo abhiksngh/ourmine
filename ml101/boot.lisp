@@ -17,10 +17,10 @@
 	
 (make nil
       "deftest.lisp"
+      "macros.lisp"
       "lib.lisp"
       "hash.lisp"
       "bestof.lisp"
-      "macros.lisp"
       "structs.lisp"
       "random.lisp"
       "profile.lisp"
@@ -29,4 +29,5 @@
       "abcd.lisp"
       "zeror.lisp"
       "nb.lisp"
+      "ntile.lisp"
       )

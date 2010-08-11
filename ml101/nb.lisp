@@ -1,4 +1,4 @@
-(defun nb-rig (debug )
+(defun nb-rig (debug &optional note (m 2) (k 1))
   (let (tbl results  (n 0))
     (labels ((preprocess (tbl0)
 	       (setf tbl (clone-table tbl0)))
@@ -12,10 +12,10 @@
 	       (if (knownp value)
 		   (counts col klass value)))
 	     (ready ()
-	       (setf results  (klasses->results tbl 'nb)))
+	       (setf results  (klasses->results tbl (cons 'nb note))))
 	     (classify (row)
 	       (let* ((actual     (row-class row))
-		      (predicted  (most-likely-klass tbl row n)))
+		      (predicted  (most-likely-klass tbl row n m k)))
 		 (if debug
 		     (print `(prediction= ,predicted for ,(row-cells row)) debug))
 		 (results-add results actual predicted)))
@@ -30,8 +30,8 @@
        :tester     #'classify
        :reporter   #'reporter))))
 
-(defun nb (&key f (repeats 1) (bins 3) debug (xval t))
-  (let (out (learner (nb-rig debug)))
+(defun nb (&key f note (repeats 1) (bins 3) debug (xval t))
+  (let (out (learner (nb-rig debug note)))
     (data f)
     (dotimes (repeat repeats out)
       (randomize)
@@ -168,30 +168,65 @@ YES = #S(RESULT
 "))
 
 (deftest !weather ()
-  (show-n-mway :f "weather.lisp"
+  (show-n-mway :learner #'nb
+	       :f "weather.lisp"
 	       :m 10 :n 3 :reporter #'result-pd))
 
 (deftest !audiology ()
-  (show-n-mway :f "audiology.lisp"
+  (show-n-mway :learner #'nb
+	       :f "audiology.lisp"
+	       :m 10 :n 10 :reporter #'result-pd))
+
+(deftest !audiology2 ()
+  (show-n-mway :learner #'nb
+	       :collector #'collectors
+	       :f "audiology.lisp"
 	       :m 10 :n 10 :reporter #'result-pd))
 
 (deftest !iris ()
-  (show-n-mway :f "iris.lisp"
+  (show-n-mway :learner #'nb
+	       :f "iris.lisp"
 	       :m 10 :n 10 :reporter #'result-pd))
 
+(deftest !iris2 ()
+  (show-n-mway :collector #'collectors
+	       :learner #'nb
+	       :f "iris.lisp"
+	       :m 7 :n 3 :reporter #'result-f))
+
+(deftest !iris3 ()
+  (reset-seed)
+  (let ((results (nb :f "iris.lisp" :note nil :repeats 7 :bins 3)))
+     (dolist (one  (collectors results #'result-f))
+       (let* ((all (percentiles (cdr one) '(10 30 50 70 90)))
+	      (ten     (round (* 100 (cdr (assoc 10 all)))))
+	      (thirty  (round (* 100 (cdr (assoc 30 all)))))
+	      (fifty   (round (* 100 (cdr (assoc 50 all)))))
+	      (seventy (round (* 100 (cdr (assoc 70 all)))))
+	      (ninety  (round (* 100 (cdr (assoc 90 all))))))
+	 
+	 (format t "~20<~a~> |~a| ~3<~a~> ~3<~a~> ~3<~a~> ~3<~a~> ~3<~a~> ~%"
+		 (car one)
+		 (quintile (cdr one))
+		 ten thirty fifty seventy ninety
+		 )))))
+
 (deftest !lungcancer ()
-  (show-n-mway :f "lungcancer.lisp"
+  (show-n-mway :learner #'nb
+	       :f "lungcancer.lisp"
 	       :m 10 :n 10 :reporter #'result-pd))
 
 (deftest !credit ()
-  (show-n-mway :f "credit.lisp"
+  (show-n-mway :learner #'nb
+	       :f "credit.lisp"
 	       :m 10 :n 10 :reporter #'result-pd))
 
-(defun show-n-mway (&key f (m 10) (n 3) (reporter #'result-acc))
+(defun show-n-mway (&key f note learner (stream t) (m 10) (n 3) (collector #'collector)
+		    (reporter #'result-acc))
   (reset-seed)
-  (let ((results (nb :f f :repeats m :bins n)))
+  (let ((results (funcall learner :f f :note note :repeats m :bins n)))
     (showh
-     (collector results reporter))))
+     (funcall collector results reporter) :stream stream)))
     
 (defun collector (results reporter)
   (let (all
@@ -206,5 +241,15 @@ YES = #S(RESULT
       (declare (ignore key))
       (setf value (sort value #'<)))))
 
-;      (mapc #'showh (sort out #'< :key #'result-prec)))))
-
+(defun collectors (results reporter)
+  (let (alist
+	all
+	(out (make-hash-table :test #'equal)))
+    (dolist (hash (flatten results))
+      (dohash (key result hash)
+	(let ((value (funcall reporter result)))
+	  (push value all)
+	  (push value (gethash (cons key (result-details result)) out)))))
+    (setf all (sort all #'<))
+    (dohash (key value out alist)
+      (push (cons key value) alist))))
