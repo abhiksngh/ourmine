@@ -30,14 +30,15 @@
        :tester     #'classify
        :reporter   #'reporter))))
 
-(defun nb (&key f (bins 3) debug (xval t))
+(defun nb (&key f (repeats 1) (bins 3) debug (xval t))
   (let (out (learner (nb-rig debug)))
     (data f)
-    (if xval
-	(dotimes (bin bins)
-	  (push  (traintest bin :bins   bins :rigs learner) out))
-	(push (traintest 0 :bins bins :rigs learner) out))
-    out))
+    (dotimes (repeat repeats out)
+      (randomize)
+      (if xval
+	  (dotimes (bin bins)
+	    (push  (traintest bin :bins   bins :rigs learner) out))
+	  (push (traintest 0 :bins bins :rigs learner) out)))))
 
 (defmethod counts ((col sym) klass value)
   (incf
@@ -62,7 +63,7 @@
     (dolist (klass klasses classification)
       (let* ((prior (/ (+ (klass-n klass)  k)
                        (+  n (* k nklasses))))
-             (tmp   prior))
+             (tmp   (log prior)))
 	;(o (klass-name klass) prior (row-cells row))
 	(mapcar #'(lambda (col value)
 		    (unless (col-goalp col)
@@ -73,7 +74,7 @@
 			       (delta  (/ (+ peh (* m prior))
 					  (+ ph m))))
 			  ;(o key value delta)
-			  (setf tmp (* tmp delta))))))
+			  (incf tmp (log delta))))))
 		(table-cols tbl)
 		(row-cells row))
 	(when (> tmp like)
@@ -165,3 +166,45 @@ YES = #S(RESULT
          :F 0.72727275
          :DETAILS NIL)
 "))
+
+(deftest !weather ()
+  (show-n-mway :f "weather.lisp"
+	       :m 10 :n 3 :reporter #'result-pd))
+
+(deftest !audiology ()
+  (show-n-mway :f "audiology.lisp"
+	       :m 10 :n 10 :reporter #'result-pd))
+
+(deftest !iris ()
+  (show-n-mway :f "iris.lisp"
+	       :m 10 :n 10 :reporter #'result-pd))
+
+(deftest !lungcancer ()
+  (show-n-mway :f "lungcancer.lisp"
+	       :m 10 :n 10 :reporter #'result-pd))
+
+(deftest !credit ()
+  (show-n-mway :f "credit.lisp"
+	       :m 10 :n 10 :reporter #'result-pd))
+
+(defun show-n-mway (&key f (m 10) (n 3) (reporter #'result-acc))
+  (reset-seed)
+  (let ((results (nb :f f :repeats m :bins n)))
+    (showh
+     (collector results reporter))))
+    
+(defun collector (results reporter)
+  (let (all
+	(out (make-hash-table)))
+    (dolist (hash (flatten results))
+      (dohash (key result hash)
+	(let ((value (funcall reporter result)))
+	  (push value all)
+	  (push value (gethash key out)))))
+    (setf all (sort all #'<))
+    (dohash (key value out (values out all))
+      (declare (ignore key))
+      (setf value (sort value #'<)))))
+
+;      (mapc #'showh (sort out #'< :key #'result-prec)))))
+

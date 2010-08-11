@@ -30,7 +30,7 @@
 	 (size (length l)))
     (doitems (one pos l out)
       (if (null collect)
-	  (return out))
+	  (return-from percentiles out))
       (let ((want (first collect))
 	    (progress (* 100.0 (/ (1+ pos) size))))
 	(if (>= progress want)

@@ -1,3 +1,5 @@
+run a self test
+
 different experiments
 
 20*67% sub-sample
