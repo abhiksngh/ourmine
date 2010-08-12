@@ -1,5 +1,26 @@
 (defun appendl (a b) (append a (list b)))
 
+(defun abs (x) (if (< x 0) (* -1 x) x))
+
+(defun sum (l)
+  "Computes the sum of a list of numbers."
+  (let ((sum 0))
+    (dolist (x l sum)
+      (incf sum x))))
+
+(defun mean (&rest nums)
+  (/ (apply #'+ nums)
+     (length nums)))
+
+(defun median (l &optional (n (length l)))
+  (let* ((sorted (sort l #'<))
+	 (midv   (floor (/ n 2)))
+	 (midpos (nth midv sorted)))
+    (if (oddp n)
+	midpos
+	(mean  midpos
+	       (nth (1- midv) sorted)))))
+
 (defun lt (x y)
   (string< (format nil "~a" x) (format nil "~a" y)))
 
@@ -41,9 +62,7 @@
 		  out)))
       (setf last one))))
 
-(defun mean (&rest nums)
-  (/ (apply #'+ nums)
-     (length nums)))
+
 
 (deftest !percentiles ()
   (test

@@ -30,4 +30,6 @@
       "zeror.lisp"
       "nb.lisp"
       "ntile.lisp"
+      "line.lisp"
+      "rankstats.lisp"
       )

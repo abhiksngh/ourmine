@@ -1,8 +1,10 @@
 (defun results-report (results)
+	"Update all fields in a hash of results"
   (dohash (klass result results results)
     (result-report result)))
     
 (defun result-report (result)
+"Update all fields in one result"
   (with-slots ( a b c d acc pf prec pd f) result
     (let ((zip (float (expt 10 -16))))
       (setf acc  (/ (+ a d) (+ zip a b c d))
@@ -13,6 +15,7 @@
       result)))
 
 (defun klasses->results (tbl &optional note)
+ "For each class in a table, generate one place to store results"
   (let ((results (make-hash-table)))
     (dolist (klass (theklasses tbl) results)
       (let ((name (klass-name klass)))
