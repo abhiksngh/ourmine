@@ -30,8 +30,8 @@
        :tester     #'classify
        :reporter   #'reporter))))
 
-(defun nb (&key f note (repeats 1) (bins 3) debug (xval t))
-  (let (out (learner (nb-rig debug note)))
+(defun nb (&key f note (repeats 1) (bins 3) debug (xval t) (m 2) (k 1))
+  (let (out (learner (nb-rig debug note m k)))
     (data f)
     (dotimes (repeat repeats out)
       (randomize)
@@ -195,21 +195,70 @@ YES = #S(RESULT
 	       :m 7 :n 3 :reporter #'result-f))
 
 (deftest !iris3 ()
-  (reset-seed)
-  (let ((results (nb :f "iris.lisp" :note nil :repeats 7 :bins 3)))
-     (dolist (one  (collectors results #'result-f))
-       (let* ((all (percentiles (cdr one) '(10 30 50 70 90)))
-	      (ten     (round (* 100 (cdr (assoc 10 all)))))
-	      (thirty  (round (* 100 (cdr (assoc 30 all)))))
-	      (fifty   (round (* 100 (cdr (assoc 50 all)))))
-	      (seventy (round (* 100 (cdr (assoc 70 all)))))
-	      (ninety  (round (* 100 (cdr (assoc 90 all))))))
-	 
-	 (format t "~20<~a~> |~a| ~3<~a~> ~3<~a~> ~3<~a~> ~3<~a~> ~3<~a~> ~%"
-		 (car one)
-		 (quintile (cdr one))
-		 ten thirty fifty seventy ninety
-		 )))))
+  (let ((f "iris.lisp")
+	(repeats 10)
+	(bins     3))
+    (dotimes (m 3)
+      (dotimes (k 3)
+	(reset-seed)
+	(chartc `(m ,m k ,k) 
+	       (nb :f f :repeats repeats :bins bins :m m :k k))))))
+
+
+(deftest !iris4 ()
+  (let ((f "iris.lisp")
+	(repeats 10)
+	(bins     3)
+	all)
+    (reset-seed)
+    (dotimes (m 4)
+      (dotimes (k 4)
+	(push (chart-all `(m ,m k ,k) #'result-pd
+			 (nb :f f :repeats repeats :bins bins :m m :k k))
+	      all)))
+    (setf all (sort all #'> :key #'first ))
+    (let ((rank 1)
+	  (last (second (car all))))
+      ;(print last)
+      (format t "~5<~a~> ~a~%" rank (third (car all)))
+      (dolist (one    (cdr all))
+	(let ((next   (second one))
+	      (report (third one)))
+	  (when (mann-whitney last next 95)
+	      ;(o next last)
+	      (incf rank))
+	  (format t "~5<~a~> ~a~%" rank report)
+	  (setf last (append next last)))))))
+
+
+(defun chartc (header results)
+  (let ((f "~&~20<~a~> ~30<~a~> ~3<~a~> ~3<~a~> ~3<~a~> ~3<~a~> ~3<~a~> ~%"))
+    (terpri)
+    (format t f header ""  "    10" 30 50 70 90)
+    (format t f "" ""  "    --" "--" "--" "--" "--")
+    (dolist (one  (collectorc results #'result-f))
+      (let* ((all (percentiles (cdr one) '(10 30 50 70 90))))
+	(labels ((p (n) (round (* 100 (cdr (assoc n all))))))
+	  (format t f
+		  (car one)
+		  (quintile (cdr one) )
+		  (p 10) (p 30) (p 50) (p 70) (p 90)
+		  ))))))
+
+
+(defun chart-all (header reporter results)
+  (let ((f "~&~20<~a~> ~30<~a~> ~3<~a~> ~3<~a~> ~3<~a~> ~3<~a~> ~3<~a~>"))
+    (let* ((some  (collector-all results reporter))
+	   (all   (percentiles some '(10 30 50 70 90))))
+	(labels ((p (n) (round (* 100 (cdr (assoc n all))))))
+	  (list (p 50)
+		some
+		(format nil f
+		  header
+		  (quintile some :shrink 1)
+		  (p 10) (p 30) (p 50) (p 70) (p 90)
+		  ))))))
+
 
 (deftest !lungcancer ()
   (show-n-mway :learner #'nb
@@ -241,7 +290,7 @@ YES = #S(RESULT
       (declare (ignore key))
       (setf value (sort value #'<)))))
 
-(defun collectors (results reporter)
+(defun collectorc (results reporter)
   (let (alist
 	all
 	(out (make-hash-table :test #'equal)))
@@ -253,3 +302,12 @@ YES = #S(RESULT
     (setf all (sort all #'<))
     (dohash (key value out alist)
       (push (cons key value) alist))))
+
+
+(defun collector-all (results reporter)
+  (let (out )
+    (dolist (hash (flatten results))
+      (dovalues (result hash)
+	(let ((value (funcall reporter result)))
+	  (push value out))))
+    (sort out #'<)))

@@ -1,6 +1,6 @@
 (defun appendl (a b) (append a (list b)))
 
-(defun abs (x) (if (< x 0) (* -1 x) x))
+;(defun abs (x) (if (< x 0) (* -1 x) x))
 
 (defun sum (l)
   "Computes the sum of a list of numbers."
