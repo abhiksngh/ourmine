@@ -224,9 +224,10 @@ YES = #S(RESULT
       (dolist (one    (cdr all))
 	(let ((next   (second one))
 	      (report (third one)))
-	  (when (mann-whitney last next 95)
+	  (if (mann-whitney last next 95)
 	      ;(o next last)
-	      (incf rank))
+	      (incf rank)
+	      (setf last nil))
 	  (format t "~5<~a~> ~a~%" rank report)
 	  (setf last (append next last)))))))
 
@@ -255,7 +256,7 @@ YES = #S(RESULT
 		some
 		(format nil f
 		  header
-		  (quintile some :shrink 1)
+		  (quintile some :shrink 3)
 		  (p 10) (p 30) (p 50) (p 70) (p 90)
 		  ))))))
 
