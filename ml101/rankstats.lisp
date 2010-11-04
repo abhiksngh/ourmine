@@ -1,3 +1,9 @@
+(load "deftest.lisp")
+(load "macros.lisp")
+(load "random.lisp")
+(load "lib.lisp")
+(load "line.lisp")
+
 (defun gen-rank-ht (l &optional (ranks (make-hash-table)) (n 0))
   (if (null l)
       ranks
@@ -13,10 +19,13 @@
           (setf (gethash now ranks) (/ sum repeats))
           (gen-rank-ht l ranks n)))))
 
+#| (maphash #'(lambda (k v) (print `(,k ,v))) 
+	 (gen-rank-ht '(87 78 8 8 7 6 6 6 6 6 6 4 4 4 4 3 3 3 3 3 3 2 1)))
+(rank '(87 78 8 8 7 6 6 6 6 6 6 4 4 4 4 3 3 3 3 3 3 2 1)) |#
 (defun rank (list-of-numbers &optional (sort-fn #'>))
-  "Returns a list of the elements of l ranked.  Ties are given their average rank"
+  "Returns a list of the elements of l ranked.  Ties get the average rank"
   (let ((rank-ht (gen-rank-ht (sort (copy-list list-of-numbers) sort-fn))))
-    (mapcar #'(lambda (x) (gethash x rank-ht)) list-of-numbers)))
+    (mapcar #'(lambda (x) (float (gethash x rank-ht))) list-of-numbers)))
 
 (defun mann-whitney-demo ()
   "Performs a Mann-Whitney test."
@@ -49,9 +58,12 @@
 		(if less-than -1  1)
 		(if less-than  1 -1)))))))  
 
+
+
+
+
 (defun wilcoxon (pop1 pop2 &optional (conf 95) (up t))
-  "no defined for n less than 10"
-  (let ((n 0) diffs abs-diffs)
+  (let ((n 0) diffs abs-diffs) ;no defined for n less than 10
     (mapcar #'(lambda (p1 p2)
 		(let ((delta (- p1 p2)))
 		  (when  (not (zerop delta))
@@ -84,15 +96,13 @@
 		    (if less-than -1  1)
 		    (if less-than  1 -1))))))))
 
-
 ;;;http://faculty.vassar.edu/lowry/ch12a.html
 (Defun mann-whitney-demo-big (&optional (fudge 1))
   "Generates two lists of 10,000 random ints.  Multiplies the second list by
    fudge.  Performs a Mann-Whitney test on the two lists."
   (reset-seed)
-  (labels ((big (n s) (let (out)
-			(dotimes (i n out)
-			  (push (expt (randf 1.0) s) out)))))
+  (labels ((big (n s) (let (out) (dotimes (i n out)
+			  			(push (expt (randf 1.0) s) out)))))
     (mann-whitney (big 100 fudge)
 		  (big 100 1)
 		  95)))
@@ -111,7 +121,6 @@
 (deftest !mann-whitney1 () (test (mann-whitney-demo-big   1)  nil))
 (deftest !mann-whitney2 () (test (mann-whitney-demo-big 0.5)    1))
 (deftest !mann-whitney3 () (test (mann-whitney-demo-big   2)   -1))
-
-(deftest !wilcoxon1 () (test (wilcoxon-demo-big   1)  nil))
-(deftest !wilcoxon2 () (test (wilcoxon-demo-big 0.5)    1))
-(deftest !wilcoxon3 () (test (wilcoxon-demo-big   2)   -1))
+(deftest !wilcoxon1     () (test (wilcoxon-demo-big   1)  nil))
+(deftest !wilcoxon2     () (test (wilcoxon-demo-big 0.5)    1))
+(deftest !wilcoxon3     () (test (wilcoxon-demo-big   2)   -1))
