@@ -1,3 +1,9 @@
+
+(load "deftest.lisp")
+(load "macros.lisp")
+(load "random.lisp")
+(load "lib.lisp")
+
 (defstruct percentile label  breaks  positions key median)
 
 (defparameter *X* nil)
