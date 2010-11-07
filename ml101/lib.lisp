@@ -49,18 +49,18 @@
   (let* (out
 	 last
 	 (size (length l)))
-    (doitems (one pos l out)
+    (doitems (one pos l)
       (if (null collect)
-	  (return-from percentiles out))
-      (let ((want (first collect))
-	    (progress (* 100.0 (/ (1+ pos) size))))
-	(if (>= progress want)
-	    (push (cons (pop collect)
-			(if (= progress want)
-			    one
-			    (mean one (or last one))))
-		  out)))
-      (setf last one))))
+	  (return)
+	  (let ((want     (first collect))
+		(progress (* 100.0 (/ (1+ pos) size))))
+	    (labels ((it () (if (= progress want)
+				one
+				(mean one (or last one)))))
+	      (if (>= progress want)
+		  (push (cons (pop collect) (it)) out)))))
+      (setf last one))
+    out))
 
 
 
